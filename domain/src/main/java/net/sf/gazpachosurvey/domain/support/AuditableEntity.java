@@ -34,7 +34,6 @@ public abstract class AuditableEntity<PK extends Serializable> extends
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Version
     public Date getUpdateDate() {
         return updateDate;
     }
