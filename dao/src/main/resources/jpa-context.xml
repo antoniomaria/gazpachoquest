@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+                           http://www.springframework.org/schema/data/jpa
+                           http://www.springframework.org/schema/data/jpa/spring-jpa-1.2.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<import resource="classpath:/datasource-context.xml" />
+
+	<context:component-scan base-package="net.sf.gazpachosurvey.repository.support" />
+
+
+	<jpa:repositories base-package="net.sf.gazpachosurvey.repository" factory-class="net.sf.gazpachosurvey.repository.support.DefaultRepositoryFactoryBean" />
+
+	<!-- auditing <jpa:auditing auditor-aware-ref="auditorAware" /> <bean id="auditorAware" 
+		class="org.springbyexample.contact.orm.entity.AuditorAwareImpl" /> -->
+	<tx:annotation-driven />
+	
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+		p:entityManagerFactory-ref="entityManagerFactory" />
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		p:dataSource-ref="dataSource" 
+		p:packagesToScan="net.sf.opensurvey.domain"
+		p:jpaVendorAdapter-ref="hibernateVendor"
+		p:jpaPropertyMap-ref="jpaPropertyMap">
+	</bean>
+	
+	<util:map id="jpaPropertyMap">
+		<entry key="hibernate.show_sql" value="${jpa.show.sql}" />
+		<entry key="hibernate.hbm2ddl.auto" value="update" />
+		<entry key="hibernate.dialect" value="${hibernate.dialect}" />
+		<entry key="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
+	</util:map>
+	
+	<bean id="hibernateVendor" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+</beans>

@@ -2,7 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                              http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>net.sf.gazpachosurvey</groupId>
   <artifactId>gazpachosurvey</artifactId>
   <packaging>pom</packaging>
@@ -27,7 +26,7 @@
 
   <modules>
     <module>domain</module>
-
+    <module>dao</module>
   </modules>
   <repositories>
     <repository>
@@ -91,25 +90,26 @@
         <version>${project.version} </version>
       </dependency>
       <!-- Project dependencies -->
+
       <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>opensurvey-core</artifactId>
+        <artifactId>gazpachosurvey-domain</artifactId>
         <version>${project.version} </version>
       </dependency>
 
       <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>opensurvey-testsuite</artifactId>
+        <artifactId>gazpachossurvey-dao</artifactId>
         <version>${project.version} </version>
       </dependency>
 
+      <!-- Third party dependencies -->
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
         <version>${spring.version}</version>
       </dependency>
 
-      <!-- Third party dependencies -->
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
@@ -152,7 +152,6 @@
             <groupId>org.eclipse.persistence</groupId>
           </exclusion>
         </exclusions>
-
       </dependency>
 
       <dependency>
@@ -165,7 +164,6 @@
             <groupId>org.eclipse.persistence</groupId>
           </exclusion>
         </exclusions>
-
       </dependency>
     </dependencies>
   </dependencyManagement>
