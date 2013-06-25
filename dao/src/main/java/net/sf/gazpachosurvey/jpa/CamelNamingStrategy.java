@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import org.eclipse.persistence.config.SessionCustomizer;
 import org.eclipse.persistence.descriptors.ClassDescriptor;
+import org.eclipse.persistence.internal.helper.DatabaseField;
 import org.eclipse.persistence.internal.helper.Helper;
 import org.eclipse.persistence.mappings.DatabaseMapping;
 import org.eclipse.persistence.mappings.DirectToFieldMapping;
@@ -24,6 +25,20 @@ public class CamelNamingStrategy implements SessionCustomizer {
                 descriptor.setTableName(tableName);
                 for (IndexDefinition index : descriptor.getTables().get(0).getIndexes()) {
                     index.setTargetTable(tableName);
+                }
+                Vector<DatabaseMapping> mappings = descriptor.getMappings();
+                for (DatabaseMapping mapping : mappings) {
+                        String name = mapping.getAttributeName();
+                        String nuevo = addUnderscores(unqualify(name));
+                        System.out.println(nuevo);
+                        if (mapping.getField() != null){
+                            //mapping.getField().setColumnDefinition(nuevo);
+                            mapping.getField().setName(nuevo);
+                            
+                        }
+                        
+                    
+                    //databaseField.setColumnDefinition(columnDefinition)
                 }
             }
         }
