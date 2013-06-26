@@ -1,6 +1,5 @@
 package net.sf.gazpachosurvey.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
@@ -28,7 +27,6 @@ public class Participant extends AbstractPersistable<Integer> {
         this.lastname = lastname;
     }
 
-    @Column(name = "e_mail")
     public String getEmail() {
         return email;
     }
