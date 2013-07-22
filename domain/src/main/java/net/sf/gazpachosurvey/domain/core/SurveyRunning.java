@@ -1,7 +1,10 @@
-package net.sf.gazpachosurvey.domain;
+package net.sf.gazpachosurvey.domain.core;
+
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import net.sf.gazpachosurvey.domain.support.NamedEntity;
@@ -10,6 +13,8 @@ import net.sf.gazpachosurvey.domain.support.NamedEntity;
 public class SurveyRunning extends NamedEntity<Integer> {
 
     private Survey survey;
+
+    private Set<Participant> participants;
 
     public SurveyRunning() {
         super();
@@ -22,6 +27,15 @@ public class SurveyRunning extends NamedEntity<Integer> {
 
     public void setSurvey(Survey survey) {
         this.survey = survey;
+    }
+
+    @ManyToMany
+    public Set<Participant> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Set<Participant> participants) {
+        this.participants = participants;
     }
 
     @Override

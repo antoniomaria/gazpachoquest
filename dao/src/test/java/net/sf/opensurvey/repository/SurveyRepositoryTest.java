@@ -2,8 +2,8 @@ package net.sf.opensurvey.repository;
 
 import java.util.List;
 
-import net.sf.gazpachosurvey.domain.Survey;
-import net.sf.gazpachosurvey.domain.SurveyRunning;
+import net.sf.gazpachosurvey.domain.core.Survey;
+import net.sf.gazpachosurvey.domain.core.SurveyRunning;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.repository.SurveyRunningRepository;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;

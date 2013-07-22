@@ -31,10 +31,12 @@
 
   <util:map id="jpaPropertyMap">
     <entry key="showSql" value="${jpa.show.sql}" />
-    <entry key="eclipselink.ddl-generation" value="create-tables" />
-    <entry key="eclipselink.ddl-generation.output-mode" value="database" />
+    <entry key="eclipselink.logging.level.sql" value="FINE" />
+    <entry key="eclipselink.logging.parameters" value="true" />
+    <entry key="eclipselink.ddl-generation" value="drop-and-create-tables" />
+    <entry key="eclipselink.ddl-generation.output-mode" value="database" />  
     <entry key="databasePlatform" value="${eclipselink.databasePlatform}" />
-    <entry key="eclipselink.weaving" value="false"/>
+    <entry key="eclipselink.weaving" value="false" />
     <entry key="eclipselink.session.customizer" value="net.sf.gazpachosurvey.jpa.CamelNamingStrategy"></entry>
   </util:map>
 

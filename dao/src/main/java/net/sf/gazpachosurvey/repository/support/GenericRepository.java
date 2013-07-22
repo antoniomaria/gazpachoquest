@@ -23,5 +23,5 @@ public interface GenericRepository<T, ID extends Serializable> extends
 
 	List<T> find(String pattern);
 	
-    List<T> findByExample(T entity, SearchParameters sp);
+	List<T> findByExample(T entity, SearchParameters sp);
 }

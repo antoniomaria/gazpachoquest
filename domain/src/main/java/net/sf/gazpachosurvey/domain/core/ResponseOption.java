@@ -1,5 +1,6 @@
-package net.sf.gazpachosurvey.domain;
+package net.sf.gazpachosurvey.domain.core;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -11,7 +12,7 @@ public class ResponseOption extends AbstractPersistable<Integer> {
 
     private Question question;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Question getQuestion() {
         return question;
     }

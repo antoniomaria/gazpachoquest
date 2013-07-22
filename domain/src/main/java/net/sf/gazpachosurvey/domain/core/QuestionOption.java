@@ -1,4 +1,4 @@
-package net.sf.gazpachosurvey.domain;
+package net.sf.gazpachosurvey.domain.core;
 
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
