@@ -1,7 +1,9 @@
 package net.sf.opensurvey.repository;
 
 import java.util.Date;
+import java.util.List;
 
+import net.sf.gazpachosurvey.domain.core.Page;
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.domain.core.SurveyRunning;
 import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
@@ -31,7 +33,21 @@ public class DataBasePopulator {
     public void populate() {
         Survey survey = new Survey("Asiakastyytyväisyyskyselyt");
         survey.setDescription("Customer satisfaction surveys");
+        
+        
+        Page page = new Page();
+        page.setTitle("Pagina 1");
+        page.setLanguage(Language.ES);
+        survey.addPage(page);
+
+        page = new Page();
+        page.setTitle("Pagina 2");
+        page.setLanguage(Language.ES);
+        survey.addPage(page);
+        
+
         surveyRepository.save(survey);
+        
         survey = new Survey("Markkinatutkimus");
         survey.setName("Market research surveys");
         survey.setTranslation(Language.ES, "Investigación de mercado");
@@ -55,13 +71,12 @@ public class DataBasePopulator {
         running.setCreationDate(new Date());
         surveyRunningRepository.save(running);
 
-        Survey mysurvey = surveyRepository.findAll().get(1);
-        System.out.println(mysurvey.getTranslations());
-        SurveyTranslation trans = mysurvey.getTranslations().get(
-                Language.ES);
+        Survey mysurvey = surveyRepository.findAll().get(0);
+
+        List<Page> pages = mysurvey.getPages();
         
-        System.out.println(trans.getLanguage());
-        
-        
+        page = pages.remove(1);
+        pages.add(0, page);
+        surveyRepository.save(mysurvey);
     }
 }

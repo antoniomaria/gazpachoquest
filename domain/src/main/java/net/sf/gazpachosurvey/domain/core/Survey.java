@@ -1,7 +1,9 @@
 package net.sf.gazpachosurvey.domain.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 
 import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
 import net.sf.gazpachosurvey.domain.support.NamedEntity;
@@ -25,6 +28,10 @@ public class Survey extends NamedEntity<Integer> {
     private Set<SurveyRunning> surveysRunning;
 
     private Map<Language, SurveyTranslation> translations;
+
+    private List<Page> pages;
+
+    private List<Question> questions;
 
     public Survey() {
         super();
@@ -43,7 +50,7 @@ public class Survey extends NamedEntity<Integer> {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     public Set<SurveyRunning> getSurveysRunning() {
         if (surveysRunning == null) {
             surveysRunning = new HashSet<>();
@@ -85,6 +92,37 @@ public class Survey extends NamedEntity<Integer> {
     public void removeSurveyRunning(SurveyRunning surveyRunning) {
         getSurveysRunning().remove(surveyRunning);
         surveyRunning.setSurvey(null);
+    }
+
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OrderColumn(name = "sort_order")
+    public List<Page> getPages() {
+        if (pages == null) {
+            pages = new ArrayList<>();
+        }
+        return pages;
+    }
+
+    public void setPages(List<Page> pages) {
+        this.pages = pages;
+    }
+
+    public void addPage(Page page) {
+        getPages().add(page);
+        page.setSurvey(this);
+    }
+
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OrderColumn(name = "order_in_survey")
+    public List<Question> getQuestions() {
+        if (questions == null) {
+            questions = new ArrayList<>();
+        }
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 
     @Override

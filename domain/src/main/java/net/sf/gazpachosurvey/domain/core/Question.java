@@ -1,6 +1,7 @@
 package net.sf.gazpachosurvey.domain.core;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 
 import net.sf.gazpachosurvey.domain.i18.QuestionTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
@@ -28,17 +30,17 @@ public class Question extends AbstractPersistable<Integer> {
 
     private Page page;
     
-    private Set<Question> subquestions;
+    private List<Question> subquestions;
 
-    private Set<ResponseOption> responseOptions;
+    private List<Answer> answers;
 
     private String title;
     
-    private int sortOrder;
-
     boolean isRequired;
     
     private QuestionType type;
+    
+    private Language language;
 
     private Map<Language, QuestionTranslation> translations;
     
@@ -61,11 +63,12 @@ public class Question extends AbstractPersistable<Integer> {
     }
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
-    public Set<Question> getSubquestions() {
+    @OrderColumn(name="order_in_subquestions")
+    public List<Question> getSubquestions() {
         return subquestions;
     }
 
-    public void setSubquestions(Set<Question> subquestions) {
+    public void setSubquestions(List<Question> subquestions) {
         this.subquestions = subquestions;
     }
 
@@ -87,21 +90,14 @@ public class Question extends AbstractPersistable<Integer> {
         this.page = page;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "question")
-    public Set<ResponseOption> getResponseOptions() {
-        return responseOptions;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "question", orphanRemoval = true)
+    @OrderColumn(name = "order_in_question")
+    public List<Answer> getAnswers() {
+        return answers;
     }
 
-    public void setResponseOptions(Set<ResponseOption> responseOptions) {
-        this.responseOptions = responseOptions;
-    }
-
-    public int getSortOrder() {
-        return sortOrder;
-    }
-
-    public void setSortOrder(int sortOrder) {
-        this.sortOrder = sortOrder;
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
     }
 
     public boolean isRequired() {
@@ -140,6 +136,15 @@ public class Question extends AbstractPersistable<Integer> {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Enumerated(EnumType.STRING)
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
     }
     
 
