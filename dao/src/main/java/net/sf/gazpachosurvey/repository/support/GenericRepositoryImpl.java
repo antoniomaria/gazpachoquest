@@ -22,8 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @NoRepositoryBean
-public class GenericRepositoryImpl<T extends Identifiable<PK>, PK extends Serializable> extends
-        SimpleJpaRepository<T, PK> implements GenericRepository<T, PK>, Serializable {
+public class GenericRepositoryImpl<T extends Identifiable<PK>, PK extends Serializable>
+        extends SimpleJpaRepository<T, PK> implements GenericRepository<T, PK>,
+        Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,7 +44,8 @@ public class GenericRepositoryImpl<T extends Identifiable<PK>, PK extends Serial
         return springDataRepositoryInterface;
     }
 
-    public void setSpringDataRepositoryInterface(Class<?> springDataRepositoryInterface) {
+    public void setSpringDataRepositoryInterface(
+            Class<?> springDataRepositoryInterface) {
         this.springDataRepositoryInterface = springDataRepositoryInterface;
     }
 
@@ -54,18 +56,22 @@ public class GenericRepositoryImpl<T extends Identifiable<PK>, PK extends Serial
      * @param entityInformation
      * @param entityManager
      */
-    public GenericRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager,
-            ByExampleSpecification byExampleSpecification, NamedQueryUtil namedQueryUtil,
+    public GenericRepositoryImpl(JpaEntityInformation<T, ?> entityInformation,
+            EntityManager entityManager,
+            ByExampleSpecification byExampleSpecification,
+            NamedQueryUtil namedQueryUtil,
             Class<?> springDataRepositoryInterface) {
         super(entityInformation, entityManager);
         this.entityInformation = entityInformation;
         this.em = entityManager;
-        this.provider = DefaultPersistenceProvider.fromEntityManager(entityManager);
+        this.provider = DefaultPersistenceProvider
+                .fromEntityManager(entityManager);
         this.springDataRepositoryInterface = springDataRepositoryInterface;
         this.type = entityInformation.getJavaType();
         this.byExampleSpecification = byExampleSpecification;
         this.namedQueryUtil = namedQueryUtil;
-        this.byExampleEnhancedSpecification = new ByExampleEnhancedSpecification(entityManager);
+        this.byExampleEnhancedSpecification = new ByExampleEnhancedSpecification(
+                entityManager);
     }
 
     /**
@@ -76,18 +82,22 @@ public class GenericRepositoryImpl<T extends Identifiable<PK>, PK extends Serial
      * @param em
      */
     public GenericRepositoryImpl(Class<T> domainClass, EntityManager em) {
-        this(JpaEntityInformationSupport.getMetadata(domainClass, em), em, null, null, null);
+        this(JpaEntityInformationSupport.getMetadata(domainClass, em), em,
+                null, null, null);
     }
 
     @Override
     public Page<T> findByExample(T example, Pageable pageable) {
-        Specifications<T> spec = Specifications.where(byExampleSpecification.byExample(example));
+        Specifications<T> spec = Specifications.where(byExampleSpecification
+                .byExample(example));
         return findAll(spec, pageable);
     }
 
     @Override
-    public Page<T> findByExample(T example, List<Range<T, ?>> ranges, Pageable pageable) {
-        Specifications<T> spec = Specifications.where(byExampleSpecification.byExample(example));
+    public Page<T> findByExample(T example, List<Range<T, ?>> ranges,
+            Pageable pageable) {
+        Specifications<T> spec = Specifications.where(byExampleSpecification
+                .byExample(example));
         spec = RangeSpecification.andRangeIfSet(spec, ranges);
         return findAll(spec, pageable);
     }
@@ -99,9 +109,10 @@ public class GenericRepositoryImpl<T extends Identifiable<PK>, PK extends Serial
 
     @Override
     public List<T> find(String pattern) {
-        Specifications<T> spec = Specifications
-                .where(byExampleSpecification.byPatternOnStringAttributes(pattern, type));
-        return findAll(spec, new PageRequest(0, MAX_VALUES_RETREIVED)).getContent();
+        Specifications<T> spec = Specifications.where(byExampleSpecification
+                .byPatternOnStringAttributes(pattern, type));
+        return findAll(spec, new PageRequest(0, MAX_VALUES_RETREIVED))
+                .getContent();
     }
 
     // Nueva version
@@ -112,7 +123,9 @@ public class GenericRepositoryImpl<T extends Identifiable<PK>, PK extends Serial
         if (sp.hasNamedQuery()) {
             return getNamedQueryUtil().findByNamedQuery(sp);
         }
-        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, sp));
+        Specifications<T> spec = Specifications
+                .where(byExampleEnhancedSpecification.byExampleOnEntity(entity,
+                        sp));
 
         return findAll(spec);
 

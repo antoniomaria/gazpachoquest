@@ -7,7 +7,6 @@
  */
 package net.sf.gazpachosurvey.repository.support;
 
-
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 
 import java.lang.reflect.Field;
@@ -49,14 +48,17 @@ public class ByExampleSpecification {
     }
 
     /**
-     * Lookup entities having at least one String attribute matching the passed pattern. 
+     * Lookup entities having at least one String attribute matching the passed
+     * pattern.
      */
-    public <T> Specification<T> byPatternOnStringAttributes(String pattern, Class<T> entityType) {
+    public <T> Specification<T> byPatternOnStringAttributes(String pattern,
+            Class<T> entityType) {
         return byPatternOnStringAttributes(entityManager, pattern, entityType);
     }
 
     // http://mactruecolor.blogspot.fi/2012/07/query-by-example-in-spring-data-jpa.html
-    private <T> Specification<T> byExample(final EntityManager em, final T example) {
+    private <T> Specification<T> byExample(final EntityManager em,
+            final T example) {
         Validate.notNull(example, "example must not be null");
 
         @SuppressWarnings("unchecked")
@@ -64,10 +66,12 @@ public class ByExampleSpecification {
 
         return new Specification<T>() {
             @Override
-            public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+            public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query,
+                    CriteriaBuilder builder) {
                 List<Predicate> predicates = new ArrayList<>();
 
-                Set<SingularAttribute<T, ?>> types = em.getMetamodel().entity(type).getDeclaredSingularAttributes();
+                Set<SingularAttribute<T, ?>> types = em.getMetamodel()
+                        .entity(type).getDeclaredSingularAttributes();
 
                 for (Attribute<T, ?> attr : types) {
                     if (attr.getPersistentAttributeType() == PersistentAttributeType.MANY_TO_ONE
@@ -76,36 +80,51 @@ public class ByExampleSpecification {
                     }
 
                     String fieldName = attr.getName();
-                    
+
                     try {
                         if (attr.getJavaType() == String.class) {
-                        	String fieldValue = (String) ReflectionUtils.invokeMethod((Method)attr.getJavaMember(), example);
+                            String fieldValue = (String) ReflectionUtils
+                                    .invokeMethod(
+                                            (Method) attr.getJavaMember(),
+                                            example);
                             if (isNotEmpty(fieldValue)) {
                                 // please compiler
-                                SingularAttribute<T, String> stringAttr = em.getMetamodel().entity(type)
-                                        .getDeclaredSingularAttribute(fieldName, String.class);
+                                SingularAttribute<T, String> stringAttr = em
+                                        .getMetamodel()
+                                        .entity(type)
+                                        .getDeclaredSingularAttribute(
+                                                fieldName, String.class);
                                 // apply like
-                                predicates.add(builder.like(root.get(stringAttr), pattern(fieldValue)));
+                                predicates.add(builder.like(
+                                        root.get(stringAttr),
+                                        pattern(fieldValue)));
 
                             }
                         } else {
-                            Object fieldValue = ReflectionUtils.getField((Field) attr.getJavaMember(), example);
+                            Object fieldValue = ReflectionUtils.getField(
+                                    (Field) attr.getJavaMember(), example);
                             if (fieldValue != null) {
                                 // please compiler
-                                SingularAttribute<T, ?> anyAttr = em.getMetamodel().entity(type)
-                                        .getDeclaredSingularAttribute(fieldName, fieldValue.getClass());
-                                //  apply equal
-                                predicates.add(builder.equal(root.get(anyAttr), fieldValue));
+                                SingularAttribute<T, ?> anyAttr = em
+                                        .getMetamodel()
+                                        .entity(type)
+                                        .getDeclaredSingularAttribute(
+                                                fieldName,
+                                                fieldValue.getClass());
+                                // apply equal
+                                predicates.add(builder.equal(root.get(anyAttr),
+                                        fieldValue));
                             }
                         }
                     } catch (Exception e) {
-                    	e.printStackTrace();
+                        e.printStackTrace();
                         throw new IllegalStateException("OOOUCH!!!", e);
                     }
                 }
 
                 if (predicates.size() > 0) {
-                    return builder.and((Predicate[]) predicates.toArray(new Predicate[predicates.size()]));
+                    return builder.and(predicates
+                            .toArray(new Predicate[predicates.size()]));
                 }
 
                 return builder.conjunction();
@@ -113,14 +132,16 @@ public class ByExampleSpecification {
         };
     }
 
-    private <T> Specification<T> byPatternOnStringAttributes(final EntityManager em, final String pattern,
-            final Class<T> type) {
+    private <T> Specification<T> byPatternOnStringAttributes(
+            final EntityManager em, final String pattern, final Class<T> type) {
         return new Specification<T>() {
             @Override
-            public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+            public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query,
+                    CriteriaBuilder builder) {
                 List<Predicate> predicates = new ArrayList<Predicate>();
 
-                Set<SingularAttribute<T, ?>> types = em.getMetamodel().entity(type).getDeclaredSingularAttributes();
+                Set<SingularAttribute<T, ?>> types = em.getMetamodel()
+                        .entity(type).getDeclaredSingularAttributes();
 
                 for (Attribute<T, ?> attr : types) {
                     if (attr.getPersistentAttributeType() == PersistentAttributeType.MANY_TO_ONE
@@ -133,9 +154,14 @@ public class ByExampleSpecification {
                     try {
                         if (attr.getJavaType() == String.class) {
                             if (isNotEmpty(pattern)) {
-                                SingularAttribute<T, String> stringAttr = em.getMetamodel().entity(type)
-                                        .getDeclaredSingularAttribute(fieldName, String.class);
-                                predicates.add(builder.like(root.get(stringAttr), pattern(pattern)));
+                                SingularAttribute<T, String> stringAttr = em
+                                        .getMetamodel()
+                                        .entity(type)
+                                        .getDeclaredSingularAttribute(
+                                                fieldName, String.class);
+                                predicates
+                                        .add(builder.like(root.get(stringAttr),
+                                                pattern(pattern)));
                             }
                         }
                     } catch (Exception e) {
@@ -144,7 +170,8 @@ public class ByExampleSpecification {
                 }
 
                 if (predicates.size() > 0) {
-                    return builder.or((Predicate[]) predicates.toArray(new Predicate[predicates.size()]));
+                    return builder.or(predicates
+                            .toArray(new Predicate[predicates.size()]));
                 }
 
                 return builder.conjunction(); // 1 = 1

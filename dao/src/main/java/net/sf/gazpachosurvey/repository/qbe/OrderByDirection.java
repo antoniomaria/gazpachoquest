@@ -16,5 +16,5 @@
 package net.sf.gazpachosurvey.repository.qbe;
 
 public enum OrderByDirection {
-	ASC, DESC;
+    ASC, DESC;
 }

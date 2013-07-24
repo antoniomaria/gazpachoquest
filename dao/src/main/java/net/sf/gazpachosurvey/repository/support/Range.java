@@ -25,8 +25,11 @@ public class Range<E, D extends Comparable<? super D>> implements Serializable {
     private Boolean includeNull;
 
     /**
-     * Constructs a new {@link Range} with no boundaries and no restrictions on field's nullability.
-     * @param field the attribute of an existing entity.
+     * Constructs a new {@link Range} with no boundaries and no restrictions on
+     * field's nullability.
+     * 
+     * @param field
+     *            the attribute of an existing entity.
      */
     public Range(SingularAttribute<E, D> field) {
         this.field = field;
@@ -34,10 +37,15 @@ public class Range<E, D extends Comparable<? super D>> implements Serializable {
 
     /**
      * Constructs a new Range.
-     *
-     * @param field the property's name of an existing entity.
-     * @param from the lower boundary of this range. Null means no lower boundary.
-     * @param to the upper boundary of this range. Null means no upper boundary.
+     * 
+     * @param field
+     *            the property's name of an existing entity.
+     * @param from
+     *            the lower boundary of this range. Null means no lower
+     *            boundary.
+     * @param to
+     *            the upper boundary of this range. Null means no upper
+     *            boundary.
      */
     public Range(SingularAttribute<E, D> field, D from, D to) {
         this.field = field;
@@ -47,13 +55,20 @@ public class Range<E, D extends Comparable<? super D>> implements Serializable {
 
     /**
      * Constructs a new Range.
-     *
-     * @param field an entity's attribute
-     * @param from the lower boundary of this range. Null means no lower boundary.
-     * @param to the upper boundary of this range. Null means no upper boundary.
-     * @param includeNull tells whether null should be filtered out or not.
+     * 
+     * @param field
+     *            an entity's attribute
+     * @param from
+     *            the lower boundary of this range. Null means no lower
+     *            boundary.
+     * @param to
+     *            the upper boundary of this range. Null means no upper
+     *            boundary.
+     * @param includeNull
+     *            tells whether null should be filtered out or not.
      */
-    public Range(SingularAttribute<E, D> field, D from, D to, Boolean includeNull) {
+    public Range(SingularAttribute<E, D> field, D from, D to,
+            Boolean includeNull) {
         this.field = field;
         this.from = from;
         this.to = to;

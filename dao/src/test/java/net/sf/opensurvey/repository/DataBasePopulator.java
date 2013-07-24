@@ -6,7 +6,6 @@ import java.util.List;
 import net.sf.gazpachosurvey.domain.core.Page;
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.domain.core.SurveyRunning;
-import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.repository.SurveyRunningRepository;
 import net.sf.gazpachosurvey.types.Language;
@@ -33,8 +32,7 @@ public class DataBasePopulator {
     public void populate() {
         Survey survey = new Survey("Asiakastyytyväisyyskyselyt");
         survey.setDescription("Customer satisfaction surveys");
-        
-        
+
         Page page = new Page();
         page.setTitle("Pagina 1");
         page.setLanguage(Language.ES);
@@ -44,10 +42,9 @@ public class DataBasePopulator {
         page.setTitle("Pagina 2");
         page.setLanguage(Language.ES);
         survey.addPage(page);
-        
 
         surveyRepository.save(survey);
-        
+
         survey = new Survey("Markkinatutkimus");
         survey.setName("Market research surveys");
         survey.setTranslation(Language.ES, "Investigación de mercado");
@@ -74,7 +71,7 @@ public class DataBasePopulator {
         Survey mysurvey = surveyRepository.findAll().get(0);
 
         List<Page> pages = mysurvey.getPages();
-        
+
         page = pages.remove(1);
         pages.add(0, page);
         surveyRepository.save(mysurvey);

@@ -27,13 +27,16 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("hsqldb")
 @ContextConfiguration(locations = { "classpath:/jpa-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class })
 @DatabaseSetup("SurveyRepositoryTest-dataset.xml")
 @Transactional
 public class SurveyRunningRepositoryTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(SurveyRunningRepositoryTest.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(SurveyRunningRepositoryTest.class);
 
     @Autowired
     public SurveyRunningRepository surveyRunningRepository;
@@ -47,7 +50,8 @@ public class SurveyRunningRepositoryTest {
         SurveyRunning example = new SurveyRunning();
         example.setSurvey(survey);
 
-        List<SurveyRunning> surveysRunning = surveyRunningRepository.findByExample(example, new SearchParameters());
+        List<SurveyRunning> surveysRunning = surveyRunningRepository
+                .findByExample(example, new SearchParameters());
         for (SurveyRunning surveyRunning : surveysRunning) {
             logger.debug(surveyRunning.toString());
         }

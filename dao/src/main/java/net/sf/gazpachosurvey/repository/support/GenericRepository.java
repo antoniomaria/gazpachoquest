@@ -13,15 +13,15 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
 public interface GenericRepository<T, ID extends Serializable> extends
-		JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
-	
-	Page<T> findByExample(T example, Pageable pageable);
+        JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
 
-	Page<T> findByExample(T example, List<Range<T, ?>> ranges, Pageable pageable);
+    Page<T> findByExample(T example, Pageable pageable);
 
-	List<T> find();
+    Page<T> findByExample(T example, List<Range<T, ?>> ranges, Pageable pageable);
 
-	List<T> find(String pattern);
-	
-	List<T> findByExample(T entity, SearchParameters sp);
+    List<T> find();
+
+    List<T> find(String pattern);
+
+    List<T> findByExample(T entity, SearchParameters sp);
 }
