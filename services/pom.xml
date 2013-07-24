@@ -65,6 +65,11 @@
       <artifactId>gazpachosurvey-domain</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>gazpachosurvey-dao</artifactId>
+    </dependency>
+    
     <!-- Spring data jpa -->
     <dependency>
       <groupId>org.springframework.data</groupId>
