@@ -3,33 +3,41 @@ package net.sf.gazpachosurvey.domain.support;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Version;
+
+import net.sf.gazpachosurvey.domain.user.User;
 
 @MappedSuperclass
 public abstract class AuditableEntity<PK extends Serializable> extends
         AbstractPersistable<PK> {
 
-    private String createdBy;
+    private User createdBy;
 
     private Date creationDate;
 
-    private String updatedBy;
+    private User updatedBy;
 
     private Date updateDate;
 
-    public String getCreatedBy() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(nullable = false)
+    public User getCreatedBy() {
         return createdBy;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     public Date getCreationDate() {
         return creationDate;
     }
 
-    public String getUpdatedBy() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    public User getUpdatedBy() {
         return updatedBy;
     }
 
@@ -38,7 +46,7 @@ public abstract class AuditableEntity<PK extends Serializable> extends
         return updateDate;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -46,7 +54,7 @@ public abstract class AuditableEntity<PK extends Serializable> extends
         this.creationDate = creationDate;
     }
 
-    public void setUpdatedBy(String updatedBy) {
+    public void setUpdatedBy(User updatedBy) {
         this.updatedBy = updatedBy;
     }
 

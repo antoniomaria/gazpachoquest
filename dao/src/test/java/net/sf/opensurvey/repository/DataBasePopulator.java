@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-context.xml" })
-@ActiveProfiles("postgres")
+@ActiveProfiles("mysql")
 public class DataBasePopulator {
 
     @Autowired
