@@ -19,15 +19,41 @@
     <property name="timeBetweenEvictionRunsMillis" value="60000" />
   </bean>
 
-  <beans profile="postgres">
-    <context:property-placeholder location="classpath:/database/postgres.properties" />
-  </beans>
 
   <beans profile="hsqldb">
     <context:property-placeholder location="classpath:/database/hsqldb.properties" />
+
+    <bean id="dataSourceInitializer" class="org.springframework.jdbc.datasource.init.DataSourceInitializer" p:dataSource-ref="dataSource" p:enabled="true">
+      <property name="databasePopulator">
+        <bean class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator" p:scripts-ref="databaseScriptsList" p:sqlScriptEncoding="UTF-8" />
+      </property>
+    </bean>
+
+    <util:list id="databaseScriptsList" value-type="org.springframework.core.io.Resource">
+      <value>classpath:/database/hsqldb/createDDL.jdbc</value>
+      <value>classpath:/database/populate.sql</value>
+    </util:list>
   </beans>
+
+  <beans profile="postgres">
+    <context:property-placeholder location="classpath:/database/postgres.properties" />
+
+    <bean id="dataSourceInitializer" class="com.googlecode.flyway.core.Flyway" init-method="migrate">
+      <property name="dataSource" ref="dataSource" />
+      <property name="locations" value="database/postgres" />
+      <property name="encoding" value="UTF-8" />
+    </bean>
+  </beans>
+
 
   <beans profile="mysql">
     <context:property-placeholder location="classpath:/database/mysql.properties" />
+
+    <bean id="dataSourceInitializer" class="com.googlecode.flyway.core.Flyway" init-method="migrate">
+      <property name="dataSource" ref="dataSource" />
+      <property name="locations" value="database/mysql" />
+      <property name="encoding" value="UTF-8" />
+    </bean>
   </beans>
+
 </beans>
