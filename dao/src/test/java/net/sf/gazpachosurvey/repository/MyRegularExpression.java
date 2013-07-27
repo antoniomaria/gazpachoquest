@@ -1,4 +1,4 @@
-package net.sf.opensurvey.repository;
+package net.sf.gazpachosurvey.repository;
 
 public class MyRegularExpression {
 

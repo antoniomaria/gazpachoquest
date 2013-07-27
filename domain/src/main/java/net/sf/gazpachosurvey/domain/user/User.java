@@ -8,9 +8,9 @@ import net.sf.gazpachosurvey.domain.support.AuditableEntity;
 @Entity
 public class User extends AuditableEntity<Integer> {
     
-    private String firstname;
+    private String firstName;
     
-    private String lastname;
+    private String lastName;
     
     private String email;
 
@@ -19,21 +19,21 @@ public class User extends AuditableEntity<Integer> {
     }
 
     @Column(nullable = false)
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstname) {
+        this.firstName = firstname;
     }
 
     @Column(nullable = false)
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastname) {
+        this.lastName = lastname;
     }
 
     @Column(nullable = false, unique = true)
@@ -44,7 +44,5 @@ public class User extends AuditableEntity<Integer> {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
 
 }

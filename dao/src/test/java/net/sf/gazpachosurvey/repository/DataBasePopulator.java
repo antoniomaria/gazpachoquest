@@ -1,4 +1,4 @@
-package net.sf.opensurvey.repository;
+package net.sf.gazpachosurvey.repository;
 
 import java.util.Date;
 import java.util.List;
@@ -6,8 +6,10 @@ import java.util.List;
 import net.sf.gazpachosurvey.domain.core.Page;
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.domain.core.SurveyRunning;
+import net.sf.gazpachosurvey.domain.user.User;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.repository.SurveyRunningRepository;
+import net.sf.gazpachosurvey.repository.UserRepository;
 import net.sf.gazpachosurvey.types.Language;
 
 import org.junit.Test;
@@ -19,8 +21,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-context.xml" })
-@ActiveProfiles("mysql")
+@ActiveProfiles("postgres")
 public class DataBasePopulator {
+    
+
+    @Autowired
+    public UserRepository userRepository;
 
     @Autowired
     public SurveyRepository surveyRepository;
@@ -30,6 +36,14 @@ public class DataBasePopulator {
 
     @Test
     public void populate() {
+        
+        User support = new User();
+        support.setEmail("support@gazpachosurvey.net");
+        support.setFirstName("support");
+        support.setLastName("support");
+        support.setCreationDate(new Date());
+        //userRepository.save(support);
+        
         Survey survey = new Survey("Asiakastyytyväisyyskyselyt");
         survey.setDescription("Customer satisfaction surveys");
 
@@ -64,7 +78,6 @@ public class DataBasePopulator {
         SurveyRunning running = new SurveyRunning();
         running.setSurvey(survey);
         running.setName("My first survey");
-        running.setCreatedBy("admin");
         running.setCreationDate(new Date());
         surveyRunningRepository.save(running);
 

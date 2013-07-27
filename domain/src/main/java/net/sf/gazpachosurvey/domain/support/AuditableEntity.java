@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
@@ -20,27 +21,29 @@ public abstract class AuditableEntity<PK extends Serializable> extends
 
     private Date creationDate;
 
-    private User updatedBy;
+//    private User updatedBy;
 
     private Date updateDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @JoinColumn(name = "creator_id")
+    //@Column(nullable = false)
     public User getCreatedBy() {
         return createdBy;
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
+    //@Column(nullable = false)
     public Date getCreationDate() {
         return creationDate;
     }
-
+/*
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "modificator_id", referencedColumnName = "modificator_id")
     public User getUpdatedBy() {
         return updatedBy;
     }
-
+*/
     @Temporal(TemporalType.TIMESTAMP)
     public Date getUpdateDate() {
         return updateDate;
@@ -53,10 +56,10 @@ public abstract class AuditableEntity<PK extends Serializable> extends
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
-
+/*
     public void setUpdatedBy(User updatedBy) {
         this.updatedBy = updatedBy;
-    }
+    }*/
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
