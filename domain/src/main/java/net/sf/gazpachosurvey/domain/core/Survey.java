@@ -17,20 +17,36 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 
 import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
-import net.sf.gazpachosurvey.domain.support.NamedEntity;
 import net.sf.gazpachosurvey.types.Language;
 
+import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+
 @Entity
-public class Survey extends NamedEntity<Integer> {
+public class Survey extends AbstractPersistable<Integer> {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2131168011860224675L;
+
+    private String name;
 
     private String description;
 
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<SurveyRunning> surveysRunning;
 
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @MapKeyEnumerated(EnumType.STRING)
+    @MapKeyColumn(name = "language")
     private Map<Language, SurveyTranslation> translations;
 
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OrderColumn(name = "sort_order")
     private List<Page> pages;
 
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OrderColumn(name = "order_in_survey")
     private List<Question> questions;
 
     public Survey() {
@@ -39,7 +55,7 @@ public class Survey extends NamedEntity<Integer> {
 
     public Survey(String name) {
         super();
-        super.setName(name);
+        this.name = name;
     }
 
     public String getDescription() {
@@ -50,7 +66,6 @@ public class Survey extends NamedEntity<Integer> {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     public Set<SurveyRunning> getSurveysRunning() {
         if (surveysRunning == null) {
             surveysRunning = new HashSet<>();
@@ -62,9 +77,6 @@ public class Survey extends NamedEntity<Integer> {
         this.surveysRunning = surveysRunning;
     }
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "language")
     public Map<Language, SurveyTranslation> getTranslations() {
         if (translations == null) {
             translations = new HashMap<>();
@@ -94,8 +106,6 @@ public class Survey extends NamedEntity<Integer> {
         surveyRunning.setSurvey(null);
     }
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @OrderColumn(name = "sort_order")
     public List<Page> getPages() {
         if (pages == null) {
             pages = new ArrayList<>();
@@ -112,8 +122,6 @@ public class Survey extends NamedEntity<Integer> {
         page.setSurvey(this);
     }
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @OrderColumn(name = "order_in_survey")
     public List<Question> getQuestions() {
         if (questions == null) {
             questions = new ArrayList<>();
@@ -123,6 +131,14 @@ public class Survey extends NamedEntity<Integer> {
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

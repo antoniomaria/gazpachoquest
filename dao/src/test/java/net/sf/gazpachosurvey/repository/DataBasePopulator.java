@@ -12,9 +12,11 @@ import net.sf.gazpachosurvey.repository.SurveyRunningRepository;
 import net.sf.gazpachosurvey.repository.UserRepository;
 import net.sf.gazpachosurvey.types.Language;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,7 +26,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ActiveProfiles("postgres")
 public class DataBasePopulator {
     
-
     @Autowired
     public UserRepository userRepository;
 
@@ -34,6 +35,10 @@ public class DataBasePopulator {
     @Autowired
     public SurveyRunningRepository surveyRunningRepository;
 
+
+    @Autowired
+    public PageRepository pageRepository;
+
     @Test
     public void populate() {
         
@@ -41,7 +46,7 @@ public class DataBasePopulator {
         support.setEmail("support@gazpachosurvey.net");
         support.setFirstName("support");
         support.setLastName("support");
-        support.setCreationDate(new Date());
+        //support.setCreatedDate(new DateTime());
         //userRepository.save(support);
         
         Survey survey = new Survey("Asiakastyytyväisyyskyselyt");
@@ -52,6 +57,8 @@ public class DataBasePopulator {
         page.setLanguage(Language.ES);
         survey.addPage(page);
 
+        pageRepository.save(page);
+        
         page = new Page();
         page.setTitle("Pagina 2");
         page.setLanguage(Language.ES);
@@ -67,8 +74,7 @@ public class DataBasePopulator {
         survey = new Survey("Kokous- ja tapahtumasuunnittelukyselylomakkeet");
         survey.setDescription("Event planning surveys");
         survey.setTranslation(Language.ES, "Planificación de eventos");
-        survey.setTranslation(Language.FI,
-                "Kokous- ja tapahtumasuunnittelukyselylomakkeet");
+        survey.setTranslation(Language.FI,                "Kokous- ja tapahtumasuunnittelukyselylomakkeet");
         surveyRepository.save(survey);
         survey = new Survey("Työtyytyväisyyskysely");
         survey.setTranslation(Language.ES, "Encuesta de satisfación de cliente");
@@ -78,13 +84,13 @@ public class DataBasePopulator {
         SurveyRunning running = new SurveyRunning();
         running.setSurvey(survey);
         running.setName("My first survey");
-        running.setCreationDate(new Date());
+        //running.setCreatedDate(new DateTime());
         surveyRunningRepository.save(running);
 
         Survey mysurvey = surveyRepository.findAll().get(0);
 
         List<Page> pages = mysurvey.getPages();
-
+System.out.println(pages);
         page = pages.remove(1);
         pages.add(0, page);
         surveyRepository.save(mysurvey);

@@ -6,77 +6,63 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Transient;
 
 @MappedSuperclass
-public abstract class AbstractPersistable<PK extends Serializable> implements
+public class AbstractPersistable<PK extends Serializable> implements
         Identifiable<PK> {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private PK id;
 
     @Override
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    /**
-     * @return the primary key
-     */
     public PK getId() {
         return id;
     }
 
-    /**
-     * Sets the primary key
-     */
-
-    @Override
     public void setId(PK id) {
         this.id = id;
     }
 
-    /**
-     * Helper method to know whether the primary key is set or not.
-     * 
-     * @return true if the primary key is set, false otherwise
-     */
-    @Override
-    @Transient
-    public boolean isIdSet() {
-        return id != null;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        AbstractPersistable other = (AbstractPersistable) obj;
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
-            return false;
-        }
-        return true;
+    public boolean isNew() {
+        return null == getId();
     }
 
     @Override
     public String toString() {
-        return String.format("Entity type %s with id: %s", this.getClass()
+
+        return String.format("Entity of type %s with id: %s", this.getClass()
                 .getName(), getId());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (null == obj) {
+            return false;
+        }
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (!getClass().equals(obj.getClass())) {
+            return false;
+        }
+
+        AbstractPersistable<?> that = (AbstractPersistable<?>) obj;
+
+        return null == this.getId() ? false : this.getId().equals(that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+
+        int hashCode = 17;
+
+        hashCode += null == getId() ? 0 : getId().hashCode() * 31;
+
+        return hashCode;
+    }
+
 }

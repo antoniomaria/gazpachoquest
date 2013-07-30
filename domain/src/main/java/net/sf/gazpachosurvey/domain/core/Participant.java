@@ -7,6 +7,7 @@ import javax.persistence.ManyToMany;
 
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 
+
 @Entity
 public class Participant extends AbstractPersistable<Integer> {
     private String firstname;
@@ -14,7 +15,12 @@ public class Participant extends AbstractPersistable<Integer> {
     private String email;
     private String language;
 
+    @ManyToMany(mappedBy = "participants")
     private Set<SurveyRunning> surveyRunning;
+
+    public Participant() {
+        super();
+    }
 
     public String getFirstname() {
         return firstname;
@@ -48,7 +54,6 @@ public class Participant extends AbstractPersistable<Integer> {
         this.language = language;
     }
 
-    @ManyToMany(mappedBy = "participants")
     public Set<SurveyRunning> getSurveyRunning() {
         return surveyRunning;
     }

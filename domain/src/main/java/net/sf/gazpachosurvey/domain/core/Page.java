@@ -12,20 +12,31 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
 public class Page extends AbstractPersistable<Integer> {
-    
+
+    private static final long serialVersionUID = 3938193161272543138L;
+
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Survey survey;
-    
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Language language;
-    
-    private String title;
-    
-    private Set<Question> questions;
 
     @Column(nullable = false)
+    private String title;
+
+    @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Question> questions;
+
+    public Page() {
+        super();
+    }
+
     public String getTitle() {
         return title;
     }
@@ -34,7 +45,6 @@ public class Page extends AbstractPersistable<Integer> {
         this.title = title;
     }
 
-    @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Set<Question> getQuestions() {
         return questions;
     }
@@ -43,8 +53,6 @@ public class Page extends AbstractPersistable<Integer> {
         this.questions = questions;
     }
 
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Survey getSurvey() {
         return survey;
     }
@@ -53,8 +61,6 @@ public class Page extends AbstractPersistable<Integer> {
         this.survey = survey;
     }
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     public Language getLanguage() {
         return language;
     }
@@ -67,6 +73,5 @@ public class Page extends AbstractPersistable<Integer> {
     public String toString() {
         return "Page [language=" + language + ", title=" + title + "]";
     }
-    
-    
+
 }

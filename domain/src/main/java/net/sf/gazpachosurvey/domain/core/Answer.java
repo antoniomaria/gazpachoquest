@@ -13,6 +13,8 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 
+//import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+
 import net.sf.gazpachosurvey.domain.i18.AnswerTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.Language;
@@ -20,17 +22,26 @@ import net.sf.gazpachosurvey.types.Language;
 @Entity
 public class Answer extends AbstractPersistable<Integer> {
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Question question;
 
     private String code;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private Language language;
 
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @MapKeyEnumerated(EnumType.STRING)
+    @MapKeyColumn(name = "language")
     private Map<Language, AnswerTranslation> translations;
+    
+    public Answer() {
+        super();
+    }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Question getQuestion() {
         return question;
     }
@@ -47,7 +58,6 @@ public class Answer extends AbstractPersistable<Integer> {
         this.code = code;
     }
 
-    @Column(nullable = false)
     public String getTitle() {
         return title;
     }
@@ -56,7 +66,6 @@ public class Answer extends AbstractPersistable<Integer> {
         this.title = title;
     }
 
-    @Column(nullable = false)
     public Language getLanguage() {
         return language;
     }
@@ -65,9 +74,6 @@ public class Answer extends AbstractPersistable<Integer> {
         this.language = language;
     }
 
-    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "language")
     public Map<Language, AnswerTranslation> getTranslations() {
         if (translations == null) {
             translations = new HashMap<>();

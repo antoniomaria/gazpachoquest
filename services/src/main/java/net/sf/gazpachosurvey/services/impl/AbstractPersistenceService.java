@@ -3,13 +3,16 @@ package net.sf.gazpachosurvey.services.impl;
 import java.io.Serializable;
 import java.util.List;
 
-import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
+import net.sf.gazpachosurvey.domain.support.Identifiable;
+//import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import net.sf.gazpachosurvey.repository.support.GenericRepository;
 import net.sf.gazpachosurvey.services.PersistenceService;
 
 
-public class AbstractPersistenceService<T extends AbstractPersistable<ID>, ID extends Serializable>
+public class AbstractPersistenceService<T extends Identifiable<ID>, ID extends Serializable>
         implements PersistenceService<T, ID> {
 
     protected final GenericRepository<T, ID> repository;

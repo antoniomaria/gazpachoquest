@@ -13,6 +13,7 @@ import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaEntityInformationSupport;
@@ -130,7 +131,6 @@ public class GenericRepositoryImpl<T extends Identifiable<PK>, PK extends Serial
         return findAll(spec);
 
     }
-
     @Override
     @Transactional
     public <S extends T> S save(S entity) {
@@ -143,7 +143,6 @@ public class GenericRepositoryImpl<T extends Identifiable<PK>, PK extends Serial
         flush();
         return entity;
     }
-
     public T saveWithoutFlush(T entity) {
         return super.save(entity);
     }

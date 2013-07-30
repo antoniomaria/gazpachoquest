@@ -17,34 +17,50 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 
 import net.sf.gazpachosurvey.domain.i18.QuestionTranslation;
-import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.QuestionType;
+
+import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 
 @Entity
 public class Question extends AbstractPersistable<Integer> {
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private Survey survey;
 
+    @ManyToOne
     private Question parent;
 
+    @ManyToOne
     private Page page;
-    
+
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+    @OrderColumn(name = "order_in_subquestions")
     private List<Question> subquestions;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "question", orphanRemoval = true)
+    @OrderColumn(name = "order_in_question")
     private List<Answer> answers;
 
     private String title;
-    
+
     boolean isRequired;
-    
+
+    @Enumerated(EnumType.STRING)
     private QuestionType type;
-    
+
+    @Enumerated(EnumType.STRING)
     private Language language;
 
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @MapKeyEnumerated(EnumType.STRING)
+    @MapKeyColumn(name = "language")
     private Map<Language, QuestionTranslation> translations;
-    
-    @Enumerated(EnumType.STRING)
+
+    public Question() {
+        super();
+    }
+
     public QuestionType getType() {
         return type;
     }
@@ -53,7 +69,6 @@ public class Question extends AbstractPersistable<Integer> {
         this.type = type;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
     public Survey getSurvey() {
         return survey;
     }
@@ -62,8 +77,6 @@ public class Question extends AbstractPersistable<Integer> {
         this.survey = survey;
     }
 
-    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
-    @OrderColumn(name="order_in_subquestions")
     public List<Question> getSubquestions() {
         return subquestions;
     }
@@ -72,7 +85,6 @@ public class Question extends AbstractPersistable<Integer> {
         this.subquestions = subquestions;
     }
 
-    @ManyToOne
     public Question getParent() {
         return parent;
     }
@@ -81,7 +93,6 @@ public class Question extends AbstractPersistable<Integer> {
         this.parent = parent;
     }
 
-    @ManyToOne
     public Page getPage() {
         return page;
     }
@@ -90,8 +101,6 @@ public class Question extends AbstractPersistable<Integer> {
         this.page = page;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "question", orphanRemoval = true)
-    @OrderColumn(name = "order_in_question")
     public List<Answer> getAnswers() {
         return answers;
     }
@@ -108,9 +117,6 @@ public class Question extends AbstractPersistable<Integer> {
         this.isRequired = isRequired;
     }
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "language")
     public Map<Language, QuestionTranslation> getTranslations() {
         if (translations == null) {
             translations = new HashMap<>();
@@ -121,7 +127,7 @@ public class Question extends AbstractPersistable<Integer> {
     public void setTranslations(Map<Language, QuestionTranslation> translations) {
         this.translations = translations;
     }
-    
+
     public void setTranslation(Language language, String text) {
         QuestionTranslation translation = new QuestionTranslation();
         translation.setText(text);
@@ -138,7 +144,6 @@ public class Question extends AbstractPersistable<Integer> {
         this.title = title;
     }
 
-    @Enumerated(EnumType.STRING)
     public Language getLanguage() {
         return language;
     }
@@ -146,6 +151,5 @@ public class Question extends AbstractPersistable<Integer> {
     public void setLanguage(Language language) {
         this.language = language;
     }
-    
 
 }

@@ -29,7 +29,6 @@ import java.util.Map;
 
 import javax.persistence.criteria.JoinType;
 import javax.persistence.metamodel.SingularAttribute;
-
 import net.sf.gazpachosurvey.domain.support.Identifiable;
 import net.sf.gazpachosurvey.repository.support.NamedQueryUtil;
 import net.sf.gazpachosurvey.repository.support.Range;

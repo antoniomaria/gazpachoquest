@@ -1,6 +1,7 @@
 package net.sf.gazpachosurvey.jpa;
 
 import java.sql.SQLException;
+import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -19,6 +20,12 @@ public class CamelNamingStrategy implements SessionCustomizer {
         for (ClassDescriptor descriptor : session.getDescriptors().values()) {
             // Only change the table name for non-embedable entities with no
             // @Table already
+            Vector<DatabaseField> fields = descriptor.getAllFields();
+            ListIterator<DatabaseField> it = fields.listIterator();
+            while (it.hasNext()) {
+                DatabaseField field = it.next();
+            }
+
             if (!descriptor.getTables().isEmpty()
                     && descriptor.getAlias().equalsIgnoreCase(
                             descriptor.getTableName())) {
@@ -35,6 +42,15 @@ public class CamelNamingStrategy implements SessionCustomizer {
                 Vector<DatabaseMapping> mappings = descriptor.getMappings();
                 for (DatabaseMapping mapping : mappings) {
                     DatabaseField field = mapping.getField();
+                    if (field != null)
+                        System.out.println(field.getColumnDefinition());
+
+                    if (mapping.isPrimaryKeyMapping()) {
+                        String attname = mapping.getAttributeName();
+                        String table = mapping.getDescriptor().getTableName();
+                        System.out.println(table + " ->" + attname);
+                    }
+
                     if (mapping.isDirectToFieldMapping()
                             && !mapping.isPrimaryKeyMapping()) {
                         String attributeName = mapping.getAttributeName();

@@ -24,6 +24,7 @@ import javax.persistence.metamodel.ManagedType;
 import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
+
 import net.sf.gazpachosurvey.domain.support.Identifiable;
 
 import org.apache.commons.lang.Validate;

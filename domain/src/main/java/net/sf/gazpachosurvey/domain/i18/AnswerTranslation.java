@@ -6,20 +6,27 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 
-import net.sf.gazpachosurvey.domain.core.Answer;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+
+import net.sf.gazpachosurvey.domain.core.Answer;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
 public class AnswerTranslation extends AbstractPersistable<Integer> {
 
+    @ManyToOne
     private Answer answer;
 
+    @Enumerated(EnumType.STRING)
+    @Column(insertable = false, updatable = false)
     private Language language;
 
     private String text;
 
-    @ManyToOne
+    public AnswerTranslation() {
+        super();
+    }
+
     public Answer getAnswer() {
         return answer;
     }
@@ -36,8 +43,6 @@ public class AnswerTranslation extends AbstractPersistable<Integer> {
         this.text = text;
     }
 
-    @Enumerated(EnumType.STRING)
-    @Column(insertable = false, updatable = false)
     public Language getLanguage() {
         return language;
     }
