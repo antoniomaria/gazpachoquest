@@ -1,6 +1,15 @@
 package net.sf.gazpachosurvey.jpa;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,17 +22,18 @@ import org.junit.Test;
 public class GenerateDllTest {
 
     @Test
-    public void DDLGenerationTest() {
+    public void DDLGenerationTest() throws IOException {
         generateDDL("mysql");
         generateDDL("postgres");
         generateDDL("hsql");
     }
 
-    public void generateDDL(String databaseProviderName) {
-        
-        File target = new File("target/generated-sources/" + databaseProviderName);
+    public void generateDDL(String databaseProviderName) throws IOException {
+
+        File target = new File("target/generated-sources/"
+                + databaseProviderName);
         target.mkdirs();
-        
+
         Map<String, String> persistProperties = new HashMap<String, String>();
         persistProperties.put(
                 PersistenceUnitProperties.ECLIPSELINK_PERSISTENCE_XML,
@@ -41,5 +51,21 @@ public class GenerateDllTest {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(
                 databaseProviderName + "PersistenceUnit", persistProperties);
         emf.createEntityManager();
+
+        Path input = Paths.get(target.getPath(), "createDDL.jdbc");
+        Path output = Paths.get(target.getPath(), "createDDL.sql");
+        try (BufferedReader br = Files.newBufferedReader(input,
+                Charset.defaultCharset());
+                BufferedWriter bw = Files.newBufferedWriter(output,
+                        Charset.defaultCharset(), StandardOpenOption.CREATE)) {
+
+            String thisLine = null;
+            while ((thisLine = br.readLine()) != null) {
+                bw.write(thisLine);
+                bw.write(";");
+                bw.newLine();
+            }
+        }
+        Files.delete(input);
     }
 }
