@@ -1,1 +1,1 @@
--- INSERT INTO users(id, email, first_name, last_name) VALUES (1, 'support@gazpachosurvey.net', 'support', 'support');
+INSERT INTO users(id, email, first_name, last_name,CREATEDBY_ID, created_date) VALUES (nextval('id_generator_sequence'), 'support@gazpachosurvey.net', 'support', 'support', currval('id_generator_sequence'), '2013-07-31');

@@ -6,13 +6,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.SequenceGenerator;
 
 @MappedSuperclass
 public class AbstractPersistable<PK extends Serializable> implements
         Identifiable<PK> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "default")
+    @SequenceGenerator(name="default", sequenceName="id_generator_sequence", allocationSize = 1, initialValue = 1)
     private PK id;
 
     @Override

@@ -41,13 +41,11 @@ public class DataBasePopulator {
 
     @Test
     public void populate() {
-        
         User support = new User();
-        support.setEmail("support@gazpachosurvey.net");
-        support.setFirstName("support");
-        support.setLastName("support");
-        //support.setCreatedDate(new DateTime());
-        //userRepository.save(support);
+        support.setEmail("adminb@gazpachosurvey.net");
+        support.setFirstName("admin");
+        support.setLastName("admin");
+        userRepository.save(support);
         
         Survey survey = new Survey("Asiakastyytyväisyyskyselyt");
         survey.setDescription("Customer satisfaction surveys");

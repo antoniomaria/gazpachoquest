@@ -22,6 +22,8 @@ import net.sf.gazpachosurvey.domain.user.User;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Auditable;
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
+import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+
 import javax.persistence.*;
 
 @Entity
@@ -29,7 +31,7 @@ import javax.persistence.*;
     // public class SurveyRunning implements Auditable<User, Integer> {
 
 //public class SurveyRunning implements Auditable<User, Integer> { // SI
-    public class SurveyRunning extends AbstractAuditable<Integer, User> {    
+    public class SurveyRunning extends AbstractPersistable<Integer> {    
 
     //@AttributeOverride(column = @Column, name = "id")
 
