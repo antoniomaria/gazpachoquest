@@ -6,15 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.SequenceGenerator;
 
 @MappedSuperclass
-public class AbstractPersistable<PK extends Serializable> implements
-        Identifiable<PK> {
+public class AbstractPersistable<PK extends Serializable> implements Identifiable<PK> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "default")
-    @SequenceGenerator(name="default", sequenceName="id_generator_sequence", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private PK id;
 
     @Override
@@ -26,45 +23,43 @@ public class AbstractPersistable<PK extends Serializable> implements
         this.id = id;
     }
 
+    @Override
     public boolean isNew() {
         return null == getId();
     }
 
     @Override
-    public String toString() {
-
-        return String.format("Entity of type %s with id: %s", this.getClass()
-                .getName(), getId());
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-
-        if (null == obj) {
-            return false;
-        }
-
         if (this == obj) {
             return true;
         }
-
-        if (!getClass().equals(obj.getClass())) {
+        if (obj == null) {
             return false;
         }
-
-        AbstractPersistable<?> that = (AbstractPersistable<?>) obj;
-
-        return null == this.getId() ? false : this.getId().equals(that.getId());
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        AbstractPersistable other = (AbstractPersistable) obj;
+        if (id == null) {
+            if (other.id != null) {
+                return false;
+            }
+        } else if (!id.equals(other.id)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public int hashCode() {
-
-        int hashCode = 17;
-
-        hashCode += null == getId() ? 0 : getId().hashCode() * 31;
-
-        return hashCode;
+    public String toString() {
+        return String.format("Entity of type %s with id: %s", this.getClass().getName(), getId());
     }
-
 }

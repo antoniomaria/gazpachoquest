@@ -6,9 +6,6 @@
     <persistence-unit-defaults>
       <entity-listeners>
         <entity-listener class="org.springframework.data.jpa.domain.support.AuditingEntityListener" />
-       <!-- 
-       <entity-listener class="net.sf.gazpachosurvey.jpa.AuditingEntityListener" />
-        -->
       </entity-listeners>
     </persistence-unit-defaults>
   </persistence-unit-metadata>
