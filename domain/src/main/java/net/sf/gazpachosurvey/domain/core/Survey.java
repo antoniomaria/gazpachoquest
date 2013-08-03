@@ -7,31 +7,32 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
+import javax.persistence.*;
 
 import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
 import net.sf.gazpachosurvey.types.Language;
 
+import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 
 @Entity
-public class Survey extends AbstractPersistable<Integer> {
+public class Survey extends AbstractAuditable<Integer> {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -2131168011860224675L;
+    @Embedded
+    private SurveyLanguageSettings languageSettings;
 
-    private String name;
-
-    private String description;
+    @Enumerated(EnumType.STRING)
+    private Language language;
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<SurveyRunning> surveysRunning;
@@ -53,19 +54,6 @@ public class Survey extends AbstractPersistable<Integer> {
         super();
     }
 
-    public Survey(String name) {
-        super();
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Set<SurveyRunning> getSurveysRunning() {
         if (surveysRunning == null) {
             surveysRunning = new HashSet<>();
@@ -84,11 +72,13 @@ public class Survey extends AbstractPersistable<Integer> {
         return translations;
     }
 
-    public void setTranslation(Language language, String text) {
+    public void setTranslation(Language language,
+            SurveyLanguageSettings languageSettings) {
         SurveyTranslation translation = new SurveyTranslation();
-        translation.setText(text);
         translation.setSurvey(this);
         translation.setLanguage(language);
+
+        translation.setLanguageSettings(languageSettings);
         getTranslations().put(language, translation);
     }
 
@@ -133,18 +123,20 @@ public class Survey extends AbstractPersistable<Integer> {
         this.questions = questions;
     }
 
-    public String getName() {
-        return name;
+    public SurveyLanguageSettings getLanguageSettings() {
+        return languageSettings;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLanguageSettings(SurveyLanguageSettings languageSettings) {
+        this.languageSettings = languageSettings;
     }
 
-    @Override
-    public String toString() {
-        return "Survey [getId()=" + getId() + ", description=" + description
-                + ", name=" + getName() + "]";
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
 }

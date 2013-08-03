@@ -41,19 +41,19 @@ public class SurveyRunningRepositoryTest {
     @Autowired
     public SurveyRunningRepository surveyRunningRepository;
 
-    @Test
-    public void findByExampleTest() {
-        Survey survey = new Survey();
-        // survey.setId(1);
-        survey.setDescription("Customer satisfaction surveys");
-
-        SurveyRunning example = new SurveyRunning();
-        example.setSurvey(survey);
-
-        List<SurveyRunning> surveysRunning = surveyRunningRepository
-                .findByExample(example, new SearchParameters());
-        for (SurveyRunning surveyRunning : surveysRunning) {
-            logger.debug(surveyRunning.toString());
-        }
-    }
+//    @Test
+//    public void findByExampleTest() {
+//        Survey survey = new Survey();
+//        // survey.setId(1);
+//        survey.setDescription("Customer satisfaction surveys");
+//
+//        SurveyRunning example = new SurveyRunning();
+//        example.setSurvey(survey);
+//
+//        List<SurveyRunning> surveysRunning = surveyRunningRepository
+//                .findByExample(example, new SearchParameters());
+//        for (SurveyRunning surveyRunning : surveysRunning) {
+//            logger.debug(surveyRunning.toString());
+//        }
+//    }
 }

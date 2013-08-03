@@ -51,25 +51,25 @@ public class SurveyRepositoryTest {
         repository.save(survey);
     }
 
-    @Test
-    public void findByExampleTest() {
-        Survey example = new Survey();
-        example.setDescription("Customer satisfaction surveys");
-        List<Survey> results = repository.findByExample(example,
-                new SearchParameters());
-        for (Survey survey : results) {
-            logger.debug(survey.toString());
-        }
-
-        example = new Survey();
-
-        SurveyRunning running = surveyRunningRepository.findOne(1);
-        example.addSurveyRunning(running);
-        logger.info("Find by many-to-many");
-        results = repository.findByExample(example, new SearchParameters());
-        for (Survey survey : results) {
-            logger.debug(survey.toString());
-        }
-
-    }
+//    @Test
+//    public void findByExampleTest() {
+//        Survey example = new Survey();
+//        example.setDescription("Customer satisfaction surveys");
+//        List<Survey> results = repository.findByExample(example,
+//                new SearchParameters());
+//        for (Survey survey : results) {
+//            logger.debug(survey.toString());
+//        }
+//
+//        example = new Survey();
+//
+//        SurveyRunning running = surveyRunningRepository.findOne(1);
+//        example.addSurveyRunning(running);
+//        logger.info("Find by many-to-many");
+//        results = repository.findByExample(example, new SearchParameters());
+//        for (Survey survey : results) {
+//            logger.debug(survey.toString());
+//        }
+//
+//    }
 }

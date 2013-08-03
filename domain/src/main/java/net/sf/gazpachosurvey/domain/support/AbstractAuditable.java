@@ -1,11 +1,12 @@
 package net.sf.gazpachosurvey.domain.support;
 
-import javax.persistence.JoinColumn;
+import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 
 import net.sf.gazpachosurvey.domain.user.User;
 
@@ -14,9 +15,6 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-
-import java.io.Serializable;
-import java.util.Date;
 
 @MappedSuperclass
 public class AbstractAuditable<PK extends Serializable> extends

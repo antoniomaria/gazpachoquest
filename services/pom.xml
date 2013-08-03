@@ -27,7 +27,6 @@
     <dependency>
       <groupId>com.github.springtestdbunit</groupId>
       <artifactId>spring-test-dbunit</artifactId>
-      <version>1.0.1</version>
       <scope>test</scope>
     </dependency>
 
@@ -40,6 +39,12 @@
     <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -69,7 +74,7 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachosurvey-dao</artifactId>
     </dependency>
-    
+
     <!-- Spring data jpa -->
     <dependency>
       <groupId>org.springframework.data</groupId>
@@ -120,11 +125,12 @@
       <artifactId>joda-time</artifactId>
       <version>2.2</version>
     </dependency>
-  <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.23</version>
-      <optional>true</optional>
+
+    <dependency>
+      <groupId>net.sf.dozer</groupId>
+      <artifactId>dozer</artifactId>
+      <version>5.4.0</version>
     </dependency>
+
   </dependencies>
 </project>
