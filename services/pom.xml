@@ -75,20 +75,27 @@
       <artifactId>gazpachosurvey-dao</artifactId>
     </dependency>
 
-    <!-- Spring data jpa -->
+    <!-- Spring aspects -->
     <dependency>
-      <groupId>org.springframework.data</groupId>
-      <artifactId>spring-data-jpa</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>jcl-over-slf4j</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>slf4j-api</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-      </exclusions>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aspects</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.7.3</version>
+    </dependency>
+    <!-- Allows to weave classes that don't implement any interface. By example test classes -->
+    <dependency>
+      <groupId>cglib</groupId>
+      <artifactId>cglib</artifactId>
+      <version>3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.ow2.asm</groupId>
+      <artifactId>asm-util</artifactId>
+      <version>4.0</version>
     </dependency>
     <!-- Persistence providers -->
     <dependency>

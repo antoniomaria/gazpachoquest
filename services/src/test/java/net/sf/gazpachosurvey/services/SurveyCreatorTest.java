@@ -30,7 +30,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         SurveyDTO survey = SurveyDTO.with().surveyLanguageSettingsStart().description("description").title("title")
                 .surveyLanguageSettingsEnd().build();
 
-        // surveyCreatorService.save(survey);
+        surveyCreatorService.save(survey);
 
         System.out.println("fin");
 
