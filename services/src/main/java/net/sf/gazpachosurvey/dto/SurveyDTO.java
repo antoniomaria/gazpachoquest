@@ -1,7 +1,12 @@
 package net.sf.gazpachosurvey.dto;
 
+import net.sf.gazpachosurvey.dto.SurveyDTO.BuilderImpl;
+import net.sf.gazpachosurvey.types.Language;
+
 public class SurveyDTO extends AbstractSerializableDTO<Integer> {
 
+    private Language language;
+    
     private SurveyLanguageSettingsDTO languageSettings;
 
     public SurveyDTO() {
@@ -16,8 +21,18 @@ public class SurveyDTO extends AbstractSerializableDTO<Integer> {
         this.languageSettings = languageSettings;
     }
 
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
     public static interface Builder {
         Builder languageSettings(SurveyLanguageSettingsDTO languageSettings);
+
+        Builder language(Language language);
 
         SurveyLanguageSettingsDTO.Builder surveyLanguageSettingsStart();
 
@@ -29,8 +44,16 @@ public class SurveyDTO extends AbstractSerializableDTO<Integer> {
     }
 
     public static class BuilderImpl implements Builder {
+        private Language language;
+        
         private SurveyLanguageSettingsDTO languageSettings;
-
+        
+        @Override
+        public BuilderImpl language(Language language) {
+            this.language = language;
+            return this;
+        }
+        
         @Override
         public BuilderImpl languageSettings(SurveyLanguageSettingsDTO languageSettings) {
             this.languageSettings = languageSettings;
@@ -46,6 +69,7 @@ public class SurveyDTO extends AbstractSerializableDTO<Integer> {
         public SurveyDTO build() {
             SurveyDTO surveyDTO = new SurveyDTO();
             surveyDTO.languageSettings = languageSettings;
+            surveyDTO.language = language;
             return surveyDTO;
         }
     }

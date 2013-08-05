@@ -11,7 +11,7 @@ public class BuilderPatternTest {
         SurveyDTO survey = SurveyDTO.with().surveyLanguageSettingsStart().description("description").title("title")
                 .surveyLanguageSettingsEnd().build();
 
-        // surveyCreatorService.save(survey);
+        // surveyService.save(survey);
 
         System.out.println("fin");
     }

@@ -18,8 +18,6 @@ import net.sf.gazpachosurvey.types.Language;
 @Entity
 public class Page extends AbstractPersistable<Integer> {
 
-    private static final long serialVersionUID = 3938193161272543138L;
-
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Survey survey;
 

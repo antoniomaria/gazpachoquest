@@ -2,8 +2,8 @@ package net.sf.gazpachosurvey.services;
 
 import net.sf.gazpachosurvey.dto.SurveyDTO;
 
-public interface SurveyCreatorService {
+public interface SurveyService {
     
-    SurveyDTO save(SurveyDTO survey);
+    Integer add(SurveyDTO survey);
 
 }

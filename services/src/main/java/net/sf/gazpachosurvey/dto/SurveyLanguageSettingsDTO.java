@@ -6,6 +6,8 @@ public class SurveyLanguageSettingsDTO {
 
     private String description;
 
+    private String welcomeText;
+    
     public SurveyLanguageSettingsDTO() {
         super();
     }
@@ -26,6 +28,14 @@ public class SurveyLanguageSettingsDTO {
         this.description = description;
     }
 
+    public String getWelcomeText() {
+        return welcomeText;
+    }
+
+    public void setWelcomeText(String welcomeText) {
+        this.welcomeText = welcomeText;
+    }
+
     public static Builder surveyLanguageSettingsStart(SurveyDTO.Builder container) {
         return new SurveyLanguageSettingsDTO.BuilderImpl(container);
     }
@@ -40,6 +50,8 @@ public class SurveyLanguageSettingsDTO {
 
         Builder description(String description);
 
+        Builder welcomeText(String welcomeText);
+
         SurveyDTO.Builder surveyLanguageSettingsEnd();
 
         SurveyLanguageSettingsDTO build();
@@ -49,6 +61,7 @@ public class SurveyLanguageSettingsDTO {
     public static class BuilderImpl implements Builder {
         private String title;
         private String description;
+        private String welcomeText;
         private final SurveyDTO.Builder container;
 
         public BuilderImpl(SurveyDTO.Builder container) {
@@ -68,6 +81,11 @@ public class SurveyLanguageSettingsDTO {
         }
 
         @Override
+        public BuilderImpl welcomeText(String welcomeText) {
+            this.welcomeText = welcomeText;
+            return this;
+        }
+        @Override
         public SurveyDTO.Builder surveyLanguageSettingsEnd() {
             return container.languageSettings(build());
         }
@@ -77,6 +95,7 @@ public class SurveyLanguageSettingsDTO {
             SurveyLanguageSettingsDTO surveyLanguageSettingsDTO = new SurveyLanguageSettingsDTO();
             surveyLanguageSettingsDTO.title = title;
             surveyLanguageSettingsDTO.description = description;
+            surveyLanguageSettingsDTO.welcomeText = welcomeText;
             return surveyLanguageSettingsDTO;
         }
     }
