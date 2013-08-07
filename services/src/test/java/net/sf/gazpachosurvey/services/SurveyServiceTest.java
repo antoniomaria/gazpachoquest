@@ -1,5 +1,7 @@
 package net.sf.gazpachosurvey.services;
 
+import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
 import net.sf.gazpachosurvey.types.Language;
 
@@ -27,8 +29,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     SurveyService surveyService;
 
     @Test
-    public void add() {
-
+    public void addSurveyTest() {
         SurveyDTO survey = SurveyDTO
                 .with()
                 .language(Language.EN)
@@ -39,9 +40,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
                 .welcomeText("Thank you for taking the time to participate in this survey.")
                         .surveyLanguageSettingsEnd().build();
 
-        Integer id = surveyService.add(survey);
-
-        System.out.println("fin");
-
+        Integer id = surveyService.addSurvey(survey);
+        assertThat(id).isNotNull();
+        
+        PageDTO page = PageDTO.with().title("Page 1").build();
+        surveyService.addPage(id, page);
+        
+         page = PageDTO.with().title("Page 2").build();
+        Integer pageId = surveyService.addPage(id, page);
+        
+        System.out.println("fin"  + pageId);
+        
     }
 }

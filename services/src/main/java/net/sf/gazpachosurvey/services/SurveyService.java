@@ -1,9 +1,11 @@
 package net.sf.gazpachosurvey.services;
 
+import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
 
 public interface SurveyService {
     
-    Integer add(SurveyDTO survey);
+    Integer addSurvey(SurveyDTO survey);
 
+    Integer addPage(Integer surveyId, PageDTO page);
 }

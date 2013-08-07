@@ -1,6 +1,5 @@
 package net.sf.gazpachosurvey.dto;
 
-import net.sf.gazpachosurvey.dto.SurveyDTO.BuilderImpl;
 import net.sf.gazpachosurvey.types.Language;
 
 public class SurveyDTO extends AbstractSerializableDTO<Integer> {
