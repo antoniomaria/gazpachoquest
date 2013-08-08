@@ -36,6 +36,7 @@
     <persistence:class>net.sf.gazpachosurvey.domain.i18.AnswerTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.i18.QuestionTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.i18.SurveyTranslation</persistence:class>
+    <persistence:class>net.sf.gazpachosurvey.domain.i18.PageTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.user.User</persistence:class>
     <persistence:properties>
       <persistence:property name="eclipselink.jdbc.driver" value="org.hsqldb.jdbcDriver" />
@@ -57,6 +58,7 @@
     <persistence:class>net.sf.gazpachosurvey.domain.i18.AnswerTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.i18.QuestionTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.i18.SurveyTranslation</persistence:class>
+    <persistence:class>net.sf.gazpachosurvey.domain.i18.PageTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.user.User</persistence:class>
     <persistence:properties>
       <persistence:property name="eclipselink.jdbc.driver" value="org.postgresql.Driver" />
