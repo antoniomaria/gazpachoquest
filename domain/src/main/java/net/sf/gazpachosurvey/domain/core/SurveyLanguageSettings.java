@@ -1,12 +1,7 @@
 package net.sf.gazpachosurvey.domain.core;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Lob;
-
-import net.sf.gazpachosurvey.types.Language;
 
 @Embeddable
 public class SurveyLanguageSettings {
@@ -15,7 +10,7 @@ public class SurveyLanguageSettings {
 
     @Lob
     private String description;
-    
+
     @Lob
     private String welcomeText;
 
@@ -23,8 +18,7 @@ public class SurveyLanguageSettings {
         super();
     }
 
-    public SurveyLanguageSettings(String title,
-            String description, String welcomeText) {
+    public SurveyLanguageSettings(String title, String description, String welcomeText) {
         super();
         this.title = title;
         this.description = description;
@@ -33,9 +27,9 @@ public class SurveyLanguageSettings {
 
     public SurveyLanguageSettings(Builder builder) {
         super();
-        this.title = builder.title;
-        this.description = builder.description;
-        this.welcomeText = builder.welcomeText;
+        title = builder.title;
+        description = builder.description;
+        welcomeText = builder.welcomeText;
     }
 
     public String getTitle() {
@@ -53,7 +47,7 @@ public class SurveyLanguageSettings {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     public String getWelcomeText() {
         return welcomeText;
     }
@@ -62,12 +56,11 @@ public class SurveyLanguageSettings {
         this.welcomeText = welcomeText;
     }
 
-
     public static class Builder {
         private String title;
 
         private String description;
-        
+
         private String welcomeText;
 
         public Builder title(String title) {
@@ -84,6 +77,7 @@ public class SurveyLanguageSettings {
             this.welcomeText = welcomeText;
             return this;
         }
+
         public SurveyLanguageSettings build() {
             return new SurveyLanguageSettings(this);
         }

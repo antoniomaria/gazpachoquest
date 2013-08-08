@@ -1,18 +1,22 @@
 package net.sf.gazpachosurvey.domain.core;
 
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 
+import net.sf.gazpachosurvey.domain.i18.PageTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
-
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
@@ -25,22 +29,19 @@ public class Page extends AbstractPersistable<Integer> {
     @Column(nullable = false)
     private Language language;
 
-    @Column(nullable = false)
-    private String title;
+    @Embedded
+    private PageLanguageSettings languageSettings;
+
+    @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @MapKeyEnumerated(EnumType.STRING)
+    @MapKeyColumn(name = "language")
+    private Map<Language, PageTranslation> translations;
 
     @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Question> questions;
 
     public Page() {
         super();
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public Set<Question> getQuestions() {
@@ -67,9 +68,20 @@ public class Page extends AbstractPersistable<Integer> {
         this.language = language;
     }
 
-    @Override
-    public String toString() {
-        return "Page [language=" + language + ", title=" + title + "]";
+    public PageLanguageSettings getLanguageSettings() {
+        return languageSettings;
+    }
+
+    public void setLanguageSettings(PageLanguageSettings languageSettings) {
+        this.languageSettings = languageSettings;
+    }
+
+    public Map<Language, PageTranslation> getTranslations() {
+        return translations;
+    }
+
+    public void setTranslations(Map<Language, PageTranslation> translations) {
+        this.translations = translations;
     }
 
 }
