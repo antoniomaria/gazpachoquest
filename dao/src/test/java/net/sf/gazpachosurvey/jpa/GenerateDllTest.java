@@ -25,7 +25,6 @@ public class GenerateDllTest {
     public void DDLGenerationTest() throws IOException {
         generateDDL("mysql");
         generateDDL("postgres");
-        generateDDL("hsql");
     }
 
     public void generateDDL(String databaseProviderName) throws IOException {

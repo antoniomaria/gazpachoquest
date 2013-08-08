@@ -4,20 +4,12 @@ import net.sf.gazpachosurvey.types.Language;
 
 public class PageDTO extends AbstractSerializableDTO<Integer> {
 
-    private String title;
-
     private Language language;
+    
+    private PageLanguageSettingsDTO languageSettings;
 
     public PageDTO() {
         super();
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public Language getLanguage() {
@@ -28,40 +20,56 @@ public class PageDTO extends AbstractSerializableDTO<Integer> {
         this.language = language;
     }
 
+    public PageLanguageSettingsDTO getLanguageSettings() {
+        return languageSettings;
+    }
+
+    public void setLanguageSettings(PageLanguageSettingsDTO languageSettings) {
+        this.languageSettings = languageSettings;
+    }
+
     public static Builder with() {
         return new BuilderImpl();
     }
 
     public static interface Builder {
 
+        Builder languageSettings(PageLanguageSettingsDTO languageSettings);
+
         Builder language(Language language);
 
-        Builder title(String title) ;
-            
-        PageDTO build();
-    }
+        PageLanguageSettingsDTO.Builder pageLanguageSettingsStart();
+
+        PageDTO build();    }
     
     public static class BuilderImpl implements Builder {
-        private String title;
         private Language language;
-
-        public Builder title(String title) {
-            this.title = title;
-            return this;
-        }
-
-        public Builder language(Language language) {
+        
+        private PageLanguageSettingsDTO languageSettings;
+        
+        @Override
+        public BuilderImpl language(Language language) {
             this.language = language;
             return this;
         }
-
-        public PageDTO build() {
-            return new PageDTO(this);
+        
+        @Override
+        public BuilderImpl languageSettings(PageLanguageSettingsDTO languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
         }
-    }
 
-    private PageDTO(BuilderImpl builder) {
-        this.title = builder.title;
-        this.language = builder.language;
+        @Override
+        public PageLanguageSettingsDTO.Builder pageLanguageSettingsStart() {
+            return PageLanguageSettingsDTO.pageLanguageSettingsStart(this);
+        }
+
+        @Override
+        public PageDTO build() {
+            PageDTO pageDTO = new PageDTO();
+            pageDTO.languageSettings = languageSettings;
+            pageDTO.language = language;
+            return pageDTO;
+        }
     }
 }
