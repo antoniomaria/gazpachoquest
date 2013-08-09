@@ -1,8 +1,11 @@
 package net.sf.gazpachosurvey.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachosurvey.dto.LabelDTO;
+import net.sf.gazpachosurvey.dto.LabelSetDTO;
 import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
+import net.sf.gazpachosurvey.repository.LabelSetRepository;
 import net.sf.gazpachosurvey.types.Language;
 
 import org.junit.Test;
@@ -31,6 +34,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     @Autowired
     private PageService pageService;
 
+    @Autowired
+    private LabelSetService labelSetService;
+
     @Test
     public void addSurveyTest() {
         SurveyDTO survey = SurveyDTO
@@ -44,19 +50,26 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
                         "Thank you for taking the time to participate in this survey.")
                 .surveyLanguageSettingsEnd().build();
 
-        Integer id = surveyService.addSurvey(survey);
-        assertThat(id).isNotNull();
+        Integer surveyId = surveyService.addSurvey(survey);
+        assertThat(surveyId).isNotNull();
 
         PageDTO page = PageDTO.with().pageLanguageSettingsStart()
                 .title("Page 1").pageLanguageSettingsEnd().build();
-        id = pageService.addPage(id, page);
+        Integer id = pageService.addPage(surveyId, page);
         assertThat(id).isNotNull();
 
         page = PageDTO.with().pageLanguageSettingsStart().title("Page 2")
                 .pageLanguageSettingsEnd().build();
-        id= pageService.addPage(id, page);
+        id = pageService.addPage(surveyId, page);
         assertThat(id).isNotNull();
 
+        LabelSetDTO labelSet = LabelSetDTO.with().language(Language.EN)
+                .name("Feelings").build();
+        Integer labelSetId = labelSetService.addLabelSet(labelSet);
+
+        LabelDTO label = LabelDTO.with().title("I like it").build();
+
+        id = labelSetService.addLabel(labelSetId, label);
         System.out.println("fin" + id);
 
     }

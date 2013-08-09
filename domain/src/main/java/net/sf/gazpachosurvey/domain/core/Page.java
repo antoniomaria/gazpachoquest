@@ -15,6 +15,7 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 
+import net.sf.gazpachosurvey.domain.core.embeddables.PageLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.PageTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.Language;

@@ -4,6 +4,8 @@ import net.sf.gazpachosurvey.types.Language;
 
 public class SurveyDTO extends AbstractSerializableDTO<Integer> {
 
+    private static final long serialVersionUID = 4558625807621395019L;
+
     private Language language;
     
     private SurveyLanguageSettingsDTO languageSettings;

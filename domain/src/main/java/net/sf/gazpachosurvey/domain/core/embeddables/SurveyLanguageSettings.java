@@ -1,4 +1,4 @@
-package net.sf.gazpachosurvey.domain.core;
+package net.sf.gazpachosurvey.domain.core.embeddables;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Lob;

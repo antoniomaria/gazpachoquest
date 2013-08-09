@@ -1,40 +1,38 @@
 package net.sf.gazpachosurvey.domain.i18;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 
-import net.sf.gazpachosurvey.domain.core.Page;
-import net.sf.gazpachosurvey.domain.core.embeddables.PageLanguageSettings;
+import net.sf.gazpachosurvey.domain.core.Label;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class PageTranslation extends AbstractPersistable<Integer> {
+public class LabelTranslation extends AbstractPersistable<Integer> {
 
     @ManyToOne
-    private Page page;
+    private Label label;
 
     @Enumerated(EnumType.STRING)
     @Column(insertable = false, updatable = false)
     private Language language;
 
-    @Embedded
-    private PageLanguageSettings languageSettings;
+    @Column(nullable = false)
+    private String title;
 
-    public PageTranslation() {
+    public LabelTranslation() {
         super();
     }
 
-    public Page getPage() {
-        return page;
+    public Label getLabel() {
+        return label;
     }
 
-    public void setPage(Page page) {
-        this.page = page;
+    public void setLabel(Label label) {
+        this.label = label;
     }
 
     public Language getLanguage() {
@@ -45,12 +43,12 @@ public class PageTranslation extends AbstractPersistable<Integer> {
         this.language = language;
     }
 
-    public PageLanguageSettings getLanguageSettings() {
-        return languageSettings;
+    public String getTitle() {
+        return title;
     }
 
-    public void setLanguageSettings(PageLanguageSettings languageSettings) {
-        this.languageSettings = languageSettings;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 }

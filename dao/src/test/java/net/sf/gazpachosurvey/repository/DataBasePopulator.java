@@ -4,8 +4,8 @@ import java.util.List;
 
 import net.sf.gazpachosurvey.domain.core.Page;
 import net.sf.gazpachosurvey.domain.core.Survey;
-import net.sf.gazpachosurvey.domain.core.SurveyLanguageSettings;
 import net.sf.gazpachosurvey.domain.core.SurveyRunning;
+import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
 import net.sf.gazpachosurvey.domain.user.User;
 import net.sf.gazpachosurvey.types.Language;
 

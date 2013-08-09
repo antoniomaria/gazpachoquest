@@ -10,6 +10,7 @@ import net.sf.gazpachosurvey.services.PageService;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 @Service
 public class PageSurveyImpl implements PageService {
@@ -27,7 +28,7 @@ public class PageSurveyImpl implements PageService {
         Page entity = mapper.map(page, Page.class);
 
         Survey survey = surveyRepository.findOne(surveyId);
-
+        Assert.notNull(survey, "Survey " + surveyId + " not exist");
         entity.setSurvey(survey);
         entity.setLanguage(survey.getLanguage());
 

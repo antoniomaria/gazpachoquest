@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 
 import net.sf.gazpachosurvey.domain.core.Survey;
-import net.sf.gazpachosurvey.domain.core.SurveyLanguageSettings;
+import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
