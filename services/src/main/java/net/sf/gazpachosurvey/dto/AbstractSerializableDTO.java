@@ -2,9 +2,11 @@ package net.sf.gazpachosurvey.dto;
 
 import java.io.Serializable;
 
-public class AbstractSerializableDTO <PK extends Serializable> implements Serializable{
+import net.sf.gazpachosurvey.domain.support.Identifiable;
 
-    private static final long serialVersionUID = -5351108281646989742L;
+public class AbstractSerializableDTO <PK extends Serializable> implements Identifiable<PK>{
+
+    private static final long serialVersionUID = 3903947392347573567L;
 
     private PK id;
 
@@ -19,5 +21,10 @@ public class AbstractSerializableDTO <PK extends Serializable> implements Serial
     @Override
     public String toString() {
         return String.format("Entity of type %s with id: %s", this.getClass().getName(), getId());
+    }
+    
+    @Override
+    public boolean isNew() {
+        return null == getId();
     }
 }

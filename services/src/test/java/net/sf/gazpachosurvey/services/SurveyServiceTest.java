@@ -67,9 +67,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
                 .name("Feelings").build();
         Integer labelSetId = labelSetService.addLabelSet(labelSet);
 
-        LabelDTO label = LabelDTO.with().title("I like it").build();
+        LabelDTO label = LabelDTO.with().title("Agree strongly").build();
+        labelSetService.addLabel(labelSetId, label);
 
-        id = labelSetService.addLabel(labelSetId, label);
+        label = LabelDTO.with().title("Agree somewhat").build();
+        labelSetService.addLabel(labelSetId, label);
+
+        label = LabelDTO.with().title("Neither agree nor disagree").build();
+        labelSetService.addLabel(labelSetId, label);
+
+        label = LabelDTO.with().title("Disagree somewhat").build();
+        labelSetService.addLabel(labelSetId, label);
+
+        label = LabelDTO.with().title("Disagree strongly").build();
+        labelSetService.addLabel(labelSetId, label);
+
         System.out.println("fin" + id);
 
     }
