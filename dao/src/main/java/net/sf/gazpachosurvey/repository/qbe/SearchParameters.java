@@ -29,7 +29,7 @@ import java.util.Map;
 
 import javax.persistence.criteria.JoinType;
 import javax.persistence.metamodel.SingularAttribute;
-import net.sf.gazpachosurvey.domain.support.Identifiable;
+import net.sf.gazpachosurvey.domain.support.Persistable;
 import net.sf.gazpachosurvey.repository.support.NamedQueryUtil;
 import net.sf.gazpachosurvey.repository.support.Range;
 import net.sf.gazpachosurvey.repository.support.Ranges.RangeDate;
@@ -100,7 +100,7 @@ public class SearchParameters implements Serializable {
     private final List<PropertySelector<?, ?>> properties = new ArrayList<PropertySelector<?, ?>>();
 
     // entity selectors
-    private final List<EntitySelector<?, ? extends Identifiable<?>, ?>> entities = new ArrayList<EntitySelector<?, ? extends Identifiable<?>, ?>>();
+    private final List<EntitySelector<?, ? extends Persistable<?>, ?>> entities = new ArrayList<EntitySelector<?, ? extends Persistable<?>, ?>>();
 
     // pattern to match against all strings.
     private String searchPattern;
@@ -387,13 +387,13 @@ public class SearchParameters implements Serializable {
     }
 
     public void addOrderBy(
-            SingularAttribute<? extends Identifiable<? extends Serializable>, ? extends Serializable> attribute) {
+            SingularAttribute<? extends Persistable<? extends Serializable>, ? extends Serializable> attribute) {
         Validate.notNull(attribute, "attribute must not be null");
         orders.add(new OrderBy(attribute));
     }
 
     public void addOrderBy(
-            SingularAttribute<? extends Identifiable<? extends Serializable>, ? extends Serializable> attribute,
+            SingularAttribute<? extends Persistable<? extends Serializable>, ? extends Serializable> attribute,
             OrderByDirection direction) {
         Validate.notNull(attribute, "fieldName must not be null");
         Validate.notNull(direction, "direction must not be null");
@@ -421,13 +421,13 @@ public class SearchParameters implements Serializable {
     }
 
     public SearchParameters orderBy(
-            SingularAttribute<? extends Identifiable<? extends Serializable>, ? extends Serializable> attribute) {
+            SingularAttribute<? extends Persistable<? extends Serializable>, ? extends Serializable> attribute) {
         addOrderBy(attribute);
         return this;
     }
 
     public SearchParameters orderBy(
-            SingularAttribute<? extends Identifiable<? extends Serializable>, ? extends Serializable> attribute,
+            SingularAttribute<? extends Persistable<? extends Serializable>, ? extends Serializable> attribute,
             OrderByDirection direction) {
         addOrderBy(attribute, direction);
         return this;
@@ -590,16 +590,16 @@ public class SearchParameters implements Serializable {
     // -----------------------------------
 
     public SearchParameters(
-            EntitySelector<?, ? extends Identifiable<?>, ?> entitySelector) {
+            EntitySelector<?, ? extends Persistable<?>, ?> entitySelector) {
         addEntity(entitySelector);
     }
 
-    public List<EntitySelector<?, ? extends Identifiable<?>, ?>> getEntities() {
+    public List<EntitySelector<?, ? extends Persistable<?>, ?>> getEntities() {
         return entities;
     }
 
     public void addEntity(
-            EntitySelector<?, ? extends Identifiable<?>, ?> entitySelector) {
+            EntitySelector<?, ? extends Persistable<?>, ?> entitySelector) {
         entities.add(entitySelector);
     }
 
@@ -608,14 +608,14 @@ public class SearchParameters implements Serializable {
      * predicate for the underlying foreign key.
      */
     public SearchParameters entity(
-            EntitySelector<?, ? extends Identifiable<?>, ?> entitySelector) {
+            EntitySelector<?, ? extends Persistable<?>, ?> entitySelector) {
         addEntity(entitySelector);
         return this;
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public SearchParameters entity(SingularAttribute<?, ?> field,
-            Identifiable<?>... values) {
+            Persistable<?>... values) {
         return entity(new EntitySelector(field, values));
     }
 

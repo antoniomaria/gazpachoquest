@@ -4,7 +4,7 @@ import net.sf.gazpachosurvey.dto.PageDTO.Builder;
 import net.sf.gazpachosurvey.dto.PageDTO.BuilderImpl;
 import net.sf.gazpachosurvey.types.Language;
 
-public class LabelSetDTO extends AbstractSerializableDTO<Integer> {
+public class LabelSetDTO extends AbstractIdentifiableDTO<Integer> {
 
     private static final long serialVersionUID = -7715245634090394574L;
 

@@ -81,8 +81,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
         label = LabelDTO.with().title("Disagree strongly").build();
         labelSetService.addLabel(labelSetId, label);
+        
+        LabelSetDTO winner = labelSetService.findOne(5);
 
-        System.out.println("fin" + id);
+        System.out.println("fin" + winner.getName());
 
     }
 }

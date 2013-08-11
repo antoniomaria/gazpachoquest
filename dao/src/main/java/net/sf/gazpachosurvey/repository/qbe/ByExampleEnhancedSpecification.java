@@ -25,7 +25,7 @@ import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
 
-import net.sf.gazpachosurvey.domain.support.Identifiable;
+import net.sf.gazpachosurvey.domain.support.Persistable;
 
 import org.apache.commons.lang.Validate;
 import org.springframework.data.jpa.domain.Specification;
@@ -39,7 +39,7 @@ public class ByExampleEnhancedSpecification {
         this.em = em;
     }
 
-    public <T extends Identifiable<?>> Specification<T> byExampleOnEntity(
+    public <T extends Persistable<?>> Specification<T> byExampleOnEntity(
             final T example, final SearchParameters sp) {
         Validate.notNull(example, "example must not be null");
 
@@ -65,7 +65,7 @@ public class ByExampleEnhancedSpecification {
                 return JpaUtil.andPredicate(builder, predicates);
             }
 
-            public <T extends Identifiable<?>> List<Predicate> byExample(
+            public <T extends Persistable<?>> List<Predicate> byExample(
                     ManagedType<T> mt, Path<T> mtPath, final T mtValue,
                     SearchParameters sp, CriteriaBuilder builder) {
                 List<Predicate> predicates = new ArrayList<Predicate>();
@@ -108,7 +108,7 @@ public class ByExampleEnhancedSpecification {
              * based on an associated entity's properties value.
              */
             @SuppressWarnings("unchecked")
-            public <T extends Identifiable<?>, M2O extends Identifiable<?>> List<Predicate> byExampleOnXToOne(
+            public <T extends Persistable<?>, M2O extends Persistable<?>> List<Predicate> byExampleOnXToOne(
                     ManagedType<T> mt, Root<T> mtPath, final T mtValue,
                     SearchParameters sp, CriteriaBuilder builder) {
                 List<Predicate> predicates = new ArrayList<Predicate>();
@@ -143,7 +143,7 @@ public class ByExampleEnhancedSpecification {
             /**
              * Construct a join predicate on collection (eg many to many, List)
              */
-            public <T extends Identifiable<?>> List<Predicate> byExampleOnManyToMany(
+            public <T extends Persistable<?>> List<Predicate> byExampleOnManyToMany(
                     ManagedType<T> mt, Root<T> mtPath, final T mtValue,
                     SearchParameters sp, CriteriaBuilder builder) {
                 List<Predicate> predicates = new ArrayList<Predicate>();

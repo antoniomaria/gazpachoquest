@@ -3,50 +3,70 @@ package net.sf.gazpachosurvey.services.impl;
 import java.io.Serializable;
 import java.util.List;
 
-import net.sf.gazpachosurvey.domain.support.Identifiable;
+import net.sf.gazpachosurvey.domain.core.Label;
+import net.sf.gazpachosurvey.domain.core.LabelSet;
+import net.sf.gazpachosurvey.domain.support.Persistable;
+import net.sf.gazpachosurvey.dto.Identifiable;
+import net.sf.gazpachosurvey.dto.LabelSetDTO;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import net.sf.gazpachosurvey.repository.support.GenericRepository;
 import net.sf.gazpachosurvey.services.PersistenceService;
 
-//import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class AbstractPersistenceService<T extends Identifiable<ID>, ID extends Serializable> implements
-        PersistenceService<T, ID> {
+public class AbstractPersistenceService<T_DAO extends GenericRepository<T, ID>, T extends Persistable<ID>, D extends Identifiable<ID>, ID extends Serializable>
+        implements PersistenceService<D, ID> {
 
     protected final GenericRepository<T, ID> repository;
+
+    @Autowired
+    private Mapper mapper;
 
     public AbstractPersistenceService(GenericRepository<T, ID> repository) {
         this.repository = repository;
     }
 
     @Override
-    public List<T> findAll() {
-        return this.repository.findAll();
+    public List<D> findAll() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public T findOne(ID id) {
-        return repository.findOne(id);
+    public D findOne(ID id) {
+        T entity = repository.findOne(id);
+
+       D dto = mapper.map(entity, f());
+        return null;
     }
 
-    @Override
+    public  Class<D> f() {
+        return LabelSetDTO.class.getClass();
+    }
+
+    public @Override
     public long count() {
-        return this.repository.count();
+        // TODO Auto-generated method stub
+        return 0;
     }
 
     @Override
     public void delete(ID id) {
-        repository.delete(id);
+        // TODO Auto-generated method stub
+
     }
 
     @Override
-    public T save(T entity) {
-        return repository.save(entity);
+    public D save(D entity) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public List<T> findByExample(T entity, SearchParameters searchParameters) {
-        return repository.findByExample(entity, searchParameters);
+    public List<D> findByExample(D entity, SearchParameters searchParameters) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

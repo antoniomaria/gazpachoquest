@@ -7,14 +7,21 @@ import org.springframework.stereotype.Service;
 import net.sf.gazpachosurvey.domain.core.Label;
 import net.sf.gazpachosurvey.domain.core.LabelSet;
 import net.sf.gazpachosurvey.domain.core.Page;
+import net.sf.gazpachosurvey.dto.Identifiable;
 import net.sf.gazpachosurvey.dto.LabelDTO;
 import net.sf.gazpachosurvey.dto.LabelSetDTO;
 import net.sf.gazpachosurvey.repository.LabelRepository;
 import net.sf.gazpachosurvey.repository.LabelSetRepository;
+import net.sf.gazpachosurvey.repository.support.GenericRepository;
 import net.sf.gazpachosurvey.services.LabelSetService;
 
 @Service
-public class LabelSetServiceImpl implements LabelSetService {
+public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSetRepository, LabelSet, LabelSetDTO, Integer>implements LabelSetService {
+
+    @Autowired
+    public LabelSetServiceImpl(LabelSetRepository repository) {
+        super(repository);
+    }
 
     @Autowired
     private LabelSetRepository labelSetRepository;

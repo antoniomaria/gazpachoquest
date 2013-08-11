@@ -22,7 +22,7 @@ import java.io.Serializable;
 
 import javax.persistence.metamodel.SingularAttribute;
 
-import net.sf.gazpachosurvey.domain.support.Identifiable;
+import net.sf.gazpachosurvey.domain.support.Persistable;
 import net.sf.gazpachosurvey.repository.support.NamedQueryUtil;
 
 import org.apache.commons.lang.Validate;
@@ -49,7 +49,7 @@ public class OrderBy implements Serializable {
     }
 
     public OrderBy(
-            SingularAttribute<? extends Identifiable<? extends Serializable>, ? extends Serializable> attribute,
+            SingularAttribute<? extends Persistable<? extends Serializable>, ? extends Serializable> attribute,
             OrderByDirection direction) {
         Validate.notNull(attribute);
         Validate.notNull(direction);
@@ -58,7 +58,7 @@ public class OrderBy implements Serializable {
     }
 
     public OrderBy(
-            SingularAttribute<? extends Identifiable<? extends Serializable>, ? extends Serializable> attribute) {
+            SingularAttribute<? extends Persistable<? extends Serializable>, ? extends Serializable> attribute) {
         this(attribute, ASC);
     }
 

@@ -6,14 +6,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import net.sf.gazpachosurvey.domain.support.Identifiable;
+import net.sf.gazpachosurvey.domain.support.Persistable;
 import net.sf.gazpachosurvey.repository.qbe.ByExampleEnhancedSpecification;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaEntityInformationSupport;
@@ -23,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @NoRepositoryBean
-public class GenericRepositoryImpl<T extends Identifiable<PK>, PK extends Serializable>
+public class GenericRepositoryImpl<T extends Persistable<PK>, PK extends Serializable>
         extends SimpleJpaRepository<T, PK> implements GenericRepository<T, PK>,
         Serializable {
 

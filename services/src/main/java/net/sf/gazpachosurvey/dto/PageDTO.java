@@ -2,7 +2,7 @@ package net.sf.gazpachosurvey.dto;
 
 import net.sf.gazpachosurvey.types.Language;
 
-public class PageDTO extends AbstractSerializableDTO<Integer> {
+public class PageDTO extends AbstractIdentifiableDTO<Integer> {
 
     private static final long serialVersionUID = 4668205160387380803L;
 
