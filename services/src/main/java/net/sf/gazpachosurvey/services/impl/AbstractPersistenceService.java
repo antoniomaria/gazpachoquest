@@ -12,11 +12,13 @@ import net.sf.gazpachosurvey.services.PersistenceService;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class AbstractPersistenceService<T_DAO extends GenericRepository<T, ID>, T extends Persistable<ID>, D extends Identifiable<ID>, ID extends Serializable>
+public class AbstractPersistenceService<T extends Persistable<ID>, D extends Identifiable<ID>, ID extends Serializable>
         implements PersistenceService<D, ID> {
 
     protected final GenericRepository<T, ID> repository;
-    final Class<D> typeParameterClass;
+
+    protected final Class<D> typeParameterClass;
+
     @Autowired
     private Mapper mapper;
 
@@ -34,26 +36,29 @@ public class AbstractPersistenceService<T_DAO extends GenericRepository<T, ID>, 
     @Override
     public D findOne(ID id) {
         T entity = repository.findOne(id);
-        D dto = mapper.map(entity, typeParameterClass, "labelSet.skeleton");
+        String schenarioName = entity.getClass().getSimpleName() + ".default";
+        D dto = mapper.map(entity, typeParameterClass, schenarioName);
         return dto;
     }
 
     @Override
     public long count() {
-        // TODO Auto-generated method stub
-        return 0;
+        return repository.count();
     }
 
     @Override
     public void delete(ID id) {
-        // TODO Auto-generated method stub
-
+        repository.delete(id);
     }
 
     @Override
     public D save(D entity) {
-        // TODO Auto-generated method stub
-        return null;
+        D dto = mapper.map(entity, typeParameterClass, schenarioName);
+        
+        T savedEntity = repository.save(entity);
+        
+        D dto = mapper.map(entity, typeParameterClass, schenarioName);
+        return dto;
     }
 
     @Override

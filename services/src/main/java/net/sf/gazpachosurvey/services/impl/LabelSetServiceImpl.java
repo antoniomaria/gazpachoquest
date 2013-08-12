@@ -1,22 +1,20 @@
 package net.sf.gazpachosurvey.services.impl;
 
-import org.dozer.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import net.sf.gazpachosurvey.domain.core.Label;
 import net.sf.gazpachosurvey.domain.core.LabelSet;
-import net.sf.gazpachosurvey.domain.core.Page;
-import net.sf.gazpachosurvey.dto.Identifiable;
 import net.sf.gazpachosurvey.dto.LabelDTO;
 import net.sf.gazpachosurvey.dto.LabelSetDTO;
 import net.sf.gazpachosurvey.repository.LabelRepository;
 import net.sf.gazpachosurvey.repository.LabelSetRepository;
-import net.sf.gazpachosurvey.repository.support.GenericRepository;
 import net.sf.gazpachosurvey.services.LabelSetService;
 
+import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 @Service
-public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSetRepository, LabelSet, LabelSetDTO, Integer>implements LabelSetService {
+public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSet, LabelSetDTO, Integer> implements
+        LabelSetService {
 
     @Autowired
     public LabelSetServiceImpl(LabelSetRepository repository) {
@@ -38,6 +36,7 @@ public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSetRepo
         return labelSetRepository.save(entity).getId();
     }
 
+    @Override
     public Integer addLabel(Integer labelSetId, LabelDTO label) {
         LabelSet labelSet = labelSetRepository.findOne(labelSetId);
 
@@ -46,7 +45,6 @@ public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSetRepo
 
         labelSet.addLabel(entity);
 
-        return labelSet.getLabels().get(labelSet.getLabels().size() - 1)
-                .getId();
+        return labelSet.getLabels().get(labelSet.getLabels().size() - 1).getId();
     }
 }
