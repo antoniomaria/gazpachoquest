@@ -1,5 +1,8 @@
 package net.sf.gazpachosurvey.dto;
 
+import java.util.List;
+
+import net.sf.gazpachosurvey.domain.core.Label;
 import net.sf.gazpachosurvey.dto.PageDTO.Builder;
 import net.sf.gazpachosurvey.dto.PageDTO.BuilderImpl;
 import net.sf.gazpachosurvey.types.Language;
@@ -12,9 +15,22 @@ public class LabelSetDTO extends AbstractIdentifiableDTO<Integer> {
 
     private Language language;
 
+    private List<LabelDTO> labels;
+    
     public LabelSetDTO() {
         super();
     }
+
+    
+    public List<LabelDTO> getLabels() {
+        return labels;
+    }
+
+
+    public void setLabels(List<LabelDTO> labels) {
+        this.labels = labels;
+    }
+
 
     public String getName() {
         return name;

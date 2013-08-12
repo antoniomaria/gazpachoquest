@@ -17,6 +17,8 @@ import net.sf.gazpachosurvey.types.Language;
 @Entity
 public class LabelSet extends AbstractPersistable<Integer> {
 
+    private static final long serialVersionUID = -8780599348940056785L;
+
     private String name;
 
     @OneToMany(mappedBy = "labelSet", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
