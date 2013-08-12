@@ -20,7 +20,7 @@ public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSetRepo
 
     @Autowired
     public LabelSetServiceImpl(LabelSetRepository repository) {
-        super(repository);
+        super(repository, LabelSetDTO.class);
     }
 
     @Autowired

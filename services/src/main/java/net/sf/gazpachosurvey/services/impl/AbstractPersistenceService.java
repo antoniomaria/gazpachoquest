@@ -19,12 +19,13 @@ public class AbstractPersistenceService<T_DAO extends GenericRepository<T, ID>, 
         implements PersistenceService<D, ID> {
 
     protected final GenericRepository<T, ID> repository;
-
+     final Class<D> typeParameterClass;
     @Autowired
     private Mapper mapper;
 
-    public AbstractPersistenceService(GenericRepository<T, ID> repository) {
+    public AbstractPersistenceService(GenericRepository<T, ID> repository, Class<D> typeParameterClass) {
         this.repository = repository;
+        this.typeParameterClass = typeParameterClass;
     }
 
     @Override
@@ -37,15 +38,11 @@ public class AbstractPersistenceService<T_DAO extends GenericRepository<T, ID>, 
     public D findOne(ID id) {
         T entity = repository.findOne(id);
 
-       D dto = mapper.map(entity, f());
-        return null;
+       D dto = mapper.map(entity, typeParameterClass);
+        return dto;
     }
 
-    public  Class<D> f() {
-        return LabelSetDTO.class.getClass();
-    }
 
-    public @Override
     public long count() {
         // TODO Auto-generated method stub
         return 0;
