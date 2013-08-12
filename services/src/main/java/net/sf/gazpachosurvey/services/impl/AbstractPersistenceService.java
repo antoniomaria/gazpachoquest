@@ -3,11 +3,8 @@ package net.sf.gazpachosurvey.services.impl;
 import java.io.Serializable;
 import java.util.List;
 
-import net.sf.gazpachosurvey.domain.core.Label;
-import net.sf.gazpachosurvey.domain.core.LabelSet;
 import net.sf.gazpachosurvey.domain.support.Persistable;
 import net.sf.gazpachosurvey.dto.Identifiable;
-import net.sf.gazpachosurvey.dto.LabelSetDTO;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import net.sf.gazpachosurvey.repository.support.GenericRepository;
 import net.sf.gazpachosurvey.services.PersistenceService;
@@ -19,7 +16,7 @@ public class AbstractPersistenceService<T_DAO extends GenericRepository<T, ID>, 
         implements PersistenceService<D, ID> {
 
     protected final GenericRepository<T, ID> repository;
-     final Class<D> typeParameterClass;
+    final Class<D> typeParameterClass;
     @Autowired
     private Mapper mapper;
 
@@ -37,12 +34,11 @@ public class AbstractPersistenceService<T_DAO extends GenericRepository<T, ID>, 
     @Override
     public D findOne(ID id) {
         T entity = repository.findOne(id);
-
-       D dto = mapper.map(entity, typeParameterClass);
+        D dto = mapper.map(entity, typeParameterClass, "labelSet.skeleton");
         return dto;
     }
 
-
+    @Override
     public long count() {
         // TODO Auto-generated method stub
         return 0;

@@ -24,7 +24,15 @@
       <tx:method name="*" />
     </tx:attributes>
   </tx:advice>
-  
+
   <tx:annotation-driven />
-  <bean id="mapper" class="org.dozer.DozerBeanMapper" scope="singleton" />
+  
+  <bean id="org.dozer.Mapper" class="org.dozer.spring.DozerBeanMapperFactoryBean">
+    <property name="mappingFiles">
+      <list>
+        <value>classpath:/dozer/dozer-mappings.xml</value>
+      </list>
+    </property>
+  </bean>
+
 </beans>

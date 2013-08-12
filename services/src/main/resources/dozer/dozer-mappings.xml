@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+  <mapping map-id="labelSet.skeleton">
+    <class-a>net.sf.gazpachosurvey.domain.core.LabelSet</class-a>
+    <class-b>net.sf.gazpachosurvey.dto.LabelSetDTO</class-b>
+    <field-exclude>
+      <a>labels</a>
+      <b>labels</b>
+    </field-exclude>
+  </mapping>
+
+  <mapping map-id="labelSet.skeleton">
+    <class-a>net.sf.gazpachosurvey.domain.core.Label</class-a>
+    <class-b>net.sf.gazpachosurvey.dto.LabelDTO</class-b>
+    <field-exclude>
+      <a>title</a>
+      <b>title</b>
+    </field-exclude>
+  </mapping>
+</mappings>
