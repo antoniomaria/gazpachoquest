@@ -14,10 +14,17 @@
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
   <context:component-scan base-package="net.sf.gazpachosurvey.services.impl" />
-
+  <bean id="profilingAdvise" class="net.sf.gazpachosurvey.aspects.ProfilingAdvise"></bean>
+  
   <aop:config>
-    <aop:advisor advice-ref="txAdvice" pointcut="execution(* net.sf.gazpachosurvey.services.*.*(..))" order="9999" />
+    <aop:pointcut id="serviceOperation" expression="execution(* net.sf.gazpachosurvey.services.*.*(..))" />
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" order="9999" />
+    
+    <aop:aspect id="profilingAspect" ref="profilingAdvise">
+      <aop:around method="doProfiling" pointcut-ref="serviceOperation"/>
+    </aop:aspect>
   </aop:config>
+  
   <tx:advice id="txAdvice">
     <tx:attributes>
       <tx:method name="find*" read-only="true" />
