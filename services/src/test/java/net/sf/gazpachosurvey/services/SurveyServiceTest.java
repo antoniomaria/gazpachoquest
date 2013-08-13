@@ -59,7 +59,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         assertThat(id).isNotNull();
 
         LabelSetDTO labelSet = LabelSetDTO.with().language(Language.EN).name("Feelings").build();
-        Integer labelSetId = labelSetService.addLabelSet(labelSet);
+
+        Integer labelSetId = labelSetService.add(labelSet);
 
         LabelDTO label = LabelDTO.with().title("Agree strongly").build();
         labelSetService.addLabel(labelSetId, label);

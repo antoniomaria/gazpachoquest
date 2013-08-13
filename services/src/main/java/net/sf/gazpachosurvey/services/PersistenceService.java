@@ -15,7 +15,7 @@ public interface PersistenceService<D extends Identifiable<ID>, ID extends Seria
 
     void delete(ID id);
 
-    D save(D entity);
+    ID add(D entity);
 
     List<D> findByExample(D entity, SearchParameters searchParameters);
 }

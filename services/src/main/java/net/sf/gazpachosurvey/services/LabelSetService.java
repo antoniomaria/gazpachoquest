@@ -5,7 +5,5 @@ import net.sf.gazpachosurvey.dto.LabelSetDTO;
 
 public interface LabelSetService extends PersistenceService<LabelSetDTO, Integer> {
 
-    Integer addLabelSet(LabelSetDTO labelSet);
-
     Integer addLabel(Integer labelSetId, LabelDTO label);
 }

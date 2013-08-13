@@ -17,14 +17,17 @@ public class AbstractPersistenceService<T extends Persistable<ID>, D extends Ide
 
     protected final GenericRepository<T, ID> repository;
 
-    protected final Class<D> typeParameterClass;
+    protected final Class<D> dtoClazz;
+
+    protected final Class<T> entityClazz;
 
     @Autowired
-    private Mapper mapper;
+    protected Mapper mapper;
 
-    public AbstractPersistenceService(GenericRepository<T, ID> repository, Class<D> typeParameterClass) {
+    public AbstractPersistenceService(GenericRepository<T, ID> repository, Class<T> entityClazz, Class<D> dtoClazz) {
         this.repository = repository;
-        this.typeParameterClass = typeParameterClass;
+        this.dtoClazz = dtoClazz;
+        this.entityClazz = entityClazz;
     }
 
     @Override
@@ -37,7 +40,7 @@ public class AbstractPersistenceService<T extends Persistable<ID>, D extends Ide
     public D findOne(ID id) {
         T entity = repository.findOne(id);
         String schenarioName = entity.getClass().getSimpleName() + ".default";
-        D dto = mapper.map(entity, typeParameterClass, schenarioName);
+        D dto = mapper.map(entity, dtoClazz, schenarioName);
         return dto;
     }
 
@@ -52,13 +55,10 @@ public class AbstractPersistenceService<T extends Persistable<ID>, D extends Ide
     }
 
     @Override
-    public D save(D entity) {
-        D dto = mapper.map(entity, typeParameterClass, schenarioName);
-        
+    public ID add(D dto) {
+        T entity = mapper.map(dto, entityClazz);
         T savedEntity = repository.save(entity);
-        
-        D dto = mapper.map(entity, typeParameterClass, schenarioName);
-        return dto;
+        return savedEntity.getId();
     }
 
     @Override

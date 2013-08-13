@@ -8,7 +8,6 @@ import net.sf.gazpachosurvey.repository.LabelRepository;
 import net.sf.gazpachosurvey.repository.LabelSetRepository;
 import net.sf.gazpachosurvey.services.LabelSetService;
 
-import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,7 @@ public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSet, La
 
     @Autowired
     public LabelSetServiceImpl(LabelSetRepository repository) {
-        super(repository, LabelSetDTO.class);
+        super(repository, LabelSet.class, LabelSetDTO.class);
     }
 
     @Autowired
@@ -26,15 +25,6 @@ public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSet, La
 
     @Autowired
     private LabelRepository labelRepository;
-
-    @Autowired
-    private Mapper mapper;
-
-    @Override
-    public Integer addLabelSet(LabelSetDTO labelSet) {
-        LabelSet entity = mapper.map(labelSet, LabelSet.class);
-        return labelSetRepository.save(entity).getId();
-    }
 
     @Override
     public Integer addLabel(Integer labelSetId, LabelDTO label) {
