@@ -47,7 +47,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
                 .welcomeText("Thank you for taking the time to participate in this survey.")
                 .surveyLanguageSettingsEnd().build();
 
-        Integer surveyId = surveyService.addSurvey(survey);
+        Integer surveyId = surveyService.add(survey);
         assertThat(surveyId).isNotNull();
 
         PageDTO page = PageDTO.with().pageLanguageSettingsStart().title("Page 1").pageLanguageSettingsEnd().build();

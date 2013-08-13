@@ -7,21 +7,20 @@ import net.sf.gazpachosurvey.repository.PageRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.services.PageService;
 
-import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 @Service
-public class PageSurveyImpl implements PageService {
+public class PageSurveyImpl extends AbstractPersistenceService<Page, PageDTO, Integer> implements PageService {
+
     @Autowired
     private SurveyRepository surveyRepository;
 
     @Autowired
-    private PageRepository pageRepository;
-
-    @Autowired
-    private Mapper mapper;
+    public PageSurveyImpl(PageRepository repository) {
+        super(repository, Page.class, PageDTO.class);
+    }
 
     @Override
     public Integer addPage(Integer surveyId, PageDTO page) {
@@ -41,4 +40,5 @@ public class PageSurveyImpl implements PageService {
 
         return newPageId;
     }
+
 }

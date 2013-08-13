@@ -21,14 +21,11 @@ public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSet, La
     }
 
     @Autowired
-    private LabelSetRepository labelSetRepository;
-
-    @Autowired
     private LabelRepository labelRepository;
 
     @Override
     public Integer addLabel(Integer labelSetId, LabelDTO label) {
-        LabelSet labelSet = labelSetRepository.findOne(labelSetId);
+        LabelSet labelSet = repository.findOne(labelSetId);
 
         Label entity = mapper.map(label, Label.class);
         entity.setLanguage(labelSet.getLanguage());
