@@ -3,7 +3,6 @@ package net.sf.gazpachosurvey.domain.core;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -17,13 +16,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 
 import net.sf.gazpachosurvey.domain.i18.QuestionTranslation;
+import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.QuestionType;
 
-import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
-
 @Entity
 public class Question extends AbstractPersistable<Integer> {
+
+    private static final long serialVersionUID = -4372634574851905803L;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Survey survey;

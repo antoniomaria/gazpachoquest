@@ -7,17 +7,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.MapKeyEnumerated;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 
 import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
-import net.sf.gazpachosurvey.types.Language;
-
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
-import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import net.sf.gazpachosurvey.types.Language;
 
 @Entity
 public class Survey extends AbstractAuditable<Integer> {
+
+    private static final long serialVersionUID = 2560468772707058412L;
 
     @Embedded
     private SurveyLanguageSettings languageSettings;
@@ -34,12 +43,11 @@ public class Survey extends AbstractAuditable<Integer> {
     private Map<Language, SurveyTranslation> translations;
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @OrderColumn(name = "sort_order")
+    @OrderColumn(name = "order_in_survey")
     private List<Page> pages;
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @OrderColumn(name = "order_in_survey")
-    private List<Question> questions;
+    private Set<Question> questions;
 
     public Survey() {
         super();
@@ -103,14 +111,14 @@ public class Survey extends AbstractAuditable<Integer> {
         page.setSurvey(this);
     }
 
-    public List<Question> getQuestions() {
+    public Set<Question> getQuestions() {
         if (questions == null) {
-            questions = new ArrayList<>();
+            questions = new HashSet<>();
         }
         return questions;
     }
 
-    public void setQuestions(List<Question> questions) {
+    public void setQuestions(Set<Question> questions) {
         this.questions = questions;
     }
 

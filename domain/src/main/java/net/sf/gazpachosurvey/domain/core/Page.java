@@ -1,7 +1,8 @@
 package net.sf.gazpachosurvey.domain.core;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 
 import net.sf.gazpachosurvey.domain.core.embeddables.PageLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.PageTranslation;
@@ -22,6 +24,8 @@ import net.sf.gazpachosurvey.types.Language;
 
 @Entity
 public class Page extends AbstractPersistable<Integer> {
+
+    private static final long serialVersionUID = 5849288763708940985L;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Survey survey;
@@ -38,18 +42,22 @@ public class Page extends AbstractPersistable<Integer> {
     @MapKeyColumn(name = "language")
     private Map<Language, PageTranslation> translations;
 
-    @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Question> questions;
-
+    @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OrderColumn(name = "order_in_page")
+    private List<Question> questions;
+    
     public Page() {
         super();
     }
 
-    public Set<Question> getQuestions() {
+    public List<Question> getQuestions() {
+        if (questions == null){
+            this.questions = new ArrayList<>();
+        }
         return questions;
     }
 
-    public void setQuestions(Set<Question> questions) {
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 
@@ -83,6 +91,11 @@ public class Page extends AbstractPersistable<Integer> {
 
     public void setTranslations(Map<Language, PageTranslation> translations) {
         this.translations = translations;
+    }
+    
+    public void addQuestion(Question question){
+        getQuestions().add(question);
+        question.setPage(this);
     }
 
 }

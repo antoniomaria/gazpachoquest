@@ -4,6 +4,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachosurvey.dto.LabelDTO;
 import net.sf.gazpachosurvey.dto.LabelSetDTO;
 import net.sf.gazpachosurvey.dto.PageDTO;
+import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
 import net.sf.gazpachosurvey.types.Language;
 
@@ -34,6 +35,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
     @Autowired
     private LabelSetService labelSetService;
+    
+    @Autowired
+    private QuestionService questionService;
 
     @Test
     public void addSurveyTest() {
@@ -51,12 +55,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         assertThat(surveyId).isNotNull();
 
         PageDTO page = PageDTO.with().pageLanguageSettingsStart().title("Page 1").pageLanguageSettingsEnd().build();
-        Integer id = pageService.addPage(surveyId, page);
-        assertThat(id).isNotNull();
+        Integer page1Id = pageService.addPage(surveyId, page);
+        assertThat(page1Id).isNotNull();
 
         page = PageDTO.with().pageLanguageSettingsStart().title("Page 2").pageLanguageSettingsEnd().build();
-        id = pageService.addPage(surveyId, page);
-        assertThat(id).isNotNull();
+        Integer page2Id = pageService.addPage(surveyId, page);
+        assertThat(page2Id).isNotNull();
 
         LabelSetDTO labelSet = LabelSetDTO.with().language(Language.EN).name("Feelings").build();
 
@@ -79,6 +83,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
         LabelSetDTO winner = labelSetService.findOne(1);
 
+        QuestionDTO question = QuestionDTO.with().title("What is your name?").isRequired(true).build();
+        questionService.addQuestion(page1Id, question);
+        
         System.out.println("fin" + winner.getName());
 
     }
