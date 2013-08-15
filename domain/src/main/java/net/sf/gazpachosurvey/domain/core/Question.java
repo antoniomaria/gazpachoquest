@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.domain.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,6 +103,9 @@ public class Question extends AbstractPersistable<Integer> {
     }
 
     public List<Answer> getAnswers() {
+        if (answers == null) {
+            answers = new ArrayList<>();
+        }
         return answers;
     }
 
@@ -150,6 +154,12 @@ public class Question extends AbstractPersistable<Integer> {
 
     public void setLanguage(Language language) {
         this.language = language;
+    }
+
+    public void addAnswer(Answer answer) {
+        getAnswers().add(answer);
+        answer.setQuestion(this);
+        answer.setLanguage(language);
     }
 
 }

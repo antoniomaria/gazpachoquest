@@ -1,6 +1,7 @@
 package net.sf.gazpachosurvey.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachosurvey.dto.AnswerDTO;
 import net.sf.gazpachosurvey.dto.LabelDTO;
 import net.sf.gazpachosurvey.dto.LabelSetDTO;
 import net.sf.gazpachosurvey.dto.PageDTO;
@@ -35,7 +36,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
     @Autowired
     private LabelSetService labelSetService;
-    
+
     @Autowired
     private QuestionService questionService;
 
@@ -84,8 +85,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         LabelSetDTO winner = labelSetService.findOne(1);
 
         QuestionDTO question = QuestionDTO.with().title("What is your name?").isRequired(true).build();
-        questionService.addQuestion(page1Id, question);
-        
+        Integer questionId = questionService.addQuestion(page1Id, question);
+        questionService.addAnswer(questionId, AnswerDTO.with().title("0-18 years").build());
+        questionService.addAnswer(questionId, AnswerDTO.with().title("19-26 years").build());
+        questionService.addAnswer(questionId, AnswerDTO.with().title("27-40 years").build());
+        questionService.addAnswer(questionId, AnswerDTO.with().title("40-65 years").build());
+        questionService.addAnswer(questionId, AnswerDTO.with().title("65- years").build());
+
         System.out.println("fin" + winner.getName());
 
     }

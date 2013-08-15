@@ -7,13 +7,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
-
-//import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 
 import net.sf.gazpachosurvey.domain.i18.AnswerTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
@@ -21,6 +20,8 @@ import net.sf.gazpachosurvey.types.Language;
 
 @Entity
 public class Answer extends AbstractPersistable<Integer> {
+
+    private static final long serialVersionUID = 2405587054509407178L;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Question question;
@@ -31,13 +32,14 @@ public class Answer extends AbstractPersistable<Integer> {
     private String title;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Language language;
 
     @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language")
     private Map<Language, AnswerTranslation> translations;
-    
+
     public Answer() {
         super();
     }

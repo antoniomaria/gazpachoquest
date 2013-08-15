@@ -2,9 +2,11 @@ package net.sf.gazpachosurvey.services.impl;
 
 import javax.annotation.Resource;
 
+import net.sf.gazpachosurvey.domain.core.Answer;
 import net.sf.gazpachosurvey.domain.core.Page;
 import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.Survey;
+import net.sf.gazpachosurvey.dto.AnswerDTO;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.repository.PageRepository;
 import net.sf.gazpachosurvey.repository.QuestionRepository;
@@ -15,8 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class QuestionServiceImpl extends
-        AbstractPersistenceService<Question, QuestionDTO, Integer> implements
+public class QuestionServiceImpl extends AbstractPersistenceService<Question, QuestionDTO, Integer> implements
         QuestionService {
 
     @Resource
@@ -43,4 +44,11 @@ public class QuestionServiceImpl extends
         return page.getQuestions().get(page.getQuestions().size() - 1).getId();
     }
 
+    public Integer addAnswer(Integer questionId, AnswerDTO answer) {
+        Question question = repository.findOne(questionId);
+        Answer answerEntity = mapper.map(answer, Answer.class);
+        question.addAnswer(answerEntity);
+        Question savedQuestion = repository.save(question);
+        return savedQuestion.getAnswers().get(savedQuestion.getAnswers().size() - 1).getId();
+    }
 }

@@ -10,6 +10,8 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class AbstractPersistable<PK extends Serializable> implements Persistable<PK> {
 
+    private static final long serialVersionUID = -7123026384985572646L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private PK id;
