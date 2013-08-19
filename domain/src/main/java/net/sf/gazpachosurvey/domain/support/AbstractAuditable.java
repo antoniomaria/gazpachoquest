@@ -20,6 +20,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 public class AbstractAuditable<PK extends Serializable> extends
         AbstractPersistable<PK> {
     
+    private static final long serialVersionUID = 6507308518779364972L;
+
     @ManyToOne(targetEntity = User.class)
     @CreatedBy
     private User createdBy;

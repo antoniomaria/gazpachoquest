@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.domain.core;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -10,13 +11,17 @@ import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 
 @Entity
 public class Participant extends AbstractPersistable<Integer> {
+    
+    private static final long serialVersionUID = 6716148852807992302L;
+
     private String firstname;
+    
     private String lastname;
+    
     private String email;
-    private String language;
 
     @ManyToMany(mappedBy = "participants")
-    private Set<SurveyRunning> surveyRunning;
+    private Set<SurveyRunning> surveyRunnings;
 
     public Participant() {
         super();
@@ -46,20 +51,16 @@ public class Participant extends AbstractPersistable<Integer> {
         this.email = email;
     }
 
-    public String getLanguage() {
-        return language;
+    public Set<SurveyRunning> getSurveyRunnings() {
+        if (surveyRunnings == null){
+            this.surveyRunnings = new HashSet<>();
+        }
+            
+        return surveyRunnings;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public Set<SurveyRunning> getSurveyRunning() {
-        return surveyRunning;
-    }
-
-    public void setSurveyRunning(Set<SurveyRunning> surveyRunning) {
-        this.surveyRunning = surveyRunning;
+    public void setSurveyRunnings(Set<SurveyRunning> surveyRunning) {
+        this.surveyRunnings = surveyRunning;
     }
 
 }

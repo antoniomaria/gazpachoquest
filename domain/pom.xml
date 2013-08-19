@@ -54,6 +54,11 @@
       <artifactId>joda-time</artifactId>
       <version>2.2</version>
     </dependency>
+    <dependency>
+    <groupId>org.bsc.maven</groupId>
+    <artifactId>maven-processor-plugin</artifactId>
+    <version>2.2.4</version>
+</dependency>
   </dependencies>
   <build>
     <plugins>

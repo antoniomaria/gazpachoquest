@@ -1,105 +1,38 @@
 package net.sf.gazpachosurvey.domain.core;
 
-import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import net.sf.gazpachosurvey.domain.user.User;
-
-import org.joda.time.DateTime;
-import org.springframework.data.domain.Auditable;
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
-import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 
-import javax.persistence.*;
+import org.springframework.util.Assert;
 
 @Entity
-//public class SurveyRunning extends AbstractAuditable<User, Integer> {
-    // public class SurveyRunning implements Auditable<User, Integer> {
+public class SurveyRunning extends AbstractAuditable<Integer> {
 
-//public class SurveyRunning implements Auditable<User, Integer> { // SI
-    public class SurveyRunning extends AbstractPersistable<Integer> {    
+    private static final long serialVersionUID = -5917291757324504802L;
 
-    //@AttributeOverride(column = @Column, name = "id")
-
-   /* @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
-    @ManyToOne
-    private User createdBy;
-
-    @ManyToOne
-    private User lastModifiedBy;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
-*/
     @ManyToOne(fetch = FetchType.LAZY)
     private Survey survey;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "surveyrunning_participant", joinColumns = { @JoinColumn(name = "surveyrunning_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "participant_id", referencedColumnName = "id") })
     private Set<Participant> participants;
-
+    
     private String name;
 
     public SurveyRunning() {
         super();
     }
 
-/*    public DateTime getCreatedDate() {
-
-        return null == createdDate ? null : new DateTime(createdDate);
-    }
-
-    public void setCreatedDate(final DateTime createdDate) {
-
-        this.createdDate = null == createdDate ? null : createdDate.toDate();
-    }
-
-    public DateTime getLastModifiedDate() {
-
-        return null == lastModifiedDate ? null : new DateTime(lastModifiedDate);
-    }
-
-    public void setLastModifiedDate(final DateTime lastModifiedDate) {
-
-        this.lastModifiedDate = null == lastModifiedDate ? null
-                : lastModifiedDate.toDate();
-    }
-
-    public User getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(User lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public User getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
-    }
-*/
     public Survey getSurvey() {
         return survey;
     }
@@ -109,6 +42,9 @@ import javax.persistence.*;
     }
 
     public Set<Participant> getParticipants() {
+        if (participants == null) {
+            this.participants = new HashSet<>();
+        }
         return participants;
     }
 
@@ -122,6 +58,12 @@ import javax.persistence.*;
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void addParticipant(Participant participant) {
+        Assert.notNull(participant, "Participant must be not null");
+        participant.getSurveyRunnings().add(this);
+        getParticipants().add(participant);
     }
 
     @Override
