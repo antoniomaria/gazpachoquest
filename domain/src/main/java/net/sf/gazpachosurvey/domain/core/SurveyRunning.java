@@ -20,7 +20,7 @@ public class SurveyRunning extends AbstractAuditable<Integer> {
 
     private static final long serialVersionUID = -5917291757324504802L;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Survey survey;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

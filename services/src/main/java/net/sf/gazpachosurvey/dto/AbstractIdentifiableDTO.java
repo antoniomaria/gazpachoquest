@@ -16,6 +16,11 @@ public class AbstractIdentifiableDTO<ID extends Serializable> implements Identif
     public void setId(ID id) {
         this.id = id;
     }
+    
+    @Override
+    public boolean isNew() {
+        return null == getId();
+    }
 
     @Override
     public String toString() {

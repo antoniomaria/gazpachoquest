@@ -1,12 +1,19 @@
 package net.sf.gazpachosurvey.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import net.sf.gazpachosurvey.domain.core.Participant;
 import net.sf.gazpachosurvey.dto.AnswerDTO;
 import net.sf.gazpachosurvey.dto.LabelDTO;
 import net.sf.gazpachosurvey.dto.LabelSetDTO;
 import net.sf.gazpachosurvey.dto.PageDTO;
+import net.sf.gazpachosurvey.dto.ParticipantDTO;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
+import net.sf.gazpachosurvey.dto.SurveyRunningDTO;
 import net.sf.gazpachosurvey.types.Language;
 
 import org.junit.Test;
@@ -39,7 +46,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
     @Autowired
     private QuestionService questionService;
+    
+    @Autowired
+    private ParticipantService participantService;
 
+    @Autowired
+    private SurveyRunningService surveyRunningService;
+    
     @Test
     public void addSurveyTest() {
         SurveyDTO survey = SurveyDTO
@@ -91,6 +104,28 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         questionService.addAnswer(questionId, AnswerDTO.with().title("27-40 years").build());
         questionService.addAnswer(questionId, AnswerDTO.with().title("40-65 years").build());
         questionService.addAnswer(questionId, AnswerDTO.with().title("65- years").build());
+        
+        ParticipantDTO tyrion = ParticipantDTO.with().firstname("Tyrion").lastname("Lannister").email("tyrion.lannister@kingslanding.net").build();
+        Integer participantId = participantService.add(tyrion);
+        tyrion.setId(participantId);
+
+        ParticipantDTO jon = ParticipantDTO.with().firstname("Jon").lastname("Snow").email("jon.snow@nightswatch.net").build();
+        participantService.add(jon);
+
+        ParticipantDTO arya = ParticipantDTO.with().firstname("Arya").lastname("Stark").email("arya.stark@winterfell.net").build();
+        participantService.add(arya);
+
+        ParticipantDTO catelyn = ParticipantDTO.with().firstname("Catelyn").lastname("Stark").email("catelyn.stark@winterfell.net").build();
+        participantService.add(catelyn);
+        
+        Set<ParticipantDTO> participants = new HashSet<>();
+        participants.add(tyrion);
+        participants.add(arya);
+        participants.add(catelyn);
+        participants.add(jon);
+        SurveyRunningDTO surveyRunning = SurveyRunningDTO.with().name("my first running").participants(participants).build();
+        
+        surveyRunningService.addSurveyRunning(surveyId, participants);
 
         System.out.println("fin" + winner.getName());
 
