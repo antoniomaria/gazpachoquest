@@ -110,13 +110,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         tyrion.setId(participantId);
 
         ParticipantDTO jon = ParticipantDTO.with().firstname("Jon").lastname("Snow").email("jon.snow@nightswatch.net").build();
-        participantService.add(jon);
+        //participantService.add(jon);
 
         ParticipantDTO arya = ParticipantDTO.with().firstname("Arya").lastname("Stark").email("arya.stark@winterfell.net").build();
-        participantService.add(arya);
+        //participantService.add(arya);
 
         ParticipantDTO catelyn = ParticipantDTO.with().firstname("Catelyn").lastname("Stark").email("catelyn.stark@winterfell.net").build();
-        participantService.add(catelyn);
+        //participantService.add(catelyn);
         
         Set<ParticipantDTO> participants = new HashSet<>();
         participants.add(tyrion);
@@ -125,8 +125,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         participants.add(jon);
         SurveyRunningDTO surveyRunning = SurveyRunningDTO.with().name("my first running").participants(participants).build();
         
-        surveyRunningService.addSurveyRunning(surveyId, participants);
-
+        surveyRunningService.add(surveyRunning);
+        
         System.out.println("fin" + winner.getName());
 
     }

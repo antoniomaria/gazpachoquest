@@ -6,18 +6,20 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
-import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 
 @Entity
 public class Participant extends AbstractPersistable<Integer> {
-    
+
     private static final long serialVersionUID = 6716148852807992302L;
 
     private String firstname;
-    
+
     private String lastname;
-    
+
     private String email;
 
     @ManyToMany(mappedBy = "participants")
@@ -52,10 +54,10 @@ public class Participant extends AbstractPersistable<Integer> {
     }
 
     public Set<SurveyRunning> getSurveyRunnings() {
-        if (surveyRunnings == null){
+        if (surveyRunnings == null) {
             this.surveyRunnings = new HashSet<>();
         }
-            
+
         return surveyRunnings;
     }
 

@@ -1,5 +1,8 @@
 package net.sf.gazpachosurvey.dto;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 public class ParticipantDTO extends AbstractIdentifiableDTO<Integer> {
 
     private static final long serialVersionUID = 1284879816117827887L;
@@ -38,10 +41,10 @@ public class ParticipantDTO extends AbstractIdentifiableDTO<Integer> {
         this.email = email;
     }
 
-    public static Builder with(){
+    public static Builder with() {
         return new Builder();
     }
-    
+
     public static class Builder {
         private String firstname;
         private String lastname;
@@ -70,4 +73,5 @@ public class ParticipantDTO extends AbstractIdentifiableDTO<Integer> {
             return participantDTO;
         }
     }
+
 }

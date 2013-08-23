@@ -23,7 +23,7 @@ public class SurveyRunning extends AbstractAuditable<Integer> {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Survey survey;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "surveyrunning_participant", joinColumns = { @JoinColumn(name = "surveyrunning_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "participant_id", referencedColumnName = "id") })
     private Set<Participant> participants;
     
@@ -49,7 +49,13 @@ public class SurveyRunning extends AbstractAuditable<Integer> {
     }
 
     public void setParticipants(Set<Participant> participants) {
-        this.participants = participants;
+        for (Participant participant : participants) {
+            addParticipant(participant);
+        }
+        System.err.println("llamado!!");
+        System.err.println("llamado!!");
+        System.err.println("llamado!!");
+        System.err.println("llamado!!");
     }
 
     public String getName() {
