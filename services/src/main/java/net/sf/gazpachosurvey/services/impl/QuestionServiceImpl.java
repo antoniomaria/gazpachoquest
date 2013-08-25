@@ -1,5 +1,8 @@
 package net.sf.gazpachosurvey.services.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import net.sf.gazpachosurvey.domain.core.Answer;
@@ -13,6 +16,7 @@ import net.sf.gazpachosurvey.repository.QuestionRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.services.QuestionService;
 
+import org.eclipse.persistence.internal.jpa.deployment.ArchiveFactoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +35,25 @@ public class QuestionServiceImpl extends AbstractPersistenceService<Question, Qu
         super(repository, Question.class, QuestionDTO.class);
     }
 
+    @Override
+    public Integer add(QuestionDTO questionDTO) {
+        Question question = mapper.map(questionDTO, Question.class);
+        
+        
+        List <Question> mysubquestions = new ArrayList<>();
+        mysubquestions.addAll(question.getSubquestions()
+        );
+        question.getSubquestions().clear();
+        
+        question = repository.save(question);
+        
+        for (Question subquestion : mysubquestions) {
+            repository.save(subquestion);
+        }
+        
+        return question.getId();
+    }
+    
     @Override
     public Integer addQuestion(Integer pageId, QuestionDTO question) {
         Page page = pageRepository.findOne(pageId);

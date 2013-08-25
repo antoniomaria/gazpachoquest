@@ -2,6 +2,8 @@ package net.sf.gazpachosurvey.types;
 
 
 public enum QuestionType {
+    S(false),
+    
     Multiple_Choice_One_Answer(true),
     Multiple_Choice_Multiple_Answers(true), 
     Comment(false), 
@@ -13,7 +15,7 @@ public enum QuestionType {
     Single_Textbox(false),
     Multiple_Textboxe(true),
     Multiple_Numerical_Textboxes(true),
-    Data_and_time(false);
+    Data_and_time(false), L(false), N(false), T(false);
     private boolean hasChoices;
     
     QuestionType(boolean hasChoices){

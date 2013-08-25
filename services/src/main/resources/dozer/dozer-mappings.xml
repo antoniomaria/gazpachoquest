@@ -14,4 +14,14 @@
       <b>language</b>
     </field>
   </mapping>
+  
+    <mapping>
+    <class-a>net.sf.gazpachosurvey.dto.QuestionDTO</class-a>
+    <class-b>net.sf.gazpachosurvey.domain.core.Question</class-b>
+    <field>
+      <a>subquestions</a>
+      <b set-method="addSubquestion" type="iterate">subquestions</b>
+    <b-hint>net.sf.gazpachosurvey.domain.core.Question</b-hint> 
+    </field>
+  </mapping>
 </mappings>

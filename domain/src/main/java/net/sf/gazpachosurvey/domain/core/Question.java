@@ -16,6 +16,8 @@ import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 
+import org.springframework.util.Assert;
+
 import net.sf.gazpachosurvey.domain.i18.QuestionTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.Language;
@@ -35,7 +37,7 @@ public class Question extends AbstractPersistable<Integer> {
     @ManyToOne
     private Page page;
 
-    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @OrderColumn(name = "order_in_subquestions")
     private List<Question> subquestions;
 
@@ -79,6 +81,9 @@ public class Question extends AbstractPersistable<Integer> {
     }
 
     public List<Question> getSubquestions() {
+        if (subquestions == null){
+            this.subquestions = new ArrayList<>();
+        }
         return subquestions;
     }
 
@@ -160,6 +165,12 @@ public class Question extends AbstractPersistable<Integer> {
         getAnswers().add(answer);
         answer.setQuestion(this);
         answer.setLanguage(language);
+    }
+    
+    public void addSubquestion(Question subquestion){
+        Assert.notNull(subquestion);
+        getSubquestions().add(subquestion);
+        subquestion.setParent(this);
     }
 
 }

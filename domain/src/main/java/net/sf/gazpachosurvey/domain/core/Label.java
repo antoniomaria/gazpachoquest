@@ -20,6 +20,8 @@ import net.sf.gazpachosurvey.types.Language;
 @Entity
 public class Label extends AbstractPersistable<Integer>{
 
+    private static final long serialVersionUID = -7124703628441903468L;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private LabelSet labelSet;
 

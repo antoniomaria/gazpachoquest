@@ -1,5 +1,8 @@
 package net.sf.gazpachosurvey.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.QuestionType;
 
@@ -14,6 +17,8 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
     private QuestionType type;
 
     private Language language;
+    
+    private List<QuestionDTO> subquestions;
 
     public QuestionDTO() {
         super();
@@ -51,6 +56,17 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
         this.language = language;
     }
 
+    public List<QuestionDTO> getSubquestions() {
+        if (subquestions == null){
+            subquestions = new ArrayList<QuestionDTO>();
+        }
+        return subquestions;
+    }
+
+    public void setSubquestions(List<QuestionDTO> subquestions) {
+        this.subquestions = subquestions;
+    }
+
     public static Builder with(){
         return new Builder();
     }
@@ -60,6 +76,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
         private boolean isRequired;
         private QuestionType type;
         private Language language;
+        private List<QuestionDTO> subquestions;
 
         public Builder title(String title) {
             this.title = title;
@@ -80,6 +97,12 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
             this.language = language;
             return this;
         }
+        
+        public Builder subquestions(List<QuestionDTO> subquestions) {
+            this.subquestions = subquestions;
+            return this;
+        }
+
 
         public QuestionDTO build() {
             QuestionDTO questionDTO = new QuestionDTO();
@@ -87,6 +110,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
             questionDTO.isRequired = isRequired;
             questionDTO.type = type;
             questionDTO.language = language;
+            questionDTO.subquestions = subquestions;
             return questionDTO;
         }
     }

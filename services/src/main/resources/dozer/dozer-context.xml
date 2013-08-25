@@ -13,26 +13,12 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
-  <import resource="classpath:/dozer/dozer-context.xml" />
-  
-  <context:component-scan base-package="net.sf.gazpachosurvey.services.impl" />
-  <bean id="profilingAdvise" class="net.sf.gazpachosurvey.aspects.ProfilingAdvise"></bean>
-  
-  <aop:config>
-    <aop:pointcut id="serviceOperation" expression="execution(* net.sf.gazpachosurvey.services.*.*(..))" />
-    <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" order="9999" />
-    
-    <aop:aspect id="profilingAspect" ref="profilingAdvise">
-      <aop:around method="doProfiling" pointcut-ref="serviceOperation"/>
-    </aop:aspect>
-  </aop:config>
-  
-  <tx:advice id="txAdvice">
-    <tx:attributes>
-      <tx:method name="find*" read-only="true" />
-      <tx:method name="*" />
-    </tx:attributes>
-  </tx:advice>
+  <bean id="org.dozer.Mapper" class="org.dozer.spring.DozerBeanMapperFactoryBean">
+    <property name="mappingFiles">
+      <list>
+        <value>classpath:/dozer/dozer-mappings.xml</value>
+      </list>
+    </property>
+  </bean>
 
-  <tx:annotation-driven />
 </beans>
