@@ -35,24 +35,6 @@ public class QuestionServiceImpl extends AbstractPersistenceService<Question, Qu
         super(repository, Question.class, QuestionDTO.class);
     }
 
-    @Override
-    public Integer add(QuestionDTO questionDTO) {
-        Question question = mapper.map(questionDTO, Question.class);
-        
-        
-        List <Question> mysubquestions = new ArrayList<>();
-        mysubquestions.addAll(question.getSubquestions()
-        );
-        question.getSubquestions().clear();
-        
-        question = repository.save(question);
-        
-        for (Question subquestion : mysubquestions) {
-            repository.save(subquestion);
-        }
-        
-        return question.getId();
-    }
     
     @Override
     public Integer addQuestion(Integer pageId, QuestionDTO question) {

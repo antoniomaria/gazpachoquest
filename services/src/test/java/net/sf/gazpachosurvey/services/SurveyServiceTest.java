@@ -159,13 +159,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         
         //questionId = questionService.addQuestion(page3Id, question);
         questionId = questionService.add(question);
-        
-        questionService.addAnswer(questionId, AnswerDTO.with().title("Agree strongly").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("Agree somewhat").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("Neither agree nor disagree").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("Disagree somewhat").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("Disagree strongly").build());
-       
+//        
+//        questionService.addAnswer(questionId, AnswerDTO.with().title("Agree strongly").build());
+//        questionService.addAnswer(questionId, AnswerDTO.with().title("Agree somewhat").build());
+//        questionService.addAnswer(questionId, AnswerDTO.with().title("Neither agree nor disagree").build());
+//        questionService.addAnswer(questionId, AnswerDTO.with().title("Disagree somewhat").build());
+//        questionService.addAnswer(questionId, AnswerDTO.with().title("Disagree strongly").build());
+//       
         
         
         
@@ -193,5 +193,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         
         System.out.println("fin" + winner.getName());
 
+    }
+    
+    @Test
+    public void dos(){
+        QuestionDTO question = questionService.findOne(7);
+        question.getSubquestions().get(0).setTitle("XXXX");
+        questionService.add(question);
     }
 }

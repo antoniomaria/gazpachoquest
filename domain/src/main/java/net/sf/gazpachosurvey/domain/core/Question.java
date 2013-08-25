@@ -37,7 +37,7 @@ public class Question extends AbstractPersistable<Integer> {
     @ManyToOne
     private Page page;
 
-    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderColumn(name = "order_in_subquestions")
     private List<Question> subquestions;
 
@@ -62,6 +62,7 @@ public class Question extends AbstractPersistable<Integer> {
 
     public Question() {
         super();
+        this.language = Language.EN;
     }
 
     public QuestionType getType() {
