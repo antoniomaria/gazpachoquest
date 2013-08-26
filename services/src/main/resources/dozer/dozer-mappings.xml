@@ -14,14 +14,32 @@
       <b>language</b>
     </field>
   </mapping>
+
+  <mapping>
+    <class-a>net.sf.gazpachosurvey.domain.core.LabelSet</class-a>
+    <class-b>net.sf.gazpachosurvey.dto.LabelSetDTO</class-b>
+    <field>
+      <a>name</a>
+      <b>name</b>
+    </field>
+    <field>
+      <a>language</a>
+      <b>language</b>
+    </field>
+  </mapping>
   
-    <mapping>
+  <mapping>
     <class-a>net.sf.gazpachosurvey.dto.QuestionDTO</class-a>
     <class-b>net.sf.gazpachosurvey.domain.core.Question</class-b>
     <field>
       <a>subquestions</a>
       <b set-method="addSubquestion" type="iterate">subquestions</b>
-    <b-hint>net.sf.gazpachosurvey.domain.core.Question</b-hint> 
+      <b-hint>net.sf.gazpachosurvey.domain.core.Question</b-hint>
+    </field>
+    <field>
+      <a>answers</a>
+      <b set-method="addAnswer" type="iterate">answers</b>
+      <b-hint>net.sf.gazpachosurvey.domain.core.Answer</b-hint>
     </field>
   </mapping>
 </mappings>

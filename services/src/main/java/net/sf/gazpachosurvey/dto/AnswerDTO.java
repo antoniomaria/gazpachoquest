@@ -1,10 +1,14 @@
 package net.sf.gazpachosurvey.dto;
 
+import net.sf.gazpachosurvey.types.Language;
+
 public class AnswerDTO {
 
     private String code;
 
     private String title;
+
+    private Language language;
 
     public AnswerDTO() {
         super();
@@ -24,6 +28,14 @@ public class AnswerDTO {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
     public static Builder with() {

@@ -30,7 +30,12 @@ public class QuestionServiceImpl extends AbstractPersistenceService<Question, Qu
     public QuestionServiceImpl(QuestionRepository repository) {
         super(repository, Question.class, QuestionDTO.class);
     }
-
+    
+    @Override
+    public QuestionDTO save(QuestionDTO dto) {
+        return super.save(dto);
+    }
+    
     @Override
     public Integer addQuestion(Integer pageId, QuestionDTO question) {
         Page page = pageRepository.findOne(pageId);
@@ -44,12 +49,4 @@ public class QuestionServiceImpl extends AbstractPersistenceService<Question, Qu
         return page.getQuestions().get(page.getQuestions().size() - 1).getId();
     }
 
-    @Override
-    public Integer addAnswer(Integer questionId, AnswerDTO answer) {
-        Question question = repository.findOne(questionId);
-        Answer answerEntity = mapper.map(answer, Answer.class);
-        question.addAnswer(answerEntity);
-        Question savedQuestion = repository.save(question);
-        return savedQuestion.getAnswers().get(savedQuestion.getAnswers().size() - 1).getId();
-    }
 }

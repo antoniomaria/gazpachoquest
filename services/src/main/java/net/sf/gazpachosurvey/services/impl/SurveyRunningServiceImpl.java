@@ -28,14 +28,14 @@ public class SurveyRunningServiceImpl extends
     }
 
     @Override
-    public Integer add(SurveyRunningDTO dto) {
+    public SurveyRunningDTO save(SurveyRunningDTO dto) {
         SurveyRunning running = mapper.map(dto, SurveyRunning.class);
 
         for (Participant participant : running.getParticipants()) {
             participantRepository.save(participant);
         }
         running = repository.save(running);
-        return running.getId();
+        return mapper.map(running, dtoClazz);
     }
 
  

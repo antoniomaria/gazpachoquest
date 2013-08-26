@@ -67,100 +67,102 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
                 .welcomeText("Thank you for taking the time to participate in this survey.")
                 .surveyLanguageSettingsEnd().build();
 
-        Integer surveyId = surveyService.add(survey);
-        assertThat(surveyId).isNotNull();
+        survey = surveyService.save(survey);
+        assertThat(survey.getId()).isNotNull();
 
         PageDTO page = PageDTO.with().pageLanguageSettingsStart().title("Page 1").pageLanguageSettingsEnd().build();
-        Integer page1Id = pageService.addPage(surveyId, page);
-        assertThat(page1Id).isNotNull();
+        PageDTO page1 = pageService.addPage(survey.getId(), page);
+        assertThat(page1.getId()).isNotNull();
 
         page = PageDTO.with().pageLanguageSettingsStart().title("Page 2").pageLanguageSettingsEnd().build();
-        Integer page2Id = pageService.addPage(surveyId, page);
-        assertThat(page2Id).isNotNull();
+        PageDTO page2 = pageService.addPage(survey.getId(), page);
+        assertThat(page2.getId()).isNotNull();
 
         page = PageDTO.with().pageLanguageSettingsStart().title("Page 3").pageLanguageSettingsEnd().build();
-        Integer page3Id = pageService.addPage(surveyId, page);
-        assertThat(page3Id).isNotNull();
+        PageDTO page3 = pageService.addPage(survey.getId(), page);
+        assertThat(page3.getId()).isNotNull();
 
         LabelSetDTO labelSet = LabelSetDTO.with().language(Language.EN).name("Feelings").build();
-
-        Integer labelSetId = labelSetService.add(labelSet);
+        labelSet = labelSetService.save(labelSet);
 
         LabelDTO label = LabelDTO.with().title("Agree strongly").build();
-        labelSetService.addLabel(labelSetId, label);
+        labelSetService.addLabel(labelSet.getId(), label);
 
         label = LabelDTO.with().title("Agree somewhat").build();
-        labelSetService.addLabel(labelSetId, label);
+        labelSetService.addLabel(labelSet.getId(), label);
 
         label = LabelDTO.with().title("Neither agree nor disagree").build();
-        labelSetService.addLabel(labelSetId, label);
+        labelSetService.addLabel(labelSet.getId(), label);
 
         label = LabelDTO.with().title("Disagree somewhat").build();
-        labelSetService.addLabel(labelSetId, label);
+        labelSetService.addLabel(labelSet.getId(), label);
 
         label = LabelDTO.with().title("Disagree strongly").build();
-        labelSetService.addLabel(labelSetId, label);
+        labelSetService.addLabel(labelSet.getId(), label);
 
         LabelSetDTO winner = labelSetService.findOne(1);
 
         // 1
-        QuestionDTO question = QuestionDTO.with().type(QuestionType.S).title("What is your name?").isRequired(true)
+        QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).title("What is your name?").isRequired(true)
                 .build();
-        Integer questionId = questionService.addQuestion(page1Id, question);
+        Integer questionId = questionService.addQuestion(page1.getId(), question);
         // 2
-        question = QuestionDTO.with().type(QuestionType.N).title("And for our records, specifically how old are you?")
+        question = QuestionDTO.with().type(QuestionType.N).language(Language.EN).title("And for our records, specifically how old are you?")
                 .isRequired(true).build();
-        questionId = questionService.addQuestion(page1Id, question);
+        questionId = questionService.addQuestion(page1.getId(), question);
 
         // 3
-        question = QuestionDTO.with().type(QuestionType.L).title("What is your age group?").isRequired(true).build();
-        questionId = questionService.addQuestion(page1Id, question);
-
-        questionService.addAnswer(questionId, AnswerDTO.with().title("0-14 years").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("15-19 years").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("20-24 years").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("25-29 years").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("30-34 years").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("35-39 years").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("40-44 years").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("45-49 years").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("50-54 years").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("55-59 years").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("60-64 years").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("65-69 years").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("70-74 years").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("75-79 years").build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("80 and over").build());
+        question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).title("What is your age group?").isRequired(true).build();
+        
+        question.addAnswer( AnswerDTO.with().title("0-14 years").build());
+        question.addAnswer( AnswerDTO.with().title("15-19 years").build());
+        question.addAnswer( AnswerDTO.with().title("20-24 years").build());
+        question.addAnswer( AnswerDTO.with().title("25-29 years").build());
+        question.addAnswer( AnswerDTO.with().title("30-34 years").build());
+        question.addAnswer( AnswerDTO.with().title("35-39 years").build());
+        question.addAnswer( AnswerDTO.with().title("40-44 years").build());
+        question.addAnswer( AnswerDTO.with().title("45-49 years").build());
+        question.addAnswer( AnswerDTO.with().title("50-54 years").build());
+        question.addAnswer( AnswerDTO.with().title("55-59 years").build());
+        question.addAnswer( AnswerDTO.with().title("60-64 years").build());
+        question.addAnswer( AnswerDTO.with().title("65-69 years").build());
+        question.addAnswer( AnswerDTO.with().title("70-74 years").build());
+        question.addAnswer( AnswerDTO.with().title("75-79 years").build());
+        question.addAnswer( AnswerDTO.with().title("80 and over").build());
+        questionId = questionService.addQuestion(page1.getId(), question);
 
         // 4
-        question = QuestionDTO.with().type(QuestionType.T)
+        question = QuestionDTO.with().type(QuestionType.T).language(Language.EN)
                 .title("Please tell us a little about yourself. What was your first job, and did you enjoy it?")
                 .isRequired(true).build();
-        questionId = questionService.addQuestion(page2Id, question);
+        questionId = questionService.addQuestion(page2.getId(), question);
 
         // 5
-        question = QuestionDTO.with().type(QuestionType.L)
-                .title("Given your extraordinary age, how do you find using this survey tool?").isRequired(true)
+        question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).
+                title("Given your extraordinary age, how do you find using this survey tool?").isRequired(true)
                 .build();
-        questionId = questionService.addQuestion(page2Id, question);
-        questionService.addAnswer(questionId, AnswerDTO.with().title("Very difficult to read, my eyesight is dim")
+        question.addAnswer( AnswerDTO.with().title("Very difficult to read, my eyesight is dim")
                 .build());
-        questionService.addAnswer(questionId, AnswerDTO.with().title("Easy, my carer is doing it all for me").build());
-        questionService.addAnswer(questionId,
+        question.addAnswer( AnswerDTO.with().title("Easy, my carer is doing it all for me").build());
+        question.addAnswer(
                 AnswerDTO.with().title("How <b><i>dare</i></b> you insult me like that! I'm YOUNG").build());
 
+        questionId = questionService.addQuestion(page2.getId(), question);
+        
         // 6
         question = QuestionDTO
                 .with()
-                .type(QuestionType.L)
+                .type(QuestionType.L).
+language(Language.EN)
                 .title("<font size='+2'><br />&nbsp;<br />Which of these ads makes you want to find out more?<br />&nbsp;<br /></font>")
                 .isRequired(true).build();
-        questionId = questionService.addQuestion(page3Id, question);
+        questionId = questionService.addQuestion(page3.getId(), question);
 
         // 7
         question = QuestionDTO
-                .with()
-                .type(QuestionType.L)
+                .with().
+                type(QuestionType.L)
+                .language(Language.EN)
                 .title("Please have a good look at this ad, and then complete the questions below.<br /><img src='http://www.aptigence.com.au/images/lawyer1.jpg' border='1'>")
                 .isRequired(true).build();
 
@@ -172,45 +174,30 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         subquestions.add(QuestionDTO.with().title("This ad gives me confidence in the lawyers experience").build());
         question.setSubquestions(subquestions);
 
-        // questionId = questionService.addQuestion(page3Id, question);
-        PageDTO page3 = new PageDTO();
-        page3.setId(page3Id);
-
         question.setPage(page3);
-        SurveyDTO surveyCreated = new SurveyDTO();
-        surveyCreated.setId(surveyId);
-
-        question.setSurvey(surveyCreated);
-        questionId = questionService.add(question);
-        //
-        // questionService.addAnswer(questionId,
-        // AnswerDTO.with().title("Agree strongly").build());
-        // questionService.addAnswer(questionId,
-        // AnswerDTO.with().title("Agree somewhat").build());
-        // questionService.addAnswer(questionId,
-        // AnswerDTO.with().title("Neither agree nor disagree").build());
-        // questionService.addAnswer(questionId,
-        // AnswerDTO.with().title("Disagree somewhat").build());
-        // questionService.addAnswer(questionId,
-        // AnswerDTO.with().title("Disagree strongly").build());
-        //
+        question.setSurvey(survey);
+        
+        question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
+        question.addAnswer(AnswerDTO.with().title("Agree somewhat").build());
+        question.addAnswer(AnswerDTO.with().title("Neither agree nor disagree").build());
+        question.addAnswer(AnswerDTO.with().title("Disagree somewhat").build());
+        question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
+        question.addAnswer(AnswerDTO.with().title("Disagree strongly").build());
+        
+        question = questionService.save(question);
 
         ParticipantDTO tyrion = ParticipantDTO.with().firstname("Tyrion").lastname("Lannister")
                 .email("tyrion.lannister@kingslanding.net").build();
-        Integer participantId = participantService.add(tyrion);
-        tyrion.setId(participantId);
+         tyrion = participantService.save(tyrion);
 
         ParticipantDTO jon = ParticipantDTO.with().firstname("Jon").lastname("Snow").email("jon.snow@nightswatch.net")
                 .build();
-        // participantService.add(jon);
 
         ParticipantDTO arya = ParticipantDTO.with().firstname("Arya").lastname("Stark")
                 .email("arya.stark@winterfell.net").build();
-        // participantService.add(arya);
 
         ParticipantDTO catelyn = ParticipantDTO.with().firstname("Catelyn").lastname("Stark")
                 .email("catelyn.stark@winterfell.net").build();
-        // participantService.add(catelyn);
 
         Set<ParticipantDTO> participants = new HashSet<>();
         participants.add(tyrion);
@@ -220,16 +207,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         SurveyRunningDTO surveyRunning = SurveyRunningDTO.with().name("my first running").participants(participants)
                 .build();
 
-        surveyRunningService.add(surveyRunning);
+        surveyRunningService.save(surveyRunning);
 
         System.out.println("fin" + winner.getName());
 
     }
 
-    @Test
-    public void dos() {
-        QuestionDTO question = questionService.findOne(7);
-        question.getSubquestions().get(0).setTitle("XXXX");
-        questionService.add(question);
-    }
 }

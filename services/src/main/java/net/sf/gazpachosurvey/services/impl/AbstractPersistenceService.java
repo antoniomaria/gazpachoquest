@@ -55,10 +55,10 @@ public class AbstractPersistenceService<T extends Persistable<ID>, D extends Ide
     }
 
     @Override
-    public ID add(D dto) {
+    public D save(D dto) {
         T entity = mapper.map(dto, entityClazz);
         T savedEntity = repository.save(entity);
-        return savedEntity.getId();
+        return mapper.map(savedEntity, dtoClazz);
     }
 
     @Override

@@ -7,5 +7,4 @@ public interface QuestionService extends PersistenceService<QuestionDTO, Integer
 
     Integer addQuestion(Integer pageId, QuestionDTO question);
 
-    Integer addAnswer(Integer questionId, AnswerDTO answer);
 }

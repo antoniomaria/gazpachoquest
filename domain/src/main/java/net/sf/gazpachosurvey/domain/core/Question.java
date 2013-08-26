@@ -41,7 +41,7 @@ public class Question extends AbstractPersistable<Integer> {
     @OrderColumn(name = "order_in_subquestions")
     private List<Question> subquestions;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "question", orphanRemoval = true)
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderColumn(name = "order_in_question")
     private List<Answer> answers;
 
@@ -62,7 +62,6 @@ public class Question extends AbstractPersistable<Integer> {
 
     public Question() {
         super();
-        language = Language.EN;
     }
 
     public QuestionType getType() {
@@ -165,11 +164,11 @@ public class Question extends AbstractPersistable<Integer> {
     public void addAnswer(Answer answer) {
         getAnswers().add(answer);
         answer.setQuestion(this);
-        answer.setLanguage(language);
     }
 
     public void addSubquestion(Question subquestion) {
         Assert.notNull(subquestion);
+        subquestion.setLanguage(language);
         getSubquestions().add(subquestion);
         subquestion.setParent(this);
     }

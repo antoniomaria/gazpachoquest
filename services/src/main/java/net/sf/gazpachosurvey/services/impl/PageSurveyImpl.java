@@ -23,7 +23,7 @@ public class PageSurveyImpl extends AbstractPersistenceService<Page, PageDTO, In
     }
 
     @Override
-    public Integer addPage(Integer surveyId, PageDTO page) {
+    public PageDTO addPage(Integer surveyId, PageDTO page) {
         Page entity = mapper.map(page, Page.class);
 
         Survey survey = surveyRepository.findOne(surveyId);
@@ -32,13 +32,10 @@ public class PageSurveyImpl extends AbstractPersistenceService<Page, PageDTO, In
         entity.setLanguage(survey.getLanguage());
 
         survey.addPage(entity);
-
         surveyRepository.save(survey);
 
         int numberOfPages = survey.getPages().size();
-        Integer newPageId = survey.getPages().get(numberOfPages - 1).getId();
-
-        return newPageId;
+        return mapper.map(survey.getPages().get(numberOfPages - 1), PageDTO.class);
     }
 
 }

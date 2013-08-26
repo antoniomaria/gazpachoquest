@@ -24,6 +24,8 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
 
     private List<QuestionDTO> subquestions;
 
+    private List<AnswerDTO> answers;
+
     public QuestionDTO() {
         super();
     }
@@ -77,6 +79,9 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
 
     public void setSurvey(SurveyDTO survey) {
         this.survey = survey;
+        if (survey.getLanguage() != null){
+            this.language = survey.getLanguage();
+        }
     }
 
     public PageDTO getPage() {
@@ -87,16 +92,47 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
         this.page = page;
     }
 
+    public List<AnswerDTO> getAnswers() {
+        if (answers == null){
+            this.answers = new ArrayList<>();
+        }
+        return answers;
+    }
+
+    public void setAnswers(List<AnswerDTO> answers) {
+        this.answers = answers;
+    }
+    
+    public void addAnswer(AnswerDTO answer){
+        if (answer.getLanguage() == null){
+            answer.setLanguage(language);
+        }
+        getAnswers().add(answer);
+    }
+
     public static Builder with() {
         return new Builder();
     }
 
     public static class Builder {
+        private SurveyDTO survey;
+        private PageDTO page;
         private String title;
         private boolean isRequired;
         private QuestionType type;
         private Language language;
         private List<QuestionDTO> subquestions;
+        private List<AnswerDTO> answers;
+
+        public Builder survey(SurveyDTO survey) {
+            this.survey = survey;
+            return this;
+        }
+
+        public Builder page(PageDTO page) {
+            this.page = page;
+            return this;
+        }
 
         public Builder title(String title) {
             this.title = title;
@@ -123,13 +159,21 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
             return this;
         }
 
+        public Builder answers(List<AnswerDTO> answers) {
+            this.answers = answers;
+            return this;
+        }
+
         public QuestionDTO build() {
             QuestionDTO questionDTO = new QuestionDTO();
+            questionDTO.survey = survey;
+            questionDTO.page = page;
             questionDTO.title = title;
             questionDTO.isRequired = isRequired;
             questionDTO.type = type;
             questionDTO.language = language;
             questionDTO.subquestions = subquestions;
+            questionDTO.answers = answers;
             return questionDTO;
         }
     }
