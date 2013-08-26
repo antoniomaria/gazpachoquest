@@ -10,6 +10,10 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
 
     private static final long serialVersionUID = 2663159055152157679L;
 
+    private SurveyDTO survey;
+
+    private PageDTO page;
+
     private String title;
 
     boolean isRequired;
@@ -17,7 +21,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
     private QuestionType type;
 
     private Language language;
-    
+
     private List<QuestionDTO> subquestions;
 
     public QuestionDTO() {
@@ -57,7 +61,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
     }
 
     public List<QuestionDTO> getSubquestions() {
-        if (subquestions == null){
+        if (subquestions == null) {
             subquestions = new ArrayList<QuestionDTO>();
         }
         return subquestions;
@@ -67,10 +71,26 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
         this.subquestions = subquestions;
     }
 
-    public static Builder with(){
+    public SurveyDTO getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(SurveyDTO survey) {
+        this.survey = survey;
+    }
+
+    public PageDTO getPage() {
+        return page;
+    }
+
+    public void setPage(PageDTO page) {
+        this.page = page;
+    }
+
+    public static Builder with() {
         return new Builder();
     }
-    
+
     public static class Builder {
         private String title;
         private boolean isRequired;
@@ -97,12 +117,11 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
             this.language = language;
             return this;
         }
-        
+
         public Builder subquestions(List<QuestionDTO> subquestions) {
             this.subquestions = subquestions;
             return this;
         }
-
 
         public QuestionDTO build() {
             QuestionDTO questionDTO = new QuestionDTO();

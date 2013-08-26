@@ -16,12 +16,12 @@ import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 
-import org.springframework.util.Assert;
-
 import net.sf.gazpachosurvey.domain.i18.QuestionTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.QuestionType;
+
+import org.springframework.util.Assert;
 
 @Entity
 public class Question extends AbstractPersistable<Integer> {
@@ -62,7 +62,7 @@ public class Question extends AbstractPersistable<Integer> {
 
     public Question() {
         super();
-        this.language = Language.EN;
+        language = Language.EN;
     }
 
     public QuestionType getType() {
@@ -82,8 +82,8 @@ public class Question extends AbstractPersistable<Integer> {
     }
 
     public List<Question> getSubquestions() {
-        if (subquestions == null){
-            this.subquestions = new ArrayList<>();
+        if (subquestions == null) {
+            subquestions = new ArrayList<>();
         }
         return subquestions;
     }
@@ -167,8 +167,8 @@ public class Question extends AbstractPersistable<Integer> {
         answer.setQuestion(this);
         answer.setLanguage(language);
     }
-    
-    public void addSubquestion(Question subquestion){
+
+    public void addSubquestion(Question subquestion) {
         Assert.notNull(subquestion);
         getSubquestions().add(subquestion);
         subquestion.setParent(this);
