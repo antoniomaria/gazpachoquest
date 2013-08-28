@@ -43,6 +43,14 @@ public class AbstractPersistenceService<T extends Persistable<ID>, D extends Ide
         D dto = mapper.map(entity, dtoClazz);
         return dto;
     }
+    
+    @Override
+    public D findOne(ID id, String schenario) {
+        T entity = repository.findOne(id);
+        //String schenarioName = entity.getClass().getSimpleName() + ".default";
+        D dto = mapper.map(entity, dtoClazz, schenario);
+        return dto;
+    }
 
     @Override
     public long count() {

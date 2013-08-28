@@ -1,5 +1,9 @@
 package net.sf.gazpachosurvey.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.types.Language;
 
 public class SurveyDTO extends AbstractIdentifiableDTO<Integer> {
@@ -9,6 +13,8 @@ public class SurveyDTO extends AbstractIdentifiableDTO<Integer> {
     private Language language;
     
     private SurveyLanguageSettingsDTO languageSettings;
+    
+    private Set<Question> questions;
 
     public SurveyDTO() {
         super();
@@ -28,6 +34,17 @@ public class SurveyDTO extends AbstractIdentifiableDTO<Integer> {
 
     public void setLanguage(Language language) {
         this.language = language;
+    }
+    
+    public Set<Question> getQuestions() {
+        if (questions == null){
+            this.questions = new HashSet<>();
+        }
+        return questions;
+    }
+
+    public void setQuestions(Set<Question> questions) {
+        this.questions = questions;
     }
 
     public static interface Builder {

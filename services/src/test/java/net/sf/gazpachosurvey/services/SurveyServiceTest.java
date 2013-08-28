@@ -212,5 +212,16 @@ language(Language.EN)
         System.out.println("fin" + winner.getName());
 
     }
+    
+    @Test
+    public void findOneTest(){
+       SurveyDTO survey = surveyService.findOne(1);
+       
+       System.out.println("Questions " + survey.getQuestions());
+
+       survey = surveyService.findOne(1, "SurveyWithQuestions");
+       
+       System.out.println("Questions " + survey.getQuestions());
+    }
 
 }

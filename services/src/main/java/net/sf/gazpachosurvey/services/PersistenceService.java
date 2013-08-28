@@ -11,6 +11,8 @@ public interface PersistenceService<D extends Identifiable<ID>, ID extends Seria
 
     D findOne(ID id);
 
+    D findOne(ID id, String schenario);
+        
     long count();
 
     void delete(ID id);

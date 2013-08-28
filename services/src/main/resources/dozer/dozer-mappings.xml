@@ -27,7 +27,7 @@
       <b>language</b>
     </field>
   </mapping>
-  
+
   <mapping>
     <class-a>net.sf.gazpachosurvey.dto.QuestionDTO</class-a>
     <class-b>net.sf.gazpachosurvey.domain.core.Question</class-b>
@@ -41,5 +41,24 @@
       <b set-method="addAnswer" type="iterate">answers</b>
       <b-hint>net.sf.gazpachosurvey.domain.core.Answer</b-hint>
     </field>
+  </mapping>
+  
+  <mapping type="one-way" map-id="SurveyWithQuestions">
+    <class-a>net.sf.gazpachosurvey.domain.core.Survey</class-a>
+    <class-b>net.sf.gazpachosurvey.dto.SurveyDTO</class-b>
+  </mapping>
+  
+  <mapping type="one-way">
+    <class-a>net.sf.gazpachosurvey.domain.core.Survey</class-a>
+    <class-b>net.sf.gazpachosurvey.dto.SurveyDTO</class-b>
+    <field-exclude type="one-way">
+      <a>questions</a>
+      <b>questions</b>
+    </field-exclude>
+  </mapping>
+
+  <mapping type="one-way">
+    <class-a>net.sf.gazpachosurvey.dto.SurveyDTO</class-a>
+    <class-b>net.sf.gazpachosurvey.domain.core.Survey</class-b>
   </mapping>
 </mappings>
