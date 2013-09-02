@@ -21,6 +21,8 @@ import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.QuestionType;
 
+import org.eclipse.persistence.annotations.JoinFetch;
+import org.eclipse.persistence.annotations.JoinFetchType;
 import org.springframework.util.Assert;
 
 @Entity
@@ -43,6 +45,7 @@ public class Question extends AbstractPersistable<Integer> {
 
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderColumn(name = "order_in_question")
+    @JoinFetch(JoinFetchType.OUTER)
     private List<Answer> answers;
 
     private String title;

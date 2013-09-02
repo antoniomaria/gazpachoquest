@@ -102,16 +102,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
         LabelSetDTO winner = labelSetService.findOne(1);
 
-        // 1
+        // 1 Single Textbox
         QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).title("What is your name?").isRequired(true)
                 .build();
         Integer questionId = questionService.addQuestion(page1.getId(), question);
-        // 2
-        question = QuestionDTO.with().type(QuestionType.N).language(Language.EN).title("And for our records, specifically how old are you?")
-                .isRequired(true).build();
-        questionId = questionService.addQuestion(page1.getId(), question);
 
-        // 3
+        // 2 Multiple Choice (Only One Answer)
         question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).title("What is your age group?").isRequired(true).build();
         
         question.addAnswer( AnswerDTO.with().title("0-14 years").build());
@@ -131,13 +127,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         question.addAnswer( AnswerDTO.with().title("80 and over").build());
         questionId = questionService.addQuestion(page1.getId(), question);
 
-        // 4
+        // 3 Numeric
+        question = QuestionDTO.with().type(QuestionType.N).language(Language.EN).title("And for our records, specifically how old are you?")
+                .isRequired(true).build();
+        questionId = questionService.addQuestion(page1.getId(), question);
+
+        
+        // 4 Comment/Essay Box
         question = QuestionDTO.with().type(QuestionType.T).language(Language.EN)
                 .title("Please tell us a little about yourself. What was your first job, and did you enjoy it?")
                 .isRequired(true).build();
         questionId = questionService.addQuestion(page2.getId(), question);
 
-        // 5
+        // 5 Multiple Choice (Only One Answer)
         question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).
                 title("Given your extraordinary age, how do you find using this survey tool?").isRequired(true)
                 .build();
@@ -149,19 +151,26 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
         questionId = questionService.addQuestion(page2.getId(), question);
         
-        // 6
+        // 6 Multiple Choice (Only One Answer)
         question = QuestionDTO
                 .with()
                 .type(QuestionType.L).
 language(Language.EN)
                 .title("<font size='+2'><br />&nbsp;<br />Which of these ads makes you want to find out more?<br />&nbsp;<br /></font>")
                 .isRequired(true).build();
+        question.addAnswer(AnswerDTO.with().title("Ad one")
+                .build());
+        question.addAnswer(AnswerDTO.with().title("Ad two")
+                .build());
+        question.addAnswer(AnswerDTO.with().title("Ad three")
+                .build());
+        
         questionId = questionService.addQuestion(page3.getId(), question);
 
-        // 7
+        // 7 Rating Scale (Agree-Disagree)
         question = QuestionDTO
                 .with().
-                type(QuestionType.L)
+                type(QuestionType.F)
                 .language(Language.EN)
                 .title("Please have a good look at this ad, and then complete the questions below.<br /><img src='http://www.aptigence.com.au/images/lawyer1.jpg' border='1'>")
                 .isRequired(true).build();
