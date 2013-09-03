@@ -5,6 +5,7 @@ import static javax.persistence.metamodel.Attribute.PersistentAttributeType.MANY
 import static javax.persistence.metamodel.Attribute.PersistentAttributeType.ONE_TO_ONE;
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -76,9 +77,8 @@ public class ByExampleEnhancedSpecification {
                             || attr.getPersistentAttributeType() == EMBEDDED) {
                         continue;
                     }
-                    Object attrValue = ReflectionUtils.invokeMethod(
-                            (Method) attr.getJavaMember(), mtValue);
-
+                    Object attrValue = getValue(mtValue, attr);
+                    
                     if (attrValue != null) {
                         if (attr.getJavaType() == String.class) {
                             if (isNotEmpty((String) attrValue)) {
@@ -123,8 +123,11 @@ public class ByExampleEnhancedSpecification {
                          * .invokeMethod((Method)m2oattr.getJavaMember(),
                          * mtValue);
                          */
+                        
                         M2O m2oValue = (M2O) getValue(mtValue,
                                 mt.getAttribute(attr.getName()));
+                        
+                        
                         // if (m2oValue != null && !mtValue.isIdSet()) {
                         if (m2oValue != null) {
                             Class<M2O> m2oType = (Class<M2O>) attr
@@ -175,8 +178,15 @@ public class ByExampleEnhancedSpecification {
 
             private <T> Object getValue(T example, Attribute<? super T, ?> attr) {
                 try {
-                    return ((Method) attr.getJavaMember()).invoke(example,
-                            new Object[0]);
+                    if (attr.getJavaMember() instanceof Method){
+
+                        return ((Method) attr.getJavaMember()).invoke(example,
+                                new Object[0]);   
+                    }else if (attr.getJavaMember() instanceof Field){
+                        return ReflectionUtils.getField((Field)attr.getJavaMember(), example);
+                    }else{
+                        return null;
+                    }
                 } catch (IllegalAccessException e) {
                     throw new RuntimeException(e);
                 } catch (InvocationTargetException e) {

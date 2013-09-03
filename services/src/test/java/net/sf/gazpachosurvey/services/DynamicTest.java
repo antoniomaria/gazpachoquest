@@ -9,7 +9,10 @@ import net.sf.gazpachosurvey.domain.core.Answer;
 import net.sf.gazpachosurvey.domain.core.Page;
 import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.Survey;
+import net.sf.gazpachosurvey.repository.AnswerRepository;
+import net.sf.gazpachosurvey.repository.QuestionRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
+import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import net.sf.gazpachosurvey.types.QuestionType;
 
 import org.eclipse.persistence.dynamic.DynamicClassLoader;
@@ -36,18 +39,34 @@ public class DynamicTest {
     @Autowired
     private SurveyRepository surveyRepository;
 
+    @Autowired
+    private AnswerRepository answerRepository;
+
+    @Test
+    public void ff() {
+        Answer answer = new Answer();
+        Question q = new Question();
+        q.setId(2);
+        answer.setQuestion(q);
+        long count = answerRepository.findCount(answer, new SearchParameters());
+        System.out.println("de winner is: " + count);
+    }
+
+    @Autowired
+    private QuestionRepository questionRepository;
+
     @Test
     public void createAnswersTable() {
         String packagePrefix = "net.sf.gazpachosurvey.domain.dynamic.";
 
         DynamicClassLoader dcl = new DynamicClassLoader(Thread.currentThread()
                 .getContextClassLoader());
-        
+
         int surveyId = 1;
         Survey survey = surveyRepository.findOne(surveyId);
-        
+
         String tableName = "SurveyAnswers_" + surveyId;
-        
+
         Class<?> surveyAnswerClass = dcl.createDynamicClass(packagePrefix
                 + tableName);
 
@@ -55,20 +74,21 @@ public class DynamicTest {
                 surveyAnswerClass, null, tableName);
 
         surveyAnswer.addDirectMapping("id", int.class, tableName + ".ID");
-        
+
         for (Page page : survey.getPages()) {
             List<Question> questions = page.getQuestions();
-
             for (Question question : questions) {
                 QuestionType questionType = question.getType();
-                System.out.println(question.getType() + " " +question.getTitle());
-                if (questionType.hasMultipleAnswers()){
-                    
-                }else{
+                System.out.println(question.getType() + " "
+                        + question.getTitle());
+                if (questionType.hasMultipleAnswers()) {
+
+                } else {
                     String fieldName = "q" + question.getId();
-                    surveyAnswer.addDirectMapping(fieldName, questionType.getAnswerType(), fieldName);
+                    surveyAnswer.addDirectMapping(fieldName,
+                            questionType.getAnswerType(), fieldName);
                 }
-                for ( Answer answer: question.getAnswers()) {
+                for (Answer answer : question.getAnswers()) {
                     System.out.println("\t " + answer.getTitle());
                 }
             }
@@ -76,7 +96,6 @@ public class DynamicTest {
         surveyAnswer.setPrimaryKeyFields("ID");
         surveyAnswer.configureSequencing(tableName + "_SEQ", "ID");
         DynamicType[] types = new DynamicType[] { surveyAnswer.getType() };
-
 
         // Create JPA Dynamic Helper (with the emf above) and after the types
         // have been created and add the types through the helper.

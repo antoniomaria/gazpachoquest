@@ -50,7 +50,7 @@ public class Question extends AbstractPersistable<Integer> {
 
     private String title;
 
-    boolean isRequired;
+    private Boolean isRequired;
 
     @Enumerated(EnumType.STRING)
     private QuestionType type;
@@ -121,11 +121,11 @@ public class Question extends AbstractPersistable<Integer> {
         this.answers = answers;
     }
 
-    public boolean isRequired() {
+    public Boolean isRequired() {
         return isRequired;
     }
 
-    public void setRequired(boolean isRequired) {
+    public void setRequired(Boolean isRequired) {
         this.isRequired = isRequired;
     }
 
