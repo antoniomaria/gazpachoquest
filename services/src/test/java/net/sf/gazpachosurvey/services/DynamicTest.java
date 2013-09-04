@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.services;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -73,28 +74,26 @@ public class DynamicTest {
         JPADynamicTypeBuilder surveyAnswer = new JPADynamicTypeBuilder(
                 surveyAnswerClass, null, tableName);
 
-        surveyAnswer.addDirectMapping("id", int.class, tableName + ".ID");
+        surveyAnswer.addDirectMapping("id", Integer.class, tableName + ".id");
+        surveyAnswer.addDirectMapping("submitDate", Date.class, tableName
+                + ".submit_date");
+        surveyAnswer.addDirectMapping("startDate", Date.class, tableName
+                + ".start_date");
+        surveyAnswer.addDirectMapping("ipAddress", String.class, tableName
+                + ".ip_address");
 
-        for (Page page : survey.getPages()) {
-            List<Question> questions = page.getQuestions();
-            for (Question question : questions) {
-                QuestionType questionType = question.getType();
-                System.out.println(question.getType() + " "
-                        + question.getTitle());
-                if (questionType.hasMultipleAnswers()) {
+        Question example = new Question();
+        example.setSurvey(Survey.with().id(surveyId).build());
 
-                } else {
-                    String fieldName = "q" + question.getId();
-                    surveyAnswer.addDirectMapping(fieldName,
-                            questionType.getAnswerType(), fieldName);
-                }
-                for (Answer answer : question.getAnswers()) {
-                    System.out.println("\t " + answer.getTitle());
-                }
-            }
+        List<Question> questions = questionRepository.findByExample(example,
+                new SearchParameters().orderBy("id"));
+
+        for (Question question : questions) {
+            processQuestion(surveyAnswer, question);
         }
-        surveyAnswer.setPrimaryKeyFields("ID");
-        surveyAnswer.configureSequencing(tableName + "_SEQ", "ID");
+        
+        surveyAnswer.setPrimaryKeyFields("id");
+        surveyAnswer.configureSequencing(tableName + "_SEQ", "id");
         DynamicType[] types = new DynamicType[] { surveyAnswer.getType() };
 
         // Create JPA Dynamic Helper (with the emf above) and after the types
@@ -104,6 +103,32 @@ public class DynamicTest {
 
         // Update database
         new SchemaManager(helper.getSession()).createDefaultTables(true);
+    }
+
+    private void processQuestion(JPADynamicTypeBuilder surveyAnswer,
+            Question question) {
+        QuestionType questionType = question.getType();
+        System.out.println(question.getId() + " " + question.getType() + " "
+                + question.getTitle());
+
+        List<Question> subquestions = question.getSubquestions();
+        for (Question subquestion : subquestions) {
+            processQuestion(surveyAnswer, subquestion);
+        }
+        if (subquestions.isEmpty()) {
+            if (questionType.hasMultipleAnswers()) {
+
+            } else {
+                String fieldName = "q" + question.getId();
+                surveyAnswer.addDirectMapping(fieldName,
+                        questionType.getAnswerType(), fieldName);
+            }
+            for (Answer answer : question.getAnswers()) {
+                // System.out.println("\t " + answer.getTitle());
+            }
+
+        }
+
     }
 
     @Test

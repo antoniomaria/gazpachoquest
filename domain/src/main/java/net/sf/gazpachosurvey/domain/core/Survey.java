@@ -138,4 +138,65 @@ public class Survey extends AbstractAuditable<Integer> {
         this.language = language;
     }
 
+    public static Builder with(){
+        return new Builder();
+    }
+    public static class Builder {
+        private Integer id;
+        private SurveyLanguageSettings languageSettings;
+        private Language language;
+        private Set<SurveyRunning> surveysRunning;
+        private Map<Language, SurveyTranslation> translations;
+        private List<Page> pages;
+        private Set<Question> questions;
+        
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+        
+        public Builder languageSettings(SurveyLanguageSettings languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        public Builder language(Language language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder surveysRunning(Set<SurveyRunning> surveysRunning) {
+            this.surveysRunning = surveysRunning;
+            return this;
+        }
+
+        public Builder translations(
+                Map<Language, SurveyTranslation> translations) {
+            this.translations = translations;
+            return this;
+        }
+
+        public Builder pages(List<Page> pages) {
+            this.pages = pages;
+            return this;
+        }
+
+        public Builder questions(Set<Question> questions) {
+            this.questions = questions;
+            return this;
+        }
+
+        public Survey build() {
+            Survey survey = new Survey();
+            survey.setId(id);
+            survey.languageSettings = languageSettings;
+            survey.language = language;
+            survey.surveysRunning = surveysRunning;
+            survey.translations = translations;
+            survey.pages = pages;
+            survey.questions = questions;
+            return survey;
+        }
+    }
 }

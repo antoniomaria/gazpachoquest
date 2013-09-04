@@ -16,7 +16,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
 
     private String title;
 
-    boolean isRequired;
+    private Boolean isRequired;
 
     private QuestionType type;
 
@@ -38,11 +38,11 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
         this.title = title;
     }
 
-    public boolean isRequired() {
+    public Boolean isRequired() {
         return isRequired;
     }
 
-    public void setRequired(boolean isRequired) {
+    public void setRequired(Boolean isRequired) {
         this.isRequired = isRequired;
     }
 
@@ -118,7 +118,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
         private SurveyDTO survey;
         private PageDTO page;
         private String title;
-        private boolean isRequired;
+        private Boolean isRequired;
         private QuestionType type;
         private Language language;
         private List<QuestionDTO> subquestions;
@@ -139,7 +139,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
             return this;
         }
 
-        public Builder isRequired(boolean isRequired) {
+        public Builder isRequired(Boolean isRequired) {
             this.isRequired = isRequired;
             return this;
         }

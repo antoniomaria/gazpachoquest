@@ -25,7 +25,6 @@ import javax.persistence.metamodel.ManagedType;
 import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 
-
 import net.sf.gazpachosurvey.domain.support.Persistable;
 
 import org.apache.commons.lang.Validate;
@@ -63,6 +62,9 @@ public class ByExampleEnhancedSpecification {
                                    // only
                 predicates.addAll(byExampleOnManyToMany(mt, rootPath, example,
                         sp, builder));
+                // order by
+                query.orderBy(JpaUtil.buildJpaOrders(sp.getOrders(), rootPath, builder));
+
                 return JpaUtil.andPredicate(builder, predicates);
             }
 
@@ -78,7 +80,7 @@ public class ByExampleEnhancedSpecification {
                         continue;
                     }
                     Object attrValue = getValue(mtValue, attr);
-                    
+
                     if (attrValue != null) {
                         if (attr.getJavaType() == String.class) {
                             if (isNotEmpty((String) attrValue)) {
@@ -123,11 +125,10 @@ public class ByExampleEnhancedSpecification {
                          * .invokeMethod((Method)m2oattr.getJavaMember(),
                          * mtValue);
                          */
-                        
+
                         M2O m2oValue = (M2O) getValue(mtValue,
                                 mt.getAttribute(attr.getName()));
-                        
-                        
+
                         // if (m2oValue != null && !mtValue.isIdSet()) {
                         if (m2oValue != null) {
                             Class<M2O> m2oType = (Class<M2O>) attr
@@ -178,13 +179,14 @@ public class ByExampleEnhancedSpecification {
 
             private <T> Object getValue(T example, Attribute<? super T, ?> attr) {
                 try {
-                    if (attr.getJavaMember() instanceof Method){
+                    if (attr.getJavaMember() instanceof Method) {
 
                         return ((Method) attr.getJavaMember()).invoke(example,
-                                new Object[0]);   
-                    }else if (attr.getJavaMember() instanceof Field){
-                        return ReflectionUtils.getField((Field)attr.getJavaMember(), example);
-                    }else{
+                                new Object[0]);
+                    } else if (attr.getJavaMember() instanceof Field) {
+                        return ReflectionUtils.getField(
+                                (Field) attr.getJavaMember(), example);
+                    } else {
                         return null;
                     }
                 } catch (IllegalAccessException e) {
@@ -193,6 +195,8 @@ public class ByExampleEnhancedSpecification {
                     throw new RuntimeException(e);
                 }
             }
+            
+            
         };
 
     }

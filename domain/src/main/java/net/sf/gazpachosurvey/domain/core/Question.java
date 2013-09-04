@@ -45,7 +45,7 @@ public class Question extends AbstractPersistable<Integer> {
 
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderColumn(name = "order_in_question")
-    @JoinFetch(JoinFetchType.OUTER)
+    //@JoinFetch(JoinFetchType.OUTER)
     private List<Answer> answers;
 
     private String title;
@@ -58,7 +58,7 @@ public class Question extends AbstractPersistable<Integer> {
     @Enumerated(EnumType.STRING)
     private Language language;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language")
     private Map<Language, QuestionTranslation> translations;
