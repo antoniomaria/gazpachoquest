@@ -137,7 +137,7 @@ public class GenericRepositoryImpl<T extends Persistable<PK>, PK extends Seriali
 
     }
 
-    public long findCount(T entity, SearchParameters sp) {
+    public long countByExample(T entity, SearchParameters sp) {
         Validate.notNull(entity, "The entity cannot be null");
         if (sp.hasNamedQuery()) {
             return getNamedQueryUtil().numberByNamedQuery(sp).intValue();

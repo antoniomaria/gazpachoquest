@@ -229,7 +229,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         question.addAnswer(AnswerDTO.with().title("Disagree strongly").build());
 
         question = questionService.save(question);
-
+        
+        // 8. Multiple_Choice_Multiple_Answers
+        question = QuestionDTO
+                .with()
+                .type(QuestionType.M)
+                .language(Language.EN)
+                .title("What flavors of ice cream do you like?. Choose all that apply.")
+                .isRequired(true).page(page3).survey(survey).build();
+        question.addAnswer(AnswerDTO.with().language(Language.EN).title("Vanilla").build());
+        question.addAnswer(AnswerDTO.with().language(Language.EN).title("Chocolate").build());
+        question.addAnswer(AnswerDTO.with().language(Language.EN).title("Strawberry").build());
+        question.addAnswer(AnswerDTO.with().language(Language.EN).title("Pistachio").build());
+        question = questionService.save(question);
+        
+        
         ParticipantDTO tyrion = ParticipantDTO.with().firstname("Tyrion")
                 .lastname("Lannister")
                 .email("tyrion.lannister@kingslanding.net").build();

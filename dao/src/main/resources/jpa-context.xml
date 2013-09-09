@@ -13,15 +13,17 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
   <import resource="classpath:/datasource-context.xml" />
-
+  
   <context:component-scan base-package="net.sf.gazpachosurvey.repository.support" />
+
+  <context:component-scan base-package="net.sf.gazpachosurvey.repository.dynamic" />
 
   <jpa:repositories base-package="net.sf.gazpachosurvey.repository" factory-class="net.sf.gazpachosurvey.repository.support.DefaultRepositoryFactoryBean" />
 
   <jpa:auditing auditor-aware-ref="auditorAware" />
-  
+
   <bean id="auditorAware" class="net.sf.gazpachosurvey.jpa.SimpleAuditorAware" />
-  
+
   <tx:annotation-driven />
 
   <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" p:entityManagerFactory-ref="entityManagerFactory" />

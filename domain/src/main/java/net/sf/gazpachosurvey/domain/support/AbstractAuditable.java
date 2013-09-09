@@ -49,7 +49,6 @@ public class AbstractAuditable<PK extends Serializable> extends
     }
 
     public DateTime getCreatedDate() {
-
         return null == createdDate ? null : new DateTime(createdDate);
     }
 

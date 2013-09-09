@@ -25,5 +25,5 @@ public interface GenericRepository<T, ID extends Serializable> extends
 
     List<T> findByExample(T entity, SearchParameters sp);
 
-    long findCount(T entity, SearchParameters sp);
+    long countByExample(T entity, SearchParameters sp);
 }

@@ -35,7 +35,7 @@ public class Answer extends AbstractPersistable<Integer> {
     @Enumerated(EnumType.STRING)
     private Language language;
 
-    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language")
     private Map<Language, AnswerTranslation> translations;

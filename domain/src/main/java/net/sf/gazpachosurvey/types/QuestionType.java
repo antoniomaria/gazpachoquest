@@ -5,7 +5,9 @@ public enum QuestionType {
     L("Multiple Choice (Only One Answer)",true,false, false, Integer.class),
     N("Numeric",false, false, false, Integer.class),
     T("Comment / Essay",false, false, false, Character[].class),
-    F("Rating Scale (Agree-Disagree)",false, false, false, String.class);
+    F("Rating Scale (Agree-Disagree)",false, false, false, String.class),
+    M("Multiple_Choice_Multiple_Answers", false, false, true, String.class);
+    
     /*Multiple_Choice_One_Answer(false, false, true), 
     Multiple_Choice_Multiple_Answers(false, false, true),
     Comment(false, false, false),

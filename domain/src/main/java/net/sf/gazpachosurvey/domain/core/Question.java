@@ -45,7 +45,6 @@ public class Question extends AbstractPersistable<Integer> {
 
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderColumn(name = "order_in_question")
-    //@JoinFetch(JoinFetchType.OUTER)
     private List<Answer> answers;
 
     private String title;

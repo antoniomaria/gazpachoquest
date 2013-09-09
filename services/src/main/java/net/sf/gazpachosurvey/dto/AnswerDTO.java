@@ -45,6 +45,7 @@ public class AnswerDTO {
     public static class Builder {
         private String code;
         private String title;
+        private Language language;
 
         public Builder code(String code) {
             this.code = code;
@@ -56,10 +57,16 @@ public class AnswerDTO {
             return this;
         }
 
+        public Builder language(Language language) {
+            this.language = language;
+            return this;
+        }
+        
         public AnswerDTO build() {
             AnswerDTO answerDTO = new AnswerDTO();
             answerDTO.code = code;
             answerDTO.title = title;
+            answerDTO.language = language;
             return answerDTO;
         }
     }

@@ -21,6 +21,7 @@ import org.eclipse.persistence.dynamic.DynamicType;
 import org.eclipse.persistence.jpa.dynamic.JPADynamicHelper;
 import org.eclipse.persistence.jpa.dynamic.JPADynamicTypeBuilder;
 import org.eclipse.persistence.tools.schemaframework.SchemaManager;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,8 @@ public class DynamicTest {
         Question q = new Question();
         q.setId(2);
         answer.setQuestion(q);
-        long count = answerRepository.findCount(answer, new SearchParameters());
+        long count = answerRepository.countByExample(answer,
+                new SearchParameters());
         System.out.println("de winner is: " + count);
     }
 
@@ -59,7 +61,8 @@ public class DynamicTest {
     @Test
     public void createAnswersTable() {
         String packagePrefix = "net.sf.gazpachosurvey.domain.dynamic.";
-
+        //ClassLoader.getSystemClassLoader().
+        
         DynamicClassLoader dcl = new DynamicClassLoader(Thread.currentThread()
                 .getContextClassLoader());
 
@@ -91,7 +94,7 @@ public class DynamicTest {
         for (Question question : questions) {
             processQuestion(surveyAnswer, question);
         }
-        
+
         surveyAnswer.setPrimaryKeyFields("id");
         surveyAnswer.configureSequencing(tableName + "_SEQ", "id");
         DynamicType[] types = new DynamicType[] { surveyAnswer.getType() };
@@ -112,26 +115,28 @@ public class DynamicTest {
                 + question.getTitle());
 
         List<Question> subquestions = question.getSubquestions();
-        for (Question subquestion : subquestions) {
-            processQuestion(surveyAnswer, subquestion);
-        }
         if (subquestions.isEmpty()) {
             if (questionType.hasMultipleAnswers()) {
-
+                String baseFieldName = "q" + question.getId();
+                List<Answer> answers = question.getAnswers();
+                for (Answer answer : answers) {
+                    String fieldName = new StringBuilder(baseFieldName).append("x").append(answer.getId()).toString();
+                    surveyAnswer.addDirectMapping(fieldName,
+                            questionType.getAnswerType(), fieldName);
+                }
             } else {
                 String fieldName = "q" + question.getId();
                 surveyAnswer.addDirectMapping(fieldName,
                         questionType.getAnswerType(), fieldName);
             }
-            for (Answer answer : question.getAnswers()) {
-                // System.out.println("\t " + answer.getTitle());
-            }
-
         }
-
+        for (Question subquestion : subquestions) {
+            processQuestion(surveyAnswer, subquestion);
+        }
     }
 
     @Test
+    @Ignore
     public void myTest() {
 
         DynamicClassLoader dcl = new DynamicClassLoader(Thread.currentThread()
