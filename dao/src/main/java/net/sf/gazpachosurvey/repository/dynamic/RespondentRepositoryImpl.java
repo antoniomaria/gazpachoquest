@@ -4,36 +4,27 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
 import net.sf.gazpachosurvey.domain.core.Answer;
 import net.sf.gazpachosurvey.domain.core.Question;
-import net.sf.gazpachosurvey.domain.core.Respondent;
 import net.sf.gazpachosurvey.domain.core.Survey;
-import net.sf.gazpachosurvey.domain.core.SurveyRunning;
 import net.sf.gazpachosurvey.repository.AnswerRepository;
 import net.sf.gazpachosurvey.repository.QuestionRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
-import net.sf.gazpachosurvey.repository.support.GenericRepository;
-import net.sf.gazpachosurvey.repository.support.Range;
 import net.sf.gazpachosurvey.types.QuestionType;
 
 import org.eclipse.persistence.descriptors.ClassDescriptor;
 import org.eclipse.persistence.dynamic.DynamicClassLoader;
 import org.eclipse.persistence.dynamic.DynamicEntity;
 import org.eclipse.persistence.dynamic.DynamicType;
-import org.eclipse.persistence.jpa.JpaHelper;
 import org.eclipse.persistence.jpa.dynamic.JPADynamicHelper;
 import org.eclipse.persistence.jpa.dynamic.JPADynamicTypeBuilder;
-import org.eclipse.persistence.sequencing.NativeSequence;
 import org.eclipse.persistence.tools.schemaframework.SchemaManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -42,6 +33,8 @@ import org.springframework.util.Assert;
 @Component
 public class RespondentRepositoryImpl implements RespondentRepository{
 
+    private static final Logger logger = LoggerFactory.getLogger(RespondentRepositoryImpl.class);
+    
     private static final String PACKAGE_PREFIX = "net.sf.gazpachosurvey.domain.dynamic.";
     
     private static final String TABLE_NAME_PREFIX = "Respondent_";
@@ -58,41 +51,32 @@ public class RespondentRepositoryImpl implements RespondentRepository{
     @Autowired
     private QuestionRepository questionRepository;
 
-    public void createRespondentTable(Survey survey) {
+    public void collectAnswers(Survey survey) {
         Assert.notNull(survey.getId());
-        DynamicType[] types = new DynamicType[] { buildDynamicType(survey.getId()) };
         // Create JPA Dynamic Helper (with the entityManager above) and after the types
         // have been created and add the types through the helper.
         JPADynamicHelper helper = new JPADynamicHelper(entityManager);
-        helper.addTypes(true, true, types);
+        helper.addTypes(true, true, buildDynamicType(survey.getId()));
         // Update database
         new SchemaManager(helper.getSession()).createDefaultTables(true);
+        
+        logger.info("Answer table has been created for survey {}", survey.getId());
     }
 
     @Transactional
     public void save(){
-        //entityManager.getTransaction().begin();
-       
         DynamicEntity respondent = newInstance("Respondent_1");
         respondent.set("ipAddress", "127.0.0.1");
         respondent.set("startDate", new Date());
         entityManager.persist(respondent);
         entityManager.flush();
-        
-        //entityManager.getTransaction().commit();
-        //entityManager.clear();
-       
-        System.out.println("fin");
     }
     
     private DynamicEntity newInstance(String entityAlias) {
-        EntityManagerFactory factory = entityManager.getEntityManagerFactory();
-        
         JPADynamicHelper helper = new JPADynamicHelper(entityManager);
-        //ClassDescriptor descriptor = JpaHelper.getServerSession(entityManager.getEntityManagerFactory()).getDescriptorForAlias(entityAlias);
         ClassDescriptor descriptor = helper.getSession().getDescriptorForAlias(entityAlias);
         if (descriptor == null){
-            createRespondentTable(Survey.with().id(1).build());
+            collectAnswers(Survey.with().id(1).build());
             
         }
         descriptor = helper.getSession().getDescriptorForAlias(entityAlias);
@@ -127,8 +111,6 @@ public class RespondentRepositoryImpl implements RespondentRepository{
         
         respondentAnswersTypeBuilder.setPrimaryKeyFields("id");
         respondentAnswersTypeBuilder.configureSequencing(tableName + "_seq", "id");
-        //respondentAnswersTypeBuilder.configureSequencing(new NativeSequence("respondent_1_seq", 1, 1),tableName + "_seq", "id");
-        
         return respondentAnswersTypeBuilder.getType();
     }
 

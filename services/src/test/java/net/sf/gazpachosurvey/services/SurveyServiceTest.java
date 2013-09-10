@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.dto.AnswerDTO;
 import net.sf.gazpachosurvey.dto.LabelDTO;
 import net.sf.gazpachosurvey.dto.LabelSetDTO;
@@ -269,8 +270,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
         surveyRunningService.save(surveyRunning);
 
+        
         System.out.println("fin" + winner.getName());
 
+    }
+    
+    @Test
+    public void confirmTest(){
+        SurveyDTO survey = SurveyDTO.with().id(1).build();
+        surveyService.confirm(survey);
+        
     }
 
     @Test

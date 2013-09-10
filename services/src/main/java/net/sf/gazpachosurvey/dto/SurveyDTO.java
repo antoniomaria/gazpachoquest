@@ -48,6 +48,8 @@ public class SurveyDTO extends AbstractIdentifiableDTO<Integer> {
     }
 
     public static interface Builder {
+        Builder id(Integer id);
+        
         Builder languageSettings(SurveyLanguageSettingsDTO languageSettings);
 
         Builder language(Language language);
@@ -62,6 +64,8 @@ public class SurveyDTO extends AbstractIdentifiableDTO<Integer> {
     }
 
     public static class BuilderImpl implements Builder {
+        private Integer id;
+        
         private Language language;
         
         private SurveyLanguageSettingsDTO languageSettings;
@@ -88,7 +92,14 @@ public class SurveyDTO extends AbstractIdentifiableDTO<Integer> {
             SurveyDTO surveyDTO = new SurveyDTO();
             surveyDTO.languageSettings = languageSettings;
             surveyDTO.language = language;
+            surveyDTO.setId(id);
             return surveyDTO;
+        }
+
+        @Override
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
         }
     }
 }

@@ -4,4 +4,5 @@ import net.sf.gazpachosurvey.dto.SurveyDTO;
 
 public interface SurveyService extends PersistenceService<SurveyDTO, Integer> {
 
+    SurveyDTO confirm(SurveyDTO survey);
 }
