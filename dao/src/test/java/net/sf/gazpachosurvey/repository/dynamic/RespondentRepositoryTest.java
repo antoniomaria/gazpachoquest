@@ -1,5 +1,9 @@
 package net.sf.gazpachosurvey.repository.dynamic;
 
+import java.util.Date;
+
+import net.sf.gazpachosurvey.domain.core.Respondent;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,12 @@ public class RespondentRepositoryTest {
     @Test
     public void saveRespondentTest() {
         repository.enableAllAnswers();
-        repository.save();
+        Respondent respondent = new Respondent();
+        respondent.setId(151);
+        respondent.setSurveyId(1);
+        respondent.setSurveyRunningId(100);
+        respondent.setStartDate(new Date());
+        respondent.setIpAddress("127.0.0.2");
+        repository.save(respondent);
     }
 }

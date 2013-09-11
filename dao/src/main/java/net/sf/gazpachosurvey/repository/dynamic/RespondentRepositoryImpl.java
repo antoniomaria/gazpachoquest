@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import net.sf.gazpachosurvey.domain.core.Answer;
 import net.sf.gazpachosurvey.domain.core.Question;
+import net.sf.gazpachosurvey.domain.core.Respondent;
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.repository.AnswerRepository;
 import net.sf.gazpachosurvey.repository.QuestionRepository;
@@ -86,11 +87,24 @@ public class RespondentRepositoryImpl implements RespondentRepository {
 
     @Override
     @Transactional
-    public void save() {
-        DynamicEntity respondent = newInstance("Respondent_1");
-        respondent.set("ipAddress", "127.0.0.1");
-        respondent.set("startDate", new Date());
-        entityManager.persist(respondent);
+    public void save(Respondent respondent) {
+        Assert.notNull(respondent.getSurveyId());
+        Assert.notNull(respondent.getSurveyRunningId());
+
+        DynamicEntity entity = newInstance("Respondent_" + respondent.getSurveyId());
+        if (!respondent.isNew()) {
+            entity.set("id", respondent.getId());
+        }
+        entity.set("surveyRunningId", respondent.getSurveyRunningId());
+        entity.set("ipAddress", respondent.getIpAddress());
+        entity.set("startDate", respondent.getStartDate());
+        entity.set("submitDate", respondent.getSubmitDate());
+
+        if (!respondent.isNew()) {
+            entityManager.merge(entity);
+        } else {
+            entityManager.persist(entity);
+        }
         entityManager.flush();
     }
 
@@ -110,9 +124,10 @@ public class RespondentRepositoryImpl implements RespondentRepository {
         JPADynamicTypeBuilder respondentAnswersTypeBuilder = new JPADynamicTypeBuilder(dynamicClass, null, tableName);
 
         respondentAnswersTypeBuilder.addDirectMapping("id", Integer.class, "id");
-        respondentAnswersTypeBuilder.addDirectMapping("submitDate", Date.class, "submit_date");
-        respondentAnswersTypeBuilder.addDirectMapping("startDate", Date.class, "start_date");
+        respondentAnswersTypeBuilder.addDirectMapping("surveyRunningId", Integer.class, "survey_running_id");
         respondentAnswersTypeBuilder.addDirectMapping("ipAddress", String.class, "ip_address");
+        respondentAnswersTypeBuilder.addDirectMapping("startDate", Date.class, "start_date");
+        respondentAnswersTypeBuilder.addDirectMapping("submitDate", Date.class, "submit_date");
 
         Question example = new Question();
         example.setSurvey(Survey.with().id(surveyId).build());
