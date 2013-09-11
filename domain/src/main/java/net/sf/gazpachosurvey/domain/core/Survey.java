@@ -28,7 +28,7 @@ import net.sf.gazpachosurvey.types.Language;
 public class Survey extends AbstractAuditable<Integer> {
 
     private static final long serialVersionUID = 2560468772707058412L;
-    
+
     @Enumerated(EnumType.STRING)
     private EntityStatus status;
 
@@ -75,8 +75,7 @@ public class Survey extends AbstractAuditable<Integer> {
         return translations;
     }
 
-    public void setTranslation(Language language,
-            SurveyLanguageSettings languageSettings) {
+    public void setTranslation(Language language, SurveyLanguageSettings languageSettings) {
         SurveyTranslation translation = new SurveyTranslation();
         translation.setSurvey(this);
         translation.setLanguage(language);
@@ -150,9 +149,10 @@ public class Survey extends AbstractAuditable<Integer> {
         this.status = status;
     }
 
-    public static Builder with(){
+    public static Builder with() {
         return new Builder();
     }
+
     public static class Builder {
         private Integer id;
         private EntityStatus status;
@@ -162,18 +162,17 @@ public class Survey extends AbstractAuditable<Integer> {
         private Map<Language, SurveyTranslation> translations;
         private List<Page> pages;
         private Set<Question> questions;
-        
 
         public Builder id(Integer id) {
             this.id = id;
             return this;
         }
-        
-        public Builder id(EntityStatus status) {
+
+        public Builder status(EntityStatus status) {
             this.status = status;
             return this;
         }
-        
+
         public Builder languageSettings(SurveyLanguageSettings languageSettings) {
             this.languageSettings = languageSettings;
             return this;
@@ -189,8 +188,7 @@ public class Survey extends AbstractAuditable<Integer> {
             return this;
         }
 
-        public Builder translations(
-                Map<Language, SurveyTranslation> translations) {
+        public Builder translations(Map<Language, SurveyTranslation> translations) {
             this.translations = translations;
             return this;
         }
