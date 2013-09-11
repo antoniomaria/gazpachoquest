@@ -59,18 +59,12 @@ public class RespondentRepositoryImpl implements RespondentRepository {
         // Create JPA Dynamic Helper (with the entityManager above) and after
         // the types
         // have been created and add the types through the helper.
-        enableAnswers(survey);
-        // Update database
         JPADynamicHelper helper = new JPADynamicHelper(entityManager);
+        helper.addTypes(true, true, buildDynamicType(survey.getId()));
+        // Update database
         new SchemaManager(helper.getSession()).createDefaultTables(true);
 
         logger.info("Answer table has been created for survey {}", survey.getId());
-    }
-
-    public void enableAnswers(Survey survey) {
-        Assert.notNull(survey.getId());
-        JPADynamicHelper helper = new JPADynamicHelper(entityManager);
-        helper.addTypes(true, true, buildDynamicType(survey.getId()));
     }
 
     @Override
