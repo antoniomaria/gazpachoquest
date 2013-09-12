@@ -18,7 +18,7 @@
     <persistence:class>net.sf.gazpachosurvey.domain.i18.SurveyTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.i18.PageTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.user.User</persistence:class>
-    
+
     <persistence:properties>
       <persistence:property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
       <persistence:property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/gazpachosurvey" />
@@ -32,6 +32,11 @@
 
     <persistence:provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence:provider>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Answer</persistence:class>
+
+    <persistence:class>net.sf.gazpachosurvey.domain.core.Invitation</persistence:class>
+    <persistence:class>net.sf.gazpachosurvey.domain.core.InvitationMessage</persistence:class>
+
+
     <persistence:class>net.sf.gazpachosurvey.domain.core.Label</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.LabelSet</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Page</persistence:class>

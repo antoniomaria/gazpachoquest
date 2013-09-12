@@ -1,17 +1,23 @@
 package net.sf.gazpachosurvey.domain.core;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
+import net.sf.gazpachosurvey.types.SurveyRunningType;
 
 import org.springframework.util.Assert;
 
@@ -20,14 +26,24 @@ public class SurveyRunning extends AbstractAuditable<Integer> {
 
     private static final long serialVersionUID = -5917291757324504802L;
 
+    private String name;
+    
+    @Enumerated(EnumType.STRING)
+    private SurveyRunningType type;
+    
+    @Temporal(value = TemporalType.DATE)
+    private Date startDate;
+    
+    @Temporal(value = TemporalType.DATE)
+    private Date expirationDate;
+    
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Survey survey;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "surveyrunning_participant", joinColumns = { @JoinColumn(name = "surveyrunning_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "participant_id", referencedColumnName = "id") })
     private Set<Participant> participants;
-    
-    private String name;
+
 
     public SurveyRunning() {
         super();
@@ -49,13 +65,7 @@ public class SurveyRunning extends AbstractAuditable<Integer> {
     }
 
     public void setParticipants(Set<Participant> participants) {
-        for (Participant participant : participants) {
-            addParticipant(participant);
-        }
-        System.err.println("llamado!!");
-        System.err.println("llamado!!");
-        System.err.println("llamado!!");
-        System.err.println("llamado!!");
+        this.participants = participants;
     }
 
     public String getName() {
@@ -64,6 +74,30 @@ public class SurveyRunning extends AbstractAuditable<Integer> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public SurveyRunningType getType() {
+        return type;
+    }
+
+    public void setType(SurveyRunningType type) {
+        this.type = type;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
     public void addParticipant(Participant participant) {
