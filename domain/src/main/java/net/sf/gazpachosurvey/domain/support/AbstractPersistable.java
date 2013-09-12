@@ -11,13 +11,12 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @MappedSuperclass
-public class AbstractPersistable<PK extends Serializable> implements
-        Persistable<PK> {
+public class AbstractPersistable<PK extends Serializable> implements Persistable<PK> {
 
     private static final long serialVersionUID = -7123026384985572646L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private PK id;
 
     @Override
@@ -48,8 +47,7 @@ public class AbstractPersistable<PK extends Serializable> implements
         if (obj instanceof Persistable<?>) {
             final Persistable<?> other = (Persistable<?>) obj;
             if (!isNew()) {
-                return (new EqualsBuilder())
-                        .append(this.getId(), other.getId()).isEquals();
+                return (new EqualsBuilder()).append(this.getId(), other.getId()).isEquals();
             } else {
                 return EqualsBuilder.reflectionEquals(this, obj);
             }
@@ -60,7 +58,6 @@ public class AbstractPersistable<PK extends Serializable> implements
 
     @Override
     public String toString() {
-        return String.format("Entity of type %s with id: %s", this.getClass()
-                .getName(), getId());
+        return String.format("Entity of type %s with id: %s", this.getClass().getName(), getId());
     }
 }

@@ -64,6 +64,8 @@ public class SurveyServiceProfiler {
             }
         }
         // GenerationType.IDENTITY nAverage time: 211 ms
+        // GenerationType.sequence Average time: 120 ms
+        // GenerationType.auto Average time: 126 ms
         System.out.println("Average time: " + duration / (n - 1) + " ms");
 
     }
@@ -112,7 +114,7 @@ public class SurveyServiceProfiler {
         label = LabelDTO.with().title("Disagree strongly").build();
         labelSetService.addLabel(labelSet.getId(), label);
 
-        LabelSetDTO winner = labelSetService.findOne(1);
+        LabelSetDTO winner = labelSetService.findOne(5);
 
         // 1 Single Textbox
         QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN)

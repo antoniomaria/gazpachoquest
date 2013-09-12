@@ -34,8 +34,12 @@
 
   <util:map id="jpaPropertyMap">
     <entry key="showSql" value="${jpa.show.sql}" />
+    <entry key="eclipselink.logging.level.sql" value="INFO" />
+    <!-- 
     <entry key="eclipselink.logging.level.sql" value="FINE" />
-    <entry key="eclipselink.logging.parameters" value="true" /><!--
+    <entry key="eclipselink.logging.parameters" value="true" />
+     -->
+    <!--
       <entry key="eclipselink.ddl-generation" value="drop-and-create-tables" />
       <entry key="eclipselink.ddl-generation.output-mode" value="database" /> -->
     <entry key="databasePlatform" value="${eclipselink.databasePlatform}" />
