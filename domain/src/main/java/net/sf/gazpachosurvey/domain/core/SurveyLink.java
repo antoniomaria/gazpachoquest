@@ -3,13 +3,12 @@ package net.sf.gazpachosurvey.domain.core;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.InvitationStatus;
 
 @Entity
-public class Invitation extends AbstractPersistable<Integer> {
+public class SurveyLink extends AbstractPersistable<Integer> {
 
     private static final long serialVersionUID = -9203813369476903640L;
 
@@ -19,10 +18,7 @@ public class Invitation extends AbstractPersistable<Integer> {
     private SurveyRunning surveyRunning;
     
     private InvitationStatus status;
-
-    @OneToOne(fetch=FetchType.LAZY)
-    private InvitationMessage message;
-    
+  
     public String getToken() {
         return token;
     }
