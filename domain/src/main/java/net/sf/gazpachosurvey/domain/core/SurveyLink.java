@@ -1,8 +1,12 @@
 package net.sf.gazpachosurvey.domain.core;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+
+import org.joda.time.DateTime;
 
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.InvitationStatus;
@@ -17,8 +21,9 @@ public class SurveyLink extends AbstractPersistable<Integer> {
     @ManyToOne(fetch = FetchType.LAZY)
     private SurveyRunning surveyRunning;
     
+    @Enumerated(EnumType.STRING)
     private InvitationStatus status;
-  
+    
     public String getToken() {
         return token;
     }
