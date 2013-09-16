@@ -1,13 +1,14 @@
 package net.sf.gazpachosurvey.domain.core;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 
 import org.joda.time.DateTime;
+import org.joda.time.contrib.jpa.DateTimeConverter;
 
 @Entity
 public class MailMessage extends AbstractPersistable<Integer> {
@@ -23,12 +24,13 @@ public class MailMessage extends AbstractPersistable<Integer> {
     @Lob
     private String body;
 
-    @Temporal(TemporalType.DATE)
-    private DateTime deliveryDate;
+    @Column(columnDefinition = "timestamp")
+    @Convert(converter = DateTimeConverter.class)
+    private DateTime sentDate;
 
     private Integer deliveryAttempts;
 
-    private MailMessage() {
+    public MailMessage() {
         super();
     }
 
@@ -72,23 +74,24 @@ public class MailMessage extends AbstractPersistable<Integer> {
         this.toAddress = toAddress;
     }
 
-    public DateTime getDeliveryDate() {
-        return deliveryDate;
+    public DateTime getSentDate() {
+        return sentDate;
     }
 
-    public void setDeliveryDate(DateTime deliveryDate) {
-        this.deliveryDate = deliveryDate;
+    public void setSentDate(DateTime sentDate) {
+        this.sentDate = sentDate;
     }
 
-    public static Builder with(){
+    public static Builder with() {
         return new Builder();
     }
+
     public static class Builder {
         private String subject;
         private String toAddress;
         private String fromAddress;
         private String body;
-        private DateTime deliveryDate;
+        private DateTime sentDate;
         private Integer deliveryAttempts;
 
         public Builder subject(String subject) {
@@ -111,8 +114,8 @@ public class MailMessage extends AbstractPersistable<Integer> {
             return this;
         }
 
-        public Builder deliveryDate(DateTime deliveryDate) {
-            this.deliveryDate = deliveryDate;
+        public Builder sentDate(DateTime sentDate) {
+            this.sentDate = sentDate;
             return this;
         }
 
@@ -127,7 +130,7 @@ public class MailMessage extends AbstractPersistable<Integer> {
             mailMessage.toAddress = toAddress;
             mailMessage.fromAddress = fromAddress;
             mailMessage.body = body;
-            mailMessage.deliveryDate = deliveryDate;
+            mailMessage.sentDate = sentDate;
             mailMessage.deliveryAttempts = deliveryAttempts;
             return mailMessage;
         }

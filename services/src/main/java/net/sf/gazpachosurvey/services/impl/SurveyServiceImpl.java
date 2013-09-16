@@ -1,13 +1,16 @@
 package net.sf.gazpachosurvey.services.impl;
 
+import net.sf.gazpachosurvey.domain.core.MailMessage;
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
+import net.sf.gazpachosurvey.repository.MailMessageRepository;
 import net.sf.gazpachosurvey.repository.PageRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.repository.dynamic.RespondentRepository;
 import net.sf.gazpachosurvey.services.SurveyService;
 import net.sf.gazpachosurvey.types.EntityStatus;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,9 @@ public class SurveyServiceImpl extends AbstractPersistenceService<Survey, Survey
     private RespondentRepository respondentRepository;
 
     @Autowired
+    private MailMessageRepository mailMessageRepository;
+    
+    @Autowired
     public SurveyServiceImpl(SurveyRepository surveyRepository) {
         super(surveyRepository, Survey.class, SurveyDTO.class);
     }
@@ -31,6 +37,9 @@ public class SurveyServiceImpl extends AbstractPersistenceService<Survey, Survey
         if (entity.isNew()){
             entity.setStatus(EntityStatus.DRAFT);
         }
+        MailMessage message = MailMessage.with().toAddress("antonio@gmail.com").build();
+        
+        mailMessageRepository.save(message);
         return mapper.map(repository.save(entity), SurveyDTO.class);
     }
     

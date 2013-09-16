@@ -3,6 +3,9 @@ package net.sf.gazpachosurvey.domain.support;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
@@ -11,6 +14,7 @@ import javax.persistence.TemporalType;
 import net.sf.gazpachosurvey.domain.user.User;
 
 import org.joda.time.DateTime;
+import org.joda.time.contrib.jpa.DateTimeConverter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -26,17 +30,20 @@ public class AbstractAuditable<PK extends Serializable> extends
     @CreatedBy
     private User createdBy;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition = "timestamp")
+    @Convert(converter = DateTimeConverter.class)
     @CreatedDate
-    private Date createdDate;
+    private DateTime createdDate;
 
     @ManyToOne(targetEntity = User.class)
     @LastModifiedBy
     private User lastModifiedBy;
 
-    @Temporal(TemporalType.TIMESTAMP)
+
+    @Column(columnDefinition = "timestamp")
+    @Convert(converter = DateTimeConverter.class)
     @LastModifiedDate
-    private Date lastModifiedDate;
+    private DateTime lastModifiedDate;
 
     public User getCreatedBy() {
 
@@ -46,15 +53,6 @@ public class AbstractAuditable<PK extends Serializable> extends
     public void setCreatedBy(final User createdBy) {
 
         this.createdBy = createdBy;
-    }
-
-    public DateTime getCreatedDate() {
-        return null == createdDate ? null : new DateTime(createdDate);
-    }
-
-    public void setCreatedDate(final DateTime createdDate) {
-
-        this.createdDate = null == createdDate ? null : createdDate.toDate();
     }
 
     public User getLastModifiedBy() {
@@ -67,14 +65,20 @@ public class AbstractAuditable<PK extends Serializable> extends
         this.lastModifiedBy = lastModifiedBy;
     }
 
+    public DateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(DateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
     public DateTime getLastModifiedDate() {
-
-        return null == lastModifiedDate ? null : new DateTime(lastModifiedDate);
+        return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(final DateTime lastModifiedDate) {
-
-        this.lastModifiedDate = null == lastModifiedDate ? null
-                : lastModifiedDate.toDate();
+    public void setLastModifiedDate(DateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
+
 }

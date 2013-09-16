@@ -15,6 +15,7 @@ import net.sf.gazpachosurvey.dto.ParticipantDTO;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
 import net.sf.gazpachosurvey.dto.SurveyRunningDTO;
+import net.sf.gazpachosurvey.dto.UserDTO;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.QuestionType;
 
@@ -55,8 +56,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     @Autowired
     private SurveyRunningService surveyRunningService;
 
+    @Autowired 
+    private UserService userService;
+    
     @Test
     public void addSurveyTest() {
+        userService.save(UserDTO.with().firstName("temporal.support").lastName("support").email("support.temporal@gazpacho.net").build());
+        
         SurveyDTO survey = SurveyDTO
                 .with()
                 .language(Language.EN)
@@ -100,7 +106,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         label = LabelDTO.with().title("Disagree strongly").build();
         labelSetService.addLabel(labelSet.getId(), label);
 
-        LabelSetDTO winner = labelSetService.findOne(5);
 
         // 1 Single Textbox
         QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN)
@@ -226,7 +231,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
         surveyRunningService.save(surveyRunning);
 
-        System.out.println("fin" + winner.getName());
 
     }
 
