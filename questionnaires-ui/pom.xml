@@ -89,6 +89,9 @@
             <fileset>
               <directory>src/main/webapp/VAADIN/widgetsets</directory>
             </fileset>
+            <fileset>
+              <directory>src/main/webapp/VAADIN/gwt-unitCache</directory>
+            </fileset>
           </filesets>
         </configuration>
       </plugin>

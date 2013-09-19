@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee                       http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+  <display-name>Gazpacho Questionnaires</display-name>
+  <!--
+    <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+  -->
+  <context-param>
+    <description>Vaadin production mode</description>
+    <param-name>productionMode</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <servlet>
+    <servlet-name>Questionnaires</servlet-name>
+    <servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
+    <init-param>
+      <param-name>UI</param-name>
+      <param-value>net.sf.gazpachosurvey.questionnaires.QuestionnairesUI</param-value>
+    </init-param>
+    <init-param>
+      <param-name>widgetset</param-name>
+      <param-value>net.sf.gazpachosurvey.questionnaires.AppWidgetSet</param-value>
+    </init-param>
+    <!--
+      <init-param>
+      <param-name>UIProvider</param-name>
+      <param-value>com.vaadin.demo.dashboard.DashboardUIProvider</param-value>
+      </init-param> -->
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Questionnaires</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
+
+</web-app>

@@ -14,12 +14,13 @@ import com.vaadin.ui.VerticalLayout;
 
 @Theme("mytheme")
 @SuppressWarnings("serial")
-public class MyVaadinUI extends UI {
-
+public class QuestionnairesUI extends UI {
+    
+/*
     @WebServlet(value = "/*", asyncSupported = true)
-    @VaadinServletConfiguration(productionMode = false, ui = MyVaadinUI.class, widgetset = "net.sf.gazpachosurvey.questionnaires.AppWidgetSet")
+    @VaadinServletConfiguration(productionMode = false, ui = QuestionnairesUI.class, widgetset = "net.sf.gazpachosurvey.questionnaires.AppWidgetSet")
     public static class Servlet extends VaadinServlet {
-    }
+    } */
 
     @Override
     protected void init(VaadinRequest request) {
