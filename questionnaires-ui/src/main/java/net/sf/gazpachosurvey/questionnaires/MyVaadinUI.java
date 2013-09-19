@@ -27,7 +27,7 @@ public class MyVaadinUI extends UI {
         layout.setMargin(true);
         setContent(layout);
 
-        Button button = new Button("Click Me");
+        Button button = new Button("Click Me Again!");
         button.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
