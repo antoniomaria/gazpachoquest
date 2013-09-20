@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 @Service
-public class PageSurveyImpl extends AbstractPersistenceService<Page, PageDTO, Integer> implements PageService {
+public class PageServiceImpl extends AbstractPersistenceService<Page, PageDTO, Integer> implements PageService {
 
     @Autowired
     private SurveyRepository surveyRepository;
 
     @Autowired
-    public PageSurveyImpl(PageRepository repository) {
+    public PageServiceImpl(PageRepository repository) {
         super(repository, Page.class, PageDTO.class);
     }
 

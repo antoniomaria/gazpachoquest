@@ -8,7 +8,7 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO<Integer> {
 
     private Language language;
 
-    private String from;
+    private String fromAddress;
 
     private String replyTo;
 
@@ -26,12 +26,12 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO<Integer> {
         this.language = language;
     }
 
-    public String getFrom() {
-        return from;
+    public String getFromAddress() {
+        return fromAddress;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setFromAddress(String from) {
+        this.fromAddress = from;
     }
 
     public String getReplyTo() {
@@ -100,7 +100,7 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO<Integer> {
             MailMessageTemplateDTO mailMessageTemplateDTO = new MailMessageTemplateDTO();
             mailMessageTemplateDTO.setId(id);
             mailMessageTemplateDTO.language = language;
-            mailMessageTemplateDTO.from = from;
+            mailMessageTemplateDTO.fromAddress = from;
             mailMessageTemplateDTO.replyTo = replyTo;
             mailMessageTemplateDTO.languageSettings = languageSettings;
             return mailMessageTemplateDTO;

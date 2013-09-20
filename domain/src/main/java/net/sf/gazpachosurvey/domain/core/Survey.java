@@ -75,7 +75,7 @@ public class Survey extends AbstractAuditable<Integer> {
         return translations;
     }
 
-    public void setTranslation(Language language, SurveyLanguageSettings languageSettings) {
+    public void addTranslation(Language language, SurveyLanguageSettings languageSettings) {
         SurveyTranslation translation = new SurveyTranslation();
         translation.setSurvey(this);
         translation.setLanguage(language);

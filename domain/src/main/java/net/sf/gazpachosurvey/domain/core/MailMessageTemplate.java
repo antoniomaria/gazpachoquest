@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.domain.core;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -13,7 +14,9 @@ import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 
 import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
+import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
+import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
 import net.sf.gazpachosurvey.types.Language;
 
@@ -25,7 +28,7 @@ public class MailMessageTemplate extends AbstractAuditable<Integer> {
     @Enumerated(EnumType.STRING)
     private Language language;
 
-    private String from;
+    private String fromAddress;
 
     private String replyTo;
 
@@ -49,12 +52,12 @@ public class MailMessageTemplate extends AbstractAuditable<Integer> {
         this.language = language;
     }
 
-    public String getFrom() {
-        return from;
+    public String getFromAddress() {
+        return fromAddress;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setFromAddress(String from) {
+        this.fromAddress = from;
     }
 
     public String getReplyTo() {
@@ -74,6 +77,10 @@ public class MailMessageTemplate extends AbstractAuditable<Integer> {
     }
 
     public Map<Language, MailMessageTemplateTranslation> getTranslations() {
+        if (translations == null){
+            this.translations = new HashMap<>();
+        }
+        
         return translations;
     }
 
@@ -81,4 +88,11 @@ public class MailMessageTemplate extends AbstractAuditable<Integer> {
         this.translations = translations;
     }
 
+    public void addTranslation(Language language, MailMessageTemplateLanguageSettings languageSettings) {
+        MailMessageTemplateTranslation translation = new MailMessageTemplateTranslation();
+        translation.setMailMessageTemplate(this);
+        translation.setLanguage(language);
+        translation.setLanguageSettings(languageSettings);
+        getTranslations().put(language, translation);
+    }
 }

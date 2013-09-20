@@ -17,14 +17,14 @@ public class MailMessage extends AbstractPersistable<Integer> {
 
     private String subject;
 
-    private String to;
+    private String toAddress;
 
-    private String from;
+    private String fromAddress;
 
     private String replyTo;
 
     @Lob
-    private String text;
+    private String body;
 
     @Column(columnDefinition = "timestamp")
     @Convert(converter = DateTimeConverter.class)
@@ -44,20 +44,20 @@ public class MailMessage extends AbstractPersistable<Integer> {
         this.subject = subject;
     }
 
-    public String getTo() {
-        return to;
+    public String getToAddress() {
+        return toAddress;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setToAddress(String to) {
+        this.toAddress = to;
     }
 
-    public String getFrom() {
-        return from;
+    public String getFromAddress() {
+        return fromAddress;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setFromAddress(String from) {
+        this.fromAddress = from;
     }
 
     public String getReplyTo() {
@@ -68,12 +68,12 @@ public class MailMessage extends AbstractPersistable<Integer> {
         this.replyTo = replyTo;
     }
 
-    public String getText() {
-        return text;
+    public String getBody() {
+        return body;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setBody(String text) {
+        this.body = text;
     }
 
     public DateTime getSentDate() {
@@ -143,10 +143,10 @@ public class MailMessage extends AbstractPersistable<Integer> {
         public MailMessage build() {
             MailMessage mailMessage = new MailMessage();
             mailMessage.subject = subject;
-            mailMessage.to = to;
-            mailMessage.from = from;
+            mailMessage.toAddress = to;
+            mailMessage.fromAddress = from;
             mailMessage.replyTo = replyTo;
-            mailMessage.text = text;
+            mailMessage.body = text;
             mailMessage.sentDate = sentDate;
             mailMessage.deliveryAttempts = deliveryAttempts;
             return mailMessage;

@@ -57,7 +57,7 @@ public class DataBasePopulator {
         languageSettings.setTitle("Encuesta satisfacion");
         languageSettings.setDescription("Que piensan los clientes de ti");
 
-        survey.setTranslation(Language.ES, languageSettings);
+        survey.addTranslation(Language.ES, languageSettings);
         surveyRepository.save(survey);
 
         //
