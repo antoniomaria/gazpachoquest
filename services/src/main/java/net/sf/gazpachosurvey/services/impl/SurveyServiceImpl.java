@@ -10,7 +10,6 @@ import net.sf.gazpachosurvey.repository.dynamic.RespondentRepository;
 import net.sf.gazpachosurvey.services.SurveyService;
 import net.sf.gazpachosurvey.types.EntityStatus;
 
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,37 +18,38 @@ public class SurveyServiceImpl extends AbstractPersistenceService<Survey, Survey
 
     @Autowired
     private PageRepository pageRepository;
-    
+
     @Autowired
     private RespondentRepository respondentRepository;
 
     @Autowired
     private MailMessageRepository mailMessageRepository;
-    
+
     @Autowired
     public SurveyServiceImpl(SurveyRepository surveyRepository) {
         super(surveyRepository, Survey.class, SurveyDTO.class);
     }
-    
+
     @Override
     public SurveyDTO save(SurveyDTO survey) {
         Survey entity = mapper.map(survey, entityClazz);
-        if (entity.isNew()){
+        if (entity.isNew()) {
             entity.setStatus(EntityStatus.DRAFT);
         }
-        MailMessage message = MailMessage.with().toAddress("antonio@gmail.com").build();
-        
+        MailMessage message = MailMessage.with().to("antonio@gmail.com").build();
+
         mailMessageRepository.save(message);
         return mapper.map(repository.save(entity), SurveyDTO.class);
     }
-    
+
+    @Override
     public SurveyDTO confirm(SurveyDTO survey) {
         Survey entity = repository.findOne(survey.getId());
-        if (entity.getStatus() == EntityStatus.DRAFT){
+        if (entity.getStatus() == EntityStatus.DRAFT) {
             respondentRepository.collectAnswers(entity);
             entity.setStatus(EntityStatus.CONFIRMED);
         }
         return survey;
     }
-    
+
 }

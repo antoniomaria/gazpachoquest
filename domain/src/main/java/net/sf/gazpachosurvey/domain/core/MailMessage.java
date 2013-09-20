@@ -17,12 +17,14 @@ public class MailMessage extends AbstractPersistable<Integer> {
 
     private String subject;
 
-    private String toAddress;
+    private String to;
 
-    private String fromAddress;
+    private String from;
+
+    private String replyTo;
 
     @Lob
-    private String body;
+    private String text;
 
     @Column(columnDefinition = "timestamp")
     @Convert(converter = DateTimeConverter.class)
@@ -34,30 +36,6 @@ public class MailMessage extends AbstractPersistable<Integer> {
         super();
     }
 
-    public String getFromAddress() {
-        return fromAddress;
-    }
-
-    public void setFromAddress(String destination) {
-        this.fromAddress = destination;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String content) {
-        this.body = content;
-    }
-
-    public Integer getDeliveryAttempts() {
-        return deliveryAttempts;
-    }
-
-    public void setDeliveryAttempts(Integer deliveryAttempts) {
-        this.deliveryAttempts = deliveryAttempts;
-    }
-
     public String getSubject() {
         return subject;
     }
@@ -66,12 +44,36 @@ public class MailMessage extends AbstractPersistable<Integer> {
         this.subject = subject;
     }
 
-    public String getToAddress() {
-        return toAddress;
+    public String getTo() {
+        return to;
     }
 
-    public void setToAddress(String toAddress) {
-        this.toAddress = toAddress;
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getReplyTo() {
+        return replyTo;
+    }
+
+    public void setReplyTo(String replyTo) {
+        this.replyTo = replyTo;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public DateTime getSentDate() {
@@ -82,15 +84,24 @@ public class MailMessage extends AbstractPersistable<Integer> {
         this.sentDate = sentDate;
     }
 
+    public Integer getDeliveryAttempts() {
+        return deliveryAttempts;
+    }
+
+    public void setDeliveryAttempts(Integer deliveryAttempts) {
+        this.deliveryAttempts = deliveryAttempts;
+    }
+
     public static Builder with() {
         return new Builder();
     }
 
     public static class Builder {
         private String subject;
-        private String toAddress;
-        private String fromAddress;
-        private String body;
+        private String to;
+        private String from;
+        private String replyTo;
+        private String text;
         private DateTime sentDate;
         private Integer deliveryAttempts;
 
@@ -99,18 +110,23 @@ public class MailMessage extends AbstractPersistable<Integer> {
             return this;
         }
 
-        public Builder toAddress(String toAddress) {
-            this.toAddress = toAddress;
+        public Builder to(String to) {
+            this.to = to;
             return this;
         }
 
-        public Builder fromAddress(String fromAddress) {
-            this.fromAddress = fromAddress;
+        public Builder from(String from) {
+            this.from = from;
             return this;
         }
 
-        public Builder body(String body) {
-            this.body = body;
+        public Builder replyTo(String replyTo) {
+            this.replyTo = replyTo;
+            return this;
+        }
+
+        public Builder text(String text) {
+            this.text = text;
             return this;
         }
 
@@ -127,9 +143,10 @@ public class MailMessage extends AbstractPersistable<Integer> {
         public MailMessage build() {
             MailMessage mailMessage = new MailMessage();
             mailMessage.subject = subject;
-            mailMessage.toAddress = toAddress;
-            mailMessage.fromAddress = fromAddress;
-            mailMessage.body = body;
+            mailMessage.to = to;
+            mailMessage.from = from;
+            mailMessage.replyTo = replyTo;
+            mailMessage.text = text;
             mailMessage.sentDate = sentDate;
             mailMessage.deliveryAttempts = deliveryAttempts;
             return mailMessage;
