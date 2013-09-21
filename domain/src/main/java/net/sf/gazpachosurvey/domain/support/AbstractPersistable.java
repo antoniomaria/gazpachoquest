@@ -11,20 +11,20 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @MappedSuperclass
-public class AbstractPersistable<PK extends Serializable> implements Persistable<PK> {
+public class AbstractPersistable<ID extends Serializable> implements Persistable<ID> {
 
     private static final long serialVersionUID = -7123026384985572646L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private PK id;
+    private ID id;
 
     @Override
-    public PK getId() {
+    public ID getId() {
         return id;
     }
 
-    public void setId(PK id) {
+    public void setId(ID id) {
         this.id = id;
     }
 

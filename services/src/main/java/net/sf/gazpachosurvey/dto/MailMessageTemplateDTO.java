@@ -117,4 +117,12 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO<Integer> {
             return MailMessageTemplateLanguageSettingsDTO.mailMessageTemplateLanguageSettingsStart(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "MailMessageTemplateDTO [language=" + language
+                + ", fromAddress=" + fromAddress + ", replyTo=" + replyTo
+                + ", languageSettings=" + languageSettings + "]";
+    }
+    
 }

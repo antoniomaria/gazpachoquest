@@ -54,10 +54,13 @@ public class DefaultRepositoryFactory extends JpaRepositoryFactory {
 
         if (isQueryDslExecutor(repositoryInterface)) {
             return new QueryDslJpaRepository(entityInformation, entityManager);
+        } else if (isLocalizedRepository(metadata.getRepositoryInterface())) {
+            return new LocalizedRepositoryImpl(entityInformation,
+                    entityManager, byExampleSpecification, namedQueryUtil);
         } else {
             return new GenericRepositoryImpl(entityInformation, entityManager,
-                    byExampleSpecification, namedQueryUtil, repositoryInterface); // custom
-                                                                                  // implementation
+                    byExampleSpecification, namedQueryUtil); // custom
+                                                             // implementation
         }
     }
 
@@ -66,6 +69,8 @@ public class DefaultRepositoryFactory extends JpaRepositoryFactory {
 
         if (isQueryDslExecutor(metadata.getRepositoryInterface())) {
             return QueryDslJpaRepository.class;
+        } else if (isLocalizedRepository(metadata.getRepositoryInterface())) {
+            return LocalizedRepositoryImpl.class;
         } else {
             return GenericRepositoryImpl.class;
         }
@@ -79,9 +84,13 @@ public class DefaultRepositoryFactory extends JpaRepositoryFactory {
      * @return
      */
     private boolean isQueryDslExecutor(Class<?> repositoryInterface) {
-
         return QUERY_DSL_PRESENT
                 && QueryDslPredicateExecutor.class
                         .isAssignableFrom(repositoryInterface);
     }
+
+    private boolean isLocalizedRepository(Class<?> repositoryInterface) {
+        return LocalizedRepository.class.isAssignableFrom(repositoryInterface);
+    }
+
 }

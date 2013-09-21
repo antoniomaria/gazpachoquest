@@ -14,6 +14,8 @@ import net.sf.gazpachosurvey.types.Language;
 @Entity
 public class AnswerTranslation extends AbstractPersistable<Integer> {
 
+    private static final long serialVersionUID = 5809899129770049770L;
+
     @ManyToOne
     private Answer answer;
 

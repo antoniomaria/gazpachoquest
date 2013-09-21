@@ -3,8 +3,10 @@ package net.sf.gazpachosurvey.domain.core.embeddables;
 import javax.persistence.Embeddable;
 import javax.persistence.Lob;
 
+import net.sf.gazpachosurvey.domain.support.LanguageSettings;
+
 @Embeddable
-public class MailMessageTemplateLanguageSettings {
+public class MailMessageTemplateLanguageSettings implements LanguageSettings{
 
     private String subject;
 

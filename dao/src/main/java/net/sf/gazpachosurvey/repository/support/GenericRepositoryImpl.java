@@ -28,8 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @NoRepositoryBean
-public class GenericRepositoryImpl<T extends Persistable<PK>, PK extends Serializable>
-        extends SimpleJpaRepository<T, PK> implements GenericRepository<T, PK>,
+public class GenericRepositoryImpl<T extends Persistable<ID>, ID extends Serializable>
+        extends SimpleJpaRepository<T, ID> implements GenericRepository<T, ID>,
         Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,22 +38,13 @@ public class GenericRepositoryImpl<T extends Persistable<PK>, PK extends Seriali
     private final EntityManager em;
     private final DefaultPersistenceProvider provider;
 
-    private Class<?> springDataRepositoryInterface;
+    //private Class<?> springDataRepositoryInterface;
     private Class<T> type;
     private ByExampleSpecification byExampleSpecification;
     private NamedQueryUtil namedQueryUtil;
     private ByExampleEnhancedSpecification byExampleEnhancedSpecification;
 
     private static final int MAX_VALUES_RETREIVED = 500;
-
-    public Class<?> getSpringDataRepositoryInterface() {
-        return springDataRepositoryInterface;
-    }
-
-    public void setSpringDataRepositoryInterface(
-            Class<?> springDataRepositoryInterface) {
-        this.springDataRepositoryInterface = springDataRepositoryInterface;
-    }
 
     /**
      * Creates a new {@link SimpleJpaRepository} to manage objects of the given
@@ -65,14 +56,14 @@ public class GenericRepositoryImpl<T extends Persistable<PK>, PK extends Seriali
     public GenericRepositoryImpl(JpaEntityInformation<T, ?> entityInformation,
             EntityManager entityManager,
             ByExampleSpecification byExampleSpecification,
-            NamedQueryUtil namedQueryUtil,
-            Class<?> springDataRepositoryInterface) {
+            NamedQueryUtil namedQueryUtil
+            ) {
         super(entityInformation, entityManager);
         this.entityInformation = entityInformation;
         this.em = entityManager;
         this.provider = DefaultPersistenceProvider
                 .fromEntityManager(entityManager);
-        this.springDataRepositoryInterface = springDataRepositoryInterface;
+       // this.springDataRepositoryInterface = springDataRepositoryInterface;
         this.type = entityInformation.getJavaType();
         this.byExampleSpecification = byExampleSpecification;
         this.namedQueryUtil = namedQueryUtil;
@@ -87,10 +78,19 @@ public class GenericRepositoryImpl<T extends Persistable<PK>, PK extends Seriali
      * @param domainClass
      * @param em
      */
-    public GenericRepositoryImpl(Class<T> domainClass, EntityManager em) {
+    protected GenericRepositoryImpl(Class<T> domainClass, EntityManager em) {
         this(JpaEntityInformationSupport.getMetadata(domainClass, em), em,
-                null, null, null);
+                null, null);
     }
+/*
+    public Class<?> getSpringDataRepositoryInterface() {
+        return springDataRepositoryInterface;
+    }
+
+    public void setSpringDataRepositoryInterface(
+            Class<?> springDataRepositoryInterface) {
+        this.springDataRepositoryInterface = springDataRepositoryInterface;
+    }*/
 
     @Override
     public Page<T> findByExample(T example, Pageable pageable) {

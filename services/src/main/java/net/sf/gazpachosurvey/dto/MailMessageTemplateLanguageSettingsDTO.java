@@ -82,4 +82,12 @@ public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiable
             return container.languageSettings(build());
         }
     }
+
+    @Override
+    public String toString() {
+        return "MailMessageTemplateLanguageSettingsDTO [subject=" + subject
+                + ", body=" + body + "]";
+    }
+    
+    
 }

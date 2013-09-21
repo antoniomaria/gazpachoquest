@@ -12,7 +12,7 @@ import net.sf.gazpachosurvey.services.PersistenceService;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class AbstractPersistenceService<T extends Persistable<ID>, D extends Identifiable<ID>, ID extends Serializable>
+public abstract class AbstractPersistenceService<T extends Persistable<ID>, D extends Identifiable<ID>, ID extends Serializable>
         implements PersistenceService<D, ID> {
 
     protected final GenericRepository<T, ID> repository;
@@ -24,7 +24,7 @@ public class AbstractPersistenceService<T extends Persistable<ID>, D extends Ide
     @Autowired
     protected Mapper mapper;
 
-    public AbstractPersistenceService(GenericRepository<T, ID> repository, Class<T> entityClazz, Class<D> dtoClazz) {
+    protected AbstractPersistenceService(GenericRepository<T, ID> repository, Class<T> entityClazz, Class<D> dtoClazz) {
         this.repository = repository;
         this.dtoClazz = dtoClazz;
         this.entityClazz = entityClazz;

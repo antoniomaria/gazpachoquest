@@ -10,10 +10,11 @@ import javax.persistence.ManyToOne;
 import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
 import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
+import net.sf.gazpachosurvey.domain.support.Translation;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class MailMessageTemplateTranslation extends AbstractAuditable<Integer> {
+public class MailMessageTemplateTranslation extends AbstractAuditable<Integer> implements Translation<MailMessageTemplateLanguageSettings> {
 
     private static final long serialVersionUID = 6847847400152631889L;
 
