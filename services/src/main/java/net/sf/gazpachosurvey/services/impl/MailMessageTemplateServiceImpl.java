@@ -14,9 +14,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailMessageTemplateServiceImpl
         extends
-        AbstractPersistenceService<MailMessageTemplate, MailMessageTemplateDTO, Integer>
+        AbstractLocalizedPersistenceService<MailMessageTemplate, MailMessageTemplateDTO, Integer>
         implements MailMessageTemplateService {
-
 
     @Autowired
     public MailMessageTemplateServiceImpl(
@@ -34,11 +33,6 @@ public class MailMessageTemplateServiceImpl
                         MailMessageTemplateLanguageSettings.class);
         entity.addTranslation(language, languageSettingsEntity);
         repository.save(entity);
-    }
-
-    public MailMessageTemplateDTO findOne(Integer id, Language language) {
-        MailMessageTemplate entity = ((MailMessageTemplateRepository) repository).findOne(id, language);
-        return mapper.map(entity, MailMessageTemplateDTO.class);
     }
 
 }

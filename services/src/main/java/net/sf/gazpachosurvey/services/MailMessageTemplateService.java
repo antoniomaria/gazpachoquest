@@ -4,9 +4,8 @@ import net.sf.gazpachosurvey.dto.MailMessageTemplateDTO;
 import net.sf.gazpachosurvey.dto.MailMessageTemplateLanguageSettingsDTO;
 import net.sf.gazpachosurvey.types.Language;
 
-public interface MailMessageTemplateService extends PersistenceService<MailMessageTemplateDTO, Integer> {
+public interface MailMessageTemplateService extends LocalizedPersistenceService<MailMessageTemplateDTO, Integer> {
 
     void addTranslation(MailMessageTemplateDTO mailMessageTemplate, Language language, MailMessageTemplateLanguageSettingsDTO languageSettings);
 
-    MailMessageTemplateDTO findOne(Integer id, Language language);
 }

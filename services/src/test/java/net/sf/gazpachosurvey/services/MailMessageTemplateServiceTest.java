@@ -52,6 +52,5 @@ public class MailMessageTemplateServiceTest {
         
        MailMessageTemplateDTO localizedMailMessageTemplate = service.findOne(mailMessageTemplate.getId(), Language.ES);
        
-       System.out.println(localizedMailMessageTemplate);
     }
 }

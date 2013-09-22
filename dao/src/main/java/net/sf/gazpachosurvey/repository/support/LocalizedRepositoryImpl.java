@@ -13,7 +13,7 @@ import net.sf.gazpachosurvey.types.Language;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 
 public class LocalizedRepositoryImpl<L extends Localizable<ID, LS, TR>, ID extends Serializable, LS extends LanguageSettings, TR extends Translation<LS>>
-        extends GenericRepositoryImpl<L, ID> implements LocalizedRepository<ID, L> {
+        extends GenericRepositoryImpl<L, ID> implements LocalizedRepository<L, ID> {
 
     private static final long serialVersionUID = 1551099185707262270L;
     

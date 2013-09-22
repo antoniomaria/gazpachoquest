@@ -39,16 +39,20 @@ public abstract class AbstractPersistenceService<T extends Persistable<ID>, D ex
     @Override
     public D findOne(ID id) {
         T entity = repository.findOne(id);
-        String schenarioName = entity.getClass().getSimpleName() + ".default";
-        D dto = mapper.map(entity, dtoClazz);
+        D dto = null;
+        if (entity != null){
+            dto = mapper.map(entity, dtoClazz);    
+        }
         return dto;
     }
     
     @Override
     public D findOne(ID id, String schenario) {
         T entity = repository.findOne(id);
-        //String schenarioName = entity.getClass().getSimpleName() + ".default";
-        D dto = mapper.map(entity, dtoClazz, schenario);
+        D dto = null;
+        if (entity != null){
+            dto = mapper.map(entity, dtoClazz, schenario);    
+        }
         return dto;
     }
 
