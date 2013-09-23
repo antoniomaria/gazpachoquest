@@ -7,14 +7,16 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 
-import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
-
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
+import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import net.sf.gazpachosurvey.domain.support.Translation;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class SurveyTranslation extends AbstractPersistable<Integer> {
+public class SurveyTranslation extends AbstractPersistable<Integer> implements Translation<SurveyLanguageSettings>{
+
+    private static final long serialVersionUID = -1926161817588270977L;
 
     @ManyToOne
     private Survey survey;

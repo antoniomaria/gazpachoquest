@@ -20,12 +20,12 @@ import javax.persistence.OrderColumn;
 
 import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
-import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
+import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
 import net.sf.gazpachosurvey.types.EntityStatus;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class Survey extends AbstractAuditable<Integer> {
+public class Survey extends AbstractLocalizable<Integer, SurveyTranslation, SurveyLanguageSettings> { 
 
     private static final long serialVersionUID = 2560468772707058412L;
 

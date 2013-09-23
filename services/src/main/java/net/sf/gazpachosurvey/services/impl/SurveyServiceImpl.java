@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SurveyServiceImpl extends AbstractPersistenceService<Survey, SurveyDTO, Integer> implements SurveyService {
+public class SurveyServiceImpl extends AbstractLocalizedPersistenceService<Survey, SurveyDTO, Integer> implements SurveyService {
 
     @Autowired
     private PageRepository pageRepository;

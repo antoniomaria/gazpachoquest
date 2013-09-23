@@ -3,8 +3,10 @@ package net.sf.gazpachosurvey.domain.core.embeddables;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-@Embeddable
-public class PageLanguageSettings {
+import net.sf.gazpachosurvey.domain.support.LanguageSettings;
+
+@Embeddable 
+public class PageLanguageSettings implements LanguageSettings{
 
     @Column(nullable = false)
     private String title;

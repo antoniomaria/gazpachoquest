@@ -13,6 +13,8 @@ import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 @Entity
 public class QuestionTranslation extends AbstractPersistable<Integer> {
 
+    private static final long serialVersionUID = 4295351363647972048L;
+
     @ManyToOne
     private Question question;
 

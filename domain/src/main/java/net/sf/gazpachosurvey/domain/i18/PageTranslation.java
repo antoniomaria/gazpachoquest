@@ -10,10 +10,13 @@ import javax.persistence.ManyToOne;
 import net.sf.gazpachosurvey.domain.core.Page;
 import net.sf.gazpachosurvey.domain.core.embeddables.PageLanguageSettings;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import net.sf.gazpachosurvey.domain.support.Translation;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class PageTranslation extends AbstractPersistable<Integer> {
+public class PageTranslation extends AbstractPersistable<Integer> implements Translation<PageLanguageSettings> {
+
+    private static final long serialVersionUID = -2719163699375812306L;
 
     @ManyToOne
     private Page page;

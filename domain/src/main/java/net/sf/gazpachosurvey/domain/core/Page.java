@@ -19,11 +19,12 @@ import javax.persistence.OrderColumn;
 
 import net.sf.gazpachosurvey.domain.core.embeddables.PageLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.PageTranslation;
-import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class Page extends AbstractPersistable<Integer> {
+public class Page extends
+AbstractLocalizable<Integer, PageTranslation, PageLanguageSettings> { 
 
     private static final long serialVersionUID = 5849288763708940985L;
 
