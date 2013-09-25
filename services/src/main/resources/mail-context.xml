@@ -13,24 +13,36 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
+  <!--
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+    <property name="velocityPropertiesMap">
+    <map>
+    <entry key="resource.loader">
+    <value>string</value>
+    </entry>
+    <entry key="string.resource.loader.description">
+    <value>Velocity StringResource loader</value>
+    </entry>
+    <entry key="string.resource.loader.class" value="org.apache.velocity.runtime.resource.loader.StringResourceLoader" />
+    <entry key="string.resource.loader.repository.class" value="org.apache.velocity.runtime.resource.util.StringResourceRepositoryImpl" />
+    </map>
+    </property>
+    </bean>
+  -->
+
   <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
     <property name="velocityPropertiesMap">
       <map>
         <entry key="resource.loader">
-          <value>string</value>
+          <value>custom</value>
         </entry>
         <entry key="string.resource.loader.description">
           <value>Velocity StringResource loader</value>
         </entry>
-        <entry key="string.resource.loader.class" value="org.apache.velocity.runtime.resource.loader.StringResourceLoader" />
-        <entry key="string.resource.loader.repository.class" value="org.apache.velocity.runtime.resource.util.StringResourceRepositoryImpl" />
-
-
-        <!--
-          <entry key="custom.resource.loader.instance">
-          <ref bean="templateLoader" />
-          </entry>
-        -->
+        <entry key="custom.resource.loader.class" value="org.apache.velocity.runtime.resource.loader.StringResourceLoader" />
+        <entry key="custom.resource.loader.instance">
+          <ref bean="localizedTemplateResourceLoader" />
+        </entry>
       </map>
     </property>
   </bean>

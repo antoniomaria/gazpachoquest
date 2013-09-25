@@ -27,7 +27,6 @@ public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader implemen
     
     @Override
     public void init(ExtendedProperties configuration) {
-        
     }
 
     @Override

@@ -1,4 +1,6 @@
 import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -8,12 +10,16 @@ import org.apache.velocity.runtime.resource.util.StringResourceRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.velocity.VelocityEngineFactoryBean;
+import org.springframework.ui.velocity.VelocityEngineUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/mail-context.xml" })
+@ActiveProfiles("postgres")
+@ContextConfiguration(locations = { "classpath:/jpa-context.xml",
+        "classpath:/services-context.xml", "classpath:/mail-context.xml" })
 public class VelocityExample {
 
     @Autowired
@@ -37,4 +43,14 @@ public class VelocityExample {
         System.out.println( writer.toString() );  
     }
 
+    @Test
+    public void readTemplate() {
+        VelocityEngine velocityEngine = velocityFactory.getObject();
+       Map<String, String> model = new HashMap<>();
+       model.put("lastname", "Sanchez Berrocal");
+       
+       String result = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "ES/251", "UTF-8",  model);
+       
+    System.out.println("template: " + result);
+    }
 }
