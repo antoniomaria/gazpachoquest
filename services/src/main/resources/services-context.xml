@@ -15,8 +15,8 @@
 
   <import resource="classpath:/dozer/dozer-context.xml" />
   
-  <context:component-scan base-package="net.sf.gazpachosurvey.services.impl" />
-  <context:component-scan base-package="net.sf.gazpachosurvey.util.impl" />
+  <context:component-scan base-package="net.sf.gazpachosurvey.services.impl,net.sf.gazpachosurvey.util.impl,net.sf.gazpachosurvey.velocity.loader" />
+ 
   
   
   <bean id="profilingAdvise" class="net.sf.gazpachosurvey.aspects.ProfilingAdvise"></bean>

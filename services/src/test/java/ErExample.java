@@ -11,11 +11,11 @@ public class ErExample {
      * @param args
      */
     public static void main(String[] args) {
-        String input = "eng/11";
+        String input = "port/11";
 
         //Pattern pattern = Pattern.compile("^(?<language>eng)/(?<templateId>\\d*)$");
 
-        Pattern pattern = Pattern.compile("^(?<language>eng)/(?<templateId>\\d*)$");
+        Pattern pattern = Pattern.compile("^(?<language>[a-z]+)/(?<templateId>\\d+)$", Pattern.CASE_INSENSITIVE);
 
         
         Matcher matcher = pattern.matcher(input);

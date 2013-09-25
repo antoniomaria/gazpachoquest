@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
@@ -22,7 +23,7 @@ public abstract class AbstractAuditable<PK extends Serializable> extends
     
     private static final long serialVersionUID = 6507308518779364972L;
 
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne(fetch = FetchType.LAZY)
     @CreatedBy
     private User createdBy;
 
@@ -31,7 +32,7 @@ public abstract class AbstractAuditable<PK extends Serializable> extends
     @CreatedDate
     private DateTime createdDate;
 
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne(fetch = FetchType.LAZY)
     @LastModifiedBy
     private User lastModifiedBy;
 
