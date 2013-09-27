@@ -12,25 +12,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MailMessageTemplateServiceImpl
-        extends
-        AbstractLocalizedPersistenceService<MailMessageTemplate, MailMessageTemplateDTO, Integer>
-        implements MailMessageTemplateService {
+public class MailMessageTemplateServiceImpl extends
+        AbstractLocalizedPersistenceService<MailMessageTemplate, MailMessageTemplateDTO> implements
+        MailMessageTemplateService {
 
     @Autowired
-    public MailMessageTemplateServiceImpl(
-            MailMessageTemplateRepository repository) {
+    public MailMessageTemplateServiceImpl(MailMessageTemplateRepository repository) {
         super(repository, MailMessageTemplate.class, MailMessageTemplateDTO.class);
     }
-    
-    public void addTranslation(MailMessageTemplateDTO mailMessageTemplate,
-            Language language,
+
+    @Override
+    public void addTranslation(MailMessageTemplateDTO mailMessageTemplate, Language language,
             MailMessageTemplateLanguageSettingsDTO languageSettings) {
-        MailMessageTemplate entity = mapper.map(mailMessageTemplate,
-                MailMessageTemplate.class);
-        MailMessageTemplateLanguageSettings languageSettingsEntity = mapper
-                .map(languageSettings,
-                        MailMessageTemplateLanguageSettings.class);
+        MailMessageTemplate entity = mapper.map(mailMessageTemplate, MailMessageTemplate.class);
+        MailMessageTemplateLanguageSettings languageSettingsEntity = mapper.map(languageSettings,
+                MailMessageTemplateLanguageSettings.class);
         entity.addTranslation(language, languageSettingsEntity);
         repository.save(entity);
     }

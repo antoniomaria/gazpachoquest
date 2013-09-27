@@ -1,7 +1,5 @@
 package net.sf.gazpachosurvey.domain.support;
 
-import java.io.Serializable;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,20 +9,20 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @MappedSuperclass
-public class AbstractPersistable<ID extends Serializable> implements Persistable<ID> {
+public class AbstractPersistable implements Persistable {
 
     private static final long serialVersionUID = -7123026384985572646L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private ID id;
+    private Integer id;
 
     @Override
-    public ID getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(ID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -44,10 +42,10 @@ public class AbstractPersistable<ID extends Serializable> implements Persistable
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Persistable<?>) {
-            final Persistable<?> other = (Persistable<?>) obj;
+        if (obj instanceof Persistable) {
+            final Persistable other = (Persistable) obj;
             if (!isNew()) {
-                return (new EqualsBuilder()).append(this.getId(), other.getId()).isEquals();
+                return (new EqualsBuilder()).append(getId(), other.getId()).isEquals();
             } else {
                 return EqualsBuilder.reflectionEquals(this, obj);
             }

@@ -22,28 +22,27 @@ import net.sf.gazpachosurvey.types.SurveyRunningType;
 import org.springframework.util.Assert;
 
 @Entity
-public class SurveyRunning extends AbstractAuditable<Integer> {
+public class SurveyRunning extends AbstractAuditable {
 
     private static final long serialVersionUID = -5917291757324504802L;
 
     private String name;
-    
+
     @Enumerated(EnumType.STRING)
     private SurveyRunningType type;
-    
+
     @Temporal(value = TemporalType.DATE)
     private Date startDate;
-    
+
     @Temporal(value = TemporalType.DATE)
     private Date expirationDate;
-    
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Survey survey;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "surveyrunning_participant", joinColumns = { @JoinColumn(name = "surveyrunning_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "participant_id", referencedColumnName = "id") })
     private Set<Participant> participants;
-
 
     public SurveyRunning() {
         super();
@@ -59,7 +58,7 @@ public class SurveyRunning extends AbstractAuditable<Integer> {
 
     public Set<Participant> getParticipants() {
         if (participants == null) {
-            this.participants = new HashSet<>();
+            participants = new HashSet<>();
         }
         return participants;
     }
@@ -108,8 +107,7 @@ public class SurveyRunning extends AbstractAuditable<Integer> {
 
     @Override
     public String toString() {
-        return "SurveyRunning [getId()=" + getId() + ", getName()=" + getName()
-                + ", getSurvey()=" + getSurvey() + "]";
+        return "SurveyRunning [getId()=" + getId() + ", getName()=" + getName() + ", getSurvey()=" + getSurvey() + "]";
     }
 
 }

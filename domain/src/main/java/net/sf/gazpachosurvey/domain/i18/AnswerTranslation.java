@@ -6,13 +6,12 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 
-import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
-
 import net.sf.gazpachosurvey.domain.core.Answer;
+import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class AnswerTranslation extends AbstractPersistable<Integer> {
+public class AnswerTranslation extends AbstractPersistable {
 
     private static final long serialVersionUID = 5809899129770049770L;
 

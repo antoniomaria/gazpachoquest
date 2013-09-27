@@ -19,9 +19,8 @@ import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class MailMessageTemplate
-        extends
-       AbstractLocalizable<Integer, MailMessageTemplateTranslation, MailMessageTemplateLanguageSettings> {
+public class MailMessageTemplate extends
+        AbstractLocalizable<MailMessageTemplateTranslation, MailMessageTemplateLanguageSettings> {
     private static final long serialVersionUID = 8115847063538607577L;
 
     @Enumerated(EnumType.STRING)
@@ -43,10 +42,12 @@ public class MailMessageTemplate
         super();
     }
 
+    @Override
     public Language getLanguage() {
         return language;
     }
 
+    @Override
     public void setLanguage(Language language) {
         this.language = language;
     }
@@ -56,7 +57,7 @@ public class MailMessageTemplate
     }
 
     public void setFromAddress(String from) {
-        this.fromAddress = from;
+        fromAddress = from;
     }
 
     public String getReplyTo() {
@@ -67,30 +68,30 @@ public class MailMessageTemplate
         this.replyTo = replyTo;
     }
 
+    @Override
     public MailMessageTemplateLanguageSettings getLanguageSettings() {
         return languageSettings;
     }
 
-    public void setLanguageSettings(
-            MailMessageTemplateLanguageSettings languageSettings) {
+    @Override
+    public void setLanguageSettings(MailMessageTemplateLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }
 
+    @Override
     public Map<Language, MailMessageTemplateTranslation> getTranslations() {
         if (translations == null) {
-            this.translations = new HashMap<Language, MailMessageTemplateTranslation>();
+            translations = new HashMap<Language, MailMessageTemplateTranslation>();
         }
 
         return translations;
     }
 
-    public void setTranslations(
-            Map<Language, MailMessageTemplateTranslation> translations) {
+    public void setTranslations(Map<Language, MailMessageTemplateTranslation> translations) {
         this.translations = translations;
     }
 
-    public void addTranslation(Language language,
-            MailMessageTemplateLanguageSettings languageSettings) {
+    public void addTranslation(Language language, MailMessageTemplateLanguageSettings languageSettings) {
         MailMessageTemplateTranslation translation = new MailMessageTemplateTranslation();
         translation.setMailMessageTemplate(this);
         translation.setLanguage(language);

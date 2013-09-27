@@ -25,7 +25,7 @@ import net.sf.gazpachosurvey.types.EntityStatus;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class Survey extends AbstractLocalizable<Integer, SurveyTranslation, SurveyLanguageSettings> { 
+public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguageSettings> {
 
     private static final long serialVersionUID = 2560468772707058412L;
 
@@ -68,6 +68,7 @@ public class Survey extends AbstractLocalizable<Integer, SurveyTranslation, Surv
         this.surveysRunning = surveysRunning;
     }
 
+    @Override
     public Map<Language, SurveyTranslation> getTranslations() {
         if (translations == null) {
             translations = new HashMap<>();
@@ -125,18 +126,22 @@ public class Survey extends AbstractLocalizable<Integer, SurveyTranslation, Surv
         this.questions = questions;
     }
 
+    @Override
     public SurveyLanguageSettings getLanguageSettings() {
         return languageSettings;
     }
 
+    @Override
     public void setLanguageSettings(SurveyLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }
 
+    @Override
     public Language getLanguage() {
         return language;
     }
 
+    @Override
     public void setLanguage(Language language) {
         this.language = language;
     }

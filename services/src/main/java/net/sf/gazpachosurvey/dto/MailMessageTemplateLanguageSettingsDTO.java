@@ -1,6 +1,6 @@
 package net.sf.gazpachosurvey.dto;
 
-public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiableDTO<Integer> {
+public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = -4959980255392017094L;
 
@@ -85,9 +85,7 @@ public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiable
 
     @Override
     public String toString() {
-        return "MailMessageTemplateLanguageSettingsDTO [subject=" + subject
-                + ", body=" + body + "]";
+        return "MailMessageTemplateLanguageSettingsDTO [subject=" + subject + ", body=" + body + "]";
     }
-    
-    
+
 }

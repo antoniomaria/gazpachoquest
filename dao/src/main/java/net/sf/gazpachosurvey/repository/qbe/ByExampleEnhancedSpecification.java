@@ -39,41 +39,34 @@ public class ByExampleEnhancedSpecification {
         this.em = em;
     }
 
-    public <T extends Persistable<?>> Specification<T> byExampleOnEntity(
-            final T example, final SearchParameters sp) {
+    public <T extends Persistable> Specification<T> byExampleOnEntity(final T example, final SearchParameters sp) {
         Validate.notNull(example, "example must not be null");
 
         return new Specification<T>() {
 
             @Override
-            public Predicate toPredicate(Root<T> rootPath,
-                    CriteriaQuery<?> query, CriteriaBuilder builder) {
+            public Predicate toPredicate(Root<T> rootPath, CriteriaQuery<?> query, CriteriaBuilder builder) {
                 Class<T> type = rootPath.getModel().getBindableJavaType();
 
                 ManagedType<T> mt = em.getMetamodel().entity(type);
 
                 List<Predicate> predicates = new ArrayList<Predicate>();
-                predicates
-                        .addAll(byExample(mt, rootPath, example, sp, builder));
-                predicates.addAll(byExampleOnXToOne(mt, rootPath, example, sp,
-                        builder)); // 1
-                                   // level
-                                   // deep
-                                   // only
-                predicates.addAll(byExampleOnManyToMany(mt, rootPath, example,
-                        sp, builder));
+                predicates.addAll(byExample(mt, rootPath, example, sp, builder));
+                predicates.addAll(byExampleOnXToOne(mt, rootPath, example, sp, builder)); // 1
+                                                                                          // level
+                                                                                          // deep
+                                                                                          // only
+                predicates.addAll(byExampleOnManyToMany(mt, rootPath, example, sp, builder));
                 // order by
                 query.orderBy(JpaUtil.buildJpaOrders(sp.getOrders(), rootPath, builder));
 
                 return JpaUtil.andPredicate(builder, predicates);
             }
 
-            public <T extends Persistable<?>> List<Predicate> byExample(
-                    ManagedType<T> mt, Path<T> mtPath, final T mtValue,
-                    SearchParameters sp, CriteriaBuilder builder) {
+            public <T extends Persistable> List<Predicate> byExample(ManagedType<T> mt, Path<T> mtPath,
+                    final T mtValue, SearchParameters sp, CriteriaBuilder builder) {
                 List<Predicate> predicates = new ArrayList<Predicate>();
-                for (SingularAttribute<? super T, ?> attr : mt
-                        .getSingularAttributes()) {
+                for (SingularAttribute<? super T, ?> attr : mt.getSingularAttributes()) {
                     if (attr.getPersistentAttributeType() == MANY_TO_ONE //
                             || attr.getPersistentAttributeType() == ONE_TO_ONE //
                             || attr.getPersistentAttributeType() == EMBEDDED) {
@@ -84,20 +77,16 @@ public class ByExampleEnhancedSpecification {
                     if (attrValue != null) {
                         if (attr.getJavaType() == String.class) {
                             if (isNotEmpty((String) attrValue)) {
-                                SingularAttribute<? super T, String> stringAttribute = mt
-                                        .getSingularAttribute(attr.getName(),
-                                                String.class);
-                                predicates.add(JpaUtil.stringPredicate(
-                                        mtPath.get(stringAttribute), attrValue,
-                                        sp, builder));
+                                SingularAttribute<? super T, String> stringAttribute = mt.getSingularAttribute(
+                                        attr.getName(), String.class);
+                                predicates.add(JpaUtil.stringPredicate(mtPath.get(stringAttribute), attrValue, sp,
+                                        builder));
                             }
                         } else {
-                            SingularAttribute<? super T, ?> attribute = mt
-                                    .getSingularAttribute(attr.getName(),
-                                            attr.getJavaType());
+                            SingularAttribute<? super T, ?> attribute = mt.getSingularAttribute(attr.getName(),
+                                    attr.getJavaType());
                             // apply equal
-                            predicates.add(builder.equal(mtPath.get(attribute),
-                                    attrValue));
+                            predicates.add(builder.equal(mtPath.get(attribute), attrValue));
                         }
                     }
                 }
@@ -110,12 +99,10 @@ public class ByExampleEnhancedSpecification {
              * based on an associated entity's properties value.
              */
             @SuppressWarnings("unchecked")
-            public <T extends Persistable<?>, M2O extends Persistable<?>> List<Predicate> byExampleOnXToOne(
-                    ManagedType<T> mt, Root<T> mtPath, final T mtValue,
-                    SearchParameters sp, CriteriaBuilder builder) {
+            public <T extends Persistable, M2O extends Persistable> List<Predicate> byExampleOnXToOne(
+                    ManagedType<T> mt, Root<T> mtPath, final T mtValue, SearchParameters sp, CriteriaBuilder builder) {
                 List<Predicate> predicates = new ArrayList<Predicate>();
-                for (SingularAttribute<? super T, ?> attr : mt
-                        .getSingularAttributes()) {
+                for (SingularAttribute<? super T, ?> attr : mt.getSingularAttributes()) {
                     if (attr.getPersistentAttributeType() == MANY_TO_ONE
                             || attr.getPersistentAttributeType() == ONE_TO_ONE) { //
                         /*
@@ -126,18 +113,14 @@ public class ByExampleEnhancedSpecification {
                          * mtValue);
                          */
 
-                        M2O m2oValue = (M2O) getValue(mtValue,
-                                mt.getAttribute(attr.getName()));
+                        M2O m2oValue = (M2O) getValue(mtValue, mt.getAttribute(attr.getName()));
 
                         // if (m2oValue != null && !mtValue.isIdSet()) {
                         if (m2oValue != null) {
-                            Class<M2O> m2oType = (Class<M2O>) attr
-                                    .getBindableJavaType();
-                            ManagedType<M2O> m2oMt = em.getMetamodel().entity(
-                                    m2oType);
+                            Class<M2O> m2oType = (Class<M2O>) attr.getBindableJavaType();
+                            ManagedType<M2O> m2oMt = em.getMetamodel().entity(m2oType);
                             Path<M2O> m2oPath = (Path<M2O>) mtPath.get(attr);
-                            predicates.addAll(byExample(m2oMt, m2oPath,
-                                    m2oValue, sp, builder));
+                            predicates.addAll(byExample(m2oMt, m2oPath, m2oValue, sp, builder));
                         }
                     }
                 }
@@ -147,29 +130,23 @@ public class ByExampleEnhancedSpecification {
             /**
              * Construct a join predicate on collection (eg many to many, List)
              */
-            public <T extends Persistable<?>> List<Predicate> byExampleOnManyToMany(
-                    ManagedType<T> mt, Root<T> mtPath, final T mtValue,
-                    SearchParameters sp, CriteriaBuilder builder) {
+            public <T extends Persistable> List<Predicate> byExampleOnManyToMany(ManagedType<T> mt, Root<T> mtPath,
+                    final T mtValue, SearchParameters sp, CriteriaBuilder builder) {
                 List<Predicate> predicates = new ArrayList<Predicate>();
-                for (PluralAttribute<T, ?, ?> pa : mt
-                        .getDeclaredPluralAttributes()) {
+                for (PluralAttribute<T, ?, ?> pa : mt.getDeclaredPluralAttributes()) {
                     if (pa.getCollectionType() == PluralAttribute.CollectionType.LIST) {
-                        List<?> value = (List<?>) getValue(mtValue,
-                                mt.getAttribute(pa.getName()));
+                        List<?> value = (List<?>) getValue(mtValue, mt.getAttribute(pa.getName()));
 
                         if (value != null && !value.isEmpty()) {
-                            ListJoin<T, ?> join = mtPath.join(mt
-                                    .getDeclaredList(pa.getName()));
+                            ListJoin<T, ?> join = mtPath.join(mt.getDeclaredList(pa.getName()));
                             predicates.add(join.in(value));
                         }
                     }
                     if (pa.getCollectionType() == PluralAttribute.CollectionType.SET) {
-                        Set<?> value = (Set<?>) getValue(mtValue,
-                                mt.getAttribute(pa.getName()));
+                        Set<?> value = (Set<?>) getValue(mtValue, mt.getAttribute(pa.getName()));
 
                         if (value != null && !value.isEmpty()) {
-                            SetJoin<T, ?> join = mtPath.join(mt
-                                    .getDeclaredSet(pa.getName()));
+                            SetJoin<T, ?> join = mtPath.join(mt.getDeclaredSet(pa.getName()));
                             predicates.add(join.in(value));
                         }
                     }
@@ -181,11 +158,9 @@ public class ByExampleEnhancedSpecification {
                 try {
                     if (attr.getJavaMember() instanceof Method) {
 
-                        return ((Method) attr.getJavaMember()).invoke(example,
-                                new Object[0]);
+                        return ((Method) attr.getJavaMember()).invoke(example, new Object[0]);
                     } else if (attr.getJavaMember() instanceof Field) {
-                        return ReflectionUtils.getField(
-                                (Field) attr.getJavaMember(), example);
+                        return ReflectionUtils.getField((Field) attr.getJavaMember(), example);
                     } else {
                         return null;
                     }
@@ -195,8 +170,7 @@ public class ByExampleEnhancedSpecification {
                     throw new RuntimeException(e);
                 }
             }
-            
-            
+
         };
 
     }

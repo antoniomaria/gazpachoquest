@@ -6,14 +6,14 @@ import java.util.Set;
 import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.types.Language;
 
-public class SurveyDTO extends AbstractIdentifiableDTO<Integer> {
+public class SurveyDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = 4558625807621395019L;
 
     private Language language;
-    
+
     private SurveyLanguageSettingsDTO languageSettings;
-    
+
     private Set<Question> questions;
 
     public SurveyDTO() {
@@ -35,10 +35,10 @@ public class SurveyDTO extends AbstractIdentifiableDTO<Integer> {
     public void setLanguage(Language language) {
         this.language = language;
     }
-    
+
     public Set<Question> getQuestions() {
-        if (questions == null){
-            this.questions = new HashSet<>();
+        if (questions == null) {
+            questions = new HashSet<>();
         }
         return questions;
     }
@@ -49,7 +49,7 @@ public class SurveyDTO extends AbstractIdentifiableDTO<Integer> {
 
     public static interface Builder {
         Builder id(Integer id);
-        
+
         Builder languageSettings(SurveyLanguageSettingsDTO languageSettings);
 
         Builder language(Language language);
@@ -65,17 +65,17 @@ public class SurveyDTO extends AbstractIdentifiableDTO<Integer> {
 
     public static class BuilderImpl implements Builder {
         private Integer id;
-        
+
         private Language language;
-        
+
         private SurveyLanguageSettingsDTO languageSettings;
-        
+
         @Override
         public BuilderImpl language(Language language) {
             this.language = language;
             return this;
         }
-        
+
         @Override
         public BuilderImpl languageSettings(SurveyLanguageSettingsDTO languageSettings) {
             this.languageSettings = languageSettings;

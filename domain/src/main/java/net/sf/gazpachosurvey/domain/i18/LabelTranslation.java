@@ -11,7 +11,7 @@ import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class LabelTranslation extends AbstractPersistable<Integer> {
+public class LabelTranslation extends AbstractPersistable {
 
     @ManyToOne
     private Label label;

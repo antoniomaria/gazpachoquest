@@ -2,12 +2,12 @@ package net.sf.gazpachosurvey.dto;
 
 import net.sf.gazpachosurvey.types.Language;
 
-public class PageDTO extends AbstractIdentifiableDTO<Integer> {
+public class PageDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = 4668205160387380803L;
 
     private Language language;
-    
+
     private PageLanguageSettingsDTO languageSettings;
 
     public PageDTO() {
@@ -42,19 +42,20 @@ public class PageDTO extends AbstractIdentifiableDTO<Integer> {
 
         PageLanguageSettingsDTO.Builder pageLanguageSettingsStart();
 
-        PageDTO build();    }
-    
+        PageDTO build();
+    }
+
     public static class BuilderImpl implements Builder {
         private Language language;
-        
+
         private PageLanguageSettingsDTO languageSettings;
-        
+
         @Override
         public BuilderImpl language(Language language) {
             this.language = language;
             return this;
         }
-        
+
         @Override
         public BuilderImpl languageSettings(PageLanguageSettingsDTO languageSettings) {
             this.languageSettings = languageSettings;

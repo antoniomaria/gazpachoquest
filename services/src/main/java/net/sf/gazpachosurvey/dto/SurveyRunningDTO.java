@@ -5,7 +5,7 @@ import java.util.Set;
 
 import net.sf.gazpachosurvey.types.SurveyRunningType;
 
-public class SurveyRunningDTO extends AbstractIdentifiableDTO<Integer> {
+public class SurveyRunningDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = -8624509103476946501L;
 

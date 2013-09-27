@@ -1,27 +1,23 @@
 package net.sf.gazpachosurvey.dto;
 
-import java.io.Serializable;
-
-import net.sf.gazpachosurvey.domain.support.Persistable;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class AbstractIdentifiableDTO<ID extends Serializable> implements Identifiable<ID> {
+public class AbstractIdentifiableDTO implements Identifiable {
 
     private static final long serialVersionUID = 2830103041683278252L;
 
-    private ID id;
+    private Integer id;
 
     @Override
-    public ID getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(ID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
-    
+
     @Override
     public boolean isNew() {
         return null == getId();
@@ -43,11 +39,10 @@ public class AbstractIdentifiableDTO<ID extends Serializable> implements Identif
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Identifiable<?>) {
-            final Identifiable<?> other = (Identifiable<?>) obj;
+        if (obj instanceof Identifiable) {
+            final Identifiable other = (Identifiable) obj;
             if (!isNew()) {
-                return (new EqualsBuilder())
-                        .append(this.getId(), other.getId()).isEquals();
+                return (new EqualsBuilder()).append(getId(), other.getId()).isEquals();
             } else {
                 return EqualsBuilder.reflectionEquals(this, obj);
             }

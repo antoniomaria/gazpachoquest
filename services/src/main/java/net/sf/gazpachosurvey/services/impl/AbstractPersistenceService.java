@@ -1,6 +1,5 @@
 package net.sf.gazpachosurvey.services.impl;
 
-import java.io.Serializable;
 import java.util.List;
 
 import net.sf.gazpachosurvey.domain.support.Persistable;
@@ -12,10 +11,10 @@ import net.sf.gazpachosurvey.services.PersistenceService;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public abstract class AbstractPersistenceService<T extends Persistable<ID>, D extends Identifiable<ID>, ID extends Serializable>
-        implements PersistenceService<D, ID> {
+public abstract class AbstractPersistenceService<T extends Persistable, D extends Identifiable> implements
+        PersistenceService<D> {
 
-    protected final GenericRepository<T, ID> repository;
+    protected final GenericRepository<T> repository;
 
     protected final Class<D> dtoClazz;
 
@@ -24,7 +23,7 @@ public abstract class AbstractPersistenceService<T extends Persistable<ID>, D ex
     @Autowired
     protected Mapper mapper;
 
-    protected AbstractPersistenceService(GenericRepository<T, ID> repository, Class<T> entityClazz, Class<D> dtoClazz) {
+    protected AbstractPersistenceService(GenericRepository<T> repository, Class<T> entityClazz, Class<D> dtoClazz) {
         this.repository = repository;
         this.dtoClazz = dtoClazz;
         this.entityClazz = entityClazz;
@@ -37,21 +36,21 @@ public abstract class AbstractPersistenceService<T extends Persistable<ID>, D ex
     }
 
     @Override
-    public D findOne(ID id) {
+    public D findOne(Integer id) {
         T entity = repository.findOne(id);
         D dto = null;
-        if (entity != null){
-            dto = mapper.map(entity, dtoClazz);    
+        if (entity != null) {
+            dto = mapper.map(entity, dtoClazz);
         }
         return dto;
     }
-    
+
     @Override
-    public D findOne(ID id, String schenario) {
+    public D findOne(Integer id, String schenario) {
         T entity = repository.findOne(id);
         D dto = null;
-        if (entity != null){
-            dto = mapper.map(entity, dtoClazz, schenario);    
+        if (entity != null) {
+            dto = mapper.map(entity, dtoClazz, schenario);
         }
         return dto;
     }
@@ -62,7 +61,7 @@ public abstract class AbstractPersistenceService<T extends Persistable<ID>, D ex
     }
 
     @Override
-    public void delete(ID id) {
+    public void delete(Integer id) {
         repository.delete(id);
     }
 

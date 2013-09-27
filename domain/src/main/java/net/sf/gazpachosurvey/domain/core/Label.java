@@ -18,7 +18,7 @@ import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class Label extends AbstractPersistable<Integer>{
+public class Label extends AbstractPersistable {
 
     private static final long serialVersionUID = -7124703628441903468L;
 
@@ -27,10 +27,10 @@ public class Label extends AbstractPersistable<Integer>{
 
     @Column(nullable = false)
     private String title;
-    
+
     @Enumerated(EnumType.STRING)
     private Language language;
-    
+
     @OneToMany(mappedBy = "label", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language")
@@ -71,7 +71,5 @@ public class Label extends AbstractPersistable<Integer>{
     public void setLanguage(Language language) {
         this.language = language;
     }
-    
-    
-    
+
 }

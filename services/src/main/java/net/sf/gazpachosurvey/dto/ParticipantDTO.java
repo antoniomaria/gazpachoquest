@@ -1,9 +1,7 @@
 package net.sf.gazpachosurvey.dto;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class ParticipantDTO extends AbstractIdentifiableDTO<Integer> {
+public class ParticipantDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = 1284879816117827887L;
 

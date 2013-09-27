@@ -6,7 +6,7 @@ import java.util.List;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.QuestionType;
 
-public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
+public class QuestionDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = 2663159055152157679L;
 
@@ -79,8 +79,8 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
 
     public void setSurvey(SurveyDTO survey) {
         this.survey = survey;
-        if (survey.getLanguage() != null){
-            this.language = survey.getLanguage();
+        if (survey.getLanguage() != null) {
+            language = survey.getLanguage();
         }
     }
 
@@ -93,8 +93,8 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
     }
 
     public List<AnswerDTO> getAnswers() {
-        if (answers == null){
-            this.answers = new ArrayList<>();
+        if (answers == null) {
+            answers = new ArrayList<>();
         }
         return answers;
     }
@@ -102,9 +102,9 @@ public class QuestionDTO extends AbstractIdentifiableDTO<Integer> {
     public void setAnswers(List<AnswerDTO> answers) {
         this.answers = answers;
     }
-    
-    public void addAnswer(AnswerDTO answer){
-        if (answer.getLanguage() == null){
+
+    public void addAnswer(AnswerDTO answer) {
+        if (answer.getLanguage() == null) {
             answer.setLanguage(language);
         }
         getAnswers().add(answer);

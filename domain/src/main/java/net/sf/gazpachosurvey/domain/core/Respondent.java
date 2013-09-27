@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.joda.time.DateTime;
 
-public class Respondent implements Persistable<Integer> {
+public class Respondent implements Persistable {
 
     private static final long serialVersionUID = -5466079670655149390L;
 
@@ -97,8 +97,8 @@ public class Respondent implements Persistable<Integer> {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Persistable<?>) {
-            final Persistable<?> other = (Persistable<?>) obj;
+        if (obj instanceof Persistable) {
+            final Persistable other = (Persistable) obj;
             if (!isNew()) {
                 return (new EqualsBuilder()).append(getId(), other.getId()).isEquals();
             } else {

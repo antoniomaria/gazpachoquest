@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 
 @Entity
-public class User extends AbstractPersistable<Integer> {
+public class User extends AbstractPersistable {
 
     private static final long serialVersionUID = 6513048922124388025L;
 
@@ -23,16 +23,17 @@ public class User extends AbstractPersistable<Integer> {
         super();
     }
 
+    @Override
     public void setId(Integer id) {
         super.setId(id);
     }
-    
+
     public String getFirstName() {
         return firstName;
     }
 
     public void setFirstName(String firstname) {
-        this.firstName = firstname;
+        firstName = firstname;
     }
 
     public String getLastName() {
@@ -40,7 +41,7 @@ public class User extends AbstractPersistable<Integer> {
     }
 
     public void setLastName(String lastname) {
-        this.lastName = lastname;
+        lastName = lastname;
     }
 
     public String getEmail() {
@@ -50,6 +51,5 @@ public class User extends AbstractPersistable<Integer> {
     public void setEmail(String email) {
         this.email = email;
     }
-
 
 }

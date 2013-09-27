@@ -12,8 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSet, LabelSetDTO, Integer> implements
-        LabelSetService {
+public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSet, LabelSetDTO> implements LabelSetService {
 
     @Autowired
     public LabelSetServiceImpl(LabelSetRepository repository) {

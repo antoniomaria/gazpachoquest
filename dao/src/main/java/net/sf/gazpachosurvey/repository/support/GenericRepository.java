@@ -1,6 +1,5 @@
 package net.sf.gazpachosurvey.repository.support;
 
-import java.io.Serializable;
 import java.util.List;
 
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
@@ -12,8 +11,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
-public interface GenericRepository<T, ID extends Serializable> extends
-        JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
+public interface GenericRepository<T> extends JpaRepository<T, Integer>, JpaSpecificationExecutor<T> {
 
     Page<T> findByExample(T example, Pageable pageable);
 

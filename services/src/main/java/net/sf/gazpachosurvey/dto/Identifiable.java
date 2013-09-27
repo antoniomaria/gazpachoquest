@@ -2,10 +2,10 @@ package net.sf.gazpachosurvey.dto;
 
 import java.io.Serializable;
 
-public interface Identifiable <ID extends Serializable> extends Serializable{
+public interface Identifiable extends Serializable {
 
-    ID getId();
-    
+    Integer getId();
+
     boolean isNew();
 
 }

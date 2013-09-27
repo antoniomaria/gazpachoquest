@@ -21,12 +21,10 @@ import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.QuestionType;
 
-import org.eclipse.persistence.annotations.JoinFetch;
-import org.eclipse.persistence.annotations.JoinFetchType;
 import org.springframework.util.Assert;
 
 @Entity
-public class Question extends AbstractPersistable<Integer> {
+public class Question extends AbstractPersistable {
 
     private static final long serialVersionUID = -4372634574851905803L;
 

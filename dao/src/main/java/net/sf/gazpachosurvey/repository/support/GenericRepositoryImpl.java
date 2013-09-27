@@ -1,15 +1,9 @@
 package net.sf.gazpachosurvey.repository.support;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import net.sf.gazpachosurvey.domain.support.Persistable;
 import net.sf.gazpachosurvey.repository.qbe.ByExampleEnhancedSpecification;
@@ -28,17 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @NoRepositoryBean
-public class GenericRepositoryImpl<T extends Persistable<ID>, ID extends Serializable>
-        extends SimpleJpaRepository<T, ID> implements GenericRepository<T, ID>,
-        Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepository<T, Integer> implements
+        GenericRepository<T> {
 
     private final JpaEntityInformation<T, ?> entityInformation;
     private final EntityManager em;
-    private final DefaultPersistenceProvider provider;
-
-    //private Class<?> springDataRepositoryInterface;
     private Class<T> type;
     private ByExampleSpecification byExampleSpecification;
     private NamedQueryUtil namedQueryUtil;
@@ -53,22 +41,18 @@ public class GenericRepositoryImpl<T extends Persistable<ID>, ID extends Seriali
      * @param entityInformation
      * @param entityManager
      */
-    public GenericRepositoryImpl(JpaEntityInformation<T, ?> entityInformation,
-            EntityManager entityManager,
-            ByExampleSpecification byExampleSpecification,
-            NamedQueryUtil namedQueryUtil
-            ) {
+    public GenericRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager,
+            ByExampleSpecification byExampleSpecification, NamedQueryUtil namedQueryUtil) {
         super(entityInformation, entityManager);
         this.entityInformation = entityInformation;
         this.em = entityManager;
-        this.provider = DefaultPersistenceProvider
-                .fromEntityManager(entityManager);
-       // this.springDataRepositoryInterface = springDataRepositoryInterface;
+        // provider =
+        // DefaultPersistenceProvider.fromEntityManager(entityManager);
+        // this.springDataRepositoryInterface = springDataRepositoryInterface;
         this.type = entityInformation.getJavaType();
         this.byExampleSpecification = byExampleSpecification;
         this.namedQueryUtil = namedQueryUtil;
-        this.byExampleEnhancedSpecification = new ByExampleEnhancedSpecification(
-                entityManager);
+        this.byExampleEnhancedSpecification = new ByExampleEnhancedSpecification(entityManager);
     }
 
     /**
@@ -79,31 +63,18 @@ public class GenericRepositoryImpl<T extends Persistable<ID>, ID extends Seriali
      * @param em
      */
     protected GenericRepositoryImpl(Class<T> domainClass, EntityManager em) {
-        this(JpaEntityInformationSupport.getMetadata(domainClass, em), em,
-                null, null);
+        this(JpaEntityInformationSupport.getMetadata(domainClass, em), em, null, null);
     }
-/*
-    public Class<?> getSpringDataRepositoryInterface() {
-        return springDataRepositoryInterface;
-    }
-
-    public void setSpringDataRepositoryInterface(
-            Class<?> springDataRepositoryInterface) {
-        this.springDataRepositoryInterface = springDataRepositoryInterface;
-    }*/
 
     @Override
     public Page<T> findByExample(T example, Pageable pageable) {
-        Specifications<T> spec = Specifications.where(byExampleSpecification
-                .byExample(example));
+        Specifications<T> spec = Specifications.where(byExampleSpecification.byExample(example));
         return findAll(spec, pageable);
     }
 
     @Override
-    public Page<T> findByExample(T example, List<Range<T, ?>> ranges,
-            Pageable pageable) {
-        Specifications<T> spec = Specifications.where(byExampleSpecification
-                .byExample(example));
+    public Page<T> findByExample(T example, List<Range<T, ?>> ranges, Pageable pageable) {
+        Specifications<T> spec = Specifications.where(byExampleSpecification.byExample(example));
         spec = RangeSpecification.andRangeIfSet(spec, ranges);
         return findAll(spec, pageable);
     }
@@ -115,10 +86,9 @@ public class GenericRepositoryImpl<T extends Persistable<ID>, ID extends Seriali
 
     @Override
     public List<T> find(String pattern) {
-        Specifications<T> spec = Specifications.where(byExampleSpecification
-                .byPatternOnStringAttributes(pattern, type));
-        return findAll(spec, new PageRequest(0, MAX_VALUES_RETREIVED))
-                .getContent();
+        Specifications<T> spec = Specifications
+                .where(byExampleSpecification.byPatternOnStringAttributes(pattern, type));
+        return findAll(spec, new PageRequest(0, MAX_VALUES_RETREIVED)).getContent();
     }
 
     // Nueva version
@@ -129,22 +99,19 @@ public class GenericRepositoryImpl<T extends Persistable<ID>, ID extends Seriali
         if (sp.hasNamedQuery()) {
             return getNamedQueryUtil().findByNamedQuery(sp);
         }
-        Specifications<T> spec = Specifications
-                .where(byExampleEnhancedSpecification.byExampleOnEntity(entity,
-                        sp));
+        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, sp));
 
         return findAll(spec);
 
     }
 
+    @Override
     public long countByExample(T entity, SearchParameters sp) {
         Validate.notNull(entity, "The entity cannot be null");
         if (sp.hasNamedQuery()) {
             return getNamedQueryUtil().numberByNamedQuery(sp).intValue();
         }
-        Specifications<T> spec = Specifications
-                .where(byExampleEnhancedSpecification.byExampleOnEntity(entity,
-                        sp));
+        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, sp));
 
         return super.count(spec);
 

@@ -1,7 +1,6 @@
 package net.sf.gazpachosurvey.dto;
 
-
-public class UserDTO extends AbstractIdentifiableDTO<Integer> {
+public class UserDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = 7370786032611110768L;
 
@@ -10,8 +9,8 @@ public class UserDTO extends AbstractIdentifiableDTO<Integer> {
     private String lastName;
 
     private String email;
-    
-    public UserDTO(){
+
+    public UserDTO() {
         super();
     }
 
@@ -38,8 +37,8 @@ public class UserDTO extends AbstractIdentifiableDTO<Integer> {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    public static Builder with(){
+
+    public static Builder with() {
         return new Builder();
     }
 

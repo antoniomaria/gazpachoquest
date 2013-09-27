@@ -9,15 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ParticipantServiceImpl extends AbstractPersistenceService<Participant, ParticipantDTO, Integer>  implements ParticipantService{
+public class ParticipantServiceImpl extends AbstractPersistenceService<Participant, ParticipantDTO> implements
+        ParticipantService {
 
     @Autowired
-    public ParticipantServiceImpl(
-            ParticipantRepository repository
-            ) {
+    public ParticipantServiceImpl(ParticipantRepository repository) {
         super(repository, Participant.class, ParticipantDTO.class);
     }
-    
-    
 
 }

@@ -2,7 +2,7 @@ package net.sf.gazpachosurvey.dto;
 
 import net.sf.gazpachosurvey.types.Language;
 
-public class MailMessageTemplateDTO extends AbstractIdentifiableDTO<Integer> {
+public class MailMessageTemplateDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = -3689140734668685289L;
 
@@ -31,7 +31,7 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO<Integer> {
     }
 
     public void setFromAddress(String from) {
-        this.fromAddress = from;
+        fromAddress = from;
     }
 
     public String getReplyTo() {
@@ -120,9 +120,8 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO<Integer> {
 
     @Override
     public String toString() {
-        return "MailMessageTemplateDTO [language=" + language
-                + ", fromAddress=" + fromAddress + ", replyTo=" + replyTo
+        return "MailMessageTemplateDTO [language=" + language + ", fromAddress=" + fromAddress + ", replyTo=" + replyTo
                 + ", languageSettings=" + languageSettings + "]";
     }
-    
+
 }

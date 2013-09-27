@@ -14,7 +14,7 @@ import net.sf.gazpachosurvey.domain.support.Translation;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class PageTranslation extends AbstractPersistable<Integer> implements Translation<PageLanguageSettings> {
+public class PageTranslation extends AbstractPersistable implements Translation<PageLanguageSettings> {
 
     private static final long serialVersionUID = -2719163699375812306L;
 
@@ -48,6 +48,7 @@ public class PageTranslation extends AbstractPersistable<Integer> implements Tra
         this.language = language;
     }
 
+    @Override
     public PageLanguageSettings getLanguageSettings() {
         return languageSettings;
     }

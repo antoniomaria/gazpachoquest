@@ -4,7 +4,7 @@ import java.util.List;
 
 import net.sf.gazpachosurvey.types.Language;
 
-public class LabelSetDTO extends AbstractIdentifiableDTO<Integer> {
+public class LabelSetDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = -7715245634090394574L;
 

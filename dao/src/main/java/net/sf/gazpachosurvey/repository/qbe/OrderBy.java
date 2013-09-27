@@ -48,8 +48,7 @@ public class OrderBy implements Serializable {
         this(columnOrProperty, ASC);
     }
 
-    public OrderBy(
-            SingularAttribute<? extends Persistable<? extends Serializable>, ? extends Serializable> attribute,
+    public OrderBy(SingularAttribute<? extends Persistable, ? extends Serializable> attribute,
             OrderByDirection direction) {
         Validate.notNull(attribute);
         Validate.notNull(direction);
@@ -57,8 +56,7 @@ public class OrderBy implements Serializable {
         this.direction = direction;
     }
 
-    public OrderBy(
-            SingularAttribute<? extends Persistable<? extends Serializable>, ? extends Serializable> attribute) {
+    public OrderBy(SingularAttribute<? extends Persistable, ? extends Serializable> attribute) {
         this(attribute, ASC);
     }
 

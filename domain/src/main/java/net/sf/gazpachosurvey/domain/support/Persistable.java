@@ -2,9 +2,9 @@ package net.sf.gazpachosurvey.domain.support;
 
 import java.io.Serializable;
 
-public interface Persistable<ID extends Serializable> extends Serializable{
+public interface Persistable extends Serializable {
 
-    ID getId();
+    Integer getId();
 
     boolean isNew();
 }

@@ -1,7 +1,5 @@
 package net.sf.gazpachosurvey.domain.support;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.FetchType;
@@ -18,9 +16,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 @MappedSuperclass
-public abstract class AbstractAuditable<PK extends Serializable> extends
-        AbstractPersistable<PK> {
-    
+public abstract class AbstractAuditable extends AbstractPersistable {
+
     private static final long serialVersionUID = 6507308518779364972L;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,13 +33,12 @@ public abstract class AbstractAuditable<PK extends Serializable> extends
     @LastModifiedBy
     private User lastModifiedBy;
 
-
     @Column(columnDefinition = "timestamp")
     @Convert(converter = DateTimeConverter.class)
     @LastModifiedDate
     private DateTime lastModifiedDate;
-    
-    protected AbstractAuditable(){
+
+    protected AbstractAuditable() {
         super();
     }
 

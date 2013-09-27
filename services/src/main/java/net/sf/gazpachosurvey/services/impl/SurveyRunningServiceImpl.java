@@ -17,22 +17,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SurveyRunningServiceImpl extends
-        AbstractPersistenceService<SurveyRunning, SurveyRunningDTO, Integer>
-        implements SurveyRunningService {
+public class SurveyRunningServiceImpl extends AbstractPersistenceService<SurveyRunning, SurveyRunningDTO> implements
+        SurveyRunningService {
 
     @Autowired
     private SurveyRepository surveyRepository;
 
     @Autowired
     private ParticipantRepository participantRepository;
-    
+
     @Autowired
     private RandomTokenGenerator tokenGenerator;
-    
+
     @Autowired
     private SurveyLinkRepository surveyLinkRepository;
-    
+
     @Autowired
     public SurveyRunningServiceImpl(SurveyRunningRepository repository) {
         super(repository, SurveyRunning.class, SurveyRunningDTO.class);
@@ -41,14 +40,14 @@ public class SurveyRunningServiceImpl extends
     @Override
     public SurveyRunningDTO save(SurveyRunningDTO dto) {
         SurveyRunning running = mapper.map(dto, SurveyRunning.class);
-        
-        if (SurveyRunningType.BY_INVITATION.equals(running.getType())){
+
+        if (SurveyRunningType.BY_INVITATION.equals(running.getType())) {
             for (Participant participant : running.getParticipants()) {
                 participantRepository.save(participant);
             }
             running = repository.save(running);
-            
-            for (int idx = 0; idx < running.getParticipants().size(); idx ++) {
+
+            for (int idx = 0; idx < running.getParticipants().size(); idx++) {
                 SurveyLink surveyLink = new SurveyLink();
                 surveyLink.setSurveyRunning(running);
                 surveyLink.setToken(tokenGenerator.generate());
@@ -56,11 +55,8 @@ public class SurveyRunningServiceImpl extends
                 surveyLinkRepository.save(surveyLink);
             }
         }
-       
-        
+
         return mapper.map(running, dtoClazz);
     }
-
- 
 
 }

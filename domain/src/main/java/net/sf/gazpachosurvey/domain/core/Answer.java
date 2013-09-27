@@ -19,7 +19,7 @@ import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class Answer extends AbstractPersistable<Integer> {
+public class Answer extends AbstractPersistable {
 
     private static final long serialVersionUID = 2405587054509407178L;
 

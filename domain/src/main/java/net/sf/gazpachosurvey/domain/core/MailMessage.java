@@ -11,7 +11,7 @@ import org.joda.time.DateTime;
 import org.joda.time.contrib.jpa.DateTimeConverter;
 
 @Entity
-public class MailMessage extends AbstractPersistable<Integer> {
+public class MailMessage extends AbstractPersistable {
 
     private static final long serialVersionUID = 2597367892321945501L;
 
@@ -49,7 +49,7 @@ public class MailMessage extends AbstractPersistable<Integer> {
     }
 
     public void setToAddress(String to) {
-        this.toAddress = to;
+        toAddress = to;
     }
 
     public String getFromAddress() {
@@ -57,7 +57,7 @@ public class MailMessage extends AbstractPersistable<Integer> {
     }
 
     public void setFromAddress(String from) {
-        this.fromAddress = from;
+        fromAddress = from;
     }
 
     public String getReplyTo() {
@@ -73,7 +73,7 @@ public class MailMessage extends AbstractPersistable<Integer> {
     }
 
     public void setBody(String text) {
-        this.body = text;
+        body = text;
     }
 
     public DateTime getSentDate() {

@@ -7,11 +7,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 
 import net.sf.gazpachosurvey.domain.core.Question;
-import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class QuestionTranslation extends AbstractPersistable<Integer> {
+public class QuestionTranslation extends AbstractPersistable {
 
     private static final long serialVersionUID = 4295351363647972048L;
 

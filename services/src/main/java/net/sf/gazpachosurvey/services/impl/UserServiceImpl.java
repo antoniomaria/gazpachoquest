@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl  extends AbstractPersistenceService<User, UserDTO, Integer> implements UserService { 
+public class UserServiceImpl extends AbstractPersistenceService<User, UserDTO> implements UserService {
 
     @Autowired
     public UserServiceImpl(UserRepository repository) {

@@ -23,8 +23,7 @@ import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class Page extends
-AbstractLocalizable<Integer, PageTranslation, PageLanguageSettings> { 
+public class Page extends AbstractLocalizable<PageTranslation, PageLanguageSettings> {
 
     private static final long serialVersionUID = 5849288763708940985L;
 
@@ -46,14 +45,14 @@ AbstractLocalizable<Integer, PageTranslation, PageLanguageSettings> {
     @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @OrderColumn(name = "order_in_page")
     private List<Question> questions;
-    
+
     public Page() {
         super();
     }
 
     public List<Question> getQuestions() {
-        if (questions == null){
-            this.questions = new ArrayList<>();
+        if (questions == null) {
+            questions = new ArrayList<>();
         }
         return questions;
     }
@@ -70,22 +69,27 @@ AbstractLocalizable<Integer, PageTranslation, PageLanguageSettings> {
         this.survey = survey;
     }
 
+    @Override
     public Language getLanguage() {
         return language;
     }
 
+    @Override
     public void setLanguage(Language language) {
         this.language = language;
     }
 
+    @Override
     public PageLanguageSettings getLanguageSettings() {
         return languageSettings;
     }
 
+    @Override
     public void setLanguageSettings(PageLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }
 
+    @Override
     public Map<Language, PageTranslation> getTranslations() {
         return translations;
     }
@@ -93,8 +97,8 @@ AbstractLocalizable<Integer, PageTranslation, PageLanguageSettings> {
     public void setTranslations(Map<Language, PageTranslation> translations) {
         this.translations = translations;
     }
-    
-    public void addQuestion(Question question){
+
+    public void addQuestion(Question question) {
         getQuestions().add(question);
         question.setPage(this);
     }

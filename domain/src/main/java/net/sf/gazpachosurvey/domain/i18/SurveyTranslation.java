@@ -14,7 +14,7 @@ import net.sf.gazpachosurvey.domain.support.Translation;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class SurveyTranslation extends AbstractPersistable<Integer> implements Translation<SurveyLanguageSettings>{
+public class SurveyTranslation extends AbstractPersistable implements Translation<SurveyLanguageSettings> {
 
     private static final long serialVersionUID = -1926161817588270977L;
 
@@ -32,8 +32,7 @@ public class SurveyTranslation extends AbstractPersistable<Integer> implements T
         super();
     }
 
-    public SurveyTranslation(Survey survey,
-            SurveyLanguageSettings languageSettings) {
+    public SurveyTranslation(Survey survey, SurveyLanguageSettings languageSettings) {
         super();
         this.survey = survey;
         this.languageSettings = languageSettings;
@@ -47,6 +46,7 @@ public class SurveyTranslation extends AbstractPersistable<Integer> implements T
         this.survey = survey;
     }
 
+    @Override
     public SurveyLanguageSettings getLanguageSettings() {
         return languageSettings;
     }
