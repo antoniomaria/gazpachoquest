@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence:persistence version="1.0" xmlns:persistence="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence ../../persistence_1_0.xsd ">
-
-  <persistence:persistence-unit name="postgresPersistenceUnit">
+  <!-- Only used by eclipselink-staticweave-maven-plugin -->
+  <persistence:persistence-unit name="default">
     <persistence:provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence:provider>
 
-    <persistence:provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence:provider>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Answer</persistence:class>
 
     <persistence:class>net.sf.gazpachosurvey.domain.core.SurveyLink</persistence:class>

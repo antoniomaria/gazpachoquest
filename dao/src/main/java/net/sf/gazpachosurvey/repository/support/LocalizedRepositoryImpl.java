@@ -19,8 +19,6 @@ public class LocalizedRepositoryImpl<L extends Localizable<LS, TR>, LS extends L
 
     private static final Logger logger = LoggerFactory.getLogger(LocalizedRepositoryImpl.class);
 
-    private static final long serialVersionUID = 1551099185707262270L;
-
     public LocalizedRepositoryImpl(JpaEntityInformation<L, ?> entityInformation, EntityManager entityManager,
             ByExampleSpecification byExampleSpecification, NamedQueryUtil namedQueryUtil) {
         super(entityInformation, entityManager, byExampleSpecification, namedQueryUtil);
