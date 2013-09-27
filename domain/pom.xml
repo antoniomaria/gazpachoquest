@@ -111,7 +111,7 @@
             </goals>
             <configuration>
               <logLevel>ALL</logLevel>
-              <persistenceXMLLocation>META-INF/persistence.xml</persistenceXMLLocation>
+              <persistenceXMLLocation>META-INF/default-persistence.xml</persistenceXMLLocation>
               <includeProjectClasspath>true</includeProjectClasspath>
             </configuration>
           </execution>
