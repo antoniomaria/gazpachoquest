@@ -39,8 +39,8 @@
       <entry key="eclipselink.ddl-generation.output-mode" value="database" /> 
        -->
     <entry key="databasePlatform" value="${eclipselink.databasePlatform}" />
-    <entry key="eclipselink.weaving" value="false" />
-    <entry key="eclipselink.session.customizer" value="net.sf.gazpachosurvey.jpa.CamelNamingStrategy"></entry>
+    <entry key="eclipselink.weaving" value="static" />
+    <entry key="eclipselink.session.customizer" value="net.sf.gazpachosurvey.jpa.CamelNamingStrategy"/>
   </util:map>
 
   <bean id="eclipseLinkVendor" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter" />

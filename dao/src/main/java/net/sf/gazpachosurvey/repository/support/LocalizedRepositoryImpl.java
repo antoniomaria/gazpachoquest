@@ -12,6 +12,7 @@ import net.sf.gazpachosurvey.types.Language;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
+import org.springframework.util.Assert;
 
 public class LocalizedRepositoryImpl<L extends Localizable<LS, TR>, LS extends LanguageSettings, TR extends Translation<LS>>
         extends GenericRepositoryImpl<L> implements LocalizedRepository<L> {
@@ -28,8 +29,9 @@ public class LocalizedRepositoryImpl<L extends Localizable<LS, TR>, LS extends L
     @Override
     public L findOne(Integer id, Language language) {
         L entity = findOne(id);
-
-        if (entity == null) {
+        Assert.notNull(language, "Language is required");
+        
+        if (entity == null){
             return null;
         }
         LS languageSettings = entity.getLanguageSettings();
