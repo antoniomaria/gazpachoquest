@@ -2,6 +2,8 @@ package net.sf.gazpachosurvey.repository;
 
 import java.util.List;
 
+import net.sf.gazpachosurvey.domain.core.Survey;
+import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
 import net.sf.gazpachosurvey.repository.i18.SurveyTranslationRepository;
 import net.sf.gazpachosurvey.types.Language;
@@ -21,9 +23,25 @@ public class SurveyTranslationRepositoryTest {
     @Autowired
     private SurveyTranslationRepository repository;
 
+    @Autowired
+    private SurveyRepository surveyRepository;
+
     @Test
     public void findByLanguageTest() {
-        List<SurveyTranslation> translations = repository.findByLanguage(Language.ES);
+        Survey survey = surveyRepository.findOne(3);
+        SurveyLanguageSettings languageSettings = SurveyLanguageSettings
+                .with()
+                .title("Ejemplo de encuesta")
+                .description(
+                        "<p><strong>Ejemplo de encuesta</strong> creada para GazpachoSurvey.</p>")
+                .welcomeText("Kiitos! por no pagar participar en esta encuesta.")
+                .build();
+
+        survey.saveTranslation(Language.FI, languageSettings);
+        surveyRepository.save(survey);
+        
+        List<SurveyTranslation> translations = repository
+                .findByLanguage(Language.ES);
 
         for (SurveyTranslation surveyTranslation : translations) {
             System.out.println(surveyTranslation);

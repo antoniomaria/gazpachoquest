@@ -58,6 +58,10 @@ public class SurveyLanguageSettings  implements LanguageSettings{
         this.welcomeText = welcomeText;
     }
 
+    public static Builder with(){
+        return new Builder();
+    }
+    
     public static class Builder {
         private String title;
 

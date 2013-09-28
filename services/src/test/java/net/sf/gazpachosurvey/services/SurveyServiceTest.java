@@ -62,7 +62,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     private UserService userService;
 
     @Test
-    public void addSurveyTest() {
+    public void saveSurveyTest() {
         userService.save(UserDTO.with().firstName("temporal.support")
                 .lastName("support").email("support.temporal@gazpacho.net")
                 .build());
@@ -71,13 +71,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
                 .with()
                 .language(Language.EN)
                 .surveyLanguageSettingsStart()
-                .title("Slightly Trickier Sample Survey")
+                .title("Sample Survey")
                 .description(
-                        "<p>This is a <strong><em>sample survey</em></strong> designed for testing GazpachoSurvey.</p><p>One of the first things you'll need to do, in order to make this work properly, is to fix up the &quot;reference to previous answers&quot; codes in the first two questions of Group 2.  These questions contain (INSERTANS:1X2X3) code that needs the numbers changed to match questions 1 and 3 of Group 1. In order to find this number out, browse to question 1 of Group 1, and then copy the code from the URL bar in your web browser, starting from the number after &quot;SID=&quot;</p><p><strong><em>IE:</em></strong> 29975&amp;gid=2&amp;qid=4</p><p>Then, replace the &quot;&amp;gid=&quot; with an X, and replace the &quot;&amp;qid=&quot; with an X. So you should have:</p><p>29975X2X4</p><p>Then, you can replace the number in the curly brackets of question 1, group 2, so that it says:</p><p>(INSERTANS:29975X2X4)</p><p>Do the same with the other codes in the questions.</p><p>More information on using the answers to previous questions in your questions is available in the documentation.</p>")
+                        "<p>This is a <strong><em>sample survey</em></strong> designed for testing GazpachoSurvey.</p>")
                 .welcomeText(
                         "Thank you for taking the time to participate in this survey.")
-                .surveyLanguageSettingsEnd().build();
-
+                .surveyLanguageSettingsEnd().
+                build();
         survey = surveyService.save(survey);
         assertThat(survey.getId()).isNotNull();
 

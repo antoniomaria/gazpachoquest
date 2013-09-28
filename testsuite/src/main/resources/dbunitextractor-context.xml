@@ -17,14 +17,14 @@
     <property name="password" value="admin" />
   </bean>
 
-  <bean id="dbUnitDataExtractor" class="net.sf.opensurvey.test.dbunit.DBUnitDataExtractor">
+  <bean id="dbUnitDataExtractor" class="net.sf.gazpachosurvey.test.dbunit.DBUnitDataExtractor">
     <property name="dataSource" ref="dataSource" />
     <property name="dataSetName" value="target/dbunit-dataset.xml" />
     <property name="tableList">
       <list>
-        <value>survey_running</value>
-        <value>survey</value>
-        <value>user</value>
+        <value>survey_runnings</value>
+        <value>surveys</value>
+        <value>survey_translations</value>
       </list>
     </property><!--
       <property name="queryList">

@@ -1,36 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence:persistence version="1.0" xmlns:persistence="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence ../../persistence_1_0.xsd ">
-  <persistence:persistence-unit name="mysqlPersistenceUnit">
-
-    <persistence:provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence:provider>
-    <persistence:class>net.sf.gazpachosurvey.domain.core.Answer</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.core.Label</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.core.LabelSet</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.core.Page</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.core.Participant</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.core.Question</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.core.Survey</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.core.SurveyRunning</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.i18.AnswerTranslation</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.i18.LabelTranslation</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.i18.QuestionTranslation</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.i18.SurveyTranslation</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.i18.PageTranslation</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.user.User</persistence:class>
-
-    <persistence:properties>
-      <persistence:property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
-      <persistence:property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/gazpachosurvey" />
-      <persistence:property name="eclipselink.jdbc.user" value="root" />
-      <persistence:property name="eclipselink.jdbc.password" value="admin" />
-    </persistence:properties>
-  </persistence:persistence-unit>
-
-  <persistence:persistence-unit name="postgresPersistenceUnit">
+  <!-- Only used by eclipselink-staticweave-maven-plugin -->
+  <persistence:persistence-unit name="default">
     <persistence:provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence:provider>
 
-    <persistence:provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence:provider>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Answer</persistence:class>
 
     <persistence:class>net.sf.gazpachosurvey.domain.core.SurveyLink</persistence:class>
@@ -56,6 +30,7 @@
       <persistence:property name="eclipselink.jdbc.url" value="jdbc:postgresql://localhost:5432/gazpachosurvey" />
       <persistence:property name="eclipselink.jdbc.user" value="postgres" />
       <persistence:property name="eclipselink.jdbc.password" value="admin" />
+      <persistence:property name="eclipselink.weaving" value="static"></persistence:property>
     </persistence:properties>
   </persistence:persistence-unit>
 </persistence:persistence>
