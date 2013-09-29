@@ -16,6 +16,7 @@ import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.database.QueryDataSet;
+import org.dbunit.database.search.TablesDependencyHelper;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.slf4j.Logger;
@@ -102,6 +103,14 @@ public class DBUnitDataExtractor {
                 // full database export
                 IDataSet fullDataSet = connection.createDataSet();
                 FlatXmlDataSet.write(fullDataSet, new FileOutputStream(dataSetName));
+                
+
+                // dependent tables database export: export table X and all tables that
+                // have a PK which is a FK on X, in the right order for insertion
+                String[] depTableNames = 
+                  TablesDependencyHelper.getAllDependentTables( connection, "surveys" );
+                IDataSet depDataset = connection.createDataSet( depTableNames );
+                FlatXmlDataSet.write(depDataset, new FileOutputStream("target/dependents.xml")); 
             }
         } finally {
             if (conn != null) {

@@ -12,9 +12,8 @@
                            http://www.springframework.org/schema/data/jpa/spring-jpa-1.2.xsd
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
-  <context:component-scan base-package="net.sf.gazpachosurvey.repository.support" />
-
-
+  <context:component-scan base-package="net.sf.gazpachosurvey.repository.support,net.sf.gazpachosurvey.repository.dynamic" />
+  
   <jpa:repositories base-package="net.sf.gazpachosurvey.repository" factory-class="net.sf.gazpachosurvey.repository.support.DefaultRepositoryFactoryBean" />
 
   <jpa:auditing auditor-aware-ref="auditorAware" />
@@ -27,21 +26,16 @@
 
   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" p:dataSource-ref="dataSource"
     p:packagesToScan="net.sf.gazpachosurvey.domain" p:jpaVendorAdapter-ref="eclipseLinkVendor" p:jpaPropertyMap-ref="jpaPropertyMap">
-    <!--
-      <property name="mappingResources">
-      <value>META-INF/eclipselink-orm.xml"</value>
-      </property> -->
   </bean>
 
   <util:map id="jpaPropertyMap">
-    <entry key="showSql" value="${jpa.show.sql}" />
     <entry key="eclipselink.logging.level.sql" value="FINE" />
     <entry key="eclipselink.logging.parameters" value="true" />
     <entry key="eclipselink.ddl-generation" value="create-tables" />
     <entry key="eclipselink.ddl-generation.output-mode" value="database" />
-    <entry key="databasePlatform" value="${eclipselink.databasePlatform}" />
-    <entry key="eclipselink.weaving" value="false" />
-    <entry key="eclipselink.session.customizer" value="net.sf.gazpachosurvey.jpa.CamelNamingStrategy"></entry>
+    <entry key="databasePlatform" value="org.eclipse.persistence.platform.database.HSQLPlatform" />
+    <entry key="eclipselink.weaving" value="static" />
+    <entry key="eclipselink.session.customizer" value="net.sf.gazpachosurvey.jpa.CamelNamingStrategy"/>
   </util:map>
 
   <bean id="eclipseLinkVendor" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter" />

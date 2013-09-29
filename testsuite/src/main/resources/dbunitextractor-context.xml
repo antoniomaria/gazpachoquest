@@ -20,13 +20,32 @@
   <bean id="dbUnitDataExtractor" class="net.sf.gazpachosurvey.test.dbunit.DBUnitDataExtractor">
     <property name="dataSource" ref="dataSource" />
     <property name="dataSetName" value="target/dbunit-dataset.xml" />
+<!-- 
     <property name="tableList">
       <list>
+        <value>answer_translations</value>
+        <value>answers</value>
+        <value>label_sets</value>
+        <value>labels</value>
+        <value>mail_message_template_translations</value>
+        <value>mail_message_templates</value>
+        <value>mail_messages</value>
+        <value>pages</value>
+        <value>participants</value>
+        <value>question_translations</value>
+        <value>questions</value>
+        <value>sequence</value>
+        <value>survey_links</value>
         <value>survey_runnings</value>
-        <value>surveys</value>
         <value>survey_translations</value>
+        <value>surveyrunning_participant</value>
+        <value>surveys</value>
+        <value>users</value>
       </list>
-    </property><!--
+       
+    </property>
+    -->
+    <!--
       <property name="queryList">
       <list>
       <value>select * from bon_app_ext.person where first_name = 'Bill'</value>

@@ -33,6 +33,7 @@
     <module>services</module>
     <module>questionnaires-ui</module>
   </modules>
+
   <repositories>
     <repository>
       <id>java.net</id>
@@ -120,6 +121,12 @@
         <groupId>org.hsqldb</groupId>
         <artifactId>hsqldb</artifactId>
         <version>2.2.8</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.easytesting</groupId>
+        <artifactId>fest-assert-core</artifactId>
+        <version>2.0M10</version>
       </dependency>
 
       <!-- Logger logback -->
