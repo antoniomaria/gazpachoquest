@@ -81,7 +81,7 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
         translation.setSurvey(this);
         translation.setLanguage(language);
         translation.setLanguageSettings(languageSettings);
-        
+
         SurveyTranslation current = getTranslations().get(language);
         if (current == null){
             getTranslations().put(language, translation);    

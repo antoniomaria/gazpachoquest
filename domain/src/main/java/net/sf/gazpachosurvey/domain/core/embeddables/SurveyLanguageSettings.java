@@ -3,10 +3,14 @@ package net.sf.gazpachosurvey.domain.core.embeddables;
 import javax.persistence.Embeddable;
 import javax.persistence.Lob;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import net.sf.gazpachosurvey.domain.support.LanguageSettings;
+import net.sf.gazpachosurvey.domain.support.Persistable;
 
 @Embeddable
-public class SurveyLanguageSettings  implements LanguageSettings{
+public class SurveyLanguageSettings implements LanguageSettings {
 
     private String title;
 
@@ -20,7 +24,8 @@ public class SurveyLanguageSettings  implements LanguageSettings{
         super();
     }
 
-    public SurveyLanguageSettings(String title, String description, String welcomeText) {
+    public SurveyLanguageSettings(String title, String description,
+            String welcomeText) {
         super();
         this.title = title;
         this.description = description;
@@ -58,10 +63,10 @@ public class SurveyLanguageSettings  implements LanguageSettings{
         this.welcomeText = welcomeText;
     }
 
-    public static Builder with(){
+    public static Builder with() {
         return new Builder();
     }
-    
+
     public static class Builder {
         private String title;
 
@@ -89,4 +94,18 @@ public class SurveyLanguageSettings  implements LanguageSettings{
         }
     }
 
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof SurveyLanguageSettings) {
+            final SurveyLanguageSettings other = (SurveyLanguageSettings) obj;
+            return EqualsBuilder.reflectionEquals(this, other);
+        } else {
+            return false;
+        }
+    }
 }

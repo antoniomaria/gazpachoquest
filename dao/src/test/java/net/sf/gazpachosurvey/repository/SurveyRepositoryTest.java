@@ -60,16 +60,17 @@ public class SurveyRepositoryTest {
         Survey surveyInSpanish = repository.findOne(surveyId, Language.ES);
         assertThat(surveyInSpanish.getLanguage()).isEqualTo(Language.ES);
 
-        languageSettings.setTitle("Cuestionario sobre la calidad el servicio");
-        survey.saveTranslation(Language.ES, languageSettings);
+        SurveyLanguageSettings languageSettingsNew = SurveyLanguageSettings.with()
+                .title("Cuestionario sobre la calidad el servicio")
+                .description("Queremos valorar la calidad en este restaurante")
+                .welcomeText("Gracias por responder a estas preguntas").build();
+        survey.saveTranslation(Language.ES, languageSettingsNew);
+        
+        surveyInSpanish.getTranslations().get(Language.ES).getLanguageSettings().setTitle("Cuestionario sobre la calidad el servicio");
         repository.save(surveyInSpanish);
-        System.out.println("salvando");
         surveyInSpanish = repository.findOne(surveyId, Language.ES);
-        System.out.println("cacheando ??");
         assertThat(surveyInSpanish.getLanguageSettings().getTitle()).isEqualTo(
                 "Cuestionario sobre la calidad el servicio");
-
-        System.out.println("numero de encuesta: " + surveyInSpanish);
     }
 
     // @Test
