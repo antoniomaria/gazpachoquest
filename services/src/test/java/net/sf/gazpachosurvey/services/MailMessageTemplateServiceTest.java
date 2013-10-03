@@ -2,7 +2,6 @@ package net.sf.gazpachosurvey.services;
 
 import net.sf.gazpachosurvey.dto.MailMessageTemplateDTO;
 import net.sf.gazpachosurvey.dto.MailMessageTemplateLanguageSettingsDTO;
-import net.sf.gazpachosurvey.dto.UserDTO;
 import net.sf.gazpachosurvey.types.Language;
 
 import org.junit.Test;
@@ -43,13 +42,12 @@ public class MailMessageTemplateServiceTest {
 
         MailMessageTemplateLanguageSettingsDTO languageSettings = MailMessageTemplateLanguageSettingsDTO
                 .with()
-                .subject("Tu encuesta")
+                .subject("Tu encuesta mofificada")
                 .body("Estimado Sr. $lastname, <br> Has sido invitado para participar en esta encuesta <br>"
                         + "Nos dedicas 15 minutos para realizar la encuesta?, puedes interrumpirla y completarla más tarde si es necesario"
                         + "<a href=\"\">Click aqui</a> para empezar").build();
-        service.addTranslation(mailMessageTemplate, Language.ES,
-                languageSettings);
         
+        service.saveTranslation(mailMessageTemplate.getId(), Language.ES,  languageSettings);
        MailMessageTemplateDTO localizedMailMessageTemplate = service.findOne(mailMessageTemplate.getId(), Language.ES);
        
     }

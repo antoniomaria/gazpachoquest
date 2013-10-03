@@ -1,6 +1,8 @@
 package net.sf.gazpachosurvey.dto;
 
-public class PageLanguageSettingsDTO {
+import net.sf.gazpachosurvey.domain.support.LanguageSettings;
+
+public class PageLanguageSettingsDTO implements LanguageSettings{
 
     private String title;
 

@@ -1,17 +1,19 @@
 package net.sf.gazpachosurvey.domain.i18;
 
-import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 
 import net.sf.gazpachosurvey.domain.core.Question;
+import net.sf.gazpachosurvey.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import net.sf.gazpachosurvey.domain.support.Translation;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class QuestionTranslation extends AbstractPersistable {
+public class QuestionTranslation extends AbstractPersistable implements Translation<QuestionLanguageSettings>{
 
     private static final long serialVersionUID = 4295351363647972048L;
 
@@ -19,10 +21,11 @@ public class QuestionTranslation extends AbstractPersistable {
     private Question question;
 
     @Enumerated(EnumType.STRING)
-    @Column(insertable = false, updatable = false)
     private Language language;
 
-    private String text;
+    @Embedded
+    private QuestionLanguageSettings languageSettings;
+
 
     public QuestionTranslation() {
         super();
@@ -36,14 +39,6 @@ public class QuestionTranslation extends AbstractPersistable {
         this.question = question;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public Language getLanguage() {
         return language;
     }
@@ -52,9 +47,12 @@ public class QuestionTranslation extends AbstractPersistable {
         this.language = language;
     }
 
-    @Override
-    public String toString() {
-        return "QuestionTranslation [text=" + text + "]";
+    public QuestionLanguageSettings getLanguageSettings() {
+        return languageSettings;
     }
 
+    public void setLanguageSettings(QuestionLanguageSettings languageSettings) {
+        this.languageSettings = languageSettings;
+    }
+    
 }

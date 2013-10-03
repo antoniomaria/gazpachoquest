@@ -1,10 +1,6 @@
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.sf.gazpachosurvey.types.Language;
-
-import com.mysql.jdbc.jdbc2.optional.SuspendableXAConnection;
-
 public class ErExample {
 
     /**

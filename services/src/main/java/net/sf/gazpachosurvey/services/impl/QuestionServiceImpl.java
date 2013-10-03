@@ -5,17 +5,24 @@ import javax.annotation.Resource;
 import net.sf.gazpachosurvey.domain.core.Page;
 import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.Survey;
+import net.sf.gazpachosurvey.domain.core.embeddables.QuestionLanguageSettings;
+import net.sf.gazpachosurvey.domain.i18.QuestionTranslation;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
+import net.sf.gazpachosurvey.dto.QuestionLanguageSettingsDTO;
 import net.sf.gazpachosurvey.repository.PageRepository;
 import net.sf.gazpachosurvey.repository.QuestionRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
+import net.sf.gazpachosurvey.repository.i18.QuestionTranslationRepository;
 import net.sf.gazpachosurvey.services.QuestionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class QuestionServiceImpl extends AbstractPersistenceService<Question, QuestionDTO> implements QuestionService {
+public class QuestionServiceImpl
+        extends
+        AbstractLocalizedPersistenceService<Question, QuestionDTO, QuestionTranslation, QuestionLanguageSettings, QuestionLanguageSettingsDTO>
+        implements QuestionService {
 
     @Resource
     private SurveyRepository surveyRepository;
@@ -24,13 +31,10 @@ public class QuestionServiceImpl extends AbstractPersistenceService<Question, Qu
     private PageRepository pageRepository;
 
     @Autowired
-    public QuestionServiceImpl(QuestionRepository repository) {
-        super(repository, Question.class, QuestionDTO.class);
-    }
-
-    @Override
-    public QuestionDTO save(QuestionDTO dto) {
-        return super.save(dto);
+    public QuestionServiceImpl(QuestionRepository repository,
+            QuestionTranslationRepository translationRepository) {
+        super(repository, translationRepository, Question.class,
+                QuestionDTO.class, QuestionTranslation.class, null);
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,15 +17,16 @@ import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 
+import net.sf.gazpachosurvey.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.QuestionTranslation;
-import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.QuestionType;
 
 import org.springframework.util.Assert;
 
 @Entity
-public class Question extends AbstractPersistable {
+public class Question extends AbstractLocalizable<QuestionTranslation, QuestionLanguageSettings>{
 
     private static final long serialVersionUID = -4372634574851905803L;
 
@@ -45,8 +47,6 @@ public class Question extends AbstractPersistable {
     @OrderColumn(name = "order_in_question")
     private List<Answer> answers;
 
-    private String title;
-
     private Boolean isRequired;
 
     @Enumerated(EnumType.STRING)
@@ -55,9 +55,12 @@ public class Question extends AbstractPersistable {
     @Enumerated(EnumType.STRING)
     private Language language;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Embedded
+    private QuestionLanguageSettings languageSettings;
+    
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "language")
+    @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private Map<Language, QuestionTranslation> translations;
 
     public Question() {
@@ -137,22 +140,6 @@ public class Question extends AbstractPersistable {
         this.translations = translations;
     }
 
-    public void setTranslation(Language language, String text) {
-        QuestionTranslation translation = new QuestionTranslation();
-        translation.setText(text);
-        translation.setQuestion(this);
-        translation.setLanguage(language);
-        getTranslations().put(language, translation);
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public Language getLanguage() {
         return language;
     }
@@ -171,6 +158,27 @@ public class Question extends AbstractPersistable {
         subquestion.setLanguage(language);
         getSubquestions().add(subquestion);
         subquestion.setParent(this);
+    }
+
+    @Override
+    public QuestionLanguageSettings getLanguageSettings() {
+        if (languageSettings == null){
+            languageSettings = new QuestionLanguageSettings();
+        }
+        return languageSettings;
+    }
+
+    @Override
+    public void setLanguageSettings(QuestionLanguageSettings languageSettings) {
+        this.languageSettings = languageSettings;
+    }
+
+    @Override
+    public void addTranslation(Language language,
+            QuestionTranslation translation) {
+        translation.setQuestion(this);
+        getTranslations().put(language, translation);
+        
     }
 
 }

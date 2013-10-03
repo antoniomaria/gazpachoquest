@@ -3,11 +3,10 @@ package net.sf.gazpachosurvey.domain.core.embeddables;
 import javax.persistence.Embeddable;
 import javax.persistence.Lob;
 
+import net.sf.gazpachosurvey.domain.support.LanguageSettings;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-
-import net.sf.gazpachosurvey.domain.support.LanguageSettings;
-import net.sf.gazpachosurvey.domain.support.Persistable;
 
 @Embeddable
 public class SurveyLanguageSettings implements LanguageSettings {

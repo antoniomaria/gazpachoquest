@@ -14,6 +14,7 @@ import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.ParticipantDTO;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
+import net.sf.gazpachosurvey.dto.SurveyLanguageSettingsDTO;
 import net.sf.gazpachosurvey.dto.SurveyRunningDTO;
 import net.sf.gazpachosurvey.dto.UserDTO;
 import net.sf.gazpachosurvey.types.Language;
@@ -298,6 +299,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         survey = surveyService.findOne(1, "SurveyWithQuestions");
 
         System.out.println("Questions " + survey.getQuestions());
+    }
+    @Test
+    public void saveTranslationTest(){
+        SurveyDTO survey = surveyService.findOne(3);
+        SurveyLanguageSettingsDTO languageSettings = new SurveyLanguageSettingsDTO();
+        languageSettings.setTitle("mi titulo! !!! !!! !");
+        languageSettings.setDescription("mi descripcion modified");
+        surveyService.saveTranslation(3, Language.FR, languageSettings);
     }
 
 }

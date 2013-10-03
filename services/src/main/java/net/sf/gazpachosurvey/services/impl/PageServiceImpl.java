@@ -2,9 +2,13 @@ package net.sf.gazpachosurvey.services.impl;
 
 import net.sf.gazpachosurvey.domain.core.Page;
 import net.sf.gazpachosurvey.domain.core.Survey;
+import net.sf.gazpachosurvey.domain.core.embeddables.PageLanguageSettings;
+import net.sf.gazpachosurvey.domain.i18.PageTranslation;
 import net.sf.gazpachosurvey.dto.PageDTO;
+import net.sf.gazpachosurvey.dto.PageLanguageSettingsDTO;
 import net.sf.gazpachosurvey.repository.PageRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
+import net.sf.gazpachosurvey.repository.i18.PageTranslationRepository;
 import net.sf.gazpachosurvey.services.PageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +16,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 @Service
-public class PageServiceImpl extends AbstractLocalizedPersistenceService<Page, PageDTO> implements PageService {
+public class PageServiceImpl extends AbstractLocalizedPersistenceService<Page, PageDTO, PageTranslation, PageLanguageSettings, PageLanguageSettingsDTO> implements PageService {
 
     @Autowired
     private SurveyRepository surveyRepository;
 
     @Autowired
-    public PageServiceImpl(PageRepository repository) {
-        super(repository, Page.class, PageDTO.class);
+    public PageServiceImpl(PageRepository repository, PageTranslationRepository translationRepository) {
+        super(repository, translationRepository, Page.class, PageDTO.class,PageTranslation.class, PageLanguageSettings.class );
     }
 
     @Override

@@ -3,7 +3,6 @@ package net.sf.gazpachosurvey.domain.core;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,7 +18,8 @@ import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class MailMessageTemplate extends
+public class MailMessageTemplate
+        extends
         AbstractLocalizable<MailMessageTemplateTranslation, MailMessageTemplateLanguageSettings> {
     private static final long serialVersionUID = 8115847063538607577L;
 
@@ -33,9 +33,9 @@ public class MailMessageTemplate extends
     @Embedded
     private MailMessageTemplateLanguageSettings languageSettings;
 
-    @OneToMany(mappedBy = "mailMessageTemplate", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "mailMessageTemplate", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "language")
+    @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private Map<Language, MailMessageTemplateTranslation> translations;
 
     public MailMessageTemplate() {
@@ -74,7 +74,8 @@ public class MailMessageTemplate extends
     }
 
     @Override
-    public void setLanguageSettings(MailMessageTemplateLanguageSettings languageSettings) {
+    public void setLanguageSettings(
+            MailMessageTemplateLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }
 
@@ -87,15 +88,63 @@ public class MailMessageTemplate extends
         return translations;
     }
 
-    public void setTranslations(Map<Language, MailMessageTemplateTranslation> translations) {
+    public void setTranslations(
+            Map<Language, MailMessageTemplateTranslation> translations) {
         this.translations = translations;
     }
 
-    public void addTranslation(Language language, MailMessageTemplateLanguageSettings languageSettings) {
-        MailMessageTemplateTranslation translation = new MailMessageTemplateTranslation();
+    @Override
+    public void addTranslation(Language language,
+            MailMessageTemplateTranslation translation) {
         translation.setMailMessageTemplate(this);
-        translation.setLanguage(language);
-        translation.setLanguageSettings(languageSettings);
         getTranslations().put(language, translation);
+    }
+
+    public static Builder with(){
+        return new Builder();
+    }
+    public static class Builder {
+        private Language language;
+        private String fromAddress;
+        private String replyTo;
+        private MailMessageTemplateLanguageSettings languageSettings;
+        private Map<Language, MailMessageTemplateTranslation> translations;
+
+        public Builder language(Language language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder fromAddress(String fromAddress) {
+            this.fromAddress = fromAddress;
+            return this;
+        }
+
+        public Builder replyTo(String replyTo) {
+            this.replyTo = replyTo;
+            return this;
+        }
+
+        public Builder languageSettings(
+                MailMessageTemplateLanguageSettings languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        public Builder translations(
+                Map<Language, MailMessageTemplateTranslation> translations) {
+            this.translations = translations;
+            return this;
+        }
+
+        public MailMessageTemplate build() {
+            MailMessageTemplate mailMessageTemplate = new MailMessageTemplate();
+            mailMessageTemplate.language = language;
+            mailMessageTemplate.fromAddress = fromAddress;
+            mailMessageTemplate.replyTo = replyTo;
+            mailMessageTemplate.languageSettings = languageSettings;
+            mailMessageTemplate.translations = translations;
+            return mailMessageTemplate;
+        }
     }
 }

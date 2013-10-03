@@ -37,7 +37,6 @@ public class SurveyTranslationRepositoryTest {
                 .welcomeText("Kiitos! por no pagar participar en esta encuesta.")
                 .build();
 
-        survey.saveTranslation(Language.FI, languageSettings);
         surveyRepository.save(survey);
         
         List<SurveyTranslation> translations = repository

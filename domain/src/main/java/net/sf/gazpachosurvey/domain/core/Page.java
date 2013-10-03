@@ -27,7 +27,7 @@ public class Page extends AbstractLocalizable<PageTranslation, PageLanguageSetti
 
     private static final long serialVersionUID = 5849288763708940985L;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Survey survey;
 
     @Enumerated(EnumType.STRING)
@@ -37,9 +37,9 @@ public class Page extends AbstractLocalizable<PageTranslation, PageLanguageSetti
     @Embedded
     private PageLanguageSettings languageSettings;
 
-    @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "page", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "language")
+    @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private Map<Language, PageTranslation> translations;
 
     @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
@@ -101,6 +101,12 @@ public class Page extends AbstractLocalizable<PageTranslation, PageLanguageSetti
     public void addQuestion(Question question) {
         getQuestions().add(question);
         question.setPage(this);
+    }
+
+    @Override
+    public void addTranslation(Language language, PageTranslation translation) {
+        throw new UnsupportedOperationException();
+        
     }
 
 }

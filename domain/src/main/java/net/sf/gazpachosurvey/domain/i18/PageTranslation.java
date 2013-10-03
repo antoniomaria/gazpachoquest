@@ -1,6 +1,5 @@
 package net.sf.gazpachosurvey.domain.i18;
 
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,7 +21,6 @@ public class PageTranslation extends AbstractPersistable implements Translation<
     private Page page;
 
     @Enumerated(EnumType.STRING)
-    @Column(insertable = false, updatable = false)
     private Language language;
 
     @Embedded

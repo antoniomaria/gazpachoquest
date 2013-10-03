@@ -42,7 +42,7 @@ public class DozerExamples {
        List<Question> subQuestionsCopy = question.getSubquestions();
        
        for (Question subquestion : subQuestionsCopy) {
-           System.out.println(subquestion.getTitle() + " parent:  " + subquestion.getParent());
+           // System.out.println(subquestion.getTitle() + " parent:  " + subquestion.getParent());
        }
        
        

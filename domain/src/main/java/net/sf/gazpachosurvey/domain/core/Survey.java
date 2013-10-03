@@ -25,7 +25,8 @@ import net.sf.gazpachosurvey.types.EntityStatus;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguageSettings> {
+public class Survey extends
+        AbstractLocalizable<SurveyTranslation, SurveyLanguageSettings> {
 
     private static final long serialVersionUID = 2560468772707058412L;
 
@@ -41,9 +42,9 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<SurveyRunning> surveysRunning;
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "language")
+    @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private Map<Language, SurveyTranslation> translations;
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
@@ -74,20 +75,6 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
             translations = new HashMap<>();
         }
         return translations;
-    }
-
-    public void saveTranslation(Language language, SurveyLanguageSettings languageSettings) {
-        SurveyTranslation translation = new SurveyTranslation();
-        translation.setSurvey(this);
-        translation.setLanguage(language);
-        translation.setLanguageSettings(languageSettings);
-
-        SurveyTranslation current = getTranslations().get(language);
-        if (current == null){
-            getTranslations().put(language, translation);    
-        }else{
-            current.setLanguageSettings(languageSettings);
-        }
     }
 
     public void setTranslations(Map<Language, SurveyTranslation> translations) {
@@ -159,6 +146,12 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
         this.status = status;
     }
 
+    @Override
+    public void addTranslation(Language language, SurveyTranslation translation) {
+        translation.setSurvey(this);
+        getTranslations().put(language, translation);
+    }
+
     public static Builder with() {
         return new Builder();
     }
@@ -198,7 +191,8 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
             return this;
         }
 
-        public Builder translations(Map<Language, SurveyTranslation> translations) {
+        public Builder translations(
+                Map<Language, SurveyTranslation> translations) {
             this.translations = translations;
             return this;
         }

@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import net.sf.gazpachosurvey.domain.core.Answer;
-import net.sf.gazpachosurvey.domain.core.Page;
 import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.repository.AnswerRepository;
@@ -111,8 +110,6 @@ public class DynamicTest {
     private void processQuestion(JPADynamicTypeBuilder surveyAnswer,
             Question question) {
         QuestionType questionType = question.getType();
-        System.out.println(question.getId() + " " + question.getType() + " "
-                + question.getTitle());
 
         List<Question> subquestions = question.getSubquestions();
         if (subquestions.isEmpty()) {
