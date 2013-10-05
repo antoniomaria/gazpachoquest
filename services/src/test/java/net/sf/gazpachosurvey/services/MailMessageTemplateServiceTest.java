@@ -8,6 +8,7 @@ import net.sf.gazpachosurvey.types.Language;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -18,7 +19,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)/*
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
         "classpath:/datasource-test-context.xml",
         "classpath:/services-context.xml" })
@@ -26,7 +27,11 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
-@DatabaseSetup("MailMessageTemplateService-dataset.xml")
+@DatabaseSetup("MailMessageTemplateService-dataset.xml")*/
+
+@ActiveProfiles("postgres")
+@ContextConfiguration(locations = { "classpath:/jpa-context.xml",
+        "classpath:/services-context.xml" })
 public class MailMessageTemplateServiceTest {
 
     @Autowired
@@ -40,6 +45,8 @@ public class MailMessageTemplateServiceTest {
         MailMessageTemplateDTO mailMessageTemplate = MailMessageTemplateDTO
                 .with()
                 .language(Language.EN)
+                .from("support@gazpacho.net")
+                .replyTo("support@gazpacho.net")
                 .mailMessageTemplateLanguageSettingsStart()
                 .subject("Your survey")
                 .body("Dear Mr. $lastname, <br> You have been invited to take this survey. <br>"
@@ -48,6 +55,7 @@ public class MailMessageTemplateServiceTest {
                 .mailMessageTemplateLanguageSettingsEnd().build();
         mailMessageTemplate = service.save(mailMessageTemplate);
 
+        
         MailMessageTemplateLanguageSettingsDTO languageSettings = MailMessageTemplateLanguageSettingsDTO
                 .with()
                 .subject("Tu encuesta")
@@ -61,6 +69,6 @@ public class MailMessageTemplateServiceTest {
                 mailMessageTemplate.getId(), Language.ES);
         assertThat(
                 localizedMailMessageTemplate.getLanguageSettings().getSubject())
-                .isEqualTo(languageSettings.getSubject());
+                .isEqualTo(languageSettings.getSubject()); 
     }
 }

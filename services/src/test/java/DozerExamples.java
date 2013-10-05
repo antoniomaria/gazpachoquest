@@ -3,6 +3,7 @@ import java.util.List;
 
 import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
+import net.sf.gazpachosurvey.types.Language;
 
 import org.dozer.Mapper;
 import org.junit.Test;
@@ -33,9 +34,9 @@ public class DozerExamples {
         
        QuestionDTO questionDTO = new QuestionDTO();
        List<QuestionDTO> subquestions = new ArrayList<>();
-       subquestions.add(QuestionDTO.with().title("subquestion 1").build());
-       subquestions.add(QuestionDTO.with().title("subquestion 2").build());
-       subquestions.add(QuestionDTO.with().title("subquestion 3").build());
+       subquestions.add(QuestionDTO.with().language(Language.EN).languageSettingsStart().title("subquestion 1").languageSettingsEnd().build());
+       subquestions.add(QuestionDTO.with().language(Language.EN).languageSettingsStart().title("subquestion 2").languageSettingsEnd().build());
+       subquestions.add(QuestionDTO.with().language(Language.EN).languageSettingsStart().title("subquestion 3").languageSettingsEnd().build());
        questionDTO.setSubquestions(subquestions);
        
        Question question = mapper.map(questionDTO, Question.class);

@@ -118,14 +118,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
         // 1 Single Textbox
         QuestionDTO question = QuestionDTO.with().type(QuestionType.S)
-                .language(Language.EN).title("What is your name?")
+                .language(Language.EN).languageSettingsStart().
+                title("What is your name?").languageSettingsEnd()
                 .isRequired(true).build();
         Integer questionId = questionService.addQuestion(page1.getId(),
                 question);
 
         // 2 Multiple Choice (Only One Answer)
         question = QuestionDTO.with().type(QuestionType.L)
-                .language(Language.EN).title("What is your age group?")
+                .language(Language.EN).
+                languageSettingsStart().
+                title("What is your age group?").languageSettingsEnd()
                 .isRequired(true).build();
 
         question.addAnswer(AnswerDTO.with().title("0-14 years").build());
@@ -147,8 +150,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
         // 3 Numeric
         question = QuestionDTO.with().type(QuestionType.N)
-                .language(Language.EN)
-                .title("And for our records, specifically how old are you?")
+                .language(Language.EN).languageSettingsStart()
+                .title("And for our records, specifically how old are you?").languageSettingsEnd()
                 .isRequired(true).build();
         questionId = questionService.addQuestion(page1.getId(), question);
 
@@ -156,8 +159,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         question = QuestionDTO
                 .with()
                 .type(QuestionType.T)
-                .language(Language.EN)
-                .title("Please tell us a little about yourself. What was your first job, and did you enjoy it?")
+                .language(Language.EN).languageSettingsStart()
+                .title("Please tell us a little about yourself. What was your first job, and did you enjoy it?").languageSettingsEnd()
                 .isRequired(true).build();
         questionId = questionService.addQuestion(page2.getId(), question);
 
@@ -165,8 +168,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         question = QuestionDTO
                 .with()
                 .type(QuestionType.L)
-                .language(Language.EN)
-                .title("Given your extraordinary age, how do you find using this survey tool?")
+                .language(Language.EN).languageSettingsStart()
+                .title("Given your extraordinary age, how do you find using this survey tool?").languageSettingsEnd()
                 .isRequired(true).build();
         question.addAnswer(AnswerDTO.with()
                 .title("Very difficult to read, my eyesight is dim").build());
@@ -183,8 +186,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         question = QuestionDTO
                 .with()
                 .type(QuestionType.L)
-                .language(Language.EN)
-                .title("<font size='+2'><br />&nbsp;<br />Which of these ads makes you want to find out more?<br />&nbsp;<br /></font>")
+                .language(Language.EN).languageSettingsStart()
+                .title("<font size='+2'><br />&nbsp;<br />Which of these ads makes you want to find out more?<br />&nbsp;<br /></font>").languageSettingsEnd()
                 .isRequired(true).build();
         question.addAnswer(AnswerDTO.with().title("Ad one").build());
         question.addAnswer(AnswerDTO.with().title("Ad two").build());
@@ -196,32 +199,32 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         question = QuestionDTO
                 .with()
                 .type(QuestionType.F)
-                .language(Language.EN)
+                .language(Language.EN).languageSettingsStart()
                 .title("Please have a good look at this ad, and then complete the questions below.<br /><img src='http://www.aptigence.com.au/images/lawyer1.jpg' border='1'>")
-                .isRequired(true).build();
+                .languageSettingsEnd().isRequired(true).build();
 
         List<QuestionDTO> subquestions = new ArrayList<>();
         subquestions
                 .add(QuestionDTO
                         .with()
                         .language(Language.EN)
-                        .type(QuestionType.L)
-                        .title("This ad suggests the lawyer is on my side, not his own")
+                        .type(QuestionType.L).languageSettingsStart()
+                        .title("This ad suggests the lawyer is on my side, not his own").languageSettingsEnd()
                         .build());
         subquestions
                 .add(QuestionDTO
                         .with()
                         .language(Language.EN)
-                        .type(QuestionType.L)
-                        .title("This ad suggests that the lawyer is interested in a life of frugal community service")
+                        .type(QuestionType.L).languageSettingsStart()
+                        .title("This ad suggests that the lawyer is interested in a life of frugal community service").languageSettingsEnd()
                         .build());
         subquestions.add(QuestionDTO.with().language(Language.EN)
-                .type(QuestionType.L)
-                .title("This ad would be enough to get me to hire this lawyer")
+                .type(QuestionType.L).languageSettingsStart()
+                .title("This ad would be enough to get me to hire this lawyer").languageSettingsEnd()
                 .build());
         subquestions.add(QuestionDTO.with().language(Language.EN)
-                .type(QuestionType.L)
-                .title("This ad gives me confidence in the lawyers experience")
+                .type(QuestionType.L).languageSettingsStart()
+                .title("This ad gives me confidence in the lawyers experience").languageSettingsEnd()
                 .build());
         question.setSubquestions(subquestions);
 
@@ -242,8 +245,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         question = QuestionDTO
                 .with()
                 .type(QuestionType.M)
-                .language(Language.EN)
-                .title("What flavors of ice cream do you like?. Choose all that apply.")
+                .language(Language.EN).languageSettingsStart()
+                .title("What flavors of ice cream do you like?. Choose all that apply.").languageSettingsEnd()
                 .isRequired(true).page(page3).survey(survey).build();
         question.addAnswer(AnswerDTO.with().language(Language.EN)
                 .title("Vanilla").build());

@@ -3,18 +3,18 @@ package net.sf.gazpachosurvey.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.QuestionType;
 
-public class QuestionDTO extends AbstractIdentifiableDTO {
+public class QuestionDTO extends AbstractIdentifiableDTO implements
+        IdentifiableLocalizable<QuestionLanguageSettingsDTO> {
 
     private static final long serialVersionUID = 2663159055152157679L;
 
     private SurveyDTO survey;
 
     private PageDTO page;
-
-    private String title;
 
     private Boolean isRequired;
 
@@ -26,16 +26,10 @@ public class QuestionDTO extends AbstractIdentifiableDTO {
 
     private List<AnswerDTO> answers;
 
+    private QuestionLanguageSettingsDTO languageSettings;
+
     public QuestionDTO() {
         super();
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public Boolean isRequired() {
@@ -110,19 +104,68 @@ public class QuestionDTO extends AbstractIdentifiableDTO {
         getAnswers().add(answer);
     }
 
-    public static Builder with() {
-        return new Builder();
+    public Boolean getIsRequired() {
+        return isRequired;
     }
 
-    public static class Builder {
+    public void setIsRequired(Boolean isRequired) {
+        this.isRequired = isRequired;
+    }
+
+    public QuestionLanguageSettingsDTO getLanguageSettings() {
+        if (languageSettings == null) {
+            this.languageSettings = new QuestionLanguageSettingsDTO();
+        }
+        return languageSettings;
+    }
+
+    public void setLanguageSettings(QuestionLanguageSettingsDTO languageSettings) {
+        this.languageSettings = languageSettings;
+    }
+
+    public static Builder with() {
+        return new BuilderImpl();
+    }
+
+    public static interface Builder {
+        Builder id(Integer id);
+
+        Builder type(QuestionType type);
+
+        Builder page(PageDTO page);
+
+        Builder survey(SurveyDTO survey);
+
+        Builder languageSettings(QuestionLanguageSettingsDTO languageSettings);
+
+        Builder language(Language language);
+
+        Builder subquestions(List<QuestionDTO> subquestions);
+
+        Builder answers(List<AnswerDTO> answers);
+
+        Builder isRequired(Boolean isRequired);
+
+        QuestionLanguageSettingsDTO.Builder languageSettingsStart();
+
+        QuestionDTO build();
+    }
+
+    public static class BuilderImpl implements Builder {
+        private Integer id;
         private SurveyDTO survey;
         private PageDTO page;
-        private String title;
         private Boolean isRequired;
         private QuestionType type;
         private Language language;
         private List<QuestionDTO> subquestions;
         private List<AnswerDTO> answers;
+        private QuestionLanguageSettingsDTO languageSettings;
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
 
         public Builder survey(SurveyDTO survey) {
             this.survey = survey;
@@ -131,11 +174,6 @@ public class QuestionDTO extends AbstractIdentifiableDTO {
 
         public Builder page(PageDTO page) {
             this.page = page;
-            return this;
-        }
-
-        public Builder title(String title) {
-            this.title = title;
             return this;
         }
 
@@ -164,17 +202,29 @@ public class QuestionDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
+        public Builder languageSettings(
+                QuestionLanguageSettingsDTO languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        public QuestionLanguageSettingsDTO.Builder languageSettingsStart() {
+            return QuestionLanguageSettingsDTO.languageSettingsStart(this);
+        }
+
         public QuestionDTO build() {
             QuestionDTO questionDTO = new QuestionDTO();
+            questionDTO.setId(id);
             questionDTO.survey = survey;
             questionDTO.page = page;
-            questionDTO.title = title;
             questionDTO.isRequired = isRequired;
             questionDTO.type = type;
             questionDTO.language = language;
             questionDTO.subquestions = subquestions;
             questionDTO.answers = answers;
+            questionDTO.languageSettings = languageSettings;
             return questionDTO;
         }
     }
+
 }

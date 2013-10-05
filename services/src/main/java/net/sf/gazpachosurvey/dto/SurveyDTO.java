@@ -4,9 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.gazpachosurvey.domain.core.Question;
+import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
-public class SurveyDTO extends AbstractIdentifiableDTO {
+public class SurveyDTO extends AbstractIdentifiableDTO implements IdentifiableLocalizable<SurveyLanguageSettingsDTO>{
 
     private static final long serialVersionUID = 4558625807621395019L;
 

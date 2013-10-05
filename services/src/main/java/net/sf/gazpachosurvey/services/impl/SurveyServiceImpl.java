@@ -16,10 +16,12 @@ import net.sf.gazpachosurvey.types.EntityStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 @Service
-public class SurveyServiceImpl extends
-        AbstractLocalizedPersistenceService<Survey, SurveyDTO, SurveyTranslation, SurveyLanguageSettings, SurveyLanguageSettingsDTO> implements
-        SurveyService {
+public class SurveyServiceImpl
+        extends
+        AbstractLocalizedPersistenceService<Survey, SurveyDTO, SurveyTranslation, SurveyLanguageSettings, SurveyLanguageSettingsDTO>
+        implements SurveyService {
 
     @Autowired
     private PageRepository pageRepository;
@@ -32,12 +34,15 @@ public class SurveyServiceImpl extends
 
     @Autowired
     private SurveyTranslationRepository surveyTranslationRepository;
-    
-    
+
     @Autowired
-    public SurveyServiceImpl(SurveyRepository surveyRepository, SurveyTranslationRepository translationRepository) {
-        super(surveyRepository, translationRepository, Survey.class, SurveyDTO.class, SurveyTranslation.class, SurveyLanguageSettings.class);
+    public SurveyServiceImpl(SurveyRepository surveyRepository,
+            SurveyTranslationRepository translationRepository) {
+        super(surveyRepository, translationRepository, Survey.class,
+                SurveyDTO.class, SurveyTranslation.class,
+                SurveyLanguageSettings.class, SurveyLanguageSettingsDTO.class);
     }
+
     @Override
     public SurveyDTO save(SurveyDTO survey) {
         Survey entity = mapper.map(survey, entityClazz);
@@ -61,20 +66,16 @@ public class SurveyServiceImpl extends
         return survey;
     }
     /*
-
-    @Override
-    public void saveTranslation(Integer surveyId, Language language,
-            SurveyLanguageSettingsDTO languageSettingsDTO) {
-        Survey survey = repository.findOne(surveyId);
-        SurveyTranslation translation = survey.getTranslations().get(language);
-        if (translation == null) {
-            translation =  new SurveyTranslation();
-            translation.setSurvey(survey);
-            translation.setLanguage(language);
-        }
-        SurveyLanguageSettings languageSettings = mapper.map(languageSettingsDTO, SurveyLanguageSettings.class);
-        translation.setLanguageSettings(languageSettings);
-        surveyTranslationRepository.save(translation);
-    }
-*/
+     * 
+     * @Override public void saveTranslation(Integer surveyId, Language
+     * language, SurveyLanguageSettingsDTO languageSettingsDTO) { Survey survey
+     * = repository.findOne(surveyId); SurveyTranslation translation =
+     * survey.getTranslations().get(language); if (translation == null) {
+     * translation = new SurveyTranslation(); translation.setSurvey(survey);
+     * translation.setLanguage(language); } SurveyLanguageSettings
+     * languageSettings = mapper.map(languageSettingsDTO,
+     * SurveyLanguageSettings.class);
+     * translation.setLanguageSettings(languageSettings);
+     * surveyTranslationRepository.save(translation); }
+     */
 }

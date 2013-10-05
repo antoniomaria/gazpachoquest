@@ -23,7 +23,7 @@ public class PageServiceImpl extends AbstractLocalizedPersistenceService<Page, P
 
     @Autowired
     public PageServiceImpl(PageRepository repository, PageTranslationRepository translationRepository) {
-        super(repository, translationRepository, Page.class, PageDTO.class,PageTranslation.class, PageLanguageSettings.class );
+        super(repository, translationRepository, Page.class, PageDTO.class,PageTranslation.class, PageLanguageSettings.class, PageLanguageSettingsDTO.class  );
     }
 
     @Override

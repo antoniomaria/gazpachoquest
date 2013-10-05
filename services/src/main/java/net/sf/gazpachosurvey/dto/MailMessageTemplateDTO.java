@@ -1,8 +1,9 @@
 package net.sf.gazpachosurvey.dto;
 
+import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
-public class MailMessageTemplateDTO extends AbstractIdentifiableDTO {
+public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements IdentifiableLocalizable<MailMessageTemplateLanguageSettingsDTO>{
 
     private static final long serialVersionUID = -3689140734668685289L;
 
@@ -46,18 +47,24 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO {
         return languageSettings;
     }
 
-    public void setLanguageSettings(MailMessageTemplateLanguageSettingsDTO languageSettings) {
+    public void setLanguageSettings(
+            MailMessageTemplateLanguageSettingsDTO languageSettings) {
         this.languageSettings = languageSettings;
     }
 
     public static interface Builder {
         Builder id(Integer id);
 
-        Builder languageSettings(MailMessageTemplateLanguageSettingsDTO languageSettings);
+        Builder languageSettings(
+                MailMessageTemplateLanguageSettingsDTO languageSettings);
 
         Builder language(Language language);
 
         MailMessageTemplateLanguageSettingsDTO.Builder mailMessageTemplateLanguageSettingsStart();
+
+        public Builder from(String from);
+
+        public Builder replyTo(String replyTo);
 
         MailMessageTemplateDTO build();
     }
@@ -90,7 +97,8 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO {
         }
 
         @Override
-        public BuilderImpl languageSettings(MailMessageTemplateLanguageSettingsDTO languageSettings) {
+        public BuilderImpl languageSettings(
+                MailMessageTemplateLanguageSettingsDTO languageSettings) {
             this.languageSettings = languageSettings;
             return this;
         }
@@ -114,13 +122,15 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO {
 
         @Override
         public MailMessageTemplateLanguageSettingsDTO.Builder mailMessageTemplateLanguageSettingsStart() {
-            return MailMessageTemplateLanguageSettingsDTO.mailMessageTemplateLanguageSettingsStart(this);
+            return MailMessageTemplateLanguageSettingsDTO
+                    .mailMessageTemplateLanguageSettingsStart(this);
         }
     }
 
     @Override
     public String toString() {
-        return "MailMessageTemplateDTO [language=" + language + ", fromAddress=" + fromAddress + ", replyTo=" + replyTo
+        return "MailMessageTemplateDTO [language=" + language
+                + ", fromAddress=" + fromAddress + ", replyTo=" + replyTo
                 + ", languageSettings=" + languageSettings + "]";
     }
 

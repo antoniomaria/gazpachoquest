@@ -1,8 +1,9 @@
 package net.sf.gazpachosurvey.dto;
 
+import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
-public class PageDTO extends AbstractIdentifiableDTO {
+public class PageDTO extends AbstractIdentifiableDTO implements IdentifiableLocalizable<PageLanguageSettingsDTO>{
 
     private static final long serialVersionUID = 4668205160387380803L;
 
