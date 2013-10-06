@@ -1,8 +1,8 @@
 package net.sf.gazpachosurvey.repository;
 
 import net.sf.gazpachosurvey.domain.core.Survey;
-import net.sf.gazpachosurvey.repository.support.LocalizedRepository;
+import net.sf.gazpachosurvey.repository.support.GenericRepository;
 
-public interface SurveyRepository extends LocalizedRepository<Survey> {
+public interface SurveyRepository extends GenericRepository<Survey> {
 
 }

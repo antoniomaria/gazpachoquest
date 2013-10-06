@@ -24,22 +24,13 @@ import net.sf.gazpachosurvey.types.SurveyRunningType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles("postgres")
 @ContextConfiguration(locations = { "classpath:/jpa-context.xml",
         "classpath:/services-context.xml" })
-/*
- * @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
- * DirtiesContextTestExecutionListener.class,
- * TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class
- * })
- * 
- * @DatabaseSetup("SurveyRepositoryTest-dataset.xml")
- */public class SurveyServiceTest {
+public class DBPopulatorTest {
 
     @Autowired
     private SurveyService surveyService;
@@ -63,11 +54,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     private UserService userService;
 
     @Test
-    public void saveSurveyTest() {
+    public void populate(){
         userService.save(UserDTO.with().firstName("temporal.support")
                 .lastName("support").email("support.temporal@gazpacho.net")
                 .build());
 
+    }
+    
+    public void createSimpleSurvey() {
         SurveyDTO survey = SurveyDTO
                 .with()
                 .language(Language.EN)
@@ -283,7 +277,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
                 .participants(participants).build();
 
         surveyRunningService.save(surveyRunning);
-
     }
 
     @Test

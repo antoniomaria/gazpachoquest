@@ -20,8 +20,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader implements LocalizedTemplateResourceLoader{
 
-    private static final Pattern SOURCE_NAME_PATTERN = Pattern.compile("^(?<language>[a-z]+)/(?<templateId>\\d+)$", Pattern.CASE_INSENSITIVE);
-    
+    private static final Pattern SOURCE_NAME_PATTERN =  Pattern.compile("^(?<templateId>\\d+)(/(?<language>[a-z]+))?$", Pattern.CASE_INSENSITIVE);
+
     @Autowired
     private MailMessageTemplateRepository templateRepository;
     
@@ -44,19 +44,27 @@ public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader implemen
             templateId =  Integer.valueOf(matcher.group("templateId"));
             languageStr = matcher.group("language");
         }else{
-            throw new ResourceNotFoundException("Template name not valid. Pattern: lang/templateId");
+            throw new ResourceNotFoundException("Template name not valid. Pattern: templateId(/lang)?");
         }
-        Language language = Language.valueOf(languageStr);
-        if (language == null){
-            throw new ResourceNotFoundException("Language not supported");
+       
+        MailMessageTemplate template = templateRepository.findOne(templateId);;
+        if (StringUtils.isNotBlank(languageStr)){
+            Language language = Language.valueOf(languageStr);
+            if (language == null){
+                throw new ResourceNotFoundException("Language not supported");
+            }
+            template = findOne(templateId, language);
         }
-        
-        MailMessageTemplate template = templateRepository.findOne(templateId, language);
+    
         if (template == null ){
             throw new ResourceNotFoundException("Template not found");
         }
-        
         return new ByteArrayInputStream(template.getLanguageSettings().getBody().getBytes());
+    }
+
+    private MailMessageTemplate findOne(Integer templateId, Language language) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override

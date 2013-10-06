@@ -65,17 +65,5 @@ public class SurveyServiceImpl
         }
         return survey;
     }
-    /*
-     * 
-     * @Override public void saveTranslation(Integer surveyId, Language
-     * language, SurveyLanguageSettingsDTO languageSettingsDTO) { Survey survey
-     * = repository.findOne(surveyId); SurveyTranslation translation =
-     * survey.getTranslations().get(language); if (translation == null) {
-     * translation = new SurveyTranslation(); translation.setSurvey(survey);
-     * translation.setLanguage(language); } SurveyLanguageSettings
-     * languageSettings = mapper.map(languageSettingsDTO,
-     * SurveyLanguageSettings.class);
-     * translation.setLanguageSettings(languageSettings);
-     * surveyTranslationRepository.save(translation); }
-     */
+
 }

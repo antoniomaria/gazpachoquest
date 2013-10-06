@@ -1,23 +1,14 @@
 package net.sf.gazpachosurvey.repository;
 
-import java.util.List;
-
-import net.sf.gazpachosurvey.domain.core.Survey;
-import net.sf.gazpachosurvey.domain.core.SurveyRunning;
-import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
-import net.sf.gazpachosurvey.domain.user.User;
-import net.sf.gazpachosurvey.repository.SurveyRepository;
-import net.sf.gazpachosurvey.repository.SurveyRunningRepository;
-import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
-import net.sf.gazpachosurvey.types.Language;
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.fest.assertions.core.Assert.*;
+import net.sf.gazpachosurvey.domain.core.Survey;
+import net.sf.gazpachosurvey.types.Language;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -33,7 +24,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
         "classpath:/datasource-test-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
-       // TransactionalTestExecutionListener.class,
+        TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @DatabaseSetup("SurveyRepositoryTest-dataset.xml")
 public class SurveyRepositoryTest {
@@ -46,29 +37,9 @@ public class SurveyRepositoryTest {
 
     @Test
     public void findByExampleTest() {
-        int surveyId = 4;
-
         Survey survey = repository.findOne(4);
 
-        SurveyLanguageSettings languageSettings = SurveyLanguageSettings.with()
-                .title("Encuesta de comida rapida")
-                .description("Queremos valorar la calidad en este restaurante")
-                .welcomeText("Gracias por responder a estas preguntas").build();
-        repository.save(survey);
-
-        Survey surveyInSpanish = repository.findOne(surveyId, Language.ES);
-        assertThat(surveyInSpanish.getLanguage()).isEqualTo(Language.ES);
-
-        SurveyLanguageSettings languageSettingsNew = SurveyLanguageSettings.with()
-                .title("Cuestionario sobre la calidad el servicio")
-                .description("Queremos valorar la calidad en este restaurante")
-                .welcomeText("Gracias por responder a estas preguntas").build();
-        System.out.println("modificando *************");
-        //surveyInSpanish.getTranslations().get(Language.ES).getLanguageSettings().setTitle("Cuestionario sobre la calidad el servicio");
-        repository.save(surveyInSpanish);
-        surveyInSpanish = repository.findOne(surveyId, Language.ES);
-        assertThat(surveyInSpanish.getLanguageSettings().getTitle()).isEqualTo(
-                "Cuestionario sobre la calidad el servicio");
+        assertThat(survey.getLanguage()).isEqualTo(Language.EN);
     }
 
     // @Test
