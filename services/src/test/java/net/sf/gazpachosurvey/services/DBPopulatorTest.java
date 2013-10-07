@@ -24,12 +24,14 @@ import net.sf.gazpachosurvey.types.SurveyRunningType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-context.xml",
         "classpath:/services-context.xml" })
+@ActiveProfiles("postgres")
 public class DBPopulatorTest {
 
     @Autowired
@@ -54,14 +56,148 @@ public class DBPopulatorTest {
     private UserService userService;
 
     @Test
-    public void populate(){
+    public void populate() {
         userService.save(UserDTO.with().firstName("temporal.support")
                 .lastName("support").email("support.temporal@gazpacho.net")
                 .build());
+        createDemoSurvey();
+        createFastFoodSurvey();
+
+        Set<ParticipantDTO> participants = addParticipants();
+
+        SurveyRunningDTO surveyRunning = SurveyRunningDTO.with()
+                .type(SurveyRunningType.BY_INVITATION).name("my first running")
+                .participants(participants).build();
+
+        surveyRunningService.save(surveyRunning);
+    }
+
+    public void createFastFoodSurvey() {
+        SurveyDTO survey = SurveyDTO
+                .with()
+                .language(Language.EN)
+                .surveyLanguageSettingsStart()
+                .title("Food Quality Modified")
+                .description(
+                        "We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry.")
+                .welcomeText(
+                        "Your opinion is extremely important in evaluating our business. Thank you for taking a moment to answer the following questions:")
+                .surveyLanguageSettingsEnd().build();
+        survey = surveyService.save(survey);
+
+        PageDTO page = PageDTO.with().language(Language.EN)
+                .pageLanguageSettingsStart().title("Fast Food Survey ")
+                .pageLanguageSettingsEnd().build();
+        page = pageService.save(page);
+
+        // Rating Scale (1-5)
+        QuestionDTO question = QuestionDTO.with().type(QuestionType.F)
+                .language(Language.EN).languageSettingsStart()
+                .title("<b>Food Quality Modified</b>").languageSettingsEnd()
+                .isRequired(true).build();
+
+        List<QuestionDTO> subquestions = new ArrayList<>();
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("The food is served hot and fresh")
+                .languageSettingsEnd().build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("The menu has a good variety of items")
+                .languageSettingsEnd().build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("The quality of food is excellent")
+                .languageSettingsEnd().build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("The food is tasty and flavorful").languageSettingsEnd()
+                .build());
+        question.setSubquestions(subquestions);
+
+        question.setPage(page);
+        question.setSurvey(survey);
+
+        question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
+        question.addAnswer(AnswerDTO.with().title("Agree somewhat").build());
+        question.addAnswer(AnswerDTO.with().title("Neither agree nor disagree")
+                .build());
+        question.addAnswer(AnswerDTO.with().title("Disagree somewhat").build());
+        question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
+        question.addAnswer(AnswerDTO.with().title("Disagree strongly").build());
+
+        question = questionService.save(question);
+
+        // Rating Scale (Agree-Disagree)
+        question = QuestionDTO.with().type(QuestionType.F)
+                .language(Language.EN).languageSettingsStart()
+                .title("<b>Resturant</b>").languageSettingsEnd()
+                .isRequired(true).build();
+
+        subquestions = new ArrayList<>();
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("My food order was correct and complete")
+                .languageSettingsEnd().build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("Employees are patient when taking my order")
+                .languageSettingsEnd().build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("I was served promptly").languageSettingsEnd().build());
+        subquestions
+                .add(QuestionDTO
+                        .with()
+                        .language(Language.EN)
+                        .type(QuestionType.L)
+                        .languageSettingsStart()
+                        .title("Availability of sauces, utensils, napkins, etc. was good")
+                        .languageSettingsEnd().build());
+
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("The menu board was easy to read").languageSettingsEnd()
+                .build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("The drive-thru sound system was cleara")
+                .languageSettingsEnd().build());
+
+        question.setSubquestions(subquestions);
+
+        question.setPage(page);
+        question.setSurvey(survey);
+
+        question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
+        question.addAnswer(AnswerDTO.with().title("Agree somewhat").build());
+        question.addAnswer(AnswerDTO.with().title("Neither agree nor disagree")
+                .build());
+        question.addAnswer(AnswerDTO.with().title("Disagree somewhat").build());
+        question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
+        question.addAnswer(AnswerDTO.with().title("Disagree strongly").build());
+
+        question = questionService.save(question);
+
+        // Multiple Choice (Only One Answer)
+        question = QuestionDTO.with().type(QuestionType.L)
+                .language(Language.EN).languageSettingsStart()
+                .title("Indicate total household income").languageSettingsEnd()
+                .isRequired(true).build();
+        question.setPage(page);
+        question.setSurvey(survey);
+
+        question.addAnswer(AnswerDTO.with().title("under 25,000€").build());
+        question.addAnswer(AnswerDTO.with().title("25,000 - 29,999€").build());
+        question.addAnswer(AnswerDTO.with().title("30,000 - 34,999€").build());
+        question.addAnswer(AnswerDTO.with().title("35,000 - 39,999€").build());
+        question.addAnswer(AnswerDTO.with().title("Over 85,000€").build());
+
+        question = questionService.save(question);
 
     }
-    
-    public void createSimpleSurvey() {
+
+    public void createDemoSurvey() {
         SurveyDTO survey = SurveyDTO
                 .with()
                 .language(Language.EN)
@@ -71,8 +207,7 @@ public class DBPopulatorTest {
                         "<p>This is a <strong><em>sample survey</em></strong> designed for testing GazpachoSurvey.</p>")
                 .welcomeText(
                         "Thank you for taking the time to participate in this survey.")
-                .surveyLanguageSettingsEnd().
-                build();
+                .surveyLanguageSettingsEnd().build();
         survey = surveyService.save(survey);
         assertThat(survey.getId()).isNotNull();
 
@@ -112,17 +247,16 @@ public class DBPopulatorTest {
 
         // 1 Single Textbox
         QuestionDTO question = QuestionDTO.with().type(QuestionType.S)
-                .language(Language.EN).languageSettingsStart().
-                title("What is your name?").languageSettingsEnd()
+                .language(Language.EN).languageSettingsStart()
+                .title("What is your name?").languageSettingsEnd()
                 .isRequired(true).build();
         Integer questionId = questionService.addQuestion(page1.getId(),
                 question);
 
         // 2 Multiple Choice (Only One Answer)
         question = QuestionDTO.with().type(QuestionType.L)
-                .language(Language.EN).
-                languageSettingsStart().
-                title("What is your age group?").languageSettingsEnd()
+                .language(Language.EN).languageSettingsStart()
+                .title("What is your age group?").languageSettingsEnd()
                 .isRequired(true).build();
 
         question.addAnswer(AnswerDTO.with().title("0-14 years").build());
@@ -145,26 +279,28 @@ public class DBPopulatorTest {
         // 3 Numeric
         question = QuestionDTO.with().type(QuestionType.N)
                 .language(Language.EN).languageSettingsStart()
-                .title("And for our records, specifically how old are you?").languageSettingsEnd()
-                .isRequired(true).build();
+                .title("And for our records, specifically how old are you?")
+                .languageSettingsEnd().isRequired(true).build();
         questionId = questionService.addQuestion(page1.getId(), question);
 
         // 4 Comment/Essay Box
         question = QuestionDTO
                 .with()
                 .type(QuestionType.T)
-                .language(Language.EN).languageSettingsStart()
-                .title("Please tell us a little about yourself. What was your first job, and did you enjoy it?").languageSettingsEnd()
-                .isRequired(true).build();
+                .language(Language.EN)
+                .languageSettingsStart()
+                .title("Please tell us a little about yourself. What was your first job, and did you enjoy it?")
+                .languageSettingsEnd().isRequired(true).build();
         questionId = questionService.addQuestion(page2.getId(), question);
 
         // 5 Multiple Choice (Only One Answer)
         question = QuestionDTO
                 .with()
                 .type(QuestionType.L)
-                .language(Language.EN).languageSettingsStart()
-                .title("Given your extraordinary age, how do you find using this survey tool?").languageSettingsEnd()
-                .isRequired(true).build();
+                .language(Language.EN)
+                .languageSettingsStart()
+                .title("Given your extraordinary age, how do you find using this survey tool?")
+                .languageSettingsEnd().isRequired(true).build();
         question.addAnswer(AnswerDTO.with()
                 .title("Very difficult to read, my eyesight is dim").build());
         question.addAnswer(AnswerDTO.with()
@@ -180,9 +316,10 @@ public class DBPopulatorTest {
         question = QuestionDTO
                 .with()
                 .type(QuestionType.L)
-                .language(Language.EN).languageSettingsStart()
-                .title("<font size='+2'><br />&nbsp;<br />Which of these ads makes you want to find out more?<br />&nbsp;<br /></font>").languageSettingsEnd()
-                .isRequired(true).build();
+                .language(Language.EN)
+                .languageSettingsStart()
+                .title("<font size='+2'><br />&nbsp;<br />Which of these ads makes you want to find out more?<br />&nbsp;<br /></font>")
+                .languageSettingsEnd().isRequired(true).build();
         question.addAnswer(AnswerDTO.with().title("Ad one").build());
         question.addAnswer(AnswerDTO.with().title("Ad two").build());
         question.addAnswer(AnswerDTO.with().title("Ad three").build());
@@ -193,7 +330,8 @@ public class DBPopulatorTest {
         question = QuestionDTO
                 .with()
                 .type(QuestionType.F)
-                .language(Language.EN).languageSettingsStart()
+                .language(Language.EN)
+                .languageSettingsStart()
                 .title("Please have a good look at this ad, and then complete the questions below.<br /><img src='http://www.aptigence.com.au/images/lawyer1.jpg' border='1'>")
                 .languageSettingsEnd().isRequired(true).build();
 
@@ -202,24 +340,26 @@ public class DBPopulatorTest {
                 .add(QuestionDTO
                         .with()
                         .language(Language.EN)
-                        .type(QuestionType.L).languageSettingsStart()
-                        .title("This ad suggests the lawyer is on my side, not his own").languageSettingsEnd()
-                        .build());
+                        .type(QuestionType.L)
+                        .languageSettingsStart()
+                        .title("This ad suggests the lawyer is on my side, not his own")
+                        .languageSettingsEnd().build());
         subquestions
                 .add(QuestionDTO
                         .with()
                         .language(Language.EN)
-                        .type(QuestionType.L).languageSettingsStart()
-                        .title("This ad suggests that the lawyer is interested in a life of frugal community service").languageSettingsEnd()
-                        .build());
+                        .type(QuestionType.L)
+                        .languageSettingsStart()
+                        .title("This ad suggests that the lawyer is interested in a life of frugal community service")
+                        .languageSettingsEnd().build());
         subquestions.add(QuestionDTO.with().language(Language.EN)
                 .type(QuestionType.L).languageSettingsStart()
-                .title("This ad would be enough to get me to hire this lawyer").languageSettingsEnd()
-                .build());
+                .title("This ad would be enough to get me to hire this lawyer")
+                .languageSettingsEnd().build());
         subquestions.add(QuestionDTO.with().language(Language.EN)
                 .type(QuestionType.L).languageSettingsStart()
-                .title("This ad gives me confidence in the lawyers experience").languageSettingsEnd()
-                .build());
+                .title("This ad gives me confidence in the lawyers experience")
+                .languageSettingsEnd().build());
         question.setSubquestions(subquestions);
 
         question.setPage(page3);
@@ -239,9 +379,11 @@ public class DBPopulatorTest {
         question = QuestionDTO
                 .with()
                 .type(QuestionType.M)
-                .language(Language.EN).languageSettingsStart()
-                .title("What flavors of ice cream do you like?. Choose all that apply.").languageSettingsEnd()
-                .isRequired(true).page(page3).survey(survey).build();
+                .language(Language.EN)
+                .languageSettingsStart()
+                .title("What flavors of ice cream do you like?. Choose all that apply.")
+                .languageSettingsEnd().isRequired(true).page(page3)
+                .survey(survey).build();
         question.addAnswer(AnswerDTO.with().language(Language.EN)
                 .title("Vanilla").build());
         question.addAnswer(AnswerDTO.with().language(Language.EN)
@@ -252,6 +394,9 @@ public class DBPopulatorTest {
                 .title("Pistachio").build());
         question = questionService.save(question);
 
+    }
+
+    protected Set<ParticipantDTO> addParticipants() {
         ParticipantDTO tyrion = ParticipantDTO.with().firstname("Tyrion")
                 .lastname("Lannister")
                 .email("tyrion.lannister@kingslanding.net").build();
@@ -272,37 +417,9 @@ public class DBPopulatorTest {
         participants.add(arya);
         participants.add(catelyn);
         participants.add(jon);
-        SurveyRunningDTO surveyRunning = SurveyRunningDTO.with()
-                .type(SurveyRunningType.BY_INVITATION).name("my first running")
-                .participants(participants).build();
 
-        surveyRunningService.save(surveyRunning);
-    }
+        return participants;
 
-    @Test
-    public void confirmTest() {
-        SurveyDTO survey = SurveyDTO.with().id(3).build();
-        surveyService.confirm(survey);
-
-    }
-
-    @Test
-    public void findOneTest() {
-        SurveyDTO survey = surveyService.findOne(3);
-
-        System.out.println("Questions " + survey.getQuestions());
-
-        survey = surveyService.findOne(3, "SurveyWithQuestions");
-
-        System.out.println("Questions " + survey.getQuestions());
-    }
-    @Test
-    public void saveTranslationTest(){
-        SurveyDTO survey = surveyService.findOne(3);
-        SurveyLanguageSettingsDTO languageSettings = new SurveyLanguageSettingsDTO();
-        languageSettings.setTitle("mi titulo! !!! !!! !");
-        languageSettings.setDescription("mi descripcion modified");
-        surveyService.saveTranslation(3, Language.FR, languageSettings);
     }
 
 }
