@@ -1,6 +1,10 @@
 package net.sf.gazpachosurvey.repository.dynamic;
 
+import static org.fest.assertions.api.Assertions.assertThat;
+
 import java.util.Date;
+
+import javax.sql.DataSource;
 
 import net.sf.gazpachosurvey.domain.core.Respondent;
 import net.sf.gazpachosurvey.domain.core.Survey;
@@ -10,12 +14,14 @@ import net.sf.gazpachosurvey.types.EntityStatus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.jdbc.JdbcTestUtils;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -36,14 +42,18 @@ public class RespondentRepositoryTest {
     @Autowired
     private SurveyRepository surveyRepository;
 
+    @Autowired
+    private DataSource datasource;
+
     @Test
     public void collectAnswersTest() {
-        System.out.println("inicio!");
         Survey selectedSurvey = surveyRepository.findOne(3);
-        System.out.println("fin!");
-        repository.collectAnswers(selectedSurvey);
-        selectedSurvey.setStatus(EntityStatus.CONFIRMED);
 
+        repository.collectAnswers(selectedSurvey);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(datasource);
+        assertThat(
+                JdbcTestUtils.countRowsInTable(jdbcTemplate, "respondents_3"))
+                .isGreaterThanOrEqualTo(0);
     }
 
     @Test
@@ -52,11 +62,11 @@ public class RespondentRepositoryTest {
 
         repository.enableAllAnswers();
         Respondent respondent = new Respondent();
-        // respondent.setId(151);
         respondent.setSurveyId(selectedSurvey.getId());
         respondent.setSurveyRunningId(100);
         respondent.setStartDate(new Date());
         respondent.setIpAddress("127.0.0.2");
-        repository.save(respondent);
+        respondent = repository.save(respondent);
+        assertThat(respondent.getId()).isGreaterThanOrEqualTo(1);
     }
 }

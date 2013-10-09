@@ -9,5 +9,5 @@ public interface RespondentRepository {
 
     void enableAllAnswers();
 
-    void save(Respondent respondent);
+    Respondent save(Respondent respondent);
 }

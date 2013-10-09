@@ -40,7 +40,7 @@ public class RespondentRepositoryImpl implements RespondentRepository {
 
     private static final String PACKAGE_PREFIX = "net.sf.gazpachosurvey.domain.dynamic.";
 
-    private static final String TABLE_NAME_PREFIX = "Respondent_";
+    private static final String TABLE_NAME_PREFIX = "Respondents_";
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -87,12 +87,13 @@ public class RespondentRepositoryImpl implements RespondentRepository {
 
     @Override
     @Transactional
-    public void save(Respondent respondent) {
+    public Respondent save(Respondent respondent) {
         Assert.notNull(respondent.getSurveyId());
         Assert.notNull(respondent.getSurveyRunningId());
 
-        DynamicEntity entity = newInstance("Respondent_"
+        DynamicEntity entity = newInstance(TABLE_NAME_PREFIX
                 + respondent.getSurveyId());
+        
         if (!respondent.isNew()) {
             entity.set("id", respondent.getId());
         }
@@ -102,11 +103,13 @@ public class RespondentRepositoryImpl implements RespondentRepository {
         entity.set("submitDate", respondent.getSubmitDate());
 
         if (!respondent.isNew()) {
-            entityManager.merge(entity);
+            entity = entityManager.merge(entity);
         } else {
             entityManager.persist(entity);
+            respondent.setId((Integer) entity.get("id")); 
         }
         entityManager.flush();
+        return respondent;
     }
 
     private DynamicEntity newInstance(String entityAlias) {
