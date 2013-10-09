@@ -11,7 +11,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
-public interface GenericRepository<T> extends JpaRepository<T, Integer>, JpaSpecificationExecutor<T> {
+public interface GenericRepository<T> extends JpaRepository<T, Integer>,
+        JpaSpecificationExecutor<T> {
 
     Page<T> findByExample(T example, Pageable pageable);
 

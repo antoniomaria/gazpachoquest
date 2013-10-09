@@ -22,8 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @NoRepositoryBean
-public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepository<T, Integer> implements
-        GenericRepository<T> {
+public class GenericRepositoryImpl<T extends Persistable> extends
+        SimpleJpaRepository<T, Integer> implements GenericRepository<T> {
 
     private final JpaEntityInformation<T, ?> entityInformation;
     private final EntityManager em;
@@ -41,8 +41,10 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
      * @param entityInformation
      * @param entityManager
      */
-    public GenericRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager,
-            ByExampleSpecification byExampleSpecification, NamedQueryUtil namedQueryUtil) {
+    public GenericRepositoryImpl(JpaEntityInformation<T, ?> entityInformation,
+            EntityManager entityManager,
+            ByExampleSpecification byExampleSpecification,
+            NamedQueryUtil namedQueryUtil) {
         super(entityInformation, entityManager);
         this.entityInformation = entityInformation;
         this.em = entityManager;
@@ -52,7 +54,8 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
         this.type = entityInformation.getJavaType();
         this.byExampleSpecification = byExampleSpecification;
         this.namedQueryUtil = namedQueryUtil;
-        this.byExampleEnhancedSpecification = new ByExampleEnhancedSpecification(entityManager);
+        this.byExampleEnhancedSpecification = new ByExampleEnhancedSpecification(
+                entityManager);
     }
 
     /**
@@ -63,18 +66,22 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
      * @param em
      */
     protected GenericRepositoryImpl(Class<T> domainClass, EntityManager em) {
-        this(JpaEntityInformationSupport.getMetadata(domainClass, em), em, null, null);
+        this(JpaEntityInformationSupport.getMetadata(domainClass, em), em,
+                null, null);
     }
 
     @Override
     public Page<T> findByExample(T example, Pageable pageable) {
-        Specifications<T> spec = Specifications.where(byExampleSpecification.byExample(example));
+        Specifications<T> spec = Specifications.where(byExampleSpecification
+                .byExample(example));
         return findAll(spec, pageable);
     }
 
     @Override
-    public Page<T> findByExample(T example, List<Range<T, ?>> ranges, Pageable pageable) {
-        Specifications<T> spec = Specifications.where(byExampleSpecification.byExample(example));
+    public Page<T> findByExample(T example, List<Range<T, ?>> ranges,
+            Pageable pageable) {
+        Specifications<T> spec = Specifications.where(byExampleSpecification
+                .byExample(example));
         spec = RangeSpecification.andRangeIfSet(spec, ranges);
         return findAll(spec, pageable);
     }
@@ -86,9 +93,10 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
 
     @Override
     public List<T> find(String pattern) {
-        Specifications<T> spec = Specifications
-                .where(byExampleSpecification.byPatternOnStringAttributes(pattern, type));
-        return findAll(spec, new PageRequest(0, MAX_VALUES_RETREIVED)).getContent();
+        Specifications<T> spec = Specifications.where(byExampleSpecification
+                .byPatternOnStringAttributes(pattern, type));
+        return findAll(spec, new PageRequest(0, MAX_VALUES_RETREIVED))
+                .getContent();
     }
 
     // Nueva version
@@ -99,7 +107,9 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
         if (sp.hasNamedQuery()) {
             return getNamedQueryUtil().findByNamedQuery(sp);
         }
-        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, sp));
+        Specifications<T> spec = Specifications
+                .where(byExampleEnhancedSpecification.byExampleOnEntity(entity,
+                        sp));
 
         return findAll(spec);
 
@@ -111,7 +121,9 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
         if (sp.hasNamedQuery()) {
             return getNamedQueryUtil().numberByNamedQuery(sp).intValue();
         }
-        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, sp));
+        Specifications<T> spec = Specifications
+                .where(byExampleEnhancedSpecification.byExampleOnEntity(entity,
+                        sp));
 
         return super.count(spec);
 

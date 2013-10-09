@@ -31,7 +31,8 @@ import org.apache.commons.lang.Validate;
  * one of the selected values. To avoid a join we rely on the foreign key field,
  * not the association itself.
  */
-public class EntitySelector<E, T extends Persistable, TPK extends Serializable> implements Serializable {
+public class EntitySelector<E, T extends Persistable, TPK extends Serializable>
+        implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final SingularAttribute<E, TPK> field;
@@ -57,7 +58,8 @@ public class EntitySelector<E, T extends Persistable, TPK extends Serializable> 
         }
     }
 
-    public EntitySelector(SingularAttribute<E, ?> cpkField, SingularAttribute<?, TPK> cpkInnerField) {
+    public EntitySelector(SingularAttribute<E, ?> cpkField,
+            SingularAttribute<?, TPK> cpkInnerField) {
         this.cpkField = cpkField;
         this.cpkInnerField = cpkInnerField;
         this.field = null; // not used
@@ -126,7 +128,8 @@ public class EntitySelector<E, T extends Persistable, TPK extends Serializable> 
      * key.
      */
     static public <E2, T2 extends Persistable, TPK2 extends Serializable, CPK2> EntitySelector<E2, T2, TPK2> newEntitySelectorInCpk(
-            SingularAttribute<E2, CPK2> cpkField, SingularAttribute<CPK2, TPK2> cpkInnerField) {
+            SingularAttribute<E2, CPK2> cpkField,
+            SingularAttribute<CPK2, TPK2> cpkInnerField) {
         return new EntitySelector<E2, T2, TPK2>(cpkField, cpkInnerField);
     }
 }

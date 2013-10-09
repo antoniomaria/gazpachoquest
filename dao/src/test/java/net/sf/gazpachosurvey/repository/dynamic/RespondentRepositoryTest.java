@@ -9,7 +9,6 @@ import javax.sql.DataSource;
 import net.sf.gazpachosurvey.domain.core.Respondent;
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
-import net.sf.gazpachosurvey.types.EntityStatus;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

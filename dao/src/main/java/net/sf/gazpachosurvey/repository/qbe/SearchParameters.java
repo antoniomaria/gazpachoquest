@@ -387,12 +387,14 @@ public class SearchParameters implements Serializable {
         orders.add(new OrderBy(fieldName, direction));
     }
 
-    public void addOrderBy(SingularAttribute<? extends Persistable, ? extends Serializable> attribute) {
+    public void addOrderBy(
+            SingularAttribute<? extends Persistable, ? extends Serializable> attribute) {
         Validate.notNull(attribute, "attribute must not be null");
         orders.add(new OrderBy(attribute));
     }
 
-    public void addOrderBy(SingularAttribute<? extends Persistable, ? extends Serializable> attribute,
+    public void addOrderBy(
+            SingularAttribute<? extends Persistable, ? extends Serializable> attribute,
             OrderByDirection direction) {
         Validate.notNull(attribute, "fieldName must not be null");
         Validate.notNull(direction, "direction must not be null");
@@ -419,12 +421,14 @@ public class SearchParameters implements Serializable {
         return this;
     }
 
-    public SearchParameters orderBy(SingularAttribute<? extends Persistable, ? extends Serializable> attribute) {
+    public SearchParameters orderBy(
+            SingularAttribute<? extends Persistable, ? extends Serializable> attribute) {
         addOrderBy(attribute);
         return this;
     }
 
-    public SearchParameters orderBy(SingularAttribute<? extends Persistable, ? extends Serializable> attribute,
+    public SearchParameters orderBy(
+            SingularAttribute<? extends Persistable, ? extends Serializable> attribute,
             OrderByDirection direction) {
         addOrderBy(attribute, direction);
         return this;
@@ -458,29 +462,34 @@ public class SearchParameters implements Serializable {
         return this;
     }
 
-    public SearchParameters range(SingularAttribute<?, LocalDate> field, LocalDate from, LocalDate to) {
+    public SearchParameters range(SingularAttribute<?, LocalDate> field,
+            LocalDate from, LocalDate to) {
         addRange(rangeLocalDate(field, from, to));
         return this;
     }
 
-    public SearchParameters range(SingularAttribute<?, LocalDateTime> field, LocalDateTime from, LocalDateTime to) {
+    public SearchParameters range(SingularAttribute<?, LocalDateTime> field,
+            LocalDateTime from, LocalDateTime to) {
         addRange(rangeLocalDateTime(field, from, to));
         return this;
     }
 
-    public SearchParameters range(SingularAttribute<?, Date> field, Date from, Date to) {
+    public SearchParameters range(SingularAttribute<?, Date> field, Date from,
+            Date to) {
         addRange(rangeDate(field, from, to));
         return this;
     }
 
-    public SearchParameters after(SingularAttribute<?, LocalDate> field, LocalDate from) {
+    public SearchParameters after(SingularAttribute<?, LocalDate> field,
+            LocalDate from) {
         RangeLocalDate<?> rangeLocalDate = rangeLocalDate(field);
         rangeLocalDate.setFrom(from);
         addRange(rangeLocalDate);
         return this;
     }
 
-    public SearchParameters after(SingularAttribute<?, LocalDateTime> field, LocalDateTime from) {
+    public SearchParameters after(SingularAttribute<?, LocalDateTime> field,
+            LocalDateTime from) {
         RangeLocalDateTime<?> rangeLocalDateTime = rangeLocalDateTime(field);
         rangeLocalDateTime.setFrom(from);
         addRange(rangeLocalDateTime);
@@ -494,35 +503,40 @@ public class SearchParameters implements Serializable {
         return this;
     }
 
-    public SearchParameters before(SingularAttribute<?, LocalDate> field, LocalDate setToto) {
+    public SearchParameters before(SingularAttribute<?, LocalDate> field,
+            LocalDate setToto) {
         RangeLocalDate<?> rangeLocalDate = rangeLocalDate(field);
         rangeLocalDate.setTo(setToto);
         addRange(rangeLocalDate);
         return this;
     }
 
-    public SearchParameters before(SingularAttribute<?, LocalDateTime> field, LocalDateTime setToto) {
+    public SearchParameters before(SingularAttribute<?, LocalDateTime> field,
+            LocalDateTime setToto) {
         RangeLocalDateTime<?> rangeLocalDateTime = rangeLocalDateTime(field);
         rangeLocalDateTime.setTo(setToto);
         addRange(rangeLocalDateTime);
         return this;
     }
 
-    public SearchParameters before(SingularAttribute<?, Date> field, Date setToto) {
+    public SearchParameters before(SingularAttribute<?, Date> field,
+            Date setToto) {
         RangeDate<?> rangeDate = rangeDate(field);
         rangeDate.setTo(setToto);
         addRange(rangeDate);
         return this;
     }
 
-    public SearchParameters lower(SingularAttribute<?, Integer> field, Integer value) {
+    public SearchParameters lower(SingularAttribute<?, Integer> field,
+            Integer value) {
         RangeInteger<?> rangeInteger = RangeInteger.rangeInteger(field);
         rangeInteger.setTo(value);
         addRange(rangeInteger);
         return this;
     }
 
-    public SearchParameters greather(SingularAttribute<?, Integer> field, Integer value) {
+    public SearchParameters greather(SingularAttribute<?, Integer> field,
+            Integer value) {
         RangeInteger<?> rangeInteger = RangeInteger.rangeInteger(field);
         rangeInteger.setFrom(value);
         addRange(rangeInteger);
@@ -563,7 +577,8 @@ public class SearchParameters implements Serializable {
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public SearchParameters property(SingularAttribute<?, ?> field, Object... values) {
+    public SearchParameters property(SingularAttribute<?, ?> field,
+            Object... values) {
         return property(new PropertySelector(field, values));
     }
 
@@ -575,7 +590,8 @@ public class SearchParameters implements Serializable {
     // Search by entity selector support
     // -----------------------------------
 
-    public SearchParameters(EntitySelector<?, ? extends Persistable, ?> entitySelector) {
+    public SearchParameters(
+            EntitySelector<?, ? extends Persistable, ?> entitySelector) {
         addEntity(entitySelector);
     }
 
@@ -583,7 +599,8 @@ public class SearchParameters implements Serializable {
         return entities;
     }
 
-    public void addEntity(EntitySelector<?, ? extends Persistable, ?> entitySelector) {
+    public void addEntity(
+            EntitySelector<?, ? extends Persistable, ?> entitySelector) {
         entities.add(entitySelector);
     }
 
@@ -591,13 +608,15 @@ public class SearchParameters implements Serializable {
      * Add the passed {@link EntitySelector} in order to construct an OR
      * predicate for the underlying foreign key.
      */
-    public SearchParameters entity(EntitySelector<?, ? extends Persistable, ?> entitySelector) {
+    public SearchParameters entity(
+            EntitySelector<?, ? extends Persistable, ?> entitySelector) {
         addEntity(entitySelector);
         return this;
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public SearchParameters entity(SingularAttribute<?, ?> field, Persistable... values) {
+    public SearchParameters entity(SingularAttribute<?, ?> field,
+            Persistable... values) {
         return entity(new EntitySelector(field, values));
     }
 

@@ -93,7 +93,7 @@ public class RespondentRepositoryImpl implements RespondentRepository {
 
         DynamicEntity entity = newInstance(TABLE_NAME_PREFIX
                 + respondent.getSurveyId());
-        
+
         if (!respondent.isNew()) {
             entity.set("id", respondent.getId());
         }
@@ -106,7 +106,7 @@ public class RespondentRepositoryImpl implements RespondentRepository {
             entity = entityManager.merge(entity);
         } else {
             entityManager.persist(entity);
-            respondent.setId((Integer) entity.get("id")); 
+            respondent.setId((Integer) entity.get("id"));
         }
         entityManager.flush();
         return respondent;
