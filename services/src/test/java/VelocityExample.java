@@ -12,7 +12,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
@@ -20,7 +23,9 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 @ActiveProfiles("postgres")
 @ContextConfiguration(locations = { "classpath:/jpa-context.xml",
         "classpath:/services-context.xml", "classpath:/mail-context.xml" })
-public class VelocityExample {
+@TransactionConfiguration
+@Transactional
+public class VelocityExample extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Autowired
     VelocityEngineFactoryBean velocityFactory;
@@ -49,7 +54,7 @@ public class VelocityExample {
        Map<String, String> model = new HashMap<>();
        model.put("lastname", "Sanchez Berrocal");
        
-       String result = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "EN/1701", "UTF-8",  model);
+       String result = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "101", "UTF-8",  model);
        
     System.out.println("template: " + result);
     }

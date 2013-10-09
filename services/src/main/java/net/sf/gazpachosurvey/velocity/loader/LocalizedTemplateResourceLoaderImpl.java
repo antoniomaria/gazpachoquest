@@ -2,11 +2,16 @@ package net.sf.gazpachosurvey.velocity.loader;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
+import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
+import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachosurvey.repository.MailMessageTemplateRepository;
+import net.sf.gazpachosurvey.repository.i18.MailMessageTemplateTranslationRepository;
+import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import net.sf.gazpachosurvey.types.Language;
 
 import org.apache.commons.collections.ExtendedProperties;
@@ -14,62 +19,120 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.resource.Resource;
 import org.apache.velocity.runtime.resource.loader.ResourceLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader implements LocalizedTemplateResourceLoader{
 
+    private static final Logger logger = LoggerFactory.getLogger(LocalizedTemplateResourceLoaderImpl.class);
+
     private static final Pattern SOURCE_NAME_PATTERN =  Pattern.compile("^(?<templateId>\\d+)(/(?<language>[a-z]+))?$", Pattern.CASE_INSENSITIVE);
 
     @Autowired
     private MailMessageTemplateRepository templateRepository;
     
+    @Autowired
+    private MailMessageTemplateTranslationRepository translationRepository;
+    
     @Override
     public void init(ExtendedProperties configuration) {
     }
-
-    @Override
-    public InputStream getResourceStream(String source)
-            throws ResourceNotFoundException {
-        if (StringUtils.isEmpty(source))
+    
+    protected Integer readTemplateId(String templateName){
+        if (StringUtils.isEmpty(templateName))
         {
             throw new ResourceNotFoundException("DataSourceResourceLoader: Template name was empty or null");
         }
-        
-        Matcher matcher = SOURCE_NAME_PATTERN.matcher(source);
+        Matcher matcher = SOURCE_NAME_PATTERN.matcher(templateName);
         Integer templateId = null;
-        String languageStr = null;
         if (matcher.matches()){
             templateId =  Integer.valueOf(matcher.group("templateId"));
+        }else{
+            throw new ResourceNotFoundException("Template name not valid. Pattern: templateId(/lang)?");
+        }
+       return templateId;
+    }
+    
+    protected Language readTemplateLanguage(String templateName){
+        if (StringUtils.isEmpty(templateName))
+        {
+            throw new ResourceNotFoundException("DataSourceResourceLoader: Template name was empty or null");
+        }
+        Matcher matcher = SOURCE_NAME_PATTERN.matcher(templateName);
+        String languageStr = null;
+        if (matcher.matches()){
             languageStr = matcher.group("language");
         }else{
             throw new ResourceNotFoundException("Template name not valid. Pattern: templateId(/lang)?");
         }
-       
-        MailMessageTemplate template = templateRepository.findOne(templateId);;
+        
+        Language language = null;
         if (StringUtils.isNotBlank(languageStr)){
-            Language language = Language.valueOf(languageStr);
+            language = Language.valueOf(languageStr);
             if (language == null){
                 throw new ResourceNotFoundException("Language not supported");
             }
-            template = findOne(templateId, language);
         }
+       return language;
+    }
     
-        if (template == null ){
+    @Override
+    public InputStream getResourceStream(String templateName)
+            throws ResourceNotFoundException {
+        Integer templateId = readTemplateId(templateName);
+        Language language = readTemplateLanguage(templateName);
+        
+        MailMessageTemplateLanguageSettings languageSettings = readLanguageSettings(templateId, language);;
+        
+        if (languageSettings == null ){
             throw new ResourceNotFoundException("Template not found");
         }
-        return new ByteArrayInputStream(template.getLanguageSettings().getBody().getBytes());
+        return new ByteArrayInputStream(languageSettings.getBody().getBytes());
     }
 
-    private MailMessageTemplate findOne(Integer templateId, Language language) {
-        // TODO Auto-generated method stub
-        return null;
+    private MailMessageTemplateLanguageSettings readLanguageSettings(Integer templateId, Language language) {
+        MailMessageTemplateLanguageSettings languageSettings= null;
+        MailMessageTemplate template = templateRepository.findOne(templateId);
+        if (template != null){
+            if (template.getLanguage().equals(language)){
+                languageSettings = template.getLanguageSettings();
+            }else{
+                MailMessageTemplateTranslation example = new MailMessageTemplateTranslation();
+                example.setLanguage(language);
+                example.setMailMessageTemplate(template);
+                List<MailMessageTemplateTranslation> translations = translationRepository.findByExample(example, new SearchParameters());
+                if (translations != null && !translations.isEmpty()){
+                    languageSettings = translations.get(0).getLanguageSettings();
+                }else{
+                    languageSettings = template.getLanguageSettings();
+                    logger.warn("No translation in " + language + " for MailMessageTemplate {}, providing default language", templateId);
+                }
+            }
+        }
+        return languageSettings;
     }
 
     @Override
     public boolean isSourceModified(Resource resource) {
-        return false;
+        return (resource.getLastModified() !=
+                readLastModified(resource, "checking timestamp"));
+    }
+
+    private long readLastModified(Resource resource, String operation) {
+        long timeStamp = 0;
+
+        /* get the template name from the resource */
+        String name = resource.getName();
+        if (name == null || name.length() == 0)
+        {
+            String msg = "DataSourceResourceLoader: Template name was empty or null";
+            log.error(msg);
+            throw new NullPointerException(msg);
+        }
+        return 0;
     }
 
     @Override

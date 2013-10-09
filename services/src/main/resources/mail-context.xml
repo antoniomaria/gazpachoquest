@@ -36,10 +36,6 @@
         <entry key="resource.loader">
           <value>custom</value>
         </entry>
-        <entry key="string.resource.loader.description">
-          <value>Velocity StringResource loader</value>
-        </entry>
-        <entry key="custom.resource.loader.class" value="org.apache.velocity.runtime.resource.loader.StringResourceLoader" />
         <entry key="custom.resource.loader.instance">
           <ref bean="localizedTemplateResourceLoader" />
         </entry>

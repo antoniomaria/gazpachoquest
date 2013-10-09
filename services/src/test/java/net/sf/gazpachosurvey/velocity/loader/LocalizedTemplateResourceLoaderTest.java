@@ -20,8 +20,9 @@ public class LocalizedTemplateResourceLoaderTest {
     private LocalizedTemplateResourceLoader templateloader;
 
     @Test
-    public void getResourceStream(){
-       InputStream template = templateloader.getResourceStream("ES/2");
+    public void getResourceStreamTest(){
+       InputStream template = templateloader.getResourceStream("101/ES");
+       System.out.println("es null?" + template == null);
     }
     
 }
