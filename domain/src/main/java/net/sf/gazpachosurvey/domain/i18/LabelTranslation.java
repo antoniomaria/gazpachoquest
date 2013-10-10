@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import net.sf.gazpachosurvey.domain.core.Label;
@@ -13,7 +14,7 @@ import net.sf.gazpachosurvey.types.Language;
 @Entity
 public class LabelTranslation extends AbstractPersistable {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Label label;
 
     @Enumerated(EnumType.STRING)

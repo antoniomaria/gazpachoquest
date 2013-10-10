@@ -4,6 +4,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import net.sf.gazpachosurvey.domain.core.Page;
@@ -17,7 +18,7 @@ public class PageTranslation extends AbstractPersistable implements Translation<
 
     private static final long serialVersionUID = -2719163699375812306L;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Page page;
 
     @Enumerated(EnumType.STRING)

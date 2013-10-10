@@ -4,6 +4,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import net.sf.gazpachosurvey.domain.core.Question;
@@ -17,7 +18,7 @@ public class QuestionTranslation extends AbstractPersistable implements Translat
 
     private static final long serialVersionUID = 4295351363647972048L;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Question question;
 
     @Enumerated(EnumType.STRING)

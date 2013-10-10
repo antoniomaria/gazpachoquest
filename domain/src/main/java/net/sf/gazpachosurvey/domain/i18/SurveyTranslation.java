@@ -5,6 +5,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import net.sf.gazpachosurvey.domain.core.Survey;
@@ -19,7 +20,7 @@ public class SurveyTranslation extends AbstractPersistable implements
 
     private static final long serialVersionUID = -1926161817588270977L;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Survey survey;
 
     @Enumerated(EnumType.STRING)
