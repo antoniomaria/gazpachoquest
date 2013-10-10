@@ -23,9 +23,7 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 @ActiveProfiles("postgres")
 @ContextConfiguration(locations = { "classpath:/jpa-context.xml",
         "classpath:/services-context.xml", "classpath:/mail-context.xml" })
-@TransactionConfiguration
-@Transactional
-public class VelocityExample extends AbstractTransactionalJUnit4SpringContextTests {
+public class VelocityExample {
 
     @Autowired
     VelocityEngineFactoryBean velocityFactory;

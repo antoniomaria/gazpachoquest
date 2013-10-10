@@ -5,6 +5,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
@@ -19,7 +20,7 @@ public class MailMessageTemplateTranslation extends AbstractAuditable implements
 
     private static final long serialVersionUID = 6847847400152631889L;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private MailMessageTemplate mailMessageTemplate;
 
     @Enumerated(EnumType.STRING)
