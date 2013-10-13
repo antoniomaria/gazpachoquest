@@ -6,10 +6,12 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
-import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
+import net.sf.gazpachosurvey.types.Gender;
+import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class Participant extends AbstractPersistable {
+public class Participant extends AbstractAuditable{
 
     private static final long serialVersionUID = 6716148852807992302L;
 
@@ -18,6 +20,10 @@ public class Participant extends AbstractPersistable {
     private String lastname;
 
     private String email;
+    
+    private Language preferedLanguage;
+
+    private Gender gender;
 
     @ManyToMany(mappedBy = "participants")
     private Set<SurveyRunning> surveyRunnings;
@@ -62,4 +68,20 @@ public class Participant extends AbstractPersistable {
         surveyRunnings = surveyRunning;
     }
 
+    public Language getPreferedLanguage() {
+        return preferedLanguage;
+    }
+
+    public void setPreferedLanguage(Language preferedLanguage) {
+        this.preferedLanguage = preferedLanguage;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+    
 }

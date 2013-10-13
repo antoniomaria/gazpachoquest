@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
@@ -54,6 +55,12 @@ public class Survey extends
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Question> questions;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MailMessageTemplate invitationMailTemplate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private MailMessageTemplate remainderMailTemplate;
+    
     public Survey() {
         super();
     }
@@ -144,6 +151,22 @@ public class Survey extends
 
     public void setStatus(EntityStatus status) {
         this.status = status;
+    }
+    
+    public MailMessageTemplate getInvitationMailTemplate() {
+        return invitationMailTemplate;
+    }
+
+    public void setInvitationMailTemplate(MailMessageTemplate invitationMailTemplate) {
+        this.invitationMailTemplate = invitationMailTemplate;
+    }
+
+    public MailMessageTemplate getRemainderMailTemplate() {
+        return remainderMailTemplate;
+    }
+
+    public void setRemainderMailTemplate(MailMessageTemplate remainderMailTemplate) {
+        this.remainderMailTemplate = remainderMailTemplate;
     }
 
     @Override
