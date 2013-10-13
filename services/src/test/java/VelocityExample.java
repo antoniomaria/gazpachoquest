@@ -49,7 +49,7 @@ public class VelocityExample {
     @Test
     public void readTemplate() {
         VelocityEngine velocityEngine = velocityFactory.getObject();
-       Map<String, String> model = new HashMap<>();
+       Map<String, Object> model = new HashMap<>();
        model.put("lastname", "Sanchez Berrocal");
        
        String result = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "101", "UTF-8",  model);

@@ -1,14 +1,9 @@
 package net.sf.gazpachosurvey.velocity.loader;
 
-import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.runtime.resource.loader.StringResourceLoader;
-import org.apache.velocity.runtime.resource.util.StringResourceRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +36,7 @@ public class VelocityEngineTest {
     @Test
     public void mergeTemplateIntoStringTest() {
         VelocityEngine velocityEngine = velocityFactory.getObject();
-        Map<String, String> model = new HashMap<>();
+        Map<String, Object> model = new HashMap<>();
         model.put("lastname", "Sanchez Berrocal");
 
         for (int i = 0; i < 10; i++){
@@ -51,7 +46,6 @@ public class VelocityEngineTest {
                     velocityEngine, "101", "UTF-8", model);
 
             System.out.println("template: " + result);
-    
         }
             
     
