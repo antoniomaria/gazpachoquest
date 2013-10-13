@@ -10,6 +10,7 @@ public class DBUnitDataExtractorRunner {
         DBUnitDataExtractor extractor = (DBUnitDataExtractor) ctx
                 .getBean("dbUnitDataExtractor");
         extractor.extract();
+        ctx.close();
     }
 
 }
