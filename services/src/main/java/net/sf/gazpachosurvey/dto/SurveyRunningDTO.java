@@ -1,26 +1,37 @@
 package net.sf.gazpachosurvey.dto;
 
-import java.util.Date;
 import java.util.Set;
 
 import net.sf.gazpachosurvey.types.SurveyRunningType;
+
+import org.joda.time.DateTime;
 
 public class SurveyRunningDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = -8624509103476946501L;
 
+    private SurveyDTO survey;
+    
     private String name;
 
     private SurveyRunningType type;
 
-    private Date startDate;
+    private DateTime startDate;
 
-    private Date expirationDate;
+    private DateTime expirationDate;
 
     private Set<ParticipantDTO> participants;
 
     public SurveyRunningDTO() {
         super();
+    }
+
+    public SurveyDTO getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(SurveyDTO survey) {
+        this.survey = survey;
     }
 
     public String getName() {
@@ -47,19 +58,19 @@ public class SurveyRunningDTO extends AbstractIdentifiableDTO {
         this.type = type;
     }
 
-    public Date getStartDate() {
+    public DateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(DateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Date getExpirationDate() {
+    public DateTime getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(DateTime expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -68,12 +79,18 @@ public class SurveyRunningDTO extends AbstractIdentifiableDTO {
     }
 
     public static class Builder {
+        private SurveyDTO survey;
         private String name;
         private SurveyRunningType type;
-        private Date startDate;
-        private Date expirationDate;
+        private DateTime startDate;
+        private DateTime expirationDate;
         private Set<ParticipantDTO> participants;
 
+        public Builder survey(SurveyDTO survey) {
+            this.survey = survey;
+            return this;
+        }
+        
         public Builder name(String name) {
             this.name = name;
             return this;
@@ -84,12 +101,12 @@ public class SurveyRunningDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
-        public Builder startDate(Date startDate) {
+        public Builder startDate(DateTime startDate) {
             this.startDate = startDate;
             return this;
         }
 
-        public Builder expirationDate(Date expirationDate) {
+        public Builder expirationDate(DateTime expirationDate) {
             this.expirationDate = expirationDate;
             return this;
         }
@@ -101,6 +118,7 @@ public class SurveyRunningDTO extends AbstractIdentifiableDTO {
 
         public SurveyRunningDTO build() {
             SurveyRunningDTO surveyRunningDTO = new SurveyRunningDTO();
+            surveyRunningDTO.survey = survey;
             surveyRunningDTO.name = name;
             surveyRunningDTO.type = type;
             surveyRunningDTO.startDate = startDate;

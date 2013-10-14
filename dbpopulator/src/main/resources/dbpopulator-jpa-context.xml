@@ -39,6 +39,7 @@
     <entry key="databasePlatform" value="${eclipselink.databasePlatform}" />
     <entry key="eclipselink.weaving" value="static" />
     <entry key="eclipselink.session.customizer" value="net.sf.gazpachosurvey.jpa.CamelNamingStrategy" />
+    <entry key="eclipselink.cache.shared.default" value="false" />
   </util:map>
 
   <bean id="eclipseLinkVendor" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter" />

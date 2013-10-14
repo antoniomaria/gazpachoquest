@@ -1,6 +1,5 @@
 package net.sf.gazpachosurvey.dbpopulator;
 
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +8,8 @@ import java.util.Set;
 import net.sf.gazpachosurvey.dto.AnswerDTO;
 import net.sf.gazpachosurvey.dto.LabelDTO;
 import net.sf.gazpachosurvey.dto.LabelSetDTO;
+import net.sf.gazpachosurvey.dto.MailMessageTemplateDTO;
+import net.sf.gazpachosurvey.dto.MailMessageTemplateLanguageSettingsDTO;
 import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.ParticipantDTO;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
@@ -16,6 +17,7 @@ import net.sf.gazpachosurvey.dto.SurveyDTO;
 import net.sf.gazpachosurvey.dto.SurveyRunningDTO;
 import net.sf.gazpachosurvey.dto.UserDTO;
 import net.sf.gazpachosurvey.services.LabelSetService;
+import net.sf.gazpachosurvey.services.MailMessageTemplateService;
 import net.sf.gazpachosurvey.services.PageService;
 import net.sf.gazpachosurvey.services.ParticipantService;
 import net.sf.gazpachosurvey.services.QuestionService;
@@ -23,6 +25,7 @@ import net.sf.gazpachosurvey.services.SurveyRunningService;
 import net.sf.gazpachosurvey.services.SurveyService;
 import net.sf.gazpachosurvey.services.UserService;
 import net.sf.gazpachosurvey.types.Language;
+import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 import net.sf.gazpachosurvey.types.QuestionType;
 import net.sf.gazpachosurvey.types.SurveyRunningType;
 
@@ -52,23 +55,32 @@ public class DBPopulator {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MailMessageTemplateService mailMessageTemplateService;
+
     public void populate() {
         userService.save(UserDTO.with().firstName("temporal.support")
                 .lastName("support").email("support.temporal@gazpacho.net")
                 .build());
-        createDemoSurvey();
-        createFastFoodSurvey();
+        SurveyDTO survey = createDemoSurvey();
+        assingDefaultMailTemplate(survey);
+
+        survey = createFastFoodSurvey();
+        assingDefaultMailTemplate(survey);
 
         Set<ParticipantDTO> participants = addParticipants();
 
-        SurveyRunningDTO surveyRunning = SurveyRunningDTO.with()
-                .type(SurveyRunningType.BY_INVITATION).name("my first running")
-                .participants(participants).build();
+        SurveyRunningDTO surveyRunning = SurveyRunningDTO
+                .with()
+                .survey(survey)
+                .type(SurveyRunningType.BY_INVITATION)
+                .name("Survey " + survey.getLanguageSettings().getTitle()
+                        + " started").participants(participants).build();
 
         surveyRunningService.save(surveyRunning);
     }
 
-    public void createFastFoodSurvey() {
+    public SurveyDTO createFastFoodSurvey() {
         SurveyDTO survey = SurveyDTO
                 .with()
                 .language(Language.EN)
@@ -191,9 +203,10 @@ public class DBPopulator {
 
         question = questionService.save(question);
 
+        return survey;
     }
 
-    public void createDemoSurvey() {
+    public SurveyDTO createDemoSurvey() {
         SurveyDTO survey = SurveyDTO
                 .with()
                 .language(Language.EN)
@@ -386,21 +399,22 @@ public class DBPopulator {
                 .title("Pistachio").build());
         question = questionService.save(question);
 
+        return survey;
     }
 
     protected Set<ParticipantDTO> addParticipants() {
-        ParticipantDTO tyrion = ParticipantDTO.with().firstname("Tyrion")
+        ParticipantDTO tyrion = ParticipantDTO.with().preferedLanguage(Language.EN).firstname("Tyrion")
                 .lastname("Lannister")
                 .email("tyrion.lannister@kingslanding.net").build();
         tyrion = participantService.save(tyrion);
 
-        ParticipantDTO jon = ParticipantDTO.with().firstname("Jon")
+        ParticipantDTO jon = ParticipantDTO.with().preferedLanguage(Language.ES).firstname("Jon")
                 .lastname("Snow").email("jon.snow@nightswatch.net").build();
 
         ParticipantDTO arya = ParticipantDTO.with().firstname("Arya")
                 .lastname("Stark").email("arya.stark@winterfell.net").build();
 
-        ParticipantDTO catelyn = ParticipantDTO.with().firstname("Catelyn")
+        ParticipantDTO catelyn = ParticipantDTO.with().preferedLanguage(Language.FI).firstname("Catelyn")
                 .lastname("Stark").email("catelyn.stark@winterfell.net")
                 .build();
 
@@ -409,8 +423,36 @@ public class DBPopulator {
         participants.add(arya);
         participants.add(catelyn);
         participants.add(jon);
-
         return participants;
+    }
 
+    public MailMessageTemplateDTO assingDefaultMailTemplate(SurveyDTO survey) {
+        MailMessageTemplateDTO mailMessageTemplate = MailMessageTemplateDTO
+                .with()
+                .language(Language.EN)
+                .survey(survey)
+                .type(MailMessageTemplateType.INVITATION)
+                .from("support@gazpacho.net")
+                .replyTo("support@gazpacho.net")
+                .mailMessageTemplateLanguageSettingsStart()
+                .subject("Your survey")
+                .body("Dear Mr. $lastname, <br> You have been invited to take this survey. <br>"
+                        + "The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off."
+                        + "<a href=\"\">Click here</a> to take the survey")
+                .mailMessageTemplateLanguageSettingsEnd().build();
+        mailMessageTemplate = mailMessageTemplateService
+                .save(mailMessageTemplate);
+
+        MailMessageTemplateLanguageSettingsDTO languageSettings = MailMessageTemplateLanguageSettingsDTO
+                .with()
+                .subject("Tu encuesta")
+                .body("Estimado Sr. $lastname, <br> Has sido invitado para participar en esta encuesta <br>"
+                        + "Nos dedicas 15 minutos para realizar la encuesta?, puedes interrumpirla y completarla más tarde si es necesario"
+                        + "<a href=\"\">Click aqui</a> para empezar").build();
+
+        mailMessageTemplateService.saveTranslation(mailMessageTemplate.getId(),
+                Language.ES, languageSettings);
+
+        return mailMessageTemplate;
     }
 }

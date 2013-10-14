@@ -2,11 +2,16 @@ package net.sf.gazpachosurvey.dto;
 
 import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.types.Language;
+import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 
 public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements IdentifiableLocalizable<MailMessageTemplateLanguageSettingsDTO>{
 
     private static final long serialVersionUID = -3689140734668685289L;
 
+    private SurveyDTO survey;
+
+    private MailMessageTemplateType type;
+    
     private Language language;
 
     private String fromAddress;
@@ -18,6 +23,26 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements I
     public MailMessageTemplateDTO() {
         super();
     }
+
+    public SurveyDTO getSurvey() {
+        return survey;
+    }
+
+
+    public void setSurvey(SurveyDTO survey) {
+        this.survey = survey;
+    }
+
+
+    public MailMessageTemplateType getType() {
+        return type;
+    }
+
+
+    public void setType(MailMessageTemplateType type) {
+        this.type = type;
+    }
+
 
     public Language getLanguage() {
         return language;
@@ -53,6 +78,7 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements I
     }
 
     public static interface Builder {
+        
         Builder id(Integer id);
 
         Builder languageSettings(
@@ -66,6 +92,10 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements I
 
         public Builder replyTo(String replyTo);
 
+        public Builder survey(SurveyDTO survey);
+
+        public Builder type(MailMessageTemplateType type);
+
         MailMessageTemplateDTO build();
     }
 
@@ -74,6 +104,8 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements I
     }
 
     public static class BuilderImpl implements Builder {
+        private SurveyDTO survey;
+        private MailMessageTemplateType type;
         private Integer id;
         private Language language;
         private String from;
@@ -111,6 +143,8 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements I
             mailMessageTemplateDTO.fromAddress = from;
             mailMessageTemplateDTO.replyTo = replyTo;
             mailMessageTemplateDTO.languageSettings = languageSettings;
+            mailMessageTemplateDTO.type = type;
+            mailMessageTemplateDTO.survey = survey;
             return mailMessageTemplateDTO;
         }
 
@@ -124,6 +158,18 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements I
         public MailMessageTemplateLanguageSettingsDTO.Builder mailMessageTemplateLanguageSettingsStart() {
             return MailMessageTemplateLanguageSettingsDTO
                     .mailMessageTemplateLanguageSettingsStart(this);
+        }
+
+        @Override
+        public Builder survey(SurveyDTO survey) {
+            this.survey = survey;
+            return this;
+        }
+
+        @Override
+        public Builder type(MailMessageTemplateType type) {
+            this.type = type; 
+            return this;
         }
     }
 

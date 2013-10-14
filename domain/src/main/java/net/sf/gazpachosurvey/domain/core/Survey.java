@@ -24,6 +24,7 @@ import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
 import net.sf.gazpachosurvey.types.EntityStatus;
 import net.sf.gazpachosurvey.types.Language;
+import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 
 @Entity
 public class Survey extends
@@ -55,12 +56,12 @@ public class Survey extends
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Question> questions;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private MailMessageTemplate invitationMailTemplate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private MailMessageTemplate remainderMailTemplate;
     
+    @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY)
+    @MapKeyEnumerated(EnumType.STRING)
+    @MapKeyColumn(name = "type", insertable = false, updatable = false)
+    private Map<MailMessageTemplateType, MailMessageTemplate> mailTemplates;
+
     public Survey() {
         super();
     }
@@ -152,21 +153,17 @@ public class Survey extends
     public void setStatus(EntityStatus status) {
         this.status = status;
     }
-    
-    public MailMessageTemplate getInvitationMailTemplate() {
-        return invitationMailTemplate;
+
+    public Map<MailMessageTemplateType, MailMessageTemplate> getMailTemplates() {
+        if (mailTemplates == null){
+            mailTemplates = new HashMap<>();
+        }
+        return mailTemplates;
     }
 
-    public void setInvitationMailTemplate(MailMessageTemplate invitationMailTemplate) {
-        this.invitationMailTemplate = invitationMailTemplate;
-    }
-
-    public MailMessageTemplate getRemainderMailTemplate() {
-        return remainderMailTemplate;
-    }
-
-    public void setRemainderMailTemplate(MailMessageTemplate remainderMailTemplate) {
-        this.remainderMailTemplate = remainderMailTemplate;
+    public void setMailTemplates(
+            Map<MailMessageTemplateType, MailMessageTemplate> mailTemplates) {
+        this.mailTemplates = mailTemplates;
     }
 
     @Override

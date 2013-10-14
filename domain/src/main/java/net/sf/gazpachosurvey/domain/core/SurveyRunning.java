@@ -1,10 +1,10 @@
 package net.sf.gazpachosurvey.domain.core;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,12 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
 import net.sf.gazpachosurvey.types.SurveyRunningType;
 
+import org.joda.time.DateTime;
+import org.joda.time.contrib.jpa.DateTimeConverter;
 import org.springframework.util.Assert;
 
 @Entity
@@ -31,13 +31,15 @@ public class SurveyRunning extends AbstractAuditable {
     @Enumerated(EnumType.STRING)
     private SurveyRunningType type;
 
-    @Temporal(value = TemporalType.DATE)
-    private Date startDate;
+    @Column(columnDefinition = "timestamp")
+    @Convert(converter = DateTimeConverter.class)
+    private DateTime startDate;
 
-    @Temporal(value = TemporalType.DATE)
-    private Date expirationDate;
+    @Column(columnDefinition = "timestamp")
+    @Convert(converter = DateTimeConverter.class)
+    private DateTime expirationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Survey survey;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -83,19 +85,19 @@ public class SurveyRunning extends AbstractAuditable {
         this.type = type;
     }
 
-    public Date getStartDate() {
+    public DateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(DateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Date getExpirationDate() {
+    public DateTime getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(DateTime expirationDate) {
         this.expirationDate = expirationDate;
     }
 

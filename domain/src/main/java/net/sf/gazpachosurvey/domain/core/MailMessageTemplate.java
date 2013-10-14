@@ -3,11 +3,13 @@ package net.sf.gazpachosurvey.domain.core;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
@@ -16,12 +18,21 @@ import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguage
 import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
 import net.sf.gazpachosurvey.types.Language;
+import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 
 @Entity
 public class MailMessageTemplate
         extends
         AbstractLocalizable<MailMessageTemplateTranslation, MailMessageTemplateLanguageSettings> {
+
     private static final long serialVersionUID = 8115847063538607577L;
+
+    @Enumerated(EnumType.STRING)
+    @Column(insertable = true, updatable = true)
+    private MailMessageTemplateType type;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Survey survey;
 
     @Enumerated(EnumType.STRING)
     private Language language;
@@ -100,10 +111,29 @@ public class MailMessageTemplate
         getTranslations().put(language, translation);
     }
 
-    public static Builder with(){
+    public MailMessageTemplateType getType() {
+        return type;
+    }
+
+    public void setType(MailMessageTemplateType type) {
+        this.type = type;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
+    }
+
+    public static Builder with() {
         return new Builder();
     }
+
     public static class Builder {
+        private Survey survey;
+        private MailMessageTemplateType type;
         private Language language;
         private String fromAddress;
         private String replyTo;
@@ -112,6 +142,16 @@ public class MailMessageTemplate
 
         public Builder language(Language language) {
             this.language = language;
+            return this;
+        }
+
+        public Builder survey(Survey survey) {
+            this.survey = survey;
+            return this;
+        }
+
+        public Builder type(MailMessageTemplateType type) {
+            this.type = type;
             return this;
         }
 
@@ -144,6 +184,8 @@ public class MailMessageTemplate
             mailMessageTemplate.replyTo = replyTo;
             mailMessageTemplate.languageSettings = languageSettings;
             mailMessageTemplate.translations = translations;
+            mailMessageTemplate.type = type;
+            mailMessageTemplate.survey = survey;
             return mailMessageTemplate;
         }
     }
