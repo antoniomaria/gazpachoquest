@@ -1,6 +1,5 @@
 package net.sf.gazpachosurvey.services.impl;
 
-import net.sf.gazpachosurvey.domain.core.MailMessage;
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
@@ -49,10 +48,6 @@ public class SurveyServiceImpl
         if (entity.isNew()) {
             entity.setStatus(EntityStatus.DRAFT);
         }
-        MailMessage message = MailMessage.with().to("antonio@gmail.com")
-                .build();
-
-        mailMessageRepository.save(message);
         return mapper.map(repository.save(entity), SurveyDTO.class);
     }
 

@@ -435,20 +435,20 @@ public class DBPopulator {
                 .from("support@gazpacho.net")
                 .replyTo("support@gazpacho.net")
                 .mailMessageTemplateLanguageSettingsStart()
-                .subject("Your survey")
+                .subject("Invitation to participate in survey")
                 .body("Dear Mr. $lastname, <br> You have been invited to take this survey. <br>"
                         + "The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off."
-                        + "<a href=\"\">Click here</a> to take the survey")
+                        + "<a href=\"$link\">Click here</a> to take the survey")
                 .mailMessageTemplateLanguageSettingsEnd().build();
         mailMessageTemplate = mailMessageTemplateService
                 .save(mailMessageTemplate);
 
         MailMessageTemplateLanguageSettingsDTO languageSettings = MailMessageTemplateLanguageSettingsDTO
                 .with()
-                .subject("Tu encuesta")
+                .subject("Invitación para participar en una encuesta")
                 .body("Estimado Sr. $lastname, <br> Has sido invitado para participar en esta encuesta <br>"
                         + "Nos dedicas 15 minutos para realizar la encuesta?, puedes interrumpirla y completarla más tarde si es necesario"
-                        + "<a href=\"\">Click aqui</a> para empezar").build();
+                        + "<a href=\"$link\">Click aqui</a> para empezar").build();
 
         mailMessageTemplateService.saveTranslation(mailMessageTemplate.getId(),
                 Language.ES, languageSettings);
