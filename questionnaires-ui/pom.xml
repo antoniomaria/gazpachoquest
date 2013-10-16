@@ -18,6 +18,18 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- Project libraries -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>gazpachosurvey-services</artifactId>
+    </dependency>
+
+    <!-- Third party libraries -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-server</artifactId>

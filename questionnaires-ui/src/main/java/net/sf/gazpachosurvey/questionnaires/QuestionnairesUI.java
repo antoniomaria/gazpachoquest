@@ -1,11 +1,11 @@
 package net.sf.gazpachosurvey.questionnaires;
 
-import javax.servlet.annotation.WebServlet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import com.vaadin.annotations.Theme;
-import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Label;
@@ -13,21 +13,23 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @Theme("mytheme")
-@SuppressWarnings("serial")
+@Component
+@Scope("prototype")
 public class QuestionnairesUI extends UI {
-    
-/*
-    @WebServlet(value = "/*", asyncSupported = true)
-    @VaadinServletConfiguration(productionMode = false, ui = QuestionnairesUI.class, widgetset = "net.sf.gazpachosurvey.questionnaires.AppWidgetSet")
-    public static class Servlet extends VaadinServlet {
-    } */
 
+    private static final long serialVersionUID = 1265851857862002747L;
+
+    @Autowired
+    private transient HelloWorldComponent component;
+    
+    
     @Override
     protected void init(VaadinRequest request) {
         final VerticalLayout layout = new VerticalLayout();
         layout.setMargin(true);
         setContent(layout);
-
+        Label label = new Label(component.getMessage());
+        
         Button button = new Button("Click Me Again!");
         button.addClickListener(new Button.ClickListener() {
             @Override
@@ -35,6 +37,7 @@ public class QuestionnairesUI extends UI {
                 layout.addComponent(new Label("Thank you for clicking"));
             }
         });
+        layout.addComponent(label);
         layout.addComponent(button);
     }
 
