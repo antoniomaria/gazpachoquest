@@ -18,6 +18,12 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- Jdbc drivers -->
+    <dependency>
+      <groupId>postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+    </dependency>
+
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>

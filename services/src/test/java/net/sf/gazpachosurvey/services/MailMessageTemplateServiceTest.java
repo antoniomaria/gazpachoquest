@@ -30,7 +30,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @DatabaseSetup("MailMessageTemplateService-dataset.xml")*/
 
 @ActiveProfiles("postgres")
-@ContextConfiguration(locations = { "classpath:/jpa-context.xml",
+@ContextConfiguration(locations = { "classpath:/datasource-context.xml", "classpath:/jpa-context.xml",
         "classpath:/services-context.xml" })
 public class MailMessageTemplateServiceTest {
 

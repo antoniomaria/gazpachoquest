@@ -30,7 +30,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("postgres")
-@ContextConfiguration(locations = { "classpath:/jpa-context.xml",
+@ContextConfiguration(locations = { "classpath:/datasource-context.xml", "classpath:/jpa-context.xml",
         "classpath:/services-context.xml" })
 /*
  * @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
