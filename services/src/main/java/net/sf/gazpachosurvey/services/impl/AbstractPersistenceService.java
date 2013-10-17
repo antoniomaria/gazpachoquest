@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.gazpachosurvey.domain.support.Persistable;
@@ -31,8 +32,13 @@ public abstract class AbstractPersistenceService<T extends Persistable, D extend
 
     @Override
     public List<D> findAll() {
-        // TODO Auto-generated method stub
-        return null;
+        List<T> entities = repository.findAll();
+        List<D> entitiesDtos = new ArrayList<>();
+        for (T entity : entities) {
+            D dto = mapper.map(entity, dtoClazz);
+            entitiesDtos.add(dto);
+        }
+        return entitiesDtos;
     }
 
     @Override
