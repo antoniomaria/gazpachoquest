@@ -2,6 +2,12 @@
 /* This only allows us to use the mixins defined in it and does not add any styles by itself. */
 @import "../reindeer/reindeer.scss";
 
+  /* Application background 
+	.v-app {
+    background: red;
+	}
+	*/
+	
 /* This contains all of your theme.*/
 /* If somebody wants to extend the theme she will include this mixin. */
 @mixin gazpacho {
@@ -9,4 +15,15 @@
   @include reindeer;
 
   /* Insert your theme rules here */
+	
+	  $color : yellow;
+/*
+   .v-button-caption {
+	color:  $color;
+   }*/
+   .v-window{
+  color:  $color;
+   
+   }
+   
 }

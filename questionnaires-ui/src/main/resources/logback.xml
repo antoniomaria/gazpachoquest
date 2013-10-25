@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
+<!--
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <pattern>%-4relative [%thread] %-5level %class - %msg%n</pattern>
+    </layout>
+  </appender>
+
+  Basic file appender<appender name="FILE"
+    class="ch.qos.logback.core.FileAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+    <pattern>%-4relative [%thread] %-5level %class - %msg%n</pattern>
+    </layout>
+    <File>sample-log.txt</File>
+    </appender> -->
+
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 
     <!-- encoders are assigned by default the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
     <encoder>
       <pattern>
-        %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+        %d{dd-MM-yyyy HH:mm:ss} [%thread] %-5level (%file:%line\) - %message%n
       </pattern>
     </encoder>
   </appender>
 
   <logger name="net.sf.gazpachosurvey" level="DEBUG" />
 
-  <logger name="ru.xpoft" level="DEBUG"/>
+  <logger name="ru.xpoft" level="DEBUG" />
 
   <logger name="org.springframework.orm.jpa.JpaTransactionManager" level="DEBUG" />
 
