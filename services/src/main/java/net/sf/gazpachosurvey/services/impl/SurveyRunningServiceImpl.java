@@ -7,14 +7,14 @@ import net.sf.gazpachosurvey.domain.core.MailMessage;
 import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
 import net.sf.gazpachosurvey.domain.core.Participant;
 import net.sf.gazpachosurvey.domain.core.Survey;
-import net.sf.gazpachosurvey.domain.core.SurveyLink;
+import net.sf.gazpachosurvey.domain.core.Invitation;
 import net.sf.gazpachosurvey.domain.core.SurveyRunning;
 import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachosurvey.dto.SurveyRunningDTO;
 import net.sf.gazpachosurvey.repository.MailMessageRepository;
 import net.sf.gazpachosurvey.repository.ParticipantRepository;
-import net.sf.gazpachosurvey.repository.SurveyLinkRepository;
+import net.sf.gazpachosurvey.repository.InvitationRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.repository.SurveyRunningRepository;
 import net.sf.gazpachosurvey.services.SurveyRunningService;
@@ -46,7 +46,7 @@ public class SurveyRunningServiceImpl extends
     private RandomTokenGenerator tokenGenerator;
 
     @Autowired
-    private SurveyLinkRepository surveyLinkRepository;
+    private InvitationRepository invitationRepository;
 
     @Autowired
     private VelocityEngineFactoryBean velocityFactory;
@@ -78,14 +78,14 @@ public class SurveyRunningServiceImpl extends
                 participantRepository.save(participant);
             }
             running = repository.save(running);
-            // Running entity must be persisted before creating SurveyLink
+            // Running entity must be persisted before creating Invitation
             for (Participant participant : running.getParticipants()) {
                 String surveyLinkToken = tokenGenerator.generate();
-                SurveyLink surveyLink = new SurveyLink();
-                surveyLink.setSurveyRunning(running);
-                surveyLink.setToken(surveyLinkToken);
-                surveyLink.setStatus(InvitationStatus.ACTIVE);
-                surveyLinkRepository.save(surveyLink);
+                Invitation invitation = new Invitation();
+                invitation.setSurveyRunning(running);
+                invitation.setToken(surveyLinkToken);
+                invitation.setStatus(InvitationStatus.ACTIVE);
+                invitationRepository.save(invitation);
                 MailMessage mailMessage = composeMailMessage(
                         invitationTemplate, participant, surveyLinkToken);
                 mailMessageRepository.save(mailMessage);

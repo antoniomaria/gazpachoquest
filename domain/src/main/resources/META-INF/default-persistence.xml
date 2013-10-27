@@ -6,6 +6,7 @@
     <persistence:provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence:provider>
 
     <persistence:class>net.sf.gazpachosurvey.domain.core.Answer</persistence:class>
+    <persistence:class>net.sf.gazpachosurvey.domain.core.Invitation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Label</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.LabelSet</persistence:class>
 
@@ -16,7 +17,6 @@
     <persistence:class>net.sf.gazpachosurvey.domain.core.Participant</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Question</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Survey</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.core.SurveyLink</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.SurveyRunning</persistence:class>
     <!-- User -->
     <persistence:class>net.sf.gazpachosurvey.domain.user.User</persistence:class>

@@ -63,10 +63,10 @@ public class DBPopulator {
                 .lastName("support").email("support.temporal@gazpacho.net")
                 .build());
         SurveyDTO survey = createDemoSurvey();
-        assingDefaultMailTemplate(survey);
+        asignDefaultMailTemplate(survey);
 
         survey = createFastFoodSurvey();
-        assingDefaultMailTemplate(survey);
+        asignDefaultMailTemplate(survey);
 
         Set<ParticipantDTO> participants = addParticipants();
 
@@ -426,7 +426,7 @@ public class DBPopulator {
         return participants;
     }
 
-    public MailMessageTemplateDTO assingDefaultMailTemplate(SurveyDTO survey) {
+    public MailMessageTemplateDTO asignDefaultMailTemplate(SurveyDTO survey) {
         MailMessageTemplateDTO mailMessageTemplate = MailMessageTemplateDTO
                 .with()
                 .language(Language.EN)

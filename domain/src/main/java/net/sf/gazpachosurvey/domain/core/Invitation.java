@@ -10,7 +10,7 @@ import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.InvitationStatus;
 
 @Entity
-public class SurveyLink extends AbstractPersistable {
+public class Invitation extends AbstractPersistable {
 
     private static final long serialVersionUID = -9203813369476903640L;
 
