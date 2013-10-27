@@ -17,6 +17,7 @@
   <import resource="classpath:/jpa-context.xml" />
   <import resource="classpath:/services-context.xml" />
   <import resource="classpath:/mail-context.xml" />
+  <import resource="rest-context.xml" />
 
   <context:annotation-config />
 
