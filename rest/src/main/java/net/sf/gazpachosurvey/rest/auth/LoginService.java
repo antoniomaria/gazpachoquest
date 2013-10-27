@@ -6,8 +6,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import net.sf.gazpachosurvey.domain.core.SurveyLink;
-import net.sf.gazpachosurvey.repository.SurveyLinkRepository;
+import net.sf.gazpachosurvey.domain.core.Invitation;
+import net.sf.gazpachosurvey.repository.InvitationRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class LoginService {
             .getLogger(LoginService.class);
 
     @Autowired
-    private SurveyLinkRepository repo;
+    private InvitationRepository repo;
     
     @Produces(MediaType.TEXT_PLAIN)
     @GET

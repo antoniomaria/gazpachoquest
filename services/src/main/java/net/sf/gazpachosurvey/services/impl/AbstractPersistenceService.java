@@ -12,8 +12,8 @@ import net.sf.gazpachosurvey.services.PersistenceService;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public abstract class AbstractPersistenceService<T extends Persistable, D extends Identifiable> implements
-        PersistenceService<D> {
+public abstract class AbstractPersistenceService<T extends Persistable, D extends Identifiable>
+        implements PersistenceService<D> {
 
     protected final GenericRepository<T> repository;
 
@@ -24,7 +24,8 @@ public abstract class AbstractPersistenceService<T extends Persistable, D extend
     @Autowired
     protected Mapper mapper;
 
-    protected AbstractPersistenceService(GenericRepository<T> repository, Class<T> entityClazz, Class<D> dtoClazz) {
+    protected AbstractPersistenceService(GenericRepository<T> repository,
+            Class<T> entityClazz, Class<D> dtoClazz) {
         this.repository = repository;
         this.dtoClazz = dtoClazz;
         this.entityClazz = entityClazz;
@@ -79,9 +80,19 @@ public abstract class AbstractPersistenceService<T extends Persistable, D extend
     }
 
     @Override
-    public List<D> findByExample(D entity, SearchParameters searchParameters) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<D> findByExample(D dto, SearchParameters searchParameters) {
+        T entity = mapper.map(dto, entityClazz);
+        List<T> results = repository.findByExample(entity, searchParameters);
+        return getMappedList(results);
+    }
+
+    protected List<D> getMappedList(final List<T> list) {
+        List<D> mappedList = new ArrayList<D>();
+        for (T entity: list) {
+            D dto = mapper.map(entity, dtoClazz);
+            mappedList.add(dto);
+        }
+        return mappedList;
     }
 
 }
