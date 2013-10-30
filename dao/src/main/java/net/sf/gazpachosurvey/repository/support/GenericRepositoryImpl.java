@@ -99,20 +99,25 @@ public class GenericRepositoryImpl<T extends Persistable> extends
                 .getContent();
     }
 
-    // Nueva version
     @Override
     public List<T> findByExample(T entity, SearchParameters sp) {
         Assert.notNull(sp, "Search parameters required");
-
         if (sp.hasNamedQuery()) {
             return getNamedQueryUtil().findByNamedQuery(sp);
         }
         Specifications<T> spec = Specifications
                 .where(byExampleEnhancedSpecification.byExampleOnEntity(entity,
                         sp));
-
         return findAll(spec);
+    }
 
+    @Override
+    public T findOneByExample(T entity, SearchParameters sp) {
+        Assert.notNull(sp, "Search parameters required");
+        Specifications<T> spec = Specifications
+                .where(byExampleEnhancedSpecification.byExampleOnEntity(entity,
+                        sp));
+        return super.findOne(spec);
     }
 
     @Override
@@ -126,7 +131,6 @@ public class GenericRepositoryImpl<T extends Persistable> extends
                         sp));
 
         return super.count(spec);
-
     }
 
     @Override

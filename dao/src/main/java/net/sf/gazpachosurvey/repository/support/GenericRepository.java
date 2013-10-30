@@ -25,4 +25,6 @@ public interface GenericRepository<T> extends JpaRepository<T, Integer>,
     List<T> findByExample(T entity, SearchParameters sp);
 
     long countByExample(T entity, SearchParameters sp);
+
+    T findOneByExample(T entity, SearchParameters sp);
 }

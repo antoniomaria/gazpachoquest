@@ -12,6 +12,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import net.sf.gazpachosurvey.aspects.ProfilingAdvise;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
@@ -48,12 +49,13 @@ public class SurveysResource {
         return surveyService.findAll();
     }*/
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getHello(@Context HttpHeaders headers, @QueryParam("p1") String p1) {
+    @Produces(MediaType.TEXT_HTML)
+    public Response getHello(@Context HttpHeaders headers, @QueryParam("p1") String p1) {
         if("foobar".equals(p1)) {
             throw new IllegalArgumentException("foobar is illegal");
         }
-        return String.format("%d: %s", counter.incrementAndGet(), helloService.sayhello());
+        String response = String.format("%d: %s", counter.incrementAndGet(), helloService.sayhello());
+    return Response.ok(response).build();
     }
     @PostConstruct
     public void after(){

@@ -19,4 +19,6 @@ public interface PersistenceService<D extends Identifiable> {
     D save(D dto);
 
     List<D> findByExample(D dto, SearchParameters searchParameters);
+
+    D findOneByExample(D dto, SearchParameters searchParameters);
 }

@@ -45,11 +45,12 @@
       <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
       <param-value>net.sf.gazpachosurvey.rest.auth.AuthenticationFilter</param-value>
     </init-param>
-
+<!-- 
     <init-param>
       <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
       <param-value>com.sun.jersey.api.container.filter.LoggingFilter;com.sun.jersey.api.container.filter.LoggingFilter</param-value>
     </init-param>
+     -->
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>

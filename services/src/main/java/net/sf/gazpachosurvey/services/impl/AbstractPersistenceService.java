@@ -45,11 +45,7 @@ public abstract class AbstractPersistenceService<T extends Persistable, D extend
     @Override
     public D findOne(Integer id) {
         T entity = repository.findOne(id);
-        D dto = null;
-        if (entity != null) {
-            dto = mapper.map(entity, dtoClazz);
-        }
-        return dto;
+        return  map(entity);
     }
 
     @Override
@@ -83,16 +79,31 @@ public abstract class AbstractPersistenceService<T extends Persistable, D extend
     public List<D> findByExample(D dto, SearchParameters searchParameters) {
         T entity = mapper.map(dto, entityClazz);
         List<T> results = repository.findByExample(entity, searchParameters);
-        return getMappedList(results);
+        return map(results);
     }
 
-    protected List<D> getMappedList(final List<T> list) {
+    @Override
+    public D findOneByExample(D dto, SearchParameters searchParameters) {
+        T entity = mapper.map(dto, entityClazz);
+        T found = repository.findOneByExample(entity, searchParameters);
+        return map(found);
+    }
+    
+    protected List<D> map(final List<T> list) {
         List<D> mappedList = new ArrayList<D>();
         for (T entity: list) {
             D dto = mapper.map(entity, dtoClazz);
             mappedList.add(dto);
         }
         return mappedList;
+    }
+
+    private D map(T entity) {
+        D dto = null;
+        if (entity != null) {
+            dto = mapper.map(entity, dtoClazz);
+        }
+        return dto;
     }
 
 }
