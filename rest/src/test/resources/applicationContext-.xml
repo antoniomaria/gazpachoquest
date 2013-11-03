@@ -13,8 +13,12 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
-<!-- 
-  <context:component-scan base-package="net.sf.gazpachosurvey.rest"/>
-   -->
-   <bean class="net.sf.gazpachosurvey.rest.SurveysResource" scope="request"></bean>
+  <import resource="classpath:/datasource-context.xml" />
+  <import resource="classpath:/jpa-context.xml" />
+  <import resource="classpath:/services-context.xml" />
+  <import resource="classpath:/mail-context.xml" />
+  <import resource="classpath:/rest-test-context.xml" />
+
+  <context:annotation-config />
+
 </beans>

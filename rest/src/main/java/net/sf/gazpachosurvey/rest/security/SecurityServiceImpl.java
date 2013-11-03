@@ -2,12 +2,11 @@ package net.sf.gazpachosurvey.rest.security;
 
 import net.sf.gazpachosurvey.api.SecurityService;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-@Component
-public class SecurityServiceImpl implements SecurityService {
-    
+//@Component
+public class SecurityServiceImpl {//implements SecurityService {
+   /* 
     @Override
     public boolean isAuthenticated() {
         Authentication authentication = AuthenticationHelper.getAuthentication();
@@ -26,5 +25,5 @@ public class SecurityServiceImpl implements SecurityService {
         return authentication != null && authentication.isAuthenticated();
     }
 
-
+*/
 }

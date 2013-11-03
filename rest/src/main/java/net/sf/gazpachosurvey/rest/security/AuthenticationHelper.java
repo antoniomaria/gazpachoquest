@@ -1,15 +1,15 @@
 package net.sf.gazpachosurvey.rest.security;
-
+/*
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
-
+*/
 public abstract class AuthenticationHelper {
 
     private AuthenticationHelper() {
     }
-
+/*
     public static Authentication getAuthentication() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         if (securityContext == null) {
@@ -30,4 +30,5 @@ public abstract class AuthenticationHelper {
         }
         return address;
     }
+    */
 }
