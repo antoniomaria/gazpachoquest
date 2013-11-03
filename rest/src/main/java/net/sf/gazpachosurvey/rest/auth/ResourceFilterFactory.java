@@ -20,6 +20,6 @@ public class ResourceFilterFactory { // extends RolesAllowedResourceFilterFactor
 
 
     @Autowired
-    private SecurityContextFilter securityContextFilter;
+    private AuthorizationRequestFilter authorizationRequestFilter;
     
 }

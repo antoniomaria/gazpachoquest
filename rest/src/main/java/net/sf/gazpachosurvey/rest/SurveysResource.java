@@ -3,11 +3,14 @@ package net.sf.gazpachosurvey.rest;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +28,8 @@ import org.slf4j.LoggerFactory;
 // @Component
 public class SurveysResource {
 
-    private static final Logger logger = LoggerFactory            .getLogger(SurveysResource.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(SurveysResource.class);
 
     AtomicInteger counter = new AtomicInteger();
 
@@ -35,8 +39,7 @@ public class SurveysResource {
 
     public SurveysResource() {
         logger.debug("New invitations resource created");
-        System.out.println("SurveysResource created ");
-        
+
     }
 
     /*
@@ -47,17 +50,20 @@ public class SurveysResource {
      */
     @GET
     @Produces(MediaType.TEXT_HTML)
-    public Response getHello() {
-        System.out.println("hello desde sruveyresource.java ");
+    @RolesAllowed("respondent")
+    public Response getHello(@Context
+    SecurityContext context) {
+        System.out.println("hello desde sruveyresource.java "
+                + context.getUserPrincipal().getName());
         String response = String.format("%d: %s", counter.incrementAndGet(),
                 "hola holitas!");
-                //helloService.sayhello());
+        // helloService.sayhello());
         return Response.ok(response).build();
     }
 
     @PostConstruct
     public void after() {
-        //logger.debug("parece que funciona?" + helloService);
+        // logger.debug("parece que funciona?" + helloService);
     }
 
 }
