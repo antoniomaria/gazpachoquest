@@ -25,17 +25,12 @@ import org.slf4j.LoggerFactory;
 //import org.springframework.stereotype.Component;
 
 @Path("surveys")
-// @Component
 public class SurveysResource {
 
     private static final Logger logger = LoggerFactory
             .getLogger(SurveysResource.class);
 
     AtomicInteger counter = new AtomicInteger();
-
-    // @Autowired
-    // @Inject
-    HelloService helloService;
 
     public SurveysResource() {
         logger.debug("New invitations resource created");
@@ -57,13 +52,12 @@ public class SurveysResource {
                 + context.getUserPrincipal().getName());
         String response = String.format("%d: %s", counter.incrementAndGet(),
                 "hola holitas!");
-        // helloService.sayhello());
         return Response.ok(response).build();
     }
 
     @PostConstruct
     public void after() {
-        // logger.debug("parece que funciona?" + helloService);
+        logger.debug("parece que funciona?" );
     }
 
 }

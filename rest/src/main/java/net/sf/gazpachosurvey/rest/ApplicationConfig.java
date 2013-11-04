@@ -1,8 +1,5 @@
 package net.sf.gazpachosurvey.rest;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import net.sf.gazpachosurvey.rest.auth.AuthorizationRequestFilter;
 
 import org.glassfish.jersey.server.ResourceConfig;
