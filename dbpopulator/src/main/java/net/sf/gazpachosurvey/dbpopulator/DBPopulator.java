@@ -15,7 +15,7 @@ import net.sf.gazpachosurvey.dto.ParticipantDTO;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
 import net.sf.gazpachosurvey.dto.SurveyRunningDTO;
-import net.sf.gazpachosurvey.dto.UserDTO;
+import net.sf.gazpachosurvey.dto.UserAccountDTO;
 import net.sf.gazpachosurvey.services.LabelSetService;
 import net.sf.gazpachosurvey.services.MailMessageTemplateService;
 import net.sf.gazpachosurvey.services.PageService;
@@ -59,7 +59,7 @@ public class DBPopulator {
     private MailMessageTemplateService mailMessageTemplateService;
 
     public void populate() {
-        userService.save(UserDTO.with().firstName("temporal.support")
+        userService.save(UserAccountDTO.with().firstName("temporal.support")
                 .lastName("support").email("support.temporal@gazpacho.net")
                 .build());
         SurveyDTO survey = createDemoSurvey();

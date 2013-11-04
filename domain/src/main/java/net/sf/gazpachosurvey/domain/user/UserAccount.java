@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 
 @Entity
-public class User extends AbstractPersistable {
+public class UserAccount extends AbstractPersistable {
 
     private static final long serialVersionUID = 6513048922124388025L;
 
@@ -19,7 +19,7 @@ public class User extends AbstractPersistable {
     @Column(nullable = false, unique = true)
     private String email;
 
-    public User() {
+    public UserAccount() {
         super();
     }
 

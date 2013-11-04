@@ -1,6 +1,6 @@
 package net.sf.gazpachosurvey.dto;
 
-public class UserDTO extends AbstractIdentifiableDTO {
+public class UserAccountDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = 7370786032611110768L;
 
@@ -10,7 +10,7 @@ public class UserDTO extends AbstractIdentifiableDTO {
 
     private String email;
 
-    public UserDTO() {
+    public UserAccountDTO() {
         super();
     }
 
@@ -62,8 +62,8 @@ public class UserDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
-        public UserDTO build() {
-            UserDTO userDTO = new UserDTO();
+        public UserAccountDTO build() {
+            UserAccountDTO userDTO = new UserAccountDTO();
             userDTO.firstName = firstName;
             userDTO.lastName = lastName;
             userDTO.email = email;

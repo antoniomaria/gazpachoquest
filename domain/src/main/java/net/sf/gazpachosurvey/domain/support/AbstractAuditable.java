@@ -6,7 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
-import net.sf.gazpachosurvey.domain.user.User;
+import net.sf.gazpachosurvey.domain.user.UserAccount;
 
 import org.joda.time.DateTime;
 import org.joda.time.contrib.jpa.DateTimeConverter;
@@ -22,7 +22,7 @@ public abstract class AbstractAuditable extends AbstractPersistable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @CreatedBy
-    private User createdBy;
+    private UserAccount createdBy;
 
     @Column(columnDefinition = "timestamp")
     @Convert(converter = DateTimeConverter.class)
@@ -31,7 +31,7 @@ public abstract class AbstractAuditable extends AbstractPersistable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @LastModifiedBy
-    private User lastModifiedBy;
+    private UserAccount lastModifiedBy;
 
     @Column(columnDefinition = "timestamp")
     @Convert(converter = DateTimeConverter.class)
@@ -42,22 +42,22 @@ public abstract class AbstractAuditable extends AbstractPersistable {
         super();
     }
 
-    public User getCreatedBy() {
+    public UserAccount getCreatedBy() {
 
         return createdBy;
     }
 
-    public void setCreatedBy(final User createdBy) {
+    public void setCreatedBy(final UserAccount createdBy) {
 
         this.createdBy = createdBy;
     }
 
-    public User getLastModifiedBy() {
+    public UserAccount getLastModifiedBy() {
 
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(final User lastModifiedBy) {
+    public void setLastModifiedBy(final UserAccount lastModifiedBy) {
 
         this.lastModifiedBy = lastModifiedBy;
     }

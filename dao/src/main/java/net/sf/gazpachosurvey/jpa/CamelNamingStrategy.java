@@ -1,8 +1,6 @@
 package net.sf.gazpachosurvey.jpa;
 
 import java.sql.SQLException;
-import java.util.ListIterator;
-import java.util.Locale;
 import java.util.Vector;
 
 import org.eclipse.persistence.config.SessionCustomizer;
@@ -11,7 +9,6 @@ import org.eclipse.persistence.internal.helper.DatabaseField;
 import org.eclipse.persistence.mappings.DatabaseMapping;
 import org.eclipse.persistence.sessions.Session;
 import org.eclipse.persistence.tools.schemaframework.IndexDefinition;
-import org.jvnet.inflector.Noun;
 
 public class CamelNamingStrategy implements SessionCustomizer {
 
@@ -20,21 +17,14 @@ public class CamelNamingStrategy implements SessionCustomizer {
         for (ClassDescriptor descriptor : session.getDescriptors().values()) {
             // Only change the table name for non-embedable entities with no
             // @Table already
-            Vector<DatabaseField> fields = descriptor.getAllFields();
-            ListIterator<DatabaseField> it = fields.listIterator();
-            while (it.hasNext()) {
-                DatabaseField field = it.next();
-            }
-
             if (!descriptor.getTables().isEmpty()
                     && descriptor.getAlias().equalsIgnoreCase(
                             descriptor.getTableName())) {
                 String nonQualifiedClassName = unqualify(descriptor
                         .getJavaClassName());
                 String tableName = addUnderscores(nonQualifiedClassName);
+                descriptor.setTableName(tableName);
 
-                descriptor.setTableName(Noun
-                        .pluralOf(tableName, Locale.ENGLISH));
                 for (IndexDefinition index : descriptor.getTables().get(0)
                         .getIndexes()) {
                     index.setTargetTable(tableName);
@@ -42,20 +32,11 @@ public class CamelNamingStrategy implements SessionCustomizer {
                 Vector<DatabaseMapping> mappings = descriptor.getMappings();
                 for (DatabaseMapping mapping : mappings) {
                     DatabaseField field = mapping.getField();
-                    if (field != null)
-                        System.out.println(field.getColumnDefinition());
-
-                    if (mapping.isPrimaryKeyMapping()) {
-                        String attname = mapping.getAttributeName();
-                        String table = mapping.getDescriptor().getTableName();
-                        System.out.println(table + " ->" + attname);
-                    }
-
                     if (mapping.isDirectToFieldMapping()
                             && !mapping.isPrimaryKeyMapping()) {
                         String attributeName = mapping.getAttributeName();
-                        String nuevo = addUnderscores(attributeName);
-                        field.setName(nuevo);
+                        String underScoredFieldName = addUnderscores(attributeName);
+                        field.setName(underScoredFieldName);
                     }
                 }
             }

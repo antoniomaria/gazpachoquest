@@ -14,6 +14,8 @@ import net.sf.gazpachosurvey.types.Language;
 @Entity
 public class LabelTranslation extends AbstractPersistable {
 
+    private static final long serialVersionUID = -7571602125652099550L;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Label label;
 
