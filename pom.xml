@@ -34,6 +34,7 @@
     <module>services</module>
     <module>questionnaires-ui</module>
     <module>rest</module>
+    <module>dbpopulator</module>
   </modules>
   <repositories>
     <repository>
