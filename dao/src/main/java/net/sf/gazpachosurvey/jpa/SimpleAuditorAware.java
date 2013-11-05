@@ -1,13 +1,13 @@
 package net.sf.gazpachosurvey.jpa;
 
-import net.sf.gazpachosurvey.domain.user.UserAccount;
+import net.sf.gazpachosurvey.domain.user.User;
 
 import org.springframework.data.domain.AuditorAware;
 
-public class SimpleAuditorAware implements AuditorAware<UserAccount> {
+public class SimpleAuditorAware implements AuditorAware<User> {
 
-    public UserAccount getCurrentAuditor() {
-        UserAccount auditor = new UserAccount();
+    public User getCurrentAuditor() {
+        User auditor = new User();
         auditor.setId(1);
         return auditor;
     }

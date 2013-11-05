@@ -1,7 +1,7 @@
 package net.sf.gazpachosurvey.services;
 
-import net.sf.gazpachosurvey.dto.UserAccountDTO;
+import net.sf.gazpachosurvey.dto.UserDTO;
 
-public interface UserService extends PersistenceService<UserAccountDTO> {
+public interface UserService extends PersistenceService<UserDTO> {
 
 }

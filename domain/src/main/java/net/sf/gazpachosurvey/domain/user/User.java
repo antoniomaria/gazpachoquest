@@ -2,11 +2,13 @@ package net.sf.gazpachosurvey.domain.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 
 @Entity
-public class UserAccount extends AbstractPersistable {
+@Table(name = "users")
+public class User extends AbstractPersistable {
 
     private static final long serialVersionUID = 6513048922124388025L;
 
@@ -19,7 +21,7 @@ public class UserAccount extends AbstractPersistable {
     @Column(nullable = false, unique = true)
     private String email;
 
-    public UserAccount() {
+    public User() {
         super();
     }
 
