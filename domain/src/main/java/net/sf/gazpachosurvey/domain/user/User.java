@@ -11,14 +11,13 @@ import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 public class User extends AbstractPersistable {
 
     private static final long serialVersionUID = 6513048922124388025L;
-
-    @Column(nullable = false)
+    
+    // TODO constraints have been removed until session customizer works
     private String firstName;
 
-    @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false, unique = true)
+    //@Column(nullable = false, unique = true)
     private String email;
 
     public User() {

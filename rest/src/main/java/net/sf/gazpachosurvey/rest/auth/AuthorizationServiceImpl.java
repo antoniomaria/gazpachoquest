@@ -14,6 +14,7 @@ public class AuthorizationServiceImpl implements AuthorizationService{
     private static final Logger logger = LoggerFactory
             .getLogger(AuthorizationServiceImpl.class);
 
+    
     public SecurityContext authorize(
             AuthorizationRequestContext authRequestContext) {
         // login and password
@@ -24,6 +25,9 @@ public class AuthorizationServiceImpl implements AuthorizationService{
                     authRequestContext.getAuthorizationToken());
             throw new WebApplicationException(Response.Status.UNAUTHORIZED);
         }
+        String userName = lap[0];
+        String password = lap[1];
+        
         SecurityContextImpl securityContext = SecurityContextImpl.with()
                 .userName(lap[0]).role(lap[1]).build();
         securityContext.addRole("respondent");

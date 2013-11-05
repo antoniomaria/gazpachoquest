@@ -16,6 +16,7 @@
     <persistence:class>net.sf.gazpachosurvey.domain.core.Page</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Participant</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Question</persistence:class>
+    <persistence:class>net.sf.gazpachosurvey.domain.core.Respondent</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Survey</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.SurveyRunning</persistence:class>
     <!-- User -->

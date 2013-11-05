@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import net.sf.gazpachosurvey.domain.core.Answer;
 import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.Respondent;
+import net.sf.gazpachosurvey.domain.core.RespondentAnswers;
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.repository.AnswerRepository;
 import net.sf.gazpachosurvey.repository.QuestionRepository;
@@ -33,14 +34,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @Component
-public class RespondentRepositoryImpl implements RespondentRepository {
-
+public class RespondentAnswersRepositoryImpl implements RespondentAnswersRepository {
+    
     private static final Logger logger = LoggerFactory
-            .getLogger(RespondentRepositoryImpl.class);
+            .getLogger(RespondentAnswersRepositoryImpl.class);
 
     private static final String PACKAGE_PREFIX = "net.sf.gazpachosurvey.domain.dynamic.";
-
-    private static final String TABLE_NAME_PREFIX = "Respondents_";
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -85,31 +84,27 @@ public class RespondentRepositoryImpl implements RespondentRepository {
         }
     }
 
-    @Override
     @Transactional
-    public Respondent save(Respondent respondent) {
-        Assert.notNull(respondent.getSurveyId());
-        Assert.notNull(respondent.getSurveyRunningId());
+    public RespondentAnswers save(RespondentAnswers respondentAnswers) {
+        Assert.notNull(respondentAnswers.getRespondent());
+        
+        StringBuilder tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(respondentAnswers.getRespondent().getSurvey().getId());
+        
+        DynamicEntity entity = newInstance(tableName.toString());
 
-        DynamicEntity entity = newInstance(TABLE_NAME_PREFIX
-                + respondent.getSurveyId());
-
-        if (!respondent.isNew()) {
-            entity.set("id", respondent.getId());
+        if (!respondentAnswers.isNew()) {
+            entity.set("id", respondentAnswers.getId());
         }
-        entity.set("surveyRunningId", respondent.getSurveyRunningId());
-        entity.set("ipAddress", respondent.getIpAddress());
-        entity.set("startDate", respondent.getStartDate());
-        entity.set("submitDate", respondent.getSubmitDate());
+        entity.set("respondentId", respondentAnswers.getRespondent().getId());
 
-        if (!respondent.isNew()) {
+        if (!respondentAnswers.isNew()) {
             entity = entityManager.merge(entity);
         } else {
             entityManager.persist(entity);
-            respondent.setId((Integer) entity.get("id"));
+            respondentAnswers.setId((Integer) entity.get("id"));
         }
         entityManager.flush();
-        return respondent;
+        return respondentAnswers;
     }
 
     private DynamicEntity newInstance(String entityAlias) {
@@ -124,7 +119,7 @@ public class RespondentRepositoryImpl implements RespondentRepository {
         DynamicClassLoader dcl = new DynamicClassLoader(getClass()
                 .getClassLoader());
 
-        String tableName = TABLE_NAME_PREFIX + surveyId;
+        String tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(surveyId).toString();
 
         Class<?> dynamicClass = dcl.createDynamicClass(PACKAGE_PREFIX
                 + tableName);
@@ -134,14 +129,8 @@ public class RespondentRepositoryImpl implements RespondentRepository {
 
         respondentAnswersTypeBuilder
                 .addDirectMapping("id", Integer.class, "id");
-        respondentAnswersTypeBuilder.addDirectMapping("surveyRunningId",
-                Integer.class, "survey_running_id");
-        respondentAnswersTypeBuilder.addDirectMapping("ipAddress",
-                String.class, "ip_address");
-        respondentAnswersTypeBuilder.addDirectMapping("startDate", Date.class,
-                "start_date");
-        respondentAnswersTypeBuilder.addDirectMapping("submitDate", Date.class,
-                "submit_date");
+        respondentAnswersTypeBuilder.addDirectMapping("respondentId",
+                Integer.class, "respondent_id");
 
         Question example = new Question();
         example.setSurvey(Survey.with().id(surveyId).build());

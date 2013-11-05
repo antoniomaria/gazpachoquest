@@ -15,14 +15,18 @@ public class CamelNamingStrategy implements SessionCustomizer {
     @Override
     public void customize(Session session) throws SQLException {
         for (ClassDescriptor descriptor : session.getDescriptors().values()) {
-            // Only change the table name for non-embedable entities with no
-            // @Table already
-            if (!descriptor.getTables().isEmpty()
-                    && descriptor.getAlias().equalsIgnoreCase(
-                            descriptor.getTableName())) {
-                String nonQualifiedClassName = unqualify(descriptor
-                        .getJavaClassName());
-                String tableName = addUnderscores(nonQualifiedClassName);
+            if (!descriptor.getTables().isEmpty()) {
+
+                // Take table name from @Table if exists
+                String tableName = null;
+                if (descriptor.getAlias().equalsIgnoreCase(
+                        descriptor.getTableName())) {
+                    tableName = unqualify(descriptor.getJavaClassName());
+                } else {
+                    tableName = descriptor.getTableName();
+                }
+
+                tableName = addUnderscores(tableName);
                 descriptor.setTableName(tableName);
 
                 for (IndexDefinition index : descriptor.getTables().get(0)
@@ -35,6 +39,7 @@ public class CamelNamingStrategy implements SessionCustomizer {
                     if (mapping.isDirectToFieldMapping()
                             && !mapping.isPrimaryKeyMapping()) {
                         String attributeName = mapping.getAttributeName();
+
                         String underScoredFieldName = addUnderscores(attributeName);
                         field.setName(underScoredFieldName);
                     }

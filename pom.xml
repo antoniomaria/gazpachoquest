@@ -32,7 +32,9 @@
     <module>domain</module>
     <module>dao</module>
     <module>services</module>
-    <module>questionnaires-ui</module>
+    <!-- Ommited temporarly
+      <module>questionnaires-ui</module>
+    -->
     <module>rest</module>
     <module>dbpopulator</module>
   </modules>

@@ -1,61 +1,81 @@
 package net.sf.gazpachosurvey.domain.core;
 
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import net.sf.gazpachosurvey.domain.support.Persistable;
+import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.joda.time.DateTime;
+import org.joda.time.contrib.jpa.DateTimeConverter;
 
-public class Respondent implements Persistable {
+@Entity
+@Table(name = "respondents")
+public class Respondent extends AbstractPersistable {
 
     private static final long serialVersionUID = -5466079670655149390L;
 
-    private Integer id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Survey survey;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private SurveyRunning surveyRunning;
 
-    private Integer surveyId;
+    @Column(columnDefinition = "timestamp")
+    @Convert(converter = DateTimeConverter.class)
+    private DateTime submitDate;
 
-    private Integer surveyRunningId;
-
-    private Date submitDate;
-
-    private Date startDate;
+    @Column(columnDefinition = "timestamp")
+    @Convert(converter = DateTimeConverter.class)
+    private DateTime startDate;
 
     private String ipAddress;
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Respondent() {
+        super();
     }
 
-    @Override
-    public Integer getId() {
-        return id;
+    public Survey getSurvey() {
+        return survey;
     }
 
-    public DateTime getSubmitDateTime() {
-        return null == submitDate ? null : new DateTime(submitDate);
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
     }
 
-    public void setSubmitDate(Date submitDate) {
-        this.submitDate = submitDate;
+
+    public SurveyRunning getSurveyRunning() {
+        return surveyRunning;
     }
 
-    public DateTime getStartDateTime() {
-        return null == startDate ? null : new DateTime(startDate);
+
+    public void setSurveyRunning(SurveyRunning surveyRunning) {
+        this.surveyRunning = surveyRunning;
     }
 
-    public Date getSubmitDate() {
+
+    public DateTime getSubmitDate() {
         return submitDate;
     }
 
-    public Date getStartDate() {
+
+    public void setSubmitDate(DateTime submitDate) {
+        this.submitDate = submitDate;
+    }
+
+
+    public DateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+
+    public void setStartDate(DateTime startDate) {
         this.startDate = startDate;
     }
+
 
     public String getIpAddress() {
         return ipAddress;
@@ -65,102 +85,5 @@ public class Respondent implements Persistable {
         this.ipAddress = ipAddress;
     }
 
-    @Override
-    public boolean isNew() {
-        return null == getId();
-    }
 
-    public Integer getSurveyRunningId() {
-        return surveyRunningId;
-    }
-
-    public void setSurveyRunningId(Integer surveyRunningId) {
-        this.surveyRunningId = surveyRunningId;
-    }
-
-    public Integer getSurveyId() {
-        return surveyId;
-    }
-
-    public void setSurveyId(Integer surveyId) {
-        this.surveyId = surveyId;
-    }
-
-    @Override
-    public int hashCode() {
-        if (!isNew()) {
-            return (new HashCodeBuilder()).append(getId()).toHashCode();
-        } else {
-            return HashCodeBuilder.reflectionHashCode(this);
-        }
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Persistable) {
-            final Persistable other = (Persistable) obj;
-            if (!isNew()) {
-                return (new EqualsBuilder()).append(getId(), other.getId()).isEquals();
-            } else {
-                return EqualsBuilder.reflectionEquals(this, obj);
-            }
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Entity of type %s with id: %s", this.getClass().getName(), getId());
-    }
-
-    public static class Builder {
-        private Integer id;
-        private Integer surveyId;
-        private Integer surveyRunningId;
-        private Date submitDate;
-        private Date startDate;
-        private String ipAddress;
-
-        public Builder id(Integer id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder surveyId(Integer surveyId) {
-            this.surveyId = surveyId;
-            return this;
-        }
-
-        public Builder surveyRunningId(Integer surveyRunningId) {
-            this.surveyRunningId = surveyRunningId;
-            return this;
-        }
-
-        public Builder submitDate(Date submitDate) {
-            this.submitDate = submitDate;
-            return this;
-        }
-
-        public Builder startDate(Date startDate) {
-            this.startDate = startDate;
-            return this;
-        }
-
-        public Builder ipAddress(String ipAddress) {
-            this.ipAddress = ipAddress;
-            return this;
-        }
-
-        public Respondent build() {
-            Respondent respondent = new Respondent();
-            respondent.id = id;
-            respondent.surveyId = surveyId;
-            respondent.surveyRunningId = surveyRunningId;
-            respondent.submitDate = submitDate;
-            respondent.startDate = startDate;
-            respondent.ipAddress = ipAddress;
-            return respondent;
-        }
-    }
 }

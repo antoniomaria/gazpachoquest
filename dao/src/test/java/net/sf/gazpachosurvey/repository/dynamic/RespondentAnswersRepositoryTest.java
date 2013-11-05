@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.sql.DataSource;
 
 import net.sf.gazpachosurvey.domain.core.Respondent;
+import net.sf.gazpachosurvey.domain.core.RespondentAnswers;
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 
@@ -32,11 +33,11 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
-@DatabaseSetup("RespondentRepository.xml")
-public class RespondentRepositoryTest {
+@DatabaseSetup("RespondentAnswersRepository-dataset.xml")
+public class RespondentAnswersRepositoryTest {
 
     @Autowired
-    private RespondentRepository repository;
+    private RespondentAnswersRepository repository;
 
     @Autowired
     private SurveyRepository surveyRepository;
@@ -51,21 +52,24 @@ public class RespondentRepositoryTest {
         repository.collectAnswers(selectedSurvey);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(datasource);
         assertThat(
-                JdbcTestUtils.countRowsInTable(jdbcTemplate, "respondents_3"))
+                JdbcTestUtils.countRowsInTable(jdbcTemplate, RespondentAnswersRepository.TABLE_NAME_PREFIX + "3"))
                 .isGreaterThanOrEqualTo(0);
     }
 
     @Test
     public void saveRespondentTest() {
         Survey selectedSurvey = surveyRepository.findOne(3);
-
-        repository.enableAllAnswers();
         Respondent respondent = new Respondent();
-        respondent.setSurveyId(selectedSurvey.getId());
-        respondent.setSurveyRunningId(100);
-        respondent.setStartDate(new Date());
+        respondent.setSurvey(selectedSurvey);
+        respondent.setId(1);
+        
+        repository.enableAllAnswers();
+        RespondentAnswers respondentAnswers = new RespondentAnswers();
+        
+        respondentAnswers.setRespondent(respondent);
+        
         respondent.setIpAddress("127.0.0.2");
-        respondent = repository.save(respondent);
+        respondentAnswers = repository.save(respondentAnswers);
         assertThat(respondent.getId()).isGreaterThanOrEqualTo(1);
     }
 }

@@ -8,7 +8,7 @@ import net.sf.gazpachosurvey.dto.SurveyLanguageSettingsDTO;
 import net.sf.gazpachosurvey.repository.MailMessageRepository;
 import net.sf.gazpachosurvey.repository.PageRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
-import net.sf.gazpachosurvey.repository.dynamic.RespondentRepository;
+import net.sf.gazpachosurvey.repository.dynamic.RespondentAnswersRepository;
 import net.sf.gazpachosurvey.repository.i18.SurveyTranslationRepository;
 import net.sf.gazpachosurvey.services.SurveyService;
 import net.sf.gazpachosurvey.types.EntityStatus;
@@ -26,7 +26,7 @@ public class SurveyServiceImpl
     private PageRepository pageRepository;
 
     @Autowired
-    private RespondentRepository respondentRepository;
+    private RespondentAnswersRepository respondentAnswersRepository;
 
     @Autowired
     private MailMessageRepository mailMessageRepository;
@@ -55,7 +55,7 @@ public class SurveyServiceImpl
     public SurveyDTO confirm(SurveyDTO survey) {
         Survey entity = repository.findOne(survey.getId());
         if (entity.getStatus() == EntityStatus.DRAFT) {
-            respondentRepository.collectAnswers(entity);
+            respondentAnswersRepository.collectAnswers(entity);
             entity.setStatus(EntityStatus.CONFIRMED);
         }
         return survey;
