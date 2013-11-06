@@ -2,8 +2,6 @@ package net.sf.gazpachosurvey.repository.dynamic;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-import java.util.Date;
-
 import javax.sql.DataSource;
 
 import net.sf.gazpachosurvey.domain.core.Respondent;

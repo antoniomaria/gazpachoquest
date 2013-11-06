@@ -5,7 +5,6 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 
@@ -13,7 +12,6 @@ import org.joda.time.DateTime;
 import org.joda.time.contrib.jpa.DateTimeConverter;
 
 @Entity
-@Table(name = "respondents")
 public class Respondent extends AbstractPersistable {
 
     private static final long serialVersionUID = -5466079670655149390L;
