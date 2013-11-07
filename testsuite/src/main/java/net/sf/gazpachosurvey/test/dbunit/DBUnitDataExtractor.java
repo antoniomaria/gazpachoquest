@@ -108,7 +108,7 @@ public class DBUnitDataExtractor {
                 // dependent tables database export: export table X and all tables that
                 // have a PK which is a FK on X, in the right order for insertion
                 String[] depTableNames = 
-                  TablesDependencyHelper.getAllDependentTables( connection, "invitations" );
+                  TablesDependencyHelper.getAllDependentTables( connection, "invitation" );
                 IDataSet depDataset = connection.createDataSet( depTableNames );
                 FlatXmlDataSet.write(depDataset, new FileOutputStream("target/dependents.xml")); 
             }

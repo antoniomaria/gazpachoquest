@@ -348,7 +348,7 @@ public class DBPopulator {
                 .from("support@gazpacho.net")
                 .replyTo("support@gazpacho.net")
                 .mailMessageTemplateLanguageSettingsStart()
-                .subject("Invitation to participate in survey")
+                .subject("PersonalInvitation to participate in survey")
                 .body("Dear Mr. $lastname, <br> You have been invited to take this survey. <br>"
                         + "The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off."
                         + "<a href=\"$link\">Click here</a> to take the survey")

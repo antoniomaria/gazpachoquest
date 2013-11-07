@@ -6,7 +6,12 @@ public class LoginServiceImpl {
 
     public void doLogin(String userName, String password) {
         if (RESPONDENT_USERNAME.equals(userName)) {
-            //doRespondentLogin(userName, password);
+            doRespondentLogin(password);
         }
+    }
+
+    private void doRespondentLogin(String password) {
+        // TODO Auto-generated method stub
+        
     }
 }

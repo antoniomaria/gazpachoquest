@@ -6,15 +6,15 @@ import java.util.Map;
 import net.sf.gazpachosurvey.domain.core.MailMessage;
 import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
 import net.sf.gazpachosurvey.domain.core.Participant;
+import net.sf.gazpachosurvey.domain.core.PersonalInvitation;
 import net.sf.gazpachosurvey.domain.core.Survey;
-import net.sf.gazpachosurvey.domain.core.Invitation;
 import net.sf.gazpachosurvey.domain.core.SurveyRunning;
 import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachosurvey.dto.SurveyRunningDTO;
+import net.sf.gazpachosurvey.repository.InvitationRepository;
 import net.sf.gazpachosurvey.repository.MailMessageRepository;
 import net.sf.gazpachosurvey.repository.ParticipantRepository;
-import net.sf.gazpachosurvey.repository.InvitationRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.repository.SurveyRunningRepository;
 import net.sf.gazpachosurvey.services.SurveyRunningService;
@@ -78,16 +78,17 @@ public class SurveyRunningServiceImpl extends
                 participantRepository.save(participant);
             }
             running = repository.save(running);
-            // Running entity must be persisted before creating Invitation
+            // Running entity must be persisted before creating PersonalInvitation
             for (Participant participant : running.getParticipants()) {
-                String surveyLinkToken = tokenGenerator.generate();
-                Invitation invitation = new Invitation();
-                invitation.setSurveyRunning(running);
-                invitation.setToken(surveyLinkToken);
-                invitation.setStatus(InvitationStatus.ACTIVE);
-                invitationRepository.save(invitation);
+                String token = tokenGenerator.generate();
+                PersonalInvitation personalInvitation = PersonalInvitation.with()
+                        .surveyRunning(running).token(token)
+                        .status(InvitationStatus.ACTIVE)
+                        .build();
+                
+                invitationRepository.save(personalInvitation);
                 MailMessage mailMessage = composeMailMessage(
-                        invitationTemplate, participant, surveyLinkToken);
+                        invitationTemplate, participant, token);
                 mailMessageRepository.save(mailMessage);
             }
 

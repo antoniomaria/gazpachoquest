@@ -4,7 +4,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.List;
 
-import net.sf.gazpachosurvey.domain.core.Invitation;
+import net.sf.gazpachosurvey.domain.core.PersonalInvitation;
 import net.sf.gazpachosurvey.dto.InvitationDTO;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 

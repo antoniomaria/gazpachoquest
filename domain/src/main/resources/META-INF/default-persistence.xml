@@ -5,6 +5,7 @@
   <persistence:persistence-unit name="default">
     <persistence:provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence:provider>
 
+    <persistence:class>net.sf.gazpachosurvey.domain.core.AnonymousInvitation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Answer</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Invitation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Label</persistence:class>
@@ -15,6 +16,8 @@
 
     <persistence:class>net.sf.gazpachosurvey.domain.core.Page</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Participant</persistence:class>
+
+    <persistence:class>net.sf.gazpachosurvey.domain.core.PersonalInvitation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Question</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Respondent</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Survey</persistence:class>
@@ -28,6 +31,8 @@
     <persistence:class>net.sf.gazpachosurvey.domain.i18.PageTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.i18.QuestionTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.i18.SurveyTranslation</persistence:class>
+    <!-- Support -->
+    <persistence:class>net.sf.gazpachosurvey.domain.support.AbstractInvitation</persistence:class>
 
     <persistence:properties>
       <persistence:property name="eclipselink.jdbc.driver" value="org.postgresql.Driver" />
