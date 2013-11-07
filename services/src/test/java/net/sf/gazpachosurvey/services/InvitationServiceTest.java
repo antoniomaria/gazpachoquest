@@ -23,7 +23,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
-        "classpath:/datasource-test-context.xml", "classpath:/services-context.xml", "classpath:/mail-context.xml" })
+        "classpath:/datasource-test-context.xml",
+        "classpath:/services-context.xml", "classpath:/mail-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
@@ -33,25 +34,20 @@ public class InvitationServiceTest {
 
     @Autowired
     private InvitationService surveyService;
-    
+
     @Test
-    public void countTest(){
+    public void countTest() {
         long count = surveyService.count();
         assertThat(count).isEqualTo(4);
     }
-    
+
     @Test
-    public void findByExampleTest(){
-        InvitationDTO example = InvitationDTO.with().token("ATRP7DCW2I").build();
-      List<InvitationDTO> results = surveyService.findByExample(example, new SearchParameters().caseSensitive(true));
-    System.out.println(results);
+    public void findOneByExampleTest() {
+        InvitationDTO example = InvitationDTO.with().token("IQF19ZUVMI")
+                .build();
+        InvitationDTO invitation = surveyService.findOneByExample(example,
+                new SearchParameters().caseSensitive(true));
+        assertThat(invitation).isNotNull();
     }
-    
-    @Test
-    public void findOneByExampleTest(){
-        InvitationDTO example = InvitationDTO.with().token("ATRP7DCW2I").build();
-       InvitationDTO invitation = surveyService.findOneByExample(example, new SearchParameters().caseSensitive(true));
-    System.out.println(invitation);
-    }
-    
+
 }
