@@ -66,6 +66,7 @@ public class DBPopulator {
 
         survey = createFastFoodSurvey();
         asignDefaultMailTemplate(survey);
+        surveyService.confirm(survey);
 
         Set<ParticipantDTO> participants = addParticipants();
 
@@ -74,6 +75,7 @@ public class DBPopulator {
                 .build();
 
         surveyRunningService.save(surveyRunning);
+        
     }
 
     public SurveyDTO createFastFoodSurvey() {

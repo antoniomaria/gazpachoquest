@@ -34,8 +34,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @Component
-public class RespondentAnswersRepositoryImpl implements RespondentAnswersRepository {
-    
+public class RespondentAnswersRepositoryImpl implements
+        RespondentAnswersRepository {
+
     private static final Logger logger = LoggerFactory
             .getLogger(RespondentAnswersRepositoryImpl.class);
 
@@ -69,7 +70,7 @@ public class RespondentAnswersRepositoryImpl implements RespondentAnswersReposit
     }
 
     @Override
-    public void enableAllAnswers() {
+    public void activeAllAnswers() {
         List<Survey> confirmedSurveys = surveyRepository.findByExample(Survey
                 .with().status(EntityStatus.CONFIRMED).build(),
                 new SearchParameters());
@@ -82,14 +83,17 @@ public class RespondentAnswersRepositoryImpl implements RespondentAnswersReposit
             helper.addTypes(true, true,
                     dynamicTypes.toArray(new DynamicType[dynamicTypes.size()]));
         }
+        logger.info("{} respondent answer tables has been activated", confirmedSurveys.size());
+        
     }
 
     @Transactional
     public RespondentAnswers save(RespondentAnswers respondentAnswers) {
         Assert.notNull(respondentAnswers.getRespondent());
-        
-        StringBuilder tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(respondentAnswers.getRespondent().getSurvey().getId());
-        
+
+        StringBuilder tableName = new StringBuilder().append(TABLE_NAME_PREFIX)
+                .append(respondentAnswers.getRespondent().getSurvey().getId());
+
         DynamicEntity entity = newInstance(tableName.toString());
 
         if (!respondentAnswers.isNew()) {
@@ -119,7 +123,8 @@ public class RespondentAnswersRepositoryImpl implements RespondentAnswersReposit
         DynamicClassLoader dcl = new DynamicClassLoader(getClass()
                 .getClassLoader());
 
-        String tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(surveyId).toString();
+        String tableName = new StringBuilder().append(TABLE_NAME_PREFIX)
+                .append(surveyId).toString();
 
         Class<?> dynamicClass = dcl.createDynamicClass(PACKAGE_PREFIX
                 + tableName);

@@ -61,7 +61,7 @@ public class RespondentAnswersRepositoryTest {
         respondent.setSurvey(selectedSurvey);
         respondent.setId(1);
         
-        repository.enableAllAnswers();
+        repository.activeAllAnswers();
         RespondentAnswers respondentAnswers = new RespondentAnswers();
         
         respondentAnswers.setRespondent(respondent);

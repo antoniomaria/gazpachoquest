@@ -9,7 +9,7 @@ public interface RespondentAnswersRepository {
     
     void collectAnswers(Survey survey);
 
-    void enableAllAnswers();
+    void activeAllAnswers();
 
-    RespondentAnswers save(RespondentAnswers respondent);
+    RespondentAnswers save(RespondentAnswers respondentAnswers);
 }
