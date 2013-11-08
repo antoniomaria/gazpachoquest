@@ -71,6 +71,11 @@
       <artifactId>gazpachosurvey-dao</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>gazpachosurvey-components</artifactId>
+    </dependency>
+    
     <!-- Spring aspects -->
     <dependency>
       <groupId>org.springframework</groupId>

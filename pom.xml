@@ -29,6 +29,7 @@
   </properties>
 
   <modules>
+    <module>components</module>
     <module>domain</module>
     <module>dao</module>
     <module>services</module>
@@ -190,6 +191,11 @@
         <version>${project.version} </version>
       </dependency>
 
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>gazpachosurvey-components</artifactId>
+        <version>${project.version} </version>
+      </dependency>
       <!-- Third party dependencies -->
       <dependency>
         <groupId>org.springframework</groupId>
