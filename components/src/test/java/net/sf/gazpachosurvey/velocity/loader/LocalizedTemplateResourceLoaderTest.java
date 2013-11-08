@@ -1,12 +1,13 @@
-package net.sf.gazpachosurvey.repository;
+package net.sf.gazpachosurvey.velocity.loader;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import net.sf.gazpachosurvey.domain.core.Respondent;
-import net.sf.gazpachosurvey.domain.core.SurveyRunning;
+
+import java.io.InputStream;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,33 +20,22 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
-        "classpath:/datasource-test-context.xml" })
+        "classpath:/datasource-test-context.xml",
+        "classpath:/components-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
-@DatabaseSetup("RespondentRepository-dataset.xml")
-public class RespondentRepositoryTest {
+@DatabaseSetup("LocalizedTemplateResourceLoader-dataset.xml")
+public class LocalizedTemplateResourceLoaderTest {
 
     @Autowired
-    private RespondentRepository repository;
-
-    @Autowired
-    private SurveyRepository surveyRepository;
-
-    @Autowired
-    private SurveyRunningRepository surveyRunningRespository;
+    private LocalizedTemplateResourceLoader templateloader;
 
     @Test
-    public void saveTest() {
-        SurveyRunning running = surveyRunningRespository.findOne(93);
-
-        Respondent respondent = new Respondent();
-        respondent.setSurvey(running.getSurvey());
-        respondent.setSurveyRunning(running);
-        Respondent created = repository.save(respondent);
-
-        assertThat(created.getId()).isGreaterThan(0);
+    public void getResourceStreamTest() {
+        InputStream template = templateloader.getResourceStream("55/ES");
+        assertThat(template).isNotNull();
     }
 
 }

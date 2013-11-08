@@ -1,14 +1,13 @@
 package net.sf.gazpachosurvey.domain.user;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import net.sf.gazpachosurvey.domain.support.AbstractPerson;
 
 @Entity
 @Table(name = "users")
-public class User extends AbstractPersistable {
+public class User extends AbstractPerson {
 
     private static final long serialVersionUID = 6513048922124388025L;
     

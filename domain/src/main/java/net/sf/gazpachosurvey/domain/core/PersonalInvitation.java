@@ -5,12 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 
-import net.sf.gazpachosurvey.domain.support.AbstractInvitation;
+import net.sf.gazpachosurvey.domain.support.Invitation;
 import net.sf.gazpachosurvey.types.InvitationStatus;
 
 @Entity
 @DiscriminatorValue("P")
-public class PersonalInvitation extends AbstractInvitation {
+public class PersonalInvitation extends Invitation {
 
     private static final long serialVersionUID = -9203813369476903640L;
 

@@ -1,7 +1,9 @@
 package net.sf.gazpachosurvey.security;
 
+import net.sf.gazpachosurvey.domain.support.Person;
+
 public interface ServiceLogin {
 
-    void login(String userName, String password);
+    Person login(String userName, String password);
 
 }

@@ -3,6 +3,7 @@ package net.sf.gazpachosurvey.security;
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.repository.dynamic.RespondentAnswersRepository;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,16 @@ public class RespondentLoginServiceTest {
     @Autowired
     private RespondentAnswersRepository respondentAnswersRepository;
 
-    @Test
-    public void loginTest() {
+    @Before
+    public void setUp() {
         respondentAnswersRepository
                 .collectAnswers(Survey.with().id(56).build());
         respondentAnswersRepository.activeAllAnswers();
+
+    }
+
+    @Test
+    public void loginTest() {
         serviceLogin.login("", "PZXDUNZKK2");
     }
 }

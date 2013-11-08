@@ -13,9 +13,21 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
-  <context:component-scan base-package="net.sf.gazpachosurvey.security.impl" />
+  <context:component-scan base-package="net.sf.gazpachosurvey.security.impl,net.sf.gazpachosurvey.util.impl" />
 
-
+  <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+    <property name="velocityPropertiesMap">
+      <map>
+        <entry key="resource.loader">
+          <value>custom</value>
+        </entry>
+        <entry key="custom.resource.loader.instance">
+          <ref bean="localizedTemplateResourceLoader" />
+        </entry>
+      </map>
+    </property>
+  </bean>
+  <bean id="localizedTemplateResourceLoader" class="net.sf.gazpachosurvey.velocity.loader.LocalizedTemplateResourceLoaderImpl" autowire="byType"></bean>
 
   <aop:config>
     <aop:pointcut id="loginOperation" expression="execution(* net.sf.gazpachosurvey.security.*.*(..))" />

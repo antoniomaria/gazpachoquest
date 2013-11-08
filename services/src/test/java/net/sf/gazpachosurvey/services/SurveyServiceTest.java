@@ -20,7 +20,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
-        "classpath:/datasource-test-context.xml", "classpath:/services-context.xml", "classpath:/mail-context.xml" })
+        "classpath:/datasource-test-context.xml",
+        "classpath:/services-context.xml", "classpath:/components-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
@@ -32,10 +33,10 @@ public class SurveyServiceTest {
     private SurveyService surveyService;
 
     @Test
-    public void findAllTest(){
+    public void findAllTest() {
         assertThat(surveyService.findAll()).hasSize(2);
     }
-    
+
     @Test
     public void confirmTest() {
         SurveyDTO survey = SurveyDTO.with().id(3).build();
@@ -46,11 +47,9 @@ public class SurveyServiceTest {
     public void findOneTest() {
         SurveyDTO survey = surveyService.findOne(3);
 
-        System.out.println("Questions " + survey.getQuestions());
-
         survey = surveyService.findOne(3, "SurveyWithQuestions");
 
-        System.out.println("Questions " + survey.getQuestions());
+        assertThat(survey).isNotNull();
     }
 
     @Test

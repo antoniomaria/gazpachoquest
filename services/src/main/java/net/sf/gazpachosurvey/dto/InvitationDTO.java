@@ -1,6 +1,7 @@
 package net.sf.gazpachosurvey.dto;
 
 import net.sf.gazpachosurvey.types.InvitationStatus;
+import net.sf.gazpachosurvey.types.InvitationType;
 
 public class InvitationDTO extends AbstractIdentifiableDTO {
 
@@ -36,11 +37,14 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
         this.status = status;
     }
 
-    public static Builder with(){
+    public static Builder with() {
         return new Builder();
     }
+
     public static class Builder {
         private String token;
+        private InvitationType type;
+
         private SurveyRunningDTO surveyRunning;
         private InvitationStatus status;
 
@@ -56,6 +60,11 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
 
         public Builder status(InvitationStatus status) {
             this.status = status;
+            return this;
+        }
+
+        public Builder type(InvitationType type) {
+            this.type = type;
             return this;
         }
 

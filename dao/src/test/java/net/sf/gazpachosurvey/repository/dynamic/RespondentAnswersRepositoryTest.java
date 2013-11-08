@@ -66,7 +66,6 @@ public class RespondentAnswersRepositoryTest {
         
         respondentAnswers.setRespondent(respondent);
         
-        respondent.setIpAddress("127.0.0.2");
         respondentAnswers = repository.save(respondentAnswers);
         assertThat(respondent.getId()).isGreaterThanOrEqualTo(1);
     }

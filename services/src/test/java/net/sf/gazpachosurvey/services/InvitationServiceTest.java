@@ -7,6 +7,7 @@ import java.util.List;
 import net.sf.gazpachosurvey.domain.core.PersonalInvitation;
 import net.sf.gazpachosurvey.dto.InvitationDTO;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
+import net.sf.gazpachosurvey.types.InvitationType;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +25,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
         "classpath:/datasource-test-context.xml",
-        "classpath:/services-context.xml", "classpath:/mail-context.xml" })
+        "classpath:/services-context.xml", "classpath:/components-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
@@ -43,8 +44,8 @@ public class InvitationServiceTest {
 
     @Test
     public void findOneByExampleTest() {
-        InvitationDTO example = InvitationDTO.with().token("IQF19ZUVMI")
-                .build();
+        InvitationDTO example = InvitationDTO.with()
+                .type(InvitationType.PERSONAL).token("IQF19ZUVMI").build();
         InvitationDTO invitation = surveyService.findOneByExample(example,
                 new SearchParameters().caseSensitive(true));
         assertThat(invitation).isNotNull();
