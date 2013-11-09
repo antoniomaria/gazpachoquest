@@ -28,16 +28,17 @@ public class PersonalInvitation extends Invitation {
     public void setRespondent(Respondent respondent) {
         this.respondent = respondent;
     }
-public static Builder with(){
-    return new Builder();
-}
-    public static class Builder {
-        
+
+    public static Builder with() {
+        return new Builder();
+    }
+
+    public static class Builder extends Invitation.Builder {
+
         private String token;
         private SurveyRunning surveyRunning;
         private InvitationStatus status;
         private Respondent respondent;
-
 
         public Builder token(String token) {
             this.token = token;
@@ -53,7 +54,7 @@ public static Builder with(){
             this.status = status;
             return this;
         }
-        
+
         public Builder respondent(Respondent respondent) {
             this.respondent = respondent;
             return this;

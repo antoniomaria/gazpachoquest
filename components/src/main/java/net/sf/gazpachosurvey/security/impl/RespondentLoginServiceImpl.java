@@ -25,15 +25,17 @@ public class RespondentLoginServiceImpl implements ServiceLogin {
 
     public Person login(String userName, String password) {
         Invitation invitation = invitationRepository.findOneByExample(
-                PersonalInvitation.with().token(password).build(),
+                Invitation.with().token(password).build(),
                 new SearchParameters().caseSensitive().equals());
-        PersonalInvitation personalInvitation = null;
-        if (invitation instanceof PersonalInvitation) {
-            personalInvitation = (PersonalInvitation) invitation;
-        } else {
-            // TODO manage anonymous invitation
+        if (invitation == null){
+            return null; // TODO Throw authentication exception
         }
-        Respondent respondent = personalInvitation.getRespondent();
+        Respondent respondent = null;
+        if (invitation instanceof PersonalInvitation) {
+            PersonalInvitation personalInvitation = (PersonalInvitation) invitation;
+            respondent = personalInvitation.getRespondent();
+        }
+
         if (respondent == null) {
             respondent = new Respondent();
             SurveyRunning surveyRunning = invitation.getSurveyRunning();
@@ -43,7 +45,10 @@ public class RespondentLoginServiceImpl implements ServiceLogin {
             respondent.setSurveyRunning(surveyRunning);
             respondent = respondentRepository.save(respondent);
 
-            personalInvitation.setRespondent(respondent);
+            if (invitation instanceof PersonalInvitation) {
+                PersonalInvitation personalInvitation = (PersonalInvitation) invitation;
+                personalInvitation.setRespondent(respondent);
+            }
         }
 
         return respondent;

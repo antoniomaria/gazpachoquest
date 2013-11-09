@@ -65,4 +65,35 @@ public class Invitation extends AbstractPersistable {
         this.status = status;
     }
 
+    public static Builder with(){
+        return new Builder();
+    }
+    public static class Builder {
+        private String token;
+        private SurveyRunning surveyRunning;
+        private InvitationStatus status;
+
+        public Builder token(String token) {
+            this.token = token;
+            return this;
+        }
+
+        public Builder surveyRunning(SurveyRunning surveyRunning) {
+            this.surveyRunning = surveyRunning;
+            return this;
+        }
+
+        public Builder status(InvitationStatus status) {
+            this.status = status;
+            return this;
+        }
+
+        public Invitation build() {
+            Invitation invitation = new Invitation();
+            invitation.token = token;
+            invitation.surveyRunning = surveyRunning;
+            invitation.status = status;
+            return invitation;
+        }
+    }
 }
