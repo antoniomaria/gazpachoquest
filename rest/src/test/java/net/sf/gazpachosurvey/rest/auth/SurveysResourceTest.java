@@ -5,6 +5,7 @@ import java.util.Map;
 
 import net.sf.gazpachosurvey.rest.ApplicationConfig;
 import net.sf.gazpachosurvey.rest.SurveysResource;
+import net.sf.gazpachosurvey.security.LoginService;
 
 import org.glassfish.jersey.client.filter.HttpBasicAuthFilter;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -31,7 +32,9 @@ public class SurveysResourceTest extends JerseyTest {
     public void testHelloWorld() {
         // String output = super.target("/surveys").request().get(String.class);
         // super.client();
-        client().register(new HttpBasicAuthFilter("Homer", "SecretPassword"));
+        client().register(
+                new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME,
+                        "7FNC3XT19I"));
         // client.addFilter(new LoggingFilter());
 
         System.out.println(getBaseUri());
