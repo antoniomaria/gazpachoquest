@@ -13,42 +13,6 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
-  <context:component-scan base-package="net.sf.gazpachosurvey.security.impl,net.sf.gazpachosurvey.util.impl,net.sf.gazpachosurvey.aspects" />
-  <aop:aspectj-autoproxy />
-  <bean class="net.sf.gazpachosurvey.security.impl.LoginServiceFactoryImpl">
-    <property name="implementations">
-      <map>
-        <entry key="RESPONDENT" value-ref="respondentLoginService" />
-      </map>
-    </property>
-  </bean>
-
-  <bean id="localizedTemplateResourceLoader" class="net.sf.gazpachosurvey.velocity.loader.LocalizedTemplateResourceLoaderImpl" autowire="byType"></bean>
-
-  <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-    <property name="velocityPropertiesMap">
-      <map>
-        <entry key="resource.loader">
-          <value>custom</value>
-        </entry>
-        <entry key="custom.resource.loader.instance">
-          <ref bean="localizedTemplateResourceLoader" />
-        </entry>
-      </map>
-    </property>
-  </bean>
-
-  <aop:config>
-    <aop:pointcut id="loginOperation" expression="execution(* net.sf.gazpachosurvey.security.*.*(..))" />
-    <aop:advisor advice-ref="txAdvice" pointcut-ref="loginOperation" order="9999" />
-  </aop:config>
-
-  <tx:advice id="txAdvice">
-    <tx:attributes>
-      <tx:method name="find*" read-only="true" />
-      <tx:method name="*" />
-    </tx:attributes>
-  </tx:advice>
-
-  <tx:annotation-driven />
+  <context:component-scan base-package="net.sf.gazpachosurvey.aspects" />
+  <aop:aspectj-autoproxy  />
 </beans>

@@ -29,7 +29,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 public class RespondentLoginServiceTest {
 
     @Autowired
-    private ServiceLogin serviceLogin;
+    private LoginService loginService;
 
     @Autowired
     private RespondentAnswersRepository respondentAnswersRepository;
@@ -44,6 +44,6 @@ public class RespondentLoginServiceTest {
 
     @Test
     public void loginTest() {
-        serviceLogin.login("", "PZXDUNZKK2");
+        loginService.login("", "PZXDUNZKK2");
     }
 }

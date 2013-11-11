@@ -9,13 +9,13 @@ import net.sf.gazpachosurvey.domain.support.Person;
 import net.sf.gazpachosurvey.repository.InvitationRepository;
 import net.sf.gazpachosurvey.repository.RespondentRepository;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
-import net.sf.gazpachosurvey.security.ServiceLogin;
+import net.sf.gazpachosurvey.security.LoginService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
-public class RespondentLoginServiceImpl implements ServiceLogin {
+@Component("respondentLoginService")
+public class RespondentLoginServiceImpl implements LoginService {
 
     @Autowired
     private InvitationRepository invitationRepository;
