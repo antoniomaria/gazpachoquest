@@ -1,6 +1,7 @@
 package net.sf.gazpachosurvey.rest;
 
 import net.sf.gazpachosurvey.rest.auth.AuthorizationRequestFilter;
+import net.sf.gazpachosurvey.rest.resources.runtime.QuestionnairResource;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
@@ -12,7 +13,7 @@ public class ApplicationConfig extends ResourceConfig {
         register(RequestContextFilter.class);
         register(RolesAllowedDynamicFeature.class);
         register(AuthorizationRequestFilter.class);
-        register(SurveysResource.class);
+        register(QuestionnairResource.class);
         
         //register(JerseyResource.class);
         //register(SpringSingletonResource.class);
