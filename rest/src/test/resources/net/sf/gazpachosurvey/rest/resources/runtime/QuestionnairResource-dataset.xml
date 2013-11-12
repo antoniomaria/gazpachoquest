@@ -8,13 +8,13 @@
     description="We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry."
     title="Food Quality Modified" welcometext="Your opinion is extremely important in evaluating our business. Thank you for taking a moment to answer the following questions:"
     createdby_id="1" lastmodifiedby_id="1" />
-  <survey_running id="95" created_date="2013-10-27 14:02:32.15" last_modified_date="2013-10-27 14:02:32.15" name="Survey Food Quality Modified started"
+  <survey_instance id="95" created_date="2013-10-27 14:02:32.15" last_modified_date="2013-10-27 14:02:32.15" name="Survey Food Quality Modified started"
     type="BY_INVITATION" createdby_id="1" lastmodifiedby_id="1" survey_id="57" />
 
-  <invitation id="96" type="P" status="ACTIVE" token="IQF19ZUVMI" surveyrunning_id="95" />
-  <invitation id="98" type="P" status="ACTIVE" token="8EQVKRBMP2" surveyrunning_id="95" />
-  <invitation id="100" type="P" status="ACTIVE" token="QIAPHW5JAX" surveyrunning_id="95" />
-  <invitation id="102" type="P" status="ACTIVE" token="4T0LFPM3UM" surveyrunning_id="95" />
+  <invitation id="96" type="P" status="ACTIVE" token="IQF19ZUVMI" surveyinstance_id="95" />
+  <invitation id="98" type="P" status="ACTIVE" token="8EQVKRBMP2" surveyinstance_id="95" />
+  <invitation id="100" type="P" status="ACTIVE" token="QIAPHW5JAX" surveyinstance_id="95" />
+  <invitation id="102" type="P" status="ACTIVE" token="4T0LFPM3UM" surveyinstance_id="95" />
 
   <mail_message_template id="55" created_date="2013-10-27 14:02:31.512" from_address="support@gazpacho.net" language="EN"
     last_modified_date="2013-10-27 14:02:31.512" reply_to="support@gazpacho.net" type="INVITATION"
@@ -147,9 +147,9 @@
     lastname="Snow" prefered_language="1" createdby_id="1" lastmodifiedby_id="1" />
   <participant id="94" created_date="2013-10-27 14:02:32.13" email="arya.stark@winterfell.net" firstname="Arya" last_modified_date="2013-10-27 14:02:32.13"
     lastname="Stark" createdby_id="1" lastmodifiedby_id="1" />
-  <surveyrunning_participant surveyrunning_id="95" participant_id="91" />
-  <surveyrunning_participant surveyrunning_id="95" participant_id="92" />
-  <surveyrunning_participant surveyrunning_id="95" participant_id="93" />
-  <surveyrunning_participant surveyrunning_id="95" participant_id="94" />
+  <surveyinstance_participant surveyinstance_id="95" participant_id="91" />
+  <surveyinstance_participant surveyinstance_id="95" participant_id="92" />
+  <surveyinstance_participant surveyinstance_id="95" participant_id="93" />
+  <surveyinstance_participant surveyinstance_id="95" participant_id="94" />
   <survey_translation />
 </dataset>

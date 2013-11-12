@@ -9,7 +9,7 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
 
     private String token;
 
-    private SurveyRunningDTO surveyRunning;
+    private SurveyInstanceDTO surveyInstance;
 
     private InvitationStatus status;
 
@@ -21,12 +21,12 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
         this.token = token;
     }
 
-    public SurveyRunningDTO getSurveyRunning() {
-        return surveyRunning;
+    public SurveyInstanceDTO getSurveyInstance() {
+        return surveyInstance;
     }
 
-    public void setSurveyRunning(SurveyRunningDTO surveyRunning) {
-        this.surveyRunning = surveyRunning;
+    public void setSurveyInstance(SurveyInstanceDTO surveyInstance) {
+        this.surveyInstance = surveyInstance;
     }
 
     public InvitationStatus getStatus() {
@@ -45,7 +45,7 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
         private String token;
         private InvitationType type;
 
-        private SurveyRunningDTO surveyRunning;
+        private SurveyInstanceDTO surveyInstance;
         private InvitationStatus status;
 
         public Builder token(String token) {
@@ -53,8 +53,8 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
-        public Builder surveyRunning(SurveyRunningDTO surveyRunning) {
-            this.surveyRunning = surveyRunning;
+        public Builder surveyInstance(SurveyInstanceDTO surveyInstance) {
+            this.surveyInstance = surveyInstance;
             return this;
         }
 
@@ -71,7 +71,7 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
         public InvitationDTO build() {
             InvitationDTO invitationDTO = new InvitationDTO();
             invitationDTO.token = token;
-            invitationDTO.surveyRunning = surveyRunning;
+            invitationDTO.surveyInstance = surveyInstance;
             invitationDTO.status = status;
             return invitationDTO;
         }

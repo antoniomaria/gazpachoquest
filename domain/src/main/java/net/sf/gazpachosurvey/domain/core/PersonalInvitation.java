@@ -36,7 +36,7 @@ public class PersonalInvitation extends Invitation {
     public static class Builder extends Invitation.Builder {
 
         private String token;
-        private SurveyRunning surveyRunning;
+        private SurveyInstance surveyInstance;
         private InvitationStatus status;
         private Respondent respondent;
 
@@ -45,8 +45,8 @@ public class PersonalInvitation extends Invitation {
             return this;
         }
 
-        public Builder surveyRunning(SurveyRunning surveyRunning) {
-            this.surveyRunning = surveyRunning;
+        public Builder surveyInstance(SurveyInstance surveyInstance) {
+            this.surveyInstance = surveyInstance;
             return this;
         }
 
@@ -66,7 +66,7 @@ public class PersonalInvitation extends Invitation {
     }
 
     private PersonalInvitation(Builder builder) {
-        super(builder.token, builder.surveyRunning, builder.status);
+        super(builder.token, builder.surveyInstance, builder.status);
         this.respondent = builder.respondent;
     }
 }

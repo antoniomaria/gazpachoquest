@@ -2,11 +2,11 @@ package net.sf.gazpachosurvey.dto;
 
 import java.util.Set;
 
-import net.sf.gazpachosurvey.types.SurveyRunningType;
+import net.sf.gazpachosurvey.types.SurveyInstanceType;
 
 import org.joda.time.DateTime;
 
-public class SurveyRunningDTO extends AbstractIdentifiableDTO {
+public class SurveyInstanceDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = -8624509103476946501L;
 
@@ -14,7 +14,7 @@ public class SurveyRunningDTO extends AbstractIdentifiableDTO {
     
     private String name;
 
-    private SurveyRunningType type;
+    private SurveyInstanceType type;
 
     private DateTime startDate;
 
@@ -22,7 +22,7 @@ public class SurveyRunningDTO extends AbstractIdentifiableDTO {
 
     private Set<ParticipantDTO> participants;
 
-    public SurveyRunningDTO() {
+    public SurveyInstanceDTO() {
         super();
     }
 
@@ -50,11 +50,11 @@ public class SurveyRunningDTO extends AbstractIdentifiableDTO {
         this.participants = participants;
     }
 
-    public SurveyRunningType getType() {
+    public SurveyInstanceType getType() {
         return type;
     }
 
-    public void setType(SurveyRunningType type) {
+    public void setType(SurveyInstanceType type) {
         this.type = type;
     }
 
@@ -81,7 +81,7 @@ public class SurveyRunningDTO extends AbstractIdentifiableDTO {
     public static class Builder {
         private SurveyDTO survey;
         private String name;
-        private SurveyRunningType type;
+        private SurveyInstanceType type;
         private DateTime startDate;
         private DateTime expirationDate;
         private Set<ParticipantDTO> participants;
@@ -96,7 +96,7 @@ public class SurveyRunningDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
-        public Builder type(SurveyRunningType type) {
+        public Builder type(SurveyInstanceType type) {
             this.type = type;
             return this;
         }
@@ -116,15 +116,15 @@ public class SurveyRunningDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
-        public SurveyRunningDTO build() {
-            SurveyRunningDTO surveyRunningDTO = new SurveyRunningDTO();
-            surveyRunningDTO.survey = survey;
-            surveyRunningDTO.name = name;
-            surveyRunningDTO.type = type;
-            surveyRunningDTO.startDate = startDate;
-            surveyRunningDTO.expirationDate = expirationDate;
-            surveyRunningDTO.participants = participants;
-            return surveyRunningDTO;
+        public SurveyInstanceDTO build() {
+            SurveyInstanceDTO surveyInstanceDTO = new SurveyInstanceDTO();
+            surveyInstanceDTO.survey = survey;
+            surveyInstanceDTO.name = name;
+            surveyInstanceDTO.type = type;
+            surveyInstanceDTO.startDate = startDate;
+            surveyInstanceDTO.expirationDate = expirationDate;
+            surveyInstanceDTO.participants = participants;
+            return surveyInstanceDTO;
         }
     }
 }

@@ -14,20 +14,20 @@ import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.ParticipantDTO;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
-import net.sf.gazpachosurvey.dto.SurveyRunningDTO;
+import net.sf.gazpachosurvey.dto.SurveyInstanceDTO;
 import net.sf.gazpachosurvey.dto.UserDTO;
 import net.sf.gazpachosurvey.services.LabelSetService;
 import net.sf.gazpachosurvey.services.MailMessageTemplateService;
 import net.sf.gazpachosurvey.services.PageService;
 import net.sf.gazpachosurvey.services.ParticipantService;
 import net.sf.gazpachosurvey.services.QuestionService;
-import net.sf.gazpachosurvey.services.SurveyRunningService;
+import net.sf.gazpachosurvey.services.SurveyInstanceService;
 import net.sf.gazpachosurvey.services.SurveyService;
 import net.sf.gazpachosurvey.services.UserService;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 import net.sf.gazpachosurvey.types.QuestionType;
-import net.sf.gazpachosurvey.types.SurveyRunningType;
+import net.sf.gazpachosurvey.types.SurveyInstanceType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -50,7 +50,7 @@ public class DBPopulator {
     private ParticipantService participantService;
 
     @Autowired
-    private SurveyRunningService surveyRunningService;
+    private SurveyInstanceService surveyInstanceService;
 
     @Autowired
     private UserService userService;
@@ -70,11 +70,11 @@ public class DBPopulator {
 
         Set<ParticipantDTO> participants = addParticipants();
 
-        SurveyRunningDTO surveyRunning = SurveyRunningDTO.with().survey(survey).type(SurveyRunningType.BY_INVITATION)
+        SurveyInstanceDTO surveyInstance = SurveyInstanceDTO.with().survey(survey).type(SurveyInstanceType.BY_INVITATION)
                 .name("Survey " + survey.getLanguageSettings().getTitle() + " started").participants(participants)
                 .build();
 
-        surveyRunningService.save(surveyRunning);
+        surveyInstanceService.save(surveyInstance);
         
     }
 

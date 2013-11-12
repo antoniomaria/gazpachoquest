@@ -2,7 +2,7 @@ package net.sf.gazpachosurvey.repository;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachosurvey.domain.core.Respondent;
-import net.sf.gazpachosurvey.domain.core.SurveyRunning;
+import net.sf.gazpachosurvey.domain.core.SurveyInstance;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,15 +34,15 @@ public class RespondentRepositoryTest {
     private SurveyRepository surveyRepository;
 
     @Autowired
-    private SurveyRunningRepository surveyRunningRespository;
+    private SurveyInstanceRepository surveyInstanceRepository;
 
     @Test
     public void saveTest() {
-        SurveyRunning running = surveyRunningRespository.findOne(93);
+        SurveyInstance running = surveyInstanceRepository.findOne(93);
 
         Respondent respondent = new Respondent();
         respondent.setSurvey(running.getSurvey());
-        respondent.setSurveyRunning(running);
+        respondent.setSurveyInstance(running);
         Respondent created = repository.save(respondent);
 
         assertThat(created.getId()).isGreaterThan(0);

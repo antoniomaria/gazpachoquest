@@ -10,7 +10,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import net.sf.gazpachosurvey.domain.core.SurveyRunning;
+import net.sf.gazpachosurvey.domain.core.SurveyInstance;
 import net.sf.gazpachosurvey.types.InvitationStatus;
 
 @Entity
@@ -24,7 +24,7 @@ public class Invitation extends AbstractPersistable {
     protected String token;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    protected SurveyRunning surveyRunning;
+    protected SurveyInstance surveyInstance;
 
     @Enumerated(EnumType.STRING)
     protected InvitationStatus status;
@@ -33,11 +33,11 @@ public class Invitation extends AbstractPersistable {
         super();
     }
 
-    protected Invitation(String token, SurveyRunning surveyRunning,
+    protected Invitation(String token, SurveyInstance surveyInstance,
             InvitationStatus status) {
         super();
         this.token = token;
-        this.surveyRunning = surveyRunning;
+        this.surveyInstance = surveyInstance;
         this.status = status;
     }
 
@@ -49,12 +49,12 @@ public class Invitation extends AbstractPersistable {
         this.token = token;
     }
 
-    public SurveyRunning getSurveyRunning() {
-        return surveyRunning;
+    public SurveyInstance getSurveyInstance() {
+        return surveyInstance;
     }
 
-    public void setSurveyRunning(SurveyRunning surveyRunning) {
-        this.surveyRunning = surveyRunning;
+    public void setSurveyInstance(SurveyInstance surveyInstance) {
+        this.surveyInstance = surveyInstance;
     }
 
     public InvitationStatus getStatus() {
@@ -70,7 +70,7 @@ public class Invitation extends AbstractPersistable {
     }
     public static class Builder {
         private String token;
-        private SurveyRunning surveyRunning;
+        private SurveyInstance surveyInstance;
         private InvitationStatus status;
 
         public Builder token(String token) {
@@ -78,8 +78,8 @@ public class Invitation extends AbstractPersistable {
             return this;
         }
 
-        public Builder surveyRunning(SurveyRunning surveyRunning) {
-            this.surveyRunning = surveyRunning;
+        public Builder surveyInstance(SurveyInstance surveyInstance) {
+            this.surveyInstance = surveyInstance;
             return this;
         }
 
@@ -91,7 +91,7 @@ public class Invitation extends AbstractPersistable {
         public Invitation build() {
             Invitation invitation = new Invitation();
             invitation.token = token;
-            invitation.surveyRunning = surveyRunning;
+            invitation.surveyInstance = surveyInstance;
             invitation.status = status;
             return invitation;
         }

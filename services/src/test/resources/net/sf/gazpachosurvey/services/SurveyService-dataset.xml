@@ -119,20 +119,20 @@
   <answer id="88" language="EN" title="Over 85,000&#8364;" question_id="83" order_in_question="4" />
   <answer_translation />
   <question_translation />
-  <survey_running id="93" created_date="2013-10-09 17:15:18.319" last_modified_date="2013-10-09 17:15:18.319" name="my first running" type="BY_INVITATION"
+  <survey_instance id="93" created_date="2013-10-09 17:15:18.319" last_modified_date="2013-10-09 17:15:18.319" name="my first running" type="BY_INVITATION"
     createdby_id="1" lastmodifiedby_id="1" />
-  <invitation id="94" status="ACTIVE" token="P123RJQWWS" surveyrunning_id="93" />
-  <invitation id="95" status="ACTIVE" token="3FDKRVJTSZ" surveyrunning_id="93" />
-  <invitation id="96" status="ACTIVE" token="4MUT2YRO1N" surveyrunning_id="93" />
-  <invitation id="97" status="ACTIVE" token="SXF1M1E19G" surveyrunning_id="93" />
+  <invitation id="94" status="ACTIVE" token="P123RJQWWS" surveyinstance_id="93" />
+  <invitation id="95" status="ACTIVE" token="3FDKRVJTSZ" surveyinstance_id="93" />
+  <invitation id="96" status="ACTIVE" token="4MUT2YRO1N" surveyinstance_id="93" />
+  <invitation id="97" status="ACTIVE" token="SXF1M1E19G" surveyinstance_id="93" />
   <participant id="89" email="tyrion.lannister@kingslanding.net" firstname="Tyrion" lastname="Lannister" />
   <participant id="90" email="jon.snow@nightswatch.net" firstname="Jon" lastname="Snow" />
   <participant id="91" email="catelyn.stark@winterfell.net" firstname="Catelyn" lastname="Stark" />
   <participant id="92" email="arya.stark@winterfell.net" firstname="Arya" lastname="Stark" />
-  <surveyrunning_participant surveyrunning_id="93" participant_id="89" />
-  <surveyrunning_participant surveyrunning_id="93" participant_id="90" />
-  <surveyrunning_participant surveyrunning_id="93" participant_id="91" />
-  <surveyrunning_participant surveyrunning_id="93" participant_id="92" />
+  <surveyinstance_participant surveyinstance_id="93" participant_id="89" />
+  <surveyinstance_participant surveyinstance_id="93" participant_id="90" />
+  <surveyinstance_participant surveyinstance_id="93" participant_id="91" />
+  <surveyinstance_participant surveyinstance_id="93" participant_id="92" />
   <survey_translation />
   <mail_message_template />
   <mail_message_template_translation />

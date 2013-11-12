@@ -20,7 +20,7 @@ public class Respondent extends AbstractPerson{
     private Survey survey;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private SurveyRunning surveyRunning;
+    private SurveyInstance surveyInstance;
 
     @Column(columnDefinition = "timestamp")
     @Convert(converter = DateTimeConverter.class)
@@ -38,12 +38,12 @@ public class Respondent extends AbstractPerson{
         this.survey = survey;
     }
 
-    public SurveyRunning getSurveyRunning() {
-        return surveyRunning;
+    public SurveyInstance getSurveyInstance() {
+        return surveyInstance;
     }
 
-    public void setSurveyRunning(SurveyRunning surveyRunning) {
-        this.surveyRunning = surveyRunning;
+    public void setSurveyInstance(SurveyInstance surveyInstance) {
+        this.surveyInstance = surveyInstance;
     }
 
     public DateTime getSubmitDate() {

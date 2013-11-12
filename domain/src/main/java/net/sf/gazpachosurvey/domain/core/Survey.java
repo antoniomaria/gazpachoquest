@@ -41,7 +41,7 @@ public class Survey extends
     private Language language;
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<SurveyRunning> surveysRunning;
+    private Set<SurveyInstance> surveysRunning;
 
     @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
@@ -65,14 +65,14 @@ public class Survey extends
         super();
     }
 
-    public Set<SurveyRunning> getSurveysRunning() {
+    public Set<SurveyInstance> getSurveysRunning() {
         if (surveysRunning == null) {
             surveysRunning = new HashSet<>();
         }
         return surveysRunning;
     }
 
-    public void setSurveysRunning(Set<SurveyRunning> surveysRunning) {
+    public void setSurveysRunning(Set<SurveyInstance> surveysRunning) {
         this.surveysRunning = surveysRunning;
     }
 
@@ -88,14 +88,14 @@ public class Survey extends
         this.translations = translations;
     }
 
-    public void addSurveyRunning(SurveyRunning surveyRunning) {
-        getSurveysRunning().add(surveyRunning);
-        surveyRunning.setSurvey(this);
+    public void addSurveyInstance(SurveyInstance surveyInstance) {
+        getSurveysRunning().add(surveyInstance);
+        surveyInstance.setSurvey(this);
     }
 
-    public void removeSurveyRunning(SurveyRunning surveyRunning) {
-        getSurveysRunning().remove(surveyRunning);
-        surveyRunning.setSurvey(null);
+    public void removeSurveyInstance(SurveyInstance surveyInstance) {
+        getSurveysRunning().remove(surveyInstance);
+        surveyInstance.setSurvey(null);
     }
 
     public List<Page> getPages() {
@@ -180,7 +180,7 @@ public class Survey extends
         private EntityStatus status;
         private SurveyLanguageSettings languageSettings;
         private Language language;
-        private Set<SurveyRunning> surveysRunning;
+        private Set<SurveyInstance> surveysRunning;
         private Map<Language, SurveyTranslation> translations;
         private List<Page> pages;
         private Set<Question> questions;
@@ -205,7 +205,7 @@ public class Survey extends
             return this;
         }
 
-        public Builder surveysRunning(Set<SurveyRunning> surveysRunning) {
+        public Builder surveysRunning(Set<SurveyInstance> surveysRunning) {
             this.surveysRunning = surveysRunning;
             return this;
         }

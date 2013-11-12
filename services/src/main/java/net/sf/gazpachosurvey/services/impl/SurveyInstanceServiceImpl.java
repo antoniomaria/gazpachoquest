@@ -8,20 +8,20 @@ import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
 import net.sf.gazpachosurvey.domain.core.Participant;
 import net.sf.gazpachosurvey.domain.core.PersonalInvitation;
 import net.sf.gazpachosurvey.domain.core.Survey;
-import net.sf.gazpachosurvey.domain.core.SurveyRunning;
+import net.sf.gazpachosurvey.domain.core.SurveyInstance;
 import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
-import net.sf.gazpachosurvey.dto.SurveyRunningDTO;
+import net.sf.gazpachosurvey.dto.SurveyInstanceDTO;
 import net.sf.gazpachosurvey.repository.InvitationRepository;
 import net.sf.gazpachosurvey.repository.MailMessageRepository;
 import net.sf.gazpachosurvey.repository.ParticipantRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
-import net.sf.gazpachosurvey.repository.SurveyRunningRepository;
-import net.sf.gazpachosurvey.services.SurveyRunningService;
+import net.sf.gazpachosurvey.repository.SurveyInstanceRepository;
+import net.sf.gazpachosurvey.services.SurveyInstanceService;
 import net.sf.gazpachosurvey.types.InvitationStatus;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.MailMessageTemplateType;
-import net.sf.gazpachosurvey.types.SurveyRunningType;
+import net.sf.gazpachosurvey.types.SurveyInstanceType;
 import net.sf.gazpachosurvey.util.RandomTokenGenerator;
 
 import org.apache.velocity.app.VelocityEngine;
@@ -32,9 +32,9 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.util.Assert;
 
 @Service
-public class SurveyRunningServiceImpl extends
-        AbstractPersistenceService<SurveyRunning, SurveyRunningDTO> implements
-        SurveyRunningService {
+public class SurveyInstanceServiceImpl extends
+        AbstractPersistenceService<SurveyInstance, SurveyInstanceDTO> implements
+        SurveyInstanceService {
 
     @Autowired
     private SurveyRepository surveyRepository;
@@ -55,16 +55,16 @@ public class SurveyRunningServiceImpl extends
     private MailMessageRepository mailMessageRepository;
 
     @Autowired
-    public SurveyRunningServiceImpl(SurveyRunningRepository repository) {
-        super(repository, SurveyRunning.class, SurveyRunningDTO.class);
+    public SurveyInstanceServiceImpl(SurveyInstanceRepository repository) {
+        super(repository, SurveyInstance.class, SurveyInstanceDTO.class);
     }
 
     @Override
-    public SurveyRunningDTO save(SurveyRunningDTO dto) {
+    public SurveyInstanceDTO save(SurveyInstanceDTO dto) {
         Assert.notNull(dto.getSurvey(), "Survey is required");
-        SurveyRunning running = mapper.map(dto, SurveyRunning.class);
+        SurveyInstance running = mapper.map(dto, SurveyInstance.class);
 
-        if (SurveyRunningType.BY_INVITATION.equals(running.getType())) {
+        if (SurveyInstanceType.BY_INVITATION.equals(running.getType())) {
 
             Survey survey = surveyRepository.findOne(running.getSurvey()
                     .getId());
@@ -82,7 +82,7 @@ public class SurveyRunningServiceImpl extends
             for (Participant participant : running.getParticipants()) {
                 String token = tokenGenerator.generate();
                 PersonalInvitation personalInvitation = PersonalInvitation.with()
-                        .surveyRunning(running).token(token)
+                        .surveyInstance(running).token(token)
                         .status(InvitationStatus.ACTIVE)
                         .build();
                 

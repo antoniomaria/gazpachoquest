@@ -36,9 +36,9 @@
         <value>questions</value>
         <value>sequence</value>
         <value>survey_links</value>
-        <value>survey_runnings</value>
+        <value>survey_instances</value>
         <value>survey_translations</value>
-        <value>surveyrunning_participant</value>
+        <value>surveyinstance_participant</value>
         <value>surveys</value>
         <value>users</value>
       </list>

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
   <users id="1" email="support.temporal@gazpacho.net" first_name="temporal.support" last_name="support" />
-  <mail_message_templates />
-  <mail_message_template_translations />
+  <mail_message_template />
+  <mail_message_template_translation />
   <sequence seq_name="SEQ_GEN" seq_count="50" />
 </dataset>

@@ -26,7 +26,7 @@ public class Participant extends AbstractAuditable{
     private Gender gender;
 
     @ManyToMany(mappedBy = "participants")
-    private Set<SurveyRunning> surveyRunnings;
+    private Set<SurveyInstance> surveyInstances;
 
     public Participant() {
         super();
@@ -56,16 +56,16 @@ public class Participant extends AbstractAuditable{
         this.email = email;
     }
 
-    public Set<SurveyRunning> getSurveyRunnings() {
-        if (surveyRunnings == null) {
-            surveyRunnings = new HashSet<>();
+    public Set<SurveyInstance> getSurveyInstances() {
+        if (surveyInstances == null) {
+            surveyInstances = new HashSet<>();
         }
 
-        return surveyRunnings;
+        return surveyInstances;
     }
 
-    public void setSurveyRunnings(Set<SurveyRunning> surveyRunning) {
-        surveyRunnings = surveyRunning;
+    public void setSurveyInstances(Set<SurveyInstance> surveyInstance) {
+        surveyInstances = surveyInstance;
     }
 
     public Language getPreferedLanguage() {
