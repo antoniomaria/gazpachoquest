@@ -39,7 +39,7 @@ public class SurveyServiceImpl
             SurveyTranslationRepository translationRepository) {
         super(surveyRepository, translationRepository, Survey.class,
                 SurveyDTO.class, SurveyTranslation.class,
-                SurveyLanguageSettings.class, SurveyLanguageSettingsDTO.class);
+                SurveyLanguageSettings.class, SurveyLanguageSettingsDTO.class, new SurveyTranslation.Builder());
     }
 
     @Override

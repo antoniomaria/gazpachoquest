@@ -34,7 +34,7 @@ public class QuestionServiceImpl
     public QuestionServiceImpl(QuestionRepository repository,
             QuestionTranslationRepository translationRepository) {
         super(repository, translationRepository, Question.class,
-                QuestionDTO.class, QuestionTranslation.class, QuestionLanguageSettings.class, QuestionLanguageSettingsDTO.class);
+                QuestionDTO.class, QuestionTranslation.class, QuestionLanguageSettings.class, QuestionLanguageSettingsDTO.class, new QuestionTranslation.Builder());
     }
 
     @Override

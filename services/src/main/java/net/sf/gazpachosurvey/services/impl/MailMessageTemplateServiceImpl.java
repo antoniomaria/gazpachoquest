@@ -25,6 +25,6 @@ public class MailMessageTemplateServiceImpl
         super(repository, translationRepository, MailMessageTemplate.class,
                 MailMessageTemplateDTO.class,
                 MailMessageTemplateTranslation.class,
-                MailMessageTemplateLanguageSettings.class, MailMessageTemplateLanguageSettingsDTO.class);
+                MailMessageTemplateLanguageSettings.class, MailMessageTemplateLanguageSettingsDTO.class, new MailMessageTemplateTranslation.Builder());
     }
 }

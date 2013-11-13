@@ -66,4 +66,8 @@ public class MailMessageTemplateServiceTest {
                 localizedMailMessageTemplate.getLanguageSettings().getSubject())
                 .isEqualTo(languageSettings.getSubject()); 
     }
+    @Test
+    public void languagesTest(){
+        System.out.println(service.languages(55));
+    }
 }
