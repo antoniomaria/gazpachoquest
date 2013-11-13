@@ -21,8 +21,7 @@ import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 
 @Entity
-public class MailMessageTemplate
-        extends
+public class MailMessageTemplate extends
         AbstractLocalizable<MailMessageTemplateTranslation, MailMessageTemplateLanguageSettings> {
 
     private static final long serialVersionUID = 8115847063538607577L;
@@ -85,8 +84,7 @@ public class MailMessageTemplate
     }
 
     @Override
-    public void setLanguageSettings(
-            MailMessageTemplateLanguageSettings languageSettings) {
+    public void setLanguageSettings(MailMessageTemplateLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }
 
@@ -99,14 +97,12 @@ public class MailMessageTemplate
         return translations;
     }
 
-    public void setTranslations(
-            Map<Language, MailMessageTemplateTranslation> translations) {
+    public void setTranslations(Map<Language, MailMessageTemplateTranslation> translations) {
         this.translations = translations;
     }
 
     @Override
-    public void addTranslation(Language language,
-            MailMessageTemplateTranslation translation) {
+    public void addTranslation(Language language, MailMessageTemplateTranslation translation) {
         translation.setMailMessageTemplate(this);
         getTranslations().put(language, translation);
     }
@@ -132,6 +128,7 @@ public class MailMessageTemplate
     }
 
     public static class Builder {
+        private Integer id;
         private Survey survey;
         private MailMessageTemplateType type;
         private Language language;
@@ -139,6 +136,11 @@ public class MailMessageTemplate
         private String replyTo;
         private MailMessageTemplateLanguageSettings languageSettings;
         private Map<Language, MailMessageTemplateTranslation> translations;
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
 
         public Builder language(Language language) {
             this.language = language;
@@ -165,14 +167,12 @@ public class MailMessageTemplate
             return this;
         }
 
-        public Builder languageSettings(
-                MailMessageTemplateLanguageSettings languageSettings) {
+        public Builder languageSettings(MailMessageTemplateLanguageSettings languageSettings) {
             this.languageSettings = languageSettings;
             return this;
         }
 
-        public Builder translations(
-                Map<Language, MailMessageTemplateTranslation> translations) {
+        public Builder translations(Map<Language, MailMessageTemplateTranslation> translations) {
             this.translations = translations;
             return this;
         }
@@ -186,6 +186,7 @@ public class MailMessageTemplate
             mailMessageTemplate.translations = translations;
             mailMessageTemplate.type = type;
             mailMessageTemplate.survey = survey;
+            mailMessageTemplate.setId(id);
             return mailMessageTemplate;
         }
     }

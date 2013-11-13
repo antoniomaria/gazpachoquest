@@ -12,6 +12,7 @@ import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
 import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
 import net.sf.gazpachosurvey.domain.support.Translation;
+import net.sf.gazpachosurvey.domain.support.TranslationBuilder;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
@@ -42,10 +43,12 @@ public class MailMessageTemplateTranslation extends AbstractAuditable implements
         this.mailMessageTemplate = mailMessageTemplate;
     }
 
+    @Override
     public Language getLanguage() {
         return language;
     }
 
+    @Override
     public void setLanguage(Language language) {
         this.language = language;
     }
@@ -55,8 +58,47 @@ public class MailMessageTemplateTranslation extends AbstractAuditable implements
         return languageSettings;
     }
 
+    @Override
     public void setLanguageSettings(MailMessageTemplateLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }
 
+    public static class Builder implements
+            TranslationBuilder<MailMessageTemplateTranslation, MailMessageTemplateLanguageSettings> {
+        private MailMessageTemplate mailMessageTemplate;
+        private Language language;
+        private MailMessageTemplateLanguageSettings languageSettings;
+
+        public Builder mailMessageTemplate(MailMessageTemplate mailMessageTemplate) {
+            this.mailMessageTemplate = mailMessageTemplate;
+            return this;
+        }
+
+        @Override
+        public Builder language(Language language) {
+            this.language = language;
+            return this;
+        }
+
+        @Override
+        public Builder languageSettings(MailMessageTemplateLanguageSettings languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        @Override
+        public MailMessageTemplateTranslation build() {
+            MailMessageTemplateTranslation mailMessageTemplateTranslation = new MailMessageTemplateTranslation();
+            mailMessageTemplateTranslation.mailMessageTemplate = mailMessageTemplate;
+            mailMessageTemplateTranslation.language = language;
+            mailMessageTemplateTranslation.languageSettings = languageSettings;
+            return mailMessageTemplateTranslation;
+        }
+
+        @Override
+        public Builder translatedEntityId(Integer entityId) {
+            mailMessageTemplate(MailMessageTemplate.with().id(entityId).build());
+            return this;
+        }
+    }
 }
