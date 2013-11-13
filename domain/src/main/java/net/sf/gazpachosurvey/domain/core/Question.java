@@ -26,7 +26,7 @@ import net.sf.gazpachosurvey.types.QuestionType;
 import org.springframework.util.Assert;
 
 @Entity
-public class Question extends AbstractLocalizable<QuestionTranslation, QuestionLanguageSettings>{
+public class Question extends AbstractLocalizable<QuestionTranslation, QuestionLanguageSettings> {
 
     private static final long serialVersionUID = -4372634574851905803L;
 
@@ -57,7 +57,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     @Embedded
     private QuestionLanguageSettings languageSettings;
-    
+
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
@@ -129,6 +129,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         this.isRequired = isRequired;
     }
 
+    @Override
     public Map<Language, QuestionTranslation> getTranslations() {
         if (translations == null) {
             translations = new HashMap<>();
@@ -140,10 +141,12 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         this.translations = translations;
     }
 
+    @Override
     public Language getLanguage() {
         return language;
     }
 
+    @Override
     public void setLanguage(Language language) {
         this.language = language;
     }
@@ -162,7 +165,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     @Override
     public QuestionLanguageSettings getLanguageSettings() {
-        if (languageSettings == null){
+        if (languageSettings == null) {
             languageSettings = new QuestionLanguageSettings();
         }
         return languageSettings;
@@ -174,11 +177,10 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     }
 
     @Override
-    public void addTranslation(Language language,
-            QuestionTranslation translation) {
+    public void addTranslation(Language language, QuestionTranslation translation) {
         translation.setQuestion(this);
         getTranslations().put(language, translation);
-        
+
     }
 
 }

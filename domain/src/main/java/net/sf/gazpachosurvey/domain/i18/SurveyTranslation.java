@@ -12,11 +12,11 @@ import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.domain.support.Translation;
+import net.sf.gazpachosurvey.domain.support.TranslationBuilder;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class SurveyTranslation extends AbstractPersistable implements
-        Translation<SurveyLanguageSettings> {
+public class SurveyTranslation extends AbstractPersistable implements Translation<SurveyLanguageSettings> {
 
     private static final long serialVersionUID = -1926161817588270977L;
 
@@ -50,17 +50,60 @@ public class SurveyTranslation extends AbstractPersistable implements
         return languageSettings;
     }
 
+    @Override
     public void setLanguageSettings(SurveyLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }
 
+    @Override
     public Language getLanguage() {
+
         return language;
     }
 
+    @Override
     public void setLanguage(Language language) {
         this.language = language;
     }
 
+    public static Builder with() {
+        return new Builder();
+    }
 
+    public static class Builder implements TranslationBuilder<SurveyTranslation, SurveyLanguageSettings> {
+        private Survey survey;
+        private Language language;
+        private SurveyLanguageSettings languageSettings;
+
+        public Builder survey(Survey survey) {
+            this.survey = survey;
+            return this;
+        }
+
+        @Override
+        public Builder language(Language language) {
+            this.language = language;
+            return this;
+        }
+
+        @Override
+        public Builder languageSettings(SurveyLanguageSettings languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        public SurveyTranslation build() {
+            SurveyTranslation surveyTranslation = new SurveyTranslation();
+            surveyTranslation.survey = survey;
+            surveyTranslation.language = language;
+            surveyTranslation.languageSettings = languageSettings;
+            return surveyTranslation;
+        }
+
+        @Override
+        public Builder translatedEntityId(Integer entityId) {
+            return survey(Survey.with().id(entityId).build());
+        }
+
+    }
 }
