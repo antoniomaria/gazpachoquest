@@ -17,13 +17,13 @@ import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 
-import net.sf.gazpachosurvey.domain.core.embeddables.PageLanguageSettings;
-import net.sf.gazpachosurvey.domain.i18.PageTranslation;
+import net.sf.gazpachosurvey.domain.core.embeddables.QuestionGroupLanguageSettings;
+import net.sf.gazpachosurvey.domain.i18.QuestionGroupTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class Page extends AbstractLocalizable<PageTranslation, PageLanguageSettings> {
+public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation, QuestionGroupLanguageSettings> {
 
     private static final long serialVersionUID = 5849288763708940985L;
 
@@ -35,18 +35,18 @@ public class Page extends AbstractLocalizable<PageTranslation, PageLanguageSetti
     private Language language;
 
     @Embedded
-    private PageLanguageSettings languageSettings;
+    private QuestionGroupLanguageSettings languageSettings;
 
-    @OneToMany(mappedBy = "page", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "questionGroup", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
-    private Map<Language, PageTranslation> translations;
+    private Map<Language, QuestionGroupTranslation> translations;
 
-    @OneToMany(mappedBy = "page", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @OrderColumn(name = "order_in_page")
+    @OneToMany(mappedBy = "questionGroup", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OrderColumn(name = "order_in_questiongroup")
     private List<Question> questions;
 
-    public Page() {
+    public QuestionGroup() {
         super();
     }
 
@@ -80,21 +80,21 @@ public class Page extends AbstractLocalizable<PageTranslation, PageLanguageSetti
     }
 
     @Override
-    public PageLanguageSettings getLanguageSettings() {
+    public QuestionGroupLanguageSettings getLanguageSettings() {
         return languageSettings;
     }
 
     @Override
-    public void setLanguageSettings(PageLanguageSettings languageSettings) {
+    public void setLanguageSettings(QuestionGroupLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }
 
     @Override
-    public Map<Language, PageTranslation> getTranslations() {
+    public Map<Language, QuestionGroupTranslation> getTranslations() {
         return translations;
     }
 
-    public void setTranslations(Map<Language, PageTranslation> translations) {
+    public void setTranslations(Map<Language, QuestionGroupTranslation> translations) {
         this.translations = translations;
     }
 
@@ -104,7 +104,7 @@ public class Page extends AbstractLocalizable<PageTranslation, PageLanguageSetti
     }
 
     @Override
-    public void addTranslation(Language language, PageTranslation translation) {
+    public void addTranslation(Language language, QuestionGroupTranslation translation) {
         throw new UnsupportedOperationException();
         
     }

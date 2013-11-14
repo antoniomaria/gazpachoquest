@@ -2,13 +2,13 @@ package net.sf.gazpachosurvey.dto;
 
 import net.sf.gazpachosurvey.domain.support.LanguageSettings;
 
-public class PageLanguageSettingsDTO implements LanguageSettings {
+public class QuestionGroupLanguageSettingsDTO implements LanguageSettings {
 
     private static final long serialVersionUID = 8942148329254332833L;
 
     private String title;
 
-    public PageLanguageSettingsDTO() {
+    public QuestionGroupLanguageSettingsDTO() {
         super();
     }
 
@@ -20,8 +20,8 @@ public class PageLanguageSettingsDTO implements LanguageSettings {
         this.title = title;
     }
 
-    public static Builder pageLanguageSettingsStart(PageDTO.Builder container) {
-        return new PageLanguageSettingsDTO.BuilderImpl(container);
+    public static Builder pageLanguageSettingsStart(QuestionGroupDTO.Builder container) {
+        return new QuestionGroupLanguageSettingsDTO.BuilderImpl(container);
     }
 
     public static Builder with() {
@@ -32,18 +32,18 @@ public class PageLanguageSettingsDTO implements LanguageSettings {
 
         Builder title(String title);
 
-        PageDTO.Builder pageLanguageSettingsEnd();
+        QuestionGroupDTO.Builder pageLanguageSettingsEnd();
 
-        PageLanguageSettingsDTO build();
+        QuestionGroupLanguageSettingsDTO build();
 
     }
 
     public static class BuilderImpl implements Builder {
         private String title;
 
-        private final PageDTO.Builder container;
+        private final QuestionGroupDTO.Builder container;
 
-        public BuilderImpl(PageDTO.Builder container) {
+        public BuilderImpl(QuestionGroupDTO.Builder container) {
             this.container = container;
         }
 
@@ -54,13 +54,13 @@ public class PageLanguageSettingsDTO implements LanguageSettings {
         }
 
         @Override
-        public PageDTO.Builder pageLanguageSettingsEnd() {
+        public QuestionGroupDTO.Builder pageLanguageSettingsEnd() {
             return container.languageSettings(build());
         }
 
         @Override
-        public PageLanguageSettingsDTO build() {
-            PageLanguageSettingsDTO surveyLanguageSettingsDTO = new PageLanguageSettingsDTO();
+        public QuestionGroupLanguageSettingsDTO build() {
+            QuestionGroupLanguageSettingsDTO surveyLanguageSettingsDTO = new QuestionGroupLanguageSettingsDTO();
             surveyLanguageSettingsDTO.title = title;
             return surveyLanguageSettingsDTO;
         }

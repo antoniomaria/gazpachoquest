@@ -37,7 +37,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     private Question parent;
 
     @ManyToOne
-    private Page page;
+    private QuestionGroup questionGroup;
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderColumn(name = "order_in_subquestions")
@@ -102,12 +102,12 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         this.parent = parent;
     }
 
-    public Page getPage() {
-        return page;
+    public QuestionGroup getPage() {
+        return questionGroup;
     }
 
-    public void setPage(Page page) {
-        this.page = page;
+    public void setPage(QuestionGroup questionGroup) {
+        this.questionGroup = questionGroup;
     }
 
     public List<Answer> getAnswers() {

@@ -16,14 +16,16 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.eclipse.persistence.config.PersistenceUnitProperties;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class GenerateDllTest {
 
     @Test
+    @Ignore
     public void DDLGenerationTest() throws IOException {
-        // generateDDL("mysql");
-        generateDDL("postgres");
+        generateDDL("default");
     }
 
     public void generateDDL(String databaseProviderName) throws IOException {
@@ -35,7 +37,7 @@ public class GenerateDllTest {
         Map<String, String> persistProperties = new HashMap<String, String>();
         persistProperties.put(
                 PersistenceUnitProperties.ECLIPSELINK_PERSISTENCE_XML,
-                "META-INF/test-persistence.xml");
+                "META-INF/default-persistence.xml");
         persistProperties.put(PersistenceUnitProperties.DDL_GENERATION,
                 "drop-and-create-tables");
         persistProperties.put(PersistenceUnitProperties.DDL_GENERATION_MODE,
@@ -47,7 +49,7 @@ public class GenerateDllTest {
                 target.getPath());
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(
-                databaseProviderName + "PersistenceUnit", persistProperties);
+                "default", persistProperties);
         emf.createEntityManager();
 
         Path input = Paths.get(target.getPath(), "createDDL.jdbc");

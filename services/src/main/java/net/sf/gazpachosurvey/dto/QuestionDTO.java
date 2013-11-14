@@ -14,7 +14,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
 
     private SurveyDTO survey;
 
-    private PageDTO page;
+    private QuestionGroupDTO page;
 
     private Boolean isRequired;
 
@@ -78,11 +78,11 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         }
     }
 
-    public PageDTO getPage() {
+    public QuestionGroupDTO getPage() {
         return page;
     }
 
-    public void setPage(PageDTO page) {
+    public void setPage(QuestionGroupDTO page) {
         this.page = page;
     }
 
@@ -132,7 +132,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
 
         Builder type(QuestionType type);
 
-        Builder page(PageDTO page);
+        Builder page(QuestionGroupDTO page);
 
         Builder survey(SurveyDTO survey);
 
@@ -154,7 +154,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
     public static class BuilderImpl implements Builder {
         private Integer id;
         private SurveyDTO survey;
-        private PageDTO page;
+        private QuestionGroupDTO page;
         private Boolean isRequired;
         private QuestionType type;
         private Language language;
@@ -172,7 +172,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
             return this;
         }
 
-        public Builder page(PageDTO page) {
+        public Builder page(QuestionGroupDTO page) {
             this.page = page;
             return this;
         }

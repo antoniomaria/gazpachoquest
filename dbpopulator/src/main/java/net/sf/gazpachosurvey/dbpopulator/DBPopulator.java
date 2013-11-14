@@ -10,7 +10,7 @@ import net.sf.gazpachosurvey.dto.LabelDTO;
 import net.sf.gazpachosurvey.dto.LabelSetDTO;
 import net.sf.gazpachosurvey.dto.MailMessageTemplateDTO;
 import net.sf.gazpachosurvey.dto.MailMessageTemplateLanguageSettingsDTO;
-import net.sf.gazpachosurvey.dto.PageDTO;
+import net.sf.gazpachosurvey.dto.QuestionGroupDTO;
 import net.sf.gazpachosurvey.dto.ParticipantDTO;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
@@ -96,7 +96,7 @@ public class DBPopulator {
                 .surveyLanguageSettingsEnd().build();
         survey = surveyService.save(survey);
 
-        PageDTO page = PageDTO.with().language(Language.EN)
+        QuestionGroupDTO page = QuestionGroupDTO.with().language(Language.EN)
                 .pageLanguageSettingsStart().title("Fast Food Survey ")
                 .pageLanguageSettingsEnd().build();
         page = pageService.save(page);
@@ -235,17 +235,17 @@ public class DBPopulator {
                                         "Gracias por participar en esta encuesta")
                                 .build());
 
-        PageDTO page = PageDTO.with().pageLanguageSettingsStart()
-                .title("Page 1").pageLanguageSettingsEnd().build();
-        PageDTO page1 = pageService.addPage(survey.getId(), page);
+        QuestionGroupDTO page = QuestionGroupDTO.with().pageLanguageSettingsStart()
+                .title("QuestionGroup 1").pageLanguageSettingsEnd().build();
+        QuestionGroupDTO page1 = pageService.addPage(survey.getId(), page);
 
-        page = PageDTO.with().pageLanguageSettingsStart().title("Page 2")
+        page = QuestionGroupDTO.with().pageLanguageSettingsStart().title("QuestionGroup 2")
                 .pageLanguageSettingsEnd().build();
-        PageDTO page2 = pageService.addPage(survey.getId(), page);
+        QuestionGroupDTO page2 = pageService.addPage(survey.getId(), page);
 
-        page = PageDTO.with().pageLanguageSettingsStart().title("Page 3")
+        page = QuestionGroupDTO.with().pageLanguageSettingsStart().title("QuestionGroup 3")
                 .pageLanguageSettingsEnd().build();
-        PageDTO page3 = pageService.addPage(survey.getId(), page);
+        QuestionGroupDTO page3 = pageService.addPage(survey.getId(), page);
 
         LabelSetDTO labelSet = LabelSetDTO.with().language(Language.EN)
                 .name("Feelings").build();

@@ -6,14 +6,14 @@ import javax.persistence.Embeddable;
 import net.sf.gazpachosurvey.domain.support.LanguageSettings;
 
 @Embeddable
-public class PageLanguageSettings implements LanguageSettings {
+public class QuestionGroupLanguageSettings implements LanguageSettings {
 
     private static final long serialVersionUID = -3294430575682341044L;
     
     @Column(nullable = false)
     private String title;
 
-    public PageLanguageSettings() {
+    public QuestionGroupLanguageSettings() {
         super();
     }
 

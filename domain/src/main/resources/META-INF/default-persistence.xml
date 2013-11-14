@@ -14,11 +14,12 @@
     <persistence:class>net.sf.gazpachosurvey.domain.core.MailMessage</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.MailMessageTemplate</persistence:class>
 
-    <persistence:class>net.sf.gazpachosurvey.domain.core.Page</persistence:class>
+
     <persistence:class>net.sf.gazpachosurvey.domain.core.Participant</persistence:class>
 
     <persistence:class>net.sf.gazpachosurvey.domain.core.PersonalInvitation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Question</persistence:class>
+    <persistence:class>net.sf.gazpachosurvey.domain.core.QuestionGroup</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Respondent</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Survey</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.SurveyInstance</persistence:class>
@@ -28,7 +29,7 @@
     <persistence:class>net.sf.gazpachosurvey.domain.i18.AnswerTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.i18.LabelTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.i18.PageTranslation</persistence:class>
+    <persistence:class>net.sf.gazpachosurvey.domain.i18.QuestionGroupTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.i18.QuestionTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.i18.SurveyTranslation</persistence:class>
     <!-- Support -->

@@ -8,28 +8,28 @@
     description="We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry."
     title="Food Quality Modified" welcometext="Your opinion is extremely important in evaluating our business. Thank you for taking a moment to answer the following questions:"
     createdby_id="1" lastmodifiedby_id="1" />
-  <page id="4" created_date="2013-10-09 17:15:17.298" language="EN" last_modified_date="2013-10-09 17:15:17.731" title="Page 1" survey_id="3" />
-  <page id="5" created_date="2013-10-09 17:15:17.361" language="EN" last_modified_date="2013-10-09 17:15:17.778" title="Page 2" survey_id="3" />
-  <page id="6" created_date="2013-10-09 17:15:17.384" language="EN" last_modified_date="2013-10-09 17:15:17.809" title="Page 3" survey_id="3" />
-  <page id="58" created_date="2013-10-09 17:15:17.994" language="EN" last_modified_date="2013-10-09 17:15:17.994" title="Fast Food Survey " createdby_id="1"
+  <question_group id="4" created_date="2013-10-09 17:15:17.298" language="EN" last_modified_date="2013-10-09 17:15:17.731" title="question_group 1" survey_id="3" />
+  <question_group id="5" created_date="2013-10-09 17:15:17.361" language="EN" last_modified_date="2013-10-09 17:15:17.778" title="question_group 2" survey_id="3" />
+  <question_group id="6" created_date="2013-10-09 17:15:17.384" language="EN" last_modified_date="2013-10-09 17:15:17.809" title="question_group 3" survey_id="3" />
+  <question_group id="58" created_date="2013-10-09 17:15:17.994" language="EN" last_modified_date="2013-10-09 17:15:17.994" title="Fast Food Survey " createdby_id="1"
     lastmodifiedby_id="1" />
-  <page_translation />
+  <question_group_translation />
   <question id="13" created_date="2013-10-09 17:15:17.592" language="EN" last_modified_date="2013-10-09 17:15:17.592" type="S" title="What is your name?"
-    page_id="4" survey_id="3" order_in_page="0" />
+    questiongroup_id="4" survey_id="3" order_in_questiongroup="0" />
   <question id="14" created_date="2013-10-09 17:15:17.63" language="EN" last_modified_date="2013-10-09 17:15:17.63" type="L" title="What is your age group?"
-    page_id="4" survey_id="3" order_in_page="1" />
+    questiongroup_id="4" survey_id="3" order_in_questiongroup="1" />
   <question id="30" created_date="2013-10-09 17:15:17.729" language="EN" last_modified_date="2013-10-09 17:15:17.729" type="N"
-    title="And for our records, specifically how old are you?" page_id="4" survey_id="3" order_in_page="2" />
+    title="And for our records, specifically how old are you?" questiongroup_id="4" survey_id="3" order_in_questiongroup="2" />
   <question id="31" created_date="2013-10-09 17:15:17.749" language="EN" last_modified_date="2013-10-09 17:15:17.749" type="T"
-    title="Please tell us a little about yourself. What was your first job, and did you enjoy it?" page_id="5" survey_id="3" order_in_page="0" />
+    title="Please tell us a little about yourself. What was your first job, and did you enjoy it?" questiongroup_id="5" survey_id="3" order_in_questiongroup="0" />
   <question id="32" created_date="2013-10-09 17:15:17.776" language="EN" last_modified_date="2013-10-09 17:15:17.776" type="L"
-    title="Given your extraordinary age, how do you find using this survey tool?" page_id="5" survey_id="3" order_in_page="1" />
+    title="Given your extraordinary age, how do you find using this survey tool?" questiongroup_id="5" survey_id="3" order_in_questiongroup="1" />
   <question id="36" created_date="2013-10-09 17:15:17.806" language="EN" last_modified_date="2013-10-09 17:15:17.806" type="L"
     title="&lt;font size=&apos;+2&apos;&gt;&lt;br /&gt;&amp;nbsp;&lt;br /&gt;Which of these ads makes you want to find out more?&lt;br /&gt;&amp;nbsp;&lt;br /&gt;&lt;/font&gt;"
-    page_id="6" survey_id="3" order_in_page="0" />
+    questiongroup_id="6" survey_id="3" order_in_questiongroup="0" />
   <question id="40" created_date="2013-10-09 17:15:17.842" language="EN" last_modified_date="2013-10-09 17:15:17.842" type="F"
     title="Please have a good look at this ad, and then complete the questions below.&lt;br /&gt;&lt;img src=&apos;http://www.aptigence.com.au/images/lawyer1.jpg&apos; border=&apos;1&apos;&gt;"
-    createdby_id="1" lastmodifiedby_id="1" page_id="6" survey_id="3" />
+    createdby_id="1" lastmodifiedby_id="1" questiongroup_id="6" survey_id="3" />
   <question id="47" created_date="2013-10-09 17:15:17.845" last_modified_date="2013-10-09 17:15:17.845" type="L"
     title="This ad suggests the lawyer is on my side, not his own" createdby_id="1" lastmodifiedby_id="1" parent_id="40" order_in_subquestions="0" />
   <question id="48" created_date="2013-10-09 17:15:17.845" last_modified_date="2013-10-09 17:15:17.845" type="L"
@@ -40,9 +40,9 @@
   <question id="50" created_date="2013-10-09 17:15:17.846" last_modified_date="2013-10-09 17:15:17.846" type="L"
     title="This ad gives me confidence in the lawyers experience" createdby_id="1" lastmodifiedby_id="1" parent_id="40" order_in_subquestions="3" />
   <question id="51" created_date="2013-10-09 17:15:17.925" language="EN" last_modified_date="2013-10-09 17:15:17.925" type="M"
-    title="What flavors of ice cream do you like?. Choose all that apply." createdby_id="1" lastmodifiedby_id="1" page_id="6" survey_id="3" />
+    title="What flavors of ice cream do you like?. Choose all that apply." createdby_id="1" lastmodifiedby_id="1" questiongroup_id="6" survey_id="3" />
   <question id="59" created_date="2013-10-09 17:15:18.022" language="EN" last_modified_date="2013-10-09 17:15:18.022" type="F"
-    title="&lt;b&gt;Food Quality Modified&lt;/b&gt;" createdby_id="1" lastmodifiedby_id="1" page_id="58" survey_id="57" />
+    title="&lt;b&gt;Food Quality Modified&lt;/b&gt;" createdby_id="1" lastmodifiedby_id="1" questiongroup_id="58" survey_id="57" />
   <question id="66" created_date="2013-10-09 17:15:18.024" last_modified_date="2013-10-09 17:15:18.024" type="L" title="The food is served hot and fresh"
     createdby_id="1" lastmodifiedby_id="1" parent_id="59" order_in_subquestions="0" />
   <question id="67" created_date="2013-10-09 17:15:18.025" last_modified_date="2013-10-09 17:15:18.025" type="L" title="The menu has a good variety of items"
@@ -52,7 +52,7 @@
   <question id="69" created_date="2013-10-09 17:15:18.027" last_modified_date="2013-10-09 17:15:18.027" type="L" title="The food is tasty and flavorful"
     createdby_id="1" lastmodifiedby_id="1" parent_id="59" order_in_subquestions="3" />
   <question id="70" created_date="2013-10-09 17:15:18.104" language="EN" last_modified_date="2013-10-09 17:15:18.104" type="F"
-    title="&lt;b&gt;Resturant&lt;/b&gt;" createdby_id="1" lastmodifiedby_id="1" page_id="58" survey_id="57" />
+    title="&lt;b&gt;Resturant&lt;/b&gt;" createdby_id="1" lastmodifiedby_id="1" questiongroup_id="58" survey_id="57" />
   <question id="77" created_date="2013-10-09 17:15:18.105" last_modified_date="2013-10-09 17:15:18.105" type="L" title="My food order was correct and complete"
     createdby_id="1" lastmodifiedby_id="1" parent_id="70" order_in_subquestions="0" />
   <question id="78" created_date="2013-10-09 17:15:18.105" last_modified_date="2013-10-09 17:15:18.105" type="L"
@@ -66,7 +66,7 @@
   <question id="82" created_date="2013-10-09 17:15:18.107" last_modified_date="2013-10-09 17:15:18.107" type="L" title="The drive-thru sound system was cleara"
     createdby_id="1" lastmodifiedby_id="1" parent_id="70" order_in_subquestions="5" />
   <question id="83" created_date="2013-10-09 17:15:18.197" language="EN" last_modified_date="2013-10-09 17:15:18.197" type="L"
-    title="Indicate total household income" createdby_id="1" lastmodifiedby_id="1" page_id="58" survey_id="57" />
+    title="Indicate total household income" createdby_id="1" lastmodifiedby_id="1" questiongroup_id="58" survey_id="57" />
   <answer id="15" language="EN" title="0-14 years" question_id="14" order_in_question="0" />
   <answer id="16" language="EN" title="15-19 years" question_id="14" order_in_question="1" />
   <answer id="17" language="EN" title="20-24 years" question_id="14" order_in_question="2" />

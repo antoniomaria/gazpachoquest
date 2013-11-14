@@ -1,8 +1,8 @@
 package net.sf.gazpachosurvey.services;
 
-import net.sf.gazpachosurvey.dto.PageDTO;
-import net.sf.gazpachosurvey.dto.PageLanguageSettingsDTO;
+import net.sf.gazpachosurvey.dto.QuestionGroupDTO;
+import net.sf.gazpachosurvey.dto.QuestionGroupLanguageSettingsDTO;
 
-public interface PageService extends LocalizedPersistenceService<PageDTO, PageLanguageSettingsDTO> {
-    PageDTO addPage(Integer surveyId, PageDTO page);
+public interface PageService extends LocalizedPersistenceService<QuestionGroupDTO, QuestionGroupLanguageSettingsDTO> {
+    QuestionGroupDTO addPage(Integer surveyId, QuestionGroupDTO page);
 }

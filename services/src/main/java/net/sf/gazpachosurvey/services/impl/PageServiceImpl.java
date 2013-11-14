@@ -1,11 +1,11 @@
 package net.sf.gazpachosurvey.services.impl;
 
-import net.sf.gazpachosurvey.domain.core.Page;
+import net.sf.gazpachosurvey.domain.core.QuestionGroup;
 import net.sf.gazpachosurvey.domain.core.Survey;
-import net.sf.gazpachosurvey.domain.core.embeddables.PageLanguageSettings;
-import net.sf.gazpachosurvey.domain.i18.PageTranslation;
-import net.sf.gazpachosurvey.dto.PageDTO;
-import net.sf.gazpachosurvey.dto.PageLanguageSettingsDTO;
+import net.sf.gazpachosurvey.domain.core.embeddables.QuestionGroupLanguageSettings;
+import net.sf.gazpachosurvey.domain.i18.QuestionGroupTranslation;
+import net.sf.gazpachosurvey.dto.QuestionGroupDTO;
+import net.sf.gazpachosurvey.dto.QuestionGroupLanguageSettingsDTO;
 import net.sf.gazpachosurvey.repository.PageRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.repository.i18.PageTranslationRepository;
@@ -16,19 +16,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 @Service
-public class PageServiceImpl extends AbstractLocalizedPersistenceService<Page, PageDTO, PageTranslation, PageLanguageSettings, PageLanguageSettingsDTO> implements PageService {
+public class PageServiceImpl extends AbstractLocalizedPersistenceService<QuestionGroup, QuestionGroupDTO, QuestionGroupTranslation, QuestionGroupLanguageSettings, QuestionGroupLanguageSettingsDTO> implements PageService {
 
     @Autowired
     private SurveyRepository surveyRepository;
 
     @Autowired
     public PageServiceImpl(PageRepository repository, PageTranslationRepository translationRepository) {
-        super(repository, translationRepository, Page.class, PageDTO.class,PageTranslation.class, PageLanguageSettings.class, PageLanguageSettingsDTO.class, new PageTranslation.Builder() );
+        super(repository, translationRepository, QuestionGroup.class, QuestionGroupDTO.class,QuestionGroupTranslation.class, QuestionGroupLanguageSettings.class, QuestionGroupLanguageSettingsDTO.class, new QuestionGroupTranslation.Builder() );
     }
 
     @Override
-    public PageDTO addPage(Integer surveyId, PageDTO page) {
-        Page entity = mapper.map(page, Page.class);
+    public QuestionGroupDTO addPage(Integer surveyId, QuestionGroupDTO page) {
+        QuestionGroup entity = mapper.map(page, QuestionGroup.class);
 
         Survey survey = surveyRepository.findOne(surveyId);
         Assert.notNull(survey, "Survey " + surveyId + " not exist");
@@ -39,7 +39,7 @@ public class PageServiceImpl extends AbstractLocalizedPersistenceService<Page, P
         surveyRepository.save(survey);
 
         int numberOfPages = survey.getPages().size();
-        return mapper.map(survey.getPages().get(numberOfPages - 1), PageDTO.class);
+        return mapper.map(survey.getPages().get(numberOfPages - 1), QuestionGroupDTO.class);
     }
 
 }

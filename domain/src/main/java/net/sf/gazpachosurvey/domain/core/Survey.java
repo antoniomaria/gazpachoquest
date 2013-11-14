@@ -50,7 +50,7 @@ public class Survey extends
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @OrderColumn(name = "order_in_survey")
-    private List<Page> pages;
+    private List<QuestionGroup> questionGroups;
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Question> questions;
@@ -98,20 +98,20 @@ public class Survey extends
         surveyInstance.setSurvey(null);
     }
 
-    public List<Page> getPages() {
-        if (pages == null) {
-            pages = new ArrayList<>();
+    public List<QuestionGroup> getPages() {
+        if (questionGroups == null) {
+            questionGroups = new ArrayList<>();
         }
-        return pages;
+        return questionGroups;
     }
 
-    public void setPages(List<Page> pages) {
-        this.pages = pages;
+    public void setPages(List<QuestionGroup> questionGroups) {
+        this.questionGroups = questionGroups;
     }
 
-    public void addPage(Page page) {
-        getPages().add(page);
-        page.setSurvey(this);
+    public void addPage(QuestionGroup questionGroup) {
+        getPages().add(questionGroup);
+        questionGroup.setSurvey(this);
     }
 
     public Set<Question> getQuestions() {
@@ -182,7 +182,7 @@ public class Survey extends
         private Language language;
         private Set<SurveyInstance> surveysRunning;
         private Map<Language, SurveyTranslation> translations;
-        private List<Page> pages;
+        private List<QuestionGroup> questionGroups;
         private Set<Question> questions;
 
         public Builder id(Integer id) {
@@ -216,8 +216,8 @@ public class Survey extends
             return this;
         }
 
-        public Builder pages(List<Page> pages) {
-            this.pages = pages;
+        public Builder questionGroups(List<QuestionGroup> questionGroups) {
+            this.questionGroups = questionGroups;
             return this;
         }
 
@@ -234,7 +234,7 @@ public class Survey extends
             survey.language = language;
             survey.surveysRunning = surveysRunning;
             survey.translations = translations;
-            survey.pages = pages;
+            survey.questionGroups = questionGroups;
             survey.questions = questions;
             return survey;
         }

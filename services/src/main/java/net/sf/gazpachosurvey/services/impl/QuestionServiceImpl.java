@@ -2,7 +2,7 @@ package net.sf.gazpachosurvey.services.impl;
 
 import javax.annotation.Resource;
 
-import net.sf.gazpachosurvey.domain.core.Page;
+import net.sf.gazpachosurvey.domain.core.QuestionGroup;
 import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.domain.core.embeddables.QuestionLanguageSettings;
@@ -39,15 +39,15 @@ public class QuestionServiceImpl
 
     @Override
     public Integer addQuestion(Integer pageId, QuestionDTO question) {
-        Page page = pageRepository.findOne(pageId);
-        Survey survey = page.getSurvey();
+        QuestionGroup questionGroup = pageRepository.findOne(pageId);
+        Survey survey = questionGroup.getSurvey();
         Question questionEntity = mapper.map(question, Question.class);
         questionEntity.setSurvey(survey);
-        questionEntity.setPage(page);
+        questionEntity.setPage(questionGroup);
         questionEntity.setLanguage(survey.getLanguage());
-        page.addQuestion(questionEntity);
-        page = pageRepository.save(page);
-        return page.getQuestions().get(page.getQuestions().size() - 1).getId();
+        questionGroup.addQuestion(questionEntity);
+        questionGroup = pageRepository.save(questionGroup);
+        return questionGroup.getQuestions().get(questionGroup.getQuestions().size() - 1).getId();
     }
 
 }
