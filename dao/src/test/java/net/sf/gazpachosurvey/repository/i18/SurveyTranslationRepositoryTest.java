@@ -32,32 +32,14 @@ public class SurveyTranslationRepositoryTest {
     @Autowired
     private SurveyTranslationRepository surveyTranslationRepository;
 
-
-    @Test
-    public void saveTest() {
-        System.out.println("fin");
-        
-    // List<SurveyTranslation> translations = surveyTranslationRepository.findByTranslatedEntityId(Survey.with().id(2).build());
-        
-        List<String> translations = surveyTranslationRepository.findByTranslatedEntityId();
-        
-        System.out.println(translations);
-    }
-
-
     @Test
     public void findByExample() {
-        System.out.println("fin");
-        
-     //   List<SurveyTranslation> translations = surveyTranslationRepository.findByTranslatedEntityId(Survey.with().id(3).build());
-        
-        
-        SurveyTranslation entity = SurveyTranslation.with().translatedEntityId(2).build();
-        
-        List<SurveyTranslation> translations = surveyTranslationRepository.findByExample(entity , new SearchParameters());
-        
-        System.out.println(translations);
+        SurveyTranslation entity = SurveyTranslation.with()
+                .translatedEntityId(2).build();
+
+        List<SurveyTranslation> translations = surveyTranslationRepository
+                .findByExample(entity, new SearchParameters());
+
     }
 
-    
 }
