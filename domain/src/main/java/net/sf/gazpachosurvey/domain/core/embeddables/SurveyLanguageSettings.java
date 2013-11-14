@@ -11,6 +11,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @Embeddable
 public class SurveyLanguageSettings implements LanguageSettings {
 
+    private static final long serialVersionUID = -4067256922719049044L;
+
     private String title;
 
     @Lob

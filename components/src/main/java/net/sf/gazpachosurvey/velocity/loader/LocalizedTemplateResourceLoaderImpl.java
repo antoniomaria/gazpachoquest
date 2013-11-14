@@ -2,6 +2,7 @@ package net.sf.gazpachosurvey.velocity.loader;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -101,7 +102,7 @@ public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader
         if (languageSettings == null) {
             throw new ResourceNotFoundException("Template not found");
         }
-        return new ByteArrayInputStream(languageSettings.getBody().getBytes());
+        return new ByteArrayInputStream(languageSettings.getBody().getBytes(Charset.forName("UTF-8")));
     }
 
     private MailMessageTemplateLanguageSettings readLanguageSettings(

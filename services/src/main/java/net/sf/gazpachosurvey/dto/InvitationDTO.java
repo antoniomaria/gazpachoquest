@@ -7,6 +7,8 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = -2776483997831033883L;
 
+    private InvitationType type;
+
     private String token;
 
     private SurveyInstanceDTO surveyInstance;
@@ -35,6 +37,14 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
 
     public void setStatus(InvitationStatus status) {
         this.status = status;
+    }
+
+    public InvitationType getType() {
+        return type;
+    }
+
+    public void setType(InvitationType type) {
+        this.type = type;
     }
 
     public static Builder with() {
@@ -73,6 +83,7 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
             invitationDTO.token = token;
             invitationDTO.surveyInstance = surveyInstance;
             invitationDTO.status = status;
+            invitationDTO.type = type;
             return invitationDTO;
         }
     }

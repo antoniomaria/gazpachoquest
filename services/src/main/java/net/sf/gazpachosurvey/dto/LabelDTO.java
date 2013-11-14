@@ -1,6 +1,10 @@
 package net.sf.gazpachosurvey.dto;
 
-public class LabelDTO {
+import java.io.Serializable;
+
+public class LabelDTO implements Serializable {
+
+    private static final long serialVersionUID = 7715134426554617698L;
 
     private String title;
 
@@ -15,8 +19,8 @@ public class LabelDTO {
     public void setTitle(String title) {
         this.title = title;
     }
-    
-    public static Builder with(){
+
+    public static Builder with() {
         return new Builder();
     }
 

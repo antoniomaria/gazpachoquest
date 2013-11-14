@@ -1,8 +1,12 @@
 package net.sf.gazpachosurvey.dto;
 
+import java.io.Serializable;
+
 import net.sf.gazpachosurvey.types.Language;
 
-public class AnswerDTO {
+public class AnswerDTO implements Serializable {
+
+    private static final long serialVersionUID = -6363290184354303253L;
 
     private String code;
 
@@ -61,7 +65,7 @@ public class AnswerDTO {
             this.language = language;
             return this;
         }
-        
+
         public AnswerDTO build() {
             AnswerDTO answerDTO = new AnswerDTO();
             answerDTO.code = code;

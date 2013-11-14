@@ -2,14 +2,16 @@ package net.sf.gazpachosurvey.dto;
 
 import net.sf.gazpachosurvey.domain.support.LanguageSettings;
 
-public class SurveyLanguageSettingsDTO implements LanguageSettings{
+public class SurveyLanguageSettingsDTO implements LanguageSettings {
+
+    private static final long serialVersionUID = 3452734192681766764L;
 
     private String title;
 
     private String description;
 
     private String welcomeText;
-    
+
     public SurveyLanguageSettingsDTO() {
         super();
     }
@@ -38,7 +40,8 @@ public class SurveyLanguageSettingsDTO implements LanguageSettings{
         this.welcomeText = welcomeText;
     }
 
-    public static Builder surveyLanguageSettingsStart(SurveyDTO.Builder container) {
+    public static Builder surveyLanguageSettingsStart(
+            SurveyDTO.Builder container) {
         return new SurveyLanguageSettingsDTO.BuilderImpl(container);
     }
 
@@ -87,6 +90,7 @@ public class SurveyLanguageSettingsDTO implements LanguageSettings{
             this.welcomeText = welcomeText;
             return this;
         }
+
         @Override
         public SurveyDTO.Builder surveyLanguageSettingsEnd() {
             return container.languageSettings(build());

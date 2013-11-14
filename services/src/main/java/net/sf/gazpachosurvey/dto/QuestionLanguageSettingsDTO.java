@@ -1,10 +1,11 @@
 package net.sf.gazpachosurvey.dto;
 
 import net.sf.gazpachosurvey.domain.support.LanguageSettings;
-import net.sf.gazpachosurvey.dto.SurveyLanguageSettingsDTO.Builder;
 
 public class QuestionLanguageSettingsDTO implements LanguageSettings {
-
+    
+    private static final long serialVersionUID = 7670525018631065390L;
+    
     private String title;
 
     public QuestionLanguageSettingsDTO() {

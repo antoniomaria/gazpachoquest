@@ -2,7 +2,9 @@ package net.sf.gazpachosurvey.dto;
 
 import net.sf.gazpachosurvey.domain.support.LanguageSettings;
 
-public class PageLanguageSettingsDTO implements LanguageSettings{
+public class PageLanguageSettingsDTO implements LanguageSettings {
+
+    private static final long serialVersionUID = 8942148329254332833L;
 
     private String title;
 
@@ -38,7 +40,7 @@ public class PageLanguageSettingsDTO implements LanguageSettings{
 
     public static class BuilderImpl implements Builder {
         private String title;
-        
+
         private final PageDTO.Builder container;
 
         public BuilderImpl(PageDTO.Builder container) {
