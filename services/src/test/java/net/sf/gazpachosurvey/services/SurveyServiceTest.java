@@ -1,6 +1,9 @@
 package net.sf.gazpachosurvey.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+
+import java.util.Set;
+
 import net.sf.gazpachosurvey.dto.SurveyDTO;
 import net.sf.gazpachosurvey.dto.SurveyLanguageSettingsDTO;
 import net.sf.gazpachosurvey.types.Language;
@@ -39,26 +42,33 @@ public class SurveyServiceTest {
 
     @Test
     public void confirmTest() {
-        SurveyDTO survey = SurveyDTO.with().id(3).build();
+        SurveyDTO survey = SurveyDTO.with().id(2).build();
         surveyService.confirm(survey);
     }
 
     @Test
     public void findOneTest() {
-        SurveyDTO survey = surveyService.findOne(3);
+        int surveyId = 2;
+        SurveyDTO survey = surveyService.findOne(surveyId);
 
-        survey = surveyService.findOne(3, "SurveyWithQuestions");
+        survey = surveyService.findOne(surveyId, "SurveyWithQuestions");
 
         assertThat(survey).isNotNull();
     }
 
     @Test
     public void saveTranslationTest() {
-        SurveyDTO survey = surveyService.findOne(3);
         SurveyLanguageSettingsDTO languageSettings = new SurveyLanguageSettingsDTO();
-        languageSettings.setTitle("mi titulo! !!! !!! !");
-        languageSettings.setDescription("mi descripcion modified");
-        surveyService.saveTranslation(3, Language.FR, languageSettings);
+        languageSettings
+                .setTitle("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+        languageSettings.setDescription("Donec pellentesque consequat orci.");
+        int surveyId = 2;
+        surveyService.saveTranslation(surveyId, Language.FR, languageSettings);
+
+        Set<Language> translations = surveyService
+                .translationsSupported(surveyId);
+
+        assertThat(translations).contains(Language.FR);
     }
 
 }

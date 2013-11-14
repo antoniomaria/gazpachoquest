@@ -68,6 +68,6 @@ public class MailMessageTemplateServiceTest {
     }
     @Test
     public void languagesTest(){
-        System.out.println(service.languages(55));
+        System.out.println(service.translationsSupported(55));
     }
 }
