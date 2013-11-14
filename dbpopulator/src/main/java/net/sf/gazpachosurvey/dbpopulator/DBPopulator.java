@@ -15,6 +15,7 @@ import net.sf.gazpachosurvey.dto.ParticipantDTO;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
 import net.sf.gazpachosurvey.dto.SurveyInstanceDTO;
+import net.sf.gazpachosurvey.dto.SurveyLanguageSettingsDTO;
 import net.sf.gazpachosurvey.dto.UserDTO;
 import net.sf.gazpachosurvey.services.LabelSetService;
 import net.sf.gazpachosurvey.services.MailMessageTemplateService;
@@ -59,8 +60,9 @@ public class DBPopulator {
     private MailMessageTemplateService mailMessageTemplateService;
 
     public void populate() {
-        userService.save(UserDTO.with().firstName("temporal.support").lastName("support")
-                .email("support.temporal@gazpacho.net").build());
+        userService.save(UserDTO.with().firstName("temporal.support")
+                .lastName("support").email("support.temporal@gazpacho.net")
+                .build());
         SurveyDTO survey = createDemoSurvey();
         asignDefaultMailTemplate(survey);
 
@@ -70,12 +72,15 @@ public class DBPopulator {
 
         Set<ParticipantDTO> participants = addParticipants();
 
-        SurveyInstanceDTO surveyInstance = SurveyInstanceDTO.with().survey(survey).type(SurveyInstanceType.BY_INVITATION)
-                .name("Survey " + survey.getLanguageSettings().getTitle() + " started").participants(participants)
-                .build();
+        SurveyInstanceDTO surveyInstance = SurveyInstanceDTO
+                .with()
+                .survey(survey)
+                .type(SurveyInstanceType.BY_INVITATION)
+                .name("Survey " + survey.getLanguageSettings().getTitle()
+                        + " started").participants(participants).build();
 
         surveyInstanceService.save(surveyInstance);
-        
+
     }
 
     public SurveyDTO createFastFoodSurvey() {
@@ -91,23 +96,34 @@ public class DBPopulator {
                 .surveyLanguageSettingsEnd().build();
         survey = surveyService.save(survey);
 
-        PageDTO page = PageDTO.with().language(Language.EN).pageLanguageSettingsStart().title("Fast Food Survey ")
+        PageDTO page = PageDTO.with().language(Language.EN)
+                .pageLanguageSettingsStart().title("Fast Food Survey ")
                 .pageLanguageSettingsEnd().build();
         page = pageService.save(page);
 
         // Rating Scale (1-5)
-        QuestionDTO question = QuestionDTO.with().type(QuestionType.F).language(Language.EN).languageSettingsStart()
-                .title("<b>Food Quality Modified</b>").languageSettingsEnd().isRequired(true).build();
+        QuestionDTO question = QuestionDTO.with().type(QuestionType.F)
+                .language(Language.EN).languageSettingsStart()
+                .title("<b>Food Quality Modified</b>").languageSettingsEnd()
+                .isRequired(true).build();
 
         List<QuestionDTO> subquestions = new ArrayList<>();
-        subquestions.add(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The food is served hot and fresh").languageSettingsEnd().build());
-        subquestions.add(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The menu has a good variety of items").languageSettingsEnd().build());
-        subquestions.add(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The quality of food is excellent").languageSettingsEnd().build());
-        subquestions.add(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The food is tasty and flavorful").languageSettingsEnd().build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("The food is served hot and fresh")
+                .languageSettingsEnd().build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("The menu has a good variety of items")
+                .languageSettingsEnd().build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("The quality of food is excellent")
+                .languageSettingsEnd().build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("The food is tasty and flavorful").languageSettingsEnd()
+                .build());
         question.setSubquestions(subquestions);
 
         question.setPage(page);
@@ -115,7 +131,8 @@ public class DBPopulator {
 
         question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
         question.addAnswer(AnswerDTO.with().title("Agree somewhat").build());
-        question.addAnswer(AnswerDTO.with().title("Neither agree nor disagree").build());
+        question.addAnswer(AnswerDTO.with().title("Neither agree nor disagree")
+                .build());
         question.addAnswer(AnswerDTO.with().title("Disagree somewhat").build());
         question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
         question.addAnswer(AnswerDTO.with().title("Disagree strongly").build());
@@ -123,23 +140,40 @@ public class DBPopulator {
         question = questionService.save(question);
 
         // Rating Scale (Agree-Disagree)
-        question = QuestionDTO.with().type(QuestionType.F).language(Language.EN).languageSettingsStart()
-                .title("<b>Resturant</b>").languageSettingsEnd().isRequired(true).build();
+        question = QuestionDTO.with().type(QuestionType.F)
+                .language(Language.EN).languageSettingsStart()
+                .title("<b>Resturant</b>").languageSettingsEnd()
+                .isRequired(true).build();
 
         subquestions = new ArrayList<>();
-        subquestions.add(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("My food order was correct and complete").languageSettingsEnd().build());
-        subquestions.add(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("Employees are patient when taking my order").languageSettingsEnd().build());
-        subquestions.add(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("My food order was correct and complete")
+                .languageSettingsEnd().build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("Employees are patient when taking my order")
+                .languageSettingsEnd().build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
                 .title("I was served promptly").languageSettingsEnd().build());
-        subquestions.add(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("Availability of sauces, utensils, napkins, etc. was good").languageSettingsEnd().build());
+        subquestions
+                .add(QuestionDTO
+                        .with()
+                        .language(Language.EN)
+                        .type(QuestionType.L)
+                        .languageSettingsStart()
+                        .title("Availability of sauces, utensils, napkins, etc. was good")
+                        .languageSettingsEnd().build());
 
-        subquestions.add(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The menu board was easy to read").languageSettingsEnd().build());
-        subquestions.add(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The drive-thru sound system was cleara").languageSettingsEnd().build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("The menu board was easy to read").languageSettingsEnd()
+                .build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("The drive-thru sound system was cleara")
+                .languageSettingsEnd().build());
 
         question.setSubquestions(subquestions);
 
@@ -148,7 +182,8 @@ public class DBPopulator {
 
         question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
         question.addAnswer(AnswerDTO.with().title("Agree somewhat").build());
-        question.addAnswer(AnswerDTO.with().title("Neither agree nor disagree").build());
+        question.addAnswer(AnswerDTO.with().title("Neither agree nor disagree")
+                .build());
         question.addAnswer(AnswerDTO.with().title("Disagree somewhat").build());
         question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
         question.addAnswer(AnswerDTO.with().title("Disagree strongly").build());
@@ -156,8 +191,10 @@ public class DBPopulator {
         question = questionService.save(question);
 
         // Multiple Choice (Only One Answer)
-        question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
-                .title("Indicate total household income").languageSettingsEnd().isRequired(true).build();
+        question = QuestionDTO.with().type(QuestionType.L)
+                .language(Language.EN).languageSettingsStart()
+                .title("Indicate total household income").languageSettingsEnd()
+                .isRequired(true).build();
         question.setPage(page);
         question.setSurvey(survey);
 
@@ -180,20 +217,38 @@ public class DBPopulator {
                 .title("Sample Survey")
                 .description(
                         "<p>This is a <strong><em>sample survey</em></strong> designed for testing GazpachoSurvey.</p>")
-                .welcomeText("Thank you for taking the time to participate in this survey.")
+                .welcomeText(
+                        "Thank you for taking the time to participate in this survey.")
                 .surveyLanguageSettingsEnd().build();
         survey = surveyService.save(survey);
+        int surveyId = survey.getId();
+        surveyService
+                .saveTranslation(
+                        surveyId,
+                        Language.ES,
+                        SurveyLanguageSettingsDTO
+                                .with()
+                                .title("Ejemplo de encuesta")
+                                .description(
+                                        "<p>Esto es una encuesta de ejemplo diseñada para GazpachoSurvey</p>")
+                                .welcomeText(
+                                        "Gracias por participar en esta encuesta")
+                                .build());
 
-        PageDTO page = PageDTO.with().pageLanguageSettingsStart().title("Page 1").pageLanguageSettingsEnd().build();
+        PageDTO page = PageDTO.with().pageLanguageSettingsStart()
+                .title("Page 1").pageLanguageSettingsEnd().build();
         PageDTO page1 = pageService.addPage(survey.getId(), page);
 
-        page = PageDTO.with().pageLanguageSettingsStart().title("Page 2").pageLanguageSettingsEnd().build();
+        page = PageDTO.with().pageLanguageSettingsStart().title("Page 2")
+                .pageLanguageSettingsEnd().build();
         PageDTO page2 = pageService.addPage(survey.getId(), page);
 
-        page = PageDTO.with().pageLanguageSettingsStart().title("Page 3").pageLanguageSettingsEnd().build();
+        page = PageDTO.with().pageLanguageSettingsStart().title("Page 3")
+                .pageLanguageSettingsEnd().build();
         PageDTO page3 = pageService.addPage(survey.getId(), page);
 
-        LabelSetDTO labelSet = LabelSetDTO.with().language(Language.EN).name("Feelings").build();
+        LabelSetDTO labelSet = LabelSetDTO.with().language(Language.EN)
+                .name("Feelings").build();
         labelSet = labelSetService.save(labelSet);
 
         LabelDTO label = LabelDTO.with().title("Agree strongly").build();
@@ -212,13 +267,18 @@ public class DBPopulator {
         labelSetService.addLabel(labelSet.getId(), label);
 
         // 1 Single Textbox
-        QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).languageSettingsStart()
-                .title("What is your name?").languageSettingsEnd().isRequired(true).build();
-        Integer questionId = questionService.addQuestion(page1.getId(), question);
+        QuestionDTO question = QuestionDTO.with().type(QuestionType.S)
+                .language(Language.EN).languageSettingsStart()
+                .title("What is your name?").languageSettingsEnd()
+                .isRequired(true).build();
+        Integer questionId = questionService.addQuestion(page1.getId(),
+                question);
 
         // 2 Multiple Choice (Only One Answer)
-        question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
-                .title("What is your age group?").languageSettingsEnd().isRequired(true).build();
+        question = QuestionDTO.with().type(QuestionType.L)
+                .language(Language.EN).languageSettingsStart()
+                .title("What is your age group?").languageSettingsEnd()
+                .isRequired(true).build();
 
         question.addAnswer(AnswerDTO.with().title("0-14 years").build());
         question.addAnswer(AnswerDTO.with().title("15-19 years").build());
@@ -238,24 +298,38 @@ public class DBPopulator {
         questionId = questionService.addQuestion(page1.getId(), question);
 
         // 3 Numeric
-        question = QuestionDTO.with().type(QuestionType.N).language(Language.EN).languageSettingsStart()
-                .title("And for our records, specifically how old are you?").languageSettingsEnd().isRequired(true)
-                .build();
+        question = QuestionDTO.with().type(QuestionType.N)
+                .language(Language.EN).languageSettingsStart()
+                .title("And for our records, specifically how old are you?")
+                .languageSettingsEnd().isRequired(true).build();
         questionId = questionService.addQuestion(page1.getId(), question);
 
         // 4 Comment/Essay Box
-        question = QuestionDTO.with().type(QuestionType.T).language(Language.EN).languageSettingsStart()
+        question = QuestionDTO
+                .with()
+                .type(QuestionType.T)
+                .language(Language.EN)
+                .languageSettingsStart()
                 .title("Please tell us a little about yourself. What was your first job, and did you enjoy it?")
                 .languageSettingsEnd().isRequired(true).build();
         questionId = questionService.addQuestion(page2.getId(), question);
 
         // 5 Multiple Choice (Only One Answer)
-        question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
-                .title("Given your extraordinary age, how do you find using this survey tool?").languageSettingsEnd()
-                .isRequired(true).build();
-        question.addAnswer(AnswerDTO.with().title("Very difficult to read, my eyesight is dim").build());
-        question.addAnswer(AnswerDTO.with().title("Easy, my carer is doing it all for me").build());
-        question.addAnswer(AnswerDTO.with().title("How <b><i>dare</i></b> you insult me like that! I'm YOUNG").build());
+        question = QuestionDTO
+                .with()
+                .type(QuestionType.L)
+                .language(Language.EN)
+                .languageSettingsStart()
+                .title("Given your extraordinary age, how do you find using this survey tool?")
+                .languageSettingsEnd().isRequired(true).build();
+        question.addAnswer(AnswerDTO.with()
+                .title("Very difficult to read, my eyesight is dim").build());
+        question.addAnswer(AnswerDTO.with()
+                .title("Easy, my carer is doing it all for me").build());
+        question.addAnswer(AnswerDTO
+                .with()
+                .title("How <b><i>dare</i></b> you insult me like that! I'm YOUNG")
+                .build());
 
         questionId = questionService.addQuestion(page2.getId(), question);
 
@@ -283,15 +357,30 @@ public class DBPopulator {
                 .languageSettingsEnd().isRequired(true).build();
 
         List<QuestionDTO> subquestions = new ArrayList<>();
-        subquestions.add(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("This ad suggests the lawyer is on my side, not his own").languageSettingsEnd().build());
-        subquestions.add(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("This ad suggests that the lawyer is interested in a life of frugal community service")
+        subquestions
+                .add(QuestionDTO
+                        .with()
+                        .language(Language.EN)
+                        .type(QuestionType.L)
+                        .languageSettingsStart()
+                        .title("This ad suggests the lawyer is on my side, not his own")
+                        .languageSettingsEnd().build());
+        subquestions
+                .add(QuestionDTO
+                        .with()
+                        .language(Language.EN)
+                        .type(QuestionType.L)
+                        .languageSettingsStart()
+                        .title("This ad suggests that the lawyer is interested in a life of frugal community service")
+                        .languageSettingsEnd().build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("This ad would be enough to get me to hire this lawyer")
                 .languageSettingsEnd().build());
-        subquestions.add(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("This ad would be enough to get me to hire this lawyer").languageSettingsEnd().build());
-        subquestions.add(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("This ad gives me confidence in the lawyers experience").languageSettingsEnd().build());
+        subquestions.add(QuestionDTO.with().language(Language.EN)
+                .type(QuestionType.L).languageSettingsStart()
+                .title("This ad gives me confidence in the lawyers experience")
+                .languageSettingsEnd().build());
         question.setSubquestions(subquestions);
 
         question.setPage(page3);
@@ -299,7 +388,8 @@ public class DBPopulator {
 
         question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
         question.addAnswer(AnswerDTO.with().title("Agree somewhat").build());
-        question.addAnswer(AnswerDTO.with().title("Neither agree nor disagree").build());
+        question.addAnswer(AnswerDTO.with().title("Neither agree nor disagree")
+                .build());
         question.addAnswer(AnswerDTO.with().title("Disagree somewhat").build());
         question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
         question.addAnswer(AnswerDTO.with().title("Disagree strongly").build());
@@ -307,31 +397,45 @@ public class DBPopulator {
         question = questionService.save(question);
 
         // 8. Multiple_Choice_Multiple_Answers
-        question = QuestionDTO.with().type(QuestionType.M).language(Language.EN).languageSettingsStart()
-                .title("What flavors of ice cream do you like?. Choose all that apply.").languageSettingsEnd()
-                .isRequired(true).page(page3).survey(survey).build();
-        question.addAnswer(AnswerDTO.with().language(Language.EN).title("Vanilla").build());
-        question.addAnswer(AnswerDTO.with().language(Language.EN).title("Chocolate").build());
-        question.addAnswer(AnswerDTO.with().language(Language.EN).title("Strawberry").build());
-        question.addAnswer(AnswerDTO.with().language(Language.EN).title("Pistachio").build());
+        question = QuestionDTO
+                .with()
+                .type(QuestionType.M)
+                .language(Language.EN)
+                .languageSettingsStart()
+                .title("What flavors of ice cream do you like?. Choose all that apply.")
+                .languageSettingsEnd().isRequired(true).page(page3)
+                .survey(survey).build();
+        question.addAnswer(AnswerDTO.with().language(Language.EN)
+                .title("Vanilla").build());
+        question.addAnswer(AnswerDTO.with().language(Language.EN)
+                .title("Chocolate").build());
+        question.addAnswer(AnswerDTO.with().language(Language.EN)
+                .title("Strawberry").build());
+        question.addAnswer(AnswerDTO.with().language(Language.EN)
+                .title("Pistachio").build());
         question = questionService.save(question);
 
         return survey;
     }
 
     protected Set<ParticipantDTO> addParticipants() {
-        ParticipantDTO tyrion = ParticipantDTO.with().preferedLanguage(Language.EN).firstname("Tyrion")
-                .lastname("Lannister").email("tyrion.lannister@kingslanding.net").build();
+        ParticipantDTO tyrion = ParticipantDTO.with()
+                .preferedLanguage(Language.EN).firstname("Tyrion")
+                .lastname("Lannister")
+                .email("tyrion.lannister@kingslanding.net").build();
         tyrion = participantService.save(tyrion);
 
-        ParticipantDTO jon = ParticipantDTO.with().preferedLanguage(Language.ES).firstname("Jon").lastname("Snow")
-                .email("jon.snow@nightswatch.net").build();
+        ParticipantDTO jon = ParticipantDTO.with()
+                .preferedLanguage(Language.ES).firstname("Jon")
+                .lastname("Snow").email("jon.snow@nightswatch.net").build();
 
-        ParticipantDTO arya = ParticipantDTO.with().firstname("Arya").lastname("Stark")
-                .email("arya.stark@winterfell.net").build();
+        ParticipantDTO arya = ParticipantDTO.with().firstname("Arya")
+                .lastname("Stark").email("arya.stark@winterfell.net").build();
 
-        ParticipantDTO catelyn = ParticipantDTO.with().preferedLanguage(Language.FI).firstname("Catelyn")
-                .lastname("Stark").email("catelyn.stark@winterfell.net").build();
+        ParticipantDTO catelyn = ParticipantDTO.with()
+                .preferedLanguage(Language.FI).firstname("Catelyn")
+                .lastname("Stark").email("catelyn.stark@winterfell.net")
+                .build();
 
         Set<ParticipantDTO> participants = new HashSet<>();
         participants.add(tyrion);
@@ -355,16 +459,19 @@ public class DBPopulator {
                         + "The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off."
                         + "<a href=\"$link\">Click here</a> to take the survey")
                 .mailMessageTemplateLanguageSettingsEnd().build();
-        mailMessageTemplate = mailMessageTemplateService.save(mailMessageTemplate);
+        mailMessageTemplate = mailMessageTemplateService
+                .save(mailMessageTemplate);
 
         MailMessageTemplateLanguageSettingsDTO languageSettings = MailMessageTemplateLanguageSettingsDTO
                 .with()
                 .subject("Invitación para participar en una encuesta")
                 .body("Estimado Sr. $lastname, <br> Has sido invitado para participar en esta encuesta <br>"
                         + "Nos dedicas 15 minutos para realizar la encuesta?, puedes interrumpirla y completarla más tarde si es necesario"
-                        + "<a href=\"$link\">Click aqui</a> para empezar").build();
+                        + "<a href=\"$link\">Click aqui</a> para empezar")
+                .build();
 
-        mailMessageTemplateService.saveTranslation(mailMessageTemplate.getId(), Language.ES, languageSettings);
+        mailMessageTemplateService.saveTranslation(mailMessageTemplate.getId(),
+                Language.ES, languageSettings);
 
         return mailMessageTemplate;
     }
