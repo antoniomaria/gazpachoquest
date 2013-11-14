@@ -107,7 +107,7 @@ public abstract class AbstractLocalizedPersistenceService<L extends Localizable<
         translationRepository.save(translation);
     }
 
-    public Set<Language> languages(Integer entityId) {
+    public Set<Language> translationsSupported(Integer entityId) {
         L entity = super.repository.findOne(entityId);
 
         if (entity == null) {

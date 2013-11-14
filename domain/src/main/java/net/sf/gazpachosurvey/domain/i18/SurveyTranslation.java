@@ -74,7 +74,13 @@ public class SurveyTranslation extends AbstractPersistable implements Translatio
         private Survey survey;
         private Language language;
         private SurveyLanguageSettings languageSettings;
-
+        private Integer id;
+        
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+        
         public Builder survey(Survey survey) {
             this.survey = survey;
             return this;
@@ -97,6 +103,7 @@ public class SurveyTranslation extends AbstractPersistable implements Translatio
             surveyTranslation.survey = survey;
             surveyTranslation.language = language;
             surveyTranslation.languageSettings = languageSettings;
+            surveyTranslation.setId(id);
             return surveyTranslation;
         }
 

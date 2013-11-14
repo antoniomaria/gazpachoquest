@@ -13,5 +13,5 @@ public interface LocalizedPersistenceService<D extends Identifiable, LSD extends
     void saveTranslation(Integer entityId, Language language,
             LSD languageSettingsDTO);
 
-     Set<Language> languages(Integer entityId);
+     Set<Language> translationsSupported(Integer entityId);
 }

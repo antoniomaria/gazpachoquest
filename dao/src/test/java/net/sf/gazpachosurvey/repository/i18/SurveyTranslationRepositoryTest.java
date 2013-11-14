@@ -1,5 +1,7 @@
 package net.sf.gazpachosurvey.repository.i18;
 
+import static org.fest.assertions.api.Assertions.assertThat;
+
 import java.util.List;
 
 import net.sf.gazpachosurvey.domain.core.Survey;
@@ -40,6 +42,8 @@ public class SurveyTranslationRepositoryTest {
         List<SurveyTranslation> translations = surveyTranslationRepository
                 .findByExample(entity, new SearchParameters());
 
+        assertThat(translations).contains(
+                SurveyTranslation.with().id(3).build());
     }
 
 }
