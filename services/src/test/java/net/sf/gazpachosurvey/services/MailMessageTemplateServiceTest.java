@@ -1,6 +1,9 @@
 package net.sf.gazpachosurvey.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+
+import java.util.Set;
+
 import net.sf.gazpachosurvey.dto.MailMessageTemplateDTO;
 import net.sf.gazpachosurvey.dto.MailMessageTemplateLanguageSettingsDTO;
 import net.sf.gazpachosurvey.types.Language;
@@ -50,7 +53,6 @@ public class MailMessageTemplateServiceTest {
                 .mailMessageTemplateLanguageSettingsEnd().build();
         mailMessageTemplate = service.save(mailMessageTemplate);
 
-        
         MailMessageTemplateLanguageSettingsDTO languageSettings = MailMessageTemplateLanguageSettingsDTO
                 .with()
                 .subject("Tu encuesta")
@@ -64,10 +66,12 @@ public class MailMessageTemplateServiceTest {
                 mailMessageTemplate.getId(), Language.ES);
         assertThat(
                 localizedMailMessageTemplate.getLanguageSettings().getSubject())
-                .isEqualTo(languageSettings.getSubject()); 
+                .isEqualTo(languageSettings.getSubject());
     }
+
     @Test
-    public void languagesTest(){
-        System.out.println(service.translationsSupported(55));
+    public void languagesTest() {
+        Set<Language> translations = service.translationsSupported(55);
+        assertThat(translations).contains(Language.ES);
     }
 }
