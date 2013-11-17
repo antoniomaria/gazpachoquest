@@ -38,11 +38,11 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         LoginService loginService = selectLoginService(userName);
 
         Person person = loginService.login(userName, password);
-        
-        SecurityContextImpl securityContext = SecurityContextImpl.with()
-                .userName(userAndPassword[0]).role(userAndPassword[1]).build();
-        securityContext.addRole("respondent");
-        return securityContext;
+
+        if (person == null) {
+            throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+        }
+        return SecurityContextImpl.from(person);
     }
 
     private LoginService selectLoginService(String userName) {

@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.ws.rs.core.SecurityContext;
 
+import net.sf.gazpachosurvey.domain.support.Person;
+
 public class SecurityContextImpl implements SecurityContext {
 
     private Set<String> roles;
@@ -14,6 +16,12 @@ public class SecurityContextImpl implements SecurityContext {
 
     public SecurityContextImpl() {
         super();
+    }
+    
+    public SecurityContextImpl(Person person) {
+        super();
+        this.roles = person.getRoles();
+        this.principal = person;
     }
 
     public Set<String> getRoles() {
@@ -25,10 +33,6 @@ public class SecurityContextImpl implements SecurityContext {
 
     public void setRoles(Set<String> roles) {
         this.roles = roles;
-    }
-
-    public void addRole(String role) {
-        getRoles().add(role);
     }
 
     @Override
@@ -52,61 +56,10 @@ public class SecurityContextImpl implements SecurityContext {
         // TODO Auto-generated method stub
         return null;
     }
-
-    private class PrincipalImpl implements Principal {
-        private String name;
-
-        public PrincipalImpl(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-
+    
+    public static SecurityContext from(Person person){
+        return new SecurityContextImpl(person);
     }
-
-    public static Builder with() {
-        return new Builder();
-    }
-
-    public static class Builder {
-        private String userName;
-        private Set<String> roles;
-
-        public Builder userName(String userName) {
-            this.userName = userName;
-            return this;
-        }
-
-        public Builder role(String role) {
-            getRoles().add(role);
-            return this;
-        }
-
-        public Set<String> getRoles() {
-            if (roles == null) {
-                roles = new HashSet<>();
-            }
-            return roles;
-        }
-
-        public SecurityContextImpl build() {
-            return new SecurityContextImpl(this);
-        }
-    }
-
-    private SecurityContextImpl(Builder builder) {
-        this.principal = new PrincipalImpl(builder.userName);
-        this.roles = builder.roles;
-    }
-
     @Override
     public String toString() {
         return "SecurityContext [principal=" + principal + ", roles=" + roles

@@ -1,7 +1,12 @@
 package net.sf.gazpachosurvey.domain.user;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import net.sf.gazpachosurvey.domain.support.AbstractPerson;
 
@@ -10,14 +15,18 @@ import net.sf.gazpachosurvey.domain.support.AbstractPerson;
 public class User extends AbstractPerson {
 
     private static final long serialVersionUID = 6513048922124388025L;
-    
-    // TODO constraints have been removed until session customizer works
+
+    @Column(nullable = false)
     private String firstName;
 
+    @Column(nullable = false)
     private String lastName;
 
-    //@Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Transient
+    private Set<String> roles;
 
     public User() {
         super();
@@ -50,6 +59,20 @@ public class User extends AbstractPerson {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    @Transient
+    public String getName() {
+        return email;
+    }
+
+    @Override
+    public Set<String> getRoles() {
+        if (roles == null) {
+            this.roles = new HashSet<String>();
+        }
+        return roles;
     }
 
 }

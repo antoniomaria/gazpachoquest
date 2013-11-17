@@ -31,7 +31,7 @@ public class QuestionnairResourceTest extends JerseyTest {
         // super.client();
         client().register(
                 new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME,
-                        "7FNC3XT19I"));
+                        "0GCQ58P6DR"));
         // client.addFilter(new LoggingFilter());
 
         System.out.println(getBaseUri());

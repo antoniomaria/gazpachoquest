@@ -1,5 +1,9 @@
 package net.sf.gazpachosurvey.domain.support;
 
-public interface Person {
+import java.security.Principal;
+import java.util.Set;
 
+public interface Person extends Principal {
+
+    Set<String> getRoles();
 }
