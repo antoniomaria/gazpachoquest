@@ -42,7 +42,8 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         if (person == null) {
             throw new WebApplicationException(Response.Status.UNAUTHORIZED);
         }
-        return SecurityContextImpl.from(person);
+        return SecurityContextImpl.with().principal(person)
+                .roles(person.getRoles()).build();
     }
 
     private LoginService selectLoginService(String userName) {

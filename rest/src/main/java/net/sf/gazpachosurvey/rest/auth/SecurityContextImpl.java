@@ -6,8 +6,6 @@ import java.util.Set;
 
 import javax.ws.rs.core.SecurityContext;
 
-import net.sf.gazpachosurvey.domain.support.Person;
-
 public class SecurityContextImpl implements SecurityContext {
 
     private Set<String> roles;
@@ -16,12 +14,6 @@ public class SecurityContextImpl implements SecurityContext {
 
     public SecurityContextImpl() {
         super();
-    }
-    
-    public SecurityContextImpl(Person person) {
-        super();
-        this.roles = person.getRoles();
-        this.principal = person;
     }
 
     public Set<String> getRoles() {
@@ -56,14 +48,36 @@ public class SecurityContextImpl implements SecurityContext {
         // TODO Auto-generated method stub
         return null;
     }
-    
-    public static SecurityContext from(Person person){
-        return new SecurityContextImpl(person);
-    }
+
     @Override
     public String toString() {
         return "SecurityContext [principal=" + principal + ", roles=" + roles
                 + "]";
     }
+    
+    public static Builder with(){
+        return new Builder();
+    }
 
+    public static class Builder {
+        private Set<String> roles;
+        private Principal principal;
+
+        public Builder roles(Set<String> roles) {
+            this.roles = roles;
+            return this;
+        }
+
+        public Builder principal(Principal principal) {
+            this.principal = principal;
+            return this;
+        }
+
+        public SecurityContextImpl build() {
+            SecurityContextImpl securityContextImpl = new SecurityContextImpl();
+            securityContextImpl.roles = roles;
+            securityContextImpl.principal = principal;
+            return securityContextImpl;
+        }
+    }
 }
