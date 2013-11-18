@@ -6,10 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.security.auth.callback.LanguageCallback;
+
 import net.sf.gazpachosurvey.domain.support.*;
-import net.sf.gazpachosurvey.domain.support.Localizable;
-import net.sf.gazpachosurvey.domain.support.Translation;
-import net.sf.gazpachosurvey.domain.support.TranslationBuilder;
 import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import net.sf.gazpachosurvey.repository.support.GenericRepository;
@@ -123,7 +122,8 @@ public abstract class AbstractLocalizedPersistenceService<L extends Localizable<
         for (TR tr : supportedLanguages) {
             list.add(tr.getLanguage());
         }
-        return EnumSet.copyOf(list);
+        return list.isEmpty() ? EnumSet.noneOf(Language.class) : EnumSet
+                .copyOf(list);
     }
 
 }
