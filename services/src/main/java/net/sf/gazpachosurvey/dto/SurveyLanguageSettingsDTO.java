@@ -105,4 +105,11 @@ public class SurveyLanguageSettingsDTO implements LanguageSettings {
             return surveyLanguageSettingsDTO;
         }
     }
+
+    @Override
+    public String toString() {
+        return "SurveyLanguageSettingsDTO [title=" + title + ", description="
+                + description + ", welcomeText=" + welcomeText + "]";
+    }
+    
 }
