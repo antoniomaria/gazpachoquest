@@ -19,8 +19,7 @@ import org.springframework.stereotype.Component;
 @Component("respondentLoginService")
 public class RespondentLoginServiceImpl implements LoginService {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(RespondentLoginServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(RespondentLoginServiceImpl.class);
 
     @Autowired
     private InvitationRepository invitationRepository;
@@ -28,9 +27,9 @@ public class RespondentLoginServiceImpl implements LoginService {
     @Autowired
     private RespondentRepository respondentRepository;
 
+    @Override
     public Person login(String userName, String password) {
-        Invitation invitation = invitationRepository.findOneByExample(
-                Invitation.with().token(password).build(),
+        Invitation invitation = invitationRepository.findOneByExample(Invitation.with().token(password).build(),
                 new SearchParameters().caseSensitive().equals());
         if (invitation == null) {
             return null; // TODO Throw authentication exception
@@ -39,7 +38,6 @@ public class RespondentLoginServiceImpl implements LoginService {
         if (invitation instanceof PersonalInvitation) {
             PersonalInvitation personalInvitation = (PersonalInvitation) invitation;
             respondent = personalInvitation.getRespondent();
-            logger.info("Access granted to Respondent {}", respondent.getId());
         }
 
         if (respondent == null) {
@@ -56,7 +54,7 @@ public class RespondentLoginServiceImpl implements LoginService {
                 personalInvitation.setRespondent(respondent);
             }
         }
-
+        logger.info("Access granted to Respondent {}", respondent.getId());
         return respondent;
     }
 }
