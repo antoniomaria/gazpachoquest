@@ -14,7 +14,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
 
     private SurveyDTO survey;
 
-    private QuestionGroupDTO page;
+    private QuestionGroupDTO questionGroup;
 
     private Boolean isRequired;
 
@@ -24,7 +24,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
 
     private List<QuestionDTO> subquestions;
 
-    private List<AnswerDTO> answers;
+    private List<QuestionOptionDTO> questionOptions;
 
     private QuestionLanguageSettingsDTO languageSettings;
 
@@ -78,30 +78,30 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         }
     }
 
-    public QuestionGroupDTO getPage() {
-        return page;
+    public QuestionGroupDTO getQuestionGroup() {
+        return questionGroup;
     }
 
-    public void setPage(QuestionGroupDTO page) {
-        this.page = page;
+    public void setQuestionGroup(QuestionGroupDTO questionGroup) {
+        this.questionGroup = questionGroup;
     }
 
-    public List<AnswerDTO> getAnswers() {
-        if (answers == null) {
-            answers = new ArrayList<>();
+    public List<QuestionOptionDTO> getQuestionOptions() {
+        if (questionOptions == null) {
+            questionOptions = new ArrayList<>();
         }
-        return answers;
+        return questionOptions;
     }
 
-    public void setAnswers(List<AnswerDTO> answers) {
-        this.answers = answers;
+    public void setQuestionOptions(List<QuestionOptionDTO> questionOptions) {
+        this.questionOptions = questionOptions;
     }
 
-    public void addAnswer(AnswerDTO answer) {
-        if (answer.getLanguage() == null) {
-            answer.setLanguage(language);
+    public void addQuestionOption(QuestionOptionDTO questionOption) {
+        if (questionOption.getLanguage() == null) {
+            questionOption.setLanguage(language);
         }
-        getAnswers().add(answer);
+        getQuestionOptions().add(questionOption);
     }
 
     public Boolean getIsRequired() {
@@ -142,7 +142,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
 
         Builder subquestions(List<QuestionDTO> subquestions);
 
-        Builder answers(List<AnswerDTO> answers);
+        Builder answers(List<QuestionOptionDTO> answers);
 
         Builder isRequired(Boolean isRequired);
 
@@ -159,7 +159,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         private QuestionType type;
         private Language language;
         private List<QuestionDTO> subquestions;
-        private List<AnswerDTO> answers;
+        private List<QuestionOptionDTO> answers;
         private QuestionLanguageSettingsDTO languageSettings;
 
         public Builder id(Integer id) {
@@ -197,7 +197,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
             return this;
         }
 
-        public Builder answers(List<AnswerDTO> answers) {
+        public Builder answers(List<QuestionOptionDTO> answers) {
             this.answers = answers;
             return this;
         }
@@ -216,12 +216,12 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
             QuestionDTO questionDTO = new QuestionDTO();
             questionDTO.setId(id);
             questionDTO.survey = survey;
-            questionDTO.page = page;
+            questionDTO.questionGroup = page;
             questionDTO.isRequired = isRequired;
             questionDTO.type = type;
             questionDTO.language = language;
             questionDTO.subquestions = subquestions;
-            questionDTO.answers = answers;
+            questionDTO.questionOptions = answers;
             questionDTO.languageSettings = languageSettings;
             return questionDTO;
         }

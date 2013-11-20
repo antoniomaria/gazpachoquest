@@ -32,31 +32,25 @@ public class QuestionnairResourceTest extends JerseyTest {
 
     @Override
     protected void configureClient(ClientConfig config) {
-        //config.register(new JacksonFeature()).register(MyObjectMapperProvider.class);
+        // config.register(new
+        // JacksonFeature()).register(MyObjectMapperProvider.class);
         config.register(new JacksonFeature());
     }
-    
+
     @Test
     public void testHelloWorld() {
-        client().register(
-                new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME,
-                        "0GCQ58P6DR"));
+        client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, "0GCQ58P6DR"));
 
-        String output = client()
-                .target(getBaseUri() + "questionnair/definition")
-                .request("application/json").get(String.class);
+        String output = client().target(getBaseUri() + "questionnair/definition").request("application/json")
+                .get(String.class);
         System.out.println(output);
     }
 
     @Test
     public void getDefinitionTest() {
-        client().register(
-                new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME,
-                        "0GCQ58P6DR"));
-        QuestionnairDefinitionBean definition = client()
-                .target(getBaseUri() + "questionnair/definition")
-                .request().accept(MediaType.APPLICATION_JSON)
-                .get(QuestionnairDefinitionBean.class);
+        client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, "VBZ5MA6F0U"));
+        QuestionnairDefinitionBean definition = client().target(getBaseUri() + "questionnair/definition").request()
+                .accept(MediaType.APPLICATION_JSON).get(QuestionnairDefinitionBean.class);
         System.out.println(definition);
     }
 }

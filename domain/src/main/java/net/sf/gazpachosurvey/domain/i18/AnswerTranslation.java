@@ -7,7 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
-import net.sf.gazpachosurvey.domain.core.Answer;
+import net.sf.gazpachosurvey.domain.core.QuestionOption;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.Language;
 
@@ -17,7 +17,7 @@ public class AnswerTranslation extends AbstractPersistable {
     private static final long serialVersionUID = 5809899129770049770L;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Answer answer;
+    private QuestionOption questionOption;
 
     @Enumerated(EnumType.STRING)
     @Column(insertable = false, updatable = false)
@@ -29,12 +29,12 @@ public class AnswerTranslation extends AbstractPersistable {
         super();
     }
 
-    public Answer getAnswer() {
-        return answer;
+    public QuestionOption getAnswer() {
+        return questionOption;
     }
 
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
+    public void setAnswer(QuestionOption questionOption) {
+        this.questionOption = questionOption;
     }
 
     public String getText() {

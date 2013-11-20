@@ -6,9 +6,9 @@ import net.sf.gazpachosurvey.domain.core.embeddables.QuestionGroupLanguageSettin
 import net.sf.gazpachosurvey.domain.i18.QuestionGroupTranslation;
 import net.sf.gazpachosurvey.dto.QuestionGroupDTO;
 import net.sf.gazpachosurvey.dto.QuestionGroupLanguageSettingsDTO;
-import net.sf.gazpachosurvey.repository.PageRepository;
+import net.sf.gazpachosurvey.repository.QuestionGroupRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
-import net.sf.gazpachosurvey.repository.i18.PageTranslationRepository;
+import net.sf.gazpachosurvey.repository.i18.QuestionGroupTranslationRepository;
 import net.sf.gazpachosurvey.services.QuestionGroupService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class QuestionGroupServiceImpl extends AbstractLocalizedPersistenceServic
     private SurveyRepository surveyRepository;
 
     @Autowired
-    public QuestionGroupServiceImpl(PageRepository repository, PageTranslationRepository translationRepository) {
+    public QuestionGroupServiceImpl(QuestionGroupRepository repository, QuestionGroupTranslationRepository translationRepository) {
         super(repository, translationRepository, QuestionGroup.class, QuestionGroupDTO.class,QuestionGroupTranslation.class, QuestionGroupLanguageSettings.class, QuestionGroupLanguageSettingsDTO.class, new QuestionGroupTranslation.Builder() );
     }
 

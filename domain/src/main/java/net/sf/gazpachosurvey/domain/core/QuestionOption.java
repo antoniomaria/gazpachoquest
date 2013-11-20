@@ -19,7 +19,7 @@ import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class Answer extends AbstractPersistable {
+public class QuestionOption extends AbstractPersistable {
 
     private static final long serialVersionUID = 2405587054509407178L;
 
@@ -35,12 +35,12 @@ public class Answer extends AbstractPersistable {
     @Enumerated(EnumType.STRING)
     private Language language;
 
-    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "questionOption", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language")
     private Map<Language, AnswerTranslation> translations;
 
-    public Answer() {
+    public QuestionOption() {
         super();
     }
 

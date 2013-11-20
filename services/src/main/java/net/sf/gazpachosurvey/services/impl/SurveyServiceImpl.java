@@ -6,7 +6,7 @@ import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
 import net.sf.gazpachosurvey.dto.SurveyLanguageSettingsDTO;
 import net.sf.gazpachosurvey.repository.MailMessageRepository;
-import net.sf.gazpachosurvey.repository.PageRepository;
+import net.sf.gazpachosurvey.repository.QuestionGroupRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.repository.dynamic.RespondentAnswersRepository;
 import net.sf.gazpachosurvey.repository.i18.SurveyTranslationRepository;
@@ -23,7 +23,7 @@ public class SurveyServiceImpl
         implements SurveyService {
 
     @Autowired
-    private PageRepository pageRepository;
+    private QuestionGroupRepository questionGroupRepository;
 
     @Autowired
     private RespondentAnswersRepository respondentAnswersRepository;

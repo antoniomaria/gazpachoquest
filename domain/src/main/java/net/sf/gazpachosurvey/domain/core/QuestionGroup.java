@@ -100,13 +100,13 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
 
     public void addQuestion(Question question) {
         getQuestions().add(question);
-        question.setPage(this);
+        question.setQuestionGroup(this);
     }
 
     @Override
     public void addTranslation(Language language, QuestionGroupTranslation translation) {
         throw new UnsupportedOperationException();
-        
+
     }
 
 }

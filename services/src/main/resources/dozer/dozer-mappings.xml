@@ -37,9 +37,9 @@
       <b-hint>net.sf.gazpachosurvey.domain.core.Question</b-hint>
     </field>
     <field>
-      <a>answers</a>
-      <b set-method="addAnswer" type="iterate">answers</b>
-      <b-hint>net.sf.gazpachosurvey.domain.core.Answer</b-hint>
+      <a>questionOptions</a>
+      <b set-method="addQuestionOption" type="iterate">questionOptions</b>
+      <b-hint>net.sf.gazpachosurvey.domain.core.QuestionOption</b-hint>
     </field>
   </mapping>
   

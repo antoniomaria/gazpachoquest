@@ -45,7 +45,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderColumn(name = "order_in_question")
-    private List<Answer> answers;
+    private List<QuestionOption> questionOptions;
 
     private Boolean isRequired;
 
@@ -102,23 +102,23 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         this.parent = parent;
     }
 
-    public QuestionGroup getPage() {
+    public QuestionGroup getQuestionGroup() {
         return questionGroup;
     }
 
-    public void setPage(QuestionGroup questionGroup) {
+    public void setQuestionGroup(QuestionGroup questionGroup) {
         this.questionGroup = questionGroup;
     }
 
-    public List<Answer> getAnswers() {
-        if (answers == null) {
-            answers = new ArrayList<>();
+    public List<QuestionOption> getQuestionOptions() {
+        if (questionOptions == null) {
+            questionOptions = new ArrayList<>();
         }
-        return answers;
+        return questionOptions;
     }
 
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
+    public void setQuestionOptions(List<QuestionOption> questionOptions) {
+        this.questionOptions = questionOptions;
     }
 
     public Boolean isRequired() {
@@ -151,9 +151,9 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         this.language = language;
     }
 
-    public void addAnswer(Answer answer) {
-        getAnswers().add(answer);
-        answer.setQuestion(this);
+    public void addQuestionOption(QuestionOption questionOption) {
+        getQuestionOptions().add(questionOption);
+        questionOption.setQuestion(this);
     }
 
     public void addSubquestion(Question subquestion) {

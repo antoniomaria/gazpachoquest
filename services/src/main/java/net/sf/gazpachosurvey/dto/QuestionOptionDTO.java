@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import net.sf.gazpachosurvey.types.Language;
 
-public class AnswerDTO implements Serializable {
+public class QuestionOptionDTO implements Serializable {
 
     private static final long serialVersionUID = -6363290184354303253L;
 
@@ -14,7 +14,7 @@ public class AnswerDTO implements Serializable {
 
     private Language language;
 
-    public AnswerDTO() {
+    public QuestionOptionDTO() {
         super();
     }
 
@@ -66,12 +66,12 @@ public class AnswerDTO implements Serializable {
             return this;
         }
 
-        public AnswerDTO build() {
-            AnswerDTO answerDTO = new AnswerDTO();
-            answerDTO.code = code;
-            answerDTO.title = title;
-            answerDTO.language = language;
-            return answerDTO;
+        public QuestionOptionDTO build() {
+            QuestionOptionDTO questionOptionDTO = new QuestionOptionDTO();
+            questionOptionDTO.code = code;
+            questionOptionDTO.title = title;
+            questionOptionDTO.language = language;
+            return questionOptionDTO;
         }
     }
 }

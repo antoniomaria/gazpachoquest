@@ -6,7 +6,7 @@
     <persistence:provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence:provider>
 
     <persistence:class>net.sf.gazpachosurvey.domain.core.AnonymousInvitation</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.core.Answer</persistence:class>
+    <persistence:class>net.sf.gazpachosurvey.domain.core.QuestionOption</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Invitation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Label</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.LabelSet</persistence:class>

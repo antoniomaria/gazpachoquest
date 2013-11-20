@@ -1,18 +1,16 @@
 package net.sf.gazpachosurvey.repository.dynamic;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import net.sf.gazpachosurvey.domain.core.Answer;
 import net.sf.gazpachosurvey.domain.core.Question;
-import net.sf.gazpachosurvey.domain.core.Respondent;
+import net.sf.gazpachosurvey.domain.core.QuestionOption;
 import net.sf.gazpachosurvey.domain.core.RespondentAnswers;
 import net.sf.gazpachosurvey.domain.core.Survey;
-import net.sf.gazpachosurvey.repository.AnswerRepository;
+import net.sf.gazpachosurvey.repository.QuestionOptionRepository;
 import net.sf.gazpachosurvey.repository.QuestionRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
@@ -34,11 +32,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @Component
-public class RespondentAnswersRepositoryImpl implements
-        RespondentAnswersRepository {
+public class RespondentAnswersRepositoryImpl implements RespondentAnswersRepository {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(RespondentAnswersRepositoryImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(RespondentAnswersRepositoryImpl.class);
 
     private static final String PACKAGE_PREFIX = "net.sf.gazpachosurvey.domain.dynamic.";
 
@@ -49,7 +45,7 @@ public class RespondentAnswersRepositoryImpl implements
     private SurveyRepository surveyRepository;
 
     @Autowired
-    private AnswerRepository answerRepository;
+    private QuestionOptionRepository questionOptionRepository;
 
     @Autowired
     private QuestionRepository questionRepository;
@@ -65,34 +61,32 @@ public class RespondentAnswersRepositoryImpl implements
         // Update database
         new SchemaManager(helper.getSession()).createDefaultTables(true);
 
-        logger.info("Answer table has been created for survey {}",
-                survey.getId());
+        logger.info("QuestionOption table has been created for survey {}", survey.getId());
     }
 
     @Override
     public void activeAllAnswers() {
-        List<Survey> confirmedSurveys = surveyRepository.findByExample(Survey
-                .with().status(EntityStatus.CONFIRMED).build(),
-                new SearchParameters());
+        List<Survey> confirmedSurveys = surveyRepository.findByExample(Survey.with().status(EntityStatus.CONFIRMED)
+                .build(), new SearchParameters());
         List<DynamicType> dynamicTypes = new ArrayList<>();
         for (Survey survey : confirmedSurveys) {
             dynamicTypes.add(buildDynamicType(survey.getId()));
         }
         if (!dynamicTypes.isEmpty()) {
             JPADynamicHelper helper = new JPADynamicHelper(entityManager);
-            helper.addTypes(true, true,
-                    dynamicTypes.toArray(new DynamicType[dynamicTypes.size()]));
+            helper.addTypes(true, true, dynamicTypes.toArray(new DynamicType[dynamicTypes.size()]));
         }
-        logger.info("{} respondent answer tables has been activated", confirmedSurveys.size());
-        
+        logger.info("{} respondent questionOption tables has been activated", confirmedSurveys.size());
+
     }
 
+    @Override
     @Transactional
     public RespondentAnswers save(RespondentAnswers respondentAnswers) {
         Assert.notNull(respondentAnswers.getRespondent());
 
-        StringBuilder tableName = new StringBuilder().append(TABLE_NAME_PREFIX)
-                .append(respondentAnswers.getRespondent().getSurvey().getId());
+        StringBuilder tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(
+                respondentAnswers.getRespondent().getSurvey().getId());
 
         DynamicEntity entity = newInstance(tableName.toString());
 
@@ -113,64 +107,51 @@ public class RespondentAnswersRepositoryImpl implements
 
     private DynamicEntity newInstance(String entityAlias) {
         JPADynamicHelper helper = new JPADynamicHelper(entityManager);
-        ClassDescriptor descriptor = helper.getSession().getDescriptorForAlias(
-                entityAlias);
-        return (DynamicEntity) descriptor.getInstantiationPolicy()
-                .buildNewInstance();
+        ClassDescriptor descriptor = helper.getSession().getDescriptorForAlias(entityAlias);
+        return (DynamicEntity) descriptor.getInstantiationPolicy().buildNewInstance();
     }
 
     private DynamicType buildDynamicType(Integer surveyId) {
-        DynamicClassLoader dcl = new DynamicClassLoader(getClass()
-                .getClassLoader());
+        DynamicClassLoader dcl = new DynamicClassLoader(getClass().getClassLoader());
 
-        String tableName = new StringBuilder().append(TABLE_NAME_PREFIX)
-                .append(surveyId).toString();
+        String tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(surveyId).toString();
 
-        Class<?> dynamicClass = dcl.createDynamicClass(PACKAGE_PREFIX
-                + tableName);
+        Class<?> dynamicClass = dcl.createDynamicClass(PACKAGE_PREFIX + tableName);
 
-        JPADynamicTypeBuilder respondentAnswersTypeBuilder = new JPADynamicTypeBuilder(
-                dynamicClass, null, tableName);
+        JPADynamicTypeBuilder respondentAnswersTypeBuilder = new JPADynamicTypeBuilder(dynamicClass, null, tableName);
 
-        respondentAnswersTypeBuilder
-                .addDirectMapping("id", Integer.class, "id");
-        respondentAnswersTypeBuilder.addDirectMapping("respondentId",
-                Integer.class, "respondent_id");
+        respondentAnswersTypeBuilder.addDirectMapping("id", Integer.class, "id");
+        respondentAnswersTypeBuilder.addDirectMapping("respondentId", Integer.class, "respondent_id");
 
         Question example = new Question();
         example.setSurvey(Survey.with().id(surveyId).build());
 
-        List<Question> questions = questionRepository.findByExample(example,
-                new SearchParameters().orderBy("id"));
+        List<Question> questions = questionRepository.findByExample(example, new SearchParameters().orderBy("id"));
 
         for (Question question : questions) {
             processQuestion(respondentAnswersTypeBuilder, question);
         }
 
         respondentAnswersTypeBuilder.setPrimaryKeyFields("id");
-        respondentAnswersTypeBuilder.configureSequencing(tableName + "_seq",
-                "id");
+        respondentAnswersTypeBuilder.configureSequencing(tableName + "_seq", "id");
         return respondentAnswersTypeBuilder.getType();
     }
 
-    private void processQuestion(JPADynamicTypeBuilder surveyAnswer,
-            Question question) {
+    private void processQuestion(JPADynamicTypeBuilder surveyAnswer, Question question) {
         QuestionType questionType = question.getType();
         List<Question> subquestions = question.getSubquestions();
         if (subquestions.isEmpty()) {
             if (questionType.hasMultipleAnswers()) {
                 String baseFieldName = "q" + question.getId();
-                List<Answer> answers = question.getAnswers();
-                for (Answer answer : answers) {
-                    String fieldName = new StringBuilder(baseFieldName)
-                            .append("x").append(answer.getId()).toString();
-                    surveyAnswer.addDirectMapping(fieldName,
-                            questionType.getAnswerType(), fieldName);
+                List<QuestionOption> questionOptions = question.getQuestionOptions();
+                for (QuestionOption questionOption : questionOptions) {
+                    String fieldName = new StringBuilder(baseFieldName).append("x").append(questionOption.getId())
+                            .toString();
+                    surveyAnswer.addDirectMapping(fieldName, questionType.getAnswerType(), fieldName);
                 }
             } else {
                 String fieldName = "q" + question.getId();
-                surveyAnswer.addDirectMapping(fieldName,
-                        questionType.getAnswerType(), fieldName);
+                surveyAnswer.addDirectMapping(fieldName, questionType.getAnswerType(), fieldName);
             }
         }
         for (Question subquestion : subquestions) {

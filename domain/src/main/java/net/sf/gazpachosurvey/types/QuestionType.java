@@ -2,7 +2,7 @@ package net.sf.gazpachosurvey.types;
 
 public enum QuestionType {
     S("Single Text Box", false, false, false, String.class),
-    L("Multiple Choice (Only One Answer)",true,false, false, Integer.class),
+    L("Multiple Choice (Only One QuestionOption)",true,false, false, Integer.class),
     N("Numeric",false, false, false, Integer.class),
     T("Comment / Essay",false, false, false, Character[].class),
     F("Rating Scale (Agree-Disagree)",false, false, false, String.class),

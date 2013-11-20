@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.gazpachosurvey.dto.AnswerDTO;
+import net.sf.gazpachosurvey.dto.QuestionOptionDTO;
 import net.sf.gazpachosurvey.dto.LabelDTO;
 import net.sf.gazpachosurvey.dto.LabelSetDTO;
 import net.sf.gazpachosurvey.dto.MailMessageTemplateDTO;
@@ -92,7 +92,7 @@ public class DBPopulator {
                 .description(
                         "We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry.")
                 .welcomeText(
-                        "Your opinion is extremely important in evaluating our business. Thank you for taking a moment to answer the following questions:")
+                        "Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:")
                 .surveyLanguageSettingsEnd().build();
         survey = surveyService.save(survey);
 
@@ -126,16 +126,16 @@ public class DBPopulator {
                 .build());
         question.setSubquestions(subquestions);
 
-        question.setPage(page);
+        question.setQuestionGroup(page);
         question.setSurvey(survey);
 
-        question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
-        question.addAnswer(AnswerDTO.with().title("Agree somewhat").build());
-        question.addAnswer(AnswerDTO.with().title("Neither agree nor disagree")
+        question.addQuestionOption(QuestionOptionDTO.with().title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Agree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Neither agree nor disagree")
                 .build());
-        question.addAnswer(AnswerDTO.with().title("Disagree somewhat").build());
-        question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
-        question.addAnswer(AnswerDTO.with().title("Disagree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Disagree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Disagree strongly").build());
 
         question = questionService.save(question);
 
@@ -177,32 +177,32 @@ public class DBPopulator {
 
         question.setSubquestions(subquestions);
 
-        question.setPage(page);
+        question.setQuestionGroup(page);
         question.setSurvey(survey);
 
-        question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
-        question.addAnswer(AnswerDTO.with().title("Agree somewhat").build());
-        question.addAnswer(AnswerDTO.with().title("Neither agree nor disagree")
+        question.addQuestionOption(QuestionOptionDTO.with().title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Agree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Neither agree nor disagree")
                 .build());
-        question.addAnswer(AnswerDTO.with().title("Disagree somewhat").build());
-        question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
-        question.addAnswer(AnswerDTO.with().title("Disagree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Disagree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Disagree strongly").build());
 
         question = questionService.save(question);
 
-        // Multiple Choice (Only One Answer)
+        // Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L)
                 .language(Language.EN).languageSettingsStart()
                 .title("Indicate total household income").languageSettingsEnd()
                 .isRequired(true).build();
-        question.setPage(page);
+        question.setQuestionGroup(page);
         question.setSurvey(survey);
 
-        question.addAnswer(AnswerDTO.with().title("under 25,000€").build());
-        question.addAnswer(AnswerDTO.with().title("25,000 - 29,999€").build());
-        question.addAnswer(AnswerDTO.with().title("30,000 - 34,999€").build());
-        question.addAnswer(AnswerDTO.with().title("35,000 - 39,999€").build());
-        question.addAnswer(AnswerDTO.with().title("Over 85,000€").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("under 25,000€").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("25,000 - 29,999€").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("30,000 - 34,999€").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("35,000 - 39,999€").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Over 85,000€").build());
 
         question = questionService.save(question);
 
@@ -274,27 +274,27 @@ public class DBPopulator {
         Integer questionId = questionService.addQuestion(page1.getId(),
                 question);
 
-        // 2 Multiple Choice (Only One Answer)
+        // 2 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L)
                 .language(Language.EN).languageSettingsStart()
                 .title("What is your age group?").languageSettingsEnd()
                 .isRequired(true).build();
 
-        question.addAnswer(AnswerDTO.with().title("0-14 years").build());
-        question.addAnswer(AnswerDTO.with().title("15-19 years").build());
-        question.addAnswer(AnswerDTO.with().title("20-24 years").build());
-        question.addAnswer(AnswerDTO.with().title("25-29 years").build());
-        question.addAnswer(AnswerDTO.with().title("30-34 years").build());
-        question.addAnswer(AnswerDTO.with().title("35-39 years").build());
-        question.addAnswer(AnswerDTO.with().title("40-44 years").build());
-        question.addAnswer(AnswerDTO.with().title("45-49 years").build());
-        question.addAnswer(AnswerDTO.with().title("50-54 years").build());
-        question.addAnswer(AnswerDTO.with().title("55-59 years").build());
-        question.addAnswer(AnswerDTO.with().title("60-64 years").build());
-        question.addAnswer(AnswerDTO.with().title("65-69 years").build());
-        question.addAnswer(AnswerDTO.with().title("70-74 years").build());
-        question.addAnswer(AnswerDTO.with().title("75-79 years").build());
-        question.addAnswer(AnswerDTO.with().title("80 and over").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("0-14 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("15-19 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("20-24 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("25-29 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("30-34 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("35-39 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("40-44 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("45-49 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("50-54 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("55-59 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("60-64 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("65-69 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("70-74 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("75-79 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("80 and over").build());
         questionId = questionService.addQuestion(page1.getId(), question);
 
         // 3 Numeric
@@ -314,7 +314,7 @@ public class DBPopulator {
                 .languageSettingsEnd().isRequired(true).build();
         questionId = questionService.addQuestion(page2.getId(), question);
 
-        // 5 Multiple Choice (Only One Answer)
+        // 5 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO
                 .with()
                 .type(QuestionType.L)
@@ -322,18 +322,18 @@ public class DBPopulator {
                 .languageSettingsStart()
                 .title("Given your extraordinary age, how do you find using this survey tool?")
                 .languageSettingsEnd().isRequired(true).build();
-        question.addAnswer(AnswerDTO.with()
+        question.addQuestionOption(QuestionOptionDTO.with()
                 .title("Very difficult to read, my eyesight is dim").build());
-        question.addAnswer(AnswerDTO.with()
+        question.addQuestionOption(QuestionOptionDTO.with()
                 .title("Easy, my carer is doing it all for me").build());
-        question.addAnswer(AnswerDTO
+        question.addQuestionOption(QuestionOptionDTO
                 .with()
                 .title("How <b><i>dare</i></b> you insult me like that! I'm YOUNG")
                 .build());
 
         questionId = questionService.addQuestion(page2.getId(), question);
 
-        // 6 Multiple Choice (Only One Answer)
+        // 6 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO
                 .with()
                 .type(QuestionType.L)
@@ -341,9 +341,9 @@ public class DBPopulator {
                 .languageSettingsStart()
                 .title("<font size='+2'><br />&nbsp;<br />Which of these ads makes you want to find out more?<br />&nbsp;<br /></font>")
                 .languageSettingsEnd().isRequired(true).build();
-        question.addAnswer(AnswerDTO.with().title("Ad one").build());
-        question.addAnswer(AnswerDTO.with().title("Ad two").build());
-        question.addAnswer(AnswerDTO.with().title("Ad three").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Ad one").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Ad two").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Ad three").build());
 
         questionId = questionService.addQuestion(page3.getId(), question);
 
@@ -383,16 +383,16 @@ public class DBPopulator {
                 .languageSettingsEnd().build());
         question.setSubquestions(subquestions);
 
-        question.setPage(page3);
+        question.setQuestionGroup(page3);
         question.setSurvey(survey);
 
-        question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
-        question.addAnswer(AnswerDTO.with().title("Agree somewhat").build());
-        question.addAnswer(AnswerDTO.with().title("Neither agree nor disagree")
+        question.addQuestionOption(QuestionOptionDTO.with().title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Agree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Neither agree nor disagree")
                 .build());
-        question.addAnswer(AnswerDTO.with().title("Disagree somewhat").build());
-        question.addAnswer(AnswerDTO.with().title("Agree strongly").build());
-        question.addAnswer(AnswerDTO.with().title("Disagree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Disagree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Disagree strongly").build());
 
         question = questionService.save(question);
 
@@ -405,13 +405,13 @@ public class DBPopulator {
                 .title("What flavors of ice cream do you like?. Choose all that apply.")
                 .languageSettingsEnd().isRequired(true).page(page3)
                 .survey(survey).build();
-        question.addAnswer(AnswerDTO.with().language(Language.EN)
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN)
                 .title("Vanilla").build());
-        question.addAnswer(AnswerDTO.with().language(Language.EN)
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN)
                 .title("Chocolate").build());
-        question.addAnswer(AnswerDTO.with().language(Language.EN)
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN)
                 .title("Strawberry").build());
-        question.addAnswer(AnswerDTO.with().language(Language.EN)
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN)
                 .title("Pistachio").build());
         question = questionService.save(question);
 
