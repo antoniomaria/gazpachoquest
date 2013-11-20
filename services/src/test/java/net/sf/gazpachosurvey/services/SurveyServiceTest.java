@@ -4,6 +4,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.Set;
 
+import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
 import net.sf.gazpachosurvey.dto.SurveyLanguageSettingsDTO;
 import net.sf.gazpachosurvey.types.Language;
@@ -51,8 +52,12 @@ public class SurveyServiceTest {
         int surveyId = 2;
         SurveyDTO survey = surveyService.findOne(surveyId);
 
-        survey = surveyService.findOne(surveyId, "SurveyWithQuestions");
-
+        SurveyDTO surveyWithQuestions = surveyService.findOne(surveyId, "SurveyWithQuestions");
+        Set<Question> questions = surveyWithQuestions.getQuestions();
+        for (Question question : questions) {
+            System.out.println(question.getId() + " " + question.getLanguageSettings().getTitle());
+                
+        }
         assertThat(survey).isNotNull();
     }
 

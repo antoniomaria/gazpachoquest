@@ -98,19 +98,19 @@ public class Survey extends
         surveyInstance.setSurvey(null);
     }
 
-    public List<QuestionGroup> getPages() {
+    public List<QuestionGroup> getQuestionGroups() {
         if (questionGroups == null) {
             questionGroups = new ArrayList<>();
         }
         return questionGroups;
     }
 
-    public void setPages(List<QuestionGroup> questionGroups) {
+    public void setQuestionGroups(List<QuestionGroup> questionGroups) {
         this.questionGroups = questionGroups;
     }
 
-    public void addPage(QuestionGroup questionGroup) {
-        getPages().add(questionGroup);
+    public void addQuestionGroup(QuestionGroup questionGroup) {
+        getQuestionGroups().add(questionGroup);
         questionGroup.setSurvey(this);
     }
 

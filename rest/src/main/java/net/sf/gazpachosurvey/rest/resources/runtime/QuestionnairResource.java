@@ -64,4 +64,25 @@ public class QuestionnairResource {
         return Response.ok(definition).build();
     }
 
+    @GET
+    @RolesAllowed("respondent")
+    @Path("browse")
+    @Produces({ "application/json", MediaType.APPLICATION_JSON })
+    public Response browse(@Context
+    SecurityContext context) {
+        logger.debug("New petition received from {}", context
+                .getUserPrincipal().getName());
+        Respondent respondent = (Respondent) context.getUserPrincipal();
+
+        Integer surveyId = respondent.getSurvey().getId();
+
+        logger.debug(
+                "Respondent {} retriving QuestionnairDefinition for surveyId = {}",
+                respondent.getId(), surveyId);
+
+        SurveyDTO survey = surveyService.findOne(surveyId);
+        return Response.ok().build();
+    }
+
+    
 }

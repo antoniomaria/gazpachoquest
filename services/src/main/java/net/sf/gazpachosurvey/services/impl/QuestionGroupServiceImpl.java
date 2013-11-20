@@ -9,25 +9,25 @@ import net.sf.gazpachosurvey.dto.QuestionGroupLanguageSettingsDTO;
 import net.sf.gazpachosurvey.repository.PageRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.repository.i18.PageTranslationRepository;
-import net.sf.gazpachosurvey.services.PageService;
+import net.sf.gazpachosurvey.services.QuestionGroupService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 @Service
-public class PageServiceImpl extends AbstractLocalizedPersistenceService<QuestionGroup, QuestionGroupDTO, QuestionGroupTranslation, QuestionGroupLanguageSettings, QuestionGroupLanguageSettingsDTO> implements PageService {
+public class QuestionGroupServiceImpl extends AbstractLocalizedPersistenceService<QuestionGroup, QuestionGroupDTO, QuestionGroupTranslation, QuestionGroupLanguageSettings, QuestionGroupLanguageSettingsDTO> implements QuestionGroupService {
 
     @Autowired
     private SurveyRepository surveyRepository;
 
     @Autowired
-    public PageServiceImpl(PageRepository repository, PageTranslationRepository translationRepository) {
+    public QuestionGroupServiceImpl(PageRepository repository, PageTranslationRepository translationRepository) {
         super(repository, translationRepository, QuestionGroup.class, QuestionGroupDTO.class,QuestionGroupTranslation.class, QuestionGroupLanguageSettings.class, QuestionGroupLanguageSettingsDTO.class, new QuestionGroupTranslation.Builder() );
     }
 
     @Override
-    public QuestionGroupDTO addPage(Integer surveyId, QuestionGroupDTO page) {
+    public QuestionGroupDTO addQuestionGroup(Integer surveyId, QuestionGroupDTO page) {
         QuestionGroup entity = mapper.map(page, QuestionGroup.class);
 
         Survey survey = surveyRepository.findOne(surveyId);
@@ -35,11 +35,11 @@ public class PageServiceImpl extends AbstractLocalizedPersistenceService<Questio
         entity.setSurvey(survey);
         entity.setLanguage(survey.getLanguage());
 
-        survey.addPage(entity);
+        survey.addQuestionGroup(entity);
         surveyRepository.save(survey);
 
-        int numberOfPages = survey.getPages().size();
-        return mapper.map(survey.getPages().get(numberOfPages - 1), QuestionGroupDTO.class);
+        int numberOfPages = survey.getQuestionGroups().size();
+        return mapper.map(survey.getQuestionGroups().get(numberOfPages - 1), QuestionGroupDTO.class);
     }
 
 }
