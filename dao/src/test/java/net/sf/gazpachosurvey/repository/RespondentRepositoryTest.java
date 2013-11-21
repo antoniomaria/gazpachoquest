@@ -38,10 +38,9 @@ public class RespondentRepositoryTest {
 
     @Test
     public void saveTest() {
-        SurveyInstance running = surveyInstanceRepository.findOne(93);
+        SurveyInstance running = surveyInstanceRepository.findOne(96);
 
         Respondent respondent = new Respondent();
-        respondent.setSurvey(running.getSurvey());
         respondent.setSurveyInstance(running);
         Respondent created = repository.save(respondent);
 

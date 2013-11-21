@@ -41,7 +41,6 @@ public class QuestionServiceImpl
         QuestionGroup questionGroup = questionGroupRepository.findOne(pageId);
         Survey survey = questionGroup.getSurvey();
         Question questionEntity = mapper.map(question, Question.class);
-        questionEntity.setSurvey(survey);
         questionEntity.setQuestionGroup(questionGroup);
         questionEntity.setLanguage(survey.getLanguage());
         questionGroup.addQuestion(questionEntity);

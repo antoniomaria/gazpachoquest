@@ -55,7 +55,7 @@ public class SurveyServiceImpl
     public SurveyDTO confirm(SurveyDTO survey) {
         Survey entity = repository.findOne(survey.getId());
         if (entity.getStatus() == EntityStatus.DRAFT) {
-            respondentAnswersRepository.collectAnswers(entity);
+            // respondentAnswersRepository.collectAnswers(entity);
             entity.setStatus(EntityStatus.CONFIRMED);
         }
         return survey;

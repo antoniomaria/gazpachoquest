@@ -25,9 +25,6 @@ public class Respondent extends AbstractPerson {
     public final static String ROLE = USER_NAME;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Survey survey;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     private SurveyInstance surveyInstance;
 
     @Column(columnDefinition = "timestamp")
@@ -39,14 +36,6 @@ public class Respondent extends AbstractPerson {
 
     public Respondent() {
         super();
-    }
-
-    public Survey getSurvey() {
-        return survey;
-    }
-
-    public void setSurvey(Survey survey) {
-        this.survey = survey;
     }
 
     public SurveyInstance getSurveyInstance() {

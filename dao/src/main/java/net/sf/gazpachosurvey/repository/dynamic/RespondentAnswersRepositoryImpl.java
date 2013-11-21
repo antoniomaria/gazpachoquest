@@ -86,7 +86,7 @@ public class RespondentAnswersRepositoryImpl implements RespondentAnswersReposit
         Assert.notNull(respondentAnswers.getRespondent());
 
         StringBuilder tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(
-                respondentAnswers.getRespondent().getSurvey().getId());
+                respondentAnswers.getRespondent().getSurveyInstance().getSurvey().getId());
 
         DynamicEntity entity = newInstance(tableName.toString());
 
@@ -123,11 +123,8 @@ public class RespondentAnswersRepositoryImpl implements RespondentAnswersReposit
         respondentAnswersTypeBuilder.addDirectMapping("id", Integer.class, "id");
         respondentAnswersTypeBuilder.addDirectMapping("respondentId", Integer.class, "respondent_id");
 
-        Question example = new Question();
-        example.setSurvey(Survey.with().id(surveyId).build());
-
-        List<Question> questions = questionRepository.findByExample(example, new SearchParameters().orderBy("id"));
-
+        List<Question> questions = questionRepository.findQuestionsBySurvey(surveyId);
+        
         for (Question question : questions) {
             processQuestion(respondentAnswersTypeBuilder, question);
         }

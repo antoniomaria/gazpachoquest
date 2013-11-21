@@ -23,7 +23,7 @@ public class QuestionOption extends AbstractPersistable {
 
     private static final long serialVersionUID = 2405587054509407178L;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Question question;
 
     private String code;

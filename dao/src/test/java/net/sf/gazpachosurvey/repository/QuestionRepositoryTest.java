@@ -26,24 +26,18 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
-@DatabaseSetup("SurveyRepository-dataset.xml")
-public class SurveyRepositoryTest {
+@DatabaseSetup("QuestionRepository-dataset.xml")
+public class QuestionRepositoryTest {
 
     @Autowired
-    private SurveyRepository repository;
+    private QuestionRepository repository;
 
     @Test
-    public void findOne() {
+    public void findQuestionsBySurvey() {
         int surveyId = 2;
-        Survey survey = repository.findOne(surveyId);
-        List<QuestionGroup> questionGroups = survey.getQuestionGroups();
-        for (QuestionGroup questionGroup : questionGroups) {
-            List<Question> questions = questionGroup.getQuestions();
-            System.out.println(" **** " + questionGroup.getLanguageSettings().getTitle());
-            for (Question question : questions) {
-                System.out.println(question.getId() + " " + question.getLanguageSettings().getTitle());
-            }
-        }
+        System.out.println("inicio"); 
+        List<Question> questions = repository.findQuestionsBySurvey(surveyId);
+       System.out.println("fin");
     }
 
 }

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
@@ -25,7 +26,7 @@ public class Participant extends AbstractAuditable{
 
     private Gender gender;
 
-    @ManyToMany(mappedBy = "participants")
+    @ManyToMany(mappedBy = "participants", fetch = FetchType.LAZY)
     private Set<SurveyInstance> surveyInstances;
 
     public Participant() {

@@ -7,6 +7,8 @@ import javax.sql.DataSource;
 import net.sf.gazpachosurvey.domain.core.Respondent;
 import net.sf.gazpachosurvey.domain.core.RespondentAnswers;
 import net.sf.gazpachosurvey.domain.core.Survey;
+import net.sf.gazpachosurvey.domain.core.SurveyInstance;
+import net.sf.gazpachosurvey.repository.SurveyInstanceRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 
 import org.junit.Test;
@@ -41,6 +43,9 @@ public class RespondentAnswersRepositoryTest {
     private SurveyRepository surveyRepository;
 
     @Autowired
+    private SurveyInstanceRepository surveyInstanceRepository;
+    
+    @Autowired
     private DataSource datasource;
 
     @Test
@@ -56,10 +61,11 @@ public class RespondentAnswersRepositoryTest {
 
     @Test
     public void saveRespondentTest() {
-        Survey selectedSurvey = surveyRepository.findOne(3);
+        SurveyInstance surveyInstance = surveyInstanceRepository.findOne(93);
+
         Respondent respondent = new Respondent();
-        respondent.setSurvey(selectedSurvey);
         respondent.setId(1);
+        respondent.setSurveyInstance(surveyInstance);
         
         repository.activeAllAnswers();
         RespondentAnswers respondentAnswers = new RespondentAnswers();

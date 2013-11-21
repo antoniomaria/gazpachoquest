@@ -31,12 +31,9 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     private static final long serialVersionUID = -4372634574851905803L;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Survey survey;
-
-    @ManyToOne
     private Question parent;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private QuestionGroup questionGroup;
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -73,14 +70,6 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     public void setType(QuestionType type) {
         this.type = type;
-    }
-
-    public Survey getSurvey() {
-        return survey;
-    }
-
-    public void setSurvey(Survey survey) {
-        this.survey = survey;
     }
 
     public List<Question> getSubquestions() {

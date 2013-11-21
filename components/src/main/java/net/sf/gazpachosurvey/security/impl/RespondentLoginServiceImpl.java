@@ -43,9 +43,6 @@ public class RespondentLoginServiceImpl implements LoginService {
         if (respondent == null) {
             respondent = new Respondent();
             SurveyInstance surveyInstance = invitation.getSurveyInstance();
-            Survey survey = surveyInstance.getSurvey();
-
-            respondent.setSurvey(survey);
             respondent.setSurveyInstance(surveyInstance);
             respondent = respondentRepository.save(respondent);
 

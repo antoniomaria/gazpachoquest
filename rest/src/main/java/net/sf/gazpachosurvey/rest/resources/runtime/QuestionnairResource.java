@@ -45,7 +45,7 @@ public class QuestionnairResource {
                 .getUserPrincipal().getName());
         Respondent respondent = (Respondent) context.getUserPrincipal();
 
-        Integer surveyId = respondent.getSurvey().getId();
+        Integer surveyId = respondent.getSurveyInstance().getSurvey().getId();
 
         logger.debug(
                 "Respondent {} retriving QuestionnairDefinition for surveyId = {}",
@@ -74,7 +74,7 @@ public class QuestionnairResource {
                 .getUserPrincipal().getName());
         Respondent respondent = (Respondent) context.getUserPrincipal();
 
-        Integer surveyId = respondent.getSurvey().getId();
+        Integer surveyId = respondent.getSurveyInstance().getSurvey().getId();
 
         logger.debug(
                 "Respondent {} retriving QuestionnairDefinition for surveyId = {}",

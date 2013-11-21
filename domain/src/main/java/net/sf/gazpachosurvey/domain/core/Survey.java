@@ -52,10 +52,6 @@ public class Survey extends
     @OrderColumn(name = "order_in_survey")
     private List<QuestionGroup> questionGroups;
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Question> questions;
-
-    
     @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "type", insertable = false, updatable = false)
@@ -112,17 +108,6 @@ public class Survey extends
     public void addQuestionGroup(QuestionGroup questionGroup) {
         getQuestionGroups().add(questionGroup);
         questionGroup.setSurvey(this);
-    }
-
-    public Set<Question> getQuestions() {
-        if (questions == null) {
-            questions = new HashSet<>();
-        }
-        return questions;
-    }
-
-    public void setQuestions(Set<Question> questions) {
-        this.questions = questions;
     }
 
     @Override
@@ -235,7 +220,6 @@ public class Survey extends
             survey.surveysRunning = surveysRunning;
             survey.translations = translations;
             survey.questionGroups = questionGroups;
-            survey.questions = questions;
             return survey;
         }
     }
