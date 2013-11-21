@@ -53,11 +53,6 @@ public class SurveyServiceTest {
         SurveyDTO survey = surveyService.findOne(surveyId);
 
         SurveyDTO surveyWithQuestions = surveyService.findOne(surveyId, "SurveyWithQuestions");
-        Set<Question> questions = surveyWithQuestions.getQuestions();
-        for (Question question : questions) {
-            System.out.println(question.getId() + " " + question.getLanguageSettings().getTitle());
-                
-        }
         assertThat(survey).isNotNull();
     }
 

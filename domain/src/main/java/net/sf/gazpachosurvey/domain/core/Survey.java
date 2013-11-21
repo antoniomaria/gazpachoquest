@@ -106,8 +106,8 @@ public class Survey extends
     }
 
     public void addQuestionGroup(QuestionGroup questionGroup) {
-        getQuestionGroups().add(questionGroup);
         questionGroup.setSurvey(this);
+        getQuestionGroups().add(questionGroup);
     }
 
     @Override

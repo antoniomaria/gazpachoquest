@@ -16,30 +16,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 @Service
-public class QuestionGroupServiceImpl extends AbstractLocalizedPersistenceService<QuestionGroup, QuestionGroupDTO, QuestionGroupTranslation, QuestionGroupLanguageSettings, QuestionGroupLanguageSettingsDTO> implements QuestionGroupService {
+public class QuestionGroupServiceImpl
+        extends
+        AbstractLocalizedPersistenceService<QuestionGroup, QuestionGroupDTO, QuestionGroupTranslation, QuestionGroupLanguageSettings, QuestionGroupLanguageSettingsDTO>
+        implements QuestionGroupService {
 
     @Autowired
     private SurveyRepository surveyRepository;
 
     @Autowired
-    public QuestionGroupServiceImpl(QuestionGroupRepository repository, QuestionGroupTranslationRepository translationRepository) {
-        super(repository, translationRepository, QuestionGroup.class, QuestionGroupDTO.class,QuestionGroupTranslation.class, QuestionGroupLanguageSettings.class, QuestionGroupLanguageSettingsDTO.class, new QuestionGroupTranslation.Builder() );
+    public QuestionGroupServiceImpl(QuestionGroupRepository repository,
+            QuestionGroupTranslationRepository translationRepository) {
+        super(repository, translationRepository, QuestionGroup.class,
+                QuestionGroupDTO.class, QuestionGroupTranslation.class,
+                QuestionGroupLanguageSettings.class,
+                QuestionGroupLanguageSettingsDTO.class,
+                new QuestionGroupTranslation.Builder());
     }
-
-    @Override
-    public QuestionGroupDTO addQuestionGroup(Integer surveyId, QuestionGroupDTO page) {
-        QuestionGroup entity = mapper.map(page, QuestionGroup.class);
-
-        Survey survey = surveyRepository.findOne(surveyId);
-        Assert.notNull(survey, "Survey " + surveyId + " not exist");
-        entity.setSurvey(survey);
-        entity.setLanguage(survey.getLanguage());
-
-        survey.addQuestionGroup(entity);
-        surveyRepository.save(survey);
-
-        int numberOfPages = survey.getQuestionGroups().size();
-        return mapper.map(survey.getQuestionGroups().get(numberOfPages - 1), QuestionGroupDTO.class);
-    }
-
 }

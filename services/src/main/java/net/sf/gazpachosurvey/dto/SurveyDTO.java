@@ -1,9 +1,8 @@
 package net.sf.gazpachosurvey.dto;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
@@ -15,8 +14,8 @@ public class SurveyDTO extends AbstractIdentifiableDTO implements IdentifiableLo
 
     private SurveyLanguageSettingsDTO languageSettings;
 
-    private Set<Question> questions;
-
+    private List<QuestionGroupDTO> questionGroups;
+    
     public SurveyDTO() {
         super();
     }
@@ -37,15 +36,15 @@ public class SurveyDTO extends AbstractIdentifiableDTO implements IdentifiableLo
         this.language = language;
     }
 
-    public Set<Question> getQuestions() {
-        if (questions == null) {
-            questions = new HashSet<>();
+    public List<QuestionGroupDTO> getQuestionGroups() {
+        if (questionGroups == null){
+            questionGroups = new ArrayList<>();
         }
-        return questions;
+        return questionGroups;
     }
 
-    public void setQuestions(Set<Question> questions) {
-        this.questions = questions;
+    public void setQuestionGroups(List<QuestionGroupDTO> questionGroups) {
+        this.questionGroups = questionGroups;
     }
 
     public static interface Builder {
