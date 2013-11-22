@@ -99,7 +99,11 @@ public class DBPopulator {
         QuestionGroupDTO page = QuestionGroupDTO.with().language(Language.EN)
                 .pageLanguageSettingsStart().title("Fast Food Survey ")
                 .pageLanguageSettingsEnd().build();
-        page = questionGroupService.save(page);
+        
+        survey.getQuestionGroups().add(page);
+        survey = surveyService.save(survey);
+        page = survey.getLastQuestionGroupDTO();
+        
 
         // Rating Scale (1-5)
         QuestionDTO question = QuestionDTO.with().type(QuestionType.F)
@@ -129,13 +133,18 @@ public class DBPopulator {
         question.setQuestionGroup(page);
         question.setSurvey(survey);
 
-        question.addQuestionOption(QuestionOptionDTO.with().title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Agree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Neither agree nor disagree")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Disagree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Disagree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Agree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Neither agree nor disagree").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Disagree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Disagree strongly").build());
 
         question = questionService.save(question);
 
@@ -180,13 +189,18 @@ public class DBPopulator {
         question.setQuestionGroup(page);
         question.setSurvey(survey);
 
-        question.addQuestionOption(QuestionOptionDTO.with().title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Agree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Neither agree nor disagree")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Disagree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Disagree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Agree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Neither agree nor disagree").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Disagree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Disagree strongly").build());
 
         question = questionService.save(question);
 
@@ -198,11 +212,16 @@ public class DBPopulator {
         question.setQuestionGroup(page);
         question.setSurvey(survey);
 
-        question.addQuestionOption(QuestionOptionDTO.with().title("under 25,000€").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("25,000 - 29,999€").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("30,000 - 34,999€").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("35,000 - 39,999€").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Over 85,000€").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("under 25,000€").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("25,000 - 29,999€").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("30,000 - 34,999€").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("35,000 - 39,999€").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Over 85,000€").build());
 
         question = questionService.save(question);
 
@@ -235,18 +254,29 @@ public class DBPopulator {
                                         "Gracias por participar en esta encuesta")
                                 .build());
 
-        QuestionGroupDTO page = QuestionGroupDTO.with().pageLanguageSettingsStart()
-                .title("QuestionGroup 1").pageLanguageSettingsEnd().build();
-        QuestionGroupDTO page1 = questionGroupService.addQuestionGroup(survey.getId(), page);
-
-        page = QuestionGroupDTO.with().pageLanguageSettingsStart().title("QuestionGroup 2")
+        QuestionGroupDTO page1 = QuestionGroupDTO.with().language(Language.EN)
+                .pageLanguageSettingsStart().title("QuestionGroup 1")
                 .pageLanguageSettingsEnd().build();
-        QuestionGroupDTO page2 = questionGroupService.addQuestionGroup(survey.getId(), page);
+        survey.getQuestionGroups().add(page1);
+        survey = surveyService.save(survey);
+        page1 = survey.getLastQuestionGroupDTO();
 
-        page = QuestionGroupDTO.with().pageLanguageSettingsStart().title("QuestionGroup 3")
+        QuestionGroupDTO page2 = QuestionGroupDTO.with().language(Language.EN)
+                .pageLanguageSettingsStart().title("QuestionGroup 2")
                 .pageLanguageSettingsEnd().build();
-        QuestionGroupDTO page3 = questionGroupService.addQuestionGroup(survey.getId(), page);
 
+        survey.getQuestionGroups().add(page2);
+        survey = surveyService.save(survey);
+        page2 = survey.getLastQuestionGroupDTO();
+        
+        QuestionGroupDTO page3 = QuestionGroupDTO.with().language(Language.EN)
+                .pageLanguageSettingsStart().title("QuestionGroup 3")
+                .pageLanguageSettingsEnd().build();
+
+        survey.getQuestionGroups().add(page3);
+        survey = surveyService.save(survey);
+        page3 = survey.getLastQuestionGroupDTO();
+        
         LabelSetDTO labelSet = LabelSetDTO.with().language(Language.EN)
                 .name("Feelings").build();
         labelSet = labelSetService.save(labelSet);
@@ -280,21 +310,36 @@ public class DBPopulator {
                 .title("What is your age group?").languageSettingsEnd()
                 .isRequired(true).build();
 
-        question.addQuestionOption(QuestionOptionDTO.with().title("0-14 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("15-19 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("20-24 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("25-29 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("30-34 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("35-39 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("40-44 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("45-49 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("50-54 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("55-59 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("60-64 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("65-69 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("70-74 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("75-79 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("80 and over").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("0-14 years")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("15-19 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("20-24 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("25-29 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("30-34 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("35-39 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("40-44 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("45-49 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("50-54 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("55-59 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("60-64 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("65-69 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("70-74 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("75-79 years").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("80 and over").build());
         questionId = questionService.addQuestion(page1.getId(), question);
 
         // 3 Numeric
@@ -341,9 +386,12 @@ public class DBPopulator {
                 .languageSettingsStart()
                 .title("<font size='+2'><br />&nbsp;<br />Which of these ads makes you want to find out more?<br />&nbsp;<br /></font>")
                 .languageSettingsEnd().isRequired(true).build();
-        question.addQuestionOption(QuestionOptionDTO.with().title("Ad one").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Ad two").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Ad three").build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Ad one")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Ad two")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().title("Ad three")
+                .build());
 
         questionId = questionService.addQuestion(page3.getId(), question);
 
@@ -386,13 +434,18 @@ public class DBPopulator {
         question.setQuestionGroup(page3);
         question.setSurvey(survey);
 
-        question.addQuestionOption(QuestionOptionDTO.with().title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Agree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Neither agree nor disagree")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Disagree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().title("Disagree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Agree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Neither agree nor disagree").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Disagree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .title("Disagree strongly").build());
 
         question = questionService.save(question);
 
@@ -405,14 +458,14 @@ public class DBPopulator {
                 .title("What flavors of ice cream do you like?. Choose all that apply.")
                 .languageSettingsEnd().isRequired(true).page(page3)
                 .survey(survey).build();
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN)
-                .title("Vanilla").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN)
-                .title("Chocolate").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN)
-                .title("Strawberry").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN)
-                .title("Pistachio").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .language(Language.EN).title("Vanilla").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .language(Language.EN).title("Chocolate").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .language(Language.EN).title("Strawberry").build());
+        question.addQuestionOption(QuestionOptionDTO.with()
+                .language(Language.EN).title("Pistachio").build());
         question = questionService.save(question);
 
         return survey;

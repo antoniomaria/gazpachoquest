@@ -3,6 +3,7 @@ package net.sf.gazpachosurvey.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.gazpachosurvey.domain.core.QuestionGroup;
 import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
@@ -34,6 +35,14 @@ public class SurveyDTO extends AbstractIdentifiableDTO implements IdentifiableLo
 
     public void setLanguage(Language language) {
         this.language = language;
+    }
+    
+    public void addQuestionGroup(QuestionGroupDTO questionGroup) {
+        getQuestionGroups().add(questionGroup);
+    }
+    public QuestionGroupDTO getLastQuestionGroupDTO(){
+        int count = getQuestionGroups().size();
+        return count > 0 ? getQuestionGroups().get(count-1) : null;
     }
 
     public List<QuestionGroupDTO> getQuestionGroups() {

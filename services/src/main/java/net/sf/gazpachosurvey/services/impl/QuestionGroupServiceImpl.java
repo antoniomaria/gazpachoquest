@@ -1,7 +1,6 @@
 package net.sf.gazpachosurvey.services.impl;
 
 import net.sf.gazpachosurvey.domain.core.QuestionGroup;
-import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.domain.core.embeddables.QuestionGroupLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.QuestionGroupTranslation;
 import net.sf.gazpachosurvey.dto.QuestionGroupDTO;
@@ -13,7 +12,6 @@ import net.sf.gazpachosurvey.services.QuestionGroupService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 @Service
 public class QuestionGroupServiceImpl

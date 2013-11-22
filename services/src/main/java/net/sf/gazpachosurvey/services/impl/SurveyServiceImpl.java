@@ -48,14 +48,15 @@ public class SurveyServiceImpl
         if (entity.isNew()) {
             entity.setStatus(EntityStatus.DRAFT);
         }
-        return mapper.map(repository.save(entity), SurveyDTO.class);
+        entity = repository.save(entity);
+        return mapper.map(entity, SurveyDTO.class);
     }
 
     @Override
     public SurveyDTO confirm(SurveyDTO survey) {
         Survey entity = repository.findOne(survey.getId());
         if (entity.getStatus() == EntityStatus.DRAFT) {
-            // respondentAnswersRepository.collectAnswers(entity);
+            respondentAnswersRepository.collectAnswers(entity);
             entity.setStatus(EntityStatus.CONFIRMED);
         }
         return survey;
