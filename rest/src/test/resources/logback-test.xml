@@ -10,14 +10,10 @@
       </pattern>
     </encoder>
   </appender>
+  
+  <logger name="org.eclipse.persistence.logging.sql" level="DEBUG"/>
 
   <logger name="net.sf.gazpachosurvey" level="DEBUG" />
-
-<logger name="org.glassfish.jersey" level="fine" />
-
-
-<logger name="org.eclipse" level="fine" />
-
 
   <root level="ERROR">
     <appender-ref ref="STDOUT" />

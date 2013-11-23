@@ -29,8 +29,9 @@
   </bean>
 
   <util:map id="jpaPropertyMap">
-    <entry key="eclipselink.logging.level.sql" value="FINE" />
+    <entry key="eclipselink.logging.logger" value="org.eclipse.persistence.logging.Slf4jSessionLogger"/>    
     <entry key="eclipselink.logging.parameters" value="true" />
+    
     <entry key="eclipselink.ddl-generation" value="create-tables" />
     <entry key="eclipselink.ddl-generation.output-mode" value="database" />
     <entry key="databasePlatform" value="org.eclipse.persistence.platform.database.HSQLPlatform" />
