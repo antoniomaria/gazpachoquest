@@ -30,14 +30,15 @@
 
   <modules>
     <module>components</module>
-    <module>domain</module>
     <module>dao</module>
-    <module>services</module>
+    <module>dbpopulator</module>
+    <module>domain</module>
     <!-- Ommited temporarly
       <module>questionnaires-ui</module>
     -->
     <module>rest</module>
-    <module>dbpopulator</module>
+    <module>services</module>
+ 	<module>testsuite</module>
   </modules>
   <repositories>
     <repository>
