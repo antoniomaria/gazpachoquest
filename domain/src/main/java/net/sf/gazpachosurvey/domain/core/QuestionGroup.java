@@ -42,7 +42,7 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private Map<Language, QuestionGroupTranslation> translations;
 
-    @OneToMany(mappedBy = "questionGroup", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "questionGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OrderColumn(name = "order_in_questiongroup")
     private List<Question> questions;
 
