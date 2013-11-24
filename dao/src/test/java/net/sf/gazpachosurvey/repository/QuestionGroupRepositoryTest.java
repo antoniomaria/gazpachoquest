@@ -4,7 +4,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.List;
 
-import net.sf.gazpachosurvey.domain.core.Question;
+import net.sf.gazpachosurvey.domain.core.QuestionGroup;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,29 +26,18 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 		DirtiesContextTestExecutionListener.class,
 		TransactionalTestExecutionListener.class,
 		DbUnitTestExecutionListener.class })
-@DatabaseSetup("QuestionRepository-dataset.xml")
-public class QuestionRepositoryTest {
+@DatabaseSetup("QuestionGroupRepository-dataset.xml")
+public class QuestionGroupRepositoryTest {
 
 	@Autowired
-	private QuestionRepository repository;
+	private QuestionGroupRepository questionGroupRepository;
 
 	@Test
-	public void findQuestionsBySurvey() {
+	public void findQuestionGroupsBySurvey() {
 		int surveyId = 2;
-		// TODO Check that questions are sorted by questionGroupOrder and
-		// questionOrder
-		List<Question> questions = repository.findQuestionsBySurvey(surveyId);
-		assertThat(questions).hasSize(8);
-
-	}
-
-	@Test
-	public void findQuestionByQuestionGroup() {
-		int questionGroupId = 4;
-		// TODO Check order
-		List<Question> questions = repository
-				.findQuestionByQuestionGroup(questionGroupId);
-		assertThat(questions).hasSize(3);
+		List<QuestionGroup> questiongroups = questionGroupRepository
+				.findBySurveyId(surveyId);
+		assertThat(questiongroups).hasSize(3);
 
 	}
 }
