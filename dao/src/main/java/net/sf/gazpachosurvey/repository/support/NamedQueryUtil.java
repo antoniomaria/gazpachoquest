@@ -32,13 +32,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * Helper class to create named query supporting dynamic sort order and
- * pagination.
+ * Helper class to create named query supporting dynamic sort order and pagination.
  */
 @Component
 public class NamedQueryUtil {
-    private static final Logger logger = LoggerFactory
-            .getLogger(NamedQueryUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(NamedQueryUtil.class);
 
     private static final String NAMED_PARAMETER_NOW = "now";
 
@@ -58,8 +56,7 @@ public class NamedQueryUtil {
 
     public <T> List<T> findByNamedQuery(SearchParameters sp) {
         if (sp == null || !sp.hasNamedQuery()) {
-            throw new IllegalArgumentException(
-                    "searchParameters must be non null and must have a namedQuery");
+            throw new IllegalArgumentException("searchParameters must be non null and must have a namedQuery");
         }
 
         Query query = entityManager.createNamedQuery(sp.getNamedQuery());
@@ -80,12 +77,10 @@ public class NamedQueryUtil {
             }
 
             if (logger.isDebugEnabled()) {
-                logger.debug("appending: [" + orderClausis.toString() + "] to "
-                        + queryString);
+                logger.debug("appending: [" + orderClausis.toString() + "] to " + queryString);
             }
 
-            query = recreateQuery(query,
-                    queryString + " " + orderClausis.toString());
+            query = recreateQuery(query, queryString + " " + orderClausis.toString());
         }
 
         // pagination
@@ -104,8 +99,7 @@ public class NamedQueryUtil {
         List<T> result = query.getResultList();
 
         if (result != null && logger.isDebugEnabled()) {
-            logger.debug(sp.getNamedQuery() + " returned a List of size: "
-                    + result.size());
+            logger.debug(sp.getNamedQuery() + " returned a List of size: " + result.size());
         }
 
         return result;
@@ -145,11 +139,10 @@ public class NamedQueryUtil {
         Object result = query.getSingleResult();
 
         if (logger.isDebugEnabled()) {
-            logger.debug(sp.getNamedQuery() + " returned a "
-                    + (result == null ? "null" : result.getClass()) + " object");
+            logger.debug(sp.getNamedQuery() + " returned a " + (result == null ? "null" : result.getClass())
+                    + " object");
             if (result instanceof Number) {
-                logger.debug(sp.getNamedQuery()
-                        + " returned a number with value : " + result);
+                logger.debug(sp.getNamedQuery() + " returned a number with value : " + result);
             }
         }
 
@@ -160,8 +153,7 @@ public class NamedQueryUtil {
         // add default parameter if specified in the named query
         for (Parameter<?> p : query.getParameters()) {
             if (NAMED_PARAMETER_NOW.equals(p.getName())) {
-                query.setParameter(NAMED_PARAMETER_NOW, Calendar.getInstance()
-                        .getTime());
+                query.setParameter(NAMED_PARAMETER_NOW, Calendar.getInstance().getTime());
             }
         }
 
@@ -172,9 +164,8 @@ public class NamedQueryUtil {
     }
 
     /**
-     * If the named query has the "query" hint, it uses the hint value (which
-     * must be jpa QL) to create a new query and append to it the proper order
-     * by clause.
+     * If the named query has the "query" hint, it uses the hint value (which must be jpa QL) to create a new query and
+     * append to it the proper order by clause.
      */
     private String getQueryString(Query query) {
         Map<String, Object> hints = query.getHints();

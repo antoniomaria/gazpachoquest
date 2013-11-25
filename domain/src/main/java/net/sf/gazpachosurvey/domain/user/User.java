@@ -70,7 +70,7 @@ public class User extends AbstractPerson {
     @Override
     public Set<String> getRoles() {
         if (roles == null) {
-            this.roles = new HashSet<String>();
+            roles = new HashSet<String>();
         }
         return roles;
     }

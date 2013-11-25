@@ -48,10 +48,12 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         this.type = type;
     }
 
+    @Override
     public Language getLanguage() {
         return language;
     }
 
+    @Override
     public void setLanguage(Language language) {
         this.language = language;
     }
@@ -112,13 +114,15 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         this.isRequired = isRequired;
     }
 
+    @Override
     public QuestionLanguageSettingsDTO getLanguageSettings() {
         if (languageSettings == null) {
-            this.languageSettings = new QuestionLanguageSettingsDTO();
+            languageSettings = new QuestionLanguageSettingsDTO();
         }
         return languageSettings;
     }
 
+    @Override
     public void setLanguageSettings(QuestionLanguageSettingsDTO languageSettings) {
         this.languageSettings = languageSettings;
     }
@@ -162,56 +166,66 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         private List<QuestionOptionDTO> answers;
         private QuestionLanguageSettingsDTO languageSettings;
 
+        @Override
         public Builder id(Integer id) {
             this.id = id;
             return this;
         }
 
+        @Override
         public Builder survey(SurveyDTO survey) {
             this.survey = survey;
             return this;
         }
 
+        @Override
         public Builder page(QuestionGroupDTO page) {
             this.page = page;
             return this;
         }
 
+        @Override
         public Builder isRequired(Boolean isRequired) {
             this.isRequired = isRequired;
             return this;
         }
 
+        @Override
         public Builder type(QuestionType type) {
             this.type = type;
             return this;
         }
 
+        @Override
         public Builder language(Language language) {
             this.language = language;
             return this;
         }
 
+        @Override
         public Builder subquestions(List<QuestionDTO> subquestions) {
             this.subquestions = subquestions;
             return this;
         }
 
+        @Override
         public Builder answers(List<QuestionOptionDTO> answers) {
             this.answers = answers;
             return this;
         }
 
-        public Builder languageSettings(
-                QuestionLanguageSettingsDTO languageSettings) {
+        @Override
+        public Builder languageSettings(QuestionLanguageSettingsDTO languageSettings) {
             this.languageSettings = languageSettings;
             return this;
         }
 
+        @Override
         public QuestionLanguageSettingsDTO.Builder languageSettingsStart() {
             return QuestionLanguageSettingsDTO.languageSettingsStart(this);
         }
 
+        @Override
         public QuestionDTO build() {
             QuestionDTO questionDTO = new QuestionDTO();
             questionDTO.setId(id);

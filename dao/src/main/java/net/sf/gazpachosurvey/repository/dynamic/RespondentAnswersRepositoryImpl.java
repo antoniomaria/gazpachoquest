@@ -124,7 +124,7 @@ public class RespondentAnswersRepositoryImpl implements RespondentAnswersReposit
         respondentAnswersTypeBuilder.addDirectMapping("respondentId", Integer.class, "respondent_id");
 
         List<Question> questions = questionRepository.findQuestionsBySurvey(surveyId);
-        
+
         for (Question question : questions) {
             processQuestion(respondentAnswersTypeBuilder, question);
         }

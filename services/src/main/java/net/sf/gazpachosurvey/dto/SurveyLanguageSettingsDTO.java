@@ -40,8 +40,7 @@ public class SurveyLanguageSettingsDTO implements LanguageSettings {
         this.welcomeText = welcomeText;
     }
 
-    public static Builder surveyLanguageSettingsStart(
-            SurveyDTO.Builder container) {
+    public static Builder surveyLanguageSettingsStart(SurveyDTO.Builder container) {
         return new SurveyLanguageSettingsDTO.BuilderImpl(container);
     }
 
@@ -108,8 +107,8 @@ public class SurveyLanguageSettingsDTO implements LanguageSettings {
 
     @Override
     public String toString() {
-        return "SurveyLanguageSettingsDTO [title=" + title + ", description="
-                + description + ", welcomeText=" + welcomeText + "]";
+        return "SurveyLanguageSettingsDTO [title=" + title + ", description=" + description + ", welcomeText="
+                + welcomeText + "]";
     }
-    
+
 }

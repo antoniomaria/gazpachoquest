@@ -22,13 +22,10 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
-        "classpath:/datasource-test-context.xml",
+@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
         "classpath:/services-context.xml", "classpath:/components-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("MailMessageTemplateService-dataset.xml")
 public class MailMessageTemplateServiceTest {
 
@@ -49,8 +46,8 @@ public class MailMessageTemplateServiceTest {
                 .subject("Your survey")
                 .body("Dear Mr. $lastname, <br> You have been invited to take this survey. <br>"
                         + "The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off."
-                        + "<a href=\"\">Click here</a> to take the survey")
-                .mailMessageTemplateLanguageSettingsEnd().build();
+                        + "<a href=\"\">Click here</a> to take the survey").mailMessageTemplateLanguageSettingsEnd()
+                .build();
         mailMessageTemplate = service.save(mailMessageTemplate);
 
         MailMessageTemplateLanguageSettingsDTO languageSettings = MailMessageTemplateLanguageSettingsDTO
@@ -60,13 +57,10 @@ public class MailMessageTemplateServiceTest {
                         + "Nos dedicas 15 minutos para realizar la encuesta?, puedes interrumpirla y completarla más tarde si es necesario"
                         + "<a href=\"\">Click aqui</a> para empezar").build();
 
-        service.saveTranslation(mailMessageTemplate.getId(), Language.ES,
-                languageSettings);
-        MailMessageTemplateDTO localizedMailMessageTemplate = service.findOne(
-                mailMessageTemplate.getId(), Language.ES);
-        assertThat(
-                localizedMailMessageTemplate.getLanguageSettings().getSubject())
-                .isEqualTo(languageSettings.getSubject());
+        service.saveTranslation(mailMessageTemplate.getId(), Language.ES, languageSettings);
+        MailMessageTemplateDTO localizedMailMessageTemplate = service.findOne(mailMessageTemplate.getId(), Language.ES);
+        assertThat(localizedMailMessageTemplate.getLanguageSettings().getSubject()).isEqualTo(
+                languageSettings.getSubject());
     }
 
     @Test

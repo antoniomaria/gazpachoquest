@@ -26,8 +26,7 @@ import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 
 @Entity
-public class Survey extends
-        AbstractLocalizable<SurveyTranslation, SurveyLanguageSettings> {
+public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguageSettings> {
 
     private static final long serialVersionUID = 2560468772707058412L;
 
@@ -139,14 +138,13 @@ public class Survey extends
     }
 
     public Map<MailMessageTemplateType, MailMessageTemplate> getMailTemplates() {
-        if (mailTemplates == null){
+        if (mailTemplates == null) {
             mailTemplates = new HashMap<>();
         }
         return mailTemplates;
     }
 
-    public void setMailTemplates(
-            Map<MailMessageTemplateType, MailMessageTemplate> mailTemplates) {
+    public void setMailTemplates(Map<MailMessageTemplateType, MailMessageTemplate> mailTemplates) {
         this.mailTemplates = mailTemplates;
     }
 
@@ -195,8 +193,7 @@ public class Survey extends
             return this;
         }
 
-        public Builder translations(
-                Map<Language, SurveyTranslation> translations) {
+        public Builder translations(Map<Language, SurveyTranslation> translations) {
             this.translations = translations;
             return this;
         }

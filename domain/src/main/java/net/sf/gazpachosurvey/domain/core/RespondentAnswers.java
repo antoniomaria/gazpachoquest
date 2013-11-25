@@ -13,13 +13,13 @@ public class RespondentAnswers implements Persistable {
     private Integer id;
 
     private Respondent respondent;
-    
+
     private Map<String, Object> answers;
-    
-    public RespondentAnswers(){
+
+    public RespondentAnswers() {
         super();
     }
-    
+
     public Respondent getRespondent() {
         return respondent;
     }
@@ -36,6 +36,7 @@ public class RespondentAnswers implements Persistable {
         this.answers = answers;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
@@ -44,6 +45,7 @@ public class RespondentAnswers implements Persistable {
         this.id = id;
     }
 
+    @Override
     public boolean isNew() {
         return null == getId();
     }
@@ -62,8 +64,7 @@ public class RespondentAnswers implements Persistable {
         if (obj instanceof Persistable) {
             final Persistable other = (Persistable) obj;
             if (!isNew()) {
-                return (new EqualsBuilder()).append(getId(), other.getId())
-                        .isEquals();
+                return (new EqualsBuilder()).append(getId(), other.getId()).isEquals();
             } else {
                 return EqualsBuilder.reflectionEquals(this, obj);
             }
@@ -74,7 +75,6 @@ public class RespondentAnswers implements Persistable {
 
     @Override
     public String toString() {
-        return String.format("Entity of type %s with id: %s", this.getClass()
-                .getName(), getId());
+        return String.format("Entity of type %s with id: %s", this.getClass().getName(), getId());
     }
 }

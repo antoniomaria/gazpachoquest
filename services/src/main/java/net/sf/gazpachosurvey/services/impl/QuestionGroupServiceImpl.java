@@ -25,16 +25,9 @@ public class QuestionGroupServiceImpl
     @Autowired
     public QuestionGroupServiceImpl(QuestionGroupRepository repository,
             QuestionGroupTranslationRepository translationRepository) {
-        super(repository, translationRepository, QuestionGroup.class,
-                QuestionGroupDTO.class, QuestionGroupTranslation.class,
-                QuestionGroupLanguageSettings.class,
-                QuestionGroupLanguageSettingsDTO.class,
-                new QuestionGroupTranslation.Builder());
+        super(repository, translationRepository, QuestionGroup.class, QuestionGroupDTO.class,
+                QuestionGroupTranslation.class, QuestionGroupLanguageSettings.class,
+                QuestionGroupLanguageSettingsDTO.class, new QuestionGroupTranslation.Builder());
     }
-    
-    @Override
-    public QuestionGroupDTO save(QuestionGroupDTO dto) {
-    	// TODO Auto-generated method stub
-    	return super.save(dto);
-    }
+
 }

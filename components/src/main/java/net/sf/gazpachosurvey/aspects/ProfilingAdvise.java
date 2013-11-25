@@ -8,11 +8,9 @@ import org.springframework.util.StopWatch.TaskInfo;
 
 public class ProfilingAdvise {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(ProfilingAdvise.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProfilingAdvise.class);
 
-    public Object doProfiling(ProceedingJoinPoint proceedingJoinPoint)
-            throws Throwable {
+    public Object doProfiling(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         String taskName = createTaskName(proceedingJoinPoint);
         StopWatch taskTimer = new StopWatch();
         try {
@@ -25,15 +23,12 @@ public class ProfilingAdvise {
     }
 
     private void doLogging(TaskInfo lastTaskInfo) {
-        logger.debug("Method : {} took {} ms", lastTaskInfo.getTaskName(),
-                lastTaskInfo.getTimeMillis());
+        logger.debug("Method : {} took {} ms", lastTaskInfo.getTaskName(), lastTaskInfo.getTimeMillis());
     }
 
     private String createTaskName(ProceedingJoinPoint proceedingJoinPoint) {
-        return new StringBuffer(proceedingJoinPoint.getTarget().getClass()
-                .getSimpleName()).append(".")
-                .append(proceedingJoinPoint.getSignature().getName())
-                .toString();
+        return new StringBuffer(proceedingJoinPoint.getTarget().getClass().getSimpleName()).append(".")
+                .append(proceedingJoinPoint.getSignature().getName()).toString();
     }
 
 }

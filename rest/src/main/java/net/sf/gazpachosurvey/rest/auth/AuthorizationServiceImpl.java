@@ -17,19 +17,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthorizationServiceImpl implements AuthorizationService {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(AuthorizationServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthorizationServiceImpl.class);
 
     @Autowired
     private LoginServiceFactory loginServiceFactory;
 
-    public SecurityContext authorize(
-            AuthorizationRequestContext authRequestContext) {
-        String[] userAndPassword = BasicAuthHelper.decode(authRequestContext
-                .getAuthorizationToken());
+    @Override
+    public SecurityContext authorize(AuthorizationRequestContext authRequestContext) {
+        String[] userAndPassword = BasicAuthHelper.decode(authRequestContext.getAuthorizationToken());
         if (userAndPassword == null || userAndPassword.length != 2) {
-            logger.error("Bad credentials: {}",
-                    authRequestContext.getAuthorizationToken());
+            logger.error("Bad credentials: {}", authRequestContext.getAuthorizationToken());
             throw new WebApplicationException(Response.Status.UNAUTHORIZED);
         }
         String userName = userAndPassword[0];
@@ -42,16 +39,14 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         if (person == null) {
             throw new WebApplicationException(Response.Status.UNAUTHORIZED);
         }
-        return SecurityContextImpl.with().principal(person)
-                .roles(person.getRoles()).build();
+        return SecurityContextImpl.with().principal(person).roles(person.getRoles()).build();
     }
 
     private LoginService selectLoginService(String userName) {
         LoginService loginService = null;
 
         if (LoginService.RESPONDENT_USER_NAME.equals(userName)) {
-            loginService = loginServiceFactory
-                    .getObject(LoginServiceType.RESPONDENT);
+            loginService = loginServiceFactory.getObject(LoginServiceType.RESPONDENT);
         }
         return loginService;
     }

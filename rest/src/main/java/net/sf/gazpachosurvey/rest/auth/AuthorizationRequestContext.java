@@ -5,14 +5,12 @@ import org.slf4j.LoggerFactory;
 
 public class AuthorizationRequestContext {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(AuthorizationRequestContext.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthorizationRequestContext.class);
 
     private String authorizationToken;
 
     /**
-     * The relative url of the request which starts at the root of the requested
-     * resource
+     * The relative url of the request which starts at the root of the requested resource
      */
     private String requestUrl;
 
@@ -44,8 +42,8 @@ public class AuthorizationRequestContext {
     public void setHttpMethod(String httpMethod) {
         this.httpMethod = httpMethod;
     }
-    
-    public static Builder with(){
+
+    public static Builder with() {
         return new Builder();
     }
 

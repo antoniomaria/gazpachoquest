@@ -9,8 +9,7 @@ import net.sf.gazpachosurvey.types.Language;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface SurveyTranslationRepository extends
-        GenericRepository<SurveyTranslation> {
+public interface SurveyTranslationRepository extends GenericRepository<SurveyTranslation> {
 
     @Query("select t from SurveyTranslation t where t.language = :language")
     List<SurveyTranslation> findByLanguage(@Param("language")

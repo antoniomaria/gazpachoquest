@@ -82,7 +82,8 @@
       <artifactId>aspectjweaver</artifactId>
       <version>1.7.3</version>
     </dependency>
-    <!-- Allows to weave classes that don't implement any interface. By example test classes -->
+    <!-- Allows to weave classes that don't implement any interface. By example
+      test classes -->
     <dependency>
       <groupId>cglib</groupId>
       <artifactId>cglib</artifactId>

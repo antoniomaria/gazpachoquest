@@ -51,11 +51,10 @@ public class SecurityContextImpl implements SecurityContext {
 
     @Override
     public String toString() {
-        return "SecurityContext [principal=" + principal + ", roles=" + roles
-                + "]";
+        return "SecurityContext [principal=" + principal + ", roles=" + roles + "]";
     }
-    
-    public static Builder with(){
+
+    public static Builder with() {
         return new Builder();
     }
 

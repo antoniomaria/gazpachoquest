@@ -47,8 +47,7 @@ public class JpaUtil {
 
     private static boolean isPrimaryKey(Method method) {
         return isPublic(method.getModifiers())
-                && (method.getAnnotation(Id.class) != null || method
-                        .getAnnotation(EmbeddedId.class) != null);
+                && (method.getAnnotation(Id.class) != null || method.getAnnotation(EmbeddedId.class) != null);
     }
 
     private static boolean isManuallyAssigned(Method method) {
@@ -61,39 +60,34 @@ public class JpaUtil {
         }
     }
 
-    public static Predicate andPredicate(CriteriaBuilder builder,
-            Predicate... predicatesNullAllowed) {
+    public static Predicate andPredicate(CriteriaBuilder builder, Predicate... predicatesNullAllowed) {
         return andPredicate(builder, Arrays.asList(predicatesNullAllowed));
     }
 
-    public static Predicate andPredicate(CriteriaBuilder builder,
-            Iterable<Predicate> predicatesNullAllowed) {
+    public static Predicate andPredicate(CriteriaBuilder builder, Iterable<Predicate> predicatesNullAllowed) {
         List<Predicate> predicates = withoutNullEntries(predicatesNullAllowed);
         if (predicates.isEmpty()) {
             return null;
         } else if (predicates.size() == 1) {
             return predicates.get(0);
         } else {
-            return builder.and(predicates.toArray(new Predicate[predicates
-                    .size()]));
+            return builder.and(predicates.toArray(new Predicate[predicates.size()]));
         }
     }
 
-    public static Predicate orPredicate(CriteriaBuilder builder,
-            Iterable<Predicate> predicatesNullAllowed) {
+    public static Predicate orPredicate(CriteriaBuilder builder, Iterable<Predicate> predicatesNullAllowed) {
         List<Predicate> predicates = withoutNullEntries(predicatesNullAllowed);
         if (predicates.isEmpty()) {
             return null;
         } else if (predicates.size() == 1) {
             return predicates.get(0);
         } else {
-            return builder.or(predicates.toArray(new Predicate[predicates
-                    .size()]));
+            return builder.or(predicates.toArray(new Predicate[predicates.size()]));
         }
     }
 
-    public static <E> Predicate stringPredicate(Expression<String> path,
-            Object attrValue, SearchParameters sp, CriteriaBuilder builder) {
+    public static <E> Predicate stringPredicate(Expression<String> path, Object attrValue, SearchParameters sp,
+            CriteriaBuilder builder) {
         if (sp.isCaseInsensitive()) {
             path = builder.lower(path);
             attrValue = ((String) attrValue).toLowerCase();
@@ -117,8 +111,7 @@ public class JpaUtil {
         }
     }
 
-    public static <E> List<Order> buildJpaOrders(Iterable<OrderBy> orders,
-            Root<E> root, CriteriaBuilder builder) {
+    public static <E> List<Order> buildJpaOrders(Iterable<OrderBy> orders, Root<E> root, CriteriaBuilder builder) {
         List<Order> jpaOrders = new ArrayList<Order>();
 
         for (OrderBy ob : orders) {
@@ -134,8 +127,8 @@ public class JpaUtil {
     }
 
     /**
-     * Convert the passed propertyPath into a JPA path. Note: JPA will do joins
-     * if the property is in an associated entity.
+     * Convert the passed propertyPath into a JPA path. Note: JPA will do joins if the property is in an associated
+     * entity.
      */
     private static <E> Path<?> getPropertyPath(Path<E> root, String propertyPath) {
         String[] pathItems = StringUtils.split(propertyPath, ".");

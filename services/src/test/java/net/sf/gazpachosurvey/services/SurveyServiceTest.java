@@ -4,7 +4,6 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.Set;
 
-import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
 import net.sf.gazpachosurvey.dto.SurveyLanguageSettingsDTO;
 import net.sf.gazpachosurvey.types.Language;
@@ -23,13 +22,10 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
-        "classpath:/datasource-test-context.xml",
+@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
         "classpath:/services-context.xml", "classpath:/components-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("SurveyService-dataset.xml")
 public class SurveyServiceTest {
 
@@ -59,14 +55,12 @@ public class SurveyServiceTest {
     @Test
     public void saveTranslationTest() {
         SurveyLanguageSettingsDTO languageSettings = new SurveyLanguageSettingsDTO();
-        languageSettings
-                .setTitle("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+        languageSettings.setTitle("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
         languageSettings.setDescription("Donec pellentesque consequat orci.");
         int surveyId = 2;
         surveyService.saveTranslation(surveyId, Language.FR, languageSettings);
 
-        Set<Language> translations = surveyService
-                .translationsSupported(surveyId);
+        Set<Language> translations = surveyService.translationsSupported(surveyId);
 
         assertThat(translations).contains(Language.FR);
     }

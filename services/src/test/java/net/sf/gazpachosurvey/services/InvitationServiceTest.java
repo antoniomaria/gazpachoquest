@@ -19,18 +19,17 @@ import com.github.springtestdbunit.DbUnitRule;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
-        "classpath:/datasource-test-context.xml",
-        "classpath:/services-context.xml", "classpath:/components-context.xml" })/*
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })*/
+@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
+        "classpath:/services-context.xml", "classpath:/components-context.xml" })
+/*
+ * @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
+ * TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
+ */
 @DatabaseSetup("InvitationService-dataset.xml")
 public class InvitationServiceTest {
     @Rule
     public DbUnitRule dbUnit = new DbUnitRule();
-    
+
     @Autowired
     DataSource datasource;
 
@@ -45,10 +44,8 @@ public class InvitationServiceTest {
 
     @Test
     public void findOneByExampleTest() {
-        InvitationDTO example = InvitationDTO.with()
-                .type(InvitationType.PERSONAL).token("IQF19ZUVMI").build();
-        InvitationDTO invitation = surveyService.findOneByExample(example,
-                new SearchParameters().caseSensitive(true));
+        InvitationDTO example = InvitationDTO.with().type(InvitationType.PERSONAL).token("IQF19ZUVMI").build();
+        InvitationDTO invitation = surveyService.findOneByExample(example, new SearchParameters().caseSensitive(true));
         assertThat(invitation).isNotNull();
     }
 

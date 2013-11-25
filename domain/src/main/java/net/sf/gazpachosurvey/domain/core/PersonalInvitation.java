@@ -40,16 +40,19 @@ public class PersonalInvitation extends Invitation {
         private InvitationStatus status;
         private Respondent respondent;
 
+        @Override
         public Builder token(String token) {
             this.token = token;
             return this;
         }
 
+        @Override
         public Builder surveyInstance(SurveyInstance surveyInstance) {
             this.surveyInstance = surveyInstance;
             return this;
         }
 
+        @Override
         public Builder status(InvitationStatus status) {
             this.status = status;
             return this;
@@ -60,6 +63,7 @@ public class PersonalInvitation extends Invitation {
             return this;
         }
 
+        @Override
         public PersonalInvitation build() {
             return new PersonalInvitation(this);
         }
@@ -67,6 +71,6 @@ public class PersonalInvitation extends Invitation {
 
     private PersonalInvitation(Builder builder) {
         super(builder.token, builder.surveyInstance, builder.status);
-        this.respondent = builder.respondent;
+        respondent = builder.respondent;
     }
 }

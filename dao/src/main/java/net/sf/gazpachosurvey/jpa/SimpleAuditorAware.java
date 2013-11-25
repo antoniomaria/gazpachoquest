@@ -6,6 +6,7 @@ import org.springframework.data.domain.AuditorAware;
 
 public class SimpleAuditorAware implements AuditorAware<User> {
 
+    @Override
     public User getCurrentAuditor() {
         User auditor = new User();
         auditor.setId(1);

@@ -6,8 +6,8 @@ import javax.persistence.Lob;
 import net.sf.gazpachosurvey.domain.support.LanguageSettings;
 
 @Embeddable
-public class MailMessageTemplateLanguageSettings implements LanguageSettings{
-  
+public class MailMessageTemplateLanguageSettings implements LanguageSettings {
+
     private static final long serialVersionUID = -7955983562246873191L;
 
     private String subject;

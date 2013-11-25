@@ -26,13 +26,11 @@ import net.sf.gazpachosurvey.domain.support.Persistable;
 import org.apache.commons.lang.Validate;
 
 /**
- * Used to construct OR predicate for a single foreign key value. In other words
- * you can search all entities E having their x-to-one association value set to
- * one of the selected values. To avoid a join we rely on the foreign key field,
+ * Used to construct OR predicate for a single foreign key value. In other words you can search all entities E having
+ * their x-to-one association value set to one of the selected values. To avoid a join we rely on the foreign key field,
  * not the association itself.
  */
-public class EntitySelector<E, T extends Persistable, TPK extends Serializable>
-        implements Serializable {
+public class EntitySelector<E, T extends Persistable, TPK extends Serializable> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final SingularAttribute<E, TPK> field;
@@ -58,8 +56,7 @@ public class EntitySelector<E, T extends Persistable, TPK extends Serializable>
         }
     }
 
-    public EntitySelector(SingularAttribute<E, ?> cpkField,
-            SingularAttribute<?, TPK> cpkInnerField) {
+    public EntitySelector(SingularAttribute<E, ?> cpkField, SingularAttribute<?, TPK> cpkInnerField) {
         this.cpkField = cpkField;
         this.cpkInnerField = cpkInnerField;
         this.field = null; // not used
@@ -123,13 +120,11 @@ public class EntitySelector<E, T extends Persistable, TPK extends Serializable>
     }
 
     /**
-     * Import statically this helper for smooth instanciation. It is used in the
-     * case where the PK is composite AND the pk member(s) are/is also a foreign
-     * key.
+     * Import statically this helper for smooth instanciation. It is used in the case where the PK is composite AND the
+     * pk member(s) are/is also a foreign key.
      */
     static public <E2, T2 extends Persistable, TPK2 extends Serializable, CPK2> EntitySelector<E2, T2, TPK2> newEntitySelectorInCpk(
-            SingularAttribute<E2, CPK2> cpkField,
-            SingularAttribute<CPK2, TPK2> cpkInnerField) {
+            SingularAttribute<E2, CPK2> cpkField, SingularAttribute<CPK2, TPK2> cpkInnerField) {
         return new EntitySelector<E2, T2, TPK2>(cpkField, cpkInnerField);
     }
 }

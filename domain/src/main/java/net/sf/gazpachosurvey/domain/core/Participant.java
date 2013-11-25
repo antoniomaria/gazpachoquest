@@ -12,7 +12,7 @@ import net.sf.gazpachosurvey.types.Gender;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class Participant extends AbstractAuditable{
+public class Participant extends AbstractAuditable {
 
     private static final long serialVersionUID = 6716148852807992302L;
 
@@ -21,7 +21,7 @@ public class Participant extends AbstractAuditable{
     private String lastname;
 
     private String email;
-    
+
     private Language preferedLanguage;
 
     private Gender gender;
@@ -84,5 +84,5 @@ public class Participant extends AbstractAuditable{
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-    
+
 }

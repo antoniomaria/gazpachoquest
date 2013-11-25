@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
-<!--
-  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <layout class="ch.qos.logback.classic.PatternLayout">
-      <pattern>%-4relative [%thread] %-5level %class - %msg%n</pattern>
-    </layout>
-  </appender>
-
-  Basic file appender<appender name="FILE"
-    class="ch.qos.logback.core.FileAppender">
-    <layout class="ch.qos.logback.classic.PatternLayout">
-    <pattern>%-4relative [%thread] %-5level %class - %msg%n</pattern>
-    </layout>
-    <File>sample-log.txt</File>
+  <!-- <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout"> <pattern>%-4relative
+    [%thread] %-5level %class - %msg%n</pattern> </layout> </appender> Basic
+    file appender<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout"> <pattern>%-4relative
+    [%thread] %-5level %class - %msg%n</pattern> </layout> <File>sample-log.txt</File>
     </appender> -->
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

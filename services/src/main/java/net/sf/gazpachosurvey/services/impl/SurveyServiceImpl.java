@@ -35,10 +35,8 @@ public class SurveyServiceImpl
     private SurveyTranslationRepository surveyTranslationRepository;
 
     @Autowired
-    public SurveyServiceImpl(SurveyRepository surveyRepository,
-            SurveyTranslationRepository translationRepository) {
-        super(surveyRepository, translationRepository, Survey.class,
-                SurveyDTO.class, SurveyTranslation.class,
+    public SurveyServiceImpl(SurveyRepository surveyRepository, SurveyTranslationRepository translationRepository) {
+        super(surveyRepository, translationRepository, Survey.class, SurveyDTO.class, SurveyTranslation.class,
                 SurveyLanguageSettings.class, SurveyLanguageSettingsDTO.class, new SurveyTranslation.Builder());
     }
 

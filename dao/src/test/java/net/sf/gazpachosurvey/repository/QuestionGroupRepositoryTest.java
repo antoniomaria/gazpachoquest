@@ -20,24 +20,20 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
-		"classpath:/datasource-test-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-		DirtiesContextTestExecutionListener.class,
-		TransactionalTestExecutionListener.class,
-		DbUnitTestExecutionListener.class })
+@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml" })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionGroupRepository-dataset.xml")
 public class QuestionGroupRepositoryTest {
 
-	@Autowired
-	private QuestionGroupRepository questionGroupRepository;
+    @Autowired
+    private QuestionGroupRepository questionGroupRepository;
 
-	@Test
-	public void findQuestionGroupsBySurvey() {
-		int surveyId = 2;
-		List<QuestionGroup> questiongroups = questionGroupRepository
-				.findBySurveyId(surveyId);
-		assertThat(questiongroups).hasSize(3);
+    @Test
+    public void findQuestionGroupsBySurvey() {
+        int surveyId = 2;
+        List<QuestionGroup> questiongroups = questionGroupRepository.findBySurveyId(surveyId);
+        assertThat(questiongroups).hasSize(3);
 
-	}
+    }
 }

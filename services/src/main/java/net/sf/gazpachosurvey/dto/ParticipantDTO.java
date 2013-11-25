@@ -3,7 +3,6 @@ package net.sf.gazpachosurvey.dto;
 import net.sf.gazpachosurvey.types.Gender;
 import net.sf.gazpachosurvey.types.Language;
 
-
 public class ParticipantDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = 1284879816117827887L;
@@ -13,9 +12,9 @@ public class ParticipantDTO extends AbstractIdentifiableDTO {
     private String lastname;
 
     private String email;
-    
+
     private Gender gender;
-    
+
     private Language preferedLanguage;
 
     public ParticipantDTO() {
@@ -45,7 +44,6 @@ public class ParticipantDTO extends AbstractIdentifiableDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-    
 
     public Language getPreferedLanguage() {
         return preferedLanguage;
@@ -54,7 +52,7 @@ public class ParticipantDTO extends AbstractIdentifiableDTO {
     public void setPreferedLanguage(Language preferedLanguage) {
         this.preferedLanguage = preferedLanguage;
     }
-    
+
     public Gender getGender() {
         return gender;
     }
@@ -94,11 +92,11 @@ public class ParticipantDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
-
         public Builder gender(Gender gender) {
             this.gender = gender;
             return this;
         }
+
         public ParticipantDTO build() {
             ParticipantDTO participantDTO = new ParticipantDTO();
             participantDTO.firstname = firstname;

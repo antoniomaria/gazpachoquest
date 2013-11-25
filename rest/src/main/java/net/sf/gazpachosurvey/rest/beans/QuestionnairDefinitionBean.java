@@ -43,8 +43,7 @@ public class QuestionnairDefinitionBean {
 
     @Override
     public String toString() {
-        return "QuestionnairDefinitionBean [languageSettings="
-                + languageSettings + ", language=" + language + "]";
+        return "QuestionnairDefinitionBean [languageSettings=" + languageSettings + ", language=" + language + "]";
     }
 
     public static class Builder {
@@ -52,8 +51,7 @@ public class QuestionnairDefinitionBean {
         private Language language;
         private Set<Language> translationsSupported;
 
-        public Builder languageSettings(
-                SurveyLanguageSettingsDTO languageSettings) {
+        public Builder languageSettings(SurveyLanguageSettingsDTO languageSettings) {
             this.languageSettings = languageSettings;
             return this;
         }

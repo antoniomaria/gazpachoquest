@@ -15,7 +15,7 @@ public class DateTimeConverter implements AttributeConverter<DateTime, Date> {
         if (dateTime == null) {
             return null;
         }
-        return ((DateTime) dateTime).toDate();
+        return dateTime.toDate();
     }
 
     @Override

@@ -10,19 +10,18 @@ import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 
 public class ApplicationConfig extends ResourceConfig {
 
-    public ApplicationConfig(){
+    public ApplicationConfig() {
         register(RequestContextFilter.class);
         register(RolesAllowedDynamicFeature.class);
         register(JacksonFeature.class);
-        
+
         register(AuthorizationRequestFilter.class);
         register(QuestionnairResource.class);
-        
-        //register(JerseyResource.class);
-        //register(SpringSingletonResource.class);
-        //register(SpringRequestResource.class);
-        //register(CustomExceptionMapper.class);
-        
-        
+
+        // register(JerseyResource.class);
+        // register(SpringSingletonResource.class);
+        // register(SpringRequestResource.class);
+        // register(CustomExceptionMapper.class);
+
     }
 }

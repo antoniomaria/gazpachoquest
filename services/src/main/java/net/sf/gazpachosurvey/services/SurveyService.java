@@ -6,5 +6,5 @@ import net.sf.gazpachosurvey.dto.SurveyLanguageSettingsDTO;
 public interface SurveyService extends LocalizedPersistenceService<SurveyDTO, SurveyLanguageSettingsDTO> {
 
     SurveyDTO confirm(SurveyDTO survey);
-    
+
 }

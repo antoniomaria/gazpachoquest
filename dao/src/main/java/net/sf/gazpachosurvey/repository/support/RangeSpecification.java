@@ -23,8 +23,7 @@ import org.springframework.data.jpa.domain.Specifications;
  */
 public class RangeSpecification {
 
-    public static <E> Specifications<E> andRangeIfSet(
-            Specifications<E> specifications, final List<Range<E, ?>> ranges) {
+    public static <E> Specifications<E> andRangeIfSet(Specifications<E> specifications, final List<Range<E, ?>> ranges) {
         for (Range<E, ?> range : ranges) {
             if (range.isSet()) {
                 specifications = specifications.and(toSpecification(range));
@@ -33,34 +32,26 @@ public class RangeSpecification {
         return specifications;
     }
 
-    public static <E, D extends Comparable<? super D>> Specification<E> toSpecification(
-            final Range<E, D> range) {
+    public static <E, D extends Comparable<? super D>> Specification<E> toSpecification(final Range<E, D> range) {
         Validate.isTrue(range.isSet(), "You must pass an exploitable range");
         return new Specification<E>() {
             @Override
-            public Predicate toPredicate(Root<E> root, CriteriaQuery<?> query,
-                    CriteriaBuilder builder) {
+            public Predicate toPredicate(Root<E> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
                 Predicate rangePredicate = null;
 
                 if (range.isBetween()) {
-                    rangePredicate = builder.between(
-                            root.get(range.getField()), range.getFrom(),
-                            range.getTo());
+                    rangePredicate = builder.between(root.get(range.getField()), range.getFrom(), range.getTo());
                 } else if (range.isFromSet()) {
-                    rangePredicate = builder.greaterThanOrEqualTo(
-                            root.get(range.getField()), range.getFrom());
+                    rangePredicate = builder.greaterThanOrEqualTo(root.get(range.getField()), range.getFrom());
                 } else if (range.isToSet()) {
-                    rangePredicate = builder.lessThanOrEqualTo(
-                            root.get(range.getField()), range.getTo());
+                    rangePredicate = builder.lessThanOrEqualTo(root.get(range.getField()), range.getTo());
                 }
 
                 if (rangePredicate != null) {
-                    if (!range.isIncludeNullSet()
-                            || range.getIncludeNull() == Boolean.FALSE) {
+                    if (!range.isIncludeNullSet() || range.getIncludeNull() == Boolean.FALSE) {
                         return rangePredicate;
                     } else {
-                        return builder.or(rangePredicate,
-                                builder.isNull(root.get(range.getField())));
+                        return builder.or(rangePredicate, builder.isNull(root.get(range.getField())));
                     }
                 }
 
@@ -75,8 +66,7 @@ public class RangeSpecification {
                     return builder.isNotNull(root.get(range.getField()));
                 }
 
-                throw new IllegalStateException(
-                        "You must pass an exploitable range (should not happen here)");
+                throw new IllegalStateException("You must pass an exploitable range (should not happen here)");
             }
         };
     }

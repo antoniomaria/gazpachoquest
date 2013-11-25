@@ -15,8 +15,7 @@ import net.sf.gazpachosurvey.domain.support.TranslationBuilder;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class QuestionGroupTranslation extends AbstractPersistable implements
-        Translation<QuestionGroupLanguageSettings> {
+public class QuestionGroupTranslation extends AbstractPersistable implements Translation<QuestionGroupLanguageSettings> {
 
     private static final long serialVersionUID = -2719163699375812306L;
 
@@ -41,10 +40,12 @@ public class QuestionGroupTranslation extends AbstractPersistable implements
         this.questionGroup = questionGroup;
     }
 
+    @Override
     public Language getLanguage() {
         return language;
     }
 
+    @Override
     public void setLanguage(Language language) {
         this.language = language;
     }
@@ -54,11 +55,12 @@ public class QuestionGroupTranslation extends AbstractPersistable implements
         return languageSettings;
     }
 
+    @Override
     public void setLanguageSettings(QuestionGroupLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }
 
-    public static class Builder  implements TranslationBuilder<QuestionGroupTranslation, QuestionGroupLanguageSettings> { 
+    public static class Builder implements TranslationBuilder<QuestionGroupTranslation, QuestionGroupLanguageSettings> {
         private QuestionGroup questionGroup;
         private Language language;
         private QuestionGroupLanguageSettings languageSettings;
@@ -68,16 +70,19 @@ public class QuestionGroupTranslation extends AbstractPersistable implements
             return this;
         }
 
+        @Override
         public Builder language(Language language) {
             this.language = language;
             return this;
         }
 
+        @Override
         public Builder languageSettings(QuestionGroupLanguageSettings languageSettings) {
             this.languageSettings = languageSettings;
             return this;
         }
 
+        @Override
         public QuestionGroupTranslation build() {
             QuestionGroupTranslation questionGroupTranslation = new QuestionGroupTranslation();
             questionGroupTranslation.questionGroup = questionGroup;
@@ -87,8 +92,7 @@ public class QuestionGroupTranslation extends AbstractPersistable implements
         }
 
         @Override
-        public Builder translatedEntityId(
-                Integer entityId) {
+        public Builder translatedEntityId(Integer entityId) {
             QuestionGroup questionGroup = new QuestionGroup();
             questionGroup.setId(entityId);
             return questionGroup(questionGroup);

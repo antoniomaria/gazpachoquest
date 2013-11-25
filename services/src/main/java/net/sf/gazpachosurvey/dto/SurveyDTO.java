@@ -3,11 +3,10 @@ package net.sf.gazpachosurvey.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.gazpachosurvey.domain.core.QuestionGroup;
 import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
-public class SurveyDTO extends AbstractIdentifiableDTO implements IdentifiableLocalizable<SurveyLanguageSettingsDTO>{
+public class SurveyDTO extends AbstractIdentifiableDTO implements IdentifiableLocalizable<SurveyLanguageSettingsDTO> {
 
     private static final long serialVersionUID = 4558625807621395019L;
 
@@ -16,38 +15,43 @@ public class SurveyDTO extends AbstractIdentifiableDTO implements IdentifiableLo
     private SurveyLanguageSettingsDTO languageSettings;
 
     private List<QuestionGroupDTO> questionGroups;
-    
+
     public SurveyDTO() {
         super();
     }
 
+    @Override
     public SurveyLanguageSettingsDTO getLanguageSettings() {
         return languageSettings;
     }
 
+    @Override
     public void setLanguageSettings(SurveyLanguageSettingsDTO languageSettings) {
         this.languageSettings = languageSettings;
     }
 
+    @Override
     public Language getLanguage() {
         return language;
     }
 
+    @Override
     public void setLanguage(Language language) {
         this.language = language;
     }
-    
+
     public void addQuestionGroup(QuestionGroupDTO questionGroup) {
-    	questionGroup.setSurvey(this);
+        questionGroup.setSurvey(this);
         getQuestionGroups().add(questionGroup);
     }
-    public QuestionGroupDTO getLastQuestionGroupDTO(){
+
+    public QuestionGroupDTO getLastQuestionGroupDTO() {
         int count = getQuestionGroups().size();
-        return count > 0 ? getQuestionGroups().get(count-1) : null;
+        return count > 0 ? getQuestionGroups().get(count - 1) : null;
     }
 
     public List<QuestionGroupDTO> getQuestionGroups() {
-        if (questionGroups == null){
+        if (questionGroups == null) {
             questionGroups = new ArrayList<>();
         }
         return questionGroups;

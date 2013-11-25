@@ -22,9 +22,8 @@ import java.util.List;
 import javax.persistence.metamodel.SingularAttribute;
 
 /**
- * Used to construct OR predicate for a property value. In other words you can
- * search all entities E having a given property set to one of the selected
- * values.
+ * Used to construct OR predicate for a property value. In other words you can search all entities E having a given
+ * property set to one of the selected values.
  */
 public class PropertySelector<E, F> implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -77,15 +76,13 @@ public class PropertySelector<E, F> implements Serializable {
     }
 
     public boolean isBoolean() {
-        return field != null
-                && field.getJavaType().isAssignableFrom(Boolean.class);
+        return field != null && field.getJavaType().isAssignableFrom(Boolean.class);
     }
 
     /**
      * {@link PropertySelector} builder
      */
-    static public <E, F> PropertySelector<E, F> property(
-            SingularAttribute<E, F> field, F... values) {
+    static public <E, F> PropertySelector<E, F> property(SingularAttribute<E, F> field, F... values) {
         return new PropertySelector<E, F>(field, values);
     }
 }

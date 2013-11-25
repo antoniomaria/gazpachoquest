@@ -8,12 +8,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class RespondentAnswersActivator {
 
-
     @Autowired
     private RespondentAnswersRepository repository;
-    
+
     @PostConstruct
-    public void active(){
+    public void active() {
         repository.activeAllAnswers();
     }
 }

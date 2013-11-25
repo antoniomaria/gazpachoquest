@@ -15,7 +15,7 @@ public interface Localizable<LS extends LanguageSettings, TR extends Translation
     Map<Language, TR> getTranslations();
 
     void setLanguageSettings(LS languageSettings);
-    
+
     void addTranslation(Language language, TR translation);
 
 }

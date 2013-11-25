@@ -33,8 +33,7 @@ public class Invitation extends AbstractPersistable {
         super();
     }
 
-    protected Invitation(String token, SurveyInstance surveyInstance,
-            InvitationStatus status) {
+    protected Invitation(String token, SurveyInstance surveyInstance, InvitationStatus status) {
         super();
         this.token = token;
         this.surveyInstance = surveyInstance;
@@ -65,9 +64,10 @@ public class Invitation extends AbstractPersistable {
         this.status = status;
     }
 
-    public static Builder with(){
+    public static Builder with() {
         return new Builder();
     }
+
     public static class Builder {
         private String token;
         private SurveyInstance surveyInstance;

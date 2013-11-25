@@ -9,11 +9,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface QuestionRepository extends GenericRepository<Question> {
-	@Query("select q from Survey s join s.questionGroups qg join qg.questions q where s.id = :survey order by index(qg),index(q)")
-	List<Question> findQuestionsBySurvey(@Param("survey") Integer survey);
-	
-	@Query("select q from QuestionGroup qg join qg.questions q where qg.id = :questionGroupId order by index(q)")
-	List<Question> findQuestionByQuestionGroup(@Param("questionGroupId") Integer questionGroupId);
-	
-	
+    @Query("select q from Survey s join s.questionGroups qg join qg.questions q where s.id = :survey order by index(qg),index(q)")
+    List<Question> findQuestionsBySurvey(@Param("survey")
+    Integer survey);
+
+    @Query("select q from QuestionGroup qg join qg.questions q where qg.id = :questionGroupId order by index(q)")
+    List<Question> findQuestionByQuestionGroup(@Param("questionGroupId")
+    Integer questionGroupId);
+
 }

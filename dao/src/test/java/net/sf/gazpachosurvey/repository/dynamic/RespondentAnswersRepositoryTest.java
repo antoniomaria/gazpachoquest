@@ -27,12 +27,9 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
-        "classpath:/datasource-test-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class })
+@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml" })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("RespondentAnswersRepository-dataset.xml")
 public class RespondentAnswersRepositoryTest {
 
@@ -44,7 +41,7 @@ public class RespondentAnswersRepositoryTest {
 
     @Autowired
     private SurveyInstanceRepository surveyInstanceRepository;
-    
+
     @Autowired
     private DataSource datasource;
 
@@ -54,8 +51,7 @@ public class RespondentAnswersRepositoryTest {
 
         repository.collectAnswers(selectedSurvey);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(datasource);
-        assertThat(
-                JdbcTestUtils.countRowsInTable(jdbcTemplate, RespondentAnswersRepository.TABLE_NAME_PREFIX + "3"))
+        assertThat(JdbcTestUtils.countRowsInTable(jdbcTemplate, RespondentAnswersRepository.TABLE_NAME_PREFIX + "3"))
                 .isGreaterThanOrEqualTo(0);
     }
 
@@ -66,12 +62,12 @@ public class RespondentAnswersRepositoryTest {
         Respondent respondent = new Respondent();
         respondent.setId(1);
         respondent.setSurveyInstance(surveyInstance);
-        
+
         repository.activeAllAnswers();
         RespondentAnswers respondentAnswers = new RespondentAnswers();
-        
+
         respondentAnswers.setRespondent(respondent);
-        
+
         respondentAnswers = repository.save(respondentAnswers);
         assertThat(respondent.getId()).isGreaterThanOrEqualTo(1);
     }

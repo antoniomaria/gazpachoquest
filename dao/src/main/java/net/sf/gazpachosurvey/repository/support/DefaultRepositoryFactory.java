@@ -29,8 +29,7 @@ public class DefaultRepositoryFactory extends JpaRepositoryFactory {
     private ByExampleSpecification byExampleSpecification;
     private NamedQueryUtil namedQueryUtil;
 
-    public DefaultRepositoryFactory(EntityManager entityManager,
-            ByExampleSpecification byExampleSpecification,
+    public DefaultRepositoryFactory(EntityManager entityManager, ByExampleSpecification byExampleSpecification,
             NamedQueryUtil namedQueryUtil) {
         super(entityManager);
         Assert.notNull(entityManager);
@@ -44,19 +43,17 @@ public class DefaultRepositoryFactory extends JpaRepositoryFactory {
 
     @Override
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    protected <T, ID extends Serializable> JpaRepository<?, ?> getTargetRepository(
-            RepositoryMetadata metadata, EntityManager entityManager) {
+    protected <T, ID extends Serializable> JpaRepository<?, ?> getTargetRepository(RepositoryMetadata metadata,
+            EntityManager entityManager) {
 
         Class<?> repositoryInterface = metadata.getRepositoryInterface();
 
-        JpaEntityInformation<?, Serializable> entityInformation = getEntityInformation(metadata
-                .getDomainType());
+        JpaEntityInformation<?, Serializable> entityInformation = getEntityInformation(metadata.getDomainType());
 
         if (isQueryDslExecutor(repositoryInterface)) {
             return new QueryDslJpaRepository(entityInformation, entityManager);
         } else {
-            return new GenericRepositoryImpl(entityInformation, entityManager,
-                    byExampleSpecification, namedQueryUtil); // custom
+            return new GenericRepositoryImpl(entityInformation, entityManager, byExampleSpecification, namedQueryUtil); // custom
         }
     }
 
@@ -71,16 +68,13 @@ public class DefaultRepositoryFactory extends JpaRepositoryFactory {
     }
 
     /**
-     * Returns whether the given repository interface requires a QueryDsl
-     * specific implementation to be chosen.
+     * Returns whether the given repository interface requires a QueryDsl specific implementation to be chosen.
      * 
      * @param repositoryInterface
      * @return
      */
     private boolean isQueryDslExecutor(Class<?> repositoryInterface) {
-        return QUERY_DSL_PRESENT
-                && QueryDslPredicateExecutor.class
-                        .isAssignableFrom(repositoryInterface);
+        return QUERY_DSL_PRESENT && QueryDslPredicateExecutor.class.isAssignableFrom(repositoryInterface);
     }
 
 }

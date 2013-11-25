@@ -15,8 +15,8 @@ import net.sf.gazpachosurvey.dto.SurveyInstanceDTO;
 import net.sf.gazpachosurvey.repository.InvitationRepository;
 import net.sf.gazpachosurvey.repository.MailMessageRepository;
 import net.sf.gazpachosurvey.repository.ParticipantRepository;
-import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.repository.SurveyInstanceRepository;
+import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.services.SurveyInstanceService;
 import net.sf.gazpachosurvey.types.InvitationStatus;
 import net.sf.gazpachosurvey.types.Language;
@@ -32,8 +32,7 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.util.Assert;
 
 @Service
-public class SurveyInstanceServiceImpl extends
-        AbstractPersistenceService<SurveyInstance, SurveyInstanceDTO> implements
+public class SurveyInstanceServiceImpl extends AbstractPersistenceService<SurveyInstance, SurveyInstanceDTO> implements
         SurveyInstanceService {
 
     @Autowired
@@ -66,13 +65,10 @@ public class SurveyInstanceServiceImpl extends
 
         if (SurveyInstanceType.BY_INVITATION.equals(running.getType())) {
 
-            Survey survey = surveyRepository.findOne(running.getSurvey()
-                    .getId());
+            Survey survey = surveyRepository.findOne(running.getSurvey().getId());
 
-            Map<MailMessageTemplateType, MailMessageTemplate> templates = survey
-                    .getMailTemplates();
-            MailMessageTemplate invitationTemplate = templates
-                    .get(MailMessageTemplateType.INVITATION);
+            Map<MailMessageTemplateType, MailMessageTemplate> templates = survey.getMailTemplates();
+            MailMessageTemplate invitationTemplate = templates.get(MailMessageTemplateType.INVITATION);
 
             for (Participant participant : running.getParticipants()) {
                 participantRepository.save(participant);
@@ -81,14 +77,11 @@ public class SurveyInstanceServiceImpl extends
             // Running entity must be persisted before creating PersonalInvitation
             for (Participant participant : running.getParticipants()) {
                 String token = tokenGenerator.generate();
-                PersonalInvitation personalInvitation = PersonalInvitation.with()
-                        .surveyInstance(running).token(token)
-                        .status(InvitationStatus.ACTIVE)
-                        .build();
-                
+                PersonalInvitation personalInvitation = PersonalInvitation.with().surveyInstance(running).token(token)
+                        .status(InvitationStatus.ACTIVE).build();
+
                 invitationRepository.save(personalInvitation);
-                MailMessage mailMessage = composeMailMessage(
-                        invitationTemplate, participant, token);
+                MailMessage mailMessage = composeMailMessage(invitationTemplate, participant, token);
                 mailMessageRepository.save(mailMessage);
             }
 
@@ -96,45 +89,38 @@ public class SurveyInstanceServiceImpl extends
         return mapper.map(running, dtoClazz);
     }
 
-    private MailMessage composeMailMessage(
-            MailMessageTemplate mailMessageTemplate, Participant participant,
+    private MailMessage composeMailMessage(MailMessageTemplate mailMessageTemplate, Participant participant,
             String surveyLinkToken) {
 
         Map<String, Object> model = new HashMap<>();
         model.put("lastname", participant.getLastname());
         model.put("firstname", participant.getFirstname());
         model.put("gender", participant.getGender());
-        model.put("link", "http://localhost:8080/questionaires-ui/token="
-                + surveyLinkToken);
+        model.put("link", "http://localhost:8080/questionaires-ui/token=" + surveyLinkToken);
 
         Language preferedLanguage = participant.getPreferedLanguage();
 
-        StringBuilder templateLocation = new StringBuilder()
-                .append(mailMessageTemplate.getId());
+        StringBuilder templateLocation = new StringBuilder().append(mailMessageTemplate.getId());
         if (preferedLanguage != null) {
             templateLocation.append("/");
             templateLocation.append(preferedLanguage);
         }
         VelocityEngine velocityEngine = velocityFactory.getObject();
 
-        String body = VelocityEngineUtils.mergeTemplateIntoString(
-                velocityEngine, templateLocation.toString(), "UTF-8", model);
+        String body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templateLocation.toString(), "UTF-8",
+                model);
 
-        MailMessageTemplateLanguageSettings languageSettings = mailMessageTemplate
-                .getLanguageSettings();
-        if (preferedLanguage != null
-                && !preferedLanguage.equals(mailMessageTemplate.getLanguage())) {
-            MailMessageTemplateTranslation preferedTranslation = mailMessageTemplate
-                    .getTranslations().get(preferedLanguage);
+        MailMessageTemplateLanguageSettings languageSettings = mailMessageTemplate.getLanguageSettings();
+        if (preferedLanguage != null && !preferedLanguage.equals(mailMessageTemplate.getLanguage())) {
+            MailMessageTemplateTranslation preferedTranslation = mailMessageTemplate.getTranslations().get(
+                    preferedLanguage);
             if (preferedTranslation != null) {
                 languageSettings = preferedTranslation.getLanguageSettings();
             }
         }
-        MailMessage mailMessage = MailMessage.with()
-                .subject(languageSettings.getSubject())
-                .to(participant.getEmail())
-                .replyTo(mailMessageTemplate.getReplyTo())
-                .from(mailMessageTemplate.getFromAddress()).text(body).build();
+        MailMessage mailMessage = MailMessage.with().subject(languageSettings.getSubject()).to(participant.getEmail())
+                .replyTo(mailMessageTemplate.getReplyTo()).from(mailMessageTemplate.getFromAddress()).text(body)
+                .build();
         return mailMessage;
     }
 

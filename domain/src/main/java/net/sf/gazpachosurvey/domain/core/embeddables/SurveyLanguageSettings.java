@@ -25,8 +25,7 @@ public class SurveyLanguageSettings implements LanguageSettings {
         super();
     }
 
-    public SurveyLanguageSettings(String title, String description,
-            String welcomeText) {
+    public SurveyLanguageSettings(String title, String description, String welcomeText) {
         super();
         this.title = title;
         this.description = description;

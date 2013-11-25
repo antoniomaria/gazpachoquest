@@ -4,14 +4,15 @@ import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 
-public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements IdentifiableLocalizable<MailMessageTemplateLanguageSettingsDTO>{
+public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
+        IdentifiableLocalizable<MailMessageTemplateLanguageSettingsDTO> {
 
     private static final long serialVersionUID = -3689140734668685289L;
 
     private SurveyDTO survey;
 
     private MailMessageTemplateType type;
-    
+
     private Language language;
 
     private String fromAddress;
@@ -28,26 +29,24 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements I
         return survey;
     }
 
-
     public void setSurvey(SurveyDTO survey) {
         this.survey = survey;
     }
-
 
     public MailMessageTemplateType getType() {
         return type;
     }
 
-
     public void setType(MailMessageTemplateType type) {
         this.type = type;
     }
 
-
+    @Override
     public Language getLanguage() {
         return language;
     }
 
+    @Override
     public void setLanguage(Language language) {
         this.language = language;
     }
@@ -68,21 +67,21 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements I
         this.replyTo = replyTo;
     }
 
+    @Override
     public MailMessageTemplateLanguageSettingsDTO getLanguageSettings() {
         return languageSettings;
     }
 
-    public void setLanguageSettings(
-            MailMessageTemplateLanguageSettingsDTO languageSettings) {
+    @Override
+    public void setLanguageSettings(MailMessageTemplateLanguageSettingsDTO languageSettings) {
         this.languageSettings = languageSettings;
     }
 
     public static interface Builder {
-        
+
         Builder id(Integer id);
 
-        Builder languageSettings(
-                MailMessageTemplateLanguageSettingsDTO languageSettings);
+        Builder languageSettings(MailMessageTemplateLanguageSettingsDTO languageSettings);
 
         Builder language(Language language);
 
@@ -118,19 +117,20 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements I
             return this;
         }
 
+        @Override
         public BuilderImpl from(String from) {
             this.from = from;
             return this;
         }
 
+        @Override
         public BuilderImpl replyTo(String replyTo) {
             this.replyTo = replyTo;
             return this;
         }
 
         @Override
-        public BuilderImpl languageSettings(
-                MailMessageTemplateLanguageSettingsDTO languageSettings) {
+        public BuilderImpl languageSettings(MailMessageTemplateLanguageSettingsDTO languageSettings) {
             this.languageSettings = languageSettings;
             return this;
         }
@@ -156,8 +156,7 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements I
 
         @Override
         public MailMessageTemplateLanguageSettingsDTO.Builder mailMessageTemplateLanguageSettingsStart() {
-            return MailMessageTemplateLanguageSettingsDTO
-                    .mailMessageTemplateLanguageSettingsStart(this);
+            return MailMessageTemplateLanguageSettingsDTO.mailMessageTemplateLanguageSettingsStart(this);
         }
 
         @Override
@@ -168,15 +167,14 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements I
 
         @Override
         public Builder type(MailMessageTemplateType type) {
-            this.type = type; 
+            this.type = type;
             return this;
         }
     }
 
     @Override
     public String toString() {
-        return "MailMessageTemplateDTO [language=" + language
-                + ", fromAddress=" + fromAddress + ", replyTo=" + replyTo
+        return "MailMessageTemplateDTO [language=" + language + ", fromAddress=" + fromAddress + ", replyTo=" + replyTo
                 + ", languageSettings=" + languageSettings + "]";
     }
 

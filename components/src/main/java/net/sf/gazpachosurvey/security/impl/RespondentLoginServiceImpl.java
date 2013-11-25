@@ -2,7 +2,6 @@ package net.sf.gazpachosurvey.security.impl;
 
 import net.sf.gazpachosurvey.domain.core.PersonalInvitation;
 import net.sf.gazpachosurvey.domain.core.Respondent;
-import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.domain.core.SurveyInstance;
 import net.sf.gazpachosurvey.domain.support.Invitation;
 import net.sf.gazpachosurvey.domain.support.Person;

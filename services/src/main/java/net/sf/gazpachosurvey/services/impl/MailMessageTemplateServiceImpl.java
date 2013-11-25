@@ -19,12 +19,10 @@ public class MailMessageTemplateServiceImpl
         implements MailMessageTemplateService {
 
     @Autowired
-    public MailMessageTemplateServiceImpl(
-            MailMessageTemplateRepository repository,
+    public MailMessageTemplateServiceImpl(MailMessageTemplateRepository repository,
             MailMessageTemplateTranslationRepository translationRepository) {
-        super(repository, translationRepository, MailMessageTemplate.class,
-                MailMessageTemplateDTO.class,
-                MailMessageTemplateTranslation.class,
-                MailMessageTemplateLanguageSettings.class, MailMessageTemplateLanguageSettingsDTO.class, new MailMessageTemplateTranslation.Builder());
+        super(repository, translationRepository, MailMessageTemplate.class, MailMessageTemplateDTO.class,
+                MailMessageTemplateTranslation.class, MailMessageTemplateLanguageSettings.class,
+                MailMessageTemplateLanguageSettingsDTO.class, new MailMessageTemplateTranslation.Builder());
     }
 }

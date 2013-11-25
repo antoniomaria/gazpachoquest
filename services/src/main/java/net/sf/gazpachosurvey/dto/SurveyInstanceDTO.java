@@ -11,7 +11,7 @@ public class SurveyInstanceDTO extends AbstractIdentifiableDTO {
     private static final long serialVersionUID = -8624509103476946501L;
 
     private SurveyDTO survey;
-    
+
     private String name;
 
     private SurveyInstanceType type;
@@ -90,7 +90,7 @@ public class SurveyInstanceDTO extends AbstractIdentifiableDTO {
             this.survey = survey;
             return this;
         }
-        
+
         public Builder name(String name) {
             this.name = name;
             return this;

@@ -26,8 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Provider
 public class QuestionnairResource {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(QuestionnairResource.class);
+    private static final Logger logger = LoggerFactory.getLogger(QuestionnairResource.class);
 
     @Autowired
     private SurveyService surveyService;
@@ -41,24 +40,19 @@ public class QuestionnairResource {
     @Produces({ "application/json", MediaType.APPLICATION_JSON })
     public Response getDefinition(@Context
     SecurityContext context) {
-        logger.debug("New petition received from {}", context
-                .getUserPrincipal().getName());
+        logger.debug("New petition received from {}", context.getUserPrincipal().getName());
         Respondent respondent = (Respondent) context.getUserPrincipal();
 
         Integer surveyId = respondent.getSurveyInstance().getSurvey().getId();
 
-        logger.debug(
-                "Respondent {} retriving QuestionnairDefinition for surveyId = {}",
-                respondent.getId(), surveyId);
+        logger.debug("Respondent {} retriving QuestionnairDefinition for surveyId = {}", respondent.getId(), surveyId);
 
         SurveyDTO survey = surveyService.findOne(surveyId);
 
-        Set<Language> translationsSupported = surveyService
-                .translationsSupported(surveyId);
+        Set<Language> translationsSupported = surveyService.translationsSupported(surveyId);
 
-        QuestionnairDefinitionBean definition = QuestionnairDefinitionBean
-                .with().languageSettings(survey.getLanguageSettings())
-                .language(survey.getLanguage())
+        QuestionnairDefinitionBean definition = QuestionnairDefinitionBean.with()
+                .languageSettings(survey.getLanguageSettings()).language(survey.getLanguage())
                 .translationsSupported(translationsSupported).build();
 
         return Response.ok(definition).build();
@@ -70,19 +64,15 @@ public class QuestionnairResource {
     @Produces({ "application/json", MediaType.APPLICATION_JSON })
     public Response browse(@Context
     SecurityContext context) {
-        logger.debug("New petition received from {}", context
-                .getUserPrincipal().getName());
+        logger.debug("New petition received from {}", context.getUserPrincipal().getName());
         Respondent respondent = (Respondent) context.getUserPrincipal();
 
         Integer surveyId = respondent.getSurveyInstance().getSurvey().getId();
 
-        logger.debug(
-                "Respondent {} retriving QuestionnairDefinition for surveyId = {}",
-                respondent.getId(), surveyId);
+        logger.debug("Respondent {} retriving QuestionnairDefinition for surveyId = {}", respondent.getId(), surveyId);
 
         SurveyDTO survey = surveyService.findOne(surveyId);
         return Response.ok().build();
     }
 
-    
 }

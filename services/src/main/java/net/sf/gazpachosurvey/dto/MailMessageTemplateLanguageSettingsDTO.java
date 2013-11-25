@@ -2,7 +2,7 @@ package net.sf.gazpachosurvey.dto;
 
 import net.sf.gazpachosurvey.domain.support.LanguageSettings;
 
-public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiableDTO implements LanguageSettings{
+public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiableDTO implements LanguageSettings {
 
     private static final long serialVersionUID = -4959980255392017094L;
 

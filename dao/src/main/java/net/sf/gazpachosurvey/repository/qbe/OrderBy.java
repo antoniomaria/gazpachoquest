@@ -28,9 +28,8 @@ import net.sf.gazpachosurvey.repository.support.NamedQueryUtil;
 import org.apache.commons.lang.Validate;
 
 /**
- * Holder class for search ordering used by the {@link SearchParameters}. When
- * used with {@link NamedQueryUtil}, you pass column name. For other usage, pass
- * the property name.
+ * Holder class for search ordering used by the {@link SearchParameters}. When used with {@link NamedQueryUtil}, you
+ * pass column name. For other usage, pass the property name.
  */
 public class OrderBy implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -48,8 +47,7 @@ public class OrderBy implements Serializable {
         this(columnOrProperty, ASC);
     }
 
-    public OrderBy(
-            SingularAttribute<? extends Persistable, ? extends Serializable> attribute,
+    public OrderBy(SingularAttribute<? extends Persistable, ? extends Serializable> attribute,
             OrderByDirection direction) {
         Validate.notNull(attribute);
         Validate.notNull(direction);
@@ -57,8 +55,7 @@ public class OrderBy implements Serializable {
         this.direction = direction;
     }
 
-    public OrderBy(
-            SingularAttribute<? extends Persistable, ? extends Serializable> attribute) {
+    public OrderBy(SingularAttribute<? extends Persistable, ? extends Serializable> attribute) {
         this(attribute, ASC);
     }
 

@@ -64,8 +64,8 @@ public class Respondent extends AbstractPerson {
     @Transient
     public Set<String> getRoles() {
         if (roles == null) {
-            this.roles = new HashSet<String>();
-            this.roles.add(ROLE);
+            roles = new HashSet<String>();
+            roles.add(ROLE);
         }
         return roles;
     }

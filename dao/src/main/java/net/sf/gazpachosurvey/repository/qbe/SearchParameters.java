@@ -51,19 +51,16 @@ import org.joda.time.LocalDateTime;
  * A SearchParameters helps you drive your search in the following areas:
  * <ul>
  * <li>Configure the search mode (EQUALS, LIKE, ...)</li>
- * <li>Pagination: it allows you to limit your search results to a specific
- * range.</li>
+ * <li>Pagination: it allows you to limit your search results to a specific range.</li>
  * <li>Allow you to specify ORDER BY and ASC/DESC</li>
  * <li>Enable/disable case sensitivity</li>
  * <li>Enable/disable 2d level cache</li>
- * <li>LIKE search against all string values: simply set the searchPattern
- * property</li>
- * <li>Named query: if you set a named query it will be executed. Named queries
- * can be defined in annotation or src/main/resources/META-INF/orm.xml</li>
+ * <li>LIKE search against all string values: simply set the searchPattern property</li>
+ * <li>Named query: if you set a named query it will be executed. Named queries can be defined in annotation or
+ * src/main/resources/META-INF/orm.xml</li>
  * </ul>
  * 
- * Note : All requests are limited to a maximum number of elements to prevent
- * resource exhaustion.
+ * Note : All requests are limited to a maximum number of elements to prevent resource exhaustion.
  * 
  * @see QueryByExample
  * @see SearchMode
@@ -202,8 +199,8 @@ public class SearchParameters implements Serializable {
     // -----------------------------------
 
     /**
-     * Returns true if a named query has been set, false otherwise. When it
-     * returns true, the DAO layer will call the namedQuery.
+     * Returns true if a named query has been set, false otherwise. When it returns true, the DAO layer will call the
+     * namedQuery.
      */
     public boolean hasNamedQuery() {
         return isNotBlank(namedQuery);
@@ -217,8 +214,7 @@ public class SearchParameters implements Serializable {
     }
 
     /**
-     * Fluently set the named query to be used by the DAO layer. Null by
-     * default.
+     * Fluently set the named query to be used by the DAO layer. Null by default.
      */
     public SearchParameters namedQuery(String namedQuery) {
         setNamedQuery(namedQuery);
@@ -284,26 +280,23 @@ public class SearchParameters implements Serializable {
     // -----------------------------------
 
     /**
-     * When it returns true, it indicates to the DAO layer to use the passed
-     * searchPattern on all string properties.
+     * When it returns true, it indicates to the DAO layer to use the passed searchPattern on all string properties.
      */
     public boolean hasSearchPattern() {
         return isNotBlank(searchPattern);
     }
 
     /**
-     * Set the pattern which may contains wildcards (ex: "e%r%ka" ). The passed
-     * searchPattern is used by the DAO layer on all string properties. Null by
-     * default.
+     * Set the pattern which may contains wildcards (ex: "e%r%ka" ). The passed searchPattern is used by the DAO layer
+     * on all string properties. Null by default.
      */
     public void setSearchPattern(String searchPattern) {
         this.searchPattern = searchPattern;
     }
 
     /**
-     * Fluently set the pattern which may contains wildcards (ex: "e%r%ka" ).
-     * The passed searchPattern is used by the DAO layer on all string
-     * properties. Null by default.
+     * Fluently set the pattern which may contains wildcards (ex: "e%r%ka" ). The passed searchPattern is used by the
+     * DAO layer on all string properties. Null by default.
      */
     public SearchParameters searchPattern(String searchPattern) {
         setSearchPattern(searchPattern);
@@ -387,14 +380,12 @@ public class SearchParameters implements Serializable {
         orders.add(new OrderBy(fieldName, direction));
     }
 
-    public void addOrderBy(
-            SingularAttribute<? extends Persistable, ? extends Serializable> attribute) {
+    public void addOrderBy(SingularAttribute<? extends Persistable, ? extends Serializable> attribute) {
         Validate.notNull(attribute, "attribute must not be null");
         orders.add(new OrderBy(attribute));
     }
 
-    public void addOrderBy(
-            SingularAttribute<? extends Persistable, ? extends Serializable> attribute,
+    public void addOrderBy(SingularAttribute<? extends Persistable, ? extends Serializable> attribute,
             OrderByDirection direction) {
         Validate.notNull(attribute, "fieldName must not be null");
         Validate.notNull(direction, "direction must not be null");
@@ -421,14 +412,12 @@ public class SearchParameters implements Serializable {
         return this;
     }
 
-    public SearchParameters orderBy(
-            SingularAttribute<? extends Persistable, ? extends Serializable> attribute) {
+    public SearchParameters orderBy(SingularAttribute<? extends Persistable, ? extends Serializable> attribute) {
         addOrderBy(attribute);
         return this;
     }
 
-    public SearchParameters orderBy(
-            SingularAttribute<? extends Persistable, ? extends Serializable> attribute,
+    public SearchParameters orderBy(SingularAttribute<? extends Persistable, ? extends Serializable> attribute,
             OrderByDirection direction) {
         addOrderBy(attribute, direction);
         return this;
@@ -454,42 +443,36 @@ public class SearchParameters implements Serializable {
     }
 
     /**
-     * Add the passed {@link Range} in order to create a 'range' predicate on
-     * the corresponding property.
+     * Add the passed {@link Range} in order to create a 'range' predicate on the corresponding property.
      */
     public SearchParameters range(Range<?, ?> range) {
         addRange(range);
         return this;
     }
 
-    public SearchParameters range(SingularAttribute<?, LocalDate> field,
-            LocalDate from, LocalDate to) {
+    public SearchParameters range(SingularAttribute<?, LocalDate> field, LocalDate from, LocalDate to) {
         addRange(rangeLocalDate(field, from, to));
         return this;
     }
 
-    public SearchParameters range(SingularAttribute<?, LocalDateTime> field,
-            LocalDateTime from, LocalDateTime to) {
+    public SearchParameters range(SingularAttribute<?, LocalDateTime> field, LocalDateTime from, LocalDateTime to) {
         addRange(rangeLocalDateTime(field, from, to));
         return this;
     }
 
-    public SearchParameters range(SingularAttribute<?, Date> field, Date from,
-            Date to) {
+    public SearchParameters range(SingularAttribute<?, Date> field, Date from, Date to) {
         addRange(rangeDate(field, from, to));
         return this;
     }
 
-    public SearchParameters after(SingularAttribute<?, LocalDate> field,
-            LocalDate from) {
+    public SearchParameters after(SingularAttribute<?, LocalDate> field, LocalDate from) {
         RangeLocalDate<?> rangeLocalDate = rangeLocalDate(field);
         rangeLocalDate.setFrom(from);
         addRange(rangeLocalDate);
         return this;
     }
 
-    public SearchParameters after(SingularAttribute<?, LocalDateTime> field,
-            LocalDateTime from) {
+    public SearchParameters after(SingularAttribute<?, LocalDateTime> field, LocalDateTime from) {
         RangeLocalDateTime<?> rangeLocalDateTime = rangeLocalDateTime(field);
         rangeLocalDateTime.setFrom(from);
         addRange(rangeLocalDateTime);
@@ -503,40 +486,35 @@ public class SearchParameters implements Serializable {
         return this;
     }
 
-    public SearchParameters before(SingularAttribute<?, LocalDate> field,
-            LocalDate setToto) {
+    public SearchParameters before(SingularAttribute<?, LocalDate> field, LocalDate setToto) {
         RangeLocalDate<?> rangeLocalDate = rangeLocalDate(field);
         rangeLocalDate.setTo(setToto);
         addRange(rangeLocalDate);
         return this;
     }
 
-    public SearchParameters before(SingularAttribute<?, LocalDateTime> field,
-            LocalDateTime setToto) {
+    public SearchParameters before(SingularAttribute<?, LocalDateTime> field, LocalDateTime setToto) {
         RangeLocalDateTime<?> rangeLocalDateTime = rangeLocalDateTime(field);
         rangeLocalDateTime.setTo(setToto);
         addRange(rangeLocalDateTime);
         return this;
     }
 
-    public SearchParameters before(SingularAttribute<?, Date> field,
-            Date setToto) {
+    public SearchParameters before(SingularAttribute<?, Date> field, Date setToto) {
         RangeDate<?> rangeDate = rangeDate(field);
         rangeDate.setTo(setToto);
         addRange(rangeDate);
         return this;
     }
 
-    public SearchParameters lower(SingularAttribute<?, Integer> field,
-            Integer value) {
+    public SearchParameters lower(SingularAttribute<?, Integer> field, Integer value) {
         RangeInteger<?> rangeInteger = RangeInteger.rangeInteger(field);
         rangeInteger.setTo(value);
         addRange(rangeInteger);
         return this;
     }
 
-    public SearchParameters greather(SingularAttribute<?, Integer> field,
-            Integer value) {
+    public SearchParameters greather(SingularAttribute<?, Integer> field, Integer value) {
         RangeInteger<?> rangeInteger = RangeInteger.rangeInteger(field);
         rangeInteger.setFrom(value);
         addRange(rangeInteger);
@@ -568,8 +546,7 @@ public class SearchParameters implements Serializable {
     }
 
     /**
-     * Add the passed {@link PropertySelector} in order to construct an OR
-     * predicate for the corresponding property.
+     * Add the passed {@link PropertySelector} in order to construct an OR predicate for the corresponding property.
      */
     public SearchParameters property(PropertySelector<?, ?> propertySelector) {
         addProperty(propertySelector);
@@ -577,8 +554,7 @@ public class SearchParameters implements Serializable {
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public SearchParameters property(SingularAttribute<?, ?> field,
-            Object... values) {
+    public SearchParameters property(SingularAttribute<?, ?> field, Object... values) {
         return property(new PropertySelector(field, values));
     }
 
@@ -590,8 +566,7 @@ public class SearchParameters implements Serializable {
     // Search by entity selector support
     // -----------------------------------
 
-    public SearchParameters(
-            EntitySelector<?, ? extends Persistable, ?> entitySelector) {
+    public SearchParameters(EntitySelector<?, ? extends Persistable, ?> entitySelector) {
         addEntity(entitySelector);
     }
 
@@ -599,24 +574,20 @@ public class SearchParameters implements Serializable {
         return entities;
     }
 
-    public void addEntity(
-            EntitySelector<?, ? extends Persistable, ?> entitySelector) {
+    public void addEntity(EntitySelector<?, ? extends Persistable, ?> entitySelector) {
         entities.add(entitySelector);
     }
 
     /**
-     * Add the passed {@link EntitySelector} in order to construct an OR
-     * predicate for the underlying foreign key.
+     * Add the passed {@link EntitySelector} in order to construct an OR predicate for the underlying foreign key.
      */
-    public SearchParameters entity(
-            EntitySelector<?, ? extends Persistable, ?> entitySelector) {
+    public SearchParameters entity(EntitySelector<?, ? extends Persistable, ?> entitySelector) {
         addEntity(entitySelector);
         return this;
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public SearchParameters entity(SingularAttribute<?, ?> field,
-            Persistable... values) {
+    public SearchParameters entity(SingularAttribute<?, ?> field, Persistable... values) {
         return entity(new EntitySelector(field, values));
     }
 
@@ -676,24 +647,21 @@ public class SearchParameters implements Serializable {
     }
 
     /**
-     * Returns the attribute (x-to-one association) which must be fetched with
-     * an inner join.
+     * Returns the attribute (x-to-one association) which must be fetched with an inner join.
      */
     public List<SingularAttribute<?, ?>> getInnerJoinAttributes() {
         return getJoinAttributes(JoinType.INNER);
     }
 
     /**
-     * Returns the attribute (x-to-one association) which must be fetched with a
-     * left join.
+     * Returns the attribute (x-to-one association) which must be fetched with a left join.
      */
     public List<SingularAttribute<?, ?>> getLeftJoinAttributes() {
         return getJoinAttributes(JoinType.LEFT);
     }
 
     /**
-     * The passed attribute (x-to-one association) will be fetched with a left
-     * join.
+     * The passed attribute (x-to-one association) will be fetched with a left join.
      */
     public SearchParameters leftJoin(SingularAttribute<?, ?> xToOneAttribute) {
         getLeftJoinAttributes().add(xToOneAttribute);
@@ -701,8 +669,7 @@ public class SearchParameters implements Serializable {
     }
 
     /**
-     * The passed attribute (x-to-one association) will be fetched with a inner
-     * join.
+     * The passed attribute (x-to-one association) will be fetched with a inner join.
      */
     public SearchParameters innerJoin(SingularAttribute<?, ?> xToOneAttribute) {
         getInnerJoinAttributes().add(xToOneAttribute);

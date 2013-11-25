@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>net.sf.gazpachosurvey</groupId>
@@ -46,21 +45,12 @@
       <artifactId>vaadin-client-compiled</artifactId>
       <version>${vaadin.version}</version>
     </dependency>
-    <!--
-      Needed when using the widgetset optimizer (custom ConnectorBundleLoaderFactory).
-
-      For widgetset compilation, vaadin-client-compiler is automatically added on the
-      compilation classpath by vaadin-maven-plugin so normally there is no need for an
-      explicit dependency.
-    -->
-    <!--
-      <dependency>
-      <groupId>com.vaadin</groupId>
-      <artifactId>vaadin-client-compiler</artifactId>
-      <version>${vaadin.version}</version>
-      <scope>provided</scope>
-      </dependency>
-    -->
+    <!-- Needed when using the widgetset optimizer (custom ConnectorBundleLoaderFactory).
+      For widgetset compilation, vaadin-client-compiler is automatically added
+      on the compilation classpath by vaadin-maven-plugin so normally there is
+      no need for an explicit dependency. -->
+    <!-- <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client-compiler</artifactId>
+      <version>${vaadin.version}</version> <scope>provided</scope> </dependency> -->
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-client</artifactId>
@@ -162,7 +152,8 @@
 
     <pluginManagement>
       <plugins>
-        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+        <!--This plugin's configuration is used to store Eclipse m2e settings
+          only. It has no influence on the Maven build itself. -->
         <plugin>
           <groupId>org.eclipse.m2e</groupId>
           <artifactId>lifecycle-mapping</artifactId>
