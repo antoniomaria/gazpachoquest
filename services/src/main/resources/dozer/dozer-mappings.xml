@@ -29,6 +29,16 @@
   </mapping>
 
   <mapping>
+    <class-a>net.sf.gazpachosurvey.dto.QuestionGroupDTO</class-a>
+    <class-b>net.sf.gazpachosurvey.domain.core.QuestionGroup</class-b>
+    <field>
+      <a>questions</a>
+      <b set-method="addQuestion" type="iterate">questions</b>
+      <b-hint>net.sf.gazpachosurvey.domain.core.Question</b-hint>
+    </field>
+  </mapping>
+
+  <mapping>
     <class-a>net.sf.gazpachosurvey.dto.QuestionDTO</class-a>
     <class-b>net.sf.gazpachosurvey.domain.core.Question</class-b>
     <field>

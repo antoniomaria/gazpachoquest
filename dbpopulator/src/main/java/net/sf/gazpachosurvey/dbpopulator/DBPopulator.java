@@ -63,7 +63,8 @@ public class DBPopulator {
         userService.save(UserDTO.with().firstName("temporal.support")
                 .lastName("support").email("support.temporal@gazpacho.net")
                 .build());
-        SurveyDTO survey = createDemoSurvey();
+        SurveyDTO survey = null;
+        survey = createDemoSurvey();
         asignDefaultMailTemplate(survey);
 
         survey = createFastFoodSurvey();
@@ -100,7 +101,7 @@ public class DBPopulator {
                 .pageLanguageSettingsStart().title("Fast Food Survey ")
                 .pageLanguageSettingsEnd().build();
         
-        survey.getQuestionGroups().add(page);
+        survey.addQuestionGroup(page);
         survey = surveyService.save(survey);
         page = survey.getLastQuestionGroupDTO();
         
@@ -254,28 +255,31 @@ public class DBPopulator {
                                         "Gracias por participar en esta encuesta")
                                 .build());
 
-        QuestionGroupDTO page1 = QuestionGroupDTO.with().language(Language.EN)
+        QuestionGroupDTO questionGroup1 = QuestionGroupDTO.with().language(Language.EN)
                 .pageLanguageSettingsStart().title("QuestionGroup 1")
                 .pageLanguageSettingsEnd().build();
-        survey.getQuestionGroups().add(page1);
+        
+        survey.addQuestionGroup(questionGroup1);
         survey = surveyService.save(survey);
-        page1 = survey.getLastQuestionGroupDTO();
+        
+        questionGroup1 = survey.getLastQuestionGroupDTO();
 
-        QuestionGroupDTO page2 = QuestionGroupDTO.with().language(Language.EN)
+        QuestionGroupDTO questionGroup2 = QuestionGroupDTO.with().language(Language.EN)
                 .pageLanguageSettingsStart().title("QuestionGroup 2")
                 .pageLanguageSettingsEnd().build();
 
-        survey.getQuestionGroups().add(page2);
+        survey.addQuestionGroup(questionGroup2);
         survey = surveyService.save(survey);
-        page2 = survey.getLastQuestionGroupDTO();
+        questionGroup2 = survey.getLastQuestionGroupDTO();
         
-        QuestionGroupDTO page3 = QuestionGroupDTO.with().language(Language.EN)
+        QuestionGroupDTO questionGroup3 = QuestionGroupDTO.with().language(Language.EN)
                 .pageLanguageSettingsStart().title("QuestionGroup 3")
                 .pageLanguageSettingsEnd().build();
 
-        survey.getQuestionGroups().add(page3);
+
+        survey.addQuestionGroup(questionGroup3);
         survey = surveyService.save(survey);
-        page3 = survey.getLastQuestionGroupDTO();
+        questionGroup3 = survey.getLastQuestionGroupDTO();
         
         LabelSetDTO labelSet = LabelSetDTO.with().language(Language.EN)
                 .name("Feelings").build();
@@ -301,8 +305,11 @@ public class DBPopulator {
                 .language(Language.EN).languageSettingsStart()
                 .title("What is your name?").languageSettingsEnd()
                 .isRequired(true).build();
-        Integer questionId = questionService.addQuestion(page1.getId(),
-                question);
+        questionGroup1.addQuestion(question);
+        questionGroup1 = questionGroupService.save(questionGroup1);
+        Integer questionId = questionGroup1.getLastQuestionDTO().getId();
+        //Integer questionId = questionService.addQuestion(page1.getId(),
+          //      question);
 
         // 2 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L)
@@ -340,15 +347,19 @@ public class DBPopulator {
                 .title("75-79 years").build());
         question.addQuestionOption(QuestionOptionDTO.with()
                 .title("80 and over").build());
-        questionId = questionService.addQuestion(page1.getId(), question);
-
+        
+        questionGroup1.addQuestion(question);
+        questionGroup1 = questionGroupService.save(questionGroup1);
+        
         // 3 Numeric
         question = QuestionDTO.with().type(QuestionType.N)
                 .language(Language.EN).languageSettingsStart()
                 .title("And for our records, specifically how old are you?")
                 .languageSettingsEnd().isRequired(true).build();
-        questionId = questionService.addQuestion(page1.getId(), question);
-
+        
+        questionGroup1.addQuestion(question);
+        questionGroup1 = questionGroupService.save(questionGroup1);
+        
         // 4 Comment/Essay Box
         question = QuestionDTO
                 .with()
@@ -357,8 +368,10 @@ public class DBPopulator {
                 .languageSettingsStart()
                 .title("Please tell us a little about yourself. What was your first job, and did you enjoy it?")
                 .languageSettingsEnd().isRequired(true).build();
-        questionId = questionService.addQuestion(page2.getId(), question);
-
+        
+        questionGroup1.addQuestion(question);
+        questionGroup1 = questionGroupService.save(questionGroup1);
+        
         // 5 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO
                 .with()
@@ -376,8 +389,9 @@ public class DBPopulator {
                 .title("How <b><i>dare</i></b> you insult me like that! I'm YOUNG")
                 .build());
 
-        questionId = questionService.addQuestion(page2.getId(), question);
-
+        questionGroup1.addQuestion(question);
+        questionGroup1 = questionGroupService.save(questionGroup1);
+        
         // 6 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO
                 .with()
@@ -393,8 +407,9 @@ public class DBPopulator {
         question.addQuestionOption(QuestionOptionDTO.with().title("Ad three")
                 .build());
 
-        questionId = questionService.addQuestion(page3.getId(), question);
-
+        questionGroup2.addQuestion(question);
+        questionGroup2 = questionGroupService.save(questionGroup2);
+        
         // 7 Rating Scale (Agree-Disagree)
         question = QuestionDTO
                 .with()
@@ -431,9 +446,10 @@ public class DBPopulator {
                 .languageSettingsEnd().build());
         question.setSubquestions(subquestions);
 
-        question.setQuestionGroup(page3);
-        question.setSurvey(survey);
-
+        questionGroup3.addQuestion(question);
+        questionGroup3 = questionGroupService.save(questionGroup3);
+        
+        
         question.addQuestionOption(QuestionOptionDTO.with()
                 .title("Agree strongly").build());
         question.addQuestionOption(QuestionOptionDTO.with()
@@ -447,7 +463,8 @@ public class DBPopulator {
         question.addQuestionOption(QuestionOptionDTO.with()
                 .title("Disagree strongly").build());
 
-        question = questionService.save(question);
+        questionGroup3.addQuestion(question);
+        questionGroup3 = questionGroupService.save(questionGroup3);
 
         // 8. Multiple_Choice_Multiple_Answers
         question = QuestionDTO
@@ -456,7 +473,7 @@ public class DBPopulator {
                 .language(Language.EN)
                 .languageSettingsStart()
                 .title("What flavors of ice cream do you like?. Choose all that apply.")
-                .languageSettingsEnd().isRequired(true).page(page3)
+                .languageSettingsEnd().isRequired(true).page(questionGroup3)
                 .survey(survey).build();
         question.addQuestionOption(QuestionOptionDTO.with()
                 .language(Language.EN).title("Vanilla").build());
@@ -466,7 +483,9 @@ public class DBPopulator {
                 .language(Language.EN).title("Strawberry").build());
         question.addQuestionOption(QuestionOptionDTO.with()
                 .language(Language.EN).title("Pistachio").build());
-        question = questionService.save(question);
+
+        questionGroup3.addQuestion(question);
+        questionGroup3 = questionGroupService.save(questionGroup3);
 
         return survey;
     }

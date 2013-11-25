@@ -31,4 +31,10 @@ public class QuestionGroupServiceImpl
                 QuestionGroupLanguageSettingsDTO.class,
                 new QuestionGroupTranslation.Builder());
     }
+    
+    @Override
+    public QuestionGroupDTO save(QuestionGroupDTO dto) {
+    	// TODO Auto-generated method stub
+    	return super.save(dto);
+    }
 }
