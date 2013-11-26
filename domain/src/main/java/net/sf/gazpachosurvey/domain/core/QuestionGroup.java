@@ -99,8 +99,10 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
     }
 
     public void addQuestion(Question question) {
-        getQuestions().add(question);
-        question.setQuestionGroup(this);
+        if (!getQuestions().contains(question)){
+            getQuestions().add(question);
+            question.setQuestionGroup(this);    
+        }
     }
 
     @Override

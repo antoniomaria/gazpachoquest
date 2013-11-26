@@ -94,12 +94,12 @@ public class DBPopulator {
                 .surveyLanguageSettingsEnd().build();
         survey = surveyService.save(survey);
 
-        QuestionGroupDTO page = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
+        QuestionGroupDTO questionGroup = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
                 .title("Fast Food Survey ").pageLanguageSettingsEnd().build();
 
-        survey.addQuestionGroup(page);
+        survey.addQuestionGroup(questionGroup);
         survey = surveyService.save(survey);
-        page = survey.getLastQuestionGroupDTO();
+        questionGroup = survey.getLastQuestionGroupDTO();
 
         // Rating Scale (1-5)
         QuestionDTO question = QuestionDTO.with().type(QuestionType.F).language(Language.EN).languageSettingsStart()
@@ -116,8 +116,7 @@ public class DBPopulator {
                 .title("The food is tasty and flavorful").languageSettingsEnd().build());
         question.setSubquestions(subquestions);
 
-        question.setQuestionGroup(page);
-        question.setSurvey(survey);
+        question.setQuestionGroup(questionGroup);
 
         question.addQuestionOption(QuestionOptionDTO.with().title("Agree strongly").build());
         question.addQuestionOption(QuestionOptionDTO.with().title("Agree somewhat").build());
@@ -149,8 +148,7 @@ public class DBPopulator {
 
         question.setSubquestions(subquestions);
 
-        question.setQuestionGroup(page);
-        question.setSurvey(survey);
+        question.setQuestionGroup(questionGroup);
 
         question.addQuestionOption(QuestionOptionDTO.with().title("Agree strongly").build());
         question.addQuestionOption(QuestionOptionDTO.with().title("Agree somewhat").build());
@@ -164,8 +162,7 @@ public class DBPopulator {
         // Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
                 .title("Indicate total household income").languageSettingsEnd().isRequired(true).build();
-        question.setQuestionGroup(page);
-        question.setSurvey(survey);
+        question.setQuestionGroup(questionGroup);
 
         question.addQuestionOption(QuestionOptionDTO.with().title("under 25,000€").build());
         question.addQuestionOption(QuestionOptionDTO.with().title("25,000 - 29,999€").build());
@@ -242,9 +239,6 @@ public class DBPopulator {
                 .title("What is your name?").languageSettingsEnd().isRequired(true).build();
         questionGroup1.addQuestion(question);
         questionGroup1 = questionGroupService.save(questionGroup1);
-        Integer questionId = questionGroup1.getLastQuestionDTO().getId();
-        // Integer questionId = questionService.addQuestion(page1.getId(),
-        // question);
 
         // 2 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
@@ -349,7 +343,7 @@ public class DBPopulator {
         // 8. Multiple_Choice_Multiple_Answers
         question = QuestionDTO.with().type(QuestionType.M).language(Language.EN).languageSettingsStart()
                 .title("What flavors of ice cream do you like?. Choose all that apply.").languageSettingsEnd()
-                .isRequired(true).page(questionGroup3).survey(survey).build();
+                .isRequired(true).questionGroup(questionGroup3).build();
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Vanilla").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Chocolate").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Strawberry").build());

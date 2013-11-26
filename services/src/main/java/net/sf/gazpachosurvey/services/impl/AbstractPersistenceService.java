@@ -3,11 +3,13 @@ package net.sf.gazpachosurvey.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.domain.support.Persistable;
 import net.sf.gazpachosurvey.dto.Identifiable;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import net.sf.gazpachosurvey.repository.support.GenericRepository;
 import net.sf.gazpachosurvey.services.PersistenceService;
+import net.sf.gazpachosurvey.types.EntityStatus;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +71,25 @@ public abstract class AbstractPersistenceService<T extends Persistable, D extend
 
     @Override
     public D save(D dto) {
-        T entity = mapper.map(dto, entityClazz);
+        /*Survey entity = null;
+        if (survey.isNew()) {
+            entity = mapper.map(survey, entityClazz);
+            entity.setStatus(EntityStatus.DRAFT);
+        }else{
+            entity = repository.findOne(survey.getId());
+          //  User creator = entity.getCreatedBy();
+            mapper.map(survey, entity);
+        }
+        entity = repository.save(entity);
+        */
+        T entity = null;
+        if (dto.isNew()){
+            entity = mapper.map(dto, entityClazz);
+        }else{
+            entity = repository.findOne(dto.getId());
+            mapper.map(dto, entity);
+        }
+       // T entity = mapper.map(dto, entityClazz);
         T savedEntity = repository.save(entity);
         return mapper.map(savedEntity, dtoClazz);
     }

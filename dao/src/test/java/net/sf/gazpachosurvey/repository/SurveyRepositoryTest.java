@@ -5,6 +5,8 @@ import java.util.List;
 import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.QuestionGroup;
 import net.sf.gazpachosurvey.domain.core.Survey;
+import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
+import net.sf.gazpachosurvey.types.Language;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +30,21 @@ public class SurveyRepositoryTest {
 
     @Autowired
     private SurveyRepository repository;
+
+    @Test
+    public void saveTest() {
+        SurveyLanguageSettings languageSettings = SurveyLanguageSettings.with().title("My Survey").build();
+        Survey survey = Survey.with().language(Language.EN).languageSettings(languageSettings).build();
+        survey = repository.save(survey);
+        
+        Survey created = repository.findOne(survey.getId());
+        
+        SurveyLanguageSettings newLanguageSettings = SurveyLanguageSettings.with().title("My Survey. Ver 1").build();
+        created.setLanguageSettings(newLanguageSettings);
+        
+        Survey updated = repository.save(created);
+    System.out.println("fin");
+        }
 
     @Test
     public void findOne() {

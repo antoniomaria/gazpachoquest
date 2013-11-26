@@ -12,8 +12,6 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
 
     private static final long serialVersionUID = 2663159055152157679L;
 
-    private SurveyDTO survey;
-
     private QuestionGroupDTO questionGroup;
 
     private Boolean isRequired;
@@ -67,17 +65,6 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
 
     public void setSubquestions(List<QuestionDTO> subquestions) {
         this.subquestions = subquestions;
-    }
-
-    public SurveyDTO getSurvey() {
-        return survey;
-    }
-
-    public void setSurvey(SurveyDTO survey) {
-        this.survey = survey;
-        if (survey.getLanguage() != null) {
-            language = survey.getLanguage();
-        }
     }
 
     public QuestionGroupDTO getQuestionGroup() {
@@ -136,9 +123,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
 
         Builder type(QuestionType type);
 
-        Builder page(QuestionGroupDTO page);
-
-        Builder survey(SurveyDTO survey);
+        Builder questionGroup(QuestionGroupDTO page);
 
         Builder languageSettings(QuestionLanguageSettingsDTO languageSettings);
 
@@ -157,8 +142,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
 
     public static class BuilderImpl implements Builder {
         private Integer id;
-        private SurveyDTO survey;
-        private QuestionGroupDTO page;
+        private QuestionGroupDTO questionGroup;
         private Boolean isRequired;
         private QuestionType type;
         private Language language;
@@ -173,14 +157,8 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         }
 
         @Override
-        public Builder survey(SurveyDTO survey) {
-            this.survey = survey;
-            return this;
-        }
-
-        @Override
-        public Builder page(QuestionGroupDTO page) {
-            this.page = page;
+        public Builder questionGroup(QuestionGroupDTO page) {
+            this.questionGroup = page;
             return this;
         }
 
@@ -229,8 +207,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         public QuestionDTO build() {
             QuestionDTO questionDTO = new QuestionDTO();
             questionDTO.setId(id);
-            questionDTO.survey = survey;
-            questionDTO.questionGroup = page;
+            questionDTO.questionGroup = questionGroup;
             questionDTO.isRequired = isRequired;
             questionDTO.type = type;
             questionDTO.language = language;

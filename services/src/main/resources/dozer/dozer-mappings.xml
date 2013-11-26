@@ -63,12 +63,22 @@
     </field>
   </mapping>
 
-  <!-- <mapping type="one-way" map-id="SurveyWithQuestions"> <class-a>net.sf.gazpachosurvey.domain.core.Survey</class-a>
-    <class-b>net.sf.gazpachosurvey.dto.SurveyDTO</class-b> </mapping> <mapping
-    type="one-way"> <class-a>net.sf.gazpachosurvey.domain.core.Survey</class-a>
-    <class-b>net.sf.gazpachosurvey.dto.SurveyDTO</class-b> <field-exclude type="one-way">
-    <a>questions</a> <b>questions</b> </field-exclude> </mapping> <mapping type="one-way">
-    <class-a>net.sf.gazpachosurvey.dto.SurveyDTO</class-a> <class-b>net.sf.gazpachosurvey.domain.core.Survey</class-b>
-    </mapping> -->
-
+  <!--
+    <mapping type="one-way" map-id="SurveyWithQuestions">
+    <class-a>net.sf.gazpachosurvey.domain.core.Survey</class-a>
+    <class-b>net.sf.gazpachosurvey.dto.SurveyDTO</class-b>
+    </mapping>
+    <mapping type="one-way">
+    <class-a>net.sf.gazpachosurvey.domain.core.Survey</class-a>
+    <class-b>net.sf.gazpachosurvey.dto.SurveyDTO</class-b>
+    <field-exclude type="one-way">
+    <a>questions</a>
+    <b>questions</b>
+    </field-exclude>
+    </mapping>
+    <mapping type="one-way">
+    <class-a>net.sf.gazpachosurvey.dto.SurveyDTO</class-a>
+    <class-b>net.sf.gazpachosurvey.domain.core.Survey</class-b>
+    </mapping>
+  -->
 </mappings>

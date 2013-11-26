@@ -3,6 +3,7 @@ package net.sf.gazpachosurvey.services.impl;
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
+import net.sf.gazpachosurvey.domain.user.User;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
 import net.sf.gazpachosurvey.dto.SurveyLanguageSettingsDTO;
 import net.sf.gazpachosurvey.repository.MailMessageRepository;
@@ -13,6 +14,8 @@ import net.sf.gazpachosurvey.repository.i18.SurveyTranslationRepository;
 import net.sf.gazpachosurvey.services.SurveyService;
 import net.sf.gazpachosurvey.types.EntityStatus;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,9 +45,14 @@ public class SurveyServiceImpl
 
     @Override
     public SurveyDTO save(SurveyDTO survey) {
-        Survey entity = mapper.map(survey, entityClazz);
-        if (entity.isNew()) {
+        Survey entity = null;
+        if (survey.isNew()) {
+            entity = mapper.map(survey, entityClazz);
             entity.setStatus(EntityStatus.DRAFT);
+        }else{
+            entity = repository.findOne(survey.getId());
+          //  User creator = entity.getCreatedBy();
+            mapper.map(survey, entity);
         }
         entity = repository.save(entity);
         return mapper.map(entity, SurveyDTO.class);
