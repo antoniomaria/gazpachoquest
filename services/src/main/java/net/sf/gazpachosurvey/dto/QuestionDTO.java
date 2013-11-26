@@ -12,8 +12,6 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
 
     private static final long serialVersionUID = 2663159055152157679L;
 
-    private QuestionGroupDTO questionGroup;
-
     private Boolean isRequired;
 
     private QuestionType type;
@@ -63,16 +61,11 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         return subquestions;
     }
 
-    public void setSubquestions(List<QuestionDTO> subquestions) {
-        this.subquestions = subquestions;
-    }
 
-    public QuestionGroupDTO getQuestionGroup() {
-        return questionGroup;
-    }
-
-    public void setQuestionGroup(QuestionGroupDTO questionGroup) {
-        this.questionGroup = questionGroup;
+    public void addSubQuestion(QuestionDTO subQuestion) {
+        if (!getSubquestions().contains(subQuestion)){
+            subquestions.add(subQuestion);    
+        }
     }
 
     public List<QuestionOptionDTO> getQuestionOptions() {
@@ -82,15 +75,10 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         return questionOptions;
     }
 
-    public void setQuestionOptions(List<QuestionOptionDTO> questionOptions) {
-        this.questionOptions = questionOptions;
-    }
-
     public void addQuestionOption(QuestionOptionDTO questionOption) {
-        if (questionOption.getLanguage() == null) {
-            questionOption.setLanguage(language);
+        if (!getQuestionOptions().contains(questionOption)){
+            questionOptions.add(questionOption);    
         }
-        getQuestionOptions().add(questionOption);
     }
 
     public Boolean getIsRequired() {
@@ -123,8 +111,6 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
 
         Builder type(QuestionType type);
 
-        Builder questionGroup(QuestionGroupDTO page);
-
         Builder languageSettings(QuestionLanguageSettingsDTO languageSettings);
 
         Builder language(Language language);
@@ -142,7 +128,6 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
 
     public static class BuilderImpl implements Builder {
         private Integer id;
-        private QuestionGroupDTO questionGroup;
         private Boolean isRequired;
         private QuestionType type;
         private Language language;
@@ -155,13 +140,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
             this.id = id;
             return this;
         }
-
-        @Override
-        public Builder questionGroup(QuestionGroupDTO page) {
-            this.questionGroup = page;
-            return this;
-        }
-
+        
         @Override
         public Builder isRequired(Boolean isRequired) {
             this.isRequired = isRequired;
@@ -207,7 +186,6 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         public QuestionDTO build() {
             QuestionDTO questionDTO = new QuestionDTO();
             questionDTO.setId(id);
-            questionDTO.questionGroup = questionGroup;
             questionDTO.isRequired = isRequired;
             questionDTO.type = type;
             questionDTO.language = language;

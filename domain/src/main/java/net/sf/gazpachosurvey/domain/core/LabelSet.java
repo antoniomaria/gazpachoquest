@@ -60,8 +60,10 @@ public class LabelSet extends AbstractPersistable {
     }
 
     public void addLabel(Label label) {
-        getLabels().add(label);
-        label.setLabelSet(this);
+        if (!getLabels().contains(label)) {
+            labels.add(label);
+            label.setLabelSet(this);
+        }
     }
 
 }

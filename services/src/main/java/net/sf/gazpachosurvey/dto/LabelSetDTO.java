@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.gazpachosurvey.types.Language;
@@ -19,11 +20,16 @@ public class LabelSetDTO extends AbstractIdentifiableDTO {
     }
 
     public List<LabelDTO> getLabels() {
+        if (labels == null){
+            this.labels = new ArrayList<>();
+        }
         return labels;
     }
-
-    public void setLabels(List<LabelDTO> labels) {
-        this.labels = labels;
+    
+    public void addLabel(LabelDTO label){
+        if (getLabels().contains(label)){
+            labels.add(label);
+        }
     }
 
     public String getName() {

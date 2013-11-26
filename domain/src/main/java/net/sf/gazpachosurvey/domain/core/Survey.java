@@ -40,14 +40,14 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
     private Language language;
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<SurveyInstance> surveysRunning;
+    private Set<SurveyInstance> surveyInstances;
 
     @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private Map<Language, SurveyTranslation> translations;
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.MERGE, fetch = FetchType.LAZY, orphanRemoval = true)
     @OrderColumn(name = "order_in_survey")
     private List<QuestionGroup> questionGroups;
 
@@ -60,15 +60,15 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
         super();
     }
 
-    public Set<SurveyInstance> getSurveysRunning() {
-        if (surveysRunning == null) {
-            surveysRunning = new HashSet<>();
+    public Set<SurveyInstance> getSurveyInstances() {
+        if (surveyInstances == null) {
+            surveyInstances = new HashSet<>();
         }
-        return surveysRunning;
+        return surveyInstances;
     }
 
-    public void setSurveysRunning(Set<SurveyInstance> surveysRunning) {
-        this.surveysRunning = surveysRunning;
+    public void setSurveyInstances(Set<SurveyInstance> surveysRunning) {
+        this.surveyInstances = surveysRunning;
     }
 
     @Override
@@ -84,12 +84,14 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
     }
 
     public void addSurveyInstance(SurveyInstance surveyInstance) {
-        getSurveysRunning().add(surveyInstance);
-        surveyInstance.setSurvey(this);
+        if (!getSurveyInstances().contains(surveyInstance)) {
+            surveyInstances.add(surveyInstance);
+            surveyInstance.setSurvey(this);
+        }
     }
 
     public void removeSurveyInstance(SurveyInstance surveyInstance) {
-        getSurveysRunning().remove(surveyInstance);
+        getSurveyInstances().remove(surveyInstance);
         surveyInstance.setSurvey(null);
     }
 
@@ -105,8 +107,10 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
     }
 
     public void addQuestionGroup(QuestionGroup questionGroup) {
-        questionGroup.setSurvey(this);
-        getQuestionGroups().add(questionGroup);
+        if (!getQuestionGroups().contains(questionGroup)) {
+            questionGroup.setSurvey(this);
+            questionGroups.add(questionGroup);
+        }
     }
 
     @Override
@@ -163,10 +167,6 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
         private EntityStatus status;
         private SurveyLanguageSettings languageSettings;
         private Language language;
-        private Set<SurveyInstance> surveysRunning;
-        private Map<Language, SurveyTranslation> translations;
-        private List<QuestionGroup> questionGroups;
-        private Set<Question> questions;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -188,35 +188,12 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
             return this;
         }
 
-        public Builder surveysRunning(Set<SurveyInstance> surveysRunning) {
-            this.surveysRunning = surveysRunning;
-            return this;
-        }
-
-        public Builder translations(Map<Language, SurveyTranslation> translations) {
-            this.translations = translations;
-            return this;
-        }
-
-        public Builder questionGroups(List<QuestionGroup> questionGroups) {
-            this.questionGroups = questionGroups;
-            return this;
-        }
-
-        public Builder questions(Set<Question> questions) {
-            this.questions = questions;
-            return this;
-        }
-
         public Survey build() {
             Survey survey = new Survey();
             survey.setId(id);
             survey.status = status;
             survey.languageSettings = languageSettings;
             survey.language = language;
-            survey.surveysRunning = surveysRunning;
-            survey.translations = translations;
-            survey.questionGroups = questionGroups;
             return survey;
         }
     }

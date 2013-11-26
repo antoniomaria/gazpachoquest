@@ -141,15 +141,21 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     }
 
     public void addQuestionOption(QuestionOption questionOption) {
-        getQuestionOptions().add(questionOption);
-        questionOption.setQuestion(this);
+        Assert.notNull(questionOption);
+        if (!getQuestionOptions().contains(questionOption)) {
+            questionOptions.add(questionOption);
+            questionOption.setQuestion(this);
+        }
+
     }
 
     public void addSubquestion(Question subquestion) {
         Assert.notNull(subquestion);
-        subquestion.setLanguage(language);
-        getSubquestions().add(subquestion);
-        subquestion.setParent(this);
+        if (!getSubquestions().contains(subquestion)) {
+            subquestion.setLanguage(language);
+            subquestions.add(subquestion);
+            subquestion.setParent(this);
+        }
     }
 
     @Override

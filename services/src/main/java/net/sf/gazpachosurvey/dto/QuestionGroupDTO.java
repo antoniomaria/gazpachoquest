@@ -11,8 +11,6 @@ public class QuestionGroupDTO extends AbstractIdentifiableDTO implements
 
     private static final long serialVersionUID = 4668205160387380803L;
 
-    private SurveyDTO survey;
-
     private Language language;
 
     private QuestionGroupLanguageSettingsDTO languageSettings;
@@ -43,14 +41,6 @@ public class QuestionGroupDTO extends AbstractIdentifiableDTO implements
         this.languageSettings = languageSettings;
     }
 
-    public SurveyDTO getSurvey() {
-        return survey;
-    }
-
-    public void setSurvey(SurveyDTO survey) {
-        this.survey = survey;
-    }
-
     public List<QuestionDTO> getQuestions() {
         if (questions == null) {
             questions = new ArrayList<>();
@@ -58,12 +48,10 @@ public class QuestionGroupDTO extends AbstractIdentifiableDTO implements
         return questions;
     }
 
-    public void setQuestions(List<QuestionDTO> questions) {
-        this.questions = questions;
-    }
-
     public void addQuestion(QuestionDTO question) {
-        getQuestions().add(question);
+        if (!getQuestions().contains(question)) {
+            questions.add(question);
+        }
     }
 
     public QuestionDTO getLastQuestionDTO() {

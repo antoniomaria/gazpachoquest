@@ -41,13 +41,14 @@ public class SurveyDTO extends AbstractIdentifiableDTO implements IdentifiableLo
     }
 
     public void addQuestionGroup(QuestionGroupDTO questionGroup) {
-        questionGroup.setSurvey(this);
-        getQuestionGroups().add(questionGroup);
+        if (!getQuestionGroups().contains(questionGroup)) {
+            questionGroups.add(questionGroup);
+        }
     }
 
     public QuestionGroupDTO getLastQuestionGroupDTO() {
         int count = getQuestionGroups().size();
-        return count > 0 ? getQuestionGroups().get(count - 1) : null;
+        return count > 0 ? questionGroups.get(count - 1) : null;
     }
 
     public List<QuestionGroupDTO> getQuestionGroups() {
