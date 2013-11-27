@@ -112,10 +112,10 @@ public class DBPopulator {
         question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
                 .title("The food is tasty and flavorful").languageSettingsEnd().build());
 
-
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Neither agree nor disagree").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Neither agree nor disagree")
+                .build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree somewhat").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
@@ -141,7 +141,8 @@ public class DBPopulator {
 
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Neither agree nor disagree").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Neither agree nor disagree")
+                .build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree somewhat").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
@@ -271,8 +272,10 @@ public class DBPopulator {
         question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
                 .title("Given your extraordinary age, how do you find using this survey tool?").languageSettingsEnd()
                 .isRequired(true).build();
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Very difficult to read, my eyesight is dim").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Easy, my carer is doing it all for me").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN)
+                .title("Very difficult to read, my eyesight is dim").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN)
+                .title("Easy, my carer is doing it all for me").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN)
                 .title("How <b><i>dare</i></b> you insult me like that! I'm YOUNG").build());
 
@@ -318,7 +321,8 @@ public class DBPopulator {
 
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Neither agree nor disagree").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Neither agree nor disagree")
+                .build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree somewhat").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
@@ -394,7 +398,7 @@ public class DBPopulator {
     public void test() {
         userService.save(UserDTO.with().firstName("temporal.support").lastName("support")
                 .email("support.temporal@gazpacho.net").build());
-    
+
         SurveyDTO survey = SurveyDTO
                 .with()
                 .language(Language.EN)
@@ -407,14 +411,16 @@ public class DBPopulator {
                 .surveyLanguageSettingsEnd().build();
         survey = surveyService.save(survey);
 
-        QuestionGroupDTO questionGroup = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
-                .title("Fast Food Survey ").pageLanguageSettingsEnd().build();
+        QuestionGroupDTO questionGroup = QuestionGroupDTO.with().survey(survey).language(Language.EN)
+                .pageLanguageSettingsStart().title("Fast Food Survey ").pageLanguageSettingsEnd().build();
+
         questionGroup = questionGroupService.save(questionGroup);
-        
+
+        // Needed to set the order group in Survey
         survey.addQuestionGroup(questionGroup);
         survey = surveyService.save(survey);
-        
+
         System.out.println("fin");
-    
+
     }
 }

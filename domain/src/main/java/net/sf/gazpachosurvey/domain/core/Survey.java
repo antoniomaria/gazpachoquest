@@ -47,7 +47,7 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private Map<Language, SurveyTranslation> translations;
 
-    @OneToMany(mappedBy = "survey", cascade = CascadeType.MERGE, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "survey", cascade = { CascadeType.REMOVE}, fetch = FetchType.LAZY, orphanRemoval = true)
     @OrderColumn(name = "order_in_survey")
     private List<QuestionGroup> questionGroups;
 
@@ -107,10 +107,8 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
     }
 
     public void addQuestionGroup(QuestionGroup questionGroup) {
-        if (!getQuestionGroups().contains(questionGroup)) {
-            questionGroup.setSurvey(this);
-            questionGroups.add(questionGroup);
-        }
+        // Needed only to set the question group order in survey
+        getQuestionGroups().add(questionGroup);
     }
 
     @Override

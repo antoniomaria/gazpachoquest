@@ -11,6 +11,8 @@ public class QuestionGroupDTO extends AbstractIdentifiableDTO implements
 
     private static final long serialVersionUID = 4668205160387380803L;
 
+    private SurveyDTO survey;
+    
     private Language language;
 
     private QuestionGroupLanguageSettingsDTO languageSettings;
@@ -59,6 +61,15 @@ public class QuestionGroupDTO extends AbstractIdentifiableDTO implements
         return count > 0 ? getQuestions().get(count - 1) : null;
     }
 
+    
+    public SurveyDTO getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(SurveyDTO survey) {
+        this.survey = survey;
+    }
+
     public static Builder with() {
         return new BuilderImpl();
     }
@@ -68,6 +79,8 @@ public class QuestionGroupDTO extends AbstractIdentifiableDTO implements
         Builder languageSettings(QuestionGroupLanguageSettingsDTO languageSettings);
 
         Builder language(Language language);
+        
+        Builder survey(SurveyDTO survey);
 
         QuestionGroupLanguageSettingsDTO.Builder pageLanguageSettingsStart();
 
@@ -77,11 +90,20 @@ public class QuestionGroupDTO extends AbstractIdentifiableDTO implements
     public static class BuilderImpl implements Builder {
         private Language language;
 
+        private SurveyDTO survey;
+        
         private QuestionGroupLanguageSettingsDTO languageSettings;
 
         @Override
         public BuilderImpl language(Language language) {
             this.language = language;
+            return this;
+        }
+        
+
+        @Override
+        public BuilderImpl survey(SurveyDTO survey) {
+            this.survey = survey;
             return this;
         }
 
@@ -101,6 +123,7 @@ public class QuestionGroupDTO extends AbstractIdentifiableDTO implements
             QuestionGroupDTO questionGroupDTO = new QuestionGroupDTO();
             questionGroupDTO.languageSettings = languageSettings;
             questionGroupDTO.language = language;
+            questionGroupDTO.survey = survey;
             return questionGroupDTO;
         }
     }
