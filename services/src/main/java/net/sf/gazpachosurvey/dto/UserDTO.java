@@ -1,5 +1,7 @@
 package net.sf.gazpachosurvey.dto;
 
+import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
+
 public class UserDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = 7370786032611110768L;

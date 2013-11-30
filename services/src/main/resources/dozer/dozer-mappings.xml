@@ -56,11 +56,18 @@
   <mapping>
     <class-a>net.sf.gazpachosurvey.dto.SurveyDTO</class-a>
     <class-b>net.sf.gazpachosurvey.domain.core.Survey</class-b>
+    <!--
+    <field relationship-type="non-cumulative">
+      <a>questionGroups</a>
+      <b>questionGroups</b>
+    </field>
+     --> 
     <field>
       <a>questionGroups</a>
       <b set-method="addQuestionGroup" type="iterate">questionGroups</b>
       <b-hint>net.sf.gazpachosurvey.domain.core.QuestionGroup</b-hint>
     </field>
+    
   </mapping>
 
   <!--

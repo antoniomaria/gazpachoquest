@@ -3,12 +3,13 @@ package net.sf.gazpachosurvey.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.util.Assert;
-
+import net.sf.gazpachosurvey.dto.support.AbstractAuditableDTO;
 import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
-public class SurveyDTO extends AbstractIdentifiableDTO implements IdentifiableLocalizable<SurveyLanguageSettingsDTO> {
+import org.springframework.util.Assert;
+
+public class SurveyDTO extends AbstractAuditableDTO implements IdentifiableLocalizable<SurveyLanguageSettingsDTO> {
 
     private static final long serialVersionUID = 4558625807621395019L;
 
@@ -44,10 +45,10 @@ public class SurveyDTO extends AbstractIdentifiableDTO implements IdentifiableLo
 
     public void addQuestionGroup(QuestionGroupDTO questionGroup) {
         Assert.notNull(questionGroup, "Question Group must be not null");
-        Assert.state(!questionGroup.isNew(), "Save questionGroup before adding to the survey");
-        if (!getQuestionGroups().contains(questionGroup)) {
+        //Assert.state(!questionGroup.isNew(), "Save questionGroup before adding to the survey");
+        //if (!getQuestionGroups().contains(questionGroup)) {
             questionGroups.add(questionGroup);
-        }
+        //}
     }
 
     public QuestionGroupDTO getLastQuestionGroupDTO() {

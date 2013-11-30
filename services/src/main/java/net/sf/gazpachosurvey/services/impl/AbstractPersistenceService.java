@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.gazpachosurvey.domain.support.Persistable;
-import net.sf.gazpachosurvey.dto.Identifiable;
+import net.sf.gazpachosurvey.dto.support.Identifiable;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import net.sf.gazpachosurvey.repository.support.GenericRepository;
 import net.sf.gazpachosurvey.services.PersistenceService;
@@ -67,8 +67,15 @@ public abstract class AbstractPersistenceService<T extends Persistable, D extend
         repository.delete(id);
     }
 
-    @Override
     public D save(D dto) {
+        T entity = null;
+            entity = mapper.map(dto, entityClazz);
+        T savedEntity = repository.save(entity);
+        return mapper.map(savedEntity, dtoClazz);
+    }
+
+    
+    public D saveXXX(D dto) {
         T entity = null;
         if (dto.isNew()) {
             entity = mapper.map(dto, entityClazz);

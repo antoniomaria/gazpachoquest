@@ -43,8 +43,7 @@ public class SurveyServiceImpl
                 SurveyLanguageSettings.class, SurveyLanguageSettingsDTO.class, new SurveyTranslation.Builder());
     }
 
-    @Override
-    public SurveyDTO save(SurveyDTO survey) {
+    public SurveyDTO saveXX(SurveyDTO survey) {
         Survey entity = null;
         if (survey.isNew()) {
             entity = mapper.map(survey, entityClazz);

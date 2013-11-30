@@ -410,16 +410,27 @@ public class DBPopulator {
                         "Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:")
                 .surveyLanguageSettingsEnd().build();
         survey = surveyService.save(survey);
+System.out.println("fin serafin");
+        if (1==1)
+            return;
+        QuestionGroupDTO questionGroup1 = QuestionGroupDTO.with().survey(survey).language(Language.EN)
+                .pageLanguageSettingsStart().title("Group 1").pageLanguageSettingsEnd().build();
 
-        QuestionGroupDTO questionGroup = QuestionGroupDTO.with().survey(survey).language(Language.EN)
-                .pageLanguageSettingsStart().title("Fast Food Survey ").pageLanguageSettingsEnd().build();
-
-        questionGroup = questionGroupService.save(questionGroup);
+        questionGroup1 = questionGroupService.save(questionGroup1);
 
         // Needed to set the order group in Survey
-        survey.addQuestionGroup(questionGroup);
+        survey.addQuestionGroup(questionGroup1);
         survey = surveyService.save(survey);
+/*
+        QuestionGroupDTO questionGroup2 = QuestionGroupDTO.with().survey(survey).language(Language.EN)
+                .pageLanguageSettingsStart().title("Group 1").pageLanguageSettingsEnd().build();
 
+        questionGroup2 = questionGroupService.save(questionGroup2);
+        
+     // Needed to set the order group in Survey
+        survey.addQuestionGroup(questionGroup2);
+        survey = surveyService.save(survey);
+*/
         System.out.println("fin");
 
     }

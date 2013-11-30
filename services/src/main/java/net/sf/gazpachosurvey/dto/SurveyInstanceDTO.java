@@ -2,6 +2,7 @@ package net.sf.gazpachosurvey.dto;
 
 import java.util.Set;
 
+import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachosurvey.types.SurveyInstanceType;
 
 import org.joda.time.DateTime;

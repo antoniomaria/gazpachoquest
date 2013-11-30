@@ -2,7 +2,7 @@ package net.sf.gazpachosurvey.services;
 
 import java.util.List;
 
-import net.sf.gazpachosurvey.dto.Identifiable;
+import net.sf.gazpachosurvey.dto.support.Identifiable;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 
 public interface PersistenceService<D extends Identifiable> {

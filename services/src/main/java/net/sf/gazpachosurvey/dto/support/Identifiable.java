@@ -1,4 +1,4 @@
-package net.sf.gazpachosurvey.dto;
+package net.sf.gazpachosurvey.dto.support;
 
 import java.io.Serializable;
 

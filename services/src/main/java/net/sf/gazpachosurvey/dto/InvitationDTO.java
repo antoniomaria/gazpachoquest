@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.dto;
 
+import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachosurvey.types.InvitationStatus;
 import net.sf.gazpachosurvey.types.InvitationType;
 
