@@ -11,6 +11,7 @@ import net.sf.gazpachosurvey.services.PersistenceService;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 public abstract class AbstractPersistenceService<T extends Persistable, D extends Identifiable> implements
         PersistenceService<D> {
@@ -67,10 +68,17 @@ public abstract class AbstractPersistenceService<T extends Persistable, D extend
         repository.delete(id);
     }
 
+    @Transactional
     public D save(D dto) {
         T entity = null;
+        T savedEntity = null;
+        if (dto.isNew()){
             entity = mapper.map(dto, entityClazz);
-        T savedEntity = repository.save(entity);
+            savedEntity = repository.saveWithoutFlush(entity);
+        }else{
+            savedEntity = repository.findOne(dto.getId());
+            mapper.map(dto, entity);
+        }
         return mapper.map(savedEntity, dtoClazz);
     }
 

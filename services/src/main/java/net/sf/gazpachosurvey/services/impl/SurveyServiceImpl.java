@@ -18,6 +18,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SurveyServiceImpl
@@ -43,6 +44,21 @@ public class SurveyServiceImpl
                 SurveyLanguageSettings.class, SurveyLanguageSettingsDTO.class, new SurveyTranslation.Builder());
     }
 
+    public Survey save(Survey survey) {
+        Survey entity = null;
+        if (survey.isNew()) {
+            survey.setStatus(EntityStatus.DRAFT);
+            //entity = repository.saveWithoutFlush(survey);
+            entity = repository.save(survey);
+        }else{
+            entity = repository.findOne(survey.getId());
+            // User creator = entity.getCreatedBy();
+            mapper.map(survey, entity);
+        }
+        return entity;
+    }
+
+    
     public SurveyDTO saveXX(SurveyDTO survey) {
         Survey entity = null;
         if (survey.isNew()) {

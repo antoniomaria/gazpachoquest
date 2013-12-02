@@ -13,6 +13,10 @@
 
   <logger name="org.eclipse.persistence.logging.sql" level="DEBUG" />
 
+  <logger name="org.springframework.orm.jpa.JpaTransactionManager" level="DEBUG" />
+
+
+
   <logger name="net.sf.gazpachosurvey" level="DEBUG" />
 
   <root level="ERROR">

@@ -23,6 +23,7 @@ import net.sf.gazpachosurvey.services.QuestionService;
 import net.sf.gazpachosurvey.services.SurveyInstanceService;
 import net.sf.gazpachosurvey.services.SurveyService;
 import net.sf.gazpachosurvey.services.UserService;
+import net.sf.gazpachosurvey.services.impl.ServiceFacade;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 import net.sf.gazpachosurvey.types.QuestionType;
@@ -57,6 +58,10 @@ public class DBPopulator {
     @Autowired
     private MailMessageTemplateService mailMessageTemplateService;
 
+
+    @Autowired
+    ServiceFacade facade;
+    
     public void populate() {
         userService.save(UserDTO.with().firstName("temporal.support").lastName("support")
                 .email("support.temporal@gazpacho.net").build());
@@ -209,19 +214,19 @@ public class DBPopulator {
         labelSet = labelSetService.save(labelSet);
 
         LabelDTO label = LabelDTO.with().title("Agree strongly").build();
-        labelSetService.addLabel(labelSet.getId(), label);
+        //labelSetService.addLabel(labelSet.getId(), label);
 
         label = LabelDTO.with().title("Agree somewhat").build();
-        labelSetService.addLabel(labelSet.getId(), label);
+        //labelSetService.addLabel(labelSet.getId(), label);
 
         label = LabelDTO.with().title("Neither agree nor disagree").build();
-        labelSetService.addLabel(labelSet.getId(), label);
+        //labelSetService.addLabel(labelSet.getId(), label);
 
         label = LabelDTO.with().title("Disagree somewhat").build();
-        labelSetService.addLabel(labelSet.getId(), label);
+        //labelSetService.addLabel(labelSet.getId(), label);
 
         label = LabelDTO.with().title("Disagree strongly").build();
-        labelSetService.addLabel(labelSet.getId(), label);
+        //labelSetService.addLabel(labelSet.getId(), label);
 
         // 1 Single Textbox
         QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).languageSettingsStart()
@@ -409,7 +414,8 @@ public class DBPopulator {
                 .welcomeText(
                         "Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:")
                 .surveyLanguageSettingsEnd().build();
-        survey = surveyService.save(survey);
+        //survey = surveyService.save(survey);
+        facade.save(survey);
 System.out.println("fin serafin");
         if (1==1)
             return;

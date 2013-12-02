@@ -2,11 +2,15 @@ package net.sf.gazpachosurvey.dto;
 
 import java.io.Serializable;
 
+import net.sf.gazpachosurvey.types.Language;
+
 public class LabelDTO implements Serializable {
 
     private static final long serialVersionUID = 7715134426554617698L;
 
     private String title;
+
+    private Language language;
 
     public LabelDTO() {
         super();
@@ -20,6 +24,14 @@ public class LabelDTO implements Serializable {
         this.title = title;
     }
 
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
     public static Builder with() {
         return new Builder();
     }
@@ -27,14 +39,22 @@ public class LabelDTO implements Serializable {
     public static class Builder {
         private String title;
 
+        private Language language;
+
         public Builder title(String title) {
             this.title = title;
+            return this;
+        }
+
+        public Builder language(Language language) {
+            this.language = language;
             return this;
         }
 
         public LabelDTO build() {
             LabelDTO labelDTO = new LabelDTO();
             labelDTO.title = title;
+            labelDTO.language = language;
             return labelDTO;
         }
     }

@@ -2,7 +2,6 @@ package net.sf.gazpachosurvey.domain.support;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
@@ -20,7 +19,7 @@ public abstract class AbstractAuditable extends AbstractPersistable {
 
     private static final long serialVersionUID = 6507308518779364972L;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @CreatedBy
     private User createdBy;
 
@@ -29,7 +28,7 @@ public abstract class AbstractAuditable extends AbstractPersistable {
     @CreatedDate
     private DateTime createdDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = true)
     @LastModifiedBy
     private User lastModifiedBy;
 

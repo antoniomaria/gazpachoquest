@@ -1,5 +1,7 @@
 package net.sf.gazpachosurvey.services.impl;
 
+import java.util.List;
+
 import net.sf.gazpachosurvey.domain.core.Label;
 import net.sf.gazpachosurvey.domain.core.LabelSet;
 import net.sf.gazpachosurvey.dto.LabelDTO;
@@ -22,7 +24,6 @@ public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSet, La
     @Autowired
     private LabelRepository labelRepository;
 
-    @Override
     public Integer addLabel(Integer labelSetId, LabelDTO label) {
         LabelSet labelSet = repository.findOne(labelSetId);
 
@@ -33,4 +34,24 @@ public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSet, La
 
         return labelSet.getLabels().get(labelSet.getLabels().size() - 1).getId();
     }
+
+    public LabelSet save(LabelSet labelSet) {
+        LabelSet saved = null;
+        if (labelSet.isNew()){
+            saved = repository.saveWithoutFlush(labelSet);
+        }else{
+            saved = repository.findOne(labelSet.getId());
+            
+            saved.setLanguage(labelSet.getLanguage());
+            saved.setName(labelSet.getName());
+
+            List<Label> labels = labelSet.getLabels();
+
+            for (Label label : labels) {
+                saved.addLabel(label);
+            }
+        }
+        return saved;
+    }
+
 }

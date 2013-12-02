@@ -33,6 +33,27 @@ public class SurveyServiceTest {
     private SurveyService surveyService;
 
     @Test
+    public void saveTest() {
+        SurveyLanguageSettingsDTO languageSettings = SurveyLanguageSettingsDTO.with().title("My Survey").build();
+        SurveyDTO survey = SurveyDTO.with().language(Language.EN).languageSettings(languageSettings).build();
+        System.out.println("saving!");
+        survey = surveyService.save(survey);
+        System.out.println("Retriving!!!");
+        surveyService.findOne(survey.getId());
+        /*
+        Survey created = repository.findOne(survey.getId());
+        
+        SurveyLanguageSettings newLanguageSettings = SurveyLanguageSettings.with().title("My Survey. Ver 1").build();
+        created.setLanguageSettings(newLanguageSettings);
+        
+        Survey updated = repository.save(created);
+    */
+    System.out.println("fin");
+        
+        }
+
+    
+    @Test
     public void findAllTest() {
         assertThat(surveyService.findAll()).hasSize(2);
     }
