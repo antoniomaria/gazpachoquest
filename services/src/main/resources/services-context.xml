@@ -15,9 +15,7 @@
 
   <import resource="classpath:/dozer/dozer-context.xml" />
 
-  <context:component-scan base-package="net.sf.gazpachosurvey.services.impl,net.sf.gazpachosurvey.util.impl" />
-
-  <bean id="localizedTemplateResourceLoader" class="net.sf.gazpachosurvey.velocity.loader.LocalizedTemplateResourceLoaderImpl" autowire="byType"></bean>
+  <context:component-scan base-package="net.sf.gazpachosurvey.services.impl,net.sf.gazpachosurvey.facades.impl" />
 
   <bean id="profilingAdvise" class="net.sf.gazpachosurvey.aspects.ProfilingAdvise"></bean>
 
@@ -36,7 +34,6 @@
       <tx:method name="*" />
     </tx:attributes>
   </tx:advice>
- <!--  
+
   <tx:annotation-driven />
-  -->
 </beans>

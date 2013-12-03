@@ -1,6 +1,7 @@
 package net.sf.gazpachosurvey.services.impl;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import net.sf.gazpachosurvey.domain.core.Label;
 import net.sf.gazpachosurvey.domain.core.LabelSet;
@@ -37,18 +38,25 @@ public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSet, La
 
     public LabelSet save(LabelSet labelSet) {
         LabelSet saved = null;
-        if (labelSet.isNew()){
+        if (labelSet.isNew()) {
             saved = repository.saveWithoutFlush(labelSet);
-        }else{
+        } else {
             saved = repository.findOne(labelSet.getId());
-            
+
             saved.setLanguage(labelSet.getLanguage());
             saved.setName(labelSet.getName());
 
             List<Label> labels = labelSet.getLabels();
-
-            for (Label label : labels) {
-                saved.addLabel(label);
+            ListIterator<Label> it = labels.listIterator(labels.size());
+            int pos = labels.size();
+            List<Label> savedLabels = saved.getLabels();
+            while (it.hasPrevious()) {
+                Label label = it.previous();
+                int foundPosition= savedLabels.indexOf(label);
+                if (foundPosition < 0){
+                    saved.addLabel(pos, label);
+                }
+                pos --;
             }
         }
         return saved;

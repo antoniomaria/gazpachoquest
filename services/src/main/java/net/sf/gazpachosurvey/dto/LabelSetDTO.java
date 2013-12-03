@@ -3,6 +3,8 @@ package net.sf.gazpachosurvey.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.util.Assert;
+
 import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachosurvey.types.Language;
 
@@ -21,15 +23,28 @@ public class LabelSetDTO extends AbstractIdentifiableDTO {
     }
 
     public List<LabelDTO> getLabels() {
-        if (labels == null){
+        if (labels == null) {
             this.labels = new ArrayList<>();
         }
         return labels;
     }
-    
-    public void addLabel(LabelDTO label){
-        if (getLabels().contains(label)){
+
+    public void addLabel(LabelDTO label) {
+        if (!getLabels().contains(label)) {
             labels.add(label);
+        }
+    }
+
+    public void addLabel(int index, LabelDTO label) {
+        if (labels == null) {
+            this.labels = new ArrayList<>();
+        }
+        if (labels.isEmpty() || index > labels.size()) {
+            labels.add(label);
+        } else if (index > 0) {
+            labels.add(index - 1, label);
+        } else { // Negative amount or zero
+            labels.add(0, label);
         }
     }
 
@@ -76,4 +91,5 @@ public class LabelSetDTO extends AbstractIdentifiableDTO {
         name = builder.name;
         language = builder.language;
     }
+
 }
