@@ -1,10 +1,12 @@
 package net.sf.gazpachosurvey.domain.core;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -28,7 +30,7 @@ public class LabelSet extends AbstractPersistable {
     private List<Label> labels;
 
     @Enumerated(EnumType.STRING)
-    @Basic(optional = false)
+    @Column(nullable = false)
     private Language language;
 
     public LabelSet() {
@@ -67,6 +69,12 @@ public class LabelSet extends AbstractPersistable {
             labels.add(0, label);
         }
         label.setLabelSet(this);
+    }
+    public void swapLabel(int i, int j){
+        if (labels != null) {
+            return ;
+        }
+        Collections.swap(labels, i, j);
     }
 
     public void setLabels(List<Label> labels) {

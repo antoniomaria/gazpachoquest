@@ -1,9 +1,8 @@
 package net.sf.gazpachosurvey.dto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import org.springframework.util.Assert;
 
 import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachosurvey.types.Language;
@@ -27,6 +26,13 @@ public class LabelSetDTO extends AbstractIdentifiableDTO {
             this.labels = new ArrayList<>();
         }
         return labels;
+    }
+
+    public void swapLabel(int i, int j) {
+        if (labels == null) {
+            this.labels = new ArrayList<>();
+        }
+        Collections.swap(labels, i, j);
     }
 
     public void addLabel(LabelDTO label) {

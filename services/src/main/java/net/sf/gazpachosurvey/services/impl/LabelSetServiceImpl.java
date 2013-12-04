@@ -48,13 +48,21 @@ public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSet, La
 
             List<Label> labels = labelSet.getLabels();
             ListIterator<Label> it = labels.listIterator(labels.size());
-            int pos = labels.size();
+            int pos = labels.size() - 1;
             List<Label> savedLabels = saved.getLabels();
             while (it.hasPrevious()) {
                 Label label = it.previous();
-                int foundPosition= savedLabels.indexOf(label);
-                if (foundPosition < 0){
+                int previousPosition = savedLabels.indexOf(label);
+                if (previousPosition < 0){ // New element
                     saved.addLabel(pos, label);
+                }else{
+                    Label existingLabel = labels.get(previousPosition);
+                    // Updating exiting entity
+                    existingLabel.setTitle(label.getTitle());
+                    existingLabel.setLanguage(label.getLanguage());
+                    if (previousPosition != pos){
+                        saved.swapLabel(previousPosition, pos);    
+                    }
                 }
                 pos --;
             }
