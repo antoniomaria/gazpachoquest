@@ -1,7 +1,7 @@
 package net.sf.gazpachosurvey.services;
 
-import net.sf.gazpachosurvey.dto.SurveyInstanceDTO;
+import net.sf.gazpachosurvey.domain.core.SurveyInstance;
 
-public interface SurveyInstanceService extends PersistenceService<SurveyInstanceDTO> {
+public interface SurveyInstanceService extends PersistenceService<SurveyInstance> {
 
 }

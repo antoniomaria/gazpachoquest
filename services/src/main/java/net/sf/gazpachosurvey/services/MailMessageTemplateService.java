@@ -1,9 +1,9 @@
 package net.sf.gazpachosurvey.services;
 
-import net.sf.gazpachosurvey.dto.MailMessageTemplateDTO;
-import net.sf.gazpachosurvey.dto.MailMessageTemplateLanguageSettingsDTO;
+import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
+import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 
 public interface MailMessageTemplateService extends
-        LocalizedPersistenceService<MailMessageTemplateDTO, MailMessageTemplateLanguageSettingsDTO> {
+        LocalizedPersistenceService<MailMessageTemplate, MailMessageTemplateLanguageSettings> {
 
 }

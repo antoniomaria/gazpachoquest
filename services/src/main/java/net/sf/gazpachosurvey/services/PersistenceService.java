@@ -2,23 +2,21 @@ package net.sf.gazpachosurvey.services;
 
 import java.util.List;
 
-import net.sf.gazpachosurvey.dto.support.Identifiable;
+import net.sf.gazpachosurvey.domain.support.Persistable;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 
-public interface PersistenceService<D extends Identifiable> {
-    List<D> findAll();
+public interface PersistenceService<T extends Persistable> {
+    List<T> findAll();
 
-    D findOne(Integer id);
-
-    D findOne(Integer id, String schenario);
+    T findOne(Integer id);
 
     long count();
 
     void delete(Integer id);
 
-    D save(D dto);
+    T save(T entity);
 
-    List<D> findByExample(D dto, SearchParameters searchParameters);
+    List<T> findByExample(T example, SearchParameters searchParameters);
 
-    D findOneByExample(D dto, SearchParameters searchParameters);
+    T findOneByExample(T example, SearchParameters searchParameters);
 }

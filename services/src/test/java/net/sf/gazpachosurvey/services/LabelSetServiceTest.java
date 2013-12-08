@@ -35,22 +35,24 @@ public class LabelSetServiceTest {
         labelSet.setLanguage(Language.EN);
         labelSet.setName("Feelings");
 
+
+        Label label = new Label();
+        label.setLanguage(Language.EN);
+        label.setTitle("Agree somehow");
+        labelSet.addLabel(label);
+
         LabelSet created = labelSetService.save(labelSet);
 
         LabelSet detached = new LabelSet();
         detached.setId(created.getId());
 
-        Label label = new Label();
-        label.setLabelSet(created);
+        label = new Label();
         label.setLanguage(Language.EN);
         label.setTitle("Totally agree");
 
-        created.addLabel(label);
-        labelSet = labelSetService.save(labelSet);
+        detached.addLabel(label);
+        labelSet = labelSetService.save(detached);
 
-        assertThat(labelSet.getLabels().get(0).getId()).isNotNull();
-        assertThat(labelSet.getLabels().get(0)).isNotNull();
-        assertThat(labelSet.getLabels().get(0).getTitle()).isEqualTo(label.getTitle());
-
+        assertThat(labelSet.getLabels()).hasSize(2);
     }
 }

@@ -1,6 +1,5 @@
 package net.sf.gazpachosurvey.services;
 
-import net.sf.gazpachosurvey.domain.core.QuestionGroup;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.QuestionGroupDTO;
 

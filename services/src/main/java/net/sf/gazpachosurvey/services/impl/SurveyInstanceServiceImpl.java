@@ -11,7 +11,6 @@ import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.domain.core.SurveyInstance;
 import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
-import net.sf.gazpachosurvey.dto.SurveyInstanceDTO;
 import net.sf.gazpachosurvey.repository.InvitationRepository;
 import net.sf.gazpachosurvey.repository.MailMessageRepository;
 import net.sf.gazpachosurvey.repository.ParticipantRepository;
@@ -32,7 +31,7 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.util.Assert;
 
 @Service
-public class SurveyInstanceServiceImpl extends AbstractPersistenceService<SurveyInstance, SurveyInstanceDTO> implements
+public class SurveyInstanceServiceImpl extends AbstractPersistenceService<SurveyInstance> implements
         SurveyInstanceService {
 
     @Autowired
@@ -55,13 +54,12 @@ public class SurveyInstanceServiceImpl extends AbstractPersistenceService<Survey
 
     @Autowired
     public SurveyInstanceServiceImpl(SurveyInstanceRepository repository) {
-        super(repository, SurveyInstance.class, SurveyInstanceDTO.class);
+        super(repository);
     }
 
     @Override
-    public SurveyInstanceDTO save(SurveyInstanceDTO dto) {
-        Assert.notNull(dto.getSurvey(), "Survey is required");
-        SurveyInstance running = mapper.map(dto, SurveyInstance.class);
+    public SurveyInstance save(SurveyInstance running) {
+        Assert.notNull(running.getSurvey(), "Survey is required");
 
         if (SurveyInstanceType.BY_INVITATION.equals(running.getType())) {
 
@@ -86,7 +84,7 @@ public class SurveyInstanceServiceImpl extends AbstractPersistenceService<Survey
             }
 
         }
-        return mapper.map(running, dtoClazz);
+        return running;
     }
 
     private MailMessage composeMailMessage(MailMessageTemplate mailMessageTemplate, Participant participant,

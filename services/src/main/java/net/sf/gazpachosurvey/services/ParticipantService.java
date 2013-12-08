@@ -1,7 +1,7 @@
 package net.sf.gazpachosurvey.services;
 
-import net.sf.gazpachosurvey.dto.ParticipantDTO;
+import net.sf.gazpachosurvey.domain.core.Participant;
 
-public interface ParticipantService extends PersistenceService<ParticipantDTO> {
+public interface ParticipantService extends PersistenceService<Participant> {
 
 }

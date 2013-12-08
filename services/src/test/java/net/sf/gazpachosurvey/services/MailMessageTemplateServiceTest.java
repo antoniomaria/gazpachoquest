@@ -4,9 +4,10 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.Set;
 
-import net.sf.gazpachosurvey.dto.MailMessageTemplateDTO;
-import net.sf.gazpachosurvey.dto.MailMessageTemplateLanguageSettingsDTO;
+import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
+import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachosurvey.types.Language;
+import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,42 +31,44 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 public class MailMessageTemplateServiceTest {
 
     @Autowired
-    MailMessageTemplateService service;
+    private MailMessageTemplateService mailMessageTemplateService;
 
     @Autowired
     private UserService userService;
 
     @Test
     public void saveTest() {
-        MailMessageTemplateDTO mailMessageTemplate = MailMessageTemplateDTO
-                .with()
-                .language(Language.EN)
-                .from("support@gazpacho.net")
-                .replyTo("support@gazpacho.net")
-                .mailMessageTemplateLanguageSettingsStart()
-                .subject("Your survey")
-                .body("Dear Mr. $lastname, <br> You have been invited to take this survey. <br>"
+        MailMessageTemplate mailMessageTemplate = MailMessageTemplate.with().type(MailMessageTemplateType.INVITATION)
+                .language(Language.EN).fromAddress("support@gazpacho.net").replyTo("nonreply@gazpacho.net").build();
+
+        MailMessageTemplateLanguageSettings languageSettings = new MailMessageTemplateLanguageSettings();
+        languageSettings.setSubject("Your survey");
+        languageSettings
+                .setBody("Dear Mr. $lastname, <br> You have been invited to take this survey. <br>"
                         + "The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off."
-                        + "<a href=\"\">Click here</a> to take the survey").mailMessageTemplateLanguageSettingsEnd()
-                .build();
-        mailMessageTemplate = service.save(mailMessageTemplate);
+                        + "<a href=\"\">Click here</a> to take the survey");
+        mailMessageTemplate.setLanguageSettings(languageSettings);
 
-        MailMessageTemplateLanguageSettingsDTO languageSettings = MailMessageTemplateLanguageSettingsDTO
-                .with()
-                .subject("Tu encuesta")
-                .body("Estimado Sr. $lastname, <br> Has sido invitado para participar en esta encuesta <br>"
+        mailMessageTemplate = mailMessageTemplateService.save(mailMessageTemplate);
+
+        MailMessageTemplateLanguageSettings languageSettingsInSpanish = new MailMessageTemplateLanguageSettings();
+        languageSettingsInSpanish.setSubject("Tu encuesta");
+        languageSettingsInSpanish
+                .setBody("Estimado Sr. $lastname, <br> Has sido invitado para participar en esta encuesta <br>"
                         + "Nos dedicas 15 minutos para realizar la encuesta?, puedes interrumpirla y completarla más tarde si es necesario"
-                        + "<a href=\"\">Click aqui</a> para empezar").build();
+                        + "<a href=\"\">Click aqui</a> para empezar");
 
-        service.saveTranslation(mailMessageTemplate.getId(), Language.ES, languageSettings);
-        MailMessageTemplateDTO localizedMailMessageTemplate = service.findOne(mailMessageTemplate.getId(), Language.ES);
+        mailMessageTemplateService.saveTranslation(mailMessageTemplate.getId(), Language.ES, languageSettings);
+
+        MailMessageTemplate localizedMailMessageTemplate = mailMessageTemplateService.findOne(
+                mailMessageTemplate.getId(), Language.ES);
         assertThat(localizedMailMessageTemplate.getLanguageSettings().getSubject()).isEqualTo(
                 languageSettings.getSubject());
     }
 
     @Test
     public void languagesTest() {
-        Set<Language> translations = service.translationsSupported(55);
+        Set<Language> translations = mailMessageTemplateService.translationsSupported(55);
         assertThat(translations).contains(Language.ES);
     }
 }

@@ -1,13 +1,10 @@
 package net.sf.gazpachosurvey.services;
 
 import net.sf.gazpachosurvey.domain.core.Survey;
-import net.sf.gazpachosurvey.dto.SurveyDTO;
-import net.sf.gazpachosurvey.dto.SurveyLanguageSettingsDTO;
+import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
 
-public interface SurveyService extends LocalizedPersistenceService<SurveyDTO, SurveyLanguageSettingsDTO> {
+public interface SurveyService extends LocalizedPersistenceService<Survey, SurveyLanguageSettings> {
 
-    SurveyDTO confirm(SurveyDTO survey);
-
-    Survey save(Survey survey);
+    Survey confirm(Survey survey);
 
 }

@@ -3,6 +3,7 @@ package net.sf.gazpachosurvey.domain.core;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -27,13 +28,14 @@ public class MailMessageTemplate extends
     private static final long serialVersionUID = 8115847063538607577L;
 
     @Enumerated(EnumType.STRING)
-    @Column(insertable = true, updatable = true)
+    @Column(insertable = true, updatable = true, nullable = false)
     private MailMessageTemplateType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Survey survey;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Language language;
 
     private String fromAddress;
@@ -43,7 +45,7 @@ public class MailMessageTemplate extends
     @Embedded
     private MailMessageTemplateLanguageSettings languageSettings;
 
-    @OneToMany(mappedBy = "mailMessageTemplate", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "mailMessageTemplate", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private Map<Language, MailMessageTemplateTranslation> translations;

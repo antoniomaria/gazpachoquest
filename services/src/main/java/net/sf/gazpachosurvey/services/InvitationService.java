@@ -1,7 +1,7 @@
 package net.sf.gazpachosurvey.services;
 
-import net.sf.gazpachosurvey.dto.InvitationDTO;
+import net.sf.gazpachosurvey.domain.support.Invitation;
 
-public interface InvitationService extends PersistenceService<InvitationDTO> {
+public interface InvitationService extends PersistenceService<Invitation> {
 
 }

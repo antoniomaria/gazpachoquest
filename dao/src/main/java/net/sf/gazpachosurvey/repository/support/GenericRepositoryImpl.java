@@ -117,9 +117,8 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
         return super.count(spec);
     }
 
-    @Override
     @Transactional
-    public <S extends T> S save(S entity) {
+    public <S extends T> S saveWithFlush(S entity) {
         if (this.entityInformation.isNew(entity)) {
             this.em.persist(entity);
             flush();
@@ -130,10 +129,6 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
         return entity;
     }
 
-    public T saveWithoutFlush(T entity) {
-        return super.save(entity);
-    }
-
     public List<T> saveWithoutFlush(Iterable<? extends T> entities) {
         List<T> result = new ArrayList<T>();
         if (entities == null) {
@@ -141,7 +136,7 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
         }
 
         for (T entity : entities) {
-            result.add(saveWithoutFlush(entity));
+            result.add(save(entity));
         }
         return result;
     }

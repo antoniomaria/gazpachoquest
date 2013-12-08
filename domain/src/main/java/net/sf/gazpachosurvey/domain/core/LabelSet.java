@@ -56,7 +56,7 @@ public class LabelSet extends AbstractPersistable {
         getLabels().add(label);
         label.setLabelSet(this);
     }
-
+/*
     public void addLabel(int index, Label label) {
         if (labels == null) {
             this.labels = new ArrayList<>();
@@ -70,13 +70,7 @@ public class LabelSet extends AbstractPersistable {
         }
         label.setLabelSet(this);
     }
-    public void swapLabel(int i, int j){
-        if (labels != null) {
-            return ;
-        }
-        Collections.swap(labels, i, j);
-    }
-
+  */
     public void setLabels(List<Label> labels) {
         this.labels = labels;
     }

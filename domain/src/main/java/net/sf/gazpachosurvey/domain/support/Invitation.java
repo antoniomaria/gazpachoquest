@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.domain.support;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,12 +22,14 @@ public class Invitation extends AbstractPersistable {
 
     private static final long serialVersionUID = -9203813369476903640L;
 
+    @Column(nullable = false)
     protected String token;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     protected SurveyInstance surveyInstance;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     protected InvitationStatus status;
 
     public Invitation() {
@@ -69,9 +72,15 @@ public class Invitation extends AbstractPersistable {
     }
 
     public static class Builder {
+        private Integer id;
         private String token;
         private SurveyInstance surveyInstance;
         private InvitationStatus status;
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
 
         public Builder token(String token) {
             this.token = token;
@@ -93,6 +102,7 @@ public class Invitation extends AbstractPersistable {
             invitation.token = token;
             invitation.surveyInstance = surveyInstance;
             invitation.status = status;
+            invitation.setId(id);
             return invitation;
         }
     }

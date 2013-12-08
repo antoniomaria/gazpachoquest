@@ -13,8 +13,8 @@ import org.springframework.data.repository.NoRepositoryBean;
 @NoRepositoryBean
 public interface GenericRepository<T> extends JpaRepository<T, Integer>, JpaSpecificationExecutor<T> {
 
-    T saveWithoutFlush(T entity);
-    
+    <S extends T> S saveWithFlush(S entity) ;
+
     Page<T> findByExample(T example, Pageable pageable);
 
     Page<T> findByExample(T example, List<Range<T, ?>> ranges, Pageable pageable);

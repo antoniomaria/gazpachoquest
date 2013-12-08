@@ -1,8 +1,8 @@
 package net.sf.gazpachosurvey.services;
 
-import net.sf.gazpachosurvey.dto.QuestionDTO;
-import net.sf.gazpachosurvey.dto.QuestionLanguageSettingsDTO;
+import net.sf.gazpachosurvey.domain.core.Question;
+import net.sf.gazpachosurvey.domain.core.embeddables.QuestionLanguageSettings;
 
-public interface QuestionService extends LocalizedPersistenceService<QuestionDTO, QuestionLanguageSettingsDTO> {
+public interface QuestionService extends LocalizedPersistenceService<Question, QuestionLanguageSettings> {
 
 }
