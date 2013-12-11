@@ -1,7 +1,6 @@
 package net.sf.gazpachosurvey.services.impl;
 
 import java.util.Map;
-import java.util.Set;
 
 import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
 import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
@@ -26,25 +25,25 @@ public class MailMessageTemplateServiceImpl
         super(repository, translationRepository, new MailMessageTemplateTranslation.Builder());
     }
 
-    public MailMessageTemplate save(MailMessageTemplate aMailMessageTemplate) {
+    public MailMessageTemplate save(MailMessageTemplate entity) {
         MailMessageTemplate existing = null;
-        if (aMailMessageTemplate.isNew()) {
-            existing = repository.save(aMailMessageTemplate);
+        if (entity.isNew()) {
+            existing = repository.save(entity);
         } else {
-            existing = repository.findOne(aMailMessageTemplate.getId());
-            existing.setSurvey(aMailMessageTemplate.getSurvey());
-            existing.setFromAddress(aMailMessageTemplate.getFromAddress());
-            existing.setReplyTo(aMailMessageTemplate.getReplyTo());
-            existing.setLanguageSettings(aMailMessageTemplate.getLanguageSettings());
-            existing.setType(aMailMessageTemplate.getType());
+            existing = repository.findOne(entity.getId());
+            existing.setSurvey(entity.getSurvey());
+            existing.setFromAddress(entity.getFromAddress());
+            existing.setReplyTo(entity.getReplyTo());
+            existing.setLanguageSettings(entity.getLanguageSettings());
+            existing.setType(entity.getType());
 
-            Map<Language, MailMessageTemplateTranslation> translations = aMailMessageTemplate.getTranslations();
-                Map<Language, MailMessageTemplateTranslation> supportedTranslations = existing.getTranslations();
-                for (Language language : translations.keySet()) {
-                    MailMessageTemplateTranslation translation = translations.get(language);
-                    if (supportedTranslations.get(language) == null) {
-                        existing.addTranslation(language, translation);
-                    }
+            Map<Language, MailMessageTemplateTranslation> translations = entity.getTranslations();
+            Map<Language, MailMessageTemplateTranslation> supportedTranslations = existing.getTranslations();
+            for (Language language : translations.keySet()) {
+                MailMessageTemplateTranslation translation = translations.get(language);
+                if (supportedTranslations.get(language) == null) {
+                    existing.addTranslation(language, translation);
+                }
             }
         }
         return existing;

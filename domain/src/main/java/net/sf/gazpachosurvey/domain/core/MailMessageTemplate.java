@@ -47,7 +47,7 @@ public class MailMessageTemplate extends
 
     @OneToMany(mappedBy = "mailMessageTemplate", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "language", insertable = false, updatable = false)
+    @MapKeyColumn(name = "language", insertable = true, updatable = true)
     private Map<Language, MailMessageTemplateTranslation> translations;
 
     public MailMessageTemplate() {

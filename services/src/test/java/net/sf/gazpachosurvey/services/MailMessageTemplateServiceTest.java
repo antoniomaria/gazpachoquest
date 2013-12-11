@@ -68,7 +68,7 @@ public class MailMessageTemplateServiceTest {
         MailMessageTemplate localizedMailMessageTemplate = mailMessageTemplateService.findOne(
                 mailMessageTemplate.getId(), Language.ES);
         assertThat(localizedMailMessageTemplate.getLanguageSettings().getSubject()).isEqualTo(
-                languageSettings.getSubject());
+                languageSettingsInSpanish.getSubject());
     }
 
     @Test
