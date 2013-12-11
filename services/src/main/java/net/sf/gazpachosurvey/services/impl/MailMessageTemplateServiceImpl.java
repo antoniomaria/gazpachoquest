@@ -12,6 +12,7 @@ import net.sf.gazpachosurvey.types.Language;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 @Service
 public class MailMessageTemplateServiceImpl
@@ -22,7 +23,7 @@ public class MailMessageTemplateServiceImpl
     @Autowired
     public MailMessageTemplateServiceImpl(MailMessageTemplateRepository repository,
             MailMessageTemplateTranslationRepository translationRepository) {
-        super(repository, translationRepository, new MailMessageTemplateTranslation.Builder());
+        super(repository, translationRepository);
     }
 
     public MailMessageTemplate save(MailMessageTemplate entity) {
@@ -46,6 +47,14 @@ public class MailMessageTemplateServiceImpl
                 }
             }
         }
+        return existing;
+    }
+
+    public MailMessageTemplateTranslation saveTranslation(MailMessageTemplateTranslation translation) {
+        Assert.state(!translation.isNew(),
+                "MailMessageTemplateTranslation must be already persisted. Try by adding to MailMessageTemplate first.");
+        MailMessageTemplateTranslation existing = translationRepository.findOne(translation.getId());
+        existing.setLanguageSettings(translation.getLanguageSettings());
         return existing;
     }
 }

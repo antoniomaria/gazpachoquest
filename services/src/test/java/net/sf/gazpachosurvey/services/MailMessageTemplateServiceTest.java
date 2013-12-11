@@ -61,14 +61,22 @@ public class MailMessageTemplateServiceTest {
         MailMessageTemplateTranslation translation = new MailMessageTemplateTranslation();
         translation.setLanguageSettings(languageSettingsInSpanish);
         mailMessageTemplate.addTranslation(Language.ES, translation);
-        //mailMessageTemplateService.saveTranslation(mailMessageTemplate.getId(), Language.ES, languageSettings);
-         mailMessageTemplateService.save(mailMessageTemplate);
 
-        
+        mailMessageTemplate = mailMessageTemplateService.save(mailMessageTemplate);
+
         MailMessageTemplate localizedMailMessageTemplate = mailMessageTemplateService.findOne(
                 mailMessageTemplate.getId(), Language.ES);
         assertThat(localizedMailMessageTemplate.getLanguageSettings().getSubject()).isEqualTo(
                 languageSettingsInSpanish.getSubject());
+
+        translation = mailMessageTemplate.getTranslations().get(Language.ES);
+        assertThat(translation.getId()).isNotNull();
+
+        translation.getLanguageSettings().setSubject("Tu encuesta. Version 2");
+        translation = mailMessageTemplateService.saveTranslation(translation);
+
+        assertThat(translation.getCreatedBy()).isNotNull();
+        assertThat(translation.getLanguageSettings().getSubject()).isEqualTo("Tu encuesta. Version 2");
     }
 
     @Test

@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 public abstract class AbstractLocalizedPersistenceService<L extends Localizable<LS, TR>, TR extends Translation<LS>, LS extends LanguageSettings>
-        extends AbstractPersistenceService<L> implements LocalizedPersistenceService<L, LS> {
+        extends AbstractPersistenceService<L> implements LocalizedPersistenceService<L, TR, LS> {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractLocalizedPersistenceService.class);
 
@@ -35,10 +35,9 @@ public abstract class AbstractLocalizedPersistenceService<L extends Localizable<
     private EntityManager em;
 
     protected AbstractLocalizedPersistenceService(GenericRepository<L> repository,
-            GenericRepository<TR> translationRepository, TranslationBuilder<TR, LS> translationBuilder) {
+            GenericRepository<TR> translationRepository) {
         super(repository);
         this.translationRepository = translationRepository;
-        this.translationBuilder = translationBuilder;
     }
 
     @Override
@@ -72,23 +71,16 @@ public abstract class AbstractLocalizedPersistenceService<L extends Localizable<
         return entity;
     }
 
-    @Override
-    public void saveTranslation(Integer entityId, Language language, LS languageSettings) {
-        Assert.notNull(language, "Language is required");
-        Assert.notNull(language, "EntityId is required");
-        L entity = repository.findOne(entityId);
-        TR translation = entity.getTranslations().get(language);
-        if (translation == null) {
-            translation = translationBuilder.language(language).languageSettings(languageSettings).build();
-            entity.addTranslation(language, translation);
-        }
-        translation.setLanguageSettings(languageSettings);
+    public TR saveTranslation(TR translation) {
+        Assert.state(!translation.isNew(), "Translation must be already persisted.");
+        TR existing = translationRepository.findOne(translation.getId());
+        existing.setLanguageSettings(translation.getLanguageSettings());
+        return existing;
     }
 
     @Override
     public Set<Language> translationsSupported(Integer entityId) {
         L entity = super.repository.findOne(entityId);
-
         if (entity == null) {
             return null;
         }

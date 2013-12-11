@@ -16,10 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SurveyServiceImpl
-        extends
-        AbstractLocalizedPersistenceService<Survey, SurveyTranslation, SurveyLanguageSettings>
-        implements SurveyService {
+public class SurveyServiceImpl extends
+        AbstractLocalizedPersistenceService<Survey, SurveyTranslation, SurveyLanguageSettings> implements SurveyService {
 
     @Autowired
     private QuestionGroupRepository questionGroupRepository;
@@ -35,7 +33,7 @@ public class SurveyServiceImpl
 
     @Autowired
     public SurveyServiceImpl(SurveyRepository surveyRepository, SurveyTranslationRepository translationRepository) {
-        super(surveyRepository, translationRepository, new SurveyTranslation.Builder());
+        super(surveyRepository, translationRepository);
     }
 
     public Survey save(Survey survey) {
@@ -43,12 +41,12 @@ public class SurveyServiceImpl
         if (survey.isNew()) {
             survey.setStatus(EntityStatus.DRAFT);
             existing = repository.save(survey);
-        }else{
+        } else {
             existing = repository.findOne(survey.getId());
             existing.setLanguage(survey.getLanguage());
             existing.setLanguageSettings(survey.getLanguageSettings());
-            for (QuestionGroup questionGroup : survey.getQuestionGroups()){
-                if (!questionGroup.isNew()){
+            for (QuestionGroup questionGroup : survey.getQuestionGroups()) {
+                if (!questionGroup.isNew()) {
                     continue;
                 }
                 existing.addQuestionGroup(questionGroup);
@@ -56,7 +54,7 @@ public class SurveyServiceImpl
         }
         return existing;
     }
-    
+
     @Override
     public Survey confirm(Survey survey) {
         Survey entity = repository.findOne(survey.getId());
