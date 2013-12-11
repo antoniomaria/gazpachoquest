@@ -6,6 +6,7 @@ import java.util.Set;
 
 import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
 import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
+import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 
@@ -57,9 +58,13 @@ public class MailMessageTemplateServiceTest {
                 .setBody("Estimado Sr. $lastname, <br> Has sido invitado para participar en esta encuesta <br>"
                         + "Nos dedicas 15 minutos para realizar la encuesta?, puedes interrumpirla y completarla más tarde si es necesario"
                         + "<a href=\"\">Click aqui</a> para empezar");
+        MailMessageTemplateTranslation translation = new MailMessageTemplateTranslation();
+        translation.setLanguageSettings(languageSettingsInSpanish);
+        mailMessageTemplate.addTranslation(Language.ES, translation);
+        //mailMessageTemplateService.saveTranslation(mailMessageTemplate.getId(), Language.ES, languageSettings);
+         mailMessageTemplateService.save(mailMessageTemplate);
 
-        mailMessageTemplateService.saveTranslation(mailMessageTemplate.getId(), Language.ES, languageSettings);
-
+        
         MailMessageTemplate localizedMailMessageTemplate = mailMessageTemplateService.findOne(
                 mailMessageTemplate.getId(), Language.ES);
         assertThat(localizedMailMessageTemplate.getLanguageSettings().getSubject()).isEqualTo(

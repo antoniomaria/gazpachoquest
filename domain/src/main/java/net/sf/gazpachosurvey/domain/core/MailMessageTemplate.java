@@ -35,7 +35,7 @@ public class MailMessageTemplate extends
     private Survey survey;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private Language language;
 
     private String fromAddress;
@@ -105,8 +105,8 @@ public class MailMessageTemplate extends
 
     @Override
     public void addTranslation(Language language, MailMessageTemplateTranslation translation) {
-        translation.setMailMessageTemplate(this);
         getTranslations().put(language, translation);
+        translation.setMailMessageTemplate(this);
     }
 
     public MailMessageTemplateType getType() {
