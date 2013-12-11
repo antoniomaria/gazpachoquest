@@ -32,11 +32,11 @@ public class QuestionGroupTranslation extends AbstractPersistable implements Tra
         super();
     }
 
-    public QuestionGroup getPage() {
+    public QuestionGroup getQuestionGroup() {
         return questionGroup;
     }
 
-    public void setPage(QuestionGroup questionGroup) {
+    public void setQuestionGroup(QuestionGroup questionGroup) {
         this.questionGroup = questionGroup;
     }
 
@@ -97,5 +97,11 @@ public class QuestionGroupTranslation extends AbstractPersistable implements Tra
             questionGroup.setId(entityId);
             return questionGroup(questionGroup);
         }
+    }
+
+    @Override
+    public Integer getTranslatedEntityId() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

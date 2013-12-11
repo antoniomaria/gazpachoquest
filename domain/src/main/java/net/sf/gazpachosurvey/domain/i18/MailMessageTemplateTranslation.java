@@ -101,4 +101,9 @@ public class MailMessageTemplateTranslation extends AbstractAuditable implements
             return this;
         }
     }
+
+    @Override
+    public Integer getTranslatedEntityId() {
+        return getMailMessageTemplate().getId();
+    }
 }

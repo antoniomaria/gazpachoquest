@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder.Trimspec;
 
 import net.sf.gazpachosurvey.domain.support.LanguageSettings;
 import net.sf.gazpachosurvey.domain.support.Localizable;
@@ -72,9 +73,17 @@ public abstract class AbstractLocalizedPersistenceService<L extends Localizable<
     }
 
     public TR saveTranslation(TR translation) {
-        Assert.state(!translation.isNew(), "Translation must be already persisted.");
-        TR existing = translationRepository.findOne(translation.getId());
-        existing.setLanguageSettings(translation.getLanguageSettings());
+        // Assert.state(!translation.isNew(), "Translation must be already persisted.");
+        TR existing = null;
+        if (translation.isNew()){
+            Integer entityId = translation.getTranslatedEntityId();
+            L entity = repository.findOne(entityId);
+            entity.addTranslation(translation.getLanguage(), translation);
+            existing = translation;
+        }else{
+            existing = translationRepository.findOne(translation.getId());
+            existing.setLanguageSettings(translation.getLanguageSettings());
+        }
         return existing;
     }
 

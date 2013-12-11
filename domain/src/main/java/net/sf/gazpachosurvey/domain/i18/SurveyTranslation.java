@@ -114,4 +114,10 @@ public class SurveyTranslation extends AbstractPersistable implements Translatio
         }
 
     }
+
+    @Override
+    public Integer getTranslatedEntityId() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

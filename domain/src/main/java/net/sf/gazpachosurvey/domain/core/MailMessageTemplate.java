@@ -35,7 +35,7 @@ public class MailMessageTemplate extends
     private Survey survey;
 
     @Enumerated(EnumType.STRING)
-    // @Column(nullable = false)
+    @Column(nullable = false)
     private Language language;
 
     private String fromAddress;

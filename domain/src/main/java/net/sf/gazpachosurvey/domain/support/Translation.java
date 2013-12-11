@@ -11,4 +11,5 @@ public interface Translation<LS extends LanguageSettings> extends Persistable {
 
     void setLanguage(Language language);
 
+    Integer getTranslatedEntityId();
 }

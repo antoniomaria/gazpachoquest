@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.domain.i18;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -23,6 +24,8 @@ public class QuestionTranslation extends AbstractPersistable implements Translat
     private Question question;
 
     @Enumerated(EnumType.STRING)
+
+    @Column(insertable = false, updatable = false)
     private Language language;
 
     @Embedded
@@ -58,6 +61,10 @@ public class QuestionTranslation extends AbstractPersistable implements Translat
     @Override
     public void setLanguageSettings(QuestionLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
+    }
+
+    public static Builder with() {
+        return new Builder();
     }
 
     public static class Builder implements TranslationBuilder<QuestionTranslation, QuestionLanguageSettings> {
@@ -97,5 +104,10 @@ public class QuestionTranslation extends AbstractPersistable implements Translat
             question.setId(entityId);
             return question(question);
         }
+    }
+
+    @Override
+    public Integer getTranslatedEntityId() {
+        return getQuestion().getId();
     }
 }

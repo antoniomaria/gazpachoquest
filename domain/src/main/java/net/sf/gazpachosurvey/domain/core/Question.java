@@ -55,9 +55,9 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     @Embedded
     private QuestionLanguageSettings languageSettings;
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "language", insertable = false, updatable = false)
+    @MapKeyColumn(name = "language", insertable = true, updatable = true)
     private Map<Language, QuestionTranslation> translations;
 
     public Question() {
