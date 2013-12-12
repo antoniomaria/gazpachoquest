@@ -88,7 +88,7 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
 
         MailMessageTemplateLanguageSettingsDTO.Builder mailMessageTemplateLanguageSettingsStart();
 
-        public Builder from(String from);
+        public Builder fromAddress(String from);
 
         public Builder replyTo(String replyTo);
 
@@ -119,7 +119,7 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
         }
 
         @Override
-        public BuilderImpl from(String from) {
+        public BuilderImpl fromAddress(String from) {
             this.from = from;
             return this;
         }

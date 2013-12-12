@@ -2,8 +2,6 @@ package net.sf.gazpachosurvey.domain.core;
 
 import java.util.Map;
 
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -25,16 +23,17 @@ public class Label extends AbstractPersistable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private LabelSet labelSet;
-    
+
     @Column(nullable = false)
     private String title;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)private Language language;
+    @Column(nullable = false)
+    private Language language;
 
-    @OneToMany(mappedBy = "label", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "label", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "language")
+    @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private Map<Language, LabelTranslation> translations;
 
     public Label() {

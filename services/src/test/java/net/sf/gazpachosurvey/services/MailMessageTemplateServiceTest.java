@@ -61,7 +61,6 @@ public class MailMessageTemplateServiceTest {
         MailMessageTemplateTranslation translation = new MailMessageTemplateTranslation();
         translation.setLanguageSettings(languageSettingsInSpanish);
         translation.setLanguage(Language.ES);
-        // mailMessageTemplate.addTranslation(Language.ES, translation);
         translation.setMailMessageTemplate(mailMessageTemplate);
 
         mailMessageTemplate = mailMessageTemplateService.save(mailMessageTemplate);
