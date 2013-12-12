@@ -9,5 +9,6 @@ public interface SurveyEditorFacade {
 
     LabelSetDTO save(LabelSetDTO labelSet);
 
-    void saveTranslation(TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> translation);
+    TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> saveTranslation(
+            TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> translation);
 }

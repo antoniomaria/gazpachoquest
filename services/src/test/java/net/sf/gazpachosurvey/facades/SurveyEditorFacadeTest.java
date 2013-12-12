@@ -29,7 +29,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
         "classpath:/services-context.xml", "classpath:/components-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
-    TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
+        TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("SurveyEditorFacade-dataset.xml")
 public class SurveyEditorFacadeTest {
 
@@ -66,7 +66,8 @@ public class SurveyEditorFacadeTest {
 
         // LabelSetDTO fetched = labelSetService.findOne(labelSetId);
         // List<LabelDTO> fetchedLabels = fetched.getLabels();
-        // assertThat(fetchedLabels).containsExactly(expected.get(0), expected.get(1), expected.get(2));
+        // assertThat(fetchedLabels).containsExactly(expected.get(0),
+        // expected.get(1), expected.get(2));
     }
 
     @Test
@@ -82,7 +83,7 @@ public class SurveyEditorFacadeTest {
         translation.setLanguageSettings(languageSettings);
         translation.setLanguage(Language.ES);
 
-        surveyEditorFacade.saveTranslation(translation);
-        System.out.println("fin");
+        translation = surveyEditorFacade.saveTranslation(translation);
+        System.out.println("fin: " + translation.getId());
     }
 }
