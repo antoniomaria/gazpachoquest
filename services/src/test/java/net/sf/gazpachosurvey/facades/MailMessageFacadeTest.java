@@ -1,8 +1,11 @@
 package net.sf.gazpachosurvey.facades;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
+import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachosurvey.dto.MailMessageTemplateDTO;
 import net.sf.gazpachosurvey.dto.MailMessageTemplateLanguageSettingsDTO;
+import net.sf.gazpachosurvey.dto.support.TranslationDTO;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 
@@ -46,5 +49,23 @@ public class MailMessageFacadeTest {
 
         mailMessageTemplate = mailMessageFacade.save(mailMessageTemplate);
         assertThat(mailMessageTemplate.getId()).isNotNull();
+    }
+    
+    @Test
+    public void saveMailMessageTemplateTranslationTest() {
+        MailMessageTemplateLanguageSettingsDTO languageSettingsInSpanish = MailMessageTemplateLanguageSettingsDTO
+                .with()
+                .subject("Tu encuesta")
+                .body("Estimado Sr. $lastname, <br> Has sido invitado para participar en esta encuesta <br>"
+                        + "Nos dedicas 15 minutos para realizar la encuesta?, puedes interrumpirla y completarla más tarde si es necesario"
+                        + "<a href=\"\">Click aqui</a> para empezar").build();
+
+        TranslationDTO<MailMessageTemplateDTO, MailMessageTemplateLanguageSettingsDTO> translation = new TranslationDTO<>();
+        translation.setLanguageSettings(languageSettingsInSpanish);
+        translation.setLanguage(Language.ES);
+        translation.setTranslatedEntity(MailMessageTemplateDTO.with().id(56).build());
+
+        translation = mailMessageFacade.saveTranslation(translation);
+        assertThat(translation.getId()).isNotNull();
     }
 }

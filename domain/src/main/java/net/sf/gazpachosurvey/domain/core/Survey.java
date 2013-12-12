@@ -157,7 +157,6 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
         this.mailTemplates = mailTemplates;
     }
 
-    @Override
     public void addTranslation(Language language, SurveyTranslation translation) {
         translation.setSurvey(this);
         getTranslations().put(language, translation);

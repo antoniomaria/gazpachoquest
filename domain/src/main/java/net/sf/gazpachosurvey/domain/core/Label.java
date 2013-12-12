@@ -3,6 +3,7 @@ package net.sf.gazpachosurvey.domain.core;
 import java.util.Map;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,24 +13,25 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 
+import net.sf.gazpachosurvey.domain.core.embeddables.LabelLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.LabelTranslation;
-import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class Label extends AbstractPersistable {
+public class Label extends AbstractLocalizable<LabelTranslation, LabelLanguageSettings> {
 
     private static final long serialVersionUID = -7124703628441903468L;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private LabelSet labelSet;
 
-    @Column(nullable = false)
-    private String title;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Language language;
+
+    @Embedded
+    private LabelLanguageSettings languageSettings;
 
     @OneToMany(mappedBy = "label", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
@@ -56,14 +58,6 @@ public class Label extends AbstractPersistable {
         this.labelSet = labelSet;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public Language getLanguage() {
         return language;
     }
@@ -72,4 +66,44 @@ public class Label extends AbstractPersistable {
         this.language = language;
     }
 
+    public LabelLanguageSettings getLanguageSettings() {
+        return languageSettings;
+    }
+
+    public void setLanguageSettings(LabelLanguageSettings languageSettings) {
+        this.languageSettings = languageSettings;
+    }
+    
+    public static Builder with(){
+        return new Builder();
+    }
+
+    public static class Builder {
+        private LabelSet labelSet;
+        private Language language;
+        private LabelLanguageSettings languageSettings;
+
+        public Builder labelSet(LabelSet labelSet) {
+            this.labelSet = labelSet;
+            return this;
+        }
+
+        public Builder language(Language language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder languageSettings(LabelLanguageSettings languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        public Label build() {
+            Label label = new Label();
+            label.labelSet = labelSet;
+            label.language = language;
+            label.languageSettings = languageSettings;
+            return label;
+        }
+    }
 }

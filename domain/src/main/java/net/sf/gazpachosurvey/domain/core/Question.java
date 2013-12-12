@@ -171,11 +171,9 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         this.languageSettings = languageSettings;
     }
 
-    @Override
     public void addTranslation(Language language, QuestionTranslation translation) {
         translation.setQuestion(this);
         getTranslations().put(language, translation);
-
     }
 
 }

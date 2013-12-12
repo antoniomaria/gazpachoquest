@@ -1,7 +1,6 @@
 package net.sf.gazpachosurvey.domain.core;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -51,26 +50,12 @@ public class LabelSet extends AbstractPersistable {
         }
         return labels;
     }
-    
+
     public void addLabel(Label label) {
         getLabels().add(label);
         label.setLabelSet(this);
     }
-/*
-    public void addLabel(int index, Label label) {
-        if (labels == null) {
-            this.labels = new ArrayList<>();
-        }
-        if (labels.isEmpty() || index > labels.size()) {
-            labels.add(label);
-        } else if (index > 0) {
-            labels.add(index - 1, label);
-        } else { // Negative amount or zero
-            labels.add(0, label);
-        }
-        label.setLabelSet(this);
-    }
-  */
+
     public void setLabels(List<Label> labels) {
         this.labels = labels;
     }

@@ -1,6 +1,7 @@
 package net.sf.gazpachosurvey.domain.i18;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -8,11 +9,13 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import net.sf.gazpachosurvey.domain.core.QuestionOption;
+import net.sf.gazpachosurvey.domain.core.embeddables.QuestionOptionLanguageSettings;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import net.sf.gazpachosurvey.domain.support.Translation;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class AnswerTranslation extends AbstractPersistable {
+public class QuestionOptionTranslation extends AbstractPersistable implements Translation<QuestionOptionLanguageSettings>{
 
     private static final long serialVersionUID = 5809899129770049770L;
 
@@ -23,26 +26,22 @@ public class AnswerTranslation extends AbstractPersistable {
     @Column(nullable = false, insertable = true, updatable = true)
     private Language language;
 
-    private String text;
+    @Embedded
+    private QuestionOptionLanguageSettings languageSettings;
 
-    public AnswerTranslation() {
+    public QuestionOptionTranslation() {
         super();
     }
 
-    public QuestionOption getAnswer() {
+    public QuestionOption getQuestionOption() {
+        if (questionOption == null){
+            this.questionOption = new QuestionOption();
+        }
         return questionOption;
     }
 
-    public void setAnswer(QuestionOption questionOption) {
+    public void setQuestionOption(QuestionOption questionOption) {
         this.questionOption = questionOption;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     public Language getLanguage() {
@@ -53,9 +52,17 @@ public class AnswerTranslation extends AbstractPersistable {
         this.language = language;
     }
 
+    public QuestionOptionLanguageSettings getLanguageSettings() {
+        return languageSettings;
+    }
+
+    public void setLanguageSettings(QuestionOptionLanguageSettings languageSettings) {
+        this.languageSettings = languageSettings;
+    }
+
     @Override
-    public String toString() {
-        return "AnswerTranslation [text=" + text + "]";
+    public Integer getTranslatedEntityId() {
+        return getQuestionOption().getId();
     }
 
 }

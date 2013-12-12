@@ -1,26 +1,19 @@
 package net.sf.gazpachosurvey.dto;
 
 import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
+import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
-public class LabelDTO extends AbstractIdentifiableDTO{
+public class LabelDTO extends AbstractIdentifiableDTO implements IdentifiableLocalizable<LabelLanguageSettingsDTO> {
 
     private static final long serialVersionUID = 7715134426554617698L;
 
-    private String title;
-
     private Language language;
+
+    private LabelLanguageSettingsDTO languageSettings;
 
     public LabelDTO() {
         super();
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public Language getLanguage() {
@@ -31,37 +24,36 @@ public class LabelDTO extends AbstractIdentifiableDTO{
         this.language = language;
     }
 
-    public static Builder with() {
+    public LabelLanguageSettingsDTO getLanguageSettings() {
+        return languageSettings;
+    }
+
+    public void setLanguageSettings(LabelLanguageSettingsDTO languageSettings) {
+        this.languageSettings = languageSettings;
+    }
+    
+    public static Builder with(){
         return new Builder();
     }
 
     public static class Builder {
-        private Integer id;
-        
-        private String title;
-
         private Language language;
-        
-        public Builder id(Integer id) {
-            this.id= id;
-            return this;
-        }
-        
-        public Builder title(String title) {
-            this.title = title;
-            return this;
-        }
+        private LabelLanguageSettingsDTO languageSettings;
 
         public Builder language(Language language) {
             this.language = language;
             return this;
         }
 
+        public Builder languageSettings(LabelLanguageSettingsDTO languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
         public LabelDTO build() {
             LabelDTO labelDTO = new LabelDTO();
-            labelDTO.title = title;
             labelDTO.language = language;
-            labelDTO.setId(id);
+            labelDTO.languageSettings = languageSettings;
             return labelDTO;
         }
     }

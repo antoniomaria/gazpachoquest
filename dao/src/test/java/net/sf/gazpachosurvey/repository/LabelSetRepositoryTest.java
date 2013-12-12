@@ -3,6 +3,7 @@ package net.sf.gazpachosurvey.repository;
 import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachosurvey.domain.core.Label;
 import net.sf.gazpachosurvey.domain.core.LabelSet;
+import net.sf.gazpachosurvey.domain.core.embeddables.LabelLanguageSettings;
 import net.sf.gazpachosurvey.types.Language;
 
 import org.junit.Test;
@@ -37,18 +38,16 @@ public class LabelSetRepositoryTest {
         labelSet.setLanguage(Language.EN);
         labelSet.setName("Feelings");
 
-        LabelSet created = labelSetRepository.saveAndFlush(labelSet);
-        LabelSet detached = new LabelSet();
-        detached.setId(created.getId());
+        LabelLanguageSettings languageSettings = new LabelLanguageSettings();
+        languageSettings.setTitle("Totally agree");
+        Label label = Label.with().language(Language.EN).languageSettings(languageSettings).build();
 
-        Label label = new Label();
-        label.setLabelSet(created);
-        label.setLanguage(Language.EN);
-        label.setTitle("Totally agree");
-        label = labelRepository.saveAndFlush(label);
-        
-        assertThat(label.getId()).isNotNull();
-        assertThat(label.getLabelSet()).isNotNull();
-        assertThat(label.getLabelSet().getName()).isEqualTo(labelSet.getName());
+        labelSet.addLabel(label);
+
+        LabelSet saved = labelSetRepository.save(labelSet);
+
+        assertThat(saved.getId()).isNotNull();
+        assertThat(saved.getLabels()).isNotEmpty();
+        assertThat(saved.getLabels().get(0).getId()).isNotNull();
     }
 }

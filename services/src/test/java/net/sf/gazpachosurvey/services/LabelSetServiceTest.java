@@ -3,6 +3,7 @@ package net.sf.gazpachosurvey.services;
 import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachosurvey.domain.core.Label;
 import net.sf.gazpachosurvey.domain.core.LabelSet;
+import net.sf.gazpachosurvey.domain.core.embeddables.LabelLanguageSettings;
 import net.sf.gazpachosurvey.types.Language;
 
 import org.junit.Test;
@@ -38,7 +39,10 @@ public class LabelSetServiceTest {
 
         Label label = new Label();
         label.setLanguage(Language.EN);
-        label.setTitle("Agree somehow");
+        LabelLanguageSettings languageSettings = new LabelLanguageSettings();
+        languageSettings.setTitle("Agree somehow");
+        label.setLanguageSettings(languageSettings);
+        
         labelSet.addLabel(label);
 
         LabelSet created = labelSetService.save(labelSet);
@@ -48,8 +52,10 @@ public class LabelSetServiceTest {
 
         label = new Label();
         label.setLanguage(Language.EN);
-        label.setTitle("Totally agree");
-
+        languageSettings = new LabelLanguageSettings();
+        languageSettings.setTitle("Totally agree");
+        label.setLanguageSettings(languageSettings);
+        
         detached.addLabel(label);
         labelSet = labelSetService.save(detached);
 

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,12 +14,13 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 
-import net.sf.gazpachosurvey.domain.i18.AnswerTranslation;
-import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import net.sf.gazpachosurvey.domain.core.embeddables.QuestionOptionLanguageSettings;
+import net.sf.gazpachosurvey.domain.i18.QuestionOptionTranslation;
+import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class QuestionOption extends AbstractPersistable {
+public class QuestionOption extends AbstractLocalizable<QuestionOptionTranslation, QuestionOptionLanguageSettings> {
 
     private static final long serialVersionUID = 2405587054509407178L;
 
@@ -27,8 +29,8 @@ public class QuestionOption extends AbstractPersistable {
 
     private String code;
 
-    @Column(nullable = false)
-    private String title;
+    @Embedded
+    private QuestionOptionLanguageSettings languageSettings;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -37,7 +39,7 @@ public class QuestionOption extends AbstractPersistable {
     @OneToMany(mappedBy = "questionOption", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
-    private Map<Language, AnswerTranslation> translations;
+    private Map<Language, QuestionOptionTranslation> translations;
 
     public QuestionOption() {
         super();
@@ -59,14 +61,6 @@ public class QuestionOption extends AbstractPersistable {
         this.code = code;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public Language getLanguage() {
         return language;
     }
@@ -75,23 +69,23 @@ public class QuestionOption extends AbstractPersistable {
         this.language = language;
     }
 
-    public Map<Language, AnswerTranslation> getTranslations() {
+    public QuestionOptionLanguageSettings getLanguageSettings() {
+        return languageSettings;
+    }
+
+    public void setLanguageSettings(QuestionOptionLanguageSettings languageSettings) {
+        this.languageSettings = languageSettings;
+    }
+
+    public Map<Language, QuestionOptionTranslation> getTranslations() {
         if (translations == null) {
             translations = new HashMap<>();
         }
         return translations;
     }
 
-    public void setTranslations(Map<Language, AnswerTranslation> translations) {
+    public void setTranslations(Map<Language, QuestionOptionTranslation> translations) {
         this.translations = translations;
-    }
-
-    public void setTranslation(Language language, String text) {
-        AnswerTranslation translation = new AnswerTranslation();
-        translation.setText(text);
-        translation.setAnswer(this);
-        translation.setLanguage(language);
-        getTranslations().put(language, translation);
     }
 
 }

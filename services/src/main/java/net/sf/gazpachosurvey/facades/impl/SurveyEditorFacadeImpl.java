@@ -42,7 +42,7 @@ public final class SurveyEditorFacadeImpl implements SurveyEditorFacade {
     @Override
     public TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> saveTranslation(
             TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> translation) {
-        // translation.get
+
         QuestionLanguageSettings languageSettings = mapper.map(translation.getLanguageSettings(),
                 QuestionLanguageSettings.class);
         Question question = mapper.map(translation.getTranslatedEntity(), Question.class);

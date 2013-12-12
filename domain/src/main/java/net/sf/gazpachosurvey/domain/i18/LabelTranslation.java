@@ -1,6 +1,7 @@
 package net.sf.gazpachosurvey.domain.i18;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -8,11 +9,13 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import net.sf.gazpachosurvey.domain.core.Label;
+import net.sf.gazpachosurvey.domain.core.embeddables.LabelLanguageSettings;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
+import net.sf.gazpachosurvey.domain.support.Translation;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class LabelTranslation extends AbstractPersistable {
+public class LabelTranslation extends AbstractPersistable implements Translation<LabelLanguageSettings> {
 
     private static final long serialVersionUID = -7571602125652099550L;
 
@@ -23,14 +26,17 @@ public class LabelTranslation extends AbstractPersistable {
     @Column(nullable = false, insertable = true, updatable = true)
     private Language language;
 
-    @Column(nullable = false)
-    private String title;
+    @Embedded
+    private LabelLanguageSettings languageSettings;
 
     public LabelTranslation() {
         super();
     }
 
     public Label getLabel() {
+        if (label == null){
+            this.label = new Label();
+        }
         return label;
     }
 
@@ -46,12 +52,18 @@ public class LabelTranslation extends AbstractPersistable {
         this.language = language;
     }
 
-    public String getTitle() {
-        return title;
+    public LabelLanguageSettings getLanguageSettings() {
+        return languageSettings;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setLanguageSettings(LabelLanguageSettings languageSettings) {
+        this.languageSettings = languageSettings;
     }
+
+    @Override
+    public Integer getTranslatedEntityId() {
+        return getLabel().getId();
+    }
+    
 
 }

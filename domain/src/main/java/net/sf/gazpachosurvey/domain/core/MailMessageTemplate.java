@@ -102,7 +102,6 @@ public class MailMessageTemplate extends
         this.translations = translations;
     }
 
-    @Override
     public void addTranslation(Language language, MailMessageTemplateTranslation translation) {
         getTranslations().put(language, translation);
         translation.setMailMessageTemplate(this);
