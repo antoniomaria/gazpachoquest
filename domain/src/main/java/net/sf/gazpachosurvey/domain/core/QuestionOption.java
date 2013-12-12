@@ -3,7 +3,6 @@ package net.sf.gazpachosurvey.domain.core;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -35,9 +34,9 @@ public class QuestionOption extends AbstractPersistable {
     @Enumerated(EnumType.STRING)
     private Language language;
 
-    @OneToMany(mappedBy = "questionOption", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "questionOption", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "language")
+    @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private Map<Language, AnswerTranslation> translations;
 
     public QuestionOption() {

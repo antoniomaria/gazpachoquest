@@ -20,7 +20,7 @@ public class AnswerTranslation extends AbstractPersistable {
     private QuestionOption questionOption;
 
     @Enumerated(EnumType.STRING)
-    @Column(insertable = false, updatable = false)
+    @Column(nullable = false, insertable = true, updatable = true)
     private Language language;
 
     private String text;

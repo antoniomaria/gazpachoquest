@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.domain.i18;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -23,6 +24,7 @@ public class QuestionGroupTranslation extends AbstractPersistable implements Tra
     private QuestionGroup questionGroup;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, insertable = true, updatable = true)
     private Language language;
 
     @Embedded

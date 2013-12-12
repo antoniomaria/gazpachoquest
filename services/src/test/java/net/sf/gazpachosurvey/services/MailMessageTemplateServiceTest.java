@@ -60,9 +60,13 @@ public class MailMessageTemplateServiceTest {
                         + "<a href=\"\">Click aqui</a> para empezar");
         MailMessageTemplateTranslation translation = new MailMessageTemplateTranslation();
         translation.setLanguageSettings(languageSettingsInSpanish);
-        mailMessageTemplate.addTranslation(Language.ES, translation);
+        translation.setLanguage(Language.ES);
+        // mailMessageTemplate.addTranslation(Language.ES, translation);
+        translation.setMailMessageTemplate(mailMessageTemplate);
 
         mailMessageTemplate = mailMessageTemplateService.save(mailMessageTemplate);
+
+        mailMessageTemplateService.saveTranslation(translation);
 
         MailMessageTemplate localizedMailMessageTemplate = mailMessageTemplateService.findOne(
                 mailMessageTemplate.getId(), Language.ES);

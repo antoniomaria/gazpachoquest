@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -37,6 +38,7 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
     private SurveyLanguageSettings languageSettings;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Language language;
 
     @OneToMany(mappedBy = "survey", orphanRemoval = true, fetch = FetchType.LAZY)
@@ -68,7 +70,7 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
     }
 
     public void setSurveyInstances(Set<SurveyInstance> surveysRunning) {
-        this.surveyInstances = surveysRunning;
+        surveyInstances = surveysRunning;
     }
 
     @Override
@@ -108,12 +110,12 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
 
     public void addQuestionGroup(QuestionGroup questionGroup) {
         // Needed only to set the question group order in survey
-        //questionGroups = getQuestionGroups();
-        //if (!questionGroups.contains(questionGroup)){
-            questionGroups.add(questionGroup);    
-            questionGroup.setSurvey(this);
-        //}
-        
+        // questionGroups = getQuestionGroups();
+        // if (!questionGroups.contains(questionGroup)){
+        questionGroups.add(questionGroup);
+        questionGroup.setSurvey(this);
+        // }
+
     }
 
     @Override

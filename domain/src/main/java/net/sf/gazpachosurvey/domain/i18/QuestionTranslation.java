@@ -24,7 +24,7 @@ public class QuestionTranslation extends AbstractPersistable implements Translat
     private Question question;
 
     @Enumerated(EnumType.STRING)
-    @Column(insertable = true, updatable = true)
+    @Column(nullable = false, insertable = true, updatable = true)
     private Language language;
 
     @Embedded

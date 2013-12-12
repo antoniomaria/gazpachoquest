@@ -20,7 +20,7 @@ public class LabelTranslation extends AbstractPersistable {
     private Label label;
 
     @Enumerated(EnumType.STRING)
-    @Column(insertable = false, updatable = false)
+    @Column(nullable = false, insertable = true, updatable = true)
     private Language language;
 
     @Column(nullable = false)

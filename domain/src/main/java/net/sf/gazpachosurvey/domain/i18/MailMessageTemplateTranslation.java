@@ -25,7 +25,7 @@ public class MailMessageTemplateTranslation extends AbstractAuditable implements
     private MailMessageTemplate mailMessageTemplate;
 
     @Enumerated(EnumType.STRING)
-    @Column(insertable = false, updatable = false)
+    @Column(nullable = false, insertable = true, updatable = true)
     private Language language;
 
     @Embedded

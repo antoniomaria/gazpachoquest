@@ -1,18 +1,14 @@
 package net.sf.gazpachosurvey.services.impl;
 
-import java.util.Map;
-
 import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
 import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachosurvey.repository.MailMessageTemplateRepository;
 import net.sf.gazpachosurvey.repository.i18.MailMessageTemplateTranslationRepository;
 import net.sf.gazpachosurvey.services.MailMessageTemplateService;
-import net.sf.gazpachosurvey.types.Language;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 @Service
 public class MailMessageTemplateServiceImpl
@@ -26,6 +22,7 @@ public class MailMessageTemplateServiceImpl
         super(repository, translationRepository);
     }
 
+    @Override
     public MailMessageTemplate save(MailMessageTemplate entity) {
         MailMessageTemplate existing = null;
         if (entity.isNew()) {
@@ -37,24 +34,27 @@ public class MailMessageTemplateServiceImpl
             existing.setReplyTo(entity.getReplyTo());
             existing.setLanguageSettings(entity.getLanguageSettings());
             existing.setType(entity.getType());
-
-            Map<Language, MailMessageTemplateTranslation> translations = entity.getTranslations();
-            Map<Language, MailMessageTemplateTranslation> supportedTranslations = existing.getTranslations();
-            for (Language language : translations.keySet()) {
-                MailMessageTemplateTranslation translation = translations.get(language);
-                if (supportedTranslations.get(language) == null) {
-                    existing.addTranslation(language, translation);
-                }
-            }
+            /*
+             * Map<Language, MailMessageTemplateTranslation> translations =
+             * entity.getTranslations(); Map<Language,
+             * MailMessageTemplateTranslation> supportedTranslations =
+             * existing.getTranslations(); for (Language language :
+             * translations.keySet()) { MailMessageTemplateTranslation
+             * translation = translations.get(language); if
+             * (supportedTranslations.get(language) == null) {
+             * existing.addTranslation(language, translation); } }
+             */
         }
         return existing;
     }
-
-    public MailMessageTemplateTranslation saveTranslation(MailMessageTemplateTranslation translation) {
-        Assert.state(!translation.isNew(),
-                "MailMessageTemplateTranslation must be already persisted. Try by adding to MailMessageTemplate first.");
-        MailMessageTemplateTranslation existing = translationRepository.findOne(translation.getId());
-        existing.setLanguageSettings(translation.getLanguageSettings());
-        return existing;
-    }
+    /*
+     * public MailMessageTemplateTranslation
+     * saveTranslation(MailMessageTemplateTranslation translation) {
+     * Assert.state(!translation.isNew(),
+     * "MailMessageTemplateTranslation must be already persisted. Try by adding to MailMessageTemplate first."
+     * ); MailMessageTemplateTranslation existing =
+     * translationRepository.findOne(translation.getId());
+     * existing.setLanguageSettings(translation.getLanguageSettings()); return
+     * existing; }
+     */
 }
