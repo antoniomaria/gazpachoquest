@@ -145,7 +145,7 @@
   <question_option id="87" language="EN" title="30,000 - 34,999&#8364;" question_id="84" order_in_question="2" />
   <question_option id="88" language="EN" title="35,000 - 39,999&#8364;" question_id="84" order_in_question="3" />
   <question_option id="89" language="EN" title="Over 85,000&#8364;" question_id="84" order_in_question="4" />
-  <answer_translation />
+  <question_option_translation />
   <question_translation />
   <question_group_translation />
   <survey_translation id="3" language="ES" description="&lt;p&gt;Esto es una encuesta de ejemplo dise&#241;ada para GazpachoSurvey&lt;/p&gt;" title="Ejemplo de encuesta"

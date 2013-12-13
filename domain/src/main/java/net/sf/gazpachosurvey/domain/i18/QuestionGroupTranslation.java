@@ -35,6 +35,9 @@ public class QuestionGroupTranslation extends AbstractPersistable implements Tra
     }
 
     public QuestionGroup getQuestionGroup() {
+        if (questionGroup == null){
+            return new QuestionGroup();
+        }
         return questionGroup;
     }
 
@@ -60,6 +63,10 @@ public class QuestionGroupTranslation extends AbstractPersistable implements Tra
     @Override
     public void setLanguageSettings(QuestionGroupLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
+    }
+    
+    public static Builder with(){
+        return new Builder();
     }
 
     public static class Builder implements TranslationBuilder<QuestionGroupTranslation, QuestionGroupLanguageSettings> {
@@ -103,7 +110,6 @@ public class QuestionGroupTranslation extends AbstractPersistable implements Tra
 
     @Override
     public Integer getTranslatedEntityId() {
-        // TODO Auto-generated method stub
-        return null;
+        return getQuestionGroup().getId();
     }
 }

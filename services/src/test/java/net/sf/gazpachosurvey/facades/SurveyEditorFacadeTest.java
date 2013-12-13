@@ -60,7 +60,6 @@ public class SurveyEditorFacadeTest {
         label = LabelDTO.with().language(Language.EN).title("Neither agree nor disagree").build();
         labelSet.addLabel(label);
 
-        labelSet.swapLabel(0, labelSet.getLabels().size() - 1);
         labelSet = surveyEditorFacade.save(labelSet);
         List<LabelDTO> expected = labelSet.getLabels();
 
@@ -83,7 +82,7 @@ public class SurveyEditorFacadeTest {
         translation.setLanguageSettings(languageSettings);
         translation.setLanguage(Language.ES);
 
-        translation = surveyEditorFacade.saveTranslation(translation);
+        translation = surveyEditorFacade.saveQuestionTranslation(translation);
         System.out.println("fin: " + translation.getId());
     }
 }

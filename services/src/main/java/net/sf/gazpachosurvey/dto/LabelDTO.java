@@ -31,29 +31,30 @@ public class LabelDTO extends AbstractIdentifiableDTO implements IdentifiableLoc
     public void setLanguageSettings(LabelLanguageSettingsDTO languageSettings) {
         this.languageSettings = languageSettings;
     }
-    
-    public static Builder with(){
+
+    public static Builder with() {
         return new Builder();
     }
 
     public static class Builder {
         private Language language;
-        private LabelLanguageSettingsDTO languageSettings;
+        private String title;
 
         public Builder language(Language language) {
             this.language = language;
             return this;
         }
 
-        public Builder languageSettings(LabelLanguageSettingsDTO languageSettings) {
-            this.languageSettings = languageSettings;
+        public Builder title(String title) {
+            this.title = title;
             return this;
         }
 
         public LabelDTO build() {
             LabelDTO labelDTO = new LabelDTO();
             labelDTO.language = language;
-            labelDTO.languageSettings = languageSettings;
+            labelDTO.languageSettings = new LabelLanguageSettingsDTO();
+            labelDTO.languageSettings.setTitle(title);
             return labelDTO;
         }
     }

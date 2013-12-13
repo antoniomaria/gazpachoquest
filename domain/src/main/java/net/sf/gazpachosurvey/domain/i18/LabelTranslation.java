@@ -34,7 +34,7 @@ public class LabelTranslation extends AbstractPersistable implements Translation
     }
 
     public Label getLabel() {
-        if (label == null){
+        if (label == null) {
             this.label = new Label();
         }
         return label;
@@ -64,6 +64,37 @@ public class LabelTranslation extends AbstractPersistable implements Translation
     public Integer getTranslatedEntityId() {
         return getLabel().getId();
     }
-    
 
+    public static Builder with(){
+        return new Builder();
+    }
+    
+    public static class Builder {
+        private Label label;
+        private Language language;
+        private LabelLanguageSettings languageSettings;
+
+        public Builder label(Label label) {
+            this.label = label;
+            return this;
+        }
+
+        public Builder language(Language language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder languageSettings(LabelLanguageSettings languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        public LabelTranslation build() {
+            LabelTranslation labelTranslation = new LabelTranslation();
+            labelTranslation.label = label;
+            labelTranslation.language = language;
+            labelTranslation.languageSettings = languageSettings;
+            return labelTranslation;
+        }
+    }
 }

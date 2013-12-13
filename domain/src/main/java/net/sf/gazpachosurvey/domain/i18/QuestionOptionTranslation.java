@@ -15,7 +15,8 @@ import net.sf.gazpachosurvey.domain.support.Translation;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class QuestionOptionTranslation extends AbstractPersistable implements Translation<QuestionOptionLanguageSettings>{
+public class QuestionOptionTranslation extends AbstractPersistable implements
+        Translation<QuestionOptionLanguageSettings> {
 
     private static final long serialVersionUID = 5809899129770049770L;
 
@@ -34,7 +35,7 @@ public class QuestionOptionTranslation extends AbstractPersistable implements Tr
     }
 
     public QuestionOption getQuestionOption() {
-        if (questionOption == null){
+        if (questionOption == null) {
             this.questionOption = new QuestionOption();
         }
         return questionOption;
@@ -65,4 +66,37 @@ public class QuestionOptionTranslation extends AbstractPersistable implements Tr
         return getQuestionOption().getId();
     }
 
+    
+    public static Builder with(){
+        return new Builder();
+    }
+    
+    public static class Builder {
+        private QuestionOption questionOption;
+        private Language language;
+        private QuestionOptionLanguageSettings languageSettings;
+
+        public Builder questionOption(QuestionOption questionOption) {
+            this.questionOption = questionOption;
+            return this;
+        }
+
+        public Builder language(Language language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder languageSettings(QuestionOptionLanguageSettings languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        public QuestionOptionTranslation build() {
+            QuestionOptionTranslation questionOptionTranslation = new QuestionOptionTranslation();
+            questionOptionTranslation.questionOption = questionOption;
+            questionOptionTranslation.language = language;
+            questionOptionTranslation.languageSettings = languageSettings;
+            return questionOptionTranslation;
+        }
+    }
 }

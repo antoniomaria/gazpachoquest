@@ -1,7 +1,6 @@
 package net.sf.gazpachosurvey.dto;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
@@ -28,29 +27,9 @@ public class LabelSetDTO extends AbstractIdentifiableDTO {
         return labels;
     }
 
-    public void swapLabel(int i, int j) {
-        if (labels == null) {
-            this.labels = new ArrayList<>();
-        }
-        Collections.swap(labels, i, j);
-    }
-
     public void addLabel(LabelDTO label) {
         if (!getLabels().contains(label)) {
             labels.add(label);
-        }
-    }
-
-    public void addLabel(int index, LabelDTO label) {
-        if (labels == null) {
-            this.labels = new ArrayList<>();
-        }
-        if (labels.isEmpty() || index > labels.size()) {
-            labels.add(label);
-        } else if (index > 0) {
-            labels.add(index - 1, label);
-        } else { // Negative amount or zero
-            labels.add(0, label);
         }
     }
 

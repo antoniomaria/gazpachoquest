@@ -1,6 +1,5 @@
 package net.sf.gazpachosurvey.services.impl;
 
-import net.sf.gazpachosurvey.domain.core.Label;
 import net.sf.gazpachosurvey.domain.core.QuestionOption;
 import net.sf.gazpachosurvey.domain.core.embeddables.QuestionOptionLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.QuestionOptionTranslation;
