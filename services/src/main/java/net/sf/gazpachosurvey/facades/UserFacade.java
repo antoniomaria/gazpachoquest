@@ -4,7 +4,7 @@ import net.sf.gazpachosurvey.dto.UserDTO;
 
 public interface UserFacade {
 
-    UserDTO save(UserDTO participant);
+    UserDTO save(UserDTO user);
 
     UserDTO findOne(Integer id);
 

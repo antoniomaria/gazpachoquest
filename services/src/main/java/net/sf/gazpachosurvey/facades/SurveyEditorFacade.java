@@ -42,6 +42,8 @@ public interface SurveyEditorFacade {
     TranslationDTO<QuestionOptionDTO, QuestionOptionLanguageSettingsDTO> saveQuestionOptionTranslation(
             TranslationDTO<QuestionOptionDTO, QuestionOptionLanguageSettingsDTO> translation);
 
+    void confirm(SurveyDTO survey);
+
 
 
 

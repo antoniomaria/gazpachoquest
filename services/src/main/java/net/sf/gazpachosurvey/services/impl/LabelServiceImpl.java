@@ -8,8 +8,10 @@ import net.sf.gazpachosurvey.repository.i18.LabelTranslationRepository;
 import net.sf.gazpachosurvey.services.LabelService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+@Service
 public class LabelServiceImpl extends
         AbstractLocalizedPersistenceService<Label, LabelTranslation, LabelLanguageSettings> implements LabelService {
 

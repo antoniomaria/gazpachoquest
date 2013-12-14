@@ -88,6 +88,13 @@ public final class SurveyEditorFacadeImpl implements SurveyEditorFacade {
         entity = surveyService.save(entity);
         return mapper.map(entity, SurveyDTO.class);
     }
+    
+
+    @Override
+    public void confirm(SurveyDTO survey) {
+        Survey entity = mapper.map(survey, Survey.class);
+        surveyService.confirm(entity);   
+    }
 
     @Override
     public QuestionGroupDTO save(QuestionGroupDTO questionGroup) {

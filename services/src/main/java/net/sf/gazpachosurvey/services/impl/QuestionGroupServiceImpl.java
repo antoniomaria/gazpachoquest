@@ -37,6 +37,14 @@ public class QuestionGroupServiceImpl extends
             if (!question.isNew()) {
                 continue;
             }
+            if (question.getLanguage() == null){
+                question.setLanguage(questionGroup.getLanguage());
+            }
+            for (Question subquestion : question.getSubquestions()){
+                if (subquestion.getLanguage() == null){
+                    subquestion.setLanguage(question.getLanguage());
+                }    
+            }
             existing.addQuestion(question);
         }
         return existing;

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -50,6 +51,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     private QuestionType type;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Language language;
 
     @Embedded

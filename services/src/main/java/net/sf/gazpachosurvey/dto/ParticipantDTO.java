@@ -67,12 +67,19 @@ public class ParticipantDTO extends AbstractIdentifiableDTO {
     }
 
     public static class Builder {
+        private Integer id;
         private String firstname;
         private String lastname;
         private String email;
         private Language preferedLanguage;
         private Gender gender;
 
+
+        public Builder id(Integer id) {
+            this.id= id;
+            return this;
+        }
+        
         public Builder firstname(String firstname) {
             this.firstname = firstname;
             return this;
@@ -100,6 +107,7 @@ public class ParticipantDTO extends AbstractIdentifiableDTO {
 
         public ParticipantDTO build() {
             ParticipantDTO participantDTO = new ParticipantDTO();
+            participantDTO.setId(id);
             participantDTO.firstname = firstname;
             participantDTO.lastname = lastname;
             participantDTO.email = email;

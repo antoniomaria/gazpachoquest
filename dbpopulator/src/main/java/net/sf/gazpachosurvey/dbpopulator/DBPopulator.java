@@ -15,15 +15,12 @@ import net.sf.gazpachosurvey.dto.SurveyDTO;
 import net.sf.gazpachosurvey.dto.SurveyInstanceDTO;
 import net.sf.gazpachosurvey.dto.SurveyLanguageSettingsDTO;
 import net.sf.gazpachosurvey.dto.UserDTO;
-import net.sf.gazpachosurvey.services.LabelSetService;
-import net.sf.gazpachosurvey.services.MailMessageTemplateService;
-import net.sf.gazpachosurvey.services.ParticipantService;
-import net.sf.gazpachosurvey.services.QuestionGroupService;
-import net.sf.gazpachosurvey.services.QuestionService;
-import net.sf.gazpachosurvey.services.SurveyInstanceService;
-import net.sf.gazpachosurvey.services.SurveyService;
-import net.sf.gazpachosurvey.services.UserService;
-import net.sf.gazpachosurvey.services.impl.ServiceFacade;
+import net.sf.gazpachosurvey.dto.support.TranslationDTO;
+import net.sf.gazpachosurvey.facades.MailMessageFacade;
+import net.sf.gazpachosurvey.facades.ParticipantFacade;
+import net.sf.gazpachosurvey.facades.SurveyEditorFacade;
+import net.sf.gazpachosurvey.facades.SurveyInstanceFacade;
+import net.sf.gazpachosurvey.facades.UserFacade;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 import net.sf.gazpachosurvey.types.QuestionType;
@@ -35,43 +32,35 @@ import org.springframework.stereotype.Component;
 @Component
 public class DBPopulator {
     @Autowired
-    private SurveyService surveyService;
+    private SurveyEditorFacade surveyEditorFacade;
 
     @Autowired
-    private QuestionGroupService questionGroupService;
+    private ParticipantFacade participantFacade;
 
     @Autowired
-    private LabelSetService labelSetService;
+    private SurveyInstanceFacade surveyInstanceFacade;
 
     @Autowired
-    private QuestionService questionService;
+    private UserFacade userFacade;
 
     @Autowired
-    private ParticipantService participantService;
+    private MailMessageFacade mailMessageFacade;
 
-    @Autowired
-    private SurveyInstanceService surveyInstanceService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private MailMessageTemplateService mailMessageTemplateService;
-
-
-    @Autowired
-    ServiceFacade facade;
-    
     public void populate() {
-        userService.save(UserDTO.with().firstName("temporal.support").lastName("support")
+       UserDTO user = userFacade.save(UserDTO.with().firstName("temporal.support").lastName("support")
                 .email("support.temporal@gazpacho.net").build());
+       
+       
         SurveyDTO survey = null;
         survey = createDemoSurvey();
-        asignDefaultMailTemplate(survey);
 
-        survey = createFastFoodSurvey();
         asignDefaultMailTemplate(survey);
-        surveyService.confirm(survey);
+        
+        survey = createFastFoodSurvey();
+        
+        asignDefaultMailTemplate(survey);
+        
+        surveyEditorFacade.confirm(survey);
 
         Set<ParticipantDTO> participants = addParticipants();
 
@@ -80,8 +69,7 @@ public class DBPopulator {
                 .name("Survey " + survey.getLanguageSettings().getTitle() + " started").participants(participants)
                 .build();
 
-        surveyInstanceService.save(surveyInstance);
-
+        //surveyInstanceFacade.save(surveyInstance);
     }
 
     public SurveyDTO createFastFoodSurvey() {
@@ -95,13 +83,13 @@ public class DBPopulator {
                 .welcomeText(
                         "Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:")
                 .surveyLanguageSettingsEnd().build();
-        survey = surveyService.save(survey);
+        survey = surveyEditorFacade.save(survey);
 
         QuestionGroupDTO questionGroup = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
                 .title("Fast Food Survey ").pageLanguageSettingsEnd().build();
 
         survey.addQuestionGroup(questionGroup);
-        survey = surveyService.save(survey);
+        survey = surveyEditorFacade.save(survey);
         questionGroup = survey.getLastQuestionGroupDTO();
 
         // Rating Scale (1-5)
@@ -124,8 +112,9 @@ public class DBPopulator {
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree somewhat").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
-
-        question = questionService.save(question);
+        
+        questionGroup.addQuestion(question);
+        surveyEditorFacade.save(questionGroup);
 
         // Rating Scale (Agree-Disagree)
         question = QuestionDTO.with().type(QuestionType.F).language(Language.EN).languageSettingsStart()
@@ -152,7 +141,8 @@ public class DBPopulator {
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
 
-        question = questionService.save(question);
+        questionGroup.addQuestion(question);
+        surveyEditorFacade.save(questionGroup);
 
         // Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
@@ -164,7 +154,8 @@ public class DBPopulator {
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("35,000 - 39,999€").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Over 85,000€").build());
 
-        question = questionService.save(question);
+        questionGroup.addQuestion(question);
+        surveyEditorFacade.save(questionGroup);
 
         return survey;
     }
@@ -179,60 +170,66 @@ public class DBPopulator {
                         "<p>This is a <strong><em>sample survey</em></strong> designed for testing GazpachoSurvey.</p>")
                 .welcomeText("Thank you for taking the time to participate in this survey.")
                 .surveyLanguageSettingsEnd().build();
-        survey = surveyService.save(survey);
-        int surveyId = survey.getId();
-        surveyService.saveTranslation(
-                surveyId,
-                Language.ES,
-                SurveyLanguageSettingsDTO.with().title("Ejemplo de encuesta")
+        survey = surveyEditorFacade.save(survey);
+      
+        
+        TranslationDTO<SurveyDTO, SurveyLanguageSettingsDTO> surveyTranslation = new TranslationDTO<>();
+        surveyTranslation.setLanguage(Language.ES);
+        surveyTranslation.setLanguageSettings(SurveyLanguageSettingsDTO.with().title("Ejemplo de encuesta")
                         .description("<p>Esto es una encuesta de ejemplo diseñada para GazpachoSurvey</p>")
                         .welcomeText("Gracias por participar en esta encuesta").build());
+        surveyTranslation.setTranslatedEntity(survey);
+        
+        surveyEditorFacade.saveSurveyTranslation(surveyTranslation);
 
+        
         QuestionGroupDTO questionGroup1 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
                 .title("QuestionGroup 1").pageLanguageSettingsEnd().build();
 
         survey.addQuestionGroup(questionGroup1);
-        survey = surveyService.save(survey);
-
+        survey = surveyEditorFacade.save(survey);
+        
         questionGroup1 = survey.getLastQuestionGroupDTO();
 
         QuestionGroupDTO questionGroup2 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
                 .title("QuestionGroup 2").pageLanguageSettingsEnd().build();
 
         survey.addQuestionGroup(questionGroup2);
-        survey = surveyService.save(survey);
+        survey = surveyEditorFacade.save(survey);
         questionGroup2 = survey.getLastQuestionGroupDTO();
 
         QuestionGroupDTO questionGroup3 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
                 .title("QuestionGroup 3").pageLanguageSettingsEnd().build();
 
         survey.addQuestionGroup(questionGroup3);
-        survey = surveyService.save(survey);
+        survey = surveyEditorFacade.save(survey);
         questionGroup3 = survey.getLastQuestionGroupDTO();
 
         LabelSetDTO labelSet = LabelSetDTO.with().language(Language.EN).name("Feelings").build();
-        labelSet = labelSetService.save(labelSet);
+        labelSet = surveyEditorFacade.save(labelSet);
 
-        LabelDTO label = LabelDTO.with().title("Agree strongly").build();
-        //labelSetService.addLabel(labelSet.getId(), label);
+        LabelDTO label = LabelDTO.with().language(Language.EN).title("Agree strongly").build();
+        labelSet.addLabel(label);
+        label = LabelDTO.with().language(Language.EN).title("Agree somewhat").build();
+        labelSet.addLabel(label);
 
-        label = LabelDTO.with().title("Agree somewhat").build();
-        //labelSetService.addLabel(labelSet.getId(), label);
+        label = LabelDTO.with().language(Language.EN).title("Neither agree nor disagree").build();
+        labelSet.addLabel(label);
 
-        label = LabelDTO.with().title("Neither agree nor disagree").build();
-        //labelSetService.addLabel(labelSet.getId(), label);
+        label = LabelDTO.with().language(Language.EN).title("Disagree somewhat").build();
+        labelSet.addLabel(label);
 
-        label = LabelDTO.with().title("Disagree somewhat").build();
-        //labelSetService.addLabel(labelSet.getId(), label);
+        label = LabelDTO.with().language(Language.EN).title("Disagree strongly").build();
+        labelSet.addLabel(label);
 
-        label = LabelDTO.with().title("Disagree strongly").build();
-        //labelSetService.addLabel(labelSet.getId(), label);
+        surveyEditorFacade.save(labelSet);
+
 
         // 1 Single Textbox
         QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).languageSettingsStart()
                 .title("What is your name?").languageSettingsEnd().isRequired(true).build();
         questionGroup1.addQuestion(question);
-        questionGroup1 = questionGroupService.save(questionGroup1);
+        questionGroup1 = surveyEditorFacade.save(questionGroup1);
 
         // 2 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
@@ -255,7 +252,7 @@ public class DBPopulator {
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("80 and over").build());
 
         questionGroup1.addQuestion(question);
-        questionGroup1 = questionGroupService.save(questionGroup1);
+        questionGroup1 = surveyEditorFacade.save(questionGroup1);
 
         // 3 Numeric
         question = QuestionDTO.with().type(QuestionType.N).language(Language.EN).languageSettingsStart()
@@ -263,7 +260,7 @@ public class DBPopulator {
                 .build();
 
         questionGroup1.addQuestion(question);
-        questionGroup1 = questionGroupService.save(questionGroup1);
+        questionGroup1 = surveyEditorFacade.save(questionGroup1);
 
         // 4 Comment/Essay Box
         question = QuestionDTO.with().type(QuestionType.T).language(Language.EN).languageSettingsStart()
@@ -271,7 +268,7 @@ public class DBPopulator {
                 .languageSettingsEnd().isRequired(true).build();
 
         questionGroup1.addQuestion(question);
-        questionGroup1 = questionGroupService.save(questionGroup1);
+        questionGroup1 = surveyEditorFacade.save(questionGroup1);
 
         // 5 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
@@ -285,7 +282,7 @@ public class DBPopulator {
                 .title("How <b><i>dare</i></b> you insult me like that! I'm YOUNG").build());
 
         questionGroup1.addQuestion(question);
-        questionGroup1 = questionGroupService.save(questionGroup1);
+        questionGroup1 = surveyEditorFacade.save(questionGroup1);
 
         // 6 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO
@@ -300,7 +297,7 @@ public class DBPopulator {
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Ad three").build());
 
         questionGroup2.addQuestion(question);
-        questionGroup2 = questionGroupService.save(questionGroup2);
+        questionGroup2 = surveyEditorFacade.save(questionGroup2);
 
         // 7 Rating Scale (Agree-Disagree)
         question = QuestionDTO
@@ -321,9 +318,6 @@ public class DBPopulator {
         question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
                 .title("This ad gives me confidence in the lawyers experience").languageSettingsEnd().build());
 
-        questionGroup3.addQuestion(question);
-        questionGroup3 = questionGroupService.save(questionGroup3);
-
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree somewhat").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Neither agree nor disagree")
@@ -333,7 +327,7 @@ public class DBPopulator {
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
 
         questionGroup3.addQuestion(question);
-        questionGroup3 = questionGroupService.save(questionGroup3);
+        questionGroup3 = surveyEditorFacade.save(questionGroup3);
 
         // 8. Multiple_Choice_Multiple_Answers
         question = QuestionDTO.with().type(QuestionType.M).language(Language.EN).languageSettingsStart()
@@ -345,7 +339,7 @@ public class DBPopulator {
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Pistachio").build());
 
         questionGroup3.addQuestion(question);
-        questionGroup3 = questionGroupService.save(questionGroup3);
+        questionGroup3 = surveyEditorFacade.save(questionGroup3);
 
         return survey;
     }
@@ -353,7 +347,7 @@ public class DBPopulator {
     protected Set<ParticipantDTO> addParticipants() {
         ParticipantDTO tyrion = ParticipantDTO.with().preferedLanguage(Language.EN).firstname("Tyrion")
                 .lastname("Lannister").email("tyrion.lannister@kingslanding.net").build();
-        tyrion = participantService.save(tyrion);
+        tyrion = participantFacade.save(tyrion);
 
         ParticipantDTO jon = ParticipantDTO.with().preferedLanguage(Language.ES).firstname("Jon").lastname("Snow")
                 .email("jon.snow@nightswatch.net").build();
@@ -378,7 +372,7 @@ public class DBPopulator {
                 .language(Language.EN)
                 .survey(survey)
                 .type(MailMessageTemplateType.INVITATION)
-                .from("support@gazpacho.net")
+                .fromAddress("support@gazpacho.net")
                 .replyTo("support@gazpacho.net")
                 .mailMessageTemplateLanguageSettingsStart()
                 .subject("PersonalInvitation to participate in survey")
@@ -386,7 +380,7 @@ public class DBPopulator {
                         + "The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off."
                         + "<a href=\"$link\">Click here</a> to take the survey")
                 .mailMessageTemplateLanguageSettingsEnd().build();
-        mailMessageTemplate = mailMessageTemplateService.save(mailMessageTemplate);
+        mailMessageTemplate = mailMessageFacade.save(mailMessageTemplate);
 
         MailMessageTemplateLanguageSettingsDTO languageSettings = MailMessageTemplateLanguageSettingsDTO
                 .with()
@@ -395,49 +389,14 @@ public class DBPopulator {
                         + "Nos dedicas 15 minutos para realizar la encuesta?, puedes interrumpirla y completarla más tarde si es necesario"
                         + "<a href=\"$link\">Click aqui</a> para empezar").build();
 
-        mailMessageTemplateService.saveTranslation(mailMessageTemplate.getId(), Language.ES, languageSettings);
+        TranslationDTO<MailMessageTemplateDTO, MailMessageTemplateLanguageSettingsDTO> mailMessageTemplateTranslation = new TranslationDTO<>();
+        mailMessageTemplateTranslation.setLanguage(Language.ES);
+        mailMessageTemplateTranslation.setLanguageSettings(languageSettings);
+        mailMessageTemplateTranslation.setTranslatedEntity(mailMessageTemplate);
+        
+        mailMessageFacade.saveTranslation(mailMessageTemplateTranslation);
 
         return mailMessageTemplate;
     }
 
-    public void test() {
-        userService.save(UserDTO.with().firstName("temporal.support").lastName("support")
-                .email("support.temporal@gazpacho.net").build());
-
-        SurveyDTO survey = SurveyDTO
-                .with()
-                .language(Language.EN)
-                .surveyLanguageSettingsStart()
-                .title("Food Quality Modified")
-                .description(
-                        "We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry.")
-                .welcomeText(
-                        "Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:")
-                .surveyLanguageSettingsEnd().build();
-        //survey = surveyService.save(survey);
-        facade.save(survey);
-System.out.println("fin serafin");
-        if (1==1)
-            return;
-        QuestionGroupDTO questionGroup1 = QuestionGroupDTO.with().survey(survey).language(Language.EN)
-                .pageLanguageSettingsStart().title("Group 1").pageLanguageSettingsEnd().build();
-
-        questionGroup1 = questionGroupService.save(questionGroup1);
-
-        // Needed to set the order group in Survey
-        survey.addQuestionGroup(questionGroup1);
-        survey = surveyService.save(survey);
-/*
-        QuestionGroupDTO questionGroup2 = QuestionGroupDTO.with().survey(survey).language(Language.EN)
-                .pageLanguageSettingsStart().title("Group 1").pageLanguageSettingsEnd().build();
-
-        questionGroup2 = questionGroupService.save(questionGroup2);
-        
-     // Needed to set the order group in Survey
-        survey.addQuestionGroup(questionGroup2);
-        survey = surveyService.save(survey);
-*/
-        System.out.println("fin");
-
-    }
 }
