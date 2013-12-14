@@ -1,10 +1,8 @@
 package net.sf.gazpachosurvey.facades.impl;
 
 import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
-import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
-import net.sf.gazpachosurvey.domain.i18.QuestionTranslation;
 import net.sf.gazpachosurvey.dto.MailMessageTemplateDTO;
 import net.sf.gazpachosurvey.dto.MailMessageTemplateLanguageSettingsDTO;
 import net.sf.gazpachosurvey.dto.support.TranslationDTO;
