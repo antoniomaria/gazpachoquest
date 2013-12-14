@@ -41,7 +41,8 @@ public class SurveyInstanceFacadeTest {
 
         Set<ParticipantDTO> participants = new HashSet<>();
 
-        ParticipantDTO participant = ParticipantDTO.with().id(127).build();
+        ParticipantDTO participant = participantFacade.findOne(127);
+        
         participants.add(participant);
         
         SurveyInstanceDTO surveyInstance = SurveyInstanceDTO.with().survey(survey)

@@ -21,6 +21,7 @@ import net.sf.gazpachosurvey.facades.ParticipantFacade;
 import net.sf.gazpachosurvey.facades.SurveyEditorFacade;
 import net.sf.gazpachosurvey.facades.SurveyInstanceFacade;
 import net.sf.gazpachosurvey.facades.UserFacade;
+import net.sf.gazpachosurvey.types.Gender;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 import net.sf.gazpachosurvey.types.QuestionType;
@@ -47,19 +48,18 @@ public class DBPopulator {
     private MailMessageFacade mailMessageFacade;
 
     public void populate() {
-       UserDTO user = userFacade.save(UserDTO.with().firstName("temporal.support").lastName("support")
+        UserDTO user = userFacade.save(UserDTO.with().firstName("temporal.support").lastName("support")
                 .email("support.temporal@gazpacho.net").build());
-       
-       
+
         SurveyDTO survey = null;
         survey = createDemoSurvey();
 
         asignDefaultMailTemplate(survey);
-        
+
         survey = createFastFoodSurvey();
-        
+
         asignDefaultMailTemplate(survey);
-        
+
         surveyEditorFacade.confirm(survey);
 
         Set<ParticipantDTO> participants = addParticipants();
@@ -69,7 +69,7 @@ public class DBPopulator {
                 .name("Survey " + survey.getLanguageSettings().getTitle() + " started").participants(participants)
                 .build();
 
-        //surveyInstanceFacade.save(surveyInstance);
+        surveyInstanceFacade.save(surveyInstance);
     }
 
     public SurveyDTO createFastFoodSurvey() {
@@ -112,7 +112,7 @@ public class DBPopulator {
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree somewhat").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
-        
+
         questionGroup.addQuestion(question);
         surveyEditorFacade.save(questionGroup);
 
@@ -171,24 +171,22 @@ public class DBPopulator {
                 .welcomeText("Thank you for taking the time to participate in this survey.")
                 .surveyLanguageSettingsEnd().build();
         survey = surveyEditorFacade.save(survey);
-      
-        
+
         TranslationDTO<SurveyDTO, SurveyLanguageSettingsDTO> surveyTranslation = new TranslationDTO<>();
         surveyTranslation.setLanguage(Language.ES);
         surveyTranslation.setLanguageSettings(SurveyLanguageSettingsDTO.with().title("Ejemplo de encuesta")
-                        .description("<p>Esto es una encuesta de ejemplo diseñada para GazpachoSurvey</p>")
-                        .welcomeText("Gracias por participar en esta encuesta").build());
+                .description("<p>Esto es una encuesta de ejemplo diseñada para GazpachoSurvey</p>")
+                .welcomeText("Gracias por participar en esta encuesta").build());
         surveyTranslation.setTranslatedEntity(survey);
-        
+
         surveyEditorFacade.saveSurveyTranslation(surveyTranslation);
 
-        
         QuestionGroupDTO questionGroup1 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
                 .title("QuestionGroup 1").pageLanguageSettingsEnd().build();
 
         survey.addQuestionGroup(questionGroup1);
         survey = surveyEditorFacade.save(survey);
-        
+
         questionGroup1 = survey.getLastQuestionGroupDTO();
 
         QuestionGroupDTO questionGroup2 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
@@ -223,7 +221,6 @@ public class DBPopulator {
         labelSet.addLabel(label);
 
         surveyEditorFacade.save(labelSet);
-
 
         // 1 Single Textbox
         QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).languageSettingsStart()
@@ -346,17 +343,20 @@ public class DBPopulator {
 
     protected Set<ParticipantDTO> addParticipants() {
         ParticipantDTO tyrion = ParticipantDTO.with().preferedLanguage(Language.EN).firstname("Tyrion")
-                .lastname("Lannister").email("tyrion.lannister@kingslanding.net").build();
+                .lastname("Lannister").email("tyrion.lannister@kingslanding.net").gender(Gender.MALE).build();
         tyrion = participantFacade.save(tyrion);
 
         ParticipantDTO jon = ParticipantDTO.with().preferedLanguage(Language.ES).firstname("Jon").lastname("Snow")
-                .email("jon.snow@nightswatch.net").build();
+                .email("jon.snow@nightswatch.net").gender(Gender.MALE).build();
+        jon = participantFacade.save(tyrion);
 
         ParticipantDTO arya = ParticipantDTO.with().firstname("Arya").lastname("Stark")
-                .email("arya.stark@winterfell.net").build();
+                .email("arya.stark@winterfell.net").gender(Gender.FEMALE).build();
+        arya = participantFacade.save(tyrion);
 
         ParticipantDTO catelyn = ParticipantDTO.with().preferedLanguage(Language.FI).firstname("Catelyn")
-                .lastname("Stark").email("catelyn.stark@winterfell.net").build();
+                .lastname("Stark").email("catelyn.stark@winterfell.net").gender(Gender.FEMALE).build();
+        catelyn = participantFacade.save(tyrion);
 
         Set<ParticipantDTO> participants = new HashSet<>();
         participants.add(tyrion);
@@ -393,7 +393,7 @@ public class DBPopulator {
         mailMessageTemplateTranslation.setLanguage(Language.ES);
         mailMessageTemplateTranslation.setLanguageSettings(languageSettings);
         mailMessageTemplateTranslation.setTranslatedEntity(mailMessageTemplate);
-        
+
         mailMessageFacade.saveTranslation(mailMessageTemplateTranslation);
 
         return mailMessageTemplate;

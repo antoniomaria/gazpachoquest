@@ -2,8 +2,10 @@ package net.sf.gazpachosurvey.velocity.loader;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.apache.velocity.app.VelocityEngine;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.ui.velocity.VelocityEngineFactoryBean;
+import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -22,19 +26,22 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
         "classpath:/components-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("LocalizedTemplateResourceLoader-dataset.xml")
-public class LocalizedTemplateResourceLoaderTest {
+@DatabaseSetup("VelocityEngineFactoryBean-dataset.xml")
+public class VelocityEngineFactoryBeanTest {
 
     @Autowired
-    private LocalizedTemplateResourceLoader templateloader;
+    private VelocityEngineFactoryBean velocityFactory;
 
     @Test
-    public void getResourceStreamTest() {
-        InputStream template = templateloader.getResourceStream("125");
-        assertThat(template).isNotNull();
-
-        template = templateloader.getResourceStream("125/ES");
-        assertThat(template).isNotNull();
+    public void renderTemplateTest() {
+        Map<String, Object> model = new HashMap<>();
+        model.put("lastname", "test");
+        model.put("firstname", "test");
+        model.put("gender", "bot");
+        model.put("link", "http://localhost:8080/questionaires-ui/token=1234");
+        VelocityEngine velocityEngine = velocityFactory.getObject();
+        String templateId = "125";
+        String body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templateId, "UTF-8", model);
+        assertThat(body).contains("Estimado Sr. test");
     }
-
 }

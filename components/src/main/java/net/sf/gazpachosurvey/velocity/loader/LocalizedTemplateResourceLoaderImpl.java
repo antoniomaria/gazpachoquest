@@ -104,10 +104,8 @@ public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader implemen
                 languageSettings = template.getLanguageSettings();
             } else {
                 MailMessageTemplateTranslation example = new MailMessageTemplateTranslation();
-                if (language != null){
-                    example.setLanguage(language);
-                }
-                example.setMailMessageTemplate(template);
+                example.setLanguage(language);
+                example.setMailMessageTemplate(MailMessageTemplate.with().id(templateId).build());
                 List<MailMessageTemplateTranslation> translations = translationRepository.findByExample(example,
                         new SearchParameters());
                 if (translations != null && !translations.isEmpty()) {

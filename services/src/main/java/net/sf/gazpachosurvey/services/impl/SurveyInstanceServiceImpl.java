@@ -23,6 +23,7 @@ import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 import net.sf.gazpachosurvey.types.SurveyInstanceType;
 import net.sf.gazpachosurvey.util.RandomTokenGenerator;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,7 +70,7 @@ public class SurveyInstanceServiceImpl extends AbstractPersistenceService<Survey
             MailMessageTemplate invitationTemplate = templates.get(MailMessageTemplateType.INVITATION);
 
             for (Participant participant : running.getParticipants()) {
-                participantRepository.save(participant);
+                Assert.state(!participant.isNew(), "Persist all participant before starting a survey.");
             }
             running = repository.save(running);
             // Running entity must be persisted before creating PersonalInvitation
@@ -91,8 +92,8 @@ public class SurveyInstanceServiceImpl extends AbstractPersistenceService<Survey
             String surveyLinkToken) {
 
         Map<String, Object> model = new HashMap<>();
-        model.put("lastname", participant.getLastname());
-        model.put("firstname", participant.getFirstname());
+        model.put("lastname", StringUtils.defaultIfBlank(participant.getLastname(), ""));
+        model.put("firstname", StringUtils.defaultIfBlank(participant.getFirstname(), ""));
         model.put("gender", participant.getGender());
         model.put("link", "http://localhost:8080/questionaires-ui/token=" + surveyLinkToken);
 

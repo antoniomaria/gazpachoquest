@@ -2,11 +2,14 @@ package net.sf.gazpachosurvey.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
+import java.util.List;
 import java.util.Set;
 
 import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
+import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
+import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 
@@ -82,6 +85,14 @@ public class MailMessageTemplateServiceTest {
         assertThat(translation.getLanguageSettings().getSubject()).isEqualTo("Tu encuesta. Version 2");
     }
 
+    @Test
+    public void findByExampleTest() {
+        MailMessageTemplate example = new MailMessageTemplate();
+        example.setSurvey(Survey.with().id(58).build());
+        List<MailMessageTemplate> results = mailMessageTemplateService
+                .findByExample(example, new SearchParameters());
+        assertThat(results).contains(MailMessageTemplate.with().id(125).build());
+    }
     @Test
     public void languagesTest() {
         Set<Language> translations = mailMessageTemplateService.translationsSupported(55);
