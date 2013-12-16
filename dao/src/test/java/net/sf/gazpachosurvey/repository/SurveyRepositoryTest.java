@@ -7,20 +7,20 @@ import java.util.List;
 import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.QuestionGroup;
 import net.sf.gazpachosurvey.domain.core.Survey;
+import net.sf.gazpachosurvey.domain.core.embeddables.QuestionGroupLanguageSettings;
+import net.sf.gazpachosurvey.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
 import net.sf.gazpachosurvey.types.Language;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -30,16 +30,13 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("SurveyRepository-dataset.xml")
-@Transactional
 public class SurveyRepositoryTest {
 
     @Autowired
     private SurveyRepository repository;
 
     @Test
-    @Rollback(value = false)
     public void saveTest() {
-        System.out.println("Inicio");
         SurveyLanguageSettings languageSettings = SurveyLanguageSettings.with().title("My Survey").build();
         Survey survey = Survey.with().language(Language.EN).languageSettings(languageSettings).build();
         survey = repository.save(survey);
@@ -53,6 +50,46 @@ public class SurveyRepositoryTest {
         assertThat(survey.getLastModifiedDate()).isNotNull();
     }
 
+
+    @Test
+    public void saveSurveyWithQuestionGroups() {
+        SurveyLanguageSettings settings = SurveyLanguageSettings.with().title("My Survey example").description("My survey description")
+                .build();
+        Survey survey = Survey.with().language(Language.ES).languageSettings(settings).build();
+        QuestionGroup questionGroup = new QuestionGroup();
+        questionGroup.setLanguage(Language.ES);
+        QuestionGroupLanguageSettings groupSettings = new QuestionGroupLanguageSettings();
+        groupSettings.setTitle("Group 1");
+        questionGroup.setLanguageSettings(groupSettings);
+
+        survey.addQuestionGroup(questionGroup);
+
+        repository.save(survey);
+
+        Question question = new Question();
+        question.setLanguage(Language.ES);
+        QuestionLanguageSettings questionLanguageSettings = new QuestionLanguageSettings();
+        questionLanguageSettings.setTitle("Question 1");
+        question.setLanguageSettings(questionLanguageSettings);
+
+        questionGroup.addQuestion(question);
+
+        question = new Question();
+        question.setLanguage(Language.ES);
+        questionLanguageSettings = new QuestionLanguageSettings();
+        questionLanguageSettings.setTitle("Question 2");
+        question.setLanguageSettings(questionLanguageSettings);
+
+        questionGroup.addQuestion(question);
+
+        survey = repository.save(survey);
+        
+        Survey fetched = repository.findOne(survey.getId());
+        assertThat(fetched.getQuestionGroups()).hasSize(1);
+        assertThat(fetched.getQuestionGroups().get(0).getQuestions()).hasSize(2);
+    }
+
+    
     @Test
     public void findOne() {
         int surveyId = 2;

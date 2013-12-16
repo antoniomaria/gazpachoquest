@@ -93,9 +93,10 @@ public class MailMessageTemplateServiceTest {
                 .findByExample(example, new SearchParameters());
         assertThat(results).contains(MailMessageTemplate.with().id(125).build());
     }
+    
     @Test
     public void languagesTest() {
-        Set<Language> translations = mailMessageTemplateService.translationsSupported(55);
+        Set<Language> translations = mailMessageTemplateService.translationsSupported(56);
         assertThat(translations).contains(Language.ES);
     }
 }

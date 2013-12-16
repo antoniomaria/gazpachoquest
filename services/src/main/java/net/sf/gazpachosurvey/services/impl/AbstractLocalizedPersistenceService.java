@@ -73,14 +73,8 @@ public abstract class AbstractLocalizedPersistenceService<L extends Localizable<
 
     @Override
     public TR saveTranslation(TR translation) {
-        // Assert.state(!translation.isNew(),
-        // "Translation must be already persisted.");
         TR existing = null;
         if (translation.isNew()) {
-            Integer entityId = translation.getTranslatedEntityId();
-            // L entity = repository.findOne(entityId);
-            // entity.addTranslation(translation.getLanguage(), translation);
-            // existing = translation;
             existing = translationRepository.save(translation);
         } else {
             existing = translationRepository.findOne(translation.getId());

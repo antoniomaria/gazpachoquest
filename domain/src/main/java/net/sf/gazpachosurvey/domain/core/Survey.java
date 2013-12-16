@@ -109,13 +109,8 @@ public class Survey extends AbstractLocalizable<SurveyTranslation, SurveyLanguag
     }
 
     public void addQuestionGroup(QuestionGroup questionGroup) {
-        // Needed only to set the question group order in survey
-        // questionGroups = getQuestionGroups();
-        // if (!questionGroups.contains(questionGroup)){
-        questionGroups.add(questionGroup);
+        getQuestionGroups().add(questionGroup);
         questionGroup.setSurvey(this);
-        // }
-
     }
 
     @Override

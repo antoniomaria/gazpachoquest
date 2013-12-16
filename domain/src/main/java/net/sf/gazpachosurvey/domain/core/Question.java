@@ -178,4 +178,84 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         getTranslations().put(language, translation);
     }
 
+    public static Builder with(){
+        return new Builder();
+    }
+    public static class Builder {
+        private Integer id;
+        private Question parent;
+        private QuestionGroup questionGroup;
+        private List<Question> subquestions;
+        private List<QuestionOption> questionOptions;
+        private Boolean isRequired;
+        private QuestionType type;
+        private Language language;
+        private QuestionLanguageSettings languageSettings;
+        private Map<Language, QuestionTranslation> translations;
+
+        public Builder id(Integer id){
+            this.id = id;
+            return this;
+        }
+        
+        public Builder parent(Question parent) {
+            this.parent = parent;
+            return this;
+        }
+
+        public Builder questionGroup(QuestionGroup questionGroup) {
+            this.questionGroup = questionGroup;
+            return this;
+        }
+
+        public Builder subquestions(List<Question> subquestions) {
+            this.subquestions = subquestions;
+            return this;
+        }
+
+        public Builder questionOptions(List<QuestionOption> questionOptions) {
+            this.questionOptions = questionOptions;
+            return this;
+        }
+
+        public Builder isRequired(Boolean isRequired) {
+            this.isRequired = isRequired;
+            return this;
+        }
+
+        public Builder type(QuestionType type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder language(Language language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder languageSettings(QuestionLanguageSettings languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        public Builder translations(Map<Language, QuestionTranslation> translations) {
+            this.translations = translations;
+            return this;
+        }
+
+        public Question build() {
+            Question question = new Question();
+            question.setId(id);
+            question.parent = parent;
+            question.questionGroup = questionGroup;
+            question.subquestions = subquestions;
+            question.questionOptions = questionOptions;
+            question.isRequired = isRequired;
+            question.type = type;
+            question.language = language;
+            question.languageSettings = languageSettings;
+            question.translations = translations;
+            return question;
+        }
+    }
 }

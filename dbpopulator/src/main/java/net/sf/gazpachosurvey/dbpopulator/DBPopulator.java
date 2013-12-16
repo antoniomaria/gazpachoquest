@@ -264,8 +264,8 @@ public class DBPopulator {
                 .title("Please tell us a little about yourself. What was your first job, and did you enjoy it?")
                 .languageSettingsEnd().isRequired(true).build();
 
-        questionGroup1.addQuestion(question);
-        questionGroup1 = surveyEditorFacade.save(questionGroup1);
+        questionGroup2.addQuestion(question);
+        questionGroup2 = surveyEditorFacade.save(questionGroup2);
 
         // 5 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
@@ -278,8 +278,8 @@ public class DBPopulator {
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN)
                 .title("How <b><i>dare</i></b> you insult me like that! I'm YOUNG").build());
 
-        questionGroup1.addQuestion(question);
-        questionGroup1 = surveyEditorFacade.save(questionGroup1);
+        questionGroup2.addQuestion(question);
+        questionGroup2 = surveyEditorFacade.save(questionGroup2);
 
         // 6 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO
@@ -348,15 +348,15 @@ public class DBPopulator {
 
         ParticipantDTO jon = ParticipantDTO.with().preferedLanguage(Language.ES).firstname("Jon").lastname("Snow")
                 .email("jon.snow@nightswatch.net").gender(Gender.MALE).build();
-        jon = participantFacade.save(tyrion);
+        jon = participantFacade.save(jon);
 
         ParticipantDTO arya = ParticipantDTO.with().firstname("Arya").lastname("Stark")
                 .email("arya.stark@winterfell.net").gender(Gender.FEMALE).build();
-        arya = participantFacade.save(tyrion);
+        arya = participantFacade.save(arya);
 
         ParticipantDTO catelyn = ParticipantDTO.with().preferedLanguage(Language.FI).firstname("Catelyn")
                 .lastname("Stark").email("catelyn.stark@winterfell.net").gender(Gender.FEMALE).build();
-        catelyn = participantFacade.save(tyrion);
+        catelyn = participantFacade.save(catelyn);
 
         Set<ParticipantDTO> participants = new HashSet<>();
         participants.add(tyrion);

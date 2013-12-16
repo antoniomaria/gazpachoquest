@@ -47,17 +47,19 @@ public class RespondentAnswersRepositoryTest {
 
     @Test
     public void collectAnswersTest() {
-        Survey selectedSurvey = surveyRepository.findOne(3);
+        Survey selectedSurvey = surveyRepository.findOne(58);
 
         repository.collectAnswers(selectedSurvey);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(datasource);
-        assertThat(JdbcTestUtils.countRowsInTable(jdbcTemplate, RespondentAnswersRepository.TABLE_NAME_PREFIX + "3"))
+        assertThat(
+                JdbcTestUtils.countRowsInTable(jdbcTemplate,
+                        String.format("%s%d", RespondentAnswersRepository.TABLE_NAME_PREFIX, selectedSurvey.getId())))
                 .isGreaterThanOrEqualTo(0);
     }
 
     @Test
     public void saveRespondentTest() {
-        SurveyInstance surveyInstance = surveyInstanceRepository.findOne(93);
+        SurveyInstance surveyInstance = surveyInstanceRepository.findOne(131);
 
         Respondent respondent = new Respondent();
         respondent.setId(1);
