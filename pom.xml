@@ -32,8 +32,8 @@
     <module>dao</module>
     <module>dbpopulator</module>
     <module>domain</module>
-    <!-- Ommited temporarly <module>questionnaires-ui</module> 
-    <module>rest</module>-->
+    <!-- Ommited temporarly <module>questionnaires-ui</module> -->
+    <module>rest</module>
     <module>services</module>
     <module>testsuite</module>
   </modules>

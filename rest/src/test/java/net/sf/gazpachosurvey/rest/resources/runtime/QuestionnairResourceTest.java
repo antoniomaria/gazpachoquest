@@ -38,17 +38,10 @@ public class QuestionnairResourceTest extends JerseyTest {
     }
 
     @Test
-    public void testHelloWorld() {
-        client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, "0GCQ58P6DR"));
-
-        String output = client().target(getBaseUri() + "questionnair/definition").request("application/json")
-                .get(String.class);
-        System.out.println(output);
-    }
-
-    @Test
     public void getDefinitionTest() {
-        client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, "VBZ5MA6F0U"));
+        String invitationToken = "FHOJO51WD4";
+
+        client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
         QuestionnairDefinitionBean definition = client().target(getBaseUri() + "questionnair/definition").request()
                 .accept(MediaType.APPLICATION_JSON).get(QuestionnairDefinitionBean.class);
         System.out.println(definition);

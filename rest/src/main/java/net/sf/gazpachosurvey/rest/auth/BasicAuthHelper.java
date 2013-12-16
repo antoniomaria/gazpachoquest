@@ -3,7 +3,7 @@ package net.sf.gazpachosurvey.rest.auth;
 import javax.xml.bind.DatatypeConverter;
 
 public class BasicAuthHelper {
-
+    
     public static String[] decode(String auth) {
         // Replacing "Basic THE_BASE_64" to "THE_BASE_64" directly
         auth = auth.replaceFirst("[B|b]asic ", "");

@@ -14,6 +14,7 @@ import javax.ws.rs.ext.Provider;
 
 import net.sf.gazpachosurvey.domain.core.Respondent;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
+import net.sf.gazpachosurvey.facades.SurveyAccessorFacade;
 import net.sf.gazpachosurvey.rest.beans.QuestionnairDefinitionBean;
 import net.sf.gazpachosurvey.services.SurveyService;
 import net.sf.gazpachosurvey.types.Language;
@@ -29,7 +30,7 @@ public class QuestionnairResource {
     private static final Logger logger = LoggerFactory.getLogger(QuestionnairResource.class);
 
     @Autowired
-    private SurveyService surveyService;
+    private SurveyAccessorFacade surveyAccessorFacade;
 
     public QuestionnairResource() {
     }
@@ -47,9 +48,9 @@ public class QuestionnairResource {
 
         logger.debug("Respondent {} retriving QuestionnairDefinition for surveyId = {}", respondent.getId(), surveyId);
 
-        SurveyDTO survey = surveyService.findOne(surveyId);
+        SurveyDTO survey = surveyAccessorFacade.findOneSurvey(surveyId);
 
-        Set<Language> translationsSupported = surveyService.translationsSupported(surveyId);
+        Set<Language> translationsSupported = surveyAccessorFacade.findSurveyTranslations(surveyId);
 
         QuestionnairDefinitionBean definition = QuestionnairDefinitionBean.with()
                 .languageSettings(survey.getLanguageSettings()).language(survey.getLanguage())
@@ -71,7 +72,6 @@ public class QuestionnairResource {
 
         logger.debug("Respondent {} retriving QuestionnairDefinition for surveyId = {}", respondent.getId(), surveyId);
 
-        SurveyDTO survey = surveyService.findOne(surveyId);
         return Response.ok().build();
     }
 
