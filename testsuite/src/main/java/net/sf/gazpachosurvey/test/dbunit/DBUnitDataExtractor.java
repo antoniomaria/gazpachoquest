@@ -37,16 +37,21 @@ public class DBUnitDataExtractor {
     private String schema;
 
     /**
-     * A regular expression that is used to get the table name from a SQL 'select' statement. This pattern matches a
-     * string that starts with any characters, followed by the case-insensitive word 'from', followed by a table name of
-     * the form 'foo' or 'schema.foo', followed by any number of remaining characters.
+     * A regular expression that is used to get the table name from a SQL
+     * 'select' statement. This pattern matches a string that starts with any
+     * characters, followed by the case-insensitive word 'from', followed by a
+     * table name of the form 'foo' or 'schema.foo', followed by any number of
+     * remaining characters.
      */
-    private static final Pattern TABLE_MATCH_PATTERN = Pattern.compile(".*\\s+from\\s+(\\w+(\\.\\w+)?).*",
-            Pattern.CASE_INSENSITIVE);
+    // private static final Pattern TABLE_MATCH_PATTERN =
+    // Pattern.compile(".*\\s+from\\s+(\\w+(\\.\\w+)?).*",
+    // Pattern.CASE_INSENSITIVE);
+    private static final Pattern TABLE_MATCH_PATTERN = Pattern.compile("from\\s(?<tableName>\\w+)");
     private static final Logger logger = LoggerFactory.getLogger(DBUnitDataExtractor.class);
 
     /**
-     * The data source of the database from which the data will be extracted. This property is required.
+     * The data source of the database from which the data will be extracted.
+     * This property is required.
      * 
      * @param ds
      */
@@ -64,7 +69,8 @@ public class DBUnitDataExtractor {
     }
 
     /**
-     * Name of the XML file that will be created. Defaults to <code>dbunit-dataset.xml</code>.
+     * Name of the XML file that will be created. Defaults to
+     * <code>dbunit-dataset.xml</code>.
      * 
      * @param name
      *            file name.
@@ -74,8 +80,9 @@ public class DBUnitDataExtractor {
     }
 
     /**
-     * Performs the extraction. If no tables or queries are specified, data from entire database will be extracted.
-     * Otherwise, a partial extraction will be performed.
+     * Performs the extraction. If no tables or queries are specified, data from
+     * entire database will be extracted. Otherwise, a partial extraction will
+     * be performed.
      * 
      * @throws Exception
      */
@@ -97,8 +104,10 @@ public class DBUnitDataExtractor {
                 IDataSet fullDataSet = connection.createDataSet();
                 FlatXmlDataSet.write(fullDataSet, new FileOutputStream(dataSetName));
 
-                // dependent tables database export: export table X and all tables that
-                // have a PK which is a FK on X, in the right order for insertion
+                // dependent tables database export: export table X and all
+                // tables that
+                // have a PK which is a FK on X, in the right order for
+                // insertion
                 String[] depTableNames = TablesDependencyHelper.getAllDependentTables(connection, "survey_instance");
                 IDataSet depDataset = connection.createDataSet(depTableNames);
                 FlatXmlDataSet.write(depDataset, new FileOutputStream("target/dependents.xml"));
@@ -122,9 +131,10 @@ public class DBUnitDataExtractor {
     }
 
     /**
-     * List of SQL queries (i.e. 'select' statements) that will be used executed to retrieve the data to be extracted.
-     * If the table being queried is also specified in the <code>tableList</code> property, the query will be ignored
-     * and all rows will be extracted from that table.
+     * List of SQL queries (i.e. 'select' statements) that will be used executed
+     * to retrieve the data to be extracted. If the table being queried is also
+     * specified in the <code>tableList</code> property, the query will be
+     * ignored and all rows will be extracted from that table.
      * 
      * @param list
      *            of SQL queries.
