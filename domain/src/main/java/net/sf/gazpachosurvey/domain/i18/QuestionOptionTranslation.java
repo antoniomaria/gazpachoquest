@@ -9,9 +9,11 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import net.sf.gazpachosurvey.domain.core.QuestionOption;
+import net.sf.gazpachosurvey.domain.core.embeddables.QuestionGroupLanguageSettings;
 import net.sf.gazpachosurvey.domain.core.embeddables.QuestionOptionLanguageSettings;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.domain.support.Translation;
+import net.sf.gazpachosurvey.domain.support.TranslationBuilder;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
@@ -66,12 +68,12 @@ public class QuestionOptionTranslation extends AbstractPersistable implements
         return getQuestionOption().getId();
     }
 
-    
-    public static Builder with(){
+    public static Builder with() {
         return new Builder();
     }
-    
-    public static class Builder {
+
+    public static class Builder implements
+            TranslationBuilder<QuestionOptionTranslation, QuestionOptionLanguageSettings> {
         private QuestionOption questionOption;
         private Language language;
         private QuestionOptionLanguageSettings languageSettings;
@@ -97,6 +99,11 @@ public class QuestionOptionTranslation extends AbstractPersistable implements
             questionOptionTranslation.language = language;
             questionOptionTranslation.languageSettings = languageSettings;
             return questionOptionTranslation;
+        }
+
+        @Override
+        public Builder translatedEntityId(Integer entityId) {
+            return questionOption(QuestionOption.with().id(entityId).build());
         }
     }
 }

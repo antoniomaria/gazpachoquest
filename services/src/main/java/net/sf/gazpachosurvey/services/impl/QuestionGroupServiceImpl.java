@@ -24,7 +24,7 @@ public class QuestionGroupServiceImpl extends
     @Autowired
     public QuestionGroupServiceImpl(QuestionGroupRepository repository,
             QuestionGroupTranslationRepository translationRepository) {
-        super(repository, translationRepository);
+        super(repository, translationRepository, new QuestionGroupTranslation.Builder());
     }
 
     @Override

@@ -19,7 +19,7 @@ public class MailMessageTemplateServiceImpl
     @Autowired
     public MailMessageTemplateServiceImpl(MailMessageTemplateRepository repository,
             MailMessageTemplateTranslationRepository translationRepository) {
-        super(repository, translationRepository);
+        super(repository, translationRepository, new MailMessageTemplateTranslation.Builder());
     }
 
     @Override

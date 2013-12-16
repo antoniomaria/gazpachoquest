@@ -10,8 +10,10 @@ import javax.persistence.ManyToOne;
 
 import net.sf.gazpachosurvey.domain.core.Label;
 import net.sf.gazpachosurvey.domain.core.embeddables.LabelLanguageSettings;
+import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.domain.support.Translation;
+import net.sf.gazpachosurvey.domain.support.TranslationBuilder;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
@@ -69,7 +71,7 @@ public class LabelTranslation extends AbstractPersistable implements Translation
         return new Builder();
     }
     
-    public static class Builder {
+    public static class Builder implements TranslationBuilder<LabelTranslation, LabelLanguageSettings> {
         private Label label;
         private Language language;
         private LabelLanguageSettings languageSettings;
@@ -95,6 +97,11 @@ public class LabelTranslation extends AbstractPersistable implements Translation
             labelTranslation.language = language;
             labelTranslation.languageSettings = languageSettings;
             return labelTranslation;
+        }
+
+        @Override
+        public TranslationBuilder<LabelTranslation, LabelLanguageSettings> translatedEntityId(Integer entityId) {
+            return label(Label.with().id(entityId).build());
         }
     }
 }

@@ -17,7 +17,7 @@ public class LabelServiceImpl extends
 
     @Autowired
     public LabelServiceImpl(LabelRepository repository, LabelTranslationRepository translationRepository) {
-        super(repository, translationRepository);
+        super(repository, translationRepository, new LabelTranslation.Builder());
     }
 
     @Override

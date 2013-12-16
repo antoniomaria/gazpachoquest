@@ -35,9 +35,10 @@ public abstract class AbstractLocalizedPersistenceService<L extends Localizable<
     private EntityManager em;
 
     protected AbstractLocalizedPersistenceService(GenericRepository<L> repository,
-            GenericRepository<TR> translationRepository) {
+            GenericRepository<TR> translationRepository, TranslationBuilder<TR, LS> translationBuilder) {
         super(repository);
         this.translationRepository = translationRepository;
+        this.translationBuilder = translationBuilder;
     }
 
     @Override

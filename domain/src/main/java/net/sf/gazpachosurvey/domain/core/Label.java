@@ -79,10 +79,15 @@ public class Label extends AbstractLocalizable<LabelTranslation, LabelLanguageSe
     }
 
     public static class Builder {
+        private Integer id;
         private LabelSet labelSet;
         private Language language;
         private LabelLanguageSettings languageSettings;
 
+        public Builder id(Integer id){
+            this.id = id;
+            return this;
+        }
         public Builder labelSet(LabelSet labelSet) {
             this.labelSet = labelSet;
             return this;
@@ -100,6 +105,7 @@ public class Label extends AbstractLocalizable<LabelTranslation, LabelLanguageSe
 
         public Label build() {
             Label label = new Label();
+            label.setId(id);
             label.labelSet = labelSet;
             label.language = language;
             label.languageSettings = languageSettings;

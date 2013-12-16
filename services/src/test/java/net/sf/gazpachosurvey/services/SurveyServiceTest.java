@@ -4,10 +4,12 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.Set;
 
-import net.sf.gazpachosurvey.dto.SurveyDTO;
-import net.sf.gazpachosurvey.dto.SurveyLanguageSettingsDTO;
+import net.sf.gazpachosurvey.domain.core.Survey;
+import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
+import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
 import net.sf.gazpachosurvey.types.Language;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,25 +36,19 @@ public class SurveyServiceTest {
 
     @Test
     public void saveTest() {
-        SurveyLanguageSettingsDTO languageSettings = SurveyLanguageSettingsDTO.with().title("My Survey").build();
-        SurveyDTO survey = SurveyDTO.with().language(Language.EN).languageSettings(languageSettings).build();
-        System.out.println("saving!");
-        //survey = surveyService.save(survey);
-        System.out.println("Retriving!!!");
-        surveyService.findOne(survey.getId());
-        /*
-        Survey created = repository.findOne(survey.getId());
-        
+        SurveyLanguageSettings languageSettings = SurveyLanguageSettings.with().title("My Survey").build();
+        Survey survey = Survey.with().language(Language.EN).languageSettings(languageSettings).build();
+        survey = surveyService.save(survey);
+        DateTime lastModifiedDate = survey.getLastModifiedDate();
+
+        Survey created = surveyService.findOne(survey.getId());
         SurveyLanguageSettings newLanguageSettings = SurveyLanguageSettings.with().title("My Survey. Ver 1").build();
         created.setLanguageSettings(newLanguageSettings);
-        
-        Survey updated = repository.save(created);
-    */
-    System.out.println("fin");
-        
-        }
 
-    
+        Survey updated = surveyService.save(created);
+        assertThat(lastModifiedDate).isNotEqualTo(updated.getLastModifiedDate());
+    }
+
     @Test
     public void findAllTest() {
         assertThat(surveyService.findAll()).hasSize(2);
@@ -60,30 +56,28 @@ public class SurveyServiceTest {
 
     @Test
     public void confirmTest() {
-        SurveyDTO survey = SurveyDTO.with().id(2).build();
-        //surveyService.confirm(survey);
+        Survey survey = Survey.with().id(2).build();
+        surveyService.confirm(survey);
     }
 
     @Test
     public void findOneTest() {
         int surveyId = 2;
-        //SurveyDTO survey = surveyService.findOne(surveyId);
-
-        //SurveyDTO surveyWithQuestions = surveyService.findOne(surveyId, "SurveyWithQuestions");
-        // assertThat(survey).isNotNull();
+        Survey survey = surveyService.findOne(surveyId);
+        assertThat(survey).isNotNull();
     }
 
     @Test
     public void saveTranslationTest() {
-        SurveyLanguageSettingsDTO languageSettings = new SurveyLanguageSettingsDTO();
+        SurveyLanguageSettings languageSettings = new SurveyLanguageSettings();
         languageSettings.setTitle("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
         languageSettings.setDescription("Donec pellentesque consequat orci.");
         int surveyId = 2;
-        //surveyService.saveTranslation(surveyId, Language.FR, languageSettings);
-
+        SurveyTranslation translation = SurveyTranslation.with().translatedEntityId(surveyId).language(Language.FR)
+                .languageSettings(languageSettings).build();
+        surveyService.saveTranslation(translation);
         Set<Language> translations = surveyService.translationsSupported(surveyId);
 
         assertThat(translations).contains(Language.FR);
     }
-
 }

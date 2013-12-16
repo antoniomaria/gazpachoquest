@@ -104,4 +104,53 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
             question.setQuestionGroup(this);
         }
     }
+
+    public static class Builder {
+        private Integer id;
+        private Survey survey;
+        private Language language;
+        private QuestionGroupLanguageSettings languageSettings;
+        private Map<Language, QuestionGroupTranslation> translations;
+        private List<Question> questions;
+
+        public Builder id(Integer id){
+            this.id = id;
+            return this;
+        }
+        public Builder survey(Survey survey) {
+            this.survey = survey;
+            return this;
+        }
+
+        public Builder language(Language language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder languageSettings(QuestionGroupLanguageSettings languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        public Builder translations(Map<Language, QuestionGroupTranslation> translations) {
+            this.translations = translations;
+            return this;
+        }
+
+        public Builder questions(List<Question> questions) {
+            this.questions = questions;
+            return this;
+        }
+
+        public QuestionGroup build() {
+            QuestionGroup questionGroup = new QuestionGroup();
+            questionGroup.setId(id);
+            questionGroup.survey = survey;
+            questionGroup.language = language;
+            questionGroup.languageSettings = languageSettings;
+            questionGroup.translations = translations;
+            questionGroup.questions = questions;
+            return questionGroup;
+        }
+    }
 }

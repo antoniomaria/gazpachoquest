@@ -19,7 +19,7 @@ public class QuestionOptionServiceImpl extends
     @Autowired
     public QuestionOptionServiceImpl(QuestionOptionRepository repository,
             QuestionOptionTranslationRepository translationRepository) {
-        super(repository, translationRepository);
+        super(repository, translationRepository, new QuestionOptionTranslation.Builder());
     }
 
     @Override

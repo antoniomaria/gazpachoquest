@@ -33,7 +33,7 @@ public class SurveyServiceImpl extends
 
     @Autowired
     public SurveyServiceImpl(SurveyRepository surveyRepository, SurveyTranslationRepository translationRepository) {
-        super(surveyRepository, translationRepository);
+        super(surveyRepository, translationRepository, new SurveyTranslation.Builder());
     }
 
     public Survey save(Survey survey) {

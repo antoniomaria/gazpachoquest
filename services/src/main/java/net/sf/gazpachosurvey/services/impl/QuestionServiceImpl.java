@@ -29,7 +29,7 @@ public class QuestionServiceImpl extends
 
     @Autowired
     public QuestionServiceImpl(QuestionRepository repository, QuestionTranslationRepository translationRepository) {
-        super(repository, translationRepository);
+        super(repository, translationRepository, new QuestionTranslation.Builder());
     }
 
     @Override

@@ -181,6 +181,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     public static Builder with(){
         return new Builder();
     }
+    
     public static class Builder {
         private Integer id;
         private Question parent;
