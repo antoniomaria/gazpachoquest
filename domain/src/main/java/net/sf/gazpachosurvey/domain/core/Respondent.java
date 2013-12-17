@@ -8,6 +8,7 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import net.sf.gazpachosurvey.domain.support.AbstractPerson;
@@ -33,6 +34,9 @@ public class Respondent extends AbstractPerson {
 
     @Transient
     private Set<String> roles;
+    
+    @OneToMany(mappedBy = "respondent", fetch = FetchType.LAZY)
+    private Set<BrowsedElement> browsedElements;
 
     public Respondent() {
         super();
@@ -52,6 +56,14 @@ public class Respondent extends AbstractPerson {
 
     public void setSubmitDate(DateTime submitDate) {
         this.submitDate = submitDate;
+    }
+
+    public Set<BrowsedElement> getBrowsedElements() {
+        return browsedElements;
+    }
+
+    public void setBrowsedElements(Set<BrowsedElement> browsedElements) {
+        this.browsedElements = browsedElements;
     }
 
     @Override

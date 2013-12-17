@@ -86,14 +86,18 @@ public final class SurveyEditorFacadeImpl implements SurveyEditorFacade {
     public SurveyDTO save(SurveyDTO survey) {
         Survey entity = mapper.map(survey, Survey.class);
         entity = surveyService.save(entity);
-        return mapper.map(entity, SurveyDTO.class);
+
+        if (survey.getQuestionGroups().isEmpty()) {
+            return mapper.map(entity, SurveyDTO.class);
+        } else {
+            return mapper.map(entity, SurveyDTO.class, "survey2surveyDTOWithQuestionGroups");
+        }
     }
-    
 
     @Override
     public void confirm(SurveyDTO survey) {
         Survey entity = mapper.map(survey, Survey.class);
-        surveyService.confirm(entity);   
+        surveyService.confirm(entity);
     }
 
     @Override
@@ -172,7 +176,7 @@ public final class SurveyEditorFacadeImpl implements SurveyEditorFacade {
         translation.setId(tr.getId());
         return translation;
     }
-    
+
     @Override
     public TranslationDTO<QuestionOptionDTO, QuestionOptionLanguageSettingsDTO> saveQuestionOptionTranslation(
             TranslationDTO<QuestionOptionDTO, QuestionOptionLanguageSettingsDTO> translation) {

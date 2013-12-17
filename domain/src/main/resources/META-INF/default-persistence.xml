@@ -6,6 +6,11 @@
     <persistence:provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence:provider>
 
     <persistence:class>net.sf.gazpachosurvey.domain.core.AnonymousInvitation</persistence:class>
+
+    <persistence:class>net.sf.gazpachosurvey.domain.core.BrowsedElement</persistence:class>
+    <persistence:class>net.sf.gazpachosurvey.domain.core.BrowsedQuestion</persistence:class>
+    <persistence:class>net.sf.gazpachosurvey.domain.core.BrowsedQuestionGroup</persistence:class>
+
     <persistence:class>net.sf.gazpachosurvey.domain.core.QuestionOption</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Invitation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Label</persistence:class>

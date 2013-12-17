@@ -45,10 +45,7 @@ public class SurveyDTO extends AbstractAuditableDTO implements IdentifiableLocal
 
     public void addQuestionGroup(QuestionGroupDTO questionGroup) {
         Assert.notNull(questionGroup, "Question Group must be not null");
-        //Assert.state(!questionGroup.isNew(), "Save questionGroup before adding to the survey");
-        //if (!getQuestionGroups().contains(questionGroup)) {
-            questionGroups.add(questionGroup);
-        //}
+        getQuestionGroups().add(questionGroup);
     }
 
     public QuestionGroupDTO getLastQuestionGroupDTO() {

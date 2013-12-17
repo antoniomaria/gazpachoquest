@@ -74,6 +74,8 @@
       <b-hint>net.sf.gazpachosurvey.domain.core.QuestionOption</b-hint>
     </field>
   </mapping>
+  
+  <!-- SurveyDTO <- -> Survey Mappings -->
 
   <mapping type="one-way">
     <class-a>net.sf.gazpachosurvey.dto.SurveyDTO</class-a>
@@ -92,6 +94,11 @@
       <a>questionGroups</a>
       <b>questionGroups</b>
     </field-exclude>
+  </mapping>
+  
+  <mapping type="one-way" map-id="survey2surveyDTOWithQuestionGroups">
+    <class-a>net.sf.gazpachosurvey.domain.core.Survey</class-a>
+    <class-b>net.sf.gazpachosurvey.dto.SurveyDTO</class-b>
   </mapping>
     
   <!--
