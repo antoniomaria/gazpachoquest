@@ -104,6 +104,10 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
             question.setQuestionGroup(this);
         }
     }
+    
+    public static Builder with() {
+        return new Builder();
+    }
 
     public static class Builder {
         private Integer id;

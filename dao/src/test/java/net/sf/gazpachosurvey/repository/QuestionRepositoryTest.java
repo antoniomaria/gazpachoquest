@@ -32,7 +32,7 @@ public class QuestionRepositoryTest {
     @Test
     public void findQuestionsBySurvey() {
         int surveyId = 2;
-        List<Question> questions = repository.findQuestionsBySurvey(surveyId);
+        List<Question> questions = repository.findBySurveyId(surveyId);
         assertThat(questions).containsExactly(Question.with().id(31).build(), Question.with().id(32).build(),
                 Question.with().id(36).build(), Question.with().id(14).build(), Question.with().id(30).build(),
                 Question.with().id(13).build(), Question.with().id(40).build(), Question.with().id(51).build()
@@ -43,8 +43,23 @@ public class QuestionRepositoryTest {
     @Test
     public void findQuestionByQuestionGroup() {
         int questionGroupId = 4;
-        List<Question> questions = repository.findQuestionByQuestionGroup(questionGroupId);
+        List<Question> questions = repository.findByQuestionGroupId(questionGroupId);
         assertThat(questions).containsExactly(Question.with().id(14).build(), Question.with().id(30).build(),
                 Question.with().id(13).build());
+    }
+
+    @Test
+    public void findPositionInQuestionGroupTest() {
+        Integer questionId = 13;
+        Integer position = repository.findPositionInQuestionGroup(questionId);
+        assertThat(position).isEqualTo(2);
+    }
+
+    @Test
+    public void findOneByPositionInQuestionGroupTest() {
+        int questionGroupId = 4;
+        int position = 1;
+        Question question = repository.findOneByPositionInQuestionGroup(questionGroupId, position);
+        assertThat(question).isEqualTo(Question.with().id(30).build());
     }
 }
