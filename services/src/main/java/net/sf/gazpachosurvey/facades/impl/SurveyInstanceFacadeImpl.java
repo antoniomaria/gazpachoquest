@@ -26,14 +26,14 @@ public class SurveyInstanceFacadeImpl implements SurveyInstanceFacade {
     }
 
     @Override
-    public SurveyInstanceDTO findOne(Integer id){
+    public SurveyInstanceDTO findOne(Integer id) {
         SurveyInstance entity = surveyInstanceService.findOne(id);
         return mapper.map(entity, SurveyInstanceDTO.class);
     }
 
     @Override
-    public void delete(Integer id){
+    public void delete(Integer id) {
         surveyInstanceService.delete(id);
     }
-    
+
 }

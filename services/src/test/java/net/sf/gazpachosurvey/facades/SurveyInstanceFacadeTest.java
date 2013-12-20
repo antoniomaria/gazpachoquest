@@ -42,13 +42,11 @@ public class SurveyInstanceFacadeTest {
         Set<ParticipantDTO> participants = new HashSet<>();
 
         ParticipantDTO participant = participantFacade.findOne(127);
-        
+
         participants.add(participant);
-        
+
         SurveyInstanceDTO surveyInstance = SurveyInstanceDTO.with().survey(survey)
-                .type(SurveyInstanceType.BY_INVITATION)
-                .name("My Survey started").participants(participants)
-                .build();
+                .type(SurveyInstanceType.BY_INVITATION).name("My Survey started").participants(participants).build();
         surveyInstanceFacade.save(surveyInstance);
     }
 }

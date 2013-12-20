@@ -14,21 +14,21 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SurveyAccessorFacadeImpl implements SurveyAccessorFacade {
-    
+
     @Autowired
     private Mapper mapper;
-    
+
     @Autowired
     private SurveyService surveyService;
-    
+
     @Override
-    public SurveyDTO findOneSurvey(Integer surveyId){
+    public SurveyDTO findOneSurvey(Integer surveyId) {
         Survey survey = surveyService.findOne(surveyId);
         return mapper.map(survey, SurveyDTO.class);
     }
 
     @Override
-    public Set<Language> findSurveyTranslations(Integer surveyId){
+    public Set<Language> findSurveyTranslations(Integer surveyId) {
         return surveyService.translationsSupported(surveyId);
     }
 

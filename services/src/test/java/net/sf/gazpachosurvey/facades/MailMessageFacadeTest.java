@@ -1,8 +1,6 @@
 package net.sf.gazpachosurvey.facades;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
-import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachosurvey.dto.MailMessageTemplateDTO;
 import net.sf.gazpachosurvey.dto.MailMessageTemplateLanguageSettingsDTO;
 import net.sf.gazpachosurvey.dto.support.TranslationDTO;
@@ -50,7 +48,7 @@ public class MailMessageFacadeTest {
         mailMessageTemplate = mailMessageFacade.save(mailMessageTemplate);
         assertThat(mailMessageTemplate.getId()).isNotNull();
     }
-    
+
     @Test
     public void saveMailMessageTemplateTranslationTest() {
         MailMessageTemplateLanguageSettingsDTO languageSettingsInSpanish = MailMessageTemplateLanguageSettingsDTO

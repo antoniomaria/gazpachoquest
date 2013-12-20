@@ -16,18 +16,22 @@ public class LabelDTO extends AbstractIdentifiableDTO implements IdentifiableLoc
         super();
     }
 
+    @Override
     public Language getLanguage() {
         return language;
     }
 
+    @Override
     public void setLanguage(Language language) {
         this.language = language;
     }
 
+    @Override
     public LabelLanguageSettingsDTO getLanguageSettings() {
         return languageSettings;
     }
 
+    @Override
     public void setLanguageSettings(LabelLanguageSettingsDTO languageSettings) {
         this.languageSettings = languageSettings;
     }

@@ -18,10 +18,12 @@ public class TranslationDTO<L extends IdentifiableLocalizable<LSD>, LSD extends 
         super();
     }
 
+    @Override
     public LSD getLanguageSettings() {
         return languageSettings;
     }
 
+    @Override
     public void setLanguageSettings(LSD languageSettings) {
         this.languageSettings = languageSettings;
     }

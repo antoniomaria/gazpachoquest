@@ -18,7 +18,7 @@ public interface SurveyEditorFacade {
     LabelSetDTO save(LabelSetDTO labelSet);
 
     LabelDTO save(LabelDTO label);
-    
+
     SurveyDTO save(SurveyDTO survey);
 
     QuestionGroupDTO save(QuestionGroupDTO questionGroup);
@@ -26,7 +26,7 @@ public interface SurveyEditorFacade {
     QuestionDTO save(QuestionDTO question);
 
     QuestionOptionDTO save(QuestionOptionDTO questionOption);
-    
+
     TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> saveQuestionTranslation(
             TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> translation);
 
@@ -43,8 +43,5 @@ public interface SurveyEditorFacade {
             TranslationDTO<QuestionOptionDTO, QuestionOptionLanguageSettingsDTO> translation);
 
     void confirm(SurveyDTO survey);
-
-
-
 
 }

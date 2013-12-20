@@ -16,6 +16,7 @@ public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSet> im
         super(repository);
     }
 
+    @Override
     public LabelSet save(LabelSet labelSet) {
         LabelSet existing = null;
         if (labelSet.isNew()) {
@@ -24,7 +25,7 @@ public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSet> im
             existing = repository.findOne(labelSet.getId());
 
             for (Label label : labelSet.getLabels()) {
-                if (!label.isNew()){
+                if (!label.isNew()) {
                     continue;
                 }
                 existing.addLabel(label);

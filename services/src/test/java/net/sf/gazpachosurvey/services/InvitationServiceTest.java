@@ -38,23 +38,26 @@ public class InvitationServiceTest {
     @Test
     public void saveTest() {
         SurveyInstance surveyInstance = surveyInstanceService.findOne(95);
-        Invitation invitation = Invitation.with().surveyInstance(surveyInstance).status(InvitationStatus.ACTIVE).token("1234").build();
+        Invitation invitation = Invitation.with().surveyInstance(surveyInstance).status(InvitationStatus.ACTIVE)
+                .token("1234").build();
         Invitation saved = surveyService.save(invitation);
-        
+
         Integer invitationId = saved.getId();
-        
-        Invitation existing = Invitation.with().id(invitationId).status(InvitationStatus.ACCEPTED).token("4321").build();
-        
+
+        Invitation existing = Invitation.with().id(invitationId).status(InvitationStatus.ACCEPTED).token("4321")
+                .build();
+
         Invitation updated = surveyService.save(existing);
-        
+
         assertThat(updated.getSurveyInstance()).isNotNull();
     }
-    
+
     @Test
     public void findOneByExampleTest() {
-        //InvitationDTO example = InvitationDTO.with().type(InvitationType.PERSONAL).token("IQF19ZUVMI").build();
-        //InvitationDTO invitation = surveyService.findOneByExample(example, new SearchParameters().caseSensitive(true));
-        //assertThat(invitation).isNotNull();
+        // InvitationDTO example = InvitationDTO.with().type(InvitationType.PERSONAL).token("IQF19ZUVMI").build();
+        // InvitationDTO invitation = surveyService.findOneByExample(example, new
+        // SearchParameters().caseSensitive(true));
+        // assertThat(invitation).isNotNull();
     }
 
 }

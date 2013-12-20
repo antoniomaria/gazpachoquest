@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserFacadeImpl implements UserFacade{
+public class UserFacadeImpl implements UserFacade {
 
     @Autowired
     private Mapper mapper;
@@ -28,7 +28,7 @@ public class UserFacadeImpl implements UserFacade{
     public UserDTO findOne(Integer id) {
         return mapper.map(userService.findOne(id), UserDTO.class);
     }
-    
+
     @Override
     public void delete(Integer id) {
         userService.delete(id);

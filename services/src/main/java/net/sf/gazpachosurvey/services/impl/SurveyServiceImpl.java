@@ -36,6 +36,7 @@ public class SurveyServiceImpl extends
         super(surveyRepository, translationRepository, new SurveyTranslation.Builder());
     }
 
+    @Override
     public Survey save(Survey survey) {
         Survey existing = null;
         if (survey.isNew()) {

@@ -36,13 +36,12 @@ public class LabelSetServiceTest {
         labelSet.setLanguage(Language.EN);
         labelSet.setName("Feelings");
 
-
         Label label = new Label();
         label.setLanguage(Language.EN);
         LabelLanguageSettings languageSettings = new LabelLanguageSettings();
         languageSettings.setTitle("Agree somehow");
         label.setLanguageSettings(languageSettings);
-        
+
         labelSet.addLabel(label);
 
         LabelSet created = labelSetService.save(labelSet);
@@ -55,7 +54,7 @@ public class LabelSetServiceTest {
         languageSettings = new LabelLanguageSettings();
         languageSettings.setTitle("Totally agree");
         label.setLanguageSettings(languageSettings);
-        
+
         detached.addLabel(label);
         labelSet = labelSetService.save(detached);
 

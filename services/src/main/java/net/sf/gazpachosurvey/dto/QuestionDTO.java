@@ -62,10 +62,9 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         return subquestions;
     }
 
-
     public void addSubQuestion(QuestionDTO subQuestion) {
-        if (!getSubquestions().contains(subQuestion)){
-            subquestions.add(subQuestion);    
+        if (!getSubquestions().contains(subQuestion)) {
+            subquestions.add(subQuestion);
         }
     }
 
@@ -77,8 +76,8 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
     }
 
     public void addQuestionOption(QuestionOptionDTO questionOption) {
-        if (!getQuestionOptions().contains(questionOption)){
-            questionOptions.add(questionOption);    
+        if (!getQuestionOptions().contains(questionOption)) {
+            questionOptions.add(questionOption);
         }
     }
 
@@ -141,7 +140,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
             this.id = id;
             return this;
         }
-        
+
         @Override
         public Builder isRequired(Boolean isRequired) {
             this.isRequired = isRequired;

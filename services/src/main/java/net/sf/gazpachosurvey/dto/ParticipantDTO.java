@@ -74,12 +74,11 @@ public class ParticipantDTO extends AbstractIdentifiableDTO {
         private Language preferedLanguage;
         private Gender gender;
 
-
         public Builder id(Integer id) {
-            this.id= id;
+            this.id = id;
             return this;
         }
-        
+
         public Builder firstname(String firstname) {
             this.firstname = firstname;
             return this;

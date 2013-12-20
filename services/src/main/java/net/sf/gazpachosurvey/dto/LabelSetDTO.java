@@ -22,7 +22,7 @@ public class LabelSetDTO extends AbstractIdentifiableDTO {
 
     public List<LabelDTO> getLabels() {
         if (labels == null) {
-            this.labels = new ArrayList<>();
+            labels = new ArrayList<>();
         }
         return labels;
     }

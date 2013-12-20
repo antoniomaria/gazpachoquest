@@ -1,15 +1,9 @@
 package net.sf.gazpachosurvey.facades;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-
-import java.util.List;
-
-import net.sf.gazpachosurvey.dto.LabelDTO;
-import net.sf.gazpachosurvey.dto.LabelSetDTO;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.QuestionLanguageSettingsDTO;
 import net.sf.gazpachosurvey.dto.support.TranslationDTO;
-import net.sf.gazpachosurvey.services.LabelSetService;
 import net.sf.gazpachosurvey.types.Language;
 
 import org.junit.Test;

@@ -8,15 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class InvitationServiceImpl extends AbstractPersistenceService<Invitation> implements
-        InvitationService {
+public class InvitationServiceImpl extends AbstractPersistenceService<Invitation> implements InvitationService {
 
     @Autowired
     protected InvitationServiceImpl(InvitationRepository repository) {
         super(repository);
     }
-    
 
+    @Override
     public Invitation save(Invitation entity) {
         Invitation fetched = null;
         if (entity.isNew()) {
@@ -28,6 +27,5 @@ public class InvitationServiceImpl extends AbstractPersistenceService<Invitation
         }
         return fetched;
     }
-
 
 }

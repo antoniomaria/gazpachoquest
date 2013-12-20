@@ -4,7 +4,8 @@ import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
-public class QuestionOptionDTO extends AbstractIdentifiableDTO implements IdentifiableLocalizable<QuestionOptionLanguageSettingsDTO>{
+public class QuestionOptionDTO extends AbstractIdentifiableDTO implements
+        IdentifiableLocalizable<QuestionOptionLanguageSettingsDTO> {
 
     private static final long serialVersionUID = -6363290184354303253L;
 
@@ -26,18 +27,22 @@ public class QuestionOptionDTO extends AbstractIdentifiableDTO implements Identi
         this.code = code;
     }
 
+    @Override
     public Language getLanguage() {
         return language;
     }
 
+    @Override
     public void setLanguage(Language language) {
         this.language = language;
     }
 
+    @Override
     public QuestionOptionLanguageSettingsDTO getLanguageSettings() {
         return languageSettings;
     }
 
+    @Override
     public void setLanguageSettings(QuestionOptionLanguageSettingsDTO languageSettings) {
         this.languageSettings = languageSettings;
     }

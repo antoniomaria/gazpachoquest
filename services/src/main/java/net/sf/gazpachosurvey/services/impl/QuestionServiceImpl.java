@@ -34,7 +34,8 @@ public class QuestionServiceImpl extends
 
     @Override
     public Question save(Question question) {
-        Assert.state(!question.isNew(), "Question must be already persisted. Try by adding to QuestionGroup or as added as subquestion first.");
+        Assert.state(!question.isNew(),
+                "Question must be already persisted. Try by adding to QuestionGroup or as added as subquestion first.");
         Question existing = repository.save(question);
         for (Question subquestion : question.getSubquestions()) {
             if (!subquestion.isNew()) { // Skip created subquestions

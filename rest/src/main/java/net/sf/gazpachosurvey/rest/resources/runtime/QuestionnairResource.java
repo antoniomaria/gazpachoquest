@@ -13,6 +13,8 @@ import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
 
 import net.sf.gazpachosurvey.domain.core.Respondent;
+import net.sf.gazpachosurvey.domain.core.Survey;
+import net.sf.gazpachosurvey.domain.core.SurveyInstance;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
 import net.sf.gazpachosurvey.facades.SurveyAccessorFacade;
 import net.sf.gazpachosurvey.rest.beans.QuestionnairDefinitionBean;
@@ -22,6 +24,8 @@ import net.sf.gazpachosurvey.types.Language;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import ch.qos.logback.core.net.ssl.SSL;
 
 @Path("questionnair")
 @Provider
@@ -43,7 +47,6 @@ public class QuestionnairResource {
     SecurityContext context) {
         logger.debug("New petition received from {}", context.getUserPrincipal().getName());
         Respondent respondent = (Respondent) context.getUserPrincipal();
-
         Integer surveyId = respondent.getSurveyInstance().getSurvey().getId();
 
         logger.debug("Respondent {} retriving QuestionnairDefinition for surveyId = {}", respondent.getId(), surveyId);

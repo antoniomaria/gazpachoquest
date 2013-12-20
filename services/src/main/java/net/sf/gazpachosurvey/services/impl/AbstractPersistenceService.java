@@ -35,6 +35,7 @@ public abstract class AbstractPersistenceService<T extends Persistable> implemen
         repository.delete(id);
     }
 
+    @Override
     public abstract T save(T entity);
 
     @Override

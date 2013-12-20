@@ -33,6 +33,7 @@ public class MailMessageFacadeImpl implements MailMessageFacade {
         return mapper.map(entity, MailMessageTemplateDTO.class);
     }
 
+    @Override
     public TranslationDTO<MailMessageTemplateDTO, MailMessageTemplateLanguageSettingsDTO> saveTranslation(
             TranslationDTO<MailMessageTemplateDTO, MailMessageTemplateLanguageSettingsDTO> translation) {
 
