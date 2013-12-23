@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
-import net.sf.gazpachosurvey.domain.core.BrowsedQuestion.Builder;
-
 @Entity
 @DiscriminatorValue("G")
 public class BrowsedQuestionGroup extends BrowsedElement {

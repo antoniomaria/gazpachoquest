@@ -5,11 +5,9 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import javax.sql.DataSource;
 
 import net.sf.gazpachosurvey.domain.core.Respondent;
-import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachosurvey.repository.RespondentRepository;
 import net.sf.gazpachosurvey.services.SurveyService;
-import net.sf.gazpachosurvey.types.Language;
 
 import org.junit.Rule;
 import org.junit.Test;

@@ -48,27 +48,31 @@ public class DBPopulator {
     private MailMessageFacade mailMessageFacade;
 
     public void populate() {
-        UserDTO user = userFacade.save(UserDTO.with().firstName("temporal.support").lastName("support")
+        // System account
+        userFacade.save(UserDTO.with().firstName("temporal.support").lastName("support")
                 .email("support.temporal@gazpacho.net").build());
 
+        Set<ParticipantDTO> participants = addParticipants();
+        
         SurveyDTO survey = null;
         survey = createDemoSurvey();
-
         asignDefaultMailTemplate(survey);
-
-        survey = createFastFoodSurvey();
-
-        asignDefaultMailTemplate(survey);
-
         surveyEditorFacade.confirm(survey);
-
-        Set<ParticipantDTO> participants = addParticipants();
 
         SurveyInstanceDTO surveyInstance = SurveyInstanceDTO.with().survey(survey)
                 .type(SurveyInstanceType.BY_INVITATION)
                 .name("Survey " + survey.getLanguageSettings().getTitle() + " started").participants(participants)
                 .build();
-
+        surveyInstanceFacade.save(surveyInstance);
+        
+        survey = createFastFoodSurvey();
+        asignDefaultMailTemplate(survey);
+        surveyEditorFacade.confirm(survey);
+        
+        surveyInstance = SurveyInstanceDTO.with().survey(survey)
+                .type(SurveyInstanceType.BY_INVITATION)
+                .name("Survey " + survey.getLanguageSettings().getTitle() + " started").participants(participants)
+                .build();
         surveyInstanceFacade.save(surveyInstance);
     }
 
@@ -77,7 +81,7 @@ public class DBPopulator {
                 .with()
                 .language(Language.EN)
                 .surveyLanguageSettingsStart()
-                .title("Food Quality Modified")
+                .title("Food Quality Survey")
                 .description(
                         "We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry.")
                 .welcomeText(
@@ -86,7 +90,7 @@ public class DBPopulator {
         survey = surveyEditorFacade.save(survey);
 
         QuestionGroupDTO questionGroup = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
-                .title("Fast Food Survey ").pageLanguageSettingsEnd().build();
+                .title("Fast Food Survey - QuestionGroup").pageLanguageSettingsEnd().build();
 
         survey.addQuestionGroup(questionGroup);
         survey = surveyEditorFacade.save(survey);
@@ -94,7 +98,7 @@ public class DBPopulator {
 
         // Rating Scale (1-5)
         QuestionDTO question = QuestionDTO.with().type(QuestionType.F).language(Language.EN).languageSettingsStart()
-                .title("<b>Food Quality Modified</b>").languageSettingsEnd().isRequired(true).build();
+                .title("<b>Food Quality</b>").languageSettingsEnd().isRequired(true).build();
 
         question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
                 .title("The food is served hot and fresh").languageSettingsEnd().build());
@@ -114,7 +118,7 @@ public class DBPopulator {
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
 
         questionGroup.addQuestion(question);
-        surveyEditorFacade.save(questionGroup);
+        questionGroup = surveyEditorFacade.save(questionGroup);
 
         // Rating Scale (Agree-Disagree)
         question = QuestionDTO.with().type(QuestionType.F).language(Language.EN).languageSettingsStart()
@@ -142,7 +146,7 @@ public class DBPopulator {
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
 
         questionGroup.addQuestion(question);
-        surveyEditorFacade.save(questionGroup);
+        questionGroup = surveyEditorFacade.save(questionGroup);
 
         // Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
@@ -155,7 +159,7 @@ public class DBPopulator {
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Over 85,000€").build());
 
         questionGroup.addQuestion(question);
-        surveyEditorFacade.save(questionGroup);
+        questionGroup = surveyEditorFacade.save(questionGroup);
 
         return survey;
     }

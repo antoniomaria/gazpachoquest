@@ -34,7 +34,7 @@ public class Respondent extends AbstractPerson {
 
     @Transient
     private Set<String> roles;
-    
+
     @OneToMany(mappedBy = "respondent", fetch = FetchType.LAZY)
     private Set<BrowsedElement> browsedElements;
 
@@ -80,5 +80,44 @@ public class Respondent extends AbstractPerson {
             roles.add(ROLE);
         }
         return roles;
+    }
+
+    public static Builder with() {
+        return new Builder();
+    }
+    public static class Builder {
+        private Integer id;
+        private SurveyInstance surveyInstance;
+        private DateTime submitDate;
+        private Set<BrowsedElement> browsedElements;
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+        
+        public Builder surveyInstance(SurveyInstance surveyInstance) {
+            this.surveyInstance = surveyInstance;
+            return this;
+        }
+
+        public Builder submitDate(DateTime submitDate) {
+            this.submitDate = submitDate;
+            return this;
+        }
+
+        public Builder browsedElements(Set<BrowsedElement> browsedElements) {
+            this.browsedElements = browsedElements;
+            return this;
+        }
+
+        public Respondent build() {
+            Respondent respondent = new Respondent();
+            respondent.surveyInstance = surveyInstance;
+            respondent.submitDate = submitDate;
+            respondent.browsedElements = browsedElements;
+            respondent.setId(id);
+            return respondent;
+        }
     }
 }

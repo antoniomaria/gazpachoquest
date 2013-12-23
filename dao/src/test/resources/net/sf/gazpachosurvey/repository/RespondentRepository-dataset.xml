@@ -4,7 +4,7 @@
   <survey id="2" created_date="2013-12-15 15:57:43.072" language="EN" last_modified_date="2013-12-15 15:57:43.072" status="DRAFT" description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample survey&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;" title="Sample Survey" welcometext="Thank you for taking the time to participate in this survey." createdby_id="1" lastmodifiedby_id="1"/>
   <survey id="58" created_date="2013-12-15 15:57:45.487" language="EN" last_modified_date="2013-12-15 15:57:45.487" status="CONFIRMED" description="We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry." title="Food Quality Modified" welcometext="Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:" createdby_id="1" lastmodifiedby_id="1"/>
   <survey_instance id="131" created_date="2013-12-15 15:57:46.969" last_modified_date="2013-12-15 15:57:46.969" name="Survey Food Quality Modified started" type="BY_INVITATION" createdby_id="1" lastmodifiedby_id="1" survey_id="58"/>
-  <respondent/>
+  <respondent id="127" created_date="2013-12-15 15:57:45.981" last_modified_date="2013-12-15 15:57:45.981" createdby_id="1" lastmodifiedby_id="1" surveyinstance_id="131" />
   <invitation id="132" type="P" status="ACTIVE" token="QWZZO02USJ" surveyinstance_id="131"/>
   <invitation id="134" type="P" status="ACTIVE" token="AGH0IP9RV8" surveyinstance_id="131"/>
   <invitation id="136" type="P" status="ACTIVE" token="FHOJO51WD4" surveyinstance_id="131"/>
@@ -143,6 +143,8 @@
   <question_option_translation/>
   <question_translation/>
   <question_group_translation/>
+  <browsed_element id="128" created_date="2013-12-15 15:57:45.981" last_modified_date="2013-12-15 15:57:45.981" createdby_id="1" lastmodifiedby_id="1" respondent_id="127" type="Q" question_id="60" /> 
+  
   <survey_translation id="3" language="ES" description="&lt;p&gt;Esto es una encuesta de ejemplo dise&#241;ada para GazpachoSurvey&lt;/p&gt;" title="Ejemplo de encuesta" welcometext="Gracias por participar en esta encuesta" survey_id="2"/>
   <sequence seq_name="respondent_answers_58_seq" seq_count="0"/>
   <sequence seq_name="SEQ_GEN" seq_count="150"/>

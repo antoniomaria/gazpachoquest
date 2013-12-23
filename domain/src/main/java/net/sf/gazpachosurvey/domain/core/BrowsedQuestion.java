@@ -5,11 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
-import net.sf.gazpachosurvey.domain.core.BrowsedElement.Builder;
-
 @Entity
-@DiscriminatorValue("G")
+@DiscriminatorValue("Q")
 public class BrowsedQuestion extends BrowsedElement {
+
+    private static final long serialVersionUID = 4401342736300174568L;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Question question;
@@ -26,7 +26,12 @@ public class BrowsedQuestion extends BrowsedElement {
         this.question = question;
     }
 
+    public static Builder with() {
+        return new Builder();
+    }
     public static class Builder {
+        private Integer id;
+        
         private Question question;
 
         private Respondent respondent;
@@ -35,7 +40,10 @@ public class BrowsedQuestion extends BrowsedElement {
             this.respondent = respondent;
             return this;
         }
-
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
         public Builder question(Question question) {
             this.question = question;
             return this;
@@ -45,6 +53,7 @@ public class BrowsedQuestion extends BrowsedElement {
             BrowsedQuestion browsedQuestion = new BrowsedQuestion();
             browsedQuestion.question = question;
             browsedQuestion.respondent = respondent;
+            browsedQuestion.setId(id);
             return browsedQuestion;
         }
     }

@@ -1,6 +1,10 @@
 package net.sf.gazpachosurvey.repository;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+
+import java.util.Set;
+
+import net.sf.gazpachosurvey.domain.core.BrowsedElement;
 import net.sf.gazpachosurvey.domain.core.Respondent;
 import net.sf.gazpachosurvey.domain.core.SurveyInstance;
 
@@ -42,6 +46,14 @@ public class RespondentRepositoryTest {
         Respondent created = repository.save(respondent);
 
         assertThat(created.getId()).isGreaterThan(0);
+    }
+
+    @Test
+    public void findOneTest() {
+        Respondent respondent = repository.findOne(127);
+        
+        Set<BrowsedElement> browsedElements = respondent.getBrowsedElements();
+        assertThat(browsedElements).isNotEmpty();
     }
 
 }

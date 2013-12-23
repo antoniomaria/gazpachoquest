@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.domain.core;
 
+import javax.persistence.Basic;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,6 +21,9 @@ public class BrowsedElement extends AbstractAuditable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     protected Respondent respondent;
+    
+    @Basic
+    protected Boolean last;
 
     public BrowsedElement() {
         super();
@@ -33,17 +37,36 @@ public class BrowsedElement extends AbstractAuditable {
         this.respondent = respondent;
     }
 
+    public Boolean isLast() {
+        if (last == null) {
+            this.last = Boolean.FALSE;
+        }
+        return last;
+    }
+
+    public void setLast(Boolean actual) {
+        this.last = actual;
+    }
+
+
     public static class Builder {
         private Respondent respondent;
+        private Boolean last;
 
         public Builder respondent(Respondent respondent) {
             this.respondent = respondent;
             return this;
         }
 
+        public Builder last(Boolean last) {
+            this.last = last;
+            return this;
+        }
+        
         public BrowsedElement build() {
             BrowsedElement browsedElement = new BrowsedElement();
             browsedElement.respondent = respondent;
+            browsedElement.last = last;
             return browsedElement;
         }
     }
