@@ -8,4 +8,6 @@ public interface SurveyService extends LocalizedPersistenceService<Survey, Surve
 
     Survey confirm(Survey survey);
 
+    long questionGroupsCount(Integer surveyId);
+
 }

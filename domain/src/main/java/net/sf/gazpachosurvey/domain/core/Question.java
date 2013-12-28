@@ -21,13 +21,14 @@ import javax.persistence.OrderColumn;
 import net.sf.gazpachosurvey.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.QuestionTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
+import net.sf.gazpachosurvey.domain.support.QuestionnairElement;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.QuestionType;
 
 import org.springframework.util.Assert;
 
 @Entity
-public class Question extends AbstractLocalizable<QuestionTranslation, QuestionLanguageSettings> {
+public class Question extends AbstractLocalizable<QuestionTranslation, QuestionLanguageSettings> implements QuestionnairElement{
 
     private static final long serialVersionUID = -4372634574851905803L;
 

@@ -80,4 +80,11 @@ public class SurveyServiceTest {
 
         assertThat(translations).contains(Language.FR);
     }
+
+    @Test
+    public void questionGroupsCountTest() {
+        int surveyId = 2;
+        long count = surveyService.questionGroupsCount(surveyId);
+        assertThat(count).isEqualTo(3);
+    }
 }

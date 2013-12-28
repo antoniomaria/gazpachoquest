@@ -53,4 +53,14 @@ public class QuestionServiceImpl extends
         return existing;
     }
 
+    @Override
+    public Question findOneByPositionInQuestionGroup(Integer questionGroupId, Integer position) {
+        return ((QuestionRepository)repository).findOneByPositionInQuestionGroup(questionGroupId, position);
+    }
+
+    @Override
+    public Integer findPositionInQuestionGroup(Integer questionId) {
+        return ((QuestionRepository)repository).findPositionInQuestionGroup(questionId);
+    }
+
 }

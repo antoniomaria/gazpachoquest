@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.services.impl;
 
+import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.QuestionGroup;
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
@@ -9,6 +10,7 @@ import net.sf.gazpachosurvey.repository.QuestionGroupRepository;
 import net.sf.gazpachosurvey.repository.SurveyRepository;
 import net.sf.gazpachosurvey.repository.dynamic.RespondentAnswersRepository;
 import net.sf.gazpachosurvey.repository.i18.SurveyTranslationRepository;
+import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import net.sf.gazpachosurvey.services.SurveyService;
 import net.sf.gazpachosurvey.types.EntityStatus;
 
@@ -66,4 +68,9 @@ public class SurveyServiceImpl extends
         return survey;
     }
 
+    @Override
+    public long questionGroupsCount(Integer surveyId) {
+        return questionGroupRepository.countByExample(QuestionGroup.with().survey(Survey.with().id(surveyId).build())
+                .build(), new SearchParameters());
+    }
 }
