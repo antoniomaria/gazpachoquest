@@ -31,11 +31,11 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 public class GroupByGroupResolverTest {
 
     @Autowired
-    @Qualifier("GroupByGroupResolver")
-    QuestionnairElementResolver resolver;
+    private RespondentRepository respondentRepository;
 
     @Autowired
-    private RespondentRepository respondentRepository;
+    @Qualifier("GroupByGroupResolver")
+    QuestionnairElementResolver resolver;
 
     @Test
     public void resolveForTest() {

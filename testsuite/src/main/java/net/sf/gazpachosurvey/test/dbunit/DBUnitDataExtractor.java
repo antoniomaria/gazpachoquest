@@ -28,14 +28,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DBUnitDataExtractor {
 
-    private DataSource dataSource;
-    private String dataSetName = "dbunit-dataset.xml";
-    private List queryList;
-    private List tableList;
-    private Map dbUnitProperties;
-    private Map dbUnitFeatures;
-    private String schema;
-
+    private static final Logger logger = LoggerFactory.getLogger(DBUnitDataExtractor.class);
     /**
      * A regular expression that is used to get the table name from a SQL 'select' statement. This pattern matches a
      * string that starts with any characters, followed by the case-insensitive word 'from', followed by a table name of
@@ -45,7 +38,14 @@ public class DBUnitDataExtractor {
     // Pattern.compile(".*\\s+from\\s+(\\w+(\\.\\w+)?).*",
     // Pattern.CASE_INSENSITIVE);
     private static final Pattern TABLE_MATCH_PATTERN = Pattern.compile("from\\s(?<tableName>\\w+)");
-    private static final Logger logger = LoggerFactory.getLogger(DBUnitDataExtractor.class);
+    private String dataSetName = "dbunit-dataset.xml";
+    private DataSource dataSource;
+    private Map dbUnitFeatures;
+    private Map dbUnitProperties;
+    private List queryList;
+
+    private String schema;
+    private List tableList;
 
     /**
      * Performs the extraction. If no tables or queries are specified, data from entire database will be extracted.

@@ -28,21 +28,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class QuestionnairFacadeImpl implements QuestionnairFacade {
 
-    private static final Logger logger = LoggerFactory.getLogger(QuestionnairFacadeImpl.class);
-
     private static final Integer INITIAL_POSITION = 0;
 
-    @Autowired
-    private Mapper mapper;
-
-    @Autowired
-    private SurveyService surveyService;
+    private static final Logger logger = LoggerFactory.getLogger(QuestionnairFacadeImpl.class);
 
     @Autowired
     private BrowsedElementService browsedElementService;
 
     @Autowired
+    private Mapper mapper;
+
+    @Autowired
     private QuestionGroupService questionGroupService;
+
+    @Autowired
+    private SurveyService surveyService;
 
     @Override
     public QuestionnairPageDTO composeQuestionnairPage(final Respondent respondent, final RenderingMode mode,

@@ -5,9 +5,9 @@ import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
 public class UserDTO extends AbstractIdentifiableDTO {
 
     public static class Builder {
+        private String email;
         private String firstName;
         private String lastName;
-        private String email;
 
         public UserDTO build() {
             UserDTO userDTO = new UserDTO();
@@ -39,11 +39,11 @@ public class UserDTO extends AbstractIdentifiableDTO {
         return new Builder();
     }
 
+    private String email;
+
     private String firstName;
 
     private String lastName;
-
-    private String email;
 
     public UserDTO() {
         super();

@@ -19,10 +19,10 @@ public class SurveyLanguageSettingsDTO implements LanguageSettings {
     }
 
     public static class BuilderImpl implements Builder {
-        private String title;
-        private String description;
-        private String welcomeText;
         private final SurveyDTO.Builder container;
+        private String description;
+        private String title;
+        private String welcomeText;
 
         public BuilderImpl(final SurveyDTO.Builder container) {
             this.container = container;
@@ -71,9 +71,9 @@ public class SurveyLanguageSettingsDTO implements LanguageSettings {
         return new BuilderImpl(null);
     }
 
-    private String title;
-
     private String description;
+
+    private String title;
 
     private String welcomeText;
 

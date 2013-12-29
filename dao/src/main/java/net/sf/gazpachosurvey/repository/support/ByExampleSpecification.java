@@ -71,8 +71,8 @@ public class ByExampleSpecification {
                 Set<SingularAttribute<T, ?>> types = em.getMetamodel().entity(type).getDeclaredSingularAttributes();
 
                 for (Attribute<T, ?> attr : types) {
-                    if ((attr.getPersistentAttributeType() == PersistentAttributeType.MANY_TO_ONE)
-                            || (attr.getPersistentAttributeType() == PersistentAttributeType.ONE_TO_ONE)) {
+                    if (attr.getPersistentAttributeType() == PersistentAttributeType.MANY_TO_ONE
+                            || attr.getPersistentAttributeType() == PersistentAttributeType.ONE_TO_ONE) {
                         continue;
                     }
 
@@ -125,8 +125,8 @@ public class ByExampleSpecification {
                 Set<SingularAttribute<T, ?>> types = em.getMetamodel().entity(type).getDeclaredSingularAttributes();
 
                 for (Attribute<T, ?> attr : types) {
-                    if ((attr.getPersistentAttributeType() == PersistentAttributeType.MANY_TO_ONE)
-                            || (attr.getPersistentAttributeType() == PersistentAttributeType.ONE_TO_ONE)) {
+                    if (attr.getPersistentAttributeType() == PersistentAttributeType.MANY_TO_ONE
+                            || attr.getPersistentAttributeType() == PersistentAttributeType.ONE_TO_ONE) {
                         continue;
                     }
 

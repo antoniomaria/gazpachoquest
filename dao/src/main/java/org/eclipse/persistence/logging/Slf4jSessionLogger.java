@@ -72,9 +72,10 @@ public class Slf4jSessionLogger extends AbstractSessionLog {
 
     public static final String DEFAULT_CATEGORY = "default";
 
-    public static final String ECLIPSELINK_NAMESPACE = "org.eclipse.persistence.logging";
+    public static final String DEFAULT_ECLIPSELINK_NAMESPACE = "org.eclipse.persistence.logging" + "."
+            + DEFAULT_CATEGORY;
 
-    public static final String DEFAULT_ECLIPSELINK_NAMESPACE = ECLIPSELINK_NAMESPACE + "." + DEFAULT_CATEGORY;
+    public static final String ECLIPSELINK_NAMESPACE = "org.eclipse.persistence.logging";
 
     private final Map<String, Logger> categoryLoggers = new HashMap<String, Logger>();
 

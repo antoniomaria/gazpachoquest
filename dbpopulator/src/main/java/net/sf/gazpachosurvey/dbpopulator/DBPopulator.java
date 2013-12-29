@@ -33,19 +33,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class DBPopulator {
     @Autowired
-    private SurveyEditorFacade surveyEditorFacade;
+    private MailMessageFacade mailMessageFacade;
 
     @Autowired
     private ParticipantFacade participantFacade;
+
+    @Autowired
+    private SurveyEditorFacade surveyEditorFacade;
 
     @Autowired
     private SurveyInstanceFacade surveyInstanceFacade;
 
     @Autowired
     private UserFacade userFacade;
-
-    @Autowired
-    private MailMessageFacade mailMessageFacade;
 
     public MailMessageTemplateDTO asignDefaultMailTemplate(final SurveyDTO survey) {
         MailMessageTemplateDTO mailMessageTemplate = MailMessageTemplateDTO

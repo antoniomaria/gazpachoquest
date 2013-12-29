@@ -8,8 +8,8 @@ import net.sf.gazpachosurvey.types.Language;
 public class QuestionnairDefinitionBean {
 
     public static class Builder {
-        private SurveyLanguageSettingsDTO languageSettings;
         private Language language;
+        private SurveyLanguageSettingsDTO languageSettings;
         private Set<Language> translationsSupported;
 
         public QuestionnairDefinitionBean build() {
@@ -40,9 +40,9 @@ public class QuestionnairDefinitionBean {
         return new Builder();
     }
 
-    private SurveyLanguageSettingsDTO languageSettings;
-
     private Language language;
+
+    private SurveyLanguageSettingsDTO languageSettings;
 
     private Set<Language> translationsSupported;
 

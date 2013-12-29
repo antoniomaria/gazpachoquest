@@ -70,7 +70,7 @@ public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader implemen
 
     @Override
     public boolean isSourceModified(final Resource resource) {
-        return (resource.getLastModified() != readLastModified(resource, "checking timestamp"));
+        return resource.getLastModified() != readLastModified(resource, "checking timestamp");
     }
 
     protected Integer readTemplateId(final String templateName) {
@@ -121,7 +121,7 @@ public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader implemen
                 example.setMailMessageTemplate(MailMessageTemplate.with().id(templateId).build());
                 List<MailMessageTemplateTranslation> translations = translationRepository.findByExample(example,
                         new SearchParameters());
-                if ((translations != null) && !translations.isEmpty()) {
+                if (translations != null && !translations.isEmpty()) {
                     languageSettings = translations.get(0).getLanguageSettings();
                 } else {
                     languageSettings = template.getLanguageSettings();

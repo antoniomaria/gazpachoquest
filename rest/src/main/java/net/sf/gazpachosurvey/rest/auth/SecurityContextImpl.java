@@ -9,8 +9,8 @@ import javax.ws.rs.core.SecurityContext;
 public class SecurityContextImpl implements SecurityContext {
 
     public static class Builder {
-        private Set<String> roles;
         private Principal principal;
+        private Set<String> roles;
 
         public SecurityContextImpl build() {
             SecurityContextImpl securityContextImpl = new SecurityContextImpl();
@@ -34,9 +34,9 @@ public class SecurityContextImpl implements SecurityContext {
         return new Builder();
     }
 
-    private Set<String> roles;
-
     private Principal principal;
+
+    private Set<String> roles;
 
     public SecurityContextImpl() {
         super();

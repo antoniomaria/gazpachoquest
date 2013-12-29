@@ -131,7 +131,7 @@ public class JpaUtil {
 
     private static boolean isPrimaryKey(final Method method) {
         return isPublic(method.getModifiers())
-                && ((method.getAnnotation(Id.class) != null) || (method.getAnnotation(EmbeddedId.class) != null));
+                && (method.getAnnotation(Id.class) != null || method.getAnnotation(EmbeddedId.class) != null);
     }
 
     private static <T> List<T> withoutNullEntries(final Iterable<T> input) {

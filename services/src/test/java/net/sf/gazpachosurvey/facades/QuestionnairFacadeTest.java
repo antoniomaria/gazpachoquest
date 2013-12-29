@@ -42,10 +42,10 @@ public class QuestionnairFacadeTest {
     private QuestionnairFacade questionnairFacade;
 
     @Autowired
-    private SurveyService surveyService;
+    private RespondentRepository respondentRepository;
 
     @Autowired
-    private RespondentRepository respondentRepository;
+    private SurveyService surveyService;
 
     @Test
     public void composeQuestionnairPageTest() {

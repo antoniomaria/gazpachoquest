@@ -7,11 +7,11 @@ import net.sf.gazpachosurvey.types.InvitationType;
 public class InvitationDTO extends AbstractIdentifiableDTO {
 
     public static class Builder {
+        private InvitationStatus status;
+        private SurveyInstanceDTO surveyInstance;
+
         private String token;
         private InvitationType type;
-
-        private SurveyInstanceDTO surveyInstance;
-        private InvitationStatus status;
 
         public InvitationDTO build() {
             InvitationDTO invitationDTO = new InvitationDTO();
@@ -49,13 +49,13 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
         return new Builder();
     }
 
-    private InvitationType type;
-
-    private String token;
+    private InvitationStatus status;
 
     private SurveyInstanceDTO surveyInstance;
 
-    private InvitationStatus status;
+    private String token;
+
+    private InvitationType type;
 
     public InvitationStatus getStatus() {
         return status;

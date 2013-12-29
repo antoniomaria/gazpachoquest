@@ -30,13 +30,13 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
     }
 
     public static class BuilderImpl implements Builder {
-        private SurveyDTO survey;
-        private MailMessageTemplateType type;
+        private String from;
         private Integer id;
         private Language language;
-        private String from;
-        private String replyTo;
         private MailMessageTemplateLanguageSettingsDTO languageSettings;
+        private String replyTo;
+        private SurveyDTO survey;
+        private MailMessageTemplateType type;
 
         @Override
         public MailMessageTemplateDTO build() {
@@ -105,17 +105,17 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
         return new BuilderImpl();
     }
 
-    private SurveyDTO survey;
-
-    private MailMessageTemplateType type;
+    private String fromAddress;
 
     private Language language;
 
-    private String fromAddress;
+    private MailMessageTemplateLanguageSettingsDTO languageSettings;
 
     private String replyTo;
 
-    private MailMessageTemplateLanguageSettingsDTO languageSettings;
+    private SurveyDTO survey;
+
+    private MailMessageTemplateType type;
 
     public MailMessageTemplateDTO() {
         super();

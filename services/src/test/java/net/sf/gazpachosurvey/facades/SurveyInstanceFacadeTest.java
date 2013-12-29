@@ -30,10 +30,10 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 public class SurveyInstanceFacadeTest {
 
     @Autowired
-    private SurveyInstanceFacade surveyInstanceFacade;
+    private ParticipantFacade participantFacade;
 
     @Autowired
-    private ParticipantFacade participantFacade;
+    private SurveyInstanceFacade surveyInstanceFacade;
 
     @Test
     public void saveTest() {

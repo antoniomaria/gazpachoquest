@@ -10,12 +10,12 @@ import org.joda.time.DateTime;
 public class SurveyInstanceDTO extends AbstractIdentifiableDTO {
 
     public static class Builder {
-        private SurveyDTO survey;
-        private String name;
-        private SurveyInstanceType type;
-        private DateTime startDate;
         private DateTime expirationDate;
+        private String name;
         private Set<ParticipantDTO> participants;
+        private DateTime startDate;
+        private SurveyDTO survey;
+        private SurveyInstanceType type;
 
         public SurveyInstanceDTO build() {
             SurveyInstanceDTO surveyInstanceDTO = new SurveyInstanceDTO();
@@ -65,17 +65,17 @@ public class SurveyInstanceDTO extends AbstractIdentifiableDTO {
         return new Builder();
     }
 
-    private SurveyDTO survey;
+    private DateTime expirationDate;
 
     private String name;
 
-    private SurveyInstanceType type;
+    private Set<ParticipantDTO> participants;
 
     private DateTime startDate;
 
-    private DateTime expirationDate;
+    private SurveyDTO survey;
 
-    private Set<ParticipantDTO> participants;
+    private SurveyInstanceType type;
 
     public SurveyInstanceDTO() {
         super();

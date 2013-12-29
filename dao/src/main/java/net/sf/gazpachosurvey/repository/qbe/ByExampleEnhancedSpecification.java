@@ -49,10 +49,9 @@ public class ByExampleEnhancedSpecification {
                     final T mtValue, final SearchParameters sp, final CriteriaBuilder builder) {
                 List<Predicate> predicates = new ArrayList<Predicate>();
                 for (SingularAttribute<? super T, ?> attr : mt.getSingularAttributes()) {
-                    if ((attr.getPersistentAttributeType() == MANY_TO_ONE //
-                            )
-                            || (attr.getPersistentAttributeType() == ONE_TO_ONE //
-                            ) || (attr.getPersistentAttributeType() == EMBEDDED)) {
+                    if (attr.getPersistentAttributeType() == MANY_TO_ONE
+                            || attr.getPersistentAttributeType() == ONE_TO_ONE
+                            || attr.getPersistentAttributeType() == EMBEDDED) {
                         continue;
                     }
                     Object attrValue = getValue(mtValue, attr);
@@ -86,7 +85,7 @@ public class ByExampleEnhancedSpecification {
                     if (pa.getCollectionType() == PluralAttribute.CollectionType.LIST) {
                         List<?> value = (List<?>) getValue(mtValue, mt.getAttribute(pa.getName()));
 
-                        if ((value != null) && !value.isEmpty()) {
+                        if (value != null && !value.isEmpty()) {
                             ListJoin<T, ?> join = mtPath.join(mt.getDeclaredList(pa.getName()));
                             predicates.add(join.in(value));
                         }
@@ -94,7 +93,7 @@ public class ByExampleEnhancedSpecification {
                     if (pa.getCollectionType() == PluralAttribute.CollectionType.SET) {
                         Set<?> value = (Set<?>) getValue(mtValue, mt.getAttribute(pa.getName()));
 
-                        if ((value != null) && !value.isEmpty()) {
+                        if (value != null && !value.isEmpty()) {
                             SetJoin<T, ?> join = mtPath.join(mt.getDeclaredSet(pa.getName()));
                             predicates.add(join.in(value));
                         }
@@ -113,8 +112,8 @@ public class ByExampleEnhancedSpecification {
                     final CriteriaBuilder builder) {
                 List<Predicate> predicates = new ArrayList<Predicate>();
                 for (SingularAttribute<? super T, ?> attr : mt.getSingularAttributes()) {
-                    if ((attr.getPersistentAttributeType() == MANY_TO_ONE)
-                            || (attr.getPersistentAttributeType() == ONE_TO_ONE)) { //
+                    if (attr.getPersistentAttributeType() == MANY_TO_ONE
+                            || attr.getPersistentAttributeType() == ONE_TO_ONE) { //
                         /*
                          * Attribute<? super T, ?> m2oattr = mt.getAttribute(attr.getName()); M2O m2oValue = (M2O)
                          * ReflectionUtils .invokeMethod((Method)m2oattr.getJavaMember(), mtValue);

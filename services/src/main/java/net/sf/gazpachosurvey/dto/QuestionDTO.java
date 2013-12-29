@@ -32,13 +32,13 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
     }
 
     public static class BuilderImpl implements Builder {
+        private List<QuestionOptionDTO> answers;
         private Integer id;
         private Boolean isRequired;
-        private QuestionType type;
         private Language language;
-        private List<QuestionDTO> subquestions;
-        private List<QuestionOptionDTO> answers;
         private QuestionLanguageSettingsDTO languageSettings;
+        private List<QuestionDTO> subquestions;
+        private QuestionType type;
 
         @Override
         public Builder answers(final List<QuestionOptionDTO> answers) {
@@ -109,15 +109,15 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
 
     private Boolean isRequired;
 
-    private QuestionType type;
-
     private Language language;
 
-    private List<QuestionDTO> subquestions;
+    private QuestionLanguageSettingsDTO languageSettings;
 
     private List<QuestionOptionDTO> questionOptions;
 
-    private QuestionLanguageSettingsDTO languageSettings;
+    private List<QuestionDTO> subquestions;
+
+    private QuestionType type;
 
     public QuestionDTO() {
         super();

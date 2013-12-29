@@ -27,9 +27,9 @@ public abstract class AbstractLocalizedPersistenceService<L extends Localizable<
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractLocalizedPersistenceService.class);
 
-    protected GenericRepository<TR> translationRepository;
-
     protected TranslationBuilder<TR, LS> translationBuilder;
+
+    protected GenericRepository<TR> translationRepository;
 
     @PersistenceContext
     private EntityManager em;

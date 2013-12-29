@@ -106,7 +106,7 @@ public class EntitySelector<E, T extends Persistable, TPK extends Serializable> 
     }
 
     public boolean isNotEmpty() {
-        return (selected != null) && !selected.isEmpty();
+        return selected != null && !selected.isEmpty();
     }
 
     public void selected(final T... selected) {

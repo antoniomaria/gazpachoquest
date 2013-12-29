@@ -9,8 +9,8 @@ import net.sf.gazpachosurvey.types.Language;
 public class LabelSetDTO extends AbstractIdentifiableDTO {
 
     public static class Builder {
-        private String name;
         private Language language;
+        private String name;
 
         public LabelSetDTO build() {
             return new LabelSetDTO(this);
@@ -33,11 +33,11 @@ public class LabelSetDTO extends AbstractIdentifiableDTO {
         return new Builder();
     }
 
-    private String name;
+    private List<LabelDTO> labels;
 
     private Language language;
 
-    private List<LabelDTO> labels;
+    private String name;
 
     public LabelSetDTO() {
         super();

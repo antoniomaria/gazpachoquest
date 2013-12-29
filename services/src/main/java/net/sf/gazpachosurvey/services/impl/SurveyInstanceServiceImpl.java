@@ -36,22 +36,22 @@ public class SurveyInstanceServiceImpl extends AbstractPersistenceService<Survey
         SurveyInstanceService {
 
     @Autowired
-    private SurveyRepository surveyRepository;
+    private InvitationRepository invitationRepository;
+
+    @Autowired
+    private MailMessageRepository mailMessageRepository;
 
     @Autowired
     private ParticipantRepository participantRepository;
 
     @Autowired
+    private SurveyRepository surveyRepository;
+
+    @Autowired
     private RandomTokenGenerator tokenGenerator;
 
     @Autowired
-    private InvitationRepository invitationRepository;
-
-    @Autowired
     private VelocityEngineFactoryBean velocityFactory;
-
-    @Autowired
-    private MailMessageRepository mailMessageRepository;
 
     @Autowired
     public SurveyInstanceServiceImpl(final SurveyInstanceRepository repository) {

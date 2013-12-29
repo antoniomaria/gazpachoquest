@@ -22,10 +22,10 @@ public class QuestionServiceImpl extends
         QuestionService {
 
     @Resource
-    private SurveyRepository surveyRepository;
+    private QuestionGroupRepository questionGroupRepository;
 
     @Resource
-    private QuestionGroupRepository questionGroupRepository;
+    private SurveyRepository surveyRepository;
 
     @Autowired
     public QuestionServiceImpl(final QuestionRepository repository,

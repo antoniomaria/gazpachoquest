@@ -9,8 +9,8 @@ public class QuestionOptionDTO extends AbstractIdentifiableDTO implements
 
     public static class Builder {
         private String code;
-        private String title;
         private Language language;
+        private String title;
 
         public QuestionOptionDTO build() {
             QuestionOptionDTO questionOptionDTO = new QuestionOptionDTO();
@@ -45,9 +45,9 @@ public class QuestionOptionDTO extends AbstractIdentifiableDTO implements
 
     private String code;
 
-    private QuestionOptionLanguageSettingsDTO languageSettings;
-
     private Language language;
+
+    private QuestionOptionLanguageSettingsDTO languageSettings;
 
     public QuestionOptionDTO() {
         super();

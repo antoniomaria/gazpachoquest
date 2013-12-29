@@ -18,9 +18,9 @@ import org.springframework.util.Assert;
 @Component("GroupByGroupResolver")
 public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
 
-    private static final Logger logger = LoggerFactory.getLogger(GroupByGroupResolverImpl.class);
-
     private static final Integer INITIAL_POSITION = 0;
+
+    private static final Logger logger = LoggerFactory.getLogger(GroupByGroupResolverImpl.class);
 
     @Autowired
     private BrowsedElementService browsedElementService;

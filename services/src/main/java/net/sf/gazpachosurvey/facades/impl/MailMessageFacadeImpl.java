@@ -17,10 +17,10 @@ import org.springframework.stereotype.Component;
 public class MailMessageFacadeImpl implements MailMessageFacade {
 
     @Autowired
-    private Mapper mapper;
+    private MailMessageTemplateService mailMessageTemplateService;
 
     @Autowired
-    private MailMessageTemplateService mailMessageTemplateService;
+    private Mapper mapper;
 
     public MailMessageFacadeImpl() {
         super();

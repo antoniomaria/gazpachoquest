@@ -46,7 +46,7 @@ public class RangeSpecification {
                 }
 
                 if (rangePredicate != null) {
-                    if (!range.isIncludeNullSet() || (range.getIncludeNull() == Boolean.FALSE)) {
+                    if (!range.isIncludeNullSet() || range.getIncludeNull() == Boolean.FALSE) {
                         return rangePredicate;
                     } else {
                         return builder.or(rangePredicate, builder.isNull(root.get(range.getField())));

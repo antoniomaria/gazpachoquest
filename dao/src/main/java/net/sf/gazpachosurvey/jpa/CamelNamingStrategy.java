@@ -14,12 +14,12 @@ public class CamelNamingStrategy implements SessionCustomizer {
 
     public static String unqualify(final String qualifiedName) {
         int loc = qualifiedName.lastIndexOf(".");
-        return (loc < 0) ? qualifiedName : qualifiedName.substring(qualifiedName.lastIndexOf(".") + 1);
+        return loc < 0 ? qualifiedName : qualifiedName.substring(qualifiedName.lastIndexOf(".") + 1);
     }
 
     protected static String addUnderscores(final String name) {
         StringBuffer buf = new StringBuffer(name.replace('.', '_'));
-        for (int i = 1; i < (buf.length() - 1); i++) {
+        for (int i = 1; i < buf.length() - 1; i++) {
             if (Character.isLowerCase(buf.charAt(i - 1)) && Character.isUpperCase(buf.charAt(i))
                     && Character.isLowerCase(buf.charAt(i + 1))) {
                 buf.insert(i++, '_');

@@ -7,12 +7,12 @@ import net.sf.gazpachosurvey.types.Language;
 public class ParticipantDTO extends AbstractIdentifiableDTO {
 
     public static class Builder {
-        private Integer id;
-        private String firstname;
-        private String lastname;
         private String email;
-        private Language preferedLanguage;
+        private String firstname;
         private Gender gender;
+        private Integer id;
+        private String lastname;
+        private Language preferedLanguage;
 
         public ParticipantDTO build() {
             ParticipantDTO participantDTO = new ParticipantDTO();
@@ -62,13 +62,13 @@ public class ParticipantDTO extends AbstractIdentifiableDTO {
         return new Builder();
     }
 
-    private String firstname;
-
-    private String lastname;
-
     private String email;
 
+    private String firstname;
+
     private Gender gender;
+
+    private String lastname;
 
     private Language preferedLanguage;
 

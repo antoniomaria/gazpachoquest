@@ -28,11 +28,11 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 public class QuestionByQuestionResolverTest {
 
     @Autowired
-    @Qualifier("QuestionByQuestionResolver")
-    QuestionnairElementResolver resolver;
+    private RespondentRepository respondentRepository;
 
     @Autowired
-    private RespondentRepository respondentRepository;
+    @Qualifier("QuestionByQuestionResolver")
+    QuestionnairElementResolver resolver;
 
     @Test
     public void resolveForTest() {

@@ -20,18 +20,18 @@ import org.springframework.util.Assert;
 
 @Component("QuestionByQuestionResolver")
 public class QuestionByQuestionResolverImpl implements QuestionnairElementResolver {
-    private static final Logger logger = LoggerFactory.getLogger(QuestionByQuestionResolverImpl.class);
-
     private static final Integer INITIAL_POSITION = 0;
+
+    private static final Logger logger = LoggerFactory.getLogger(QuestionByQuestionResolverImpl.class);
 
     @Autowired
     private BrowsedElementService browsedElementService;
 
     @Autowired
-    private QuestionService questionService;
+    private QuestionGroupService questionGroupService;
 
     @Autowired
-    private QuestionGroupService questionGroupService;
+    private QuestionService questionService;
 
     @Autowired
     private SurveyService surveyRepository;
@@ -88,7 +88,7 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
             Integer position = questionService.findPositionInQuestionGroup(lastBrowsedQuestion.getQuestion().getId());
 
             long questionsCount = questionGroupService.questionsCount(lastQuestionGroup.getId());
-            if (position < (questionsCount - 1)) { // Not last in group
+            if (position < questionsCount - 1) { // Not last in group
                 next = questionService.findOneByPositionInQuestionGroup(lastQuestionGroup.getId(), position + 1);
             } else {
                 Integer questionGroupPosition = questionGroupService.findPositionInSurvey(lastQuestionGroup.getId());

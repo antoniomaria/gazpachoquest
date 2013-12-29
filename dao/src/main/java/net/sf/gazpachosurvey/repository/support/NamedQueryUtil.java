@@ -49,7 +49,7 @@ public class NamedQueryUtil {
     }
 
     public <T> List<T> findByNamedQuery(final SearchParameters sp) {
-        if ((sp == null) || !sp.hasNamedQuery()) {
+        if (sp == null || !sp.hasNamedQuery()) {
             throw new IllegalArgumentException("searchParameters must be non null and must have a namedQuery");
         }
 
@@ -57,7 +57,7 @@ public class NamedQueryUtil {
         String queryString = getQueryString(query);
 
         // append order by if needed
-        if ((queryString != null) && sp.hasOrders()) {
+        if (queryString != null && sp.hasOrders()) {
             // create the sql restriction clausis
             StringBuilder orderClausis = new StringBuilder("order by ");
             boolean first = true;
@@ -92,7 +92,7 @@ public class NamedQueryUtil {
         @SuppressWarnings("unchecked")
         List<T> result = query.getResultList();
 
-        if ((result != null) && logger.isDebugEnabled()) {
+        if (result != null && logger.isDebugEnabled()) {
             logger.debug(sp.getNamedQuery() + " returned a List of size: " + result.size());
         }
 
@@ -104,7 +104,7 @@ public class NamedQueryUtil {
     }
 
     public Object objectByNamedQuery(final SearchParameters sp) {
-        if ((sp == null) || !sp.hasNamedQuery()) {
+        if (sp == null || !sp.hasNamedQuery()) {
             throw new IllegalStateException(
                     "Invalid search template provided: could not determine which namedQuery to use");
         }
@@ -113,7 +113,7 @@ public class NamedQueryUtil {
         String queryString = getQueryString(query);
 
         // append select count if needed
-        if ((queryString != null) && queryString.toLowerCase().startsWith("from")
+        if (queryString != null && queryString.toLowerCase().startsWith("from")
                 && !queryString.toLowerCase().contains("count(")) {
             query = recreateQuery(query, "select count(*) " + queryString);
         }

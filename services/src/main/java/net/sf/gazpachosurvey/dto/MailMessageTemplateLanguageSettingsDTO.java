@@ -18,9 +18,9 @@ public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiable
     }
 
     public static class BuilderImpl implements Builder {
-        private String subject;
         private String body;
         private final MailMessageTemplateDTO.Builder container;
+        private String subject;
 
         public BuilderImpl(final MailMessageTemplateDTO.Builder container) {
             this.container = container;
@@ -62,9 +62,9 @@ public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiable
         return new BuilderImpl(null);
     }
 
-    private String subject;
-
     private String body;
+
+    private String subject;
 
     public MailMessageTemplateLanguageSettingsDTO() {
         super();

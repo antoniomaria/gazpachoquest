@@ -10,8 +10,8 @@ public class QuestionnairDefinitionDTO extends AbstractIdentifiableDTO implement
         IdentifiableLocalizable<SurveyLanguageSettingsDTO> {
 
     public static class Builder {
-        private SurveyLanguageSettingsDTO languageSettings;
         private Language language;
+        private SurveyLanguageSettingsDTO languageSettings;
         private Set<Language> translationsSupported;
 
         public QuestionnairDefinitionDTO build() {
@@ -44,9 +44,9 @@ public class QuestionnairDefinitionDTO extends AbstractIdentifiableDTO implement
         return new Builder();
     }
 
-    private SurveyLanguageSettingsDTO languageSettings;
-
     private Language language;
+
+    private SurveyLanguageSettingsDTO languageSettings;
 
     private Set<Language> translationsSupported;
 

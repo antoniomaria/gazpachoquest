@@ -26,7 +26,7 @@ public class RandomTokenGeneratorImpl implements RandomTokenGenerator {
             index = r.nextInt(TOKEN_NUM_OF_CHARACTERS);
             if (index < 10) {
                 id.append((char) (48 + index)); // Numbers
-            } else if ((10 <= index) && (index < 36)) { // Capital letters 65 - 90
+            } else if (10 <= index && index < 36) { // Capital letters 65 - 90
                 index = index - 10;
                 id.append((char) (65 + index));
             } else {

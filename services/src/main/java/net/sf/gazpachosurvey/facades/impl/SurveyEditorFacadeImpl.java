@@ -44,25 +44,25 @@ import org.springframework.stereotype.Component;
 public final class SurveyEditorFacadeImpl implements SurveyEditorFacade {
 
     @Autowired
-    private Mapper mapper;
+    private LabelService labelService;
 
     @Autowired
     private LabelSetService labelSetService;
 
     @Autowired
-    private LabelService labelService;
+    private Mapper mapper;
 
     @Autowired
-    private QuestionService questionService;
+    private QuestionGroupService questionGroupService;
 
     @Autowired
     private QuestionOptionService questionOptionService;
 
     @Autowired
-    private SurveyService surveyService;
+    private QuestionService questionService;
 
     @Autowired
-    private QuestionGroupService questionGroupService;
+    private SurveyService surveyService;
 
     public SurveyEditorFacadeImpl() {
         super();

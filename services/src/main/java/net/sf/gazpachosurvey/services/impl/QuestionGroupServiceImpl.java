@@ -23,10 +23,10 @@ public class QuestionGroupServiceImpl extends
         implements QuestionGroupService {
 
     @Autowired
-    private SurveyRepository surveyRepository;
+    private QuestionRepository questionRepository;
 
     @Autowired
-    private QuestionRepository questionRepository;
+    private SurveyRepository surveyRepository;
 
     @Autowired
     public QuestionGroupServiceImpl(final QuestionGroupRepository repository,

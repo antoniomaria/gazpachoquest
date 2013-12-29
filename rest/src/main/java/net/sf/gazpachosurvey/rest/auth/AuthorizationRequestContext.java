@@ -7,8 +7,8 @@ public class AuthorizationRequestContext {
 
     public static class Builder {
         private String authorizationToken;
-        private String requestUrl;
         private String httpMethod;
+        private String requestUrl;
 
         public Builder authorizationToken(final String authorizationToken) {
             this.authorizationToken = authorizationToken;
@@ -44,14 +44,14 @@ public class AuthorizationRequestContext {
     private String authorizationToken;
 
     /**
-     * The relative url of the request which starts at the root of the requested resource
-     */
-    private String requestUrl;
-
-    /**
      * The Http method (POST, GET, DELETE, PUT)
      */
     private String httpMethod;
+
+    /**
+     * The relative url of the request which starts at the root of the requested resource
+     */
+    private String requestUrl;
 
     public String getAuthorizationToken() {
         return authorizationToken;

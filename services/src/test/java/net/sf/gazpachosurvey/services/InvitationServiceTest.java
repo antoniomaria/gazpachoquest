@@ -30,10 +30,10 @@ public class InvitationServiceTest {
     private DataSource datasource;
 
     @Autowired
-    private InvitationService surveyService;
+    private SurveyInstanceService surveyInstanceService;
 
     @Autowired
-    private SurveyInstanceService surveyInstanceService;
+    private InvitationService surveyService;
 
     @Test
     public void findOneByExampleTest() {

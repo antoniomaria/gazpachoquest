@@ -16,9 +16,9 @@ public class QuestionLanguageSettingsDTO implements LanguageSettings {
 
     public static class BuilderImpl implements Builder {
 
-        private String title;
-
         private final QuestionDTO.Builder container;
+
+        private String title;
 
         public BuilderImpl(final QuestionDTO.Builder container) {
             this.container = container;

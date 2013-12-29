@@ -21,13 +21,13 @@ public class SurveyServiceImpl extends
         AbstractLocalizedPersistenceService<Survey, SurveyTranslation, SurveyLanguageSettings> implements SurveyService {
 
     @Autowired
+    private MailMessageRepository mailMessageRepository;
+
+    @Autowired
     private QuestionGroupRepository questionGroupRepository;
 
     @Autowired
     private RespondentAnswersRepository respondentAnswersRepository;
-
-    @Autowired
-    private MailMessageRepository mailMessageRepository;
 
     @Autowired
     private SurveyTranslationRepository surveyTranslationRepository;

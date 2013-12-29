@@ -61,11 +61,11 @@ public class PropertySelector<E, F> implements Serializable {
     }
 
     public boolean isBoolean() {
-        return (field != null) && field.getJavaType().isAssignableFrom(Boolean.class);
+        return field != null && field.getJavaType().isAssignableFrom(Boolean.class);
     }
 
     public boolean isNotEmpty() {
-        return (selected != null) && !selected.isEmpty();
+        return selected != null && !selected.isEmpty();
     }
 
     /**
