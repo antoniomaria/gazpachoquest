@@ -60,13 +60,25 @@ import org.springframework.util.StringUtils;
  */
 public class Slf4jSessionLogger extends AbstractSessionLog {
 
-    public static final String ECLIPSELINK_NAMESPACE = "org.eclipse.persistence.logging";
+    /**
+     * SLF4J log levels.
+     * 
+     * @author Miguel Angel Sosvilla Luis
+     * 
+     */
+    enum LogLevel {
+        DEBUG, ERROR, INFO, OFF, TRACE, WARN
+    }
+
     public static final String DEFAULT_CATEGORY = "default";
+
+    public static final String ECLIPSELINK_NAMESPACE = "org.eclipse.persistence.logging";
 
     public static final String DEFAULT_ECLIPSELINK_NAMESPACE = ECLIPSELINK_NAMESPACE + "." + DEFAULT_CATEGORY;
 
+    private final Map<String, Logger> categoryLoggers = new HashMap<String, Logger>();
+
     private Map<Integer, LogLevel> mapLevels;
-    private Map<String, Logger> categoryLoggers = new HashMap<String, Logger>();
 
     public Slf4jSessionLogger() {
         super();
@@ -75,7 +87,7 @@ public class Slf4jSessionLogger extends AbstractSessionLog {
     }
 
     @Override
-    public void log(SessionLogEntry entry) {
+    public void log(final SessionLogEntry entry) {
         if (!shouldLog(entry.getLevel(), entry.getNameSpace())) {
             return;
         }
@@ -107,8 +119,25 @@ public class Slf4jSessionLogger extends AbstractSessionLog {
         }
     }
 
+    /**
+     * Return true if SQL logging should log visible bind parameters. If the shouldDisplayData is not set, return false.
+     */
     @Override
-    public boolean shouldLog(int level, String category) {
+    public boolean shouldDisplayData() {
+        if (shouldDisplayData != null) {
+            return shouldDisplayData.booleanValue();
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean shouldLog(final int level) {
+        return shouldLog(level, "default");
+    }
+
+    @Override
+    public boolean shouldLog(final int level, final String category) {
         Logger logger = getLogger(category);
         boolean resp = false;
 
@@ -135,21 +164,11 @@ public class Slf4jSessionLogger extends AbstractSessionLog {
         return resp;
     }
 
-    @Override
-    public boolean shouldLog(int level) {
-        return shouldLog(level, "default");
-    }
-
     /**
-     * Return true if SQL logging should log visible bind parameters. If the shouldDisplayData is not set, return false.
+     * INTERNAL: Add Logger to the categoryLoggers.
      */
-    @Override
-    public boolean shouldDisplayData() {
-        if (shouldDisplayData != null) {
-            return shouldDisplayData.booleanValue();
-        } else {
-            return false;
-        }
+    private void addLogger(final String loggerCategory, final String loggerNameSpace) {
+        categoryLoggers.put(loggerCategory, LoggerFactory.getLogger(loggerNameSpace));
     }
 
     /**
@@ -161,13 +180,6 @@ public class Slf4jSessionLogger extends AbstractSessionLog {
         }
         // Logger default para cuando no hay categoría.
         addLogger(DEFAULT_CATEGORY, DEFAULT_ECLIPSELINK_NAMESPACE);
-    }
-
-    /**
-     * INTERNAL: Add Logger to the categoryLoggers.
-     */
-    private void addLogger(String loggerCategory, String loggerNameSpace) {
-        categoryLoggers.put(loggerCategory, LoggerFactory.getLogger(loggerNameSpace));
     }
 
     /**
@@ -186,7 +198,7 @@ public class Slf4jSessionLogger extends AbstractSessionLog {
     /**
      * Return the corresponding Slf4j Level for a given EclipseLink level.
      */
-    private LogLevel getLogLevel(Integer level) {
+    private LogLevel getLogLevel(final Integer level) {
         LogLevel logLevel = mapLevels.get(level);
 
         if (logLevel == null) {
@@ -194,16 +206,6 @@ public class Slf4jSessionLogger extends AbstractSessionLog {
         }
 
         return logLevel;
-    }
-
-    /**
-     * SLF4J log levels.
-     * 
-     * @author Miguel Angel Sosvilla Luis
-     * 
-     */
-    enum LogLevel {
-        TRACE, DEBUG, INFO, WARN, ERROR, OFF
     }
 
     /**

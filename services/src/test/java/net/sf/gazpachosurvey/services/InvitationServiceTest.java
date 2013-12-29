@@ -36,6 +36,14 @@ public class InvitationServiceTest {
     private SurveyInstanceService surveyInstanceService;
 
     @Test
+    public void findOneByExampleTest() {
+        // InvitationDTO example = InvitationDTO.with().type(InvitationType.PERSONAL).token("IQF19ZUVMI").build();
+        // InvitationDTO invitation = surveyService.findOneByExample(example, new
+        // SearchParameters().caseSensitive(true));
+        // assertThat(invitation).isNotNull();
+    }
+
+    @Test
     public void saveTest() {
         SurveyInstance surveyInstance = surveyInstanceService.findOne(95);
         Invitation invitation = Invitation.with().surveyInstance(surveyInstance).status(InvitationStatus.ACTIVE)
@@ -50,14 +58,6 @@ public class InvitationServiceTest {
         Invitation updated = surveyService.save(existing);
 
         assertThat(updated.getSurveyInstance()).isNotNull();
-    }
-
-    @Test
-    public void findOneByExampleTest() {
-        // InvitationDTO example = InvitationDTO.with().type(InvitationType.PERSONAL).token("IQF19ZUVMI").build();
-        // InvitationDTO invitation = surveyService.findOneByExample(example, new
-        // SearchParameters().caseSensitive(true));
-        // assertThat(invitation).isNotNull();
     }
 
 }

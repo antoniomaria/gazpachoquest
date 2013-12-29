@@ -2,16 +2,6 @@ package net.sf.gazpachosurvey.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-import java.util.Set;
-
-import net.sf.gazpachosurvey.domain.core.Survey;
-import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
-import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
-import net.sf.gazpachosurvey.types.Language;
-
-import org.eclipse.persistence.internal.libraries.antlr.runtime.tree.TreeFilter.fptr;
-import org.hsqldb.lib.CountdownInputStream;
-import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +29,7 @@ public class QuestionGroupServiceTest {
     @Test
     public void questionsCountTest() {
         Integer questionGroupId = 4;
-        long count = questionGroupService.questionsCount(questionGroupId );
+        long count = questionGroupService.questionsCount(questionGroupId);
         assertThat(count).isEqualTo(3);
     }
 }

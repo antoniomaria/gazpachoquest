@@ -1,12 +1,29 @@
 package net.sf.gazpachosurvey.dto;
 
-import java.util.List;
-
 import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
 
 public class QuestionnairPageDTO extends AbstractIdentifiableDTO {
 
+    public static class Builder {
+        private QuestionGroupDTO questionGroup;
+
+        public QuestionnairPageDTO build() {
+            QuestionnairPageDTO questionnairViewModelDTO = new QuestionnairPageDTO();
+            questionnairViewModelDTO.questionGroup = questionGroup;
+            return questionnairViewModelDTO;
+        }
+
+        public Builder questionGroup(final QuestionGroupDTO questionGroup) {
+            this.questionGroup = questionGroup;
+            return this;
+        }
+    }
+
     private static final long serialVersionUID = -3093554311817776556L;
+
+    public static Builder with() {
+        return new Builder();
+    }
 
     private QuestionGroupDTO questionGroup;
 
@@ -18,24 +35,7 @@ public class QuestionnairPageDTO extends AbstractIdentifiableDTO {
         return questionGroup;
     }
 
-    public void setQuestionGroup(QuestionGroupDTO questionGroup) {
+    public void setQuestionGroup(final QuestionGroupDTO questionGroup) {
         this.questionGroup = questionGroup;
-    }
-    public static Builder with() {
-        return new Builder();
-    }
-    public static class Builder {
-        private QuestionGroupDTO questionGroup;
-
-        public Builder questionGroup(QuestionGroupDTO questionGroup) {
-            this.questionGroup = questionGroup;
-            return this;
-        }
-
-        public QuestionnairPageDTO build() {
-            QuestionnairPageDTO questionnairViewModelDTO = new QuestionnairPageDTO();
-            questionnairViewModelDTO.questionGroup = questionGroup;
-            return questionnairViewModelDTO;
-        }
     }
 }

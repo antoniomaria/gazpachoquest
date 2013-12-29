@@ -18,17 +18,17 @@ public class LoginServiceFactoryImpl implements LoginServiceFactory {
         return implementations;
     }
 
-    public void setImplementations(Map<String, LoginService> loginServiceImplementations) {
-        implementations = loginServiceImplementations;
-    }
-
     @Override
-    public LoginService getObject(LoginServiceType type) {
+    public LoginService getObject(final LoginServiceType type) {
         LoginService impl = getImplementations().get(type.toString());
         if (impl == null) {
             throw new IllegalStateException("There is no implementation for type = " + type);
         }
         return impl;
+    }
+
+    public void setImplementations(final Map<String, LoginService> loginServiceImplementations) {
+        implementations = loginServiceImplementations;
     }
 
 }

@@ -42,27 +42,13 @@ public class RespondentAnswersRepositoryImpl implements RespondentAnswersReposit
     private EntityManager entityManager;
 
     @Autowired
-    private SurveyRepository surveyRepository;
-
-    @Autowired
     private QuestionOptionRepository questionOptionRepository;
 
     @Autowired
     private QuestionRepository questionRepository;
 
-    @Override
-    public void collectAnswers(Survey survey) {
-        Assert.notNull(survey.getId());
-        // Create JPA Dynamic Helper (with the entityManager above) and after
-        // the types
-        // have been created and add the types through the helper.
-        JPADynamicHelper helper = new JPADynamicHelper(entityManager);
-        helper.addTypes(true, true, buildDynamicType(survey.getId()));
-        // Update database
-        new SchemaManager(helper.getSession()).createDefaultTables(true);
-
-        logger.info("QuestionOption table has been created for survey {}", survey.getId());
-    }
+    @Autowired
+    private SurveyRepository surveyRepository;
 
     @Override
     public void activeAllAnswers() {
@@ -81,8 +67,22 @@ public class RespondentAnswersRepositoryImpl implements RespondentAnswersReposit
     }
 
     @Override
+    public void collectAnswers(final Survey survey) {
+        Assert.notNull(survey.getId());
+        // Create JPA Dynamic Helper (with the entityManager above) and after
+        // the types
+        // have been created and add the types through the helper.
+        JPADynamicHelper helper = new JPADynamicHelper(entityManager);
+        helper.addTypes(true, true, buildDynamicType(survey.getId()));
+        // Update database
+        new SchemaManager(helper.getSession()).createDefaultTables(true);
+
+        logger.info("QuestionOption table has been created for survey {}", survey.getId());
+    }
+
+    @Override
     @Transactional
-    public RespondentAnswers save(RespondentAnswers respondentAnswers) {
+    public RespondentAnswers save(final RespondentAnswers respondentAnswers) {
         Assert.notNull(respondentAnswers.getRespondent());
 
         StringBuilder tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(
@@ -105,13 +105,7 @@ public class RespondentAnswersRepositoryImpl implements RespondentAnswersReposit
         return respondentAnswers;
     }
 
-    private DynamicEntity newInstance(String entityAlias) {
-        JPADynamicHelper helper = new JPADynamicHelper(entityManager);
-        ClassDescriptor descriptor = helper.getSession().getDescriptorForAlias(entityAlias);
-        return (DynamicEntity) descriptor.getInstantiationPolicy().buildNewInstance();
-    }
-
-    private DynamicType buildDynamicType(Integer surveyId) {
+    private DynamicType buildDynamicType(final Integer surveyId) {
         DynamicClassLoader dcl = new DynamicClassLoader(getClass().getClassLoader());
 
         String tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(surveyId).toString();
@@ -134,7 +128,13 @@ public class RespondentAnswersRepositoryImpl implements RespondentAnswersReposit
         return respondentAnswersTypeBuilder.getType();
     }
 
-    private void processQuestion(JPADynamicTypeBuilder surveyAnswer, Question question) {
+    private DynamicEntity newInstance(final String entityAlias) {
+        JPADynamicHelper helper = new JPADynamicHelper(entityManager);
+        ClassDescriptor descriptor = helper.getSession().getDescriptorForAlias(entityAlias);
+        return (DynamicEntity) descriptor.getInstantiationPolicy().buildNewInstance();
+    }
+
+    private void processQuestion(final JPADynamicTypeBuilder surveyAnswer, final Question question) {
         QuestionType questionType = question.getType();
         List<Question> subquestions = question.getSubquestions();
         if (subquestions.isEmpty()) {

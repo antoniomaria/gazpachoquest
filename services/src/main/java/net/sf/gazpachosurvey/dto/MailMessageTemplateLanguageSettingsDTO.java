@@ -5,50 +5,16 @@ import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
 
 public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiableDTO implements LanguageSettings {
 
-    private static final long serialVersionUID = -4959980255392017094L;
-
-    private String subject;
-
-    private String body;
-
-    public MailMessageTemplateLanguageSettingsDTO() {
-        super();
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
     public static interface Builder {
-
-        Builder subject(String subject);
 
         Builder body(String body);
 
-        MailMessageTemplateDTO.Builder mailMessageTemplateLanguageSettingsEnd();
-
         MailMessageTemplateLanguageSettingsDTO build();
 
-    }
+        MailMessageTemplateDTO.Builder mailMessageTemplateLanguageSettingsEnd();
 
-    public static Builder mailMessageTemplateLanguageSettingsStart(MailMessageTemplateDTO.Builder container) {
-        return new MailMessageTemplateLanguageSettingsDTO.BuilderImpl(container);
-    }
+        Builder subject(String subject);
 
-    public static Builder with() {
-        return new BuilderImpl(null);
     }
 
     public static class BuilderImpl implements Builder {
@@ -56,18 +22,12 @@ public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiable
         private String body;
         private final MailMessageTemplateDTO.Builder container;
 
-        public BuilderImpl(MailMessageTemplateDTO.Builder container) {
+        public BuilderImpl(final MailMessageTemplateDTO.Builder container) {
             this.container = container;
         }
 
         @Override
-        public BuilderImpl subject(String subject) {
-            this.subject = subject;
-            return this;
-        }
-
-        @Override
-        public BuilderImpl body(String body) {
+        public BuilderImpl body(final String body) {
             this.body = body;
             return this;
         }
@@ -84,6 +44,46 @@ public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiable
         public MailMessageTemplateDTO.Builder mailMessageTemplateLanguageSettingsEnd() {
             return container.languageSettings(build());
         }
+
+        @Override
+        public BuilderImpl subject(final String subject) {
+            this.subject = subject;
+            return this;
+        }
+    }
+
+    private static final long serialVersionUID = -4959980255392017094L;
+
+    public static Builder mailMessageTemplateLanguageSettingsStart(final MailMessageTemplateDTO.Builder container) {
+        return new MailMessageTemplateLanguageSettingsDTO.BuilderImpl(container);
+    }
+
+    public static Builder with() {
+        return new BuilderImpl(null);
+    }
+
+    private String subject;
+
+    private String body;
+
+    public MailMessageTemplateLanguageSettingsDTO() {
+        super();
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setBody(final String body) {
+        this.body = body;
+    }
+
+    public void setSubject(final String subject) {
+        this.subject = subject;
     }
 
     @Override

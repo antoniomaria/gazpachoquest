@@ -27,10 +27,10 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 public class LabelSetRepositoryTest {
 
     @Autowired
-    private LabelSetRepository labelSetRepository;
+    private LabelRepository labelRepository;
 
     @Autowired
-    private LabelRepository labelRepository;
+    private LabelSetRepository labelSetRepository;
 
     @Test
     public void saveTest() {

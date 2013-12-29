@@ -41,6 +41,20 @@ public class MailMessageTemplateServiceTest {
     private UserService userService;
 
     @Test
+    public void findByExampleTest() {
+        MailMessageTemplate example = new MailMessageTemplate();
+        example.setSurvey(Survey.with().id(58).build());
+        List<MailMessageTemplate> results = mailMessageTemplateService.findByExample(example, new SearchParameters());
+        assertThat(results).contains(MailMessageTemplate.with().id(125).build());
+    }
+
+    @Test
+    public void languagesTest() {
+        Set<Language> translations = mailMessageTemplateService.translationsSupported(56);
+        assertThat(translations).contains(Language.ES);
+    }
+
+    @Test
     public void saveTest() {
         MailMessageTemplate mailMessageTemplate = MailMessageTemplate.with().type(MailMessageTemplateType.INVITATION)
                 .language(Language.EN).fromAddress("support@gazpacho.net").replyTo("nonreply@gazpacho.net").build();
@@ -83,19 +97,5 @@ public class MailMessageTemplateServiceTest {
 
         assertThat(translation.getCreatedBy()).isNotNull();
         assertThat(translation.getLanguageSettings().getSubject()).isEqualTo("Tu encuesta. Version 2");
-    }
-
-    @Test
-    public void findByExampleTest() {
-        MailMessageTemplate example = new MailMessageTemplate();
-        example.setSurvey(Survey.with().id(58).build());
-        List<MailMessageTemplate> results = mailMessageTemplateService.findByExample(example, new SearchParameters());
-        assertThat(results).contains(MailMessageTemplate.with().id(125).build());
-    }
-
-    @Test
-    public void languagesTest() {
-        Set<Language> translations = mailMessageTemplateService.translationsSupported(56);
-        assertThat(translations).contains(Language.ES);
     }
 }

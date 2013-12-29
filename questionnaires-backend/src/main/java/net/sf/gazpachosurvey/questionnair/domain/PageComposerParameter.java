@@ -4,39 +4,12 @@ import net.sf.gazpachosurvey.types.BrowsingAction;
 import net.sf.gazpachosurvey.types.Language;
 
 public class PageComposerParameter {
-    private BrowsingAction action;
-    private Language language;
-
-    public PageComposerParameter() {
-        super();
-    }
-    public BrowsingAction getAction() {
-        return action;
-    }
-
-    public void setAction(BrowsingAction action) {
-        this.action = action;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
-
     public static class Builder {
         private BrowsingAction action;
         private Language language;
 
-        public Builder action(BrowsingAction action) {
+        public Builder action(final BrowsingAction action) {
             this.action = action;
-            return this;
-        }
-
-        public Builder language(Language language) {
-            this.language = language;
             return this;
         }
 
@@ -46,5 +19,34 @@ public class PageComposerParameter {
             pageComposerParameter.language = language;
             return pageComposerParameter;
         }
+
+        public Builder language(final Language language) {
+            this.language = language;
+            return this;
+        }
+    }
+
+    private BrowsingAction action;
+
+    private Language language;
+
+    public PageComposerParameter() {
+        super();
+    }
+
+    public BrowsingAction getAction() {
+        return action;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setAction(final BrowsingAction action) {
+        this.action = action;
+    }
+
+    public void setLanguage(final Language language) {
+        this.language = language;
     }
 }

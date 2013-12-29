@@ -11,18 +11,8 @@ public abstract class AbstractPersistenceService<T extends Persistable> implemen
 
     protected final GenericRepository<T> repository;
 
-    protected AbstractPersistenceService(GenericRepository<T> repository) {
+    protected AbstractPersistenceService(final GenericRepository<T> repository) {
         this.repository = repository;
-    }
-
-    @Override
-    public List<T> findAll() {
-        return repository.findAll();
-    }
-
-    @Override
-    public T findOne(Integer id) {
-        return repository.findOne(id);
     }
 
     @Override
@@ -31,21 +21,31 @@ public abstract class AbstractPersistenceService<T extends Persistable> implemen
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(final Integer id) {
         repository.delete(id);
     }
 
     @Override
-    public abstract T save(T entity);
+    public List<T> findAll() {
+        return repository.findAll();
+    }
 
     @Override
-    public List<T> findByExample(T entity, SearchParameters searchParameters) {
+    public List<T> findByExample(final T entity, final SearchParameters searchParameters) {
         return repository.findByExample(entity, searchParameters);
     }
 
     @Override
-    public T findOneByExample(T entity, SearchParameters searchParameters) {
+    public T findOne(final Integer id) {
+        return repository.findOne(id);
+    }
+
+    @Override
+    public T findOneByExample(final T entity, final SearchParameters searchParameters) {
         return repository.findOneByExample(entity, searchParameters);
     }
+
+    @Override
+    public abstract T save(T entity);
 
 }

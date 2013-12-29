@@ -1,7 +1,5 @@
 package net.sf.gazpachosurvey.facades;
 
-import net.sf.gazpachosurvey.dto.SurveyDTO;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,7 @@ public class SurveyAccessorFacadeTest {
     @Test
     public void findOneSurveyTest() {
         int surveyId = 2;
-        SurveyDTO survey = surveyAccessorFacade.findOneSurvey(surveyId);
+        surveyAccessorFacade.findOneSurvey(surveyId);
 
     }
 }

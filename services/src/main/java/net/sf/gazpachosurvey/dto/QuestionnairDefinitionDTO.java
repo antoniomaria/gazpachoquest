@@ -9,66 +9,10 @@ import net.sf.gazpachosurvey.types.Language;
 public class QuestionnairDefinitionDTO extends AbstractIdentifiableDTO implements
         IdentifiableLocalizable<SurveyLanguageSettingsDTO> {
 
-    private static final long serialVersionUID = -3516840919344719813L;
-
-    private SurveyLanguageSettingsDTO languageSettings;
-
-    private Language language;
-
-    private Set<Language> translationsSupported;
-
-    public SurveyLanguageSettingsDTO getLanguageSettings() {
-        return languageSettings;
-    }
-
-    public void setLanguageSettings(SurveyLanguageSettingsDTO languageSettings) {
-        this.languageSettings = languageSettings;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
-
-    public Set<Language> getTranslationsSupported() {
-        return translationsSupported;
-    }
-
-    public void setTranslationsSupported(Set<Language> translationsSupported) {
-        this.translationsSupported = translationsSupported;
-    }
-
-    public static Builder with() {
-        return new Builder();
-    }
-
-    @Override
-    public String toString() {
-        return "QuestionnairDefinitionDTO [languageSettings=" + languageSettings + ", language=" + language + "]";
-    }
-
     public static class Builder {
         private SurveyLanguageSettingsDTO languageSettings;
         private Language language;
         private Set<Language> translationsSupported;
-
-        public Builder languageSettings(SurveyLanguageSettingsDTO languageSettings) {
-            this.languageSettings = languageSettings;
-            return this;
-        }
-
-        public Builder language(Language language) {
-            this.language = language;
-            return this;
-        }
-
-        public Builder translationsSupported(Set<Language> translationsSupported) {
-            this.translationsSupported = translationsSupported;
-            return this;
-        }
 
         public QuestionnairDefinitionDTO build() {
             QuestionnairDefinitionDTO questionnairDefinitionBean = new QuestionnairDefinitionDTO();
@@ -77,5 +21,65 @@ public class QuestionnairDefinitionDTO extends AbstractIdentifiableDTO implement
             questionnairDefinitionBean.translationsSupported = translationsSupported;
             return questionnairDefinitionBean;
         }
+
+        public Builder language(final Language language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder languageSettings(final SurveyLanguageSettingsDTO languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        public Builder translationsSupported(final Set<Language> translationsSupported) {
+            this.translationsSupported = translationsSupported;
+            return this;
+        }
+    }
+
+    private static final long serialVersionUID = -3516840919344719813L;
+
+    public static Builder with() {
+        return new Builder();
+    }
+
+    private SurveyLanguageSettingsDTO languageSettings;
+
+    private Language language;
+
+    private Set<Language> translationsSupported;
+
+    @Override
+    public Language getLanguage() {
+        return language;
+    }
+
+    @Override
+    public SurveyLanguageSettingsDTO getLanguageSettings() {
+        return languageSettings;
+    }
+
+    public Set<Language> getTranslationsSupported() {
+        return translationsSupported;
+    }
+
+    @Override
+    public void setLanguage(final Language language) {
+        this.language = language;
+    }
+
+    @Override
+    public void setLanguageSettings(final SurveyLanguageSettingsDTO languageSettings) {
+        this.languageSettings = languageSettings;
+    }
+
+    public void setTranslationsSupported(final Set<Language> translationsSupported) {
+        this.translationsSupported = translationsSupported;
+    }
+
+    @Override
+    public String toString() {
+        return "QuestionnairDefinitionDTO [languageSettings=" + languageSettings + ", language=" + language + "]";
     }
 }

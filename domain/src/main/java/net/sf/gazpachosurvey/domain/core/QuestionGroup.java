@@ -24,7 +24,8 @@ import net.sf.gazpachosurvey.domain.support.QuestionnairElement;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation, QuestionGroupLanguageSettings> implements QuestionnairElement{
+public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation, QuestionGroupLanguageSettings>
+        implements QuestionnairElement {
 
     private static final long serialVersionUID = 5849288763708940985L;
 
@@ -105,7 +106,7 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
             question.setQuestionGroup(this);
         }
     }
-    
+
     public static Builder with() {
         return new Builder();
     }
@@ -118,10 +119,11 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
         private Map<Language, QuestionGroupTranslation> translations;
         private List<Question> questions;
 
-        public Builder id(Integer id){
+        public Builder id(Integer id) {
             this.id = id;
             return this;
         }
+
         public Builder survey(Survey survey) {
             this.survey = survey;
             return this;

@@ -30,14 +30,18 @@ public class QuestionRepositoryTest {
     private QuestionRepository repository;
 
     @Test
-    public void findQuestionsBySurvey() {
-        int surveyId = 2;
-        List<Question> questions = repository.findBySurveyId(surveyId);
-        assertThat(questions).containsExactly(Question.with().id(31).build(), Question.with().id(32).build(),
-                Question.with().id(36).build(), Question.with().id(14).build(), Question.with().id(30).build(),
-                Question.with().id(13).build(), Question.with().id(40).build(), Question.with().id(51).build()
-        );
+    public void findOneByPositionInQuestionGroupTest() {
+        int questionGroupId = 4;
+        int position = 1;
+        Question question = repository.findOneByPositionInQuestionGroup(questionGroupId, position);
+        assertThat(question).isEqualTo(Question.with().id(30).build());
+    }
 
+    @Test
+    public void findPositionInQuestionGroupTest() {
+        Integer questionId = 13;
+        Integer position = repository.findPositionInQuestionGroup(questionId);
+        assertThat(position).isEqualTo(2);
     }
 
     @Test
@@ -49,17 +53,12 @@ public class QuestionRepositoryTest {
     }
 
     @Test
-    public void findPositionInQuestionGroupTest() {
-        Integer questionId = 13;
-        Integer position = repository.findPositionInQuestionGroup(questionId);
-        assertThat(position).isEqualTo(2);
-    }
+    public void findQuestionsBySurvey() {
+        int surveyId = 2;
+        List<Question> questions = repository.findBySurveyId(surveyId);
+        assertThat(questions).containsExactly(Question.with().id(31).build(), Question.with().id(32).build(),
+                Question.with().id(36).build(), Question.with().id(14).build(), Question.with().id(30).build(),
+                Question.with().id(13).build(), Question.with().id(40).build(), Question.with().id(51).build());
 
-    @Test
-    public void findOneByPositionInQuestionGroupTest() {
-        int questionGroupId = 4;
-        int position = 1;
-        Question question = repository.findOneByPositionInQuestionGroup(questionGroupId, position);
-        assertThat(question).isEqualTo(Question.with().id(30).build());
     }
 }

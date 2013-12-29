@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.questionnair.resolver;
 
+import net.sf.gazpachosurvey.domain.core.BrowsedElement;
 import net.sf.gazpachosurvey.domain.core.BrowsedQuestion;
 import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.QuestionGroup;
@@ -15,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 @Component("QuestionByQuestionResolver")
 public class QuestionByQuestionResolverImpl implements QuestionnairElementResolver {
@@ -23,33 +25,38 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
     private static final Integer INITIAL_POSITION = 0;
 
     @Autowired
-    private BrowsedElementService browsedElementRepository;
+    private BrowsedElementService browsedElementService;
 
     @Autowired
-    private QuestionService questionRepository;
+    private QuestionService questionService;
 
     @Autowired
-    private QuestionGroupService questionGroupRepository;
+    private QuestionGroupService questionGroupService;
 
     @Autowired
     private SurveyService surveyRepository;
 
     @Override
-    public Question resolveFor(Respondent respondent, BrowsingAction action) {
+    public Question resolveFor(final Respondent respondent, final BrowsingAction action) {
         Survey survey = respondent.getSurveyInstance().getSurvey();
         int surveyId = survey.getId();
         int respondentId = respondent.getId();
         logger.debug("Resolving Question for respondent {} and surveyId = {}", respondentId, surveyId);
-        BrowsedQuestion lastBrowsedQuestion = (BrowsedQuestion) browsedElementRepository.findLast(respondentId);
+
+        BrowsedElement browsedElement = browsedElementService.findLast(respondentId);
+        BrowsedQuestion lastBrowsedQuestion = null;
         Question question = null;
 
-        if (lastBrowsedQuestion == null) { // First time entering the survey
-            QuestionGroup initialGroup = questionGroupRepository.findOneByPositionInSurvey(surveyId, INITIAL_POSITION);
-            question = questionRepository.findOneByPositionInQuestionGroup(initialGroup.getId(), INITIAL_POSITION);
+        if (browsedElement == null) { // First time entering the survey
+            QuestionGroup initialGroup = questionGroupService.findOneByPositionInSurvey(surveyId, INITIAL_POSITION);
+            question = questionService.findOneByPositionInQuestionGroup(initialGroup.getId(), INITIAL_POSITION);
             lastBrowsedQuestion = BrowsedQuestion.with().respondent(respondent).question(question).last(Boolean.TRUE)
                     .build();
-            browsedElementRepository.save(lastBrowsedQuestion);
+            browsedElementService.save(lastBrowsedQuestion);
             return question;
+        } else {
+            Assert.isInstanceOf(BrowsedQuestion.class, browsedElement);
+            lastBrowsedQuestion = (BrowsedQuestion) browsedElement;
         }
 
         switch (action) {
@@ -63,48 +70,54 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
             break;
         }
         lastBrowsedQuestion.setLast(Boolean.FALSE);
-        browsedElementRepository.save(lastBrowsedQuestion);
+        browsedElementService.save(lastBrowsedQuestion);
         return question;
     }
 
     private Question findNextQuestion(final Integer surveyId, final Respondent respondent,
             final BrowsedQuestion lastBrowsedQuestion) {
-        BrowsedQuestion nextBrowsedQuestion = (BrowsedQuestion) browsedElementRepository.findNext(respondent.getId(),
+
+        BrowsedElement nextBrowsedElement = browsedElementService.findNext(respondent.getId(),
                 lastBrowsedQuestion.getCreatedDate());
+        BrowsedQuestion nextBrowsedQuestion = null;
         Question next = null;
 
-        if (nextBrowsedQuestion == null) {
+        if (nextBrowsedElement == null) {
             QuestionGroup lastQuestionGroup = lastBrowsedQuestion.getQuestion().getQuestionGroup();
 
-            Integer position = questionRepository
-                    .findPositionInQuestionGroup(lastBrowsedQuestion.getQuestion().getId());
+            Integer position = questionService.findPositionInQuestionGroup(lastBrowsedQuestion.getQuestion().getId());
 
-            long questionsCount = questionGroupRepository.questionsCount(lastQuestionGroup.getId());
-            if (position < questionsCount - 1) { // Not last in group
-                next = questionRepository.findOneByPositionInQuestionGroup(lastQuestionGroup.getId(), position + 1);
+            long questionsCount = questionGroupService.questionsCount(lastQuestionGroup.getId());
+            if (position < (questionsCount - 1)) { // Not last in group
+                next = questionService.findOneByPositionInQuestionGroup(lastQuestionGroup.getId(), position + 1);
             } else {
-                Integer questionGroupPosition = questionGroupRepository.findPositionInSurvey(lastQuestionGroup.getId());
-                QuestionGroup nextQuestionGroup = questionGroupRepository.findOneByPositionInSurvey(surveyId,
+                Integer questionGroupPosition = questionGroupService.findPositionInSurvey(lastQuestionGroup.getId());
+                QuestionGroup nextQuestionGroup = questionGroupService.findOneByPositionInSurvey(surveyId,
                         questionGroupPosition + 1);
-                next = questionRepository.findOneByPositionInQuestionGroup(nextQuestionGroup.getId(), INITIAL_POSITION);
+                next = questionService.findOneByPositionInQuestionGroup(nextQuestionGroup.getId(), INITIAL_POSITION);
             }
             // Mark next element as last browsed.
             nextBrowsedQuestion = BrowsedQuestion.with().respondent(respondent).question(next).last(Boolean.TRUE)
                     .build();
         } else {
+            Assert.isInstanceOf(BrowsedQuestion.class, nextBrowsedElement);
+            nextBrowsedQuestion = (BrowsedQuestion) nextBrowsedElement;
             next = nextBrowsedQuestion.getQuestion();
             nextBrowsedQuestion.setLast(Boolean.TRUE);
         }
-        browsedElementRepository.save(nextBrowsedQuestion);
+        browsedElementService.save(nextBrowsedQuestion);
         return next;
     }
 
     private Question findPreviousQuestion(final int surveyId, final Respondent respondent,
             final BrowsedQuestion lastBrowsedElement) {
-        BrowsedQuestion previousBrowsedQuestion = (BrowsedQuestion) browsedElementRepository.findPrevious(
-                respondent.getId(), lastBrowsedElement.getCreatedDate());
+        BrowsedElement previousBrowsedElement = browsedElementService.findPrevious(respondent.getId(),
+                lastBrowsedElement.getCreatedDate());
+        Assert.isInstanceOf(BrowsedQuestion.class, previousBrowsedElement);
+
+        BrowsedQuestion previousBrowsedQuestion = (BrowsedQuestion) previousBrowsedElement;
         previousBrowsedQuestion.setLast(Boolean.TRUE);
-        browsedElementRepository.save(previousBrowsedQuestion);
+        browsedElementService.save(previousBrowsedQuestion);
         return previousBrowsedQuestion.getQuestion();
     }
 }

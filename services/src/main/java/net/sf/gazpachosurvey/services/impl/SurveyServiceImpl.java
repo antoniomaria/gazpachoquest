@@ -1,6 +1,5 @@
 package net.sf.gazpachosurvey.services.impl;
 
-import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.QuestionGroup;
 import net.sf.gazpachosurvey.domain.core.Survey;
 import net.sf.gazpachosurvey.domain.core.embeddables.SurveyLanguageSettings;
@@ -34,12 +33,29 @@ public class SurveyServiceImpl extends
     private SurveyTranslationRepository surveyTranslationRepository;
 
     @Autowired
-    public SurveyServiceImpl(SurveyRepository surveyRepository, SurveyTranslationRepository translationRepository) {
+    public SurveyServiceImpl(final SurveyRepository surveyRepository,
+            final SurveyTranslationRepository translationRepository) {
         super(surveyRepository, translationRepository, new SurveyTranslation.Builder());
     }
 
     @Override
-    public Survey save(Survey survey) {
+    public Survey confirm(final Survey survey) {
+        Survey entity = repository.findOne(survey.getId());
+        if (entity.getStatus() == EntityStatus.DRAFT) {
+            respondentAnswersRepository.collectAnswers(entity);
+            entity.setStatus(EntityStatus.CONFIRMED);
+        }
+        return survey;
+    }
+
+    @Override
+    public long questionGroupsCount(final Integer surveyId) {
+        return questionGroupRepository.countByExample(QuestionGroup.with().survey(Survey.with().id(surveyId).build())
+                .build(), new SearchParameters());
+    }
+
+    @Override
+    public Survey save(final Survey survey) {
         Survey existing = null;
         if (survey.isNew()) {
             survey.setStatus(EntityStatus.DRAFT);
@@ -56,21 +72,5 @@ public class SurveyServiceImpl extends
             }
         }
         return existing;
-    }
-
-    @Override
-    public Survey confirm(Survey survey) {
-        Survey entity = repository.findOne(survey.getId());
-        if (entity.getStatus() == EntityStatus.DRAFT) {
-            respondentAnswersRepository.collectAnswers(entity);
-            entity.setStatus(EntityStatus.CONFIRMED);
-        }
-        return survey;
-    }
-
-    @Override
-    public long questionGroupsCount(Integer surveyId) {
-        return questionGroupRepository.countByExample(QuestionGroup.with().survey(Survey.with().id(surveyId).build())
-                .build(), new SearchParameters());
     }
 }

@@ -9,7 +9,61 @@ import org.joda.time.DateTime;
 
 public class SurveyInstanceDTO extends AbstractIdentifiableDTO {
 
+    public static class Builder {
+        private SurveyDTO survey;
+        private String name;
+        private SurveyInstanceType type;
+        private DateTime startDate;
+        private DateTime expirationDate;
+        private Set<ParticipantDTO> participants;
+
+        public SurveyInstanceDTO build() {
+            SurveyInstanceDTO surveyInstanceDTO = new SurveyInstanceDTO();
+            surveyInstanceDTO.survey = survey;
+            surveyInstanceDTO.name = name;
+            surveyInstanceDTO.type = type;
+            surveyInstanceDTO.startDate = startDate;
+            surveyInstanceDTO.expirationDate = expirationDate;
+            surveyInstanceDTO.participants = participants;
+            return surveyInstanceDTO;
+        }
+
+        public Builder expirationDate(final DateTime expirationDate) {
+            this.expirationDate = expirationDate;
+            return this;
+        }
+
+        public Builder name(final String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder participants(final Set<ParticipantDTO> participants) {
+            this.participants = participants;
+            return this;
+        }
+
+        public Builder startDate(final DateTime startDate) {
+            this.startDate = startDate;
+            return this;
+        }
+
+        public Builder survey(final SurveyDTO survey) {
+            this.survey = survey;
+            return this;
+        }
+
+        public Builder type(final SurveyInstanceType type) {
+            this.type = type;
+            return this;
+        }
+    }
+
     private static final long serialVersionUID = -8624509103476946501L;
+
+    public static Builder with() {
+        return new Builder();
+    }
 
     private SurveyDTO survey;
 
@@ -27,105 +81,51 @@ public class SurveyInstanceDTO extends AbstractIdentifiableDTO {
         super();
     }
 
-    public SurveyDTO getSurvey() {
-        return survey;
-    }
-
-    public void setSurvey(SurveyDTO survey) {
-        this.survey = survey;
+    public DateTime getExpirationDate() {
+        return expirationDate;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Set<ParticipantDTO> getParticipants() {
         return participants;
-    }
-
-    public void setParticipants(Set<ParticipantDTO> participants) {
-        this.participants = participants;
-    }
-
-    public SurveyInstanceType getType() {
-        return type;
-    }
-
-    public void setType(SurveyInstanceType type) {
-        this.type = type;
     }
 
     public DateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(DateTime startDate) {
-        this.startDate = startDate;
+    public SurveyDTO getSurvey() {
+        return survey;
     }
 
-    public DateTime getExpirationDate() {
-        return expirationDate;
+    public SurveyInstanceType getType() {
+        return type;
     }
 
-    public void setExpirationDate(DateTime expirationDate) {
+    public void setExpirationDate(final DateTime expirationDate) {
         this.expirationDate = expirationDate;
     }
 
-    public static Builder with() {
-        return new Builder();
+    public void setName(final String name) {
+        this.name = name;
     }
 
-    public static class Builder {
-        private SurveyDTO survey;
-        private String name;
-        private SurveyInstanceType type;
-        private DateTime startDate;
-        private DateTime expirationDate;
-        private Set<ParticipantDTO> participants;
+    public void setParticipants(final Set<ParticipantDTO> participants) {
+        this.participants = participants;
+    }
 
-        public Builder survey(SurveyDTO survey) {
-            this.survey = survey;
-            return this;
-        }
+    public void setStartDate(final DateTime startDate) {
+        this.startDate = startDate;
+    }
 
-        public Builder name(String name) {
-            this.name = name;
-            return this;
-        }
+    public void setSurvey(final SurveyDTO survey) {
+        this.survey = survey;
+    }
 
-        public Builder type(SurveyInstanceType type) {
-            this.type = type;
-            return this;
-        }
-
-        public Builder startDate(DateTime startDate) {
-            this.startDate = startDate;
-            return this;
-        }
-
-        public Builder expirationDate(DateTime expirationDate) {
-            this.expirationDate = expirationDate;
-            return this;
-        }
-
-        public Builder participants(Set<ParticipantDTO> participants) {
-            this.participants = participants;
-            return this;
-        }
-
-        public SurveyInstanceDTO build() {
-            SurveyInstanceDTO surveyInstanceDTO = new SurveyInstanceDTO();
-            surveyInstanceDTO.survey = survey;
-            surveyInstanceDTO.name = name;
-            surveyInstanceDTO.type = type;
-            surveyInstanceDTO.startDate = startDate;
-            surveyInstanceDTO.expirationDate = expirationDate;
-            surveyInstanceDTO.participants = participants;
-            return surveyInstanceDTO;
-        }
+    public void setType(final SurveyInstanceType type) {
+        this.type = type;
     }
 }

@@ -35,6 +35,31 @@ public class SurveyServiceTest {
     private SurveyService surveyService;
 
     @Test
+    public void confirmTest() {
+        Survey survey = Survey.with().id(2).build();
+        surveyService.confirm(survey);
+    }
+
+    @Test
+    public void findAllTest() {
+        assertThat(surveyService.findAll()).hasSize(2);
+    }
+
+    @Test
+    public void findOneTest() {
+        int surveyId = 2;
+        Survey survey = surveyService.findOne(surveyId);
+        assertThat(survey).isNotNull();
+    }
+
+    @Test
+    public void questionGroupsCountTest() {
+        int surveyId = 2;
+        long count = surveyService.questionGroupsCount(surveyId);
+        assertThat(count).isEqualTo(3);
+    }
+
+    @Test
     public void saveTest() {
         SurveyLanguageSettings languageSettings = SurveyLanguageSettings.with().title("My Survey").build();
         Survey survey = Survey.with().language(Language.EN).languageSettings(languageSettings).build();
@@ -50,24 +75,6 @@ public class SurveyServiceTest {
     }
 
     @Test
-    public void findAllTest() {
-        assertThat(surveyService.findAll()).hasSize(2);
-    }
-
-    @Test
-    public void confirmTest() {
-        Survey survey = Survey.with().id(2).build();
-        surveyService.confirm(survey);
-    }
-
-    @Test
-    public void findOneTest() {
-        int surveyId = 2;
-        Survey survey = surveyService.findOne(surveyId);
-        assertThat(survey).isNotNull();
-    }
-
-    @Test
     public void saveTranslationTest() {
         SurveyLanguageSettings languageSettings = new SurveyLanguageSettings();
         languageSettings.setTitle("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
@@ -79,12 +86,5 @@ public class SurveyServiceTest {
         Set<Language> translations = surveyService.translationsSupported(surveyId);
 
         assertThat(translations).contains(Language.FR);
-    }
-
-    @Test
-    public void questionGroupsCountTest() {
-        int surveyId = 2;
-        long count = surveyService.questionGroupsCount(surveyId);
-        assertThat(count).isEqualTo(3);
     }
 }

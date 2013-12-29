@@ -17,13 +17,13 @@ public class QuestionOptionServiceImpl extends
         implements QuestionOptionService {
 
     @Autowired
-    public QuestionOptionServiceImpl(QuestionOptionRepository repository,
-            QuestionOptionTranslationRepository translationRepository) {
+    public QuestionOptionServiceImpl(final QuestionOptionRepository repository,
+            final QuestionOptionTranslationRepository translationRepository) {
         super(repository, translationRepository, new QuestionOptionTranslation.Builder());
     }
 
     @Override
-    public QuestionOption save(QuestionOption entity) {
+    public QuestionOption save(final QuestionOption entity) {
         Assert.state(!entity.isNew(), "QuestionOption must be already persisted. Try by adding to question first.");
         QuestionOption existing = repository.save(entity);
         existing.setLanguage(entity.getLanguage());

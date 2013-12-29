@@ -24,31 +24,31 @@ public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
         return createdBy;
     }
 
-    public void setCreatedBy(UserDTO createdBy) {
-        this.createdBy = createdBy;
-    }
-
     public DateTime getCreatedDate() {
         return createdDate;
-    }
-
-    public void setCreatedDate(DateTime createdDate) {
-        this.createdDate = createdDate;
     }
 
     public UserDTO getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(UserDTO lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
     public DateTime getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(DateTime lastModifiedDate) {
+    public void setCreatedBy(final UserDTO createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public void setCreatedDate(final DateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public void setLastModifiedBy(final UserDTO lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public void setLastModifiedDate(final DateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 

@@ -28,12 +28,23 @@ public class QuestionServiceImpl extends
     private QuestionGroupRepository questionGroupRepository;
 
     @Autowired
-    public QuestionServiceImpl(QuestionRepository repository, QuestionTranslationRepository translationRepository) {
+    public QuestionServiceImpl(final QuestionRepository repository,
+            final QuestionTranslationRepository translationRepository) {
         super(repository, translationRepository, new QuestionTranslation.Builder());
     }
 
     @Override
-    public Question save(Question question) {
+    public Question findOneByPositionInQuestionGroup(final Integer questionGroupId, final Integer position) {
+        return ((QuestionRepository) repository).findOneByPositionInQuestionGroup(questionGroupId, position);
+    }
+
+    @Override
+    public Integer findPositionInQuestionGroup(final Integer questionId) {
+        return ((QuestionRepository) repository).findPositionInQuestionGroup(questionId);
+    }
+
+    @Override
+    public Question save(final Question question) {
         Assert.state(!question.isNew(),
                 "Question must be already persisted. Try by adding to QuestionGroup or as added as subquestion first.");
         Question existing = repository.save(question);
@@ -51,16 +62,6 @@ public class QuestionServiceImpl extends
             existing.addQuestionOption(questionOption);
         }
         return existing;
-    }
-
-    @Override
-    public Question findOneByPositionInQuestionGroup(Integer questionGroupId, Integer position) {
-        return ((QuestionRepository)repository).findOneByPositionInQuestionGroup(questionGroupId, position);
-    }
-
-    @Override
-    public Integer findPositionInQuestionGroup(Integer questionId) {
-        return ((QuestionRepository)repository).findPositionInQuestionGroup(questionId);
     }
 
 }

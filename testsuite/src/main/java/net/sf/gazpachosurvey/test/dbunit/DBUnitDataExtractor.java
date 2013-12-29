@@ -37,11 +37,9 @@ public class DBUnitDataExtractor {
     private String schema;
 
     /**
-     * A regular expression that is used to get the table name from a SQL
-     * 'select' statement. This pattern matches a string that starts with any
-     * characters, followed by the case-insensitive word 'from', followed by a
-     * table name of the form 'foo' or 'schema.foo', followed by any number of
-     * remaining characters.
+     * A regular expression that is used to get the table name from a SQL 'select' statement. This pattern matches a
+     * string that starts with any characters, followed by the case-insensitive word 'from', followed by a table name of
+     * the form 'foo' or 'schema.foo', followed by any number of remaining characters.
      */
     // private static final Pattern TABLE_MATCH_PATTERN =
     // Pattern.compile(".*\\s+from\\s+(\\w+(\\.\\w+)?).*",
@@ -50,39 +48,8 @@ public class DBUnitDataExtractor {
     private static final Logger logger = LoggerFactory.getLogger(DBUnitDataExtractor.class);
 
     /**
-     * The data source of the database from which the data will be extracted.
-     * This property is required.
-     * 
-     * @param ds
-     */
-    public void setDataSource(DataSource ds) {
-        dataSource = ds;
-    }
-
-    /**
-     * Set the schema.
-     * 
-     * @param schema
-     */
-    public void setSchema(String schema) {
-        this.schema = schema;
-    }
-
-    /**
-     * Name of the XML file that will be created. Defaults to
-     * <code>dbunit-dataset.xml</code>.
-     * 
-     * @param name
-     *            file name.
-     */
-    public void setDataSetName(String name) {
-        dataSetName = name;
-    }
-
-    /**
-     * Performs the extraction. If no tables or queries are specified, data from
-     * entire database will be extracted. Otherwise, a partial extraction will
-     * be performed.
+     * Performs the extraction. If no tables or queries are specified, data from entire database will be extracted.
+     * Otherwise, a partial extraction will be performed.
      * 
      * @throws Exception
      */
@@ -121,68 +88,64 @@ public class DBUnitDataExtractor {
     }
 
     /**
+     * Name of the XML file that will be created. Defaults to <code>dbunit-dataset.xml</code>.
+     * 
+     * @param name
+     *            file name.
+     */
+    public void setDataSetName(final String name) {
+        dataSetName = name;
+    }
+
+    /**
+     * The data source of the database from which the data will be extracted. This property is required.
+     * 
+     * @param ds
+     */
+    public void setDataSource(final DataSource ds) {
+        dataSource = ds;
+    }
+
+    public void setDbUnitFeatures(final Map dbUnitFeatures) {
+        this.dbUnitFeatures = dbUnitFeatures;
+    }
+
+    public void setDbUnitProperties(final Map dbUnitProperties) {
+        this.dbUnitProperties = dbUnitProperties;
+    }
+
+    /**
+     * List of SQL queries (i.e. 'select' statements) that will be used executed to retrieve the data to be extracted.
+     * If the table being queried is also specified in the <code>tableList</code> property, the query will be ignored
+     * and all rows will be extracted from that table.
+     * 
+     * @param list
+     *            of SQL queries.
+     */
+    public void setQueryList(final List list) {
+        queryList = list;
+    }
+
+    /**
+     * Set the schema.
+     * 
+     * @param schema
+     */
+    public void setSchema(final String schema) {
+        this.schema = schema;
+    }
+
+    /**
      * List of table names to extract data from.
      * 
      * @param list
      *            of table names.
      */
-    public void setTableList(List list) {
+    public void setTableList(final List list) {
         tableList = list;
     }
 
-    /**
-     * List of SQL queries (i.e. 'select' statements) that will be used executed
-     * to retrieve the data to be extracted. If the table being queried is also
-     * specified in the <code>tableList</code> property, the query will be
-     * ignored and all rows will be extracted from that table.
-     * 
-     * @param list
-     *            of SQL queries.
-     */
-    public void setQueryList(List list) {
-        queryList = list;
-    }
-
-    public void setDbUnitFeatures(Map dbUnitFeatures) {
-        this.dbUnitFeatures = dbUnitFeatures;
-    }
-
-    public void setDbUnitProperties(Map dbUnitProperties) {
-        this.dbUnitProperties = dbUnitProperties;
-    }
-
-    private void configConnection(DatabaseConnection conn) {
-        DatabaseConfig config = conn.getConfig();
-        if (dbUnitProperties != null) {
-            for (Iterator k = dbUnitProperties.entrySet().iterator(); k.hasNext();) {
-                Map.Entry entry = (Map.Entry) k.next();
-                String name = (String) entry.getKey();
-                Object value = entry.getValue();
-                config.setProperty(name, value);
-            }
-        }
-        if (dbUnitFeatures != null) {
-            for (Iterator k = dbUnitFeatures.entrySet().iterator(); k.hasNext();) {
-                Map.Entry entry = (Map.Entry) k.next();
-                String name = (String) entry.getKey();
-                boolean value = Boolean.valueOf((String) entry.getValue()).booleanValue();
-                // config.setFeature(name, value);
-                config.setProperty(name, value);
-            }
-        }
-    }
-
-    private void addTables(QueryDataSet dataSet) throws AmbiguousTableNameException {
-        if (tableList == null) {
-            return;
-        }
-        for (Iterator k = tableList.iterator(); k.hasNext();) {
-            String table = (String) k.next();
-            dataSet.addTable(table);
-        }
-    }
-
-    private void addQueries(QueryDataSet dataSet) throws AmbiguousTableNameException {
+    private void addQueries(final QueryDataSet dataSet) throws AmbiguousTableNameException {
         if (queryList == null) {
             return;
         }
@@ -199,6 +162,37 @@ public class DBUnitDataExtractor {
                 } else {
                     dataSet.addTable(table, query);
                 }
+            }
+        }
+    }
+
+    private void addTables(final QueryDataSet dataSet) throws AmbiguousTableNameException {
+        if (tableList == null) {
+            return;
+        }
+        for (Iterator k = tableList.iterator(); k.hasNext();) {
+            String table = (String) k.next();
+            dataSet.addTable(table);
+        }
+    }
+
+    private void configConnection(final DatabaseConnection conn) {
+        DatabaseConfig config = conn.getConfig();
+        if (dbUnitProperties != null) {
+            for (Iterator k = dbUnitProperties.entrySet().iterator(); k.hasNext();) {
+                Map.Entry entry = (Map.Entry) k.next();
+                String name = (String) entry.getKey();
+                Object value = entry.getValue();
+                config.setProperty(name, value);
+            }
+        }
+        if (dbUnitFeatures != null) {
+            for (Iterator k = dbUnitFeatures.entrySet().iterator(); k.hasNext();) {
+                Map.Entry entry = (Map.Entry) k.next();
+                String name = (String) entry.getKey();
+                boolean value = Boolean.valueOf((String) entry.getValue()).booleanValue();
+                // config.setFeature(name, value);
+                config.setProperty(name, value);
             }
         }
     }

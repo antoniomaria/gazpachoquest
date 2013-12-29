@@ -27,11 +27,11 @@ public class BrowsedElementRepositoryTest {
     @Rule
     public DbUnitRule dbUnit = new DbUnitRule();
 
-    @PersistenceContext
-    private EntityManager em;
-
     @Autowired
     private DataSource datasource;
+
+    @PersistenceContext
+    private EntityManager em;
 
     @Autowired
     private BrowsedElementRepository repository;
@@ -47,19 +47,19 @@ public class BrowsedElementRepositoryTest {
     }
 
     @Test
-    public void findPreviousTest() {
-        Integer respondentId = 113;
-        BrowsedQuestion browsedQuestion = (BrowsedQuestion) repository.findLast(respondentId);
-        BrowsedElement previous = repository.findPrevious(respondentId, browsedQuestion.getCreatedDate());
-        assertThat(previous).isEqualTo(BrowsedQuestion.with().id(114).build());
-    }
-
-    @Test
     public void findNextTest() {
         Integer respondentId = 113;
         BrowsedQuestion browsedQuestion = (BrowsedQuestion) repository.findLast(respondentId);
         BrowsedElement next = repository.findNext(respondentId, browsedQuestion.getCreatedDate());
         assertThat(next).isEqualTo(BrowsedQuestion.with().id(116).build());
+    }
+
+    @Test
+    public void findPreviousTest() {
+        Integer respondentId = 113;
+        BrowsedQuestion browsedQuestion = (BrowsedQuestion) repository.findLast(respondentId);
+        BrowsedElement previous = repository.findPrevious(respondentId, browsedQuestion.getCreatedDate());
+        assertThat(previous).isEqualTo(BrowsedQuestion.with().id(114).build());
     }
 
 }

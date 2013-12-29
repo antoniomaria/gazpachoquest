@@ -6,7 +6,61 @@ import net.sf.gazpachosurvey.types.Language;
 
 public class ParticipantDTO extends AbstractIdentifiableDTO {
 
+    public static class Builder {
+        private Integer id;
+        private String firstname;
+        private String lastname;
+        private String email;
+        private Language preferedLanguage;
+        private Gender gender;
+
+        public ParticipantDTO build() {
+            ParticipantDTO participantDTO = new ParticipantDTO();
+            participantDTO.setId(id);
+            participantDTO.firstname = firstname;
+            participantDTO.lastname = lastname;
+            participantDTO.email = email;
+            participantDTO.gender = gender;
+            participantDTO.preferedLanguage = preferedLanguage;
+            return participantDTO;
+        }
+
+        public Builder email(final String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder firstname(final String firstname) {
+            this.firstname = firstname;
+            return this;
+        }
+
+        public Builder gender(final Gender gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public Builder id(final Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder lastname(final String lastname) {
+            this.lastname = lastname;
+            return this;
+        }
+
+        public Builder preferedLanguage(final Language preferedLanguage) {
+            this.preferedLanguage = preferedLanguage;
+            return this;
+        }
+    }
+
     private static final long serialVersionUID = 1284879816117827887L;
+
+    public static Builder with() {
+        return new Builder();
+    }
 
     private String firstname;
 
@@ -22,98 +76,44 @@ public class ParticipantDTO extends AbstractIdentifiableDTO {
         super();
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Language getPreferedLanguage() {
-        return preferedLanguage;
-    }
-
-    public void setPreferedLanguage(Language preferedLanguage) {
-        this.preferedLanguage = preferedLanguage;
+    public String getFirstname() {
+        return firstname;
     }
 
     public Gender getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public String getLastname() {
+        return lastname;
+    }
+
+    public Language getPreferedLanguage() {
+        return preferedLanguage;
+    }
+
+    public void setEmail(final String email) {
+        this.email = email;
+    }
+
+    public void setFirstname(final String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setGender(final Gender gender) {
         this.gender = gender;
     }
 
-    public static Builder with() {
-        return new Builder();
+    public void setLastname(final String lastname) {
+        this.lastname = lastname;
     }
 
-    public static class Builder {
-        private Integer id;
-        private String firstname;
-        private String lastname;
-        private String email;
-        private Language preferedLanguage;
-        private Gender gender;
-
-        public Builder id(Integer id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder firstname(String firstname) {
-            this.firstname = firstname;
-            return this;
-        }
-
-        public Builder lastname(String lastname) {
-            this.lastname = lastname;
-            return this;
-        }
-
-        public Builder email(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Builder preferedLanguage(Language preferedLanguage) {
-            this.preferedLanguage = preferedLanguage;
-            return this;
-        }
-
-        public Builder gender(Gender gender) {
-            this.gender = gender;
-            return this;
-        }
-
-        public ParticipantDTO build() {
-            ParticipantDTO participantDTO = new ParticipantDTO();
-            participantDTO.setId(id);
-            participantDTO.firstname = firstname;
-            participantDTO.lastname = lastname;
-            participantDTO.email = email;
-            participantDTO.gender = gender;
-            participantDTO.preferedLanguage = preferedLanguage;
-            return participantDTO;
-        }
+    public void setPreferedLanguage(final Language preferedLanguage) {
+        this.preferedLanguage = preferedLanguage;
     }
 
 }

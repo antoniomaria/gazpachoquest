@@ -28,7 +28,7 @@ public class GenerateDllTest {
         generateDDL("default");
     }
 
-    public void generateDDL(String databaseProviderName) throws IOException {
+    public void generateDDL(final String databaseProviderName) throws IOException {
 
         File target = new File("target/generated-sources/" + databaseProviderName);
         target.mkdirs();

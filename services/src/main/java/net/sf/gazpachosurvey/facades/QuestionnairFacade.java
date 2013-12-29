@@ -9,8 +9,8 @@ import net.sf.gazpachosurvey.types.RenderingMode;
 
 public interface QuestionnairFacade {
 
-    QuestionnairDefinitionDTO findQuestionnairDefinitionFor(Respondent respondent);
-
     QuestionnairPageDTO composeQuestionnairPage(Respondent respondent, RenderingMode mode, BrowsingAction action,
             Language language);
+
+    QuestionnairDefinitionDTO findQuestionnairDefinitionFor(Respondent respondent);
 }

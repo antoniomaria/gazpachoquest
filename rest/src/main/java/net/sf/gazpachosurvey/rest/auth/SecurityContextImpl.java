@@ -8,12 +8,44 @@ import javax.ws.rs.core.SecurityContext;
 
 public class SecurityContextImpl implements SecurityContext {
 
+    public static class Builder {
+        private Set<String> roles;
+        private Principal principal;
+
+        public SecurityContextImpl build() {
+            SecurityContextImpl securityContextImpl = new SecurityContextImpl();
+            securityContextImpl.roles = roles;
+            securityContextImpl.principal = principal;
+            return securityContextImpl;
+        }
+
+        public Builder principal(final Principal principal) {
+            this.principal = principal;
+            return this;
+        }
+
+        public Builder roles(final Set<String> roles) {
+            this.roles = roles;
+            return this;
+        }
+    }
+
+    public static Builder with() {
+        return new Builder();
+    }
+
     private Set<String> roles;
 
     private Principal principal;
 
     public SecurityContextImpl() {
         super();
+    }
+
+    @Override
+    public String getAuthenticationScheme() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     public Set<String> getRoles() {
@@ -23,18 +55,9 @@ public class SecurityContextImpl implements SecurityContext {
         return roles;
     }
 
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
-    }
-
     @Override
     public Principal getUserPrincipal() {
         return principal;
-    }
-
-    @Override
-    public boolean isUserInRole(String role) {
-        return getRoles().contains(role);
     }
 
     @Override
@@ -44,39 +67,16 @@ public class SecurityContextImpl implements SecurityContext {
     }
 
     @Override
-    public String getAuthenticationScheme() {
-        // TODO Auto-generated method stub
-        return null;
+    public boolean isUserInRole(final String role) {
+        return getRoles().contains(role);
+    }
+
+    public void setRoles(final Set<String> roles) {
+        this.roles = roles;
     }
 
     @Override
     public String toString() {
         return "SecurityContext [principal=" + principal + ", roles=" + roles + "]";
-    }
-
-    public static Builder with() {
-        return new Builder();
-    }
-
-    public static class Builder {
-        private Set<String> roles;
-        private Principal principal;
-
-        public Builder roles(Set<String> roles) {
-            this.roles = roles;
-            return this;
-        }
-
-        public Builder principal(Principal principal) {
-            this.principal = principal;
-            return this;
-        }
-
-        public SecurityContextImpl build() {
-            SecurityContextImpl securityContextImpl = new SecurityContextImpl();
-            securityContextImpl.roles = roles;
-            securityContextImpl.principal = principal;
-            return securityContextImpl;
-        }
     }
 }

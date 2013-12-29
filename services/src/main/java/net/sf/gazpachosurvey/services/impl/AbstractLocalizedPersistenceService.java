@@ -34,15 +34,15 @@ public abstract class AbstractLocalizedPersistenceService<L extends Localizable<
     @PersistenceContext
     private EntityManager em;
 
-    protected AbstractLocalizedPersistenceService(GenericRepository<L> repository,
-            GenericRepository<TR> translationRepository, TranslationBuilder<TR, LS> translationBuilder) {
+    protected AbstractLocalizedPersistenceService(final GenericRepository<L> repository,
+            final GenericRepository<TR> translationRepository, final TranslationBuilder<TR, LS> translationBuilder) {
         super(repository);
         this.translationRepository = translationRepository;
         this.translationBuilder = translationBuilder;
     }
 
     @Override
-    public L findOne(Integer id, Language language) {
+    public L findOne(final Integer id, Language language) {
         L entity = repository.findOne(id);
         Assert.notNull(language, "Language is required");
 
@@ -73,7 +73,7 @@ public abstract class AbstractLocalizedPersistenceService<L extends Localizable<
     }
 
     @Override
-    public TR saveTranslation(TR translation) {
+    public TR saveTranslation(final TR translation) {
         TR existing = null;
         if (translation.isNew()) {
             existing = translationRepository.save(translation);
@@ -85,7 +85,7 @@ public abstract class AbstractLocalizedPersistenceService<L extends Localizable<
     }
 
     @Override
-    public Set<Language> translationsSupported(Integer entityId) {
+    public Set<Language> translationsSupported(final Integer entityId) {
         L entity = super.repository.findOne(entityId);
         if (entity == null) {
             return null;

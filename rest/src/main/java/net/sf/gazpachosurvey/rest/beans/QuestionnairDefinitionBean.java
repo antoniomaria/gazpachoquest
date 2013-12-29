@@ -7,64 +7,10 @@ import net.sf.gazpachosurvey.types.Language;
 
 public class QuestionnairDefinitionBean {
 
-    private SurveyLanguageSettingsDTO languageSettings;
-
-    private Language language;
-
-    private Set<Language> translationsSupported;
-
-    public SurveyLanguageSettingsDTO getLanguageSettings() {
-        return languageSettings;
-    }
-
-    public void setLanguageSettings(SurveyLanguageSettingsDTO languageSettings) {
-        this.languageSettings = languageSettings;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
-
-    public Set<Language> getTranslationsSupported() {
-        return translationsSupported;
-    }
-
-    public void setTranslationsSupported(Set<Language> translationsSupported) {
-        this.translationsSupported = translationsSupported;
-    }
-
-    public static Builder with() {
-        return new Builder();
-    }
-
-    @Override
-    public String toString() {
-        return "QuestionnairDefinitionBean [languageSettings=" + languageSettings + ", language=" + language + "]";
-    }
-
     public static class Builder {
         private SurveyLanguageSettingsDTO languageSettings;
         private Language language;
         private Set<Language> translationsSupported;
-
-        public Builder languageSettings(SurveyLanguageSettingsDTO languageSettings) {
-            this.languageSettings = languageSettings;
-            return this;
-        }
-
-        public Builder language(Language language) {
-            this.language = language;
-            return this;
-        }
-
-        public Builder translationsSupported(Set<Language> translationsSupported) {
-            this.translationsSupported = translationsSupported;
-            return this;
-        }
 
         public QuestionnairDefinitionBean build() {
             QuestionnairDefinitionBean questionnairDefinitionBean = new QuestionnairDefinitionBean();
@@ -73,5 +19,59 @@ public class QuestionnairDefinitionBean {
             questionnairDefinitionBean.translationsSupported = translationsSupported;
             return questionnairDefinitionBean;
         }
+
+        public Builder language(final Language language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder languageSettings(final SurveyLanguageSettingsDTO languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        public Builder translationsSupported(final Set<Language> translationsSupported) {
+            this.translationsSupported = translationsSupported;
+            return this;
+        }
+    }
+
+    public static Builder with() {
+        return new Builder();
+    }
+
+    private SurveyLanguageSettingsDTO languageSettings;
+
+    private Language language;
+
+    private Set<Language> translationsSupported;
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public SurveyLanguageSettingsDTO getLanguageSettings() {
+        return languageSettings;
+    }
+
+    public Set<Language> getTranslationsSupported() {
+        return translationsSupported;
+    }
+
+    public void setLanguage(final Language language) {
+        this.language = language;
+    }
+
+    public void setLanguageSettings(final SurveyLanguageSettingsDTO languageSettings) {
+        this.languageSettings = languageSettings;
+    }
+
+    public void setTranslationsSupported(final Set<Language> translationsSupported) {
+        this.translationsSupported = translationsSupported;
+    }
+
+    @Override
+    public String toString() {
+        return "QuestionnairDefinitionBean [languageSettings=" + languageSettings + ", language=" + language + "]";
     }
 }

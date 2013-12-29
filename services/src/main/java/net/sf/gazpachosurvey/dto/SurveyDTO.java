@@ -11,7 +11,63 @@ import org.springframework.util.Assert;
 
 public class SurveyDTO extends AbstractAuditableDTO implements IdentifiableLocalizable<SurveyLanguageSettingsDTO> {
 
+    public static interface Builder {
+        SurveyDTO build();
+
+        Builder id(Integer id);
+
+        Builder language(Language language);
+
+        Builder languageSettings(SurveyLanguageSettingsDTO languageSettings);
+
+        SurveyLanguageSettingsDTO.Builder surveyLanguageSettingsStart();
+    }
+
+    public static class BuilderImpl implements Builder {
+        private Integer id;
+
+        private Language language;
+
+        private SurveyLanguageSettingsDTO languageSettings;
+
+        @Override
+        public SurveyDTO build() {
+            SurveyDTO surveyDTO = new SurveyDTO();
+            surveyDTO.languageSettings = languageSettings;
+            surveyDTO.language = language;
+            surveyDTO.setId(id);
+            return surveyDTO;
+        }
+
+        @Override
+        public Builder id(final Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        @Override
+        public BuilderImpl language(final Language language) {
+            this.language = language;
+            return this;
+        }
+
+        @Override
+        public BuilderImpl languageSettings(final SurveyLanguageSettingsDTO languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        @Override
+        public SurveyLanguageSettingsDTO.Builder surveyLanguageSettingsStart() {
+            return SurveyLanguageSettingsDTO.surveyLanguageSettingsStart(this);
+        }
+    }
+
     private static final long serialVersionUID = 4558625807621395019L;
+
+    public static Builder with() {
+        return new BuilderImpl();
+    }
 
     private Language language;
 
@@ -23,14 +79,9 @@ public class SurveyDTO extends AbstractAuditableDTO implements IdentifiableLocal
         super();
     }
 
-    @Override
-    public SurveyLanguageSettingsDTO getLanguageSettings() {
-        return languageSettings;
-    }
-
-    @Override
-    public void setLanguageSettings(SurveyLanguageSettingsDTO languageSettings) {
-        this.languageSettings = languageSettings;
+    public void addQuestionGroup(final QuestionGroupDTO questionGroup) {
+        Assert.notNull(questionGroup, "Question Group must be not null");
+        getQuestionGroups().add(questionGroup);
     }
 
     @Override
@@ -39,13 +90,8 @@ public class SurveyDTO extends AbstractAuditableDTO implements IdentifiableLocal
     }
 
     @Override
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
-
-    public void addQuestionGroup(QuestionGroupDTO questionGroup) {
-        Assert.notNull(questionGroup, "Question Group must be not null");
-        getQuestionGroups().add(questionGroup);
+    public SurveyLanguageSettingsDTO getLanguageSettings() {
+        return languageSettings;
     }
 
     public QuestionGroupDTO getLastQuestionGroupDTO() {
@@ -60,63 +106,17 @@ public class SurveyDTO extends AbstractAuditableDTO implements IdentifiableLocal
         return questionGroups;
     }
 
-    public void setQuestionGroups(List<QuestionGroupDTO> questionGroups) {
+    @Override
+    public void setLanguage(final Language language) {
+        this.language = language;
+    }
+
+    @Override
+    public void setLanguageSettings(final SurveyLanguageSettingsDTO languageSettings) {
+        this.languageSettings = languageSettings;
+    }
+
+    public void setQuestionGroups(final List<QuestionGroupDTO> questionGroups) {
         this.questionGroups = questionGroups;
-    }
-
-    public static interface Builder {
-        Builder id(Integer id);
-
-        Builder languageSettings(SurveyLanguageSettingsDTO languageSettings);
-
-        Builder language(Language language);
-
-        SurveyLanguageSettingsDTO.Builder surveyLanguageSettingsStart();
-
-        SurveyDTO build();
-    }
-
-    public static Builder with() {
-        return new BuilderImpl();
-    }
-
-    public static class BuilderImpl implements Builder {
-        private Integer id;
-
-        private Language language;
-
-        private SurveyLanguageSettingsDTO languageSettings;
-
-        @Override
-        public BuilderImpl language(Language language) {
-            this.language = language;
-            return this;
-        }
-
-        @Override
-        public BuilderImpl languageSettings(SurveyLanguageSettingsDTO languageSettings) {
-            this.languageSettings = languageSettings;
-            return this;
-        }
-
-        @Override
-        public SurveyLanguageSettingsDTO.Builder surveyLanguageSettingsStart() {
-            return SurveyLanguageSettingsDTO.surveyLanguageSettingsStart(this);
-        }
-
-        @Override
-        public SurveyDTO build() {
-            SurveyDTO surveyDTO = new SurveyDTO();
-            surveyDTO.languageSettings = languageSettings;
-            surveyDTO.language = language;
-            surveyDTO.setId(id);
-            return surveyDTO;
-        }
-
-        @Override
-        public Builder id(Integer id) {
-            this.id = id;
-            return this;
-        }
     }
 }

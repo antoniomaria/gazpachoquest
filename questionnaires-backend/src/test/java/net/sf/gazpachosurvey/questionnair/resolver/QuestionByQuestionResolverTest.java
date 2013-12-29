@@ -1,10 +1,7 @@
 package net.sf.gazpachosurvey.questionnair.resolver;
 
-import javax.lang.model.element.Element;
-
 import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.Respondent;
-import net.sf.gazpachosurvey.domain.support.QuestionnairElement;
 import net.sf.gazpachosurvey.repository.RespondentRepository;
 import net.sf.gazpachosurvey.types.BrowsingAction;
 
@@ -69,10 +66,10 @@ public class QuestionByQuestionResolverTest {
 
         question = (Question) resolver.resolveFor(respondent, BrowsingAction.BACKWARD);
         out.append("6?: " + question.getLanguageSettings().getTitle() + "\n");
-     
+
         question = (Question) resolver.resolveFor(respondent, BrowsingAction.BACKWARD);
         out.append("5?: " + question.getLanguageSettings().getTitle() + "\n");
         System.out.println(out);
-        
+
     }
 }

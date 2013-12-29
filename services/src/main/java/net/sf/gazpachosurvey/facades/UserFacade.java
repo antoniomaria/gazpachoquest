@@ -4,10 +4,10 @@ import net.sf.gazpachosurvey.dto.UserDTO;
 
 public interface UserFacade {
 
-    UserDTO save(UserDTO user);
+    void delete(Integer id);
 
     UserDTO findOne(Integer id);
 
-    void delete(Integer id);
+    UserDTO save(UserDTO user);
 
 }

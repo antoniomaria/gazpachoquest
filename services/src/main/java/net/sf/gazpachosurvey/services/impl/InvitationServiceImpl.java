@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 public class InvitationServiceImpl extends AbstractPersistenceService<Invitation> implements InvitationService {
 
     @Autowired
-    protected InvitationServiceImpl(InvitationRepository repository) {
+    protected InvitationServiceImpl(final InvitationRepository repository) {
         super(repository);
     }
 
     @Override
-    public Invitation save(Invitation entity) {
+    public Invitation save(final Invitation entity) {
         Invitation fetched = null;
         if (entity.isNew()) {
             fetched = repository.save(entity);

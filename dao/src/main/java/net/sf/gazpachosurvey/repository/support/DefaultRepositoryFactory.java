@@ -2,8 +2,8 @@ package net.sf.gazpachosurvey.repository.support;
 
 /**
  * 
- * The purpose of this class is to override the default behaviour of the spring JpaRepositoryFactory class.
- * It will produce a GenericRepositoryImpl object instead of SimpleJpaRepository. 
+ * The purpose of this class is to override the default behaviour of the spring JpaRepositoryFactory class. It will
+ * produce a GenericRepositoryImpl object instead of SimpleJpaRepository.
  * 
  */
 
@@ -24,13 +24,13 @@ import org.springframework.util.Assert;
 
 public class DefaultRepositoryFactory extends JpaRepositoryFactory {
 
+    private ByExampleSpecification byExampleSpecification;
     private final EntityManager entityManager;
     private final QueryExtractor extractor;
-    private ByExampleSpecification byExampleSpecification;
     private NamedQueryUtil namedQueryUtil;
 
-    public DefaultRepositoryFactory(EntityManager entityManager, ByExampleSpecification byExampleSpecification,
-            NamedQueryUtil namedQueryUtil) {
+    public DefaultRepositoryFactory(final EntityManager entityManager,
+            final ByExampleSpecification byExampleSpecification, final NamedQueryUtil namedQueryUtil) {
         super(entityManager);
         Assert.notNull(entityManager);
         Assert.notNull(byExampleSpecification);
@@ -42,9 +42,19 @@ public class DefaultRepositoryFactory extends JpaRepositoryFactory {
     }
 
     @Override
+    protected Class<?> getRepositoryBaseClass(final RepositoryMetadata metadata) {
+
+        if (isQueryDslExecutor(metadata.getRepositoryInterface())) {
+            return QueryDslJpaRepository.class;
+        } else {
+            return GenericRepositoryImpl.class;
+        }
+    }
+
+    @Override
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    protected <T, ID extends Serializable> JpaRepository<?, ?> getTargetRepository(RepositoryMetadata metadata,
-            EntityManager entityManager) {
+    protected <T, ID extends Serializable> JpaRepository<?, ?> getTargetRepository(final RepositoryMetadata metadata,
+            final EntityManager entityManager) {
 
         Class<?> repositoryInterface = metadata.getRepositoryInterface();
 
@@ -57,23 +67,13 @@ public class DefaultRepositoryFactory extends JpaRepositoryFactory {
         }
     }
 
-    @Override
-    protected Class<?> getRepositoryBaseClass(RepositoryMetadata metadata) {
-
-        if (isQueryDslExecutor(metadata.getRepositoryInterface())) {
-            return QueryDslJpaRepository.class;
-        } else {
-            return GenericRepositoryImpl.class;
-        }
-    }
-
     /**
      * Returns whether the given repository interface requires a QueryDsl specific implementation to be chosen.
      * 
      * @param repositoryInterface
      * @return
      */
-    private boolean isQueryDslExecutor(Class<?> repositoryInterface) {
+    private boolean isQueryDslExecutor(final Class<?> repositoryInterface) {
         return QUERY_DSL_PRESENT && QueryDslPredicateExecutor.class.isAssignableFrom(repositoryInterface);
     }
 

@@ -17,13 +17,13 @@ public class MailMessageTemplateServiceImpl
         implements MailMessageTemplateService {
 
     @Autowired
-    public MailMessageTemplateServiceImpl(MailMessageTemplateRepository repository,
-            MailMessageTemplateTranslationRepository translationRepository) {
+    public MailMessageTemplateServiceImpl(final MailMessageTemplateRepository repository,
+            final MailMessageTemplateTranslationRepository translationRepository) {
         super(repository, translationRepository, new MailMessageTemplateTranslation.Builder());
     }
 
     @Override
-    public MailMessageTemplate save(MailMessageTemplate entity) {
+    public MailMessageTemplate save(final MailMessageTemplate entity) {
         MailMessageTemplate existing = null;
         if (entity.isNew()) {
             existing = repository.save(entity);

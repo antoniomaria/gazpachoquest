@@ -28,7 +28,8 @@ import net.sf.gazpachosurvey.types.QuestionType;
 import org.springframework.util.Assert;
 
 @Entity
-public class Question extends AbstractLocalizable<QuestionTranslation, QuestionLanguageSettings> implements QuestionnairElement{
+public class Question extends AbstractLocalizable<QuestionTranslation, QuestionLanguageSettings> implements
+        QuestionnairElement {
 
     private static final long serialVersionUID = -4372634574851905803L;
 
@@ -179,10 +180,10 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         getTranslations().put(language, translation);
     }
 
-    public static Builder with(){
+    public static Builder with() {
         return new Builder();
     }
-    
+
     public static class Builder {
         private Integer id;
         private Question parent;
@@ -195,11 +196,11 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         private QuestionLanguageSettings languageSettings;
         private Map<Language, QuestionTranslation> translations;
 
-        public Builder id(Integer id){
+        public Builder id(Integer id) {
             this.id = id;
             return this;
         }
-        
+
         public Builder parent(Question parent) {
             this.parent = parent;
             return this;

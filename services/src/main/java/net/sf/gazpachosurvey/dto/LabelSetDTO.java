@@ -8,7 +8,30 @@ import net.sf.gazpachosurvey.types.Language;
 
 public class LabelSetDTO extends AbstractIdentifiableDTO {
 
+    public static class Builder {
+        private String name;
+        private Language language;
+
+        public LabelSetDTO build() {
+            return new LabelSetDTO(this);
+        }
+
+        public Builder language(final Language language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder name(final String name) {
+            this.name = name;
+            return this;
+        }
+    }
+
     private static final long serialVersionUID = -7715245634090394574L;
+
+    public static Builder with() {
+        return new Builder();
+    }
 
     private String name;
 
@@ -20,6 +43,17 @@ public class LabelSetDTO extends AbstractIdentifiableDTO {
         super();
     }
 
+    private LabelSetDTO(final Builder builder) {
+        name = builder.name;
+        language = builder.language;
+    }
+
+    public void addLabel(final LabelDTO label) {
+        if (!getLabels().contains(label)) {
+            labels.add(label);
+        }
+    }
+
     public List<LabelDTO> getLabels() {
         if (labels == null) {
             labels = new ArrayList<>();
@@ -27,54 +61,20 @@ public class LabelSetDTO extends AbstractIdentifiableDTO {
         return labels;
     }
 
-    public void addLabel(LabelDTO label) {
-        if (!getLabels().contains(label)) {
-            labels.add(label);
-        }
+    public Language getLanguage() {
+        return language;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
+    public void setLanguage(final Language language) {
         this.language = language;
     }
 
-    public static Builder with() {
-        return new Builder();
-    }
-
-    public static class Builder {
-        private String name;
-        private Language language;
-
-        public Builder name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Builder language(Language language) {
-            this.language = language;
-            return this;
-        }
-
-        public LabelSetDTO build() {
-            return new LabelSetDTO(this);
-        }
-    }
-
-    private LabelSetDTO(Builder builder) {
-        name = builder.name;
-        language = builder.language;
+    public void setName(final String name) {
+        this.name = name;
     }
 
 }

@@ -19,19 +19,19 @@ public class ParticipantFacadeImpl implements ParticipantFacade {
     private ParticipantService participantService;
 
     @Override
-    public ParticipantDTO save(ParticipantDTO participant) {
-        Participant entity = mapper.map(participant, Participant.class);
-        return mapper.map(participantService.save(entity), ParticipantDTO.class);
+    public void delete(final Integer id) {
+        participantService.delete(id);
     }
 
     @Override
-    public ParticipantDTO findOne(Integer id) {
+    public ParticipantDTO findOne(final Integer id) {
         return mapper.map(participantService.findOne(id), ParticipantDTO.class);
     }
 
     @Override
-    public void delete(Integer id) {
-        participantService.delete(id);
+    public ParticipantDTO save(final ParticipantDTO participant) {
+        Participant entity = mapper.map(participant, Participant.class);
+        return mapper.map(participantService.save(entity), ParticipantDTO.class);
     }
 
 }

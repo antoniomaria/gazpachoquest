@@ -10,7 +10,53 @@ import net.sf.gazpachosurvey.types.Language;
 public class QuestionGroupDTO extends AbstractAuditableDTO implements
         IdentifiableLocalizable<QuestionGroupLanguageSettingsDTO> {
 
+    public static interface Builder {
+
+        QuestionGroupDTO build();
+
+        Builder language(Language language);
+
+        Builder languageSettings(QuestionGroupLanguageSettingsDTO languageSettings);
+
+        QuestionGroupLanguageSettingsDTO.Builder pageLanguageSettingsStart();
+    }
+
+    public static class BuilderImpl implements Builder {
+        private Language language;
+
+        private QuestionGroupLanguageSettingsDTO languageSettings;
+
+        @Override
+        public QuestionGroupDTO build() {
+            QuestionGroupDTO questionGroupDTO = new QuestionGroupDTO();
+            questionGroupDTO.languageSettings = languageSettings;
+            questionGroupDTO.language = language;
+            return questionGroupDTO;
+        }
+
+        @Override
+        public BuilderImpl language(final Language language) {
+            this.language = language;
+            return this;
+        }
+
+        @Override
+        public BuilderImpl languageSettings(final QuestionGroupLanguageSettingsDTO languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        @Override
+        public QuestionGroupLanguageSettingsDTO.Builder pageLanguageSettingsStart() {
+            return QuestionGroupLanguageSettingsDTO.pageLanguageSettingsStart(this);
+        }
+    }
+
     private static final long serialVersionUID = 4668205160387380803L;
+
+    public static Builder with() {
+        return new BuilderImpl();
+    }
 
     private Language language;
 
@@ -22,14 +68,15 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
         super();
     }
 
-    @Override
-    public Language getLanguage() {
-        return language;
+    public void addQuestion(final QuestionDTO question) {
+        if (!getQuestions().contains(question)) {
+            questions.add(question);
+        }
     }
 
     @Override
-    public void setLanguage(Language language) {
-        this.language = language;
+    public Language getLanguage() {
+        return language;
     }
 
     @Override
@@ -37,9 +84,9 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
         return languageSettings;
     }
 
-    @Override
-    public void setLanguageSettings(QuestionGroupLanguageSettingsDTO languageSettings) {
-        this.languageSettings = languageSettings;
+    public QuestionDTO getLastQuestionDTO() {
+        int count = getQuestions().size();
+        return count > 0 ? getQuestions().get(count - 1) : null;
     }
 
     public List<QuestionDTO> getQuestions() {
@@ -49,60 +96,13 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
         return questions;
     }
 
-    public void addQuestion(QuestionDTO question) {
-        if (!getQuestions().contains(question)) {
-            questions.add(question);
-        }
+    @Override
+    public void setLanguage(final Language language) {
+        this.language = language;
     }
 
-    public QuestionDTO getLastQuestionDTO() {
-        int count = getQuestions().size();
-        return count > 0 ? getQuestions().get(count - 1) : null;
-    }
-
-    public static Builder with() {
-        return new BuilderImpl();
-    }
-
-    public static interface Builder {
-
-        Builder languageSettings(QuestionGroupLanguageSettingsDTO languageSettings);
-
-        Builder language(Language language);
-
-        QuestionGroupLanguageSettingsDTO.Builder pageLanguageSettingsStart();
-
-        QuestionGroupDTO build();
-    }
-
-    public static class BuilderImpl implements Builder {
-        private Language language;
-
-        private QuestionGroupLanguageSettingsDTO languageSettings;
-
-        @Override
-        public BuilderImpl language(Language language) {
-            this.language = language;
-            return this;
-        }
-
-        @Override
-        public BuilderImpl languageSettings(QuestionGroupLanguageSettingsDTO languageSettings) {
-            this.languageSettings = languageSettings;
-            return this;
-        }
-
-        @Override
-        public QuestionGroupLanguageSettingsDTO.Builder pageLanguageSettingsStart() {
-            return QuestionGroupLanguageSettingsDTO.pageLanguageSettingsStart(this);
-        }
-
-        @Override
-        public QuestionGroupDTO build() {
-            QuestionGroupDTO questionGroupDTO = new QuestionGroupDTO();
-            questionGroupDTO.languageSettings = languageSettings;
-            questionGroupDTO.language = language;
-            return questionGroupDTO;
-        }
+    @Override
+    public void setLanguageSettings(final QuestionGroupLanguageSettingsDTO languageSettings) {
+        this.languageSettings = languageSettings;
     }
 }

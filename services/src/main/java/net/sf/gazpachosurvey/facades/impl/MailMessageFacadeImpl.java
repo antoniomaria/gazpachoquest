@@ -27,7 +27,7 @@ public class MailMessageFacadeImpl implements MailMessageFacade {
     }
 
     @Override
-    public MailMessageTemplateDTO save(MailMessageTemplateDTO mailMessageTemplate) {
+    public MailMessageTemplateDTO save(final MailMessageTemplateDTO mailMessageTemplate) {
         MailMessageTemplate entity = mapper.map(mailMessageTemplate, MailMessageTemplate.class);
         entity = mailMessageTemplateService.save(entity);
         return mapper.map(entity, MailMessageTemplateDTO.class);
@@ -35,7 +35,7 @@ public class MailMessageFacadeImpl implements MailMessageFacade {
 
     @Override
     public TranslationDTO<MailMessageTemplateDTO, MailMessageTemplateLanguageSettingsDTO> saveTranslation(
-            TranslationDTO<MailMessageTemplateDTO, MailMessageTemplateLanguageSettingsDTO> translation) {
+            final TranslationDTO<MailMessageTemplateDTO, MailMessageTemplateLanguageSettingsDTO> translation) {
 
         MailMessageTemplateLanguageSettings languageSettings = mapper.map(translation.getLanguageSettings(),
                 MailMessageTemplateLanguageSettings.class);

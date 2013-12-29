@@ -16,12 +16,12 @@ public class LabelServiceImpl extends
         AbstractLocalizedPersistenceService<Label, LabelTranslation, LabelLanguageSettings> implements LabelService {
 
     @Autowired
-    public LabelServiceImpl(LabelRepository repository, LabelTranslationRepository translationRepository) {
+    public LabelServiceImpl(final LabelRepository repository, final LabelTranslationRepository translationRepository) {
         super(repository, translationRepository, new LabelTranslation.Builder());
     }
 
     @Override
-    public Label save(Label entity) {
+    public Label save(final Label entity) {
         Assert.state(!entity.isNew(), "Label must be already persisted. Try by adding to labelSet first.");
         Label existing = repository.save(entity);
         existing.setLanguage(entity.getLanguage());

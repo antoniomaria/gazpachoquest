@@ -19,31 +19,31 @@ public class TranslationDTO<L extends IdentifiableLocalizable<LSD>, LSD extends 
     }
 
     @Override
-    public LSD getLanguageSettings() {
-        return languageSettings;
+    public Language getLanguage() {
+        return language;
     }
 
     @Override
-    public void setLanguageSettings(LSD languageSettings) {
-        this.languageSettings = languageSettings;
+    public LSD getLanguageSettings() {
+        return languageSettings;
     }
 
     public L getTranslatedEntity() {
         return translatedEntity;
     }
 
-    public void setTranslatedEntity(L translatedEntity) {
-        this.translatedEntity = translatedEntity;
-    }
-
     @Override
-    public Language getLanguage() {
-        return language;
-    }
-
-    @Override
-    public void setLanguage(Language language) {
+    public void setLanguage(final Language language) {
         this.language = language;
+    }
+
+    @Override
+    public void setLanguageSettings(final LSD languageSettings) {
+        this.languageSettings = languageSettings;
+    }
+
+    public void setTranslatedEntity(final L translatedEntity) {
+        this.translatedEntity = translatedEntity;
     }
 
 }

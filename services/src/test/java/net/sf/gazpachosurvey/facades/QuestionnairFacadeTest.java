@@ -14,11 +14,9 @@ import net.sf.gazpachosurvey.types.BrowsingAction;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.RenderingMode;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,7 +24,6 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
-import com.github.springtestdbunit.DbUnitRule;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
@@ -34,7 +31,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
         "classpath:/services-context.xml", "classpath:/components-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
-    TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
+        TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionnairFacade-dataset.xml")
 public class QuestionnairFacadeTest {
 
@@ -51,13 +48,6 @@ public class QuestionnairFacadeTest {
     private RespondentRepository respondentRepository;
 
     @Test
-    public void findQuestionnairDefinitionForTest() {
-        Respondent respondent = respondentRepository.findOne(114);
-        QuestionnairDefinitionDTO definition = questionnairFacade.findQuestionnairDefinitionFor(respondent);
-        assertThat(definition.getLanguageSettings().getTitle()).contains("Food Quality");
-    }
-
-    @Test
     public void composeQuestionnairPageTest() {
         Respondent respondent = respondentRepository.findOne(113);
         RenderingMode mode = RenderingMode.GROUP_BY_GROUP;
@@ -68,33 +58,39 @@ public class QuestionnairFacadeTest {
         QuestionGroupDTO questionGroup = page.getQuestionGroup();
         out.append(questionGroup.getLanguageSettings().getTitle());
         out.append("\n");
-        
+
         action = BrowsingAction.FORWARD;
         page = questionnairFacade.composeQuestionnairPage(respondent, mode, action, Language.EN);
         questionGroup = page.getQuestionGroup();
         out.append(questionGroup.getLanguageSettings().getTitle());
         out.append("\n");
-        
+
         action = BrowsingAction.BACKWARD;
         page = questionnairFacade.composeQuestionnairPage(respondent, mode, action, Language.EN);
         questionGroup = page.getQuestionGroup();
         out.append(questionGroup.getLanguageSettings().getTitle());
         out.append("\n");
-       
+
         action = BrowsingAction.FORWARD;
         page = questionnairFacade.composeQuestionnairPage(respondent, mode, action, Language.EN);
         questionGroup = page.getQuestionGroup();
         out.append(questionGroup.getLanguageSettings().getTitle());
         out.append("\n");
-       
-       
+
         action = BrowsingAction.FORWARD;
         page = questionnairFacade.composeQuestionnairPage(respondent, mode, action, Language.EN);
         questionGroup = page.getQuestionGroup();
         out.append(questionGroup.getLanguageSettings().getTitle());
         out.append("\n");
-       
+
         System.out.println(out);
 
+    }
+
+    @Test
+    public void findQuestionnairDefinitionForTest() {
+        Respondent respondent = respondentRepository.findOne(114);
+        QuestionnairDefinitionDTO definition = questionnairFacade.findQuestionnairDefinitionFor(respondent);
+        assertThat(definition.getLanguageSettings().getTitle()).contains("Food Quality");
     }
 }

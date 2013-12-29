@@ -22,13 +22,13 @@ public class SurveyAccessorFacadeImpl implements SurveyAccessorFacade {
     private SurveyService surveyService;
 
     @Override
-    public SurveyDTO findOneSurvey(Integer surveyId) {
+    public SurveyDTO findOneSurvey(final Integer surveyId) {
         Survey survey = surveyService.findOne(surveyId);
         return mapper.map(survey, SurveyDTO.class);
     }
 
     @Override
-    public Set<Language> findSurveyTranslations(Integer surveyId) {
+    public Set<Language> findSurveyTranslations(final Integer surveyId) {
         return surveyService.translationsSupported(surveyId);
     }
 

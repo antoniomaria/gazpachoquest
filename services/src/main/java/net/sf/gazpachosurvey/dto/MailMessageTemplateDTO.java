@@ -8,7 +8,102 @@ import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
         IdentifiableLocalizable<MailMessageTemplateLanguageSettingsDTO> {
 
+    public static interface Builder {
+
+        public Builder fromAddress(String from);
+
+        public Builder replyTo(String replyTo);
+
+        public Builder survey(SurveyDTO survey);
+
+        public Builder type(MailMessageTemplateType type);
+
+        MailMessageTemplateDTO build();
+
+        Builder id(Integer id);
+
+        Builder language(Language language);
+
+        Builder languageSettings(MailMessageTemplateLanguageSettingsDTO languageSettings);
+
+        MailMessageTemplateLanguageSettingsDTO.Builder mailMessageTemplateLanguageSettingsStart();
+    }
+
+    public static class BuilderImpl implements Builder {
+        private SurveyDTO survey;
+        private MailMessageTemplateType type;
+        private Integer id;
+        private Language language;
+        private String from;
+        private String replyTo;
+        private MailMessageTemplateLanguageSettingsDTO languageSettings;
+
+        @Override
+        public MailMessageTemplateDTO build() {
+            MailMessageTemplateDTO mailMessageTemplateDTO = new MailMessageTemplateDTO();
+            mailMessageTemplateDTO.setId(id);
+            mailMessageTemplateDTO.language = language;
+            mailMessageTemplateDTO.fromAddress = from;
+            mailMessageTemplateDTO.replyTo = replyTo;
+            mailMessageTemplateDTO.languageSettings = languageSettings;
+            mailMessageTemplateDTO.type = type;
+            mailMessageTemplateDTO.survey = survey;
+            return mailMessageTemplateDTO;
+        }
+
+        @Override
+        public BuilderImpl fromAddress(final String from) {
+            this.from = from;
+            return this;
+        }
+
+        @Override
+        public Builder id(final Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        @Override
+        public BuilderImpl language(final Language language) {
+            this.language = language;
+            return this;
+        }
+
+        @Override
+        public BuilderImpl languageSettings(final MailMessageTemplateLanguageSettingsDTO languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        @Override
+        public MailMessageTemplateLanguageSettingsDTO.Builder mailMessageTemplateLanguageSettingsStart() {
+            return MailMessageTemplateLanguageSettingsDTO.mailMessageTemplateLanguageSettingsStart(this);
+        }
+
+        @Override
+        public BuilderImpl replyTo(final String replyTo) {
+            this.replyTo = replyTo;
+            return this;
+        }
+
+        @Override
+        public Builder survey(final SurveyDTO survey) {
+            this.survey = survey;
+            return this;
+        }
+
+        @Override
+        public Builder type(final MailMessageTemplateType type) {
+            this.type = type;
+            return this;
+        }
+    }
+
     private static final long serialVersionUID = -3689140734668685289L;
+
+    public static Builder with() {
+        return new BuilderImpl();
+    }
 
     private SurveyDTO survey;
 
@@ -26,20 +121,8 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
         super();
     }
 
-    public SurveyDTO getSurvey() {
-        return survey;
-    }
-
-    public void setSurvey(SurveyDTO survey) {
-        this.survey = survey;
-    }
-
-    public MailMessageTemplateType getType() {
-        return type;
-    }
-
-    public void setType(MailMessageTemplateType type) {
-        this.type = type;
+    public String getFromAddress() {
+        return fromAddress;
     }
 
     @Override
@@ -48,129 +131,46 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
     }
 
     @Override
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
-
-    public String getFromAddress() {
-        return fromAddress;
-    }
-
-    public void setFromAddress(String from) {
-        fromAddress = from;
+    public MailMessageTemplateLanguageSettingsDTO getLanguageSettings() {
+        return languageSettings;
     }
 
     public String getReplyTo() {
         return replyTo;
     }
 
-    public void setReplyTo(String replyTo) {
-        this.replyTo = replyTo;
+    public SurveyDTO getSurvey() {
+        return survey;
+    }
+
+    public MailMessageTemplateType getType() {
+        return type;
+    }
+
+    public void setFromAddress(final String from) {
+        fromAddress = from;
     }
 
     @Override
-    public MailMessageTemplateLanguageSettingsDTO getLanguageSettings() {
-        return languageSettings;
+    public void setLanguage(final Language language) {
+        this.language = language;
     }
 
     @Override
-    public void setLanguageSettings(MailMessageTemplateLanguageSettingsDTO languageSettings) {
+    public void setLanguageSettings(final MailMessageTemplateLanguageSettingsDTO languageSettings) {
         this.languageSettings = languageSettings;
     }
 
-    public static interface Builder {
-
-        Builder id(Integer id);
-
-        Builder languageSettings(MailMessageTemplateLanguageSettingsDTO languageSettings);
-
-        Builder language(Language language);
-
-        MailMessageTemplateLanguageSettingsDTO.Builder mailMessageTemplateLanguageSettingsStart();
-
-        public Builder fromAddress(String from);
-
-        public Builder replyTo(String replyTo);
-
-        public Builder survey(SurveyDTO survey);
-
-        public Builder type(MailMessageTemplateType type);
-
-        MailMessageTemplateDTO build();
+    public void setReplyTo(final String replyTo) {
+        this.replyTo = replyTo;
     }
 
-    public static Builder with() {
-        return new BuilderImpl();
+    public void setSurvey(final SurveyDTO survey) {
+        this.survey = survey;
     }
 
-    public static class BuilderImpl implements Builder {
-        private SurveyDTO survey;
-        private MailMessageTemplateType type;
-        private Integer id;
-        private Language language;
-        private String from;
-        private String replyTo;
-        private MailMessageTemplateLanguageSettingsDTO languageSettings;
-
-        @Override
-        public BuilderImpl language(Language language) {
-            this.language = language;
-            return this;
-        }
-
-        @Override
-        public BuilderImpl fromAddress(String from) {
-            this.from = from;
-            return this;
-        }
-
-        @Override
-        public BuilderImpl replyTo(String replyTo) {
-            this.replyTo = replyTo;
-            return this;
-        }
-
-        @Override
-        public BuilderImpl languageSettings(MailMessageTemplateLanguageSettingsDTO languageSettings) {
-            this.languageSettings = languageSettings;
-            return this;
-        }
-
-        @Override
-        public MailMessageTemplateDTO build() {
-            MailMessageTemplateDTO mailMessageTemplateDTO = new MailMessageTemplateDTO();
-            mailMessageTemplateDTO.setId(id);
-            mailMessageTemplateDTO.language = language;
-            mailMessageTemplateDTO.fromAddress = from;
-            mailMessageTemplateDTO.replyTo = replyTo;
-            mailMessageTemplateDTO.languageSettings = languageSettings;
-            mailMessageTemplateDTO.type = type;
-            mailMessageTemplateDTO.survey = survey;
-            return mailMessageTemplateDTO;
-        }
-
-        @Override
-        public Builder id(Integer id) {
-            this.id = id;
-            return this;
-        }
-
-        @Override
-        public MailMessageTemplateLanguageSettingsDTO.Builder mailMessageTemplateLanguageSettingsStart() {
-            return MailMessageTemplateLanguageSettingsDTO.mailMessageTemplateLanguageSettingsStart(this);
-        }
-
-        @Override
-        public Builder survey(SurveyDTO survey) {
-            this.survey = survey;
-            return this;
-        }
-
-        @Override
-        public Builder type(MailMessageTemplateType type) {
-            this.type = type;
-            return this;
-        }
+    public void setType(final MailMessageTemplateType type) {
+        this.type = type;
     }
 
     @Override

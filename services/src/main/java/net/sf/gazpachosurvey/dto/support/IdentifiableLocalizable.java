@@ -7,9 +7,9 @@ public interface IdentifiableLocalizable<LSD extends LanguageSettings> extends I
 
     Language getLanguage();
 
-    void setLanguage(Language language);
-
     LSD getLanguageSettings();
+
+    void setLanguage(Language language);
 
     void setLanguageSettings(LSD languageSettings);
 }

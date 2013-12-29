@@ -12,7 +12,7 @@ public interface LocalizedPersistenceService<T extends Persistable, TR extends T
 
     T findOne(Integer id, Language language);
 
-    Set<Language> translationsSupported(Integer entityId);
-
     TR saveTranslation(TR translation);
+
+    Set<Language> translationsSupported(Integer entityId);
 }

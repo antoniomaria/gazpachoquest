@@ -19,18 +19,18 @@ public class UserFacadeImpl implements UserFacade {
     private UserService userService;
 
     @Override
-    public UserDTO save(UserDTO user) {
-        User entity = mapper.map(user, User.class);
-        return mapper.map(userService.save(entity), UserDTO.class);
+    public void delete(final Integer id) {
+        userService.delete(id);
     }
 
     @Override
-    public UserDTO findOne(Integer id) {
+    public UserDTO findOne(final Integer id) {
         return mapper.map(userService.findOne(id), UserDTO.class);
     }
 
     @Override
-    public void delete(Integer id) {
-        userService.delete(id);
+    public UserDTO save(final UserDTO user) {
+        User entity = mapper.map(user, User.class);
+        return mapper.map(userService.save(entity), UserDTO.class);
     }
 }

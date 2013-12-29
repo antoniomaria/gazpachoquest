@@ -19,7 +19,7 @@ public class AuthorizationRequestFilter implements ContainerRequestFilter {
     private AuthorizationService authorizationService;
 
     @Override
-    public void filter(ContainerRequestContext requestContext) throws IOException {
+    public void filter(final ContainerRequestContext requestContext) throws IOException {
         String method = requestContext.getMethod();
         String requestUrl = requestContext.getUriInfo().getPath();
 

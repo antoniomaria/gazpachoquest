@@ -4,10 +4,10 @@ import net.sf.gazpachosurvey.dto.ParticipantDTO;
 
 public interface ParticipantFacade {
 
-    ParticipantDTO save(ParticipantDTO participant);
+    void delete(Integer id);
 
     ParticipantDTO findOne(Integer id);
 
-    void delete(Integer id);
+    ParticipantDTO save(ParticipantDTO participant);
 
 }

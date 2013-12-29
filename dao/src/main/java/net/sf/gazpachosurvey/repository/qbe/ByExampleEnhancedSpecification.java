@@ -36,7 +36,7 @@ public class ByExampleEnhancedSpecification {
 
     private final EntityManager em;
 
-    public ByExampleEnhancedSpecification(EntityManager em) {
+    public ByExampleEnhancedSpecification(final EntityManager em) {
         this.em = em;
     }
 
@@ -45,32 +45,14 @@ public class ByExampleEnhancedSpecification {
 
         return new Specification<T>() {
 
-            @Override
-            public Predicate toPredicate(Root<T> rootPath, CriteriaQuery<?> query, CriteriaBuilder builder) {
-                Class<T> type = rootPath.getModel().getBindableJavaType();
-
-                ManagedType<T> mt = em.getMetamodel().entity(type);
-
-                List<Predicate> predicates = new ArrayList<Predicate>();
-                predicates.addAll(byExample(mt, rootPath, example, sp, builder));
-                predicates.addAll(byExampleOnXToOne(mt, rootPath, example, sp, builder)); // 1
-                                                                                          // level
-                                                                                          // deep
-                                                                                          // only
-                predicates.addAll(byExampleOnManyToMany(mt, rootPath, example, sp, builder));
-                // order by
-                query.orderBy(JpaUtil.buildJpaOrders(sp.getOrders(), rootPath, builder));
-
-                return JpaUtil.andPredicate(builder, predicates);
-            }
-
-            public <T extends Persistable> List<Predicate> byExample(ManagedType<T> mt, Path<T> mtPath,
-                    final T mtValue, SearchParameters sp, CriteriaBuilder builder) {
+            public <T extends Persistable> List<Predicate> byExample(final ManagedType<T> mt, final Path<T> mtPath,
+                    final T mtValue, final SearchParameters sp, final CriteriaBuilder builder) {
                 List<Predicate> predicates = new ArrayList<Predicate>();
                 for (SingularAttribute<? super T, ?> attr : mt.getSingularAttributes()) {
-                    if (attr.getPersistentAttributeType() == MANY_TO_ONE //
-                            || attr.getPersistentAttributeType() == ONE_TO_ONE //
-                            || attr.getPersistentAttributeType() == EMBEDDED) {
+                    if ((attr.getPersistentAttributeType() == MANY_TO_ONE //
+                            )
+                            || (attr.getPersistentAttributeType() == ONE_TO_ONE //
+                            ) || (attr.getPersistentAttributeType() == EMBEDDED)) {
                         continue;
                     }
                     Object attrValue = getValue(mtValue, attr);
@@ -95,16 +77,44 @@ public class ByExampleEnhancedSpecification {
             }
 
             /**
+             * Construct a join predicate on collection (eg many to many, List)
+             */
+            public <T extends Persistable> List<Predicate> byExampleOnManyToMany(final ManagedType<T> mt,
+                    final Root<T> mtPath, final T mtValue, final SearchParameters sp, final CriteriaBuilder builder) {
+                List<Predicate> predicates = new ArrayList<Predicate>();
+                for (PluralAttribute<T, ?, ?> pa : mt.getDeclaredPluralAttributes()) {
+                    if (pa.getCollectionType() == PluralAttribute.CollectionType.LIST) {
+                        List<?> value = (List<?>) getValue(mtValue, mt.getAttribute(pa.getName()));
+
+                        if ((value != null) && !value.isEmpty()) {
+                            ListJoin<T, ?> join = mtPath.join(mt.getDeclaredList(pa.getName()));
+                            predicates.add(join.in(value));
+                        }
+                    }
+                    if (pa.getCollectionType() == PluralAttribute.CollectionType.SET) {
+                        Set<?> value = (Set<?>) getValue(mtValue, mt.getAttribute(pa.getName()));
+
+                        if ((value != null) && !value.isEmpty()) {
+                            SetJoin<T, ?> join = mtPath.join(mt.getDeclaredSet(pa.getName()));
+                            predicates.add(join.in(value));
+                        }
+                    }
+                }
+                return predicates;
+            }
+
+            /**
              * Invoke byExample method for each not null x-to-one association when their pk is not set. This allows you
              * to search entities based on an associated entity's properties value.
              */
             @SuppressWarnings("unchecked")
             public <T extends Persistable, M2O extends Persistable> List<Predicate> byExampleOnXToOne(
-                    ManagedType<T> mt, Root<T> mtPath, final T mtValue, SearchParameters sp, CriteriaBuilder builder) {
+                    final ManagedType<T> mt, final Root<T> mtPath, final T mtValue, final SearchParameters sp,
+                    final CriteriaBuilder builder) {
                 List<Predicate> predicates = new ArrayList<Predicate>();
                 for (SingularAttribute<? super T, ?> attr : mt.getSingularAttributes()) {
-                    if (attr.getPersistentAttributeType() == MANY_TO_ONE
-                            || attr.getPersistentAttributeType() == ONE_TO_ONE) { //
+                    if ((attr.getPersistentAttributeType() == MANY_TO_ONE)
+                            || (attr.getPersistentAttributeType() == ONE_TO_ONE)) { //
                         /*
                          * Attribute<? super T, ?> m2oattr = mt.getAttribute(attr.getName()); M2O m2oValue = (M2O)
                          * ReflectionUtils .invokeMethod((Method)m2oattr.getJavaMember(), mtValue);
@@ -124,34 +134,27 @@ public class ByExampleEnhancedSpecification {
                 return predicates;
             }
 
-            /**
-             * Construct a join predicate on collection (eg many to many, List)
-             */
-            public <T extends Persistable> List<Predicate> byExampleOnManyToMany(ManagedType<T> mt, Root<T> mtPath,
-                    final T mtValue, SearchParameters sp, CriteriaBuilder builder) {
+            @Override
+            public Predicate toPredicate(final Root<T> rootPath, final CriteriaQuery<?> query,
+                    final CriteriaBuilder builder) {
+                Class<T> type = rootPath.getModel().getBindableJavaType();
+
+                ManagedType<T> mt = em.getMetamodel().entity(type);
+
                 List<Predicate> predicates = new ArrayList<Predicate>();
-                for (PluralAttribute<T, ?, ?> pa : mt.getDeclaredPluralAttributes()) {
-                    if (pa.getCollectionType() == PluralAttribute.CollectionType.LIST) {
-                        List<?> value = (List<?>) getValue(mtValue, mt.getAttribute(pa.getName()));
+                predicates.addAll(byExample(mt, rootPath, example, sp, builder));
+                predicates.addAll(byExampleOnXToOne(mt, rootPath, example, sp, builder)); // 1
+                                                                                          // level
+                                                                                          // deep
+                                                                                          // only
+                predicates.addAll(byExampleOnManyToMany(mt, rootPath, example, sp, builder));
+                // order by
+                query.orderBy(JpaUtil.buildJpaOrders(sp.getOrders(), rootPath, builder));
 
-                        if (value != null && !value.isEmpty()) {
-                            ListJoin<T, ?> join = mtPath.join(mt.getDeclaredList(pa.getName()));
-                            predicates.add(join.in(value));
-                        }
-                    }
-                    if (pa.getCollectionType() == PluralAttribute.CollectionType.SET) {
-                        Set<?> value = (Set<?>) getValue(mtValue, mt.getAttribute(pa.getName()));
-
-                        if (value != null && !value.isEmpty()) {
-                            SetJoin<T, ?> join = mtPath.join(mt.getDeclaredSet(pa.getName()));
-                            predicates.add(join.in(value));
-                        }
-                    }
-                }
-                return predicates;
+                return JpaUtil.andPredicate(builder, predicates);
             }
 
-            private <T> Object getValue(T example, Attribute<? super T, ?> attr) {
+            private <T> Object getValue(final T example, final Attribute<? super T, ?> attr) {
                 Object value = null;
                 try {
                     if (attr.getJavaMember() instanceof Method) {

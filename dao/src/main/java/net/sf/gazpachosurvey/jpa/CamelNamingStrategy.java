@@ -12,8 +12,24 @@ import org.eclipse.persistence.tools.schemaframework.IndexDefinition;
 
 public class CamelNamingStrategy implements SessionCustomizer {
 
+    public static String unqualify(final String qualifiedName) {
+        int loc = qualifiedName.lastIndexOf(".");
+        return (loc < 0) ? qualifiedName : qualifiedName.substring(qualifiedName.lastIndexOf(".") + 1);
+    }
+
+    protected static String addUnderscores(final String name) {
+        StringBuffer buf = new StringBuffer(name.replace('.', '_'));
+        for (int i = 1; i < (buf.length() - 1); i++) {
+            if (Character.isLowerCase(buf.charAt(i - 1)) && Character.isUpperCase(buf.charAt(i))
+                    && Character.isLowerCase(buf.charAt(i + 1))) {
+                buf.insert(i++, '_');
+            }
+        }
+        return buf.toString().toLowerCase();
+    }
+
     @Override
-    public void customize(Session session) throws SQLException {
+    public void customize(final Session session) throws SQLException {
         for (ClassDescriptor descriptor : session.getDescriptors().values()) {
             if (!descriptor.getTables().isEmpty()) {
 
@@ -43,22 +59,6 @@ public class CamelNamingStrategy implements SessionCustomizer {
                 }
             }
         }
-    }
-
-    public static String unqualify(String qualifiedName) {
-        int loc = qualifiedName.lastIndexOf(".");
-        return (loc < 0) ? qualifiedName : qualifiedName.substring(qualifiedName.lastIndexOf(".") + 1);
-    }
-
-    protected static String addUnderscores(String name) {
-        StringBuffer buf = new StringBuffer(name.replace('.', '_'));
-        for (int i = 1; i < buf.length() - 1; i++) {
-            if (Character.isLowerCase(buf.charAt(i - 1)) && Character.isUpperCase(buf.charAt(i))
-                    && Character.isLowerCase(buf.charAt(i + 1))) {
-                buf.insert(i++, '_');
-            }
-        }
-        return buf.toString().toLowerCase();
     }
 
 }

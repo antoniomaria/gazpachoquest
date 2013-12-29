@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 public class ParticipantServiceImpl extends AbstractPersistenceService<Participant> implements ParticipantService {
 
     @Autowired
-    public ParticipantServiceImpl(ParticipantRepository repository) {
+    public ParticipantServiceImpl(final ParticipantRepository repository) {
         super(repository);
     }
 
     @Override
-    public Participant save(Participant entity) {
+    public Participant save(final Participant entity) {
         Participant existing = null;
         if (entity.isNew()) {
             existing = repository.save(entity);

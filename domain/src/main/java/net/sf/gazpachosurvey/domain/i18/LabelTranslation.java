@@ -67,10 +67,10 @@ public class LabelTranslation extends AbstractPersistable implements Translation
         return getLabel().getId();
     }
 
-    public static Builder with(){
+    public static Builder with() {
         return new Builder();
     }
-    
+
     public static class Builder implements TranslationBuilder<LabelTranslation, LabelLanguageSettings> {
         private Label label;
         private Language language;

@@ -1,17 +1,10 @@
 /*
- *  Copyright 2012 JAXIO http://www.jaxio.com
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2012 JAXIO http://www.jaxio.com Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 package net.sf.gazpachosurvey.repository.qbe;
 
@@ -21,37 +14,27 @@ package net.sf.gazpachosurvey.repository.qbe;
  */
 public enum SearchMode {
     /**
-     * Match exactly the properties
-     */
-    EQUALS("eq"),
-    /**
      * Activates LIKE search and add a '%' prefix and suffix before searching.
      */
     ANYWHERE("any"),
     /**
-     * Activate LIKE search and add a '%' prefix before searching.
+     * Activate LIKE search and add a '%' suffix before searching.
      */
-    STARTING_LIKE("sl"),
+    ENDING_LIKE("el"),
+    /**
+     * Match exactly the properties
+     */
+    EQUALS("eq"),
     /**
      * Activate LIKE search. User provides the wildcard.
      */
     LIKE("li"),
     /**
-     * Activate LIKE search and add a '%' suffix before searching.
+     * Activate LIKE search and add a '%' prefix before searching.
      */
-    ENDING_LIKE("el");
+    STARTING_LIKE("sl");
 
-    private final String code;
-
-    SearchMode(String code) {
-        this.code = code;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public static final SearchMode convert(String code) {
+    public static final SearchMode convert(final String code) {
         for (SearchMode searchMode : SearchMode.values()) {
             if (searchMode.getCode().equals(code)) {
                 return searchMode;
@@ -59,5 +42,15 @@ public enum SearchMode {
         }
 
         return EQUALS; // default
+    }
+
+    private final String code;
+
+    SearchMode(final String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
     }
 }

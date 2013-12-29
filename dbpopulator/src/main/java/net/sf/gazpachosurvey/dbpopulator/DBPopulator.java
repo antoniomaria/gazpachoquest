@@ -47,121 +47,37 @@ public class DBPopulator {
     @Autowired
     private MailMessageFacade mailMessageFacade;
 
-    public void populate() {
-        // System account
-        userFacade.save(UserDTO.with().firstName("temporal.support").lastName("support")
-                .email("support.temporal@gazpacho.net").build());
-
-        Set<ParticipantDTO> participants = addParticipants();
-        
-        SurveyDTO survey = null;
-        survey = createDemoSurvey();
-        asignDefaultMailTemplate(survey);
-        surveyEditorFacade.confirm(survey);
-
-        SurveyInstanceDTO surveyInstance = SurveyInstanceDTO.with().survey(survey)
-                .type(SurveyInstanceType.BY_INVITATION)
-                .name("Survey " + survey.getLanguageSettings().getTitle() + " started").participants(participants)
-                .build();
-        surveyInstanceFacade.save(surveyInstance);
-        
-        survey = createFastFoodSurvey();
-        asignDefaultMailTemplate(survey);
-        surveyEditorFacade.confirm(survey);
-        
-        surveyInstance = SurveyInstanceDTO.with().survey(survey)
-                .type(SurveyInstanceType.BY_INVITATION)
-                .name("Survey " + survey.getLanguageSettings().getTitle() + " started").participants(participants)
-                .build();
-        surveyInstanceFacade.save(surveyInstance);
-    }
-
-    public SurveyDTO createFastFoodSurvey() {
-        SurveyDTO survey = SurveyDTO
+    public MailMessageTemplateDTO asignDefaultMailTemplate(final SurveyDTO survey) {
+        MailMessageTemplateDTO mailMessageTemplate = MailMessageTemplateDTO
                 .with()
                 .language(Language.EN)
-                .surveyLanguageSettingsStart()
-                .title("Food Quality Survey")
-                .description(
-                        "We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry.")
-                .welcomeText(
-                        "Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:")
-                .surveyLanguageSettingsEnd().build();
-        survey = surveyEditorFacade.save(survey);
+                .survey(survey)
+                .type(MailMessageTemplateType.INVITATION)
+                .fromAddress("support@gazpacho.net")
+                .replyTo("support@gazpacho.net")
+                .mailMessageTemplateLanguageSettingsStart()
+                .subject("PersonalInvitation to participate in survey")
+                .body("Dear Mr. $lastname, <br> You have been invited to take this survey. <br>"
+                        + "The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off."
+                        + "<a href=\"$link\">Click here</a> to take the survey")
+                .mailMessageTemplateLanguageSettingsEnd().build();
+        mailMessageTemplate = mailMessageFacade.save(mailMessageTemplate);
 
-        QuestionGroupDTO questionGroup = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
-                .title("Fast Food Survey - QuestionGroup").pageLanguageSettingsEnd().build();
+        MailMessageTemplateLanguageSettingsDTO languageSettings = MailMessageTemplateLanguageSettingsDTO
+                .with()
+                .subject("Invitación para participar en una encuesta")
+                .body("Estimado Sr. $lastname, <br> Has sido invitado para participar en esta encuesta <br>"
+                        + "Nos dedicas 15 minutos para realizar la encuesta?, puedes interrumpirla y completarla más tarde si es necesario"
+                        + "<a href=\"$link\">Click aqui</a> para empezar").build();
 
-        survey.addQuestionGroup(questionGroup);
-        survey = surveyEditorFacade.save(survey);
-        questionGroup = survey.getLastQuestionGroupDTO();
+        TranslationDTO<MailMessageTemplateDTO, MailMessageTemplateLanguageSettingsDTO> mailMessageTemplateTranslation = new TranslationDTO<>();
+        mailMessageTemplateTranslation.setLanguage(Language.ES);
+        mailMessageTemplateTranslation.setLanguageSettings(languageSettings);
+        mailMessageTemplateTranslation.setTranslatedEntity(mailMessageTemplate);
 
-        // Rating Scale (1-5)
-        QuestionDTO question = QuestionDTO.with().type(QuestionType.F).language(Language.EN).languageSettingsStart()
-                .title("<b>Food Quality</b>").languageSettingsEnd().isRequired(true).build();
+        mailMessageFacade.saveTranslation(mailMessageTemplateTranslation);
 
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The food is served hot and fresh").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The menu has a good variety of items").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The quality of food is excellent").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The food is tasty and flavorful").languageSettingsEnd().build());
-
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Neither agree nor disagree")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
-
-        questionGroup.addQuestion(question);
-        questionGroup = surveyEditorFacade.save(questionGroup);
-
-        // Rating Scale (Agree-Disagree)
-        question = QuestionDTO.with().type(QuestionType.F).language(Language.EN).languageSettingsStart()
-                .title("<b>Resturant</b>").languageSettingsEnd().isRequired(true).build();
-
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("My food order was correct and complete").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("Employees are patient when taking my order").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("I was served promptly").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("Availability of sauces, utensils, napkins, etc. was good").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The menu board was easy to read").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The drive-thru sound system was cleara").languageSettingsEnd().build());
-
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Neither agree nor disagree")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
-
-        questionGroup.addQuestion(question);
-        questionGroup = surveyEditorFacade.save(questionGroup);
-
-        // Multiple Choice (Only One QuestionOption)
-        question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
-                .title("Indicate total household income").languageSettingsEnd().isRequired(true).build();
-
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("under 25,000€").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("25,000 - 29,999€").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("30,000 - 34,999€").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("35,000 - 39,999€").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Over 85,000€").build());
-
-        questionGroup.addQuestion(question);
-        questionGroup = surveyEditorFacade.save(questionGroup);
-
-        return survey;
+        return mailMessageTemplate;
     }
 
     public SurveyDTO createDemoSurvey() {
@@ -345,6 +261,122 @@ public class DBPopulator {
         return survey;
     }
 
+    public SurveyDTO createFastFoodSurvey() {
+        SurveyDTO survey = SurveyDTO
+                .with()
+                .language(Language.EN)
+                .surveyLanguageSettingsStart()
+                .title("Food Quality Survey")
+                .description(
+                        "We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry.")
+                .welcomeText(
+                        "Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:")
+                .surveyLanguageSettingsEnd().build();
+        survey = surveyEditorFacade.save(survey);
+
+        QuestionGroupDTO questionGroup = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
+                .title("Fast Food Survey - QuestionGroup").pageLanguageSettingsEnd().build();
+
+        survey.addQuestionGroup(questionGroup);
+        survey = surveyEditorFacade.save(survey);
+        questionGroup = survey.getLastQuestionGroupDTO();
+
+        // Rating Scale (1-5)
+        QuestionDTO question = QuestionDTO.with().type(QuestionType.F).language(Language.EN).languageSettingsStart()
+                .title("<b>Food Quality</b>").languageSettingsEnd().isRequired(true).build();
+
+        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
+                .title("The food is served hot and fresh").languageSettingsEnd().build());
+        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
+                .title("The menu has a good variety of items").languageSettingsEnd().build());
+        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
+                .title("The quality of food is excellent").languageSettingsEnd().build());
+        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
+                .title("The food is tasty and flavorful").languageSettingsEnd().build());
+
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Neither agree nor disagree")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
+
+        questionGroup.addQuestion(question);
+        questionGroup = surveyEditorFacade.save(questionGroup);
+
+        // Rating Scale (Agree-Disagree)
+        question = QuestionDTO.with().type(QuestionType.F).language(Language.EN).languageSettingsStart()
+                .title("<b>Resturant</b>").languageSettingsEnd().isRequired(true).build();
+
+        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
+                .title("My food order was correct and complete").languageSettingsEnd().build());
+        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
+                .title("Employees are patient when taking my order").languageSettingsEnd().build());
+        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
+                .title("I was served promptly").languageSettingsEnd().build());
+        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
+                .title("Availability of sauces, utensils, napkins, etc. was good").languageSettingsEnd().build());
+        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
+                .title("The menu board was easy to read").languageSettingsEnd().build());
+        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
+                .title("The drive-thru sound system was cleara").languageSettingsEnd().build());
+
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Neither agree nor disagree")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree somewhat").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
+
+        questionGroup.addQuestion(question);
+        questionGroup = surveyEditorFacade.save(questionGroup);
+
+        // Multiple Choice (Only One QuestionOption)
+        question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
+                .title("Indicate total household income").languageSettingsEnd().isRequired(true).build();
+
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("under 25,000€").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("25,000 - 29,999€").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("30,000 - 34,999€").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("35,000 - 39,999€").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Over 85,000€").build());
+
+        questionGroup.addQuestion(question);
+        questionGroup = surveyEditorFacade.save(questionGroup);
+
+        return survey;
+    }
+
+    public void populate() {
+        // System account
+        userFacade.save(UserDTO.with().firstName("temporal.support").lastName("support")
+                .email("support.temporal@gazpacho.net").build());
+
+        Set<ParticipantDTO> participants = addParticipants();
+
+        SurveyDTO survey = null;
+        survey = createDemoSurvey();
+        asignDefaultMailTemplate(survey);
+        surveyEditorFacade.confirm(survey);
+
+        SurveyInstanceDTO surveyInstance = SurveyInstanceDTO.with().survey(survey)
+                .type(SurveyInstanceType.BY_INVITATION)
+                .name("Survey " + survey.getLanguageSettings().getTitle() + " started").participants(participants)
+                .build();
+        surveyInstanceFacade.save(surveyInstance);
+
+        survey = createFastFoodSurvey();
+        asignDefaultMailTemplate(survey);
+        surveyEditorFacade.confirm(survey);
+
+        surveyInstance = SurveyInstanceDTO.with().survey(survey).type(SurveyInstanceType.BY_INVITATION)
+                .name("Survey " + survey.getLanguageSettings().getTitle() + " started").participants(participants)
+                .build();
+        surveyInstanceFacade.save(surveyInstance);
+    }
+
     protected Set<ParticipantDTO> addParticipants() {
         ParticipantDTO tyrion = ParticipantDTO.with().preferedLanguage(Language.EN).firstname("Tyrion")
                 .lastname("Lannister").email("tyrion.lannister@kingslanding.net").gender(Gender.MALE).build();
@@ -368,39 +400,6 @@ public class DBPopulator {
         participants.add(catelyn);
         participants.add(jon);
         return participants;
-    }
-
-    public MailMessageTemplateDTO asignDefaultMailTemplate(SurveyDTO survey) {
-        MailMessageTemplateDTO mailMessageTemplate = MailMessageTemplateDTO
-                .with()
-                .language(Language.EN)
-                .survey(survey)
-                .type(MailMessageTemplateType.INVITATION)
-                .fromAddress("support@gazpacho.net")
-                .replyTo("support@gazpacho.net")
-                .mailMessageTemplateLanguageSettingsStart()
-                .subject("PersonalInvitation to participate in survey")
-                .body("Dear Mr. $lastname, <br> You have been invited to take this survey. <br>"
-                        + "The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off."
-                        + "<a href=\"$link\">Click here</a> to take the survey")
-                .mailMessageTemplateLanguageSettingsEnd().build();
-        mailMessageTemplate = mailMessageFacade.save(mailMessageTemplate);
-
-        MailMessageTemplateLanguageSettingsDTO languageSettings = MailMessageTemplateLanguageSettingsDTO
-                .with()
-                .subject("Invitación para participar en una encuesta")
-                .body("Estimado Sr. $lastname, <br> Has sido invitado para participar en esta encuesta <br>"
-                        + "Nos dedicas 15 minutos para realizar la encuesta?, puedes interrumpirla y completarla más tarde si es necesario"
-                        + "<a href=\"$link\">Click aqui</a> para empezar").build();
-
-        TranslationDTO<MailMessageTemplateDTO, MailMessageTemplateLanguageSettingsDTO> mailMessageTemplateTranslation = new TranslationDTO<>();
-        mailMessageTemplateTranslation.setLanguage(Language.ES);
-        mailMessageTemplateTranslation.setLanguageSettings(languageSettings);
-        mailMessageTemplateTranslation.setTranslatedEntity(mailMessageTemplate);
-
-        mailMessageFacade.saveTranslation(mailMessageTemplateTranslation);
-
-        return mailMessageTemplate;
     }
 
 }

@@ -34,16 +34,16 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 public class RespondentAnswersRepositoryTest {
 
     @Autowired
-    private RespondentAnswersRepository repository;
+    private DataSource datasource;
 
     @Autowired
-    private SurveyRepository surveyRepository;
+    private RespondentAnswersRepository repository;
 
     @Autowired
     private SurveyInstanceRepository surveyInstanceRepository;
 
     @Autowired
-    private DataSource datasource;
+    private SurveyRepository surveyRepository;
 
     @Test
     public void collectAnswersTest() {

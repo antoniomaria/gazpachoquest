@@ -1,17 +1,10 @@
 /*
-; *  Copyright 2012 JAXIO http://www.jaxio.com
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * ; * Copyright 2012 JAXIO http://www.jaxio.com Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 package net.sf.gazpachosurvey.repository.qbe;
 
@@ -28,17 +21,31 @@ import javax.persistence.metamodel.SingularAttribute;
 public class PropertySelector<E, F> implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * {@link PropertySelector} builder
+     */
+    static public <E, F> PropertySelector<E, F> property(final SingularAttribute<E, F> field, final F... values) {
+        return new PropertySelector<E, F>(field, values);
+    }
+
     private final SingularAttribute<E, F> field;
+
     private List<F> selected = new ArrayList<F>();
 
     /**
      * @param field
      *            the property that should match one of the selected value.
      */
-    public PropertySelector(SingularAttribute<E, F> field, F... values) {
+    public PropertySelector(final SingularAttribute<E, F> field, final F... values) {
         this.field = field;
         for (F value : values) {
             selected.add(value);
+        }
+    }
+
+    public void clearSelected() {
+        if (selected != null) {
+            selected.clear();
         }
     }
 
@@ -53,36 +60,23 @@ public class PropertySelector<E, F> implements Serializable {
         return selected;
     }
 
-    /**
-     * Set the possible candidates for property.
-     */
-    public void setSelected(List<F> selected) {
-        this.selected = selected;
-    }
-
-    public PropertySelector<E, F> value(F v) {
-        selected.add(v);
-        return this;
+    public boolean isBoolean() {
+        return (field != null) && field.getJavaType().isAssignableFrom(Boolean.class);
     }
 
     public boolean isNotEmpty() {
-        return selected != null && !selected.isEmpty();
-    }
-
-    public void clearSelected() {
-        if (selected != null) {
-            selected.clear();
-        }
-    }
-
-    public boolean isBoolean() {
-        return field != null && field.getJavaType().isAssignableFrom(Boolean.class);
+        return (selected != null) && !selected.isEmpty();
     }
 
     /**
-     * {@link PropertySelector} builder
+     * Set the possible candidates for property.
      */
-    static public <E, F> PropertySelector<E, F> property(SingularAttribute<E, F> field, F... values) {
-        return new PropertySelector<E, F>(field, values);
+    public void setSelected(final List<F> selected) {
+        this.selected = selected;
+    }
+
+    public PropertySelector<E, F> value(final F v) {
+        selected.add(v);
+        return this;
     }
 }

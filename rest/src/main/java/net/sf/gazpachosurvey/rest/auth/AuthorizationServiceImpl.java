@@ -23,7 +23,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     private LoginServiceFactory loginServiceFactory;
 
     @Override
-    public SecurityContext authorize(AuthorizationRequestContext authRequestContext) {
+    public SecurityContext authorize(final AuthorizationRequestContext authRequestContext) {
         String[] userAndPassword = BasicAuthHelper.decode(authRequestContext.getAuthorizationToken());
         if (userAndPassword == null || userAndPassword.length != 2) {
             logger.error("Bad credentials: {}", authRequestContext.getAuthorizationToken());
@@ -42,7 +42,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         return SecurityContextImpl.with().principal(person).roles(person.getRoles()).build();
     }
 
-    private LoginService selectLoginService(String userName) {
+    private LoginService selectLoginService(final String userName) {
         LoginService loginService = null;
 
         if (LoginService.RESPONDENT_USER_NAME.equals(userName)) {

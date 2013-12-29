@@ -32,10 +32,18 @@ public class RespondentRepositoryTest {
     private RespondentRepository repository;
 
     @Autowired
-    private SurveyRepository surveyRepository;
+    private SurveyInstanceRepository surveyInstanceRepository;
 
     @Autowired
-    private SurveyInstanceRepository surveyInstanceRepository;
+    private SurveyRepository surveyRepository;
+
+    @Test
+    public void findOneTest() {
+        Respondent respondent = repository.findOne(127);
+
+        Set<BrowsedElement> browsedElements = respondent.getBrowsedElements();
+        assertThat(browsedElements).isNotEmpty();
+    }
 
     @Test
     public void saveTest() {
@@ -46,14 +54,6 @@ public class RespondentRepositoryTest {
         Respondent created = repository.save(respondent);
 
         assertThat(created.getId()).isGreaterThan(0);
-    }
-
-    @Test
-    public void findOneTest() {
-        Respondent respondent = repository.findOne(127);
-        
-        Set<BrowsedElement> browsedElements = respondent.getBrowsedElements();
-        assertThat(browsedElements).isNotEmpty();
     }
 
 }

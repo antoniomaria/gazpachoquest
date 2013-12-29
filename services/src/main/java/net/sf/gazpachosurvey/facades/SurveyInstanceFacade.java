@@ -4,10 +4,10 @@ import net.sf.gazpachosurvey.dto.SurveyInstanceDTO;
 
 public interface SurveyInstanceFacade {
 
-    SurveyInstanceDTO save(SurveyInstanceDTO surveyInstance);
-
     void delete(Integer id);
 
     SurveyInstanceDTO findOne(Integer id);
+
+    SurveyInstanceDTO save(SurveyInstanceDTO surveyInstance);
 
 }

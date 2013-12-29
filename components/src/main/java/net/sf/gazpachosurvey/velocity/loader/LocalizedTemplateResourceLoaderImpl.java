@@ -39,8 +39,28 @@ public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader implemen
     @Autowired
     private MailMessageTemplateTranslationRepository translationRepository;
 
+    /**
+     * @see org.apache.velocity.runtime.resource.loader.ResourceLoader#getLastModified(org.apache.velocity.runtime.resource.Resource)
+     */
     @Override
-    public void init(ExtendedProperties configuration) {
+    public long getLastModified(final Resource resource) {
+        return readLastModified(resource, "getting timestamp");
+    }
+
+    @Override
+    public InputStream getResourceStream(final String templateName) throws ResourceNotFoundException {
+        Integer templateId = readTemplateId(templateName);
+        Language language = readTemplateLanguage(templateName);
+
+        MailMessageTemplateLanguageSettings languageSettings = readLanguageSettings(templateId, language);
+        if (languageSettings == null) {
+            throw new ResourceNotFoundException("Template not found");
+        }
+        return new ByteArrayInputStream(languageSettings.getBody().getBytes(Charset.forName("UTF-8")));
+    }
+
+    @Override
+    public void init(final ExtendedProperties configuration) {
     }
 
     @Override
@@ -48,7 +68,12 @@ public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader implemen
         return true;
     }
 
-    protected Integer readTemplateId(String templateName) {
+    @Override
+    public boolean isSourceModified(final Resource resource) {
+        return (resource.getLastModified() != readLastModified(resource, "checking timestamp"));
+    }
+
+    protected Integer readTemplateId(final String templateName) {
         if (StringUtils.isEmpty(templateName)) {
             throw new ResourceNotFoundException("DataSourceResourceLoader: Template name was empty or null");
         }
@@ -62,7 +87,7 @@ public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader implemen
         return templateId;
     }
 
-    protected Language readTemplateLanguage(String templateName) {
+    protected Language readTemplateLanguage(final String templateName) {
         if (StringUtils.isEmpty(templateName)) {
             throw new ResourceNotFoundException("DataSourceResourceLoader: Template name was empty or null");
         }
@@ -84,19 +109,7 @@ public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader implemen
         return language;
     }
 
-    @Override
-    public InputStream getResourceStream(String templateName) throws ResourceNotFoundException {
-        Integer templateId = readTemplateId(templateName);
-        Language language = readTemplateLanguage(templateName);
-
-        MailMessageTemplateLanguageSettings languageSettings = readLanguageSettings(templateId, language);
-        if (languageSettings == null) {
-            throw new ResourceNotFoundException("Template not found");
-        }
-        return new ByteArrayInputStream(languageSettings.getBody().getBytes(Charset.forName("UTF-8")));
-    }
-
-    private MailMessageTemplateLanguageSettings readLanguageSettings(Integer templateId, Language language) {
+    private MailMessageTemplateLanguageSettings readLanguageSettings(final Integer templateId, final Language language) {
         MailMessageTemplateLanguageSettings languageSettings = null;
         MailMessageTemplate template = templateRepository.findOne(templateId);
         if (template != null) {
@@ -108,7 +121,7 @@ public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader implemen
                 example.setMailMessageTemplate(MailMessageTemplate.with().id(templateId).build());
                 List<MailMessageTemplateTranslation> translations = translationRepository.findByExample(example,
                         new SearchParameters());
-                if (translations != null && !translations.isEmpty()) {
+                if ((translations != null) && !translations.isEmpty()) {
                     languageSettings = translations.get(0).getLanguageSettings();
                 } else {
                     languageSettings = template.getLanguageSettings();
@@ -120,20 +133,7 @@ public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader implemen
         return languageSettings;
     }
 
-    @Override
-    public boolean isSourceModified(final Resource resource) {
-        return (resource.getLastModified() != readLastModified(resource, "checking timestamp"));
-    }
-
-    /**
-     * @see org.apache.velocity.runtime.resource.loader.ResourceLoader#getLastModified(org.apache.velocity.runtime.resource.Resource)
-     */
-    @Override
-    public long getLastModified(final Resource resource) {
-        return readLastModified(resource, "getting timestamp");
-    }
-
-    private long readLastModified(Resource resource, String operation) {
+    private long readLastModified(final Resource resource, final String operation) {
 
         String templateName = resource.getName();
         Integer templateId = readTemplateId(templateName);

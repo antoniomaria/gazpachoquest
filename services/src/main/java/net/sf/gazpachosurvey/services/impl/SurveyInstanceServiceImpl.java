@@ -54,7 +54,7 @@ public class SurveyInstanceServiceImpl extends AbstractPersistenceService<Survey
     private MailMessageRepository mailMessageRepository;
 
     @Autowired
-    public SurveyInstanceServiceImpl(SurveyInstanceRepository repository) {
+    public SurveyInstanceServiceImpl(final SurveyInstanceRepository repository) {
         super(repository);
     }
 
@@ -88,8 +88,8 @@ public class SurveyInstanceServiceImpl extends AbstractPersistenceService<Survey
         return running;
     }
 
-    private MailMessage composeMailMessage(MailMessageTemplate mailMessageTemplate, Participant participant,
-            String surveyLinkToken) {
+    private MailMessage composeMailMessage(final MailMessageTemplate mailMessageTemplate,
+            final Participant participant, final String surveyLinkToken) {
 
         Map<String, Object> model = new HashMap<>();
         model.put("lastname", StringUtils.defaultIfBlank(participant.getLastname(), ""));

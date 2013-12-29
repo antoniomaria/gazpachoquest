@@ -1,17 +1,10 @@
 /*
- *  Copyright 2012 JAXIO http://www.jaxio.com
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2012 JAXIO http://www.jaxio.com Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 package net.sf.gazpachosurvey.repository.qbe;
 
@@ -33,22 +26,53 @@ import org.apache.commons.lang.Validate;
 public class EntitySelector<E, T extends Persistable, TPK extends Serializable> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private final SingularAttribute<E, TPK> field;
+    /**
+     * Import statically this helper for smooth instanciation.
+     */
+    static public <E2, T2 extends Persistable, TPK2 extends Serializable> EntitySelector<E2, T2, TPK2> entitySelector(
+            final SingularAttribute<E2, TPK2> field) {
+        return new EntitySelector<E2, T2, TPK2>(field);
+    }
+
+    static public <E2, T2 extends Persistable, TPK2 extends Serializable> EntitySelector<E2, T2, TPK2> entitySelector(
+            final SingularAttribute<E2, TPK2> field, final T2... values) {
+        return new EntitySelector<E2, T2, TPK2>(field, values);
+    }
+
+    /**
+     * Import statically this helper for smooth instanciation. It is used in the case where the PK is composite AND the
+     * pk member(s) are/is also a foreign key.
+     */
+    static public <E2, T2 extends Persistable, TPK2 extends Serializable, CPK2> EntitySelector<E2, T2, TPK2> newEntitySelectorInCpk(
+            final SingularAttribute<E2, CPK2> cpkField, final SingularAttribute<CPK2, TPK2> cpkInnerField) {
+        return new EntitySelector<E2, T2, TPK2>(cpkField, cpkInnerField);
+    }
+
     private final SingularAttribute<E, ?> cpkField;
+
     private final SingularAttribute<?, TPK> cpkInnerField;
+
+    private final SingularAttribute<E, TPK> field;
+
     private List<T> selected = new ArrayList<T>();
+
+    public EntitySelector(final SingularAttribute<E, ?> cpkField, final SingularAttribute<?, TPK> cpkInnerField) {
+        this.cpkField = cpkField;
+        this.cpkInnerField = cpkInnerField;
+        this.field = null; // not used
+    }
 
     /**
      * @param field
      *            the property holding an foreign key.
      */
-    public EntitySelector(SingularAttribute<E, TPK> field) {
+    public EntitySelector(final SingularAttribute<E, TPK> field) {
         this.field = field;
         this.cpkField = null;
         this.cpkInnerField = null;
     }
 
-    public EntitySelector(SingularAttribute<E, TPK> field, T... values) {
+    public EntitySelector(final SingularAttribute<E, TPK> field, final T... values) {
         this(field);
         for (T value : values) {
             Validate.notNull(value);
@@ -56,14 +80,10 @@ public class EntitySelector<E, T extends Persistable, TPK extends Serializable> 
         }
     }
 
-    public EntitySelector(SingularAttribute<E, ?> cpkField, SingularAttribute<?, TPK> cpkInnerField) {
-        this.cpkField = cpkField;
-        this.cpkInnerField = cpkInnerField;
-        this.field = null; // not used
-    }
-
-    public SingularAttribute<E, TPK> getField() {
-        return field;
+    public void clearSelected() {
+        if (selected != null) {
+            selected.clear();
+        }
     }
 
     public SingularAttribute<E, ?> getCpkField() {
@@ -74,6 +94,10 @@ public class EntitySelector<E, T extends Persistable, TPK extends Serializable> 
         return cpkInnerField;
     }
 
+    public SingularAttribute<E, TPK> getField() {
+        return field;
+    }
+
     /**
      * Get the possible candidates for the x-to-one association.
      */
@@ -81,14 +105,11 @@ public class EntitySelector<E, T extends Persistable, TPK extends Serializable> 
         return selected;
     }
 
-    /**
-     * Set the possible candidates for the x-to-one association.
-     */
-    public void setSelected(List<T> selected) {
-        this.selected = selected;
+    public boolean isNotEmpty() {
+        return (selected != null) && !selected.isEmpty();
     }
 
-    public void selected(T... selected) {
+    public void selected(final T... selected) {
         List<T> t = new ArrayList<T>();
         for (T s : selected) {
             t.add(s);
@@ -96,35 +117,10 @@ public class EntitySelector<E, T extends Persistable, TPK extends Serializable> 
         this.selected = t;
     }
 
-    public boolean isNotEmpty() {
-        return selected != null && !selected.isEmpty();
-    }
-
-    public void clearSelected() {
-        if (selected != null) {
-            selected.clear();
-        }
-    }
-
     /**
-     * Import statically this helper for smooth instanciation.
+     * Set the possible candidates for the x-to-one association.
      */
-    static public <E2, T2 extends Persistable, TPK2 extends Serializable> EntitySelector<E2, T2, TPK2> entitySelector(
-            SingularAttribute<E2, TPK2> field) {
-        return new EntitySelector<E2, T2, TPK2>(field);
-    }
-
-    static public <E2, T2 extends Persistable, TPK2 extends Serializable> EntitySelector<E2, T2, TPK2> entitySelector(
-            SingularAttribute<E2, TPK2> field, T2... values) {
-        return new EntitySelector<E2, T2, TPK2>(field, values);
-    }
-
-    /**
-     * Import statically this helper for smooth instanciation. It is used in the case where the PK is composite AND the
-     * pk member(s) are/is also a foreign key.
-     */
-    static public <E2, T2 extends Persistable, TPK2 extends Serializable, CPK2> EntitySelector<E2, T2, TPK2> newEntitySelectorInCpk(
-            SingularAttribute<E2, CPK2> cpkField, SingularAttribute<CPK2, TPK2> cpkInnerField) {
-        return new EntitySelector<E2, T2, TPK2>(cpkField, cpkInnerField);
+    public void setSelected(final List<T> selected) {
+        this.selected = selected;
     }
 }

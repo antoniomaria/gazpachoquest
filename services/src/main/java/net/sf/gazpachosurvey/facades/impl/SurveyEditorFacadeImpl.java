@@ -69,21 +69,48 @@ public final class SurveyEditorFacadeImpl implements SurveyEditorFacade {
     }
 
     @Override
-    public LabelSetDTO save(LabelSetDTO labelSet) {
-        LabelSet entity = mapper.map(labelSet, LabelSet.class);
-        entity = labelSetService.save(entity);
-        return mapper.map(entity, LabelSetDTO.class);
+    public void confirm(final SurveyDTO survey) {
+        Survey entity = mapper.map(survey, Survey.class);
+        surveyService.confirm(entity);
     }
 
     @Override
-    public LabelDTO save(LabelDTO label) {
+    public LabelDTO save(final LabelDTO label) {
         Label entity = mapper.map(label, Label.class);
         entity = labelService.save(entity);
         return mapper.map(entity, LabelDTO.class);
     }
 
     @Override
-    public SurveyDTO save(SurveyDTO survey) {
+    public LabelSetDTO save(final LabelSetDTO labelSet) {
+        LabelSet entity = mapper.map(labelSet, LabelSet.class);
+        entity = labelSetService.save(entity);
+        return mapper.map(entity, LabelSetDTO.class);
+    }
+
+    @Override
+    public QuestionDTO save(final QuestionDTO question) {
+        Question entity = mapper.map(question, Question.class);
+        entity = questionService.save(entity);
+        return mapper.map(entity, QuestionDTO.class);
+    }
+
+    @Override
+    public QuestionGroupDTO save(final QuestionGroupDTO questionGroup) {
+        QuestionGroup entity = mapper.map(questionGroup, QuestionGroup.class);
+        entity = questionGroupService.save(entity);
+        return mapper.map(entity, QuestionGroupDTO.class);
+    }
+
+    @Override
+    public QuestionOptionDTO save(final QuestionOptionDTO questionOption) {
+        QuestionOption entity = mapper.map(questionOption, QuestionOption.class);
+        entity = questionOptionService.save(entity);
+        return mapper.map(entity, QuestionOptionDTO.class);
+    }
+
+    @Override
+    public SurveyDTO save(final SurveyDTO survey) {
         Survey entity = mapper.map(survey, Survey.class);
         entity = surveyService.save(entity);
 
@@ -95,49 +122,8 @@ public final class SurveyEditorFacadeImpl implements SurveyEditorFacade {
     }
 
     @Override
-    public void confirm(SurveyDTO survey) {
-        Survey entity = mapper.map(survey, Survey.class);
-        surveyService.confirm(entity);
-    }
-
-    @Override
-    public QuestionGroupDTO save(QuestionGroupDTO questionGroup) {
-        QuestionGroup entity = mapper.map(questionGroup, QuestionGroup.class);
-        entity = questionGroupService.save(entity);
-        return mapper.map(entity, QuestionGroupDTO.class);
-    }
-
-    @Override
-    public QuestionDTO save(QuestionDTO question) {
-        Question entity = mapper.map(question, Question.class);
-        entity = questionService.save(entity);
-        return mapper.map(entity, QuestionDTO.class);
-    }
-
-    @Override
-    public QuestionOptionDTO save(QuestionOptionDTO questionOption) {
-        QuestionOption entity = mapper.map(questionOption, QuestionOption.class);
-        entity = questionOptionService.save(entity);
-        return mapper.map(entity, QuestionOptionDTO.class);
-    }
-
-    @Override
-    public TranslationDTO<SurveyDTO, SurveyLanguageSettingsDTO> saveSurveyTranslation(
-            TranslationDTO<SurveyDTO, SurveyLanguageSettingsDTO> translation) {
-
-        SurveyLanguageSettings languageSettings = mapper.map(translation.getLanguageSettings(),
-                SurveyLanguageSettings.class);
-        Survey entity = mapper.map(translation.getTranslatedEntity(), Survey.class);
-        SurveyTranslation translationEntity = SurveyTranslation.with().language(translation.getLanguage())
-                .languageSettings(languageSettings).survey(entity).build();
-        SurveyTranslation tr = surveyService.saveTranslation(translationEntity);
-        translation.setId(tr.getId());
-        return translation;
-    }
-
-    @Override
     public TranslationDTO<LabelDTO, LabelLanguageSettingsDTO> saveLabelTranslation(
-            TranslationDTO<LabelDTO, LabelLanguageSettingsDTO> translation) {
+            final TranslationDTO<LabelDTO, LabelLanguageSettingsDTO> translation) {
         LabelLanguageSettings languageSettings = mapper.map(translation.getLanguageSettings(),
                 LabelLanguageSettings.class);
 
@@ -150,22 +136,8 @@ public final class SurveyEditorFacadeImpl implements SurveyEditorFacade {
     }
 
     @Override
-    public TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> saveQuestionTranslation(
-            TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> translation) {
-
-        QuestionLanguageSettings languageSettings = mapper.map(translation.getLanguageSettings(),
-                QuestionLanguageSettings.class);
-        Question entity = mapper.map(translation.getTranslatedEntity(), Question.class);
-        QuestionTranslation translationEntity = QuestionTranslation.with().language(translation.getLanguage())
-                .languageSettings(languageSettings).question(entity).build();
-        QuestionTranslation tr = questionService.saveTranslation(translationEntity);
-        translation.setId(tr.getId());
-        return translation;
-    }
-
-    @Override
     public TranslationDTO<QuestionGroupDTO, QuestionGroupLanguageSettingsDTO> saveQuestionGroupTranslation(
-            TranslationDTO<QuestionGroupDTO, QuestionGroupLanguageSettingsDTO> translation) {
+            final TranslationDTO<QuestionGroupDTO, QuestionGroupLanguageSettingsDTO> translation) {
 
         QuestionGroupLanguageSettings languageSettings = mapper.map(translation.getLanguageSettings(),
                 QuestionGroupLanguageSettings.class);
@@ -179,7 +151,7 @@ public final class SurveyEditorFacadeImpl implements SurveyEditorFacade {
 
     @Override
     public TranslationDTO<QuestionOptionDTO, QuestionOptionLanguageSettingsDTO> saveQuestionOptionTranslation(
-            TranslationDTO<QuestionOptionDTO, QuestionOptionLanguageSettingsDTO> translation) {
+            final TranslationDTO<QuestionOptionDTO, QuestionOptionLanguageSettingsDTO> translation) {
 
         QuestionOptionLanguageSettings languageSettings = mapper.map(translation.getLanguageSettings(),
                 QuestionOptionLanguageSettings.class);
@@ -187,6 +159,34 @@ public final class SurveyEditorFacadeImpl implements SurveyEditorFacade {
         QuestionOptionTranslation translationEntity = QuestionOptionTranslation.with()
                 .language(translation.getLanguage()).languageSettings(languageSettings).questionOption(entity).build();
         QuestionOptionTranslation tr = questionOptionService.saveTranslation(translationEntity);
+        translation.setId(tr.getId());
+        return translation;
+    }
+
+    @Override
+    public TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> saveQuestionTranslation(
+            final TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> translation) {
+
+        QuestionLanguageSettings languageSettings = mapper.map(translation.getLanguageSettings(),
+                QuestionLanguageSettings.class);
+        Question entity = mapper.map(translation.getTranslatedEntity(), Question.class);
+        QuestionTranslation translationEntity = QuestionTranslation.with().language(translation.getLanguage())
+                .languageSettings(languageSettings).question(entity).build();
+        QuestionTranslation tr = questionService.saveTranslation(translationEntity);
+        translation.setId(tr.getId());
+        return translation;
+    }
+
+    @Override
+    public TranslationDTO<SurveyDTO, SurveyLanguageSettingsDTO> saveSurveyTranslation(
+            final TranslationDTO<SurveyDTO, SurveyLanguageSettingsDTO> translation) {
+
+        SurveyLanguageSettings languageSettings = mapper.map(translation.getLanguageSettings(),
+                SurveyLanguageSettings.class);
+        Survey entity = mapper.map(translation.getTranslatedEntity(), Survey.class);
+        SurveyTranslation translationEntity = SurveyTranslation.with().language(translation.getLanguage())
+                .languageSettings(languageSettings).survey(entity).build();
+        SurveyTranslation tr = surveyService.saveTranslation(translationEntity);
         translation.setId(tr.getId());
         return translation;
     }

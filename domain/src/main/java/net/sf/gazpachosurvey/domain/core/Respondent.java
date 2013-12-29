@@ -85,6 +85,7 @@ public class Respondent extends AbstractPerson {
     public static Builder with() {
         return new Builder();
     }
+
     public static class Builder {
         private Integer id;
         private SurveyInstance surveyInstance;
@@ -95,7 +96,7 @@ public class Respondent extends AbstractPerson {
             this.id = id;
             return this;
         }
-        
+
         public Builder surveyInstance(SurveyInstance surveyInstance) {
             this.surveyInstance = surveyInstance;
             return this;

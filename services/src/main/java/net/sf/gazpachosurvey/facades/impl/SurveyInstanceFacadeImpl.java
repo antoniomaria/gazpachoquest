@@ -19,21 +19,21 @@ public class SurveyInstanceFacadeImpl implements SurveyInstanceFacade {
     private SurveyInstanceService surveyInstanceService;
 
     @Override
-    public SurveyInstanceDTO save(SurveyInstanceDTO surveyInstance) {
-        SurveyInstance entity = mapper.map(surveyInstance, SurveyInstance.class);
-        entity = surveyInstanceService.save(entity);
-        return mapper.map(entity, SurveyInstanceDTO.class);
+    public void delete(final Integer id) {
+        surveyInstanceService.delete(id);
     }
 
     @Override
-    public SurveyInstanceDTO findOne(Integer id) {
+    public SurveyInstanceDTO findOne(final Integer id) {
         SurveyInstance entity = surveyInstanceService.findOne(id);
         return mapper.map(entity, SurveyInstanceDTO.class);
     }
 
     @Override
-    public void delete(Integer id) {
-        surveyInstanceService.delete(id);
+    public SurveyInstanceDTO save(final SurveyInstanceDTO surveyInstance) {
+        SurveyInstance entity = mapper.map(surveyInstance, SurveyInstance.class);
+        entity = surveyInstanceService.save(entity);
+        return mapper.map(entity, SurveyInstanceDTO.class);
     }
 
 }

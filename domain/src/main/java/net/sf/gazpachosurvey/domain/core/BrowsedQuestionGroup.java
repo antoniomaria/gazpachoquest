@@ -16,10 +16,10 @@ public class BrowsedQuestionGroup extends BrowsedElement {
     @ManyToOne(fetch = FetchType.LAZY)
     private QuestionGroup questionGroup;
 
-    public BrowsedQuestionGroup(){
+    public BrowsedQuestionGroup() {
         super();
     }
-    
+
     public QuestionGroup getQuestionGroup() {
         return questionGroup;
     }
@@ -27,7 +27,7 @@ public class BrowsedQuestionGroup extends BrowsedElement {
     public void setQuestionGroup(QuestionGroup questionGroup) {
         this.questionGroup = questionGroup;
     }
-    
+
     public static Builder with() {
         return new Builder();
     }
@@ -43,11 +43,12 @@ public class BrowsedQuestionGroup extends BrowsedElement {
             this.last = last;
             return this;
         }
-        
+
         public Builder respondent(Respondent respondent) {
             this.respondent = respondent;
             return this;
         }
+
         public Builder questionGroup(QuestionGroup questionGroup) {
             this.questionGroup = questionGroup;
             return this;

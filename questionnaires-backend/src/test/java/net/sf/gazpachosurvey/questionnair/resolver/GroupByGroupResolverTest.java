@@ -1,6 +1,5 @@
 package net.sf.gazpachosurvey.questionnair.resolver;
 
-
 import java.util.List;
 
 import net.sf.gazpachosurvey.domain.core.Question;
@@ -43,25 +42,25 @@ public class GroupByGroupResolverTest {
         Integer respondentId = 113;
         Respondent respondent = respondentRepository.findOne(respondentId);
         QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(respondent, BrowsingAction.ENTERING);
-        StringBuilder out = new StringBuilder();
-        
+        new StringBuilder();
+
         List<Question> questions = questionGroup.getQuestions();
         int pos = 1;
         for (Question question : questions) {
-            
-            System.out.println(pos + ". " +question.getLanguageSettings().getTitle());
-            pos ++;
+
+            System.out.println(pos + ". " + question.getLanguageSettings().getTitle());
+            pos++;
         }
         System.out.println("*******************");
         questionGroup = (QuestionGroup) resolver.resolveFor(respondent, BrowsingAction.FORWARD);
-        
-         questions = questionGroup.getQuestions();
-         pos = 1;
+
+        questions = questionGroup.getQuestions();
+        pos = 1;
         for (Question question : questions) {
-            
-            System.out.println(pos + ". " +question.getLanguageSettings().getTitle());
-            pos ++;
+
+            System.out.println(pos + ". " + question.getLanguageSettings().getTitle());
+            pos++;
         }
- 
+
     }
 }

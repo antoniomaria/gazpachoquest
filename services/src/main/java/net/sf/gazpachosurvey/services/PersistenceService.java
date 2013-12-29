@@ -6,17 +6,17 @@ import net.sf.gazpachosurvey.domain.support.Persistable;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 
 public interface PersistenceService<T extends Persistable> {
-    List<T> findAll();
-
-    T findOne(Integer id);
-
     long count();
 
     void delete(Integer id);
 
-    T save(T entity);
+    List<T> findAll();
 
     List<T> findByExample(T example, SearchParameters searchParameters);
 
+    T findOne(Integer id);
+
     T findOneByExample(T example, SearchParameters searchParameters);
+
+    T save(T entity);
 }

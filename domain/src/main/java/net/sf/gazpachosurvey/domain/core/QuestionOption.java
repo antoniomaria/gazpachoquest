@@ -87,8 +87,8 @@ public class QuestionOption extends AbstractLocalizable<QuestionOptionTranslatio
     public void setTranslations(Map<Language, QuestionOptionTranslation> translations) {
         this.translations = translations;
     }
-    
-    public static Builder with(){
+
+    public static Builder with() {
         return new Builder();
     }
 
@@ -100,10 +100,11 @@ public class QuestionOption extends AbstractLocalizable<QuestionOptionTranslatio
         private Language language;
         private Map<Language, QuestionOptionTranslation> translations;
 
-        public Builder id(Integer id){
+        public Builder id(Integer id) {
             this.id = id;
             return this;
         }
+
         public Builder question(Question question) {
             this.question = question;
             return this;

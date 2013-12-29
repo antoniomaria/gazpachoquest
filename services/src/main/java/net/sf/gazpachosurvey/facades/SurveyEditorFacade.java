@@ -15,26 +15,22 @@ import net.sf.gazpachosurvey.dto.support.TranslationDTO;
 
 public interface SurveyEditorFacade {
 
-    LabelSetDTO save(LabelSetDTO labelSet);
+    void confirm(SurveyDTO survey);
 
     LabelDTO save(LabelDTO label);
 
-    SurveyDTO save(SurveyDTO survey);
-
-    QuestionGroupDTO save(QuestionGroupDTO questionGroup);
+    LabelSetDTO save(LabelSetDTO labelSet);
 
     QuestionDTO save(QuestionDTO question);
 
+    QuestionGroupDTO save(QuestionGroupDTO questionGroup);
+
     QuestionOptionDTO save(QuestionOptionDTO questionOption);
 
-    TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> saveQuestionTranslation(
-            TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> translation);
+    SurveyDTO save(SurveyDTO survey);
 
     TranslationDTO<LabelDTO, LabelLanguageSettingsDTO> saveLabelTranslation(
             TranslationDTO<LabelDTO, LabelLanguageSettingsDTO> translation);
-
-    TranslationDTO<SurveyDTO, SurveyLanguageSettingsDTO> saveSurveyTranslation(
-            TranslationDTO<SurveyDTO, SurveyLanguageSettingsDTO> translation);
 
     TranslationDTO<QuestionGroupDTO, QuestionGroupLanguageSettingsDTO> saveQuestionGroupTranslation(
             TranslationDTO<QuestionGroupDTO, QuestionGroupLanguageSettingsDTO> translation);
@@ -42,6 +38,10 @@ public interface SurveyEditorFacade {
     TranslationDTO<QuestionOptionDTO, QuestionOptionLanguageSettingsDTO> saveQuestionOptionTranslation(
             TranslationDTO<QuestionOptionDTO, QuestionOptionLanguageSettingsDTO> translation);
 
-    void confirm(SurveyDTO survey);
+    TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> saveQuestionTranslation(
+            TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> translation);
+
+    TranslationDTO<SurveyDTO, SurveyLanguageSettingsDTO> saveSurveyTranslation(
+            TranslationDTO<SurveyDTO, SurveyLanguageSettingsDTO> translation);
 
 }

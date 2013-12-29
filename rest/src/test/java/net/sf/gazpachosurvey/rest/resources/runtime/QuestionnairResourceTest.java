@@ -36,29 +36,10 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @DatabaseSetup("QuestionnairResource-dataset.xml")
 public class QuestionnairResourceTest {
 
-    @Rule
-    public DbUnitRule dbUnit = new DbUnitRule();
-
-    @Autowired
-    private DataSource datasource;
-
-    private JerseyTestImpl jerseyTest;
-
-    @Before
-    public void beforeMethod() throws Exception {
-        jerseyTest = new JerseyTestImpl();
-        jerseyTest.setUp();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        jerseyTest.tearDown();
-    }
-
     class JerseyTestImpl extends JerseyTest {
         @Override
-        protected void configureClient(ClientConfig config) {
-            config.register(new JacksonFeature());
+        public URI getBaseUri() {
+            return super.getBaseUri();
         }
 
         @Override
@@ -73,9 +54,23 @@ public class QuestionnairResourceTest {
         }
 
         @Override
-        public URI getBaseUri() {
-            return super.getBaseUri();
+        protected void configureClient(final ClientConfig config) {
+            config.register(new JacksonFeature());
         }
+    }
+
+    @Rule
+    public DbUnitRule dbUnit = new DbUnitRule();
+
+    @Autowired
+    private DataSource datasource;
+
+    private JerseyTestImpl jerseyTest;
+
+    @Before
+    public void beforeMethod() throws Exception {
+        jerseyTest = new JerseyTestImpl();
+        jerseyTest.setUp();
     }
 
     @Test
@@ -85,6 +80,11 @@ public class QuestionnairResourceTest {
         QuestionnairDefinitionBean definition = client().target(getBaseUri() + "questionnair/definition").request()
                 .accept(MediaType.APPLICATION_JSON).get(QuestionnairDefinitionBean.class);
         System.out.println(definition);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        jerseyTest.tearDown();
     }
 
     protected Client client() {

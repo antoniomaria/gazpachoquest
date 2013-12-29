@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSet> implements LabelSetService {
 
     @Autowired
-    public LabelSetServiceImpl(LabelSetRepository repository) {
+    public LabelSetServiceImpl(final LabelSetRepository repository) {
         super(repository);
     }
 
     @Override
-    public LabelSet save(LabelSet labelSet) {
+    public LabelSet save(final LabelSet labelSet) {
         LabelSet existing = null;
         if (labelSet.isNew()) {
             existing = repository.save(labelSet);

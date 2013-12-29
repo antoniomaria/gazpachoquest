@@ -21,12 +21,42 @@ import org.springframework.data.jpa.repository.query.QueryExtractor;
 public enum DefaultPersistenceProvider implements QueryExtractor, Serializable {
 
     /**
+     * EclipseLink persistence provider.
+     */
+    ECLIPSELINK("org.eclipse.persistence.jpa.JpaEntityManager") {
+
+        @Override
+        public String extractQueryString(final Query query) {
+            return ((JpaQuery<?>) query).getDatabaseQuery().getJPQLString();
+        }
+
+    },
+
+    /**
+     * Unknown special provider. Use standard JPA.
+     */
+    GENERIC_JPA("javax.persistence.EntityManager") {
+
+        @Override
+        public boolean canExtractQuery() {
+
+            return false;
+        }
+
+        @Override
+        public String extractQueryString(final Query query) {
+
+            return null;
+        }
+    },
+
+    /**
      * Hibernate persistence provider.
      */
     HIBERNATE("org.hibernate.ejb.HibernateEntityManager") {
 
         @Override
-        public String extractQueryString(Query query) {
+        public String extractQueryString(final Query query) {
 
             // return ((HibernateQuery)
             // query).getHibernateQuery().getQueryString();
@@ -48,59 +78,16 @@ public enum DefaultPersistenceProvider implements QueryExtractor, Serializable {
     },
 
     /**
-     * EclipseLink persistence provider.
-     */
-    ECLIPSELINK("org.eclipse.persistence.jpa.JpaEntityManager") {
-
-        @Override
-        public String extractQueryString(Query query) {
-            return ((JpaQuery<?>) query).getDatabaseQuery().getJPQLString();
-        }
-
-    },
-
-    /**
      * OpenJpa persistence provider.
      */
     OPEN_JPA("org.apache.openjpa.persistence.OpenJPAEntityManager") {
 
         @Override
-        public String extractQueryString(Query query) {
+        public String extractQueryString(final Query query) {
             // return ((OpenJPAQuery) query).getQueryString();
             return null;
         }
-    },
-
-    /**
-     * Unknown special provider. Use standard JPA.
-     */
-    GENERIC_JPA("javax.persistence.EntityManager") {
-
-        @Override
-        public String extractQueryString(Query query) {
-
-            return null;
-        }
-
-        @Override
-        public boolean canExtractQuery() {
-
-            return false;
-        }
     };
-
-    private String entityManagerClassName;
-
-    /**
-     * Creates a new {@link PersistenceProvider}.
-     * 
-     * @param entityManagerClassName
-     *            the name of the provider specific {@link EntityManager} implementation
-     */
-    private DefaultPersistenceProvider(String entityManagerClassName) {
-
-        this.entityManagerClassName = entityManagerClassName;
-    }
 
     /**
      * Determines the {@link PersistenceProvider} from the given {@link EntityManager}. If no special one can be
@@ -109,7 +96,7 @@ public enum DefaultPersistenceProvider implements QueryExtractor, Serializable {
      * @param em
      * @return
      */
-    public static DefaultPersistenceProvider fromEntityManager(EntityManager em) {
+    public static DefaultPersistenceProvider fromEntityManager(final EntityManager em) {
 
         for (DefaultPersistenceProvider provider : values()) {
             if (isEntityManagerOfType(em, provider.entityManagerClassName)) {
@@ -120,9 +107,21 @@ public enum DefaultPersistenceProvider implements QueryExtractor, Serializable {
         return GENERIC_JPA;
     }
 
+    private String entityManagerClassName;
+
+    /**
+     * Creates a new {@link PersistenceProvider}.
+     * 
+     * @param entityManagerClassName
+     *            the name of the provider specific {@link EntityManager} implementation
+     */
+    private DefaultPersistenceProvider(final String entityManagerClassName) {
+
+        this.entityManagerClassName = entityManagerClassName;
+    }
+
     /*
      * (non-Javadoc)
-     * 
      * @see org.springframework.data.jpa.repository.query.QueryExtractor#canExtractQuery ()
      */
     @Override

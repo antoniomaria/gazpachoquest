@@ -1,17 +1,10 @@
 /*
- *  Copyright 2012 JAXIO http://www.jaxio.com
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2012 JAXIO http://www.jaxio.com Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 package net.sf.gazpachosurvey.repository.qbe;
 
@@ -36,35 +29,7 @@ import org.apache.commons.lang.StringUtils;
 
 public class JpaUtil {
 
-    public static boolean isEntityIdManuallyAssigned(Class<?> type) {
-        for (Method method : type.getMethods()) {
-            if (isPrimaryKey(method)) {
-                return isManuallyAssigned(method);
-            }
-        }
-        return false; // no pk found, should not happen
-    }
-
-    private static boolean isPrimaryKey(Method method) {
-        return isPublic(method.getModifiers())
-                && (method.getAnnotation(Id.class) != null || method.getAnnotation(EmbeddedId.class) != null);
-    }
-
-    private static boolean isManuallyAssigned(Method method) {
-        if (method.getAnnotation(Id.class) != null) {
-            return method.getAnnotation(GeneratedValue.class) == null;
-        } else if (method.getAnnotation(EmbeddedId.class) != null) {
-            return true;
-        } else {
-            return true;
-        }
-    }
-
-    public static Predicate andPredicate(CriteriaBuilder builder, Predicate... predicatesNullAllowed) {
-        return andPredicate(builder, Arrays.asList(predicatesNullAllowed));
-    }
-
-    public static Predicate andPredicate(CriteriaBuilder builder, Iterable<Predicate> predicatesNullAllowed) {
+    public static Predicate andPredicate(final CriteriaBuilder builder, final Iterable<Predicate> predicatesNullAllowed) {
         List<Predicate> predicates = withoutNullEntries(predicatesNullAllowed);
         if (predicates.isEmpty()) {
             return null;
@@ -75,7 +40,36 @@ public class JpaUtil {
         }
     }
 
-    public static Predicate orPredicate(CriteriaBuilder builder, Iterable<Predicate> predicatesNullAllowed) {
+    public static Predicate andPredicate(final CriteriaBuilder builder, final Predicate... predicatesNullAllowed) {
+        return andPredicate(builder, Arrays.asList(predicatesNullAllowed));
+    }
+
+    public static <E> List<Order> buildJpaOrders(final Iterable<OrderBy> orders, final Root<E> root,
+            final CriteriaBuilder builder) {
+        List<Order> jpaOrders = new ArrayList<Order>();
+
+        for (OrderBy ob : orders) {
+            Path<?> path = getPropertyPath(root, ob.getProperty());
+
+            if (ob.isOrderDesc()) {
+                jpaOrders.add(builder.desc(path));
+            } else {
+                jpaOrders.add(builder.asc(path));
+            }
+        }
+        return jpaOrders;
+    }
+
+    public static boolean isEntityIdManuallyAssigned(final Class<?> type) {
+        for (Method method : type.getMethods()) {
+            if (isPrimaryKey(method)) {
+                return isManuallyAssigned(method);
+            }
+        }
+        return false; // no pk found, should not happen
+    }
+
+    public static Predicate orPredicate(final CriteriaBuilder builder, final Iterable<Predicate> predicatesNullAllowed) {
         List<Predicate> predicates = withoutNullEntries(predicatesNullAllowed);
         if (predicates.isEmpty()) {
             return null;
@@ -86,8 +80,8 @@ public class JpaUtil {
         }
     }
 
-    public static <E> Predicate stringPredicate(Expression<String> path, Object attrValue, SearchParameters sp,
-            CriteriaBuilder builder) {
+    public static <E> Predicate stringPredicate(Expression<String> path, Object attrValue, final SearchParameters sp,
+            final CriteriaBuilder builder) {
         if (sp.isCaseInsensitive()) {
             path = builder.lower(path);
             attrValue = ((String) attrValue).toLowerCase();
@@ -111,26 +105,11 @@ public class JpaUtil {
         }
     }
 
-    public static <E> List<Order> buildJpaOrders(Iterable<OrderBy> orders, Root<E> root, CriteriaBuilder builder) {
-        List<Order> jpaOrders = new ArrayList<Order>();
-
-        for (OrderBy ob : orders) {
-            Path<?> path = getPropertyPath(root, ob.getProperty());
-
-            if (ob.isOrderDesc()) {
-                jpaOrders.add(builder.desc(path));
-            } else {
-                jpaOrders.add(builder.asc(path));
-            }
-        }
-        return jpaOrders;
-    }
-
     /**
      * Convert the passed propertyPath into a JPA path. Note: JPA will do joins if the property is in an associated
      * entity.
      */
-    private static <E> Path<?> getPropertyPath(Path<E> root, String propertyPath) {
+    private static <E> Path<?> getPropertyPath(final Path<E> root, final String propertyPath) {
         String[] pathItems = StringUtils.split(propertyPath, ".");
 
         Path<?> path = root.get(pathItems[0]);
@@ -140,7 +119,22 @@ public class JpaUtil {
         return path;
     }
 
-    private static <T> List<T> withoutNullEntries(Iterable<T> input) {
+    private static boolean isManuallyAssigned(final Method method) {
+        if (method.getAnnotation(Id.class) != null) {
+            return method.getAnnotation(GeneratedValue.class) == null;
+        } else if (method.getAnnotation(EmbeddedId.class) != null) {
+            return true;
+        } else {
+            return true;
+        }
+    }
+
+    private static boolean isPrimaryKey(final Method method) {
+        return isPublic(method.getModifiers())
+                && ((method.getAnnotation(Id.class) != null) || (method.getAnnotation(EmbeddedId.class) != null));
+    }
+
+    private static <T> List<T> withoutNullEntries(final Iterable<T> input) {
         List<T> output = new ArrayList<T>();
         for (T element : input) {
             if (element != null) {

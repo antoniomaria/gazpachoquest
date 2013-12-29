@@ -31,15 +31,15 @@ public class RespondentLoginServiceTest {
     @Autowired
     private RespondentAnswersRepository respondentAnswersRepository;
 
+    @Test
+    public void loginTest() {
+        loginService.login("", "PZXDUNZKK2");
+    }
+
     @Before
     public void setUp() {
         respondentAnswersRepository.collectAnswers(Survey.with().id(56).build());
         respondentAnswersRepository.activeAllAnswers();
 
-    }
-
-    @Test
-    public void loginTest() {
-        loginService.login("", "PZXDUNZKK2");
     }
 }

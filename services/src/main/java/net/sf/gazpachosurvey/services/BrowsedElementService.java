@@ -1,10 +1,10 @@
 package net.sf.gazpachosurvey.services;
 
-import org.joda.time.DateTime;
-
 import net.sf.gazpachosurvey.domain.core.BrowsedElement;
 
-public interface BrowsedElementService extends PersistenceService<BrowsedElement>{
+import org.joda.time.DateTime;
+
+public interface BrowsedElementService extends PersistenceService<BrowsedElement> {
 
     BrowsedElement findLast(Integer respondentId);
 

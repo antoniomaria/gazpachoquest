@@ -31,9 +31,10 @@ public class BrowsedQuestion extends BrowsedElement {
     public static Builder with() {
         return new Builder();
     }
+
     public static class Builder {
         private Integer id;
-        
+
         private Question question;
 
         private Respondent respondent;
@@ -49,10 +50,12 @@ public class BrowsedQuestion extends BrowsedElement {
             this.respondent = respondent;
             return this;
         }
+
         public Builder id(Integer id) {
             this.id = id;
             return this;
         }
+
         public Builder question(Question question) {
             this.question = question;
             return this;

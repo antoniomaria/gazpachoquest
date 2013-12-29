@@ -35,7 +35,7 @@ public class QuestionGroupTranslation extends AbstractPersistable implements Tra
     }
 
     public QuestionGroup getQuestionGroup() {
-        if (questionGroup == null){
+        if (questionGroup == null) {
             return new QuestionGroup();
         }
         return questionGroup;
@@ -64,8 +64,8 @@ public class QuestionGroupTranslation extends AbstractPersistable implements Tra
     public void setLanguageSettings(QuestionGroupLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }
-    
-    public static Builder with(){
+
+    public static Builder with() {
         return new Builder();
     }
 

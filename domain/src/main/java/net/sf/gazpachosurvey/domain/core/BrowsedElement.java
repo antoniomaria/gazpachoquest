@@ -21,7 +21,7 @@ public class BrowsedElement extends AbstractAuditable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     protected Respondent respondent;
-    
+
     @Basic
     protected Boolean last;
 
@@ -48,7 +48,6 @@ public class BrowsedElement extends AbstractAuditable {
         this.last = actual;
     }
 
-
     public static class Builder {
         private Respondent respondent;
         private Boolean last;
@@ -62,7 +61,7 @@ public class BrowsedElement extends AbstractAuditable {
             this.last = last;
             return this;
         }
-        
+
         public BrowsedElement build() {
             BrowsedElement browsedElement = new BrowsedElement();
             browsedElement.respondent = respondent;

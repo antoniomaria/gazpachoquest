@@ -27,7 +27,7 @@ public class RespondentLoginServiceImpl implements LoginService {
     private RespondentRepository respondentRepository;
 
     @Override
-    public Person login(String userName, String password) {
+    public Person login(final String userName, final String password) {
         Invitation invitation = invitationRepository.findOneByExample(Invitation.with().token(password).build(),
                 new SearchParameters().caseSensitive().equals());
         if (invitation == null) {

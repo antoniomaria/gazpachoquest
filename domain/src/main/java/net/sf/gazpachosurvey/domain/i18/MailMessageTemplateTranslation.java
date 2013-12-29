@@ -62,8 +62,8 @@ public class MailMessageTemplateTranslation extends AbstractAuditable implements
     public void setLanguageSettings(MailMessageTemplateLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }
-    
-    public static Builder with(){
+
+    public static Builder with() {
         return new Builder();
     }
 

@@ -30,11 +30,11 @@ public class QuestionGroupRepositoryTest {
     private QuestionGroupRepository questionGroupRepository;
 
     @Test
-    public void findQuestionGroupsBySurveyTest() {
-        int surveyId = 2;
-        List<QuestionGroup> questiongroups = questionGroupRepository.findBySurveyId(surveyId);
-        assertThat(questiongroups).hasSize(3);
-
+    public void findOneByPositionInSurveyTest() {
+        Integer position = 2;
+        Integer surveyId = 2;
+        QuestionGroup questionGroup = questionGroupRepository.findOneByPositionInSurvey(surveyId, position);
+        assertThat(questionGroup).isEqualTo(QuestionGroup.with().id(6).build());
     }
 
     @Test
@@ -45,11 +45,11 @@ public class QuestionGroupRepositoryTest {
     }
 
     @Test
-    public void findOneByPositionInSurveyTest() {
-        Integer position = 2;
-        Integer surveyId = 2;
-        QuestionGroup questionGroup = questionGroupRepository.findOneByPositionInSurvey(surveyId, position);
-        assertThat(questionGroup).isEqualTo(QuestionGroup.with().id(6).build());
+    public void findQuestionGroupsBySurveyTest() {
+        int surveyId = 2;
+        List<QuestionGroup> questiongroups = questionGroupRepository.findBySurveyId(surveyId);
+        assertThat(questiongroups).hasSize(3);
+
     }
 
 }

@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends AbstractPersistenceService<User> implements UserService {
 
     @Autowired
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(final UserRepository repository) {
         super(repository);
     }
 
     @Override
-    public User save(User user) {
+    public User save(final User user) {
         User existing = null;
         if (user.isNew()) {
             existing = repository.save(user);
