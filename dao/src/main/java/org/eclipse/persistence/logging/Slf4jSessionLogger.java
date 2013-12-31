@@ -117,6 +117,8 @@ public class Slf4jSessionLogger extends AbstractSessionLog {
         case ERROR:
             logger.error(message.toString());
             break;
+        default:
+            break;
         }
     }
 

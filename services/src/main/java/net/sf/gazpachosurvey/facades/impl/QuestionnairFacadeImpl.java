@@ -97,6 +97,8 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
 
                     questionGroup = previous.getQuestionGroup();
                     break;
+                default:
+                    break;
                 }
             }
         }

@@ -42,10 +42,10 @@ public class DBUnitDataExtractor {
     private DataSource dataSource;
     private Map dbUnitFeatures;
     private Map dbUnitProperties;
-    private List queryList;
+    private List<String> queryList;
 
     private String schema;
-    private List tableList;
+    private List<String> tableList;
 
     /**
      * Performs the extraction. If no tables or queries are specified, data from entire database will be extracted.
@@ -122,7 +122,7 @@ public class DBUnitDataExtractor {
      * @param list
      *            of SQL queries.
      */
-    public void setQueryList(final List list) {
+    public void setQueryList(final List<String> list) {
         queryList = list;
     }
 
@@ -141,7 +141,7 @@ public class DBUnitDataExtractor {
      * @param list
      *            of table names.
      */
-    public void setTableList(final List list) {
+    public void setTableList(final List<String> list) {
         tableList = list;
     }
 
@@ -149,8 +149,8 @@ public class DBUnitDataExtractor {
         if (queryList == null) {
             return;
         }
-        for (Iterator k = queryList.iterator(); k.hasNext();) {
-            String query = (String) k.next();
+        for (Object element : queryList) {
+            String query = (String) element;
             Matcher m = TABLE_MATCH_PATTERN.matcher(query);
             if (!m.matches()) {
                 logger.warn("Unable to parse query. Ignoring '" + query + "'.");
@@ -170,8 +170,8 @@ public class DBUnitDataExtractor {
         if (tableList == null) {
             return;
         }
-        for (Iterator k = tableList.iterator(); k.hasNext();) {
-            String table = (String) k.next();
+        for (Object element : tableList) {
+            String table = (String) element;
             dataSet.addTable(table);
         }
     }
