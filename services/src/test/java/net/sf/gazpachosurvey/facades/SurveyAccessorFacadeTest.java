@@ -18,16 +18,16 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
         "classpath:/services-context.xml", "classpath:/components-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("SurveyAccessorFacade-dataset.xml")
+@DatabaseSetup("QuestionnairDefinitionAccessorFacade-dataset.xml")
 public class SurveyAccessorFacadeTest {
 
     @Autowired
-    private SurveyAccessorFacade surveyAccessorFacade;
+    private QuestionnairDefinitionAccessorFacade questionnairDefinitionAccessorFacade;
 
     @Test
     public void findOneSurveyTest() {
         int surveyId = 2;
-        surveyAccessorFacade.findOneSurvey(surveyId);
+        questionnairDefinitionAccessorFacade.findOneSurvey(surveyId);
 
     }
 }

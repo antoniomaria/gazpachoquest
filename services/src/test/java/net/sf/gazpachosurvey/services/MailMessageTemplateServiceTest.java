@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
-import net.sf.gazpachosurvey.domain.core.Survey;
+import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
 import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
@@ -43,7 +43,7 @@ public class MailMessageTemplateServiceTest {
     @Test
     public void findByExampleTest() {
         MailMessageTemplate example = new MailMessageTemplate();
-        example.setSurvey(Survey.with().id(58).build());
+        example.setQuestionnairDefinition(QuestionnairDefinition.with().id(58).build());
         List<MailMessageTemplate> results = mailMessageTemplateService.findByExample(example, new SearchParameters());
         assertThat(results).contains(MailMessageTemplate.with().id(125).build());
     }
@@ -60,11 +60,11 @@ public class MailMessageTemplateServiceTest {
                 .language(Language.EN).fromAddress("support@gazpacho.net").replyTo("nonreply@gazpacho.net").build();
 
         MailMessageTemplateLanguageSettings languageSettings = new MailMessageTemplateLanguageSettings();
-        languageSettings.setSubject("Your survey");
+        languageSettings.setSubject("Your questionnairDefinition");
         languageSettings
-                .setBody("Dear Mr. $lastname, <br> You have been invited to take this survey. <br>"
+                .setBody("Dear Mr. $lastname, <br> You have been invited to take this questionnairDefinition. <br>"
                         + "The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off."
-                        + "<a href=\"\">Click here</a> to take the survey");
+                        + "<a href=\"\">Click here</a> to take the questionnairDefinition");
         mailMessageTemplate.setLanguageSettings(languageSettings);
 
         mailMessageTemplate = mailMessageTemplateService.save(mailMessageTemplate);

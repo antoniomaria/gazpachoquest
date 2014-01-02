@@ -78,8 +78,8 @@
   <!-- SurveyDTO <- -> Survey Mappings -->
 
   <mapping type="one-way">
-    <class-a>net.sf.gazpachosurvey.dto.SurveyDTO</class-a>
-    <class-b>net.sf.gazpachosurvey.domain.core.Survey</class-b>
+    <class-a>net.sf.gazpachosurvey.dto.QuestionnairDefinitionDTO</class-a>
+    <class-b>net.sf.gazpachosurvey.domain.core.QuestionnairDefinition</class-b>
     <field>
       <a>questionGroups</a>
       <b set-method="addQuestionGroup" type="iterate">questionGroups</b>
@@ -88,8 +88,8 @@
   </mapping>
 
   <mapping type="one-way">
-    <class-a>net.sf.gazpachosurvey.domain.core.Survey</class-a>
-    <class-b>net.sf.gazpachosurvey.dto.SurveyDTO</class-b>
+    <class-a>net.sf.gazpachosurvey.domain.core.QuestionnairDefinition</class-a>
+    <class-b>net.sf.gazpachosurvey.dto.QuestionnairDefinitionDTO</class-b>
     <field-exclude type="one-way">
       <a>questionGroups</a>
       <b>questionGroups</b>
@@ -97,26 +97,26 @@
   </mapping>
 
   <mapping type="one-way" map-id="survey2surveyDTOWithQuestionGroups">
-    <class-a>net.sf.gazpachosurvey.domain.core.Survey</class-a>
-    <class-b>net.sf.gazpachosurvey.dto.SurveyDTO</class-b>
+    <class-a>net.sf.gazpachosurvey.domain.core.QuestionnairDefinition</class-a>
+    <class-b>net.sf.gazpachosurvey.dto.QuestionnairDefinitionDTO</class-b>
   </mapping>
 
   <!--
     <mapping type="one-way" map-id="SurveyWithQuestions">
-    <class-a>net.sf.gazpachosurvey.domain.core.Survey</class-a>
-    <class-b>net.sf.gazpachosurvey.dto.SurveyDTO</class-b>
+    <class-a>net.sf.gazpachosurvey.domain.core.QuestionnairDefinition</class-a>
+    <class-b>net.sf.gazpachosurvey.dto.QuestionnairDefinitionDTO</class-b>
     </mapping>
     <mapping type="one-way">
-    <class-a>net.sf.gazpachosurvey.domain.core.Survey</class-a>
-    <class-b>net.sf.gazpachosurvey.dto.SurveyDTO</class-b>
+    <class-a>net.sf.gazpachosurvey.domain.core.QuestionnairDefinition</class-a>
+    <class-b>net.sf.gazpachosurvey.dto.QuestionnairDefinitionDTO</class-b>
     <field-exclude type="one-way">
     <a>questions</a>
     <b>questions</b>
     </field-exclude>
     </mapping>
     <mapping type="one-way">
-    <class-a>net.sf.gazpachosurvey.dto.SurveyDTO</class-a>
-    <class-b>net.sf.gazpachosurvey.domain.core.Survey</class-b>
+    <class-a>net.sf.gazpachosurvey.dto.QuestionnairDefinitionDTO</class-a>
+    <class-b>net.sf.gazpachosurvey.domain.core.QuestionnairDefinition</class-b>
     </mapping>
   -->
 </mappings>

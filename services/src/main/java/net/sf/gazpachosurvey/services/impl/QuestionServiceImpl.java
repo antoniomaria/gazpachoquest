@@ -8,7 +8,7 @@ import net.sf.gazpachosurvey.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.QuestionTranslation;
 import net.sf.gazpachosurvey.repository.QuestionGroupRepository;
 import net.sf.gazpachosurvey.repository.QuestionRepository;
-import net.sf.gazpachosurvey.repository.SurveyRepository;
+import net.sf.gazpachosurvey.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachosurvey.repository.i18.QuestionTranslationRepository;
 import net.sf.gazpachosurvey.services.QuestionService;
 
@@ -25,7 +25,7 @@ public class QuestionServiceImpl extends
     private QuestionGroupRepository questionGroupRepository;
 
     @Resource
-    private SurveyRepository surveyRepository;
+    private QuestionnairDefinitionRepository questionnairDefinitionRepository;
 
     @Autowired
     public QuestionServiceImpl(final QuestionRepository repository,

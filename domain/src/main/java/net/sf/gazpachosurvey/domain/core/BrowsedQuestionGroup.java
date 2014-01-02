@@ -35,7 +35,7 @@ public class BrowsedQuestionGroup extends BrowsedElement {
     public static class Builder {
         private QuestionGroup questionGroup;
 
-        private Respondent respondent;
+        private Questionnair questionnair;
 
         private Boolean last;
 
@@ -44,8 +44,8 @@ public class BrowsedQuestionGroup extends BrowsedElement {
             return this;
         }
 
-        public Builder respondent(Respondent respondent) {
-            this.respondent = respondent;
+        public Builder questionnair(Questionnair questionnair) {
+            this.questionnair = questionnair;
             return this;
         }
 
@@ -58,7 +58,7 @@ public class BrowsedQuestionGroup extends BrowsedElement {
             BrowsedQuestionGroup browsedQuestionGroup = new BrowsedQuestionGroup();
             browsedQuestionGroup.setLast(last);
             browsedQuestionGroup.questionGroup = questionGroup;
-            browsedQuestionGroup.respondent = respondent;
+            browsedQuestionGroup.questionnair = questionnair;
             return browsedQuestionGroup;
         }
     }

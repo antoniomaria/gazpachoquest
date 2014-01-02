@@ -4,9 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.gazpachosurvey.dto.ParticipantDTO;
-import net.sf.gazpachosurvey.dto.SurveyDTO;
-import net.sf.gazpachosurvey.dto.SurveyInstanceDTO;
-import net.sf.gazpachosurvey.types.SurveyInstanceType;
+import net.sf.gazpachosurvey.dto.QuestionnairDefinitionDTO;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,18 +24,18 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
         "classpath:/services-context.xml", "classpath:/components-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("SurveyInstanceFacade-dataset.xml")
+@DatabaseSetup("StudyFacade-dataset.xml")
 public class SurveyInstanceFacadeTest {
 
     @Autowired
     private ParticipantFacade participantFacade;
 
     @Autowired
-    private SurveyInstanceFacade surveyInstanceFacade;
+    private StudyFacade studyFacade;
 
     @Test
     public void saveTest() {
-        SurveyDTO survey = SurveyDTO.with().id(58).build();
+        QuestionnairDefinitionDTO survey = QuestionnairDefinitionDTO.with().id(58).build();
 
         Set<ParticipantDTO> participants = new HashSet<>();
 
@@ -45,8 +43,5 @@ public class SurveyInstanceFacadeTest {
 
         participants.add(participant);
 
-        SurveyInstanceDTO surveyInstance = SurveyInstanceDTO.with().survey(survey)
-                .type(SurveyInstanceType.BY_INVITATION).name("My Survey started").participants(participants).build();
-        surveyInstanceFacade.save(surveyInstance);
     }
 }

@@ -3,7 +3,7 @@ package net.sf.gazpachosurvey.domain.core;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import net.sf.gazpachosurvey.domain.support.Invitation;
 import net.sf.gazpachosurvey.types.InvitationStatus;
@@ -14,19 +14,19 @@ public class PersonalInvitation extends Invitation {
 
     private static final long serialVersionUID = -9203813369476903640L;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Respondent respondent;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Participant participant;
 
     public PersonalInvitation() {
         super();
     }
 
-    public Respondent getRespondent() {
-        return respondent;
+    public Participant getParticipant() {
+        return participant;
     }
 
-    public void setRespondent(Respondent respondent) {
-        this.respondent = respondent;
+    public void setParticipant(Participant participant) {
+        this.participant = participant;
     }
 
     public static Builder with() {
@@ -36,9 +36,9 @@ public class PersonalInvitation extends Invitation {
     public static class Builder extends Invitation.Builder {
 
         private String token;
-        private SurveyInstance surveyInstance;
+        private Study study;
         private InvitationStatus status;
-        private Respondent respondent;
+        private Participant participant;
 
         @Override
         public Builder token(String token) {
@@ -47,19 +47,19 @@ public class PersonalInvitation extends Invitation {
         }
 
         @Override
-        public Builder surveyInstance(SurveyInstance surveyInstance) {
-            this.surveyInstance = surveyInstance;
+        public Builder study(Study study) {
+            this.study = study;
+            return this;
+        }
+
+        public Builder participant(Participant participant) {
+            this.participant = participant;
             return this;
         }
 
         @Override
         public Builder status(InvitationStatus status) {
             this.status = status;
-            return this;
-        }
-
-        public Builder respondent(Respondent respondent) {
-            this.respondent = respondent;
             return this;
         }
 
@@ -70,7 +70,7 @@ public class PersonalInvitation extends Invitation {
     }
 
     private PersonalInvitation(Builder builder) {
-        super(builder.token, builder.surveyInstance, builder.status);
-        respondent = builder.respondent;
+        super(builder.token, builder.study, builder.status);
+        this.participant = builder.participant;
     }
 }

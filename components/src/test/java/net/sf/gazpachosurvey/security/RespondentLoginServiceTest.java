@@ -1,7 +1,7 @@
 package net.sf.gazpachosurvey.security;
 
-import net.sf.gazpachosurvey.domain.core.Survey;
-import net.sf.gazpachosurvey.repository.dynamic.RespondentAnswersRepository;
+import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
+import net.sf.gazpachosurvey.repository.dynamic.QuestionnairAnswersRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class RespondentLoginServiceTest {
     private LoginService loginService;
 
     @Autowired
-    private RespondentAnswersRepository respondentAnswersRepository;
+    private QuestionnairAnswersRepository questionnairAnswersRepository;
 
     @Test
     public void loginTest() {
@@ -38,8 +38,8 @@ public class RespondentLoginServiceTest {
 
     @Before
     public void setUp() {
-        respondentAnswersRepository.collectAnswers(Survey.with().id(56).build());
-        respondentAnswersRepository.activeAllAnswers();
+        questionnairAnswersRepository.collectAnswers(QuestionnairDefinition.with().id(56).build());
+        questionnairAnswersRepository.activeAllAnswers();
 
     }
 }

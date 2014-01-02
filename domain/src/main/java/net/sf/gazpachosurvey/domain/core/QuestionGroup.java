@@ -30,7 +30,7 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
     private static final long serialVersionUID = 5849288763708940985L;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Survey survey;
+    private QuestionnairDefinition questionnairDefinition;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -63,12 +63,12 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
         this.questions = questions;
     }
 
-    public Survey getSurvey() {
-        return survey;
+    public QuestionnairDefinition getSurvey() {
+        return questionnairDefinition;
     }
 
-    public void setSurvey(Survey survey) {
-        this.survey = survey;
+    public void setSurvey(QuestionnairDefinition questionnairDefinition) {
+        this.questionnairDefinition = questionnairDefinition;
     }
 
     @Override
@@ -113,7 +113,7 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
 
     public static class Builder {
         private Integer id;
-        private Survey survey;
+        private QuestionnairDefinition questionnairDefinition;
         private Language language;
         private QuestionGroupLanguageSettings languageSettings;
         private Map<Language, QuestionGroupTranslation> translations;
@@ -124,8 +124,8 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
             return this;
         }
 
-        public Builder survey(Survey survey) {
-            this.survey = survey;
+        public Builder questionnairDefinition(QuestionnairDefinition questionnairDefinition) {
+            this.questionnairDefinition = questionnairDefinition;
             return this;
         }
 
@@ -152,7 +152,7 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
         public QuestionGroup build() {
             QuestionGroup questionGroup = new QuestionGroup();
             questionGroup.setId(id);
-            questionGroup.survey = survey;
+            questionGroup.questionnairDefinition = questionnairDefinition;
             questionGroup.language = language;
             questionGroup.languageSettings = languageSettings;
             questionGroup.translations = translations;

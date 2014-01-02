@@ -1,12 +1,12 @@
 package net.sf.gazpachosurvey.security.impl;
 
 import net.sf.gazpachosurvey.domain.core.PersonalInvitation;
-import net.sf.gazpachosurvey.domain.core.Respondent;
-import net.sf.gazpachosurvey.domain.core.SurveyInstance;
+import net.sf.gazpachosurvey.domain.core.Questionnair;
+import net.sf.gazpachosurvey.domain.core.Study;
 import net.sf.gazpachosurvey.domain.support.Invitation;
 import net.sf.gazpachosurvey.domain.support.Person;
 import net.sf.gazpachosurvey.repository.InvitationRepository;
-import net.sf.gazpachosurvey.repository.RespondentRepository;
+import net.sf.gazpachosurvey.repository.QuestionnairRepository;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import net.sf.gazpachosurvey.security.LoginService;
 
@@ -24,7 +24,7 @@ public class RespondentLoginServiceImpl implements LoginService {
     private InvitationRepository invitationRepository;
 
     @Autowired
-    private RespondentRepository respondentRepository;
+    private QuestionnairRepository questionnairRepository;
 
     @Override
     public Person login(final String userName, final String password) {
@@ -33,24 +33,24 @@ public class RespondentLoginServiceImpl implements LoginService {
         if (invitation == null) {
             return null; // TODO Throw authentication exception
         }
-        Respondent respondent = null;
+        Questionnair respondent = null;
         if (invitation instanceof PersonalInvitation) {
             PersonalInvitation personalInvitation = (PersonalInvitation) invitation;
-            respondent = personalInvitation.getRespondent();
+            // respondent = personalInvitation.getParticipant()
         }
 
         if (respondent == null) {
-            respondent = new Respondent();
-            SurveyInstance surveyInstance = invitation.getSurveyInstance();
-            respondent.setSurveyInstance(surveyInstance);
-            respondent = respondentRepository.save(respondent);
+            respondent = new Questionnair();
+            Study study = invitation.getSurveyInstance();
+            respondent.setStudy(study);
+            respondent = questionnairRepository.save(respondent);
 
             if (invitation instanceof PersonalInvitation) {
                 PersonalInvitation personalInvitation = (PersonalInvitation) invitation;
-                personalInvitation.setRespondent(respondent);
+                // personalInvitation.setRespondent(respondent);
             }
         }
         logger.info("Access granted to Respondent {}", respondent.getId());
-        return respondent;
+        return null;
     }
 }

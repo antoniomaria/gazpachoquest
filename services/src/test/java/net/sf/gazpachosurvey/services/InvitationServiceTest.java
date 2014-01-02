@@ -4,7 +4,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import javax.sql.DataSource;
 
-import net.sf.gazpachosurvey.domain.core.SurveyInstance;
+import net.sf.gazpachosurvey.domain.core.Study;
 import net.sf.gazpachosurvey.domain.support.Invitation;
 import net.sf.gazpachosurvey.types.InvitationStatus;
 
@@ -30,7 +30,7 @@ public class InvitationServiceTest {
     private DataSource datasource;
 
     @Autowired
-    private SurveyInstanceService surveyInstanceService;
+    private StudyService studyService;
 
     @Autowired
     private InvitationService surveyService;
@@ -45,8 +45,8 @@ public class InvitationServiceTest {
 
     @Test
     public void saveTest() {
-        SurveyInstance surveyInstance = surveyInstanceService.findOne(95);
-        Invitation invitation = Invitation.with().surveyInstance(surveyInstance).status(InvitationStatus.ACTIVE)
+        Study study = studyService.findOne(95);
+        Invitation invitation = Invitation.with().study(study).status(InvitationStatus.ACTIVE)
                 .token("1234").build();
         Invitation saved = surveyService.save(invitation);
 

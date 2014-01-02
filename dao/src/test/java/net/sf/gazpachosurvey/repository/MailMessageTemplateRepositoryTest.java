@@ -5,7 +5,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import java.util.List;
 
 import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
-import net.sf.gazpachosurvey.domain.core.Survey;
+import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class MailMessageTemplateRepositoryTest {
     @Test
     public void findByExampleTest() {
         MailMessageTemplate example = new MailMessageTemplate();
-        example.setSurvey(Survey.with().id(58).build());
+        example.setQuestionnairDefinition(QuestionnairDefinition.with().id(58).build());
         List<MailMessageTemplate> results = mailMessageTemplateRepository
                 .findByExample(example, new SearchParameters());
         assertThat(results).contains(MailMessageTemplate.with().id(125).build());

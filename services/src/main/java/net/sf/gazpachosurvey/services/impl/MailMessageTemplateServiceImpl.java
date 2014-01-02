@@ -29,7 +29,7 @@ public class MailMessageTemplateServiceImpl
             existing = repository.save(entity);
         } else {
             existing = repository.findOne(entity.getId());
-            existing.setSurvey(entity.getSurvey());
+            existing.setQuestionnairDefinition(entity.getQuestionnairDefinition());
             existing.setFromAddress(entity.getFromAddress());
             existing.setReplyTo(entity.getReplyTo());
             existing.setLanguageSettings(entity.getLanguageSettings());

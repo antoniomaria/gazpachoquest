@@ -11,8 +11,6 @@
     <persistence:class>net.sf.gazpachosurvey.domain.core.BrowsedQuestion</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.BrowsedQuestionGroup</persistence:class>
 
-    <persistence:class>net.sf.gazpachosurvey.domain.core.QuestionOption</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.core.Invitation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Label</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.LabelSet</persistence:class>
 
@@ -25,18 +23,21 @@
     <persistence:class>net.sf.gazpachosurvey.domain.core.PersonalInvitation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.Question</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.core.QuestionGroup</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.core.Respondent</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.core.Survey</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.core.SurveyInstance</persistence:class>
+    <persistence:class>net.sf.gazpachosurvey.domain.core.Questionnair</persistence:class>
+    <persistence:class>net.sf.gazpachosurvey.domain.core.QuestionnairDefinition</persistence:class>
+    <persistence:class>net.sf.gazpachosurvey.domain.core.QuestionOption</persistence:class>
+
+    <persistence:class>net.sf.gazpachosurvey.domain.core.Study</persistence:class>
+
     <!-- User -->
     <persistence:class>net.sf.gazpachosurvey.domain.user.User</persistence:class>
     <!-- i18 -->
     <persistence:class>net.sf.gazpachosurvey.domain.i18.LabelTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.i18.QuestionGroupTranslation</persistence:class>
+    <persistence:class>net.sf.gazpachosurvey.domain.i18.QuestionnairDefinitionTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.i18.QuestionOptionTranslation</persistence:class>
     <persistence:class>net.sf.gazpachosurvey.domain.i18.QuestionTranslation</persistence:class>
-    <persistence:class>net.sf.gazpachosurvey.domain.i18.SurveyTranslation</persistence:class>
     <!-- Support -->
     <persistence:class>net.sf.gazpachosurvey.domain.support.AbstractInvitation</persistence:class>
 

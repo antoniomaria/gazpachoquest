@@ -1,11 +1,10 @@
 package net.sf.gazpachosurvey.domain.core;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
 import net.sf.gazpachosurvey.types.Gender;
@@ -26,63 +25,66 @@ public class Participant extends AbstractAuditable {
 
     private Gender gender;
 
-    @ManyToMany(mappedBy = "participants", fetch = FetchType.LAZY)
-    private Set<SurveyInstance> surveyInstances;
+    // @ManyToMany(fetch = FetchType.LAZY)
+    // @JoinTable(name = "questionnair_participant", joinColumns = { @JoinColumn(name = "questionnair_id",
+    // referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "participant_id", referencedColumnName
+    // = "id") })
+    @OneToMany(mappedBy = "participant", fetch = FetchType.LAZY)
+    private Set<Questionnair> questionnairs;
+
+    // @ManyToMany(mappedBy = "participants", fetch = FetchType.LAZY)
+    // private Set<Study> studies;
 
     public Participant() {
         super();
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Set<SurveyInstance> getSurveyInstances() {
-        if (surveyInstances == null) {
-            surveyInstances = new HashSet<>();
-        }
-
-        return surveyInstances;
-    }
-
-    public void setSurveyInstances(Set<SurveyInstance> surveyInstance) {
-        surveyInstances = surveyInstance;
-    }
-
-    public Language getPreferedLanguage() {
-        return preferedLanguage;
-    }
-
-    public void setPreferedLanguage(Language preferedLanguage) {
-        this.preferedLanguage = preferedLanguage;
+    public String getFirstname() {
+        return firstname;
     }
 
     public Gender getGender() {
         return gender;
     }
 
+    public String getLastname() {
+        return lastname;
+    }
+
+    public Language getPreferedLanguage() {
+        return preferedLanguage;
+    }
+
+    public Set<Questionnair> getQuestionnairs() {
+        return questionnairs;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setPreferedLanguage(Language preferedLanguage) {
+        this.preferedLanguage = preferedLanguage;
+    }
+
+    public void setQuestionnairs(Set<Questionnair> questionnairs) {
+        this.questionnairs = questionnairs;
     }
 
 }

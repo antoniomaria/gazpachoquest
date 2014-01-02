@@ -4,7 +4,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.List;
 
-import net.sf.gazpachosurvey.domain.i18.SurveyTranslation;
+import net.sf.gazpachosurvey.domain.i18.QuestionnairDefinitionTranslation;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 
 import org.junit.Test;
@@ -32,12 +32,12 @@ public class SurveyTranslationRepositoryTest {
 
     @Test
     public void findByExample() {
-        SurveyTranslation entity = SurveyTranslation.with().translatedEntityId(2).build();
+        QuestionnairDefinitionTranslation entity = QuestionnairDefinitionTranslation.with().translatedEntityId(2).build();
 
-        List<SurveyTranslation> translations = surveyTranslationRepository
+        List<QuestionnairDefinitionTranslation> translations = surveyTranslationRepository
                 .findByExample(entity, new SearchParameters());
 
-        assertThat(translations).contains(SurveyTranslation.with().id(3).build());
+        assertThat(translations).contains(QuestionnairDefinitionTranslation.with().id(3).build());
     }
 
 }

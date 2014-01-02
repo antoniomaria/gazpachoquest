@@ -20,7 +20,7 @@ public class BrowsedElement extends AbstractAuditable {
     private static final long serialVersionUID = 8807488300208839486L;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    protected Respondent respondent;
+    protected Questionnair questionnair;
 
     @Basic
     protected Boolean last;
@@ -29,12 +29,12 @@ public class BrowsedElement extends AbstractAuditable {
         super();
     }
 
-    public Respondent getRespondent() {
-        return respondent;
+    public Questionnair getRespondent() {
+        return questionnair;
     }
 
-    public void setRespondent(Respondent respondent) {
-        this.respondent = respondent;
+    public void setRespondent(Questionnair questionnair) {
+        this.questionnair = questionnair;
     }
 
     public Boolean isLast() {
@@ -49,11 +49,11 @@ public class BrowsedElement extends AbstractAuditable {
     }
 
     public static class Builder {
-        private Respondent respondent;
+        private Questionnair questionnair;
         private Boolean last;
 
-        public Builder respondent(Respondent respondent) {
-            this.respondent = respondent;
+        public Builder questionnair(Questionnair questionnair) {
+            this.questionnair = questionnair;
             return this;
         }
 
@@ -64,7 +64,7 @@ public class BrowsedElement extends AbstractAuditable {
 
         public BrowsedElement build() {
             BrowsedElement browsedElement = new BrowsedElement();
-            browsedElement.respondent = respondent;
+            browsedElement.questionnair = questionnair;
             browsedElement.last = last;
             return browsedElement;
         }

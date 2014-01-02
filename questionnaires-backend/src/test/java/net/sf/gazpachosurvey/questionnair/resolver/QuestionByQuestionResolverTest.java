@@ -1,8 +1,8 @@
 package net.sf.gazpachosurvey.questionnair.resolver;
 
 import net.sf.gazpachosurvey.domain.core.Question;
-import net.sf.gazpachosurvey.domain.core.Respondent;
-import net.sf.gazpachosurvey.repository.RespondentRepository;
+import net.sf.gazpachosurvey.domain.core.Questionnair;
+import net.sf.gazpachosurvey.repository.QuestionnairRepository;
 import net.sf.gazpachosurvey.types.BrowsingAction;
 
 import org.junit.Test;
@@ -28,7 +28,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 public class QuestionByQuestionResolverTest {
 
     @Autowired
-    private RespondentRepository respondentRepository;
+    private QuestionnairRepository questionnairRepository;
 
     @Autowired
     @Qualifier("QuestionByQuestionResolver")
@@ -37,7 +37,7 @@ public class QuestionByQuestionResolverTest {
     @Test
     public void resolveForTest() {
         Integer respondentId = 113;
-        Respondent respondent = respondentRepository.findOne(respondentId);
+        Questionnair respondent = questionnairRepository.findOne(respondentId);
         Question question = (Question) resolver.resolveFor(respondent, BrowsingAction.ENTERING);
         StringBuilder out = new StringBuilder();
         out.append("1: " + question.getLanguageSettings().getTitle() + "\n");

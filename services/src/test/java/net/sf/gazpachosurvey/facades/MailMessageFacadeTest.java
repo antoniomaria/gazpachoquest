@@ -38,11 +38,11 @@ public class MailMessageFacadeTest {
                 .replyTo("nonreply@gazpacho.net").build();
 
         MailMessageTemplateLanguageSettingsDTO languageSettings = new MailMessageTemplateLanguageSettingsDTO();
-        languageSettings.setSubject("Your survey");
+        languageSettings.setSubject("Your questionnairDefinition");
         languageSettings
-                .setBody("Dear Mr. $lastname, <br> You have been invited to take this survey. <br>"
+                .setBody("Dear Mr. $lastname, <br> You have been invited to take this questionnairDefinition. <br>"
                         + "The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off."
-                        + "<a href=\"\">Click here</a> to take the survey");
+                        + "<a href=\"\">Click here</a> to take the questionnairDefinition");
         mailMessageTemplate.setLanguageSettings(languageSettings);
 
         mailMessageTemplate = mailMessageFacade.save(mailMessageTemplate);

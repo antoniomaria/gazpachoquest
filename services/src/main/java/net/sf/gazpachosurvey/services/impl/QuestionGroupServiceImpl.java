@@ -8,7 +8,7 @@ import net.sf.gazpachosurvey.domain.core.embeddables.QuestionGroupLanguageSettin
 import net.sf.gazpachosurvey.domain.i18.QuestionGroupTranslation;
 import net.sf.gazpachosurvey.repository.QuestionGroupRepository;
 import net.sf.gazpachosurvey.repository.QuestionRepository;
-import net.sf.gazpachosurvey.repository.SurveyRepository;
+import net.sf.gazpachosurvey.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachosurvey.repository.i18.QuestionGroupTranslationRepository;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import net.sf.gazpachosurvey.services.QuestionGroupService;
@@ -26,7 +26,7 @@ public class QuestionGroupServiceImpl extends
     private QuestionRepository questionRepository;
 
     @Autowired
-    private SurveyRepository surveyRepository;
+    private QuestionnairDefinitionRepository questionnairDefinitionRepository;
 
     @Autowired
     public QuestionGroupServiceImpl(final QuestionGroupRepository repository,
@@ -58,7 +58,7 @@ public class QuestionGroupServiceImpl extends
 
     @Override
     public QuestionGroup save(final QuestionGroup questionGroup) {
-        Assert.state(!questionGroup.isNew(), "QuestionGroup must be already persisted. Try by adding to Survey first.");
+        Assert.state(!questionGroup.isNew(), "QuestionGroup must be already persisted. Try by adding to QuestionnairDefinition first.");
 
         QuestionGroup existing = repository.findOne(questionGroup.getId());
 

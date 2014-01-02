@@ -1,54 +1,88 @@
 package net.sf.gazpachosurvey.dto;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
+import net.sf.gazpachosurvey.dto.support.AbstractAuditableDTO;
 import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
-public class QuestionnairDefinitionDTO extends AbstractIdentifiableDTO implements
-        IdentifiableLocalizable<SurveyLanguageSettingsDTO> {
+import org.springframework.util.Assert;
 
-    public static class Builder {
+public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements IdentifiableLocalizable<QuestionnairDefinitionLanguageSettingsDTO> {
+
+    public static interface Builder {
+        QuestionnairDefinitionDTO build();
+
+        Builder id(Integer id);
+
+        Builder language(Language language);
+
+        Builder languageSettings(QuestionnairDefinitionLanguageSettingsDTO languageSettings);
+
+        QuestionnairDefinitionLanguageSettingsDTO.Builder surveyLanguageSettingsStart();
+    }
+
+    public static class BuilderImpl implements Builder {
+        private Integer id;
+
         private Language language;
-        private SurveyLanguageSettingsDTO languageSettings;
-        private Set<Language> translationsSupported;
 
+        private QuestionnairDefinitionLanguageSettingsDTO languageSettings;
+
+        @Override
         public QuestionnairDefinitionDTO build() {
-            QuestionnairDefinitionDTO questionnairDefinitionBean = new QuestionnairDefinitionDTO();
-            questionnairDefinitionBean.languageSettings = languageSettings;
-            questionnairDefinitionBean.language = language;
-            questionnairDefinitionBean.translationsSupported = translationsSupported;
-            return questionnairDefinitionBean;
+            QuestionnairDefinitionDTO questionnairDefinitionDTO = new QuestionnairDefinitionDTO();
+            questionnairDefinitionDTO.languageSettings = languageSettings;
+            questionnairDefinitionDTO.language = language;
+            questionnairDefinitionDTO.setId(id);
+            return questionnairDefinitionDTO;
         }
 
-        public Builder language(final Language language) {
+        @Override
+        public Builder id(final Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        @Override
+        public BuilderImpl language(final Language language) {
             this.language = language;
             return this;
         }
 
-        public Builder languageSettings(final SurveyLanguageSettingsDTO languageSettings) {
+        @Override
+        public BuilderImpl languageSettings(final QuestionnairDefinitionLanguageSettingsDTO languageSettings) {
             this.languageSettings = languageSettings;
             return this;
         }
 
-        public Builder translationsSupported(final Set<Language> translationsSupported) {
-            this.translationsSupported = translationsSupported;
-            return this;
+        @Override
+        public QuestionnairDefinitionLanguageSettingsDTO.Builder surveyLanguageSettingsStart() {
+            return QuestionnairDefinitionLanguageSettingsDTO.surveyLanguageSettingsStart(this);
         }
     }
 
-    private static final long serialVersionUID = -3516840919344719813L;
+    private static final long serialVersionUID = 4558625807621395019L;
 
     public static Builder with() {
-        return new Builder();
+        return new BuilderImpl();
     }
 
     private Language language;
 
-    private SurveyLanguageSettingsDTO languageSettings;
+    private QuestionnairDefinitionLanguageSettingsDTO languageSettings;
 
-    private Set<Language> translationsSupported;
+    private List<QuestionGroupDTO> questionGroups;
+
+    public QuestionnairDefinitionDTO() {
+        super();
+    }
+
+    public void addQuestionGroup(final QuestionGroupDTO questionGroup) {
+        Assert.notNull(questionGroup, "Question Group must be not null");
+        getQuestionGroups().add(questionGroup);
+    }
 
     @Override
     public Language getLanguage() {
@@ -56,12 +90,20 @@ public class QuestionnairDefinitionDTO extends AbstractIdentifiableDTO implement
     }
 
     @Override
-    public SurveyLanguageSettingsDTO getLanguageSettings() {
+    public QuestionnairDefinitionLanguageSettingsDTO getLanguageSettings() {
         return languageSettings;
     }
 
-    public Set<Language> getTranslationsSupported() {
-        return translationsSupported;
+    public QuestionGroupDTO getLastQuestionGroupDTO() {
+        int count = getQuestionGroups().size();
+        return count > 0 ? questionGroups.get(count - 1) : null;
+    }
+
+    public List<QuestionGroupDTO> getQuestionGroups() {
+        if (questionGroups == null) {
+            questionGroups = new ArrayList<>();
+        }
+        return questionGroups;
     }
 
     @Override
@@ -70,16 +112,11 @@ public class QuestionnairDefinitionDTO extends AbstractIdentifiableDTO implement
     }
 
     @Override
-    public void setLanguageSettings(final SurveyLanguageSettingsDTO languageSettings) {
+    public void setLanguageSettings(final QuestionnairDefinitionLanguageSettingsDTO languageSettings) {
         this.languageSettings = languageSettings;
     }
 
-    public void setTranslationsSupported(final Set<Language> translationsSupported) {
-        this.translationsSupported = translationsSupported;
-    }
-
-    @Override
-    public String toString() {
-        return "QuestionnairDefinitionDTO [languageSettings=" + languageSettings + ", language=" + language + "]";
+    public void setQuestionGroups(final List<QuestionGroupDTO> questionGroups) {
+        this.questionGroups = questionGroups;
     }
 }

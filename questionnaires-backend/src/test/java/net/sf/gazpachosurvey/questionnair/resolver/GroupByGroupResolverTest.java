@@ -4,8 +4,8 @@ import java.util.List;
 
 import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.QuestionGroup;
-import net.sf.gazpachosurvey.domain.core.Respondent;
-import net.sf.gazpachosurvey.repository.RespondentRepository;
+import net.sf.gazpachosurvey.domain.core.Questionnair;
+import net.sf.gazpachosurvey.repository.QuestionnairRepository;
 import net.sf.gazpachosurvey.types.BrowsingAction;
 
 import org.junit.Test;
@@ -31,7 +31,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 public class GroupByGroupResolverTest {
 
     @Autowired
-    private RespondentRepository respondentRepository;
+    private QuestionnairRepository questionnairRepository;
 
     @Autowired
     @Qualifier("GroupByGroupResolver")
@@ -40,7 +40,7 @@ public class GroupByGroupResolverTest {
     @Test
     public void resolveForTest() {
         Integer respondentId = 113;
-        Respondent respondent = respondentRepository.findOne(respondentId);
+        Questionnair respondent = questionnairRepository.findOne(respondentId);
         QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(respondent, BrowsingAction.ENTERING);
         new StringBuilder();
 

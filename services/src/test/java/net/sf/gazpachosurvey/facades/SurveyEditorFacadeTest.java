@@ -24,11 +24,11 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
         "classpath:/services-context.xml", "classpath:/components-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("SurveyEditorFacade-dataset.xml")
+@DatabaseSetup("QuestionnairDefinitionEditorFacade-dataset.xml")
 public class SurveyEditorFacadeTest {
 
     @Autowired
-    private SurveyEditorFacade surveyEditorFacade;
+    private QuestionnairDefinitionEditorFacade questionnairDefinitionEditorFacade;
 
     @Test
     public void saveQuestionTranslation() {
@@ -43,7 +43,7 @@ public class SurveyEditorFacadeTest {
         translation.setLanguageSettings(languageSettings);
         translation.setLanguage(Language.ES);
 
-        translation = surveyEditorFacade.saveQuestionTranslation(translation);
+        translation = questionnairDefinitionEditorFacade.saveQuestionTranslation(translation);
         assertThat(translation.getId()).isNotNull();
     }
 }

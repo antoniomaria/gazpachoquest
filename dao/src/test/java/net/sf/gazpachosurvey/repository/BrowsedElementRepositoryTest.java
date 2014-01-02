@@ -37,7 +37,7 @@ public class BrowsedElementRepositoryTest {
     private BrowsedElementRepository repository;
 
     @Autowired
-    private RespondentRepository respondentRepository;
+    private QuestionnairRepository questionnairRepository;
 
     @Test
     public void findLastTest() {
@@ -48,17 +48,17 @@ public class BrowsedElementRepositoryTest {
 
     @Test
     public void findNextTest() {
-        Integer respondentId = 113;
-        BrowsedQuestion browsedQuestion = (BrowsedQuestion) repository.findLast(respondentId);
-        BrowsedElement next = repository.findNext(respondentId, browsedQuestion.getCreatedDate());
+        Integer questionnairId = 113;
+        BrowsedQuestion browsedQuestion = (BrowsedQuestion) repository.findLast(questionnairId);
+        BrowsedElement next = repository.findNext(questionnairId, browsedQuestion.getCreatedDate());
         assertThat(next).isEqualTo(BrowsedQuestion.with().id(116).build());
     }
 
     @Test
     public void findPreviousTest() {
-        Integer respondentId = 113;
-        BrowsedQuestion browsedQuestion = (BrowsedQuestion) repository.findLast(respondentId);
-        BrowsedElement previous = repository.findPrevious(respondentId, browsedQuestion.getCreatedDate());
+        Integer questionnairId = 113;
+        BrowsedQuestion browsedQuestion = (BrowsedQuestion) repository.findLast(questionnairId);
+        BrowsedElement previous = repository.findPrevious(questionnairId, browsedQuestion.getCreatedDate());
         assertThat(previous).isEqualTo(BrowsedQuestion.with().id(114).build());
     }
 

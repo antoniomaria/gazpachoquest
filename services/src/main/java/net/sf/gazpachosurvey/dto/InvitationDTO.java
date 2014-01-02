@@ -8,7 +8,7 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
 
     public static class Builder {
         private InvitationStatus status;
-        private SurveyInstanceDTO surveyInstance;
+        private StudyDTO surveyInstance;
 
         private String token;
         private InvitationType type;
@@ -27,7 +27,7 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
-        public Builder surveyInstance(final SurveyInstanceDTO surveyInstance) {
+        public Builder surveyInstance(final StudyDTO surveyInstance) {
             this.surveyInstance = surveyInstance;
             return this;
         }
@@ -51,7 +51,7 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
 
     private InvitationStatus status;
 
-    private SurveyInstanceDTO surveyInstance;
+    private StudyDTO surveyInstance;
 
     private String token;
 
@@ -61,7 +61,7 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
         return status;
     }
 
-    public SurveyInstanceDTO getSurveyInstance() {
+    public StudyDTO getSurveyInstance() {
         return surveyInstance;
     }
 
@@ -77,7 +77,7 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
         this.status = status;
     }
 
-    public void setSurveyInstance(final SurveyInstanceDTO surveyInstance) {
+    public void setSurveyInstance(final StudyDTO surveyInstance) {
         this.surveyInstance = surveyInstance;
     }
 

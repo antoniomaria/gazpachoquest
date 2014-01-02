@@ -31,7 +31,7 @@ public class MailMessageTemplate extends
     private MailMessageTemplateType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Survey survey;
+    private QuestionnairDefinition questionnairDefinition;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -115,12 +115,12 @@ public class MailMessageTemplate extends
         this.type = type;
     }
 
-    public Survey getSurvey() {
-        return survey;
+    public QuestionnairDefinition getQuestionnairDefinition() {
+        return questionnairDefinition;
     }
 
-    public void setSurvey(Survey survey) {
-        this.survey = survey;
+    public void setQuestionnairDefinition(QuestionnairDefinition questionnairDefinition) {
+        this.questionnairDefinition = questionnairDefinition;
     }
 
     public static Builder with() {
@@ -129,7 +129,7 @@ public class MailMessageTemplate extends
 
     public static class Builder {
         private Integer id;
-        private Survey survey;
+        private QuestionnairDefinition questionnairDefinition;
         private MailMessageTemplateType type;
         private Language language;
         private String fromAddress;
@@ -147,8 +147,8 @@ public class MailMessageTemplate extends
             return this;
         }
 
-        public Builder survey(Survey survey) {
-            this.survey = survey;
+        public Builder questionnairDefinition(QuestionnairDefinition questionnairDefinition) {
+            this.questionnairDefinition = questionnairDefinition;
             return this;
         }
 
@@ -185,7 +185,7 @@ public class MailMessageTemplate extends
             mailMessageTemplate.languageSettings = languageSettings;
             mailMessageTemplate.translations = translations;
             mailMessageTemplate.type = type;
-            mailMessageTemplate.survey = survey;
+            mailMessageTemplate.questionnairDefinition = questionnairDefinition;
             mailMessageTemplate.setId(id);
             return mailMessageTemplate;
         }

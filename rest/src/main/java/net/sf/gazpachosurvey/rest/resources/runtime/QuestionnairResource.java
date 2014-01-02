@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
 
-import net.sf.gazpachosurvey.domain.core.Respondent;
+import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.dto.SurveyDTO;
 import net.sf.gazpachosurvey.facades.SurveyAccessorFacade;
 import net.sf.gazpachosurvey.rest.beans.QuestionnairDefinitionBean;
@@ -41,9 +41,9 @@ public class QuestionnairResource {
     public Response browse(@Context
     final SecurityContext context) {
         logger.debug("New petition received from {}", context.getUserPrincipal().getName());
-        Respondent respondent = (Respondent) context.getUserPrincipal();
+        Questionnair respondent = (Questionnair) context.getUserPrincipal();
 
-        Integer surveyId = respondent.getSurveyInstance().getSurvey().getId();
+        Integer surveyId = respondent.getStudy().getSurvey().getId();
 
         logger.debug("Respondent {} retriving QuestionnairDefinition for surveyId = {}", respondent.getId(), surveyId);
 
@@ -57,8 +57,8 @@ public class QuestionnairResource {
     public Response getDefinition(@Context
     final SecurityContext context) {
         logger.debug("New petition received from {}", context.getUserPrincipal().getName());
-        Respondent respondent = (Respondent) context.getUserPrincipal();
-        Integer surveyId = respondent.getSurveyInstance().getSurvey().getId();
+        Questionnair respondent = (Questionnair) context.getUserPrincipal();
+        Integer surveyId = respondent.getStudy().getSurvey().getId();
 
         logger.debug("Respondent {} retriving QuestionnairDefinition for surveyId = {}", respondent.getId(), surveyId);
 
