@@ -27,6 +27,7 @@ import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 import net.sf.gazpachosurvey.types.QuestionType;
 import net.sf.gazpachosurvey.types.SurveyInstanceType;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -64,8 +65,8 @@ public class DBPopulator {
 
         StudyDTO study = StudyDTO.with().questionnairDefinitions(questionnairDefinitions)
                 .type(SurveyInstanceType.BY_INVITATION)
-                .name("QuestionnairDefinition " + survey.getLanguageSettings().getTitle() + " started")
-                .participants(participants).build();
+                .name("New survey " + survey.getLanguageSettings().getTitle() + " started").startDate(DateTime.now())
+                .expirationDate(DateTime.parse("2014-12-31")).participants(participants).build();
         studyFacade.save(study);
 
         survey = createFastFoodSurvey();
@@ -75,7 +76,9 @@ public class DBPopulator {
         questionnairDefinitions.add(survey);
 
         study = StudyDTO.with().questionnairDefinitions(questionnairDefinitions).type(SurveyInstanceType.BY_INVITATION)
-                .name("QuestionnairDefinition " + survey.getLanguageSettings().getTitle() + " started")
+                .name("New survey " + survey.getLanguageSettings().getTitle() + " started").startDate(DateTime.now())
+                .expirationDate(DateTime.parse("2014-12-31"))
+
                 .participants(participants).build();
         studyFacade.save(study);
     }

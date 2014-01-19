@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.security.impl;
 
+import net.sf.gazpachosurvey.domain.core.Participant;
 import net.sf.gazpachosurvey.domain.core.PersonalInvitation;
 import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.domain.core.Study;
@@ -33,24 +34,27 @@ public class RespondentLoginServiceImpl implements LoginService {
         if (invitation == null) {
             return null; // TODO Throw authentication exception
         }
-        Questionnair respondent = null;
+        Participant participant = null;
+        Questionnair questionnair = null;
         if (invitation instanceof PersonalInvitation) {
             PersonalInvitation personalInvitation = (PersonalInvitation) invitation;
+            participant = personalInvitation.getParticipant();
+
             // respondent = personalInvitation.getParticipant()
         }
 
-        if (respondent == null) {
-            respondent = new Questionnair();
+        if (questionnair == null) {
+            questionnair = new Questionnair();
             Study study = invitation.getSurveyInstance();
-            respondent.setStudy(study);
-            respondent = questionnairRepository.save(respondent);
+            questionnair.setStudy(study);
+            questionnair = questionnairRepository.save(questionnair);
 
             if (invitation instanceof PersonalInvitation) {
                 PersonalInvitation personalInvitation = (PersonalInvitation) invitation;
                 // personalInvitation.setRespondent(respondent);
             }
         }
-        logger.info("Access granted to Respondent {}", respondent.getId());
+        logger.info("Access granted to Respondent {}", questionnair.getId());
         return null;
     }
 }

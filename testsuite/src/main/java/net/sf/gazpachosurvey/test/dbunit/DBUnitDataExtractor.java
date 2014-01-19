@@ -75,7 +75,7 @@ public class DBUnitDataExtractor {
                 // tables that
                 // have a PK which is a FK on X, in the right order for
                 // insertion
-                String[] depTableNames = TablesDependencyHelper.getAllDependentTables(connection, "survey_instance");
+                String[] depTableNames = TablesDependencyHelper.getAllDependentTables(connection, "study");
                 IDataSet depDataset = connection.createDataSet(depTableNames);
                 FlatXmlDataSet.write(depDataset, new FileOutputStream("target/dependents.xml"));
             }

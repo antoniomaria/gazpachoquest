@@ -87,4 +87,64 @@ public class Participant extends AbstractAuditable {
         this.questionnairs = questionnairs;
     }
 
+    public static Builder with() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private Integer id;
+        private String firstname;
+        private String lastname;
+        private String email;
+        private Language preferedLanguage;
+        private Gender gender;
+        private Set<Questionnair> questionnairs;
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder firstname(String firstname) {
+            this.firstname = firstname;
+            return this;
+        }
+
+        public Builder lastname(String lastname) {
+            this.lastname = lastname;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder preferedLanguage(Language preferedLanguage) {
+            this.preferedLanguage = preferedLanguage;
+            return this;
+        }
+
+        public Builder gender(Gender gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public Builder questionnairs(Set<Questionnair> questionnairs) {
+            this.questionnairs = questionnairs;
+            return this;
+        }
+
+        public Participant build() {
+            Participant participant = new Participant();
+            participant.setId(id);
+            participant.firstname = firstname;
+            participant.lastname = lastname;
+            participant.email = email;
+            participant.preferedLanguage = preferedLanguage;
+            participant.gender = gender;
+            participant.questionnairs = questionnairs;
+            return participant;
+        }
+    }
 }

@@ -29,19 +29,19 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
     private QuestionGroupService questionGroupService;
 
     @Override
-    public QuestionGroup resolveFor(final Questionnair respondent, final BrowsingAction action) {
-        QuestionnairDefinition questionnairDefinition = respondent.getStudy().getSurvey();
-        int surveyId = questionnairDefinition.getId();
-        int respondentId = respondent.getId();
-        logger.debug("Finding QuestionGroup for respondent {} and surveyId = {}", respondentId, surveyId);
+    public QuestionGroup resolveFor(final Questionnair questionnair, final BrowsingAction action) {
+        QuestionnairDefinition questionnairDefinition = questionnair.getQuestionnairDefinition();
+        int questionnairDefinitionId = questionnairDefinition.getId();
+        int questionnairId = questionnair.getId();
+        logger.debug("Finding {} QuestionGroup for questionnair {}", action.toString(), questionnairId);
 
-        BrowsedElement browsedElement = browsedElementService.findLast(respondentId);
+        BrowsedElement browsedElement = browsedElementService.findLast(questionnairId);
         QuestionGroup questionGroup = null;
         BrowsedQuestionGroup lastBrowsedQuestionGroup = null;
 
         if (browsedElement == null) { // First time entering the questionnairDefinition
-            questionGroup = questionGroupService.findOneByPositionInSurvey(surveyId, INITIAL_POSITION);
-            lastBrowsedQuestionGroup = BrowsedQuestionGroup.with().questionnair(respondent)
+            questionGroup = questionGroupService.findOneByPositionInSurvey(questionnairDefinitionId, INITIAL_POSITION);
+            lastBrowsedQuestionGroup = BrowsedQuestionGroup.with().questionnair(questionnair)
                     .questionGroup(questionGroup).last(Boolean.TRUE).build();
             browsedElementService.save(lastBrowsedQuestionGroup);
             return questionGroup;
@@ -52,10 +52,10 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
 
         switch (action) {
         case FORWARD:
-            questionGroup = findNextQuestionGroup(surveyId, respondent, lastBrowsedQuestionGroup);
+            questionGroup = findNextQuestionGroup(questionnairDefinitionId, questionnair, lastBrowsedQuestionGroup);
             break;
         case BACKWARD:
-            questionGroup = findPreviousQuestionGroup(surveyId, respondent, lastBrowsedQuestionGroup);
+            questionGroup = findPreviousQuestionGroup(questionnairDefinitionId, questionnair, lastBrowsedQuestionGroup);
             break;
         default:
             break;
@@ -65,10 +65,10 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         return questionGroup;
     }
 
-    private QuestionGroup findNextQuestionGroup(final Integer surveyId, final Questionnair respondent,
-            final BrowsedQuestionGroup lastBrowsedElement) {
+    private QuestionGroup findNextQuestionGroup(final Integer questionnairDefinitionId,
+            final Questionnair questionnair, final BrowsedQuestionGroup lastBrowsedElement) {
 
-        BrowsedElement nextBrowsedElement = browsedElementService.findNext(respondent.getId(),
+        BrowsedElement nextBrowsedElement = browsedElementService.findNext(questionnair.getId(),
                 lastBrowsedElement.getCreatedDate());
 
         BrowsedQuestionGroup nextBrowsedQuestionGroup = null;
@@ -76,10 +76,10 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
 
         if (nextBrowsedElement == null) {
             Integer position = questionGroupService.findPositionInSurvey(lastBrowsedElement.getQuestionGroup().getId());
-            next = questionGroupService.findOneByPositionInSurvey(surveyId, position + 1);
+            next = questionGroupService.findOneByPositionInSurvey(questionnairDefinitionId, position + 1);
 
             // Mark next element as last browsed.
-            nextBrowsedQuestionGroup = BrowsedQuestionGroup.with().questionnair(respondent).questionGroup(next)
+            nextBrowsedQuestionGroup = BrowsedQuestionGroup.with().questionnair(questionnair).questionGroup(next)
                     .last(Boolean.TRUE).build();
         } else {
             Assert.isInstanceOf(BrowsedQuestionGroup.class, nextBrowsedElement);
@@ -91,9 +91,9 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         return next;
     }
 
-    private QuestionGroup findPreviousQuestionGroup(final int surveyId, final Questionnair respondent,
-            final BrowsedQuestionGroup lastBrowsedElement) {
-        BrowsedElement previousBrowsedElement = browsedElementService.findPrevious(respondent.getId(),
+    private QuestionGroup findPreviousQuestionGroup(final int questionnairDefinitionId,
+            final Questionnair questionnair, final BrowsedQuestionGroup lastBrowsedElement) {
+        BrowsedElement previousBrowsedElement = browsedElementService.findPrevious(questionnair.getId(),
                 lastBrowsedElement.getCreatedDate());
         Assert.isInstanceOf(BrowsedQuestionGroup.class, previousBrowsedElement);
 

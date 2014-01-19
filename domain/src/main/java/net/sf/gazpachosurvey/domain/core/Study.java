@@ -93,4 +93,57 @@ public class Study extends AbstractAuditable {
         this.type = type;
     }
 
+    public static Builder with() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private Integer id;
+        private String name;
+        private SurveyInstanceType type;
+        private DateTime startDate;
+        private DateTime expirationDate;
+        private Set<Questionnair> questionnairs;
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder type(SurveyInstanceType type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder startDate(DateTime startDate) {
+            this.startDate = startDate;
+            return this;
+        }
+
+        public Builder expirationDate(DateTime expirationDate) {
+            this.expirationDate = expirationDate;
+            return this;
+        }
+
+        public Builder questionnairs(Set<Questionnair> questionnairs) {
+            this.questionnairs = questionnairs;
+            return this;
+        }
+
+        public Study build() {
+            Study study = new Study();
+            study.setId(id);
+            study.name = name;
+            study.type = type;
+            study.startDate = startDate;
+            study.expirationDate = expirationDate;
+            study.questionnairs = questionnairs;
+            return study;
+        }
+    }
 }

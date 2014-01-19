@@ -5,11 +5,14 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
+import net.sf.gazpachosurvey.types.EntityStatus;
 
 import org.joda.time.DateTime;
 import org.joda.time.contrib.jpa.DateTimeConverter;
@@ -19,7 +22,8 @@ public class Questionnair extends AbstractAuditable {
 
     private static final long serialVersionUID = -5466079670655149390L;
 
-    public final static String USER_NAME = "questionnair";
+    @Enumerated(EnumType.STRING)
+    private EntityStatus status;
 
     @OneToMany(mappedBy = "questionnair", fetch = FetchType.LAZY)
     private Set<BrowsedElement> browsedElements;
@@ -81,16 +85,30 @@ public class Questionnair extends AbstractAuditable {
         this.participant = participant;
     }
 
+    public EntityStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(EntityStatus status) {
+        this.status = status;
+    }
+
     public static Builder with() {
         return new Builder();
     }
 
     public static class Builder {
+        private EntityStatus status;
         private Set<BrowsedElement> browsedElements;
         private DateTime submitDate;
         private Study study;
         private QuestionnairDefinition questionnairDefinition;
         private Participant participant;
+
+        public Builder status(EntityStatus status) {
+            this.status = status;
+            return this;
+        }
 
         public Builder browsedElements(Set<BrowsedElement> browsedElements) {
             this.browsedElements = browsedElements;
@@ -119,6 +137,7 @@ public class Questionnair extends AbstractAuditable {
 
         public Questionnair build() {
             Questionnair questionnair = new Questionnair();
+            questionnair.status = status;
             questionnair.browsedElements = browsedElements;
             questionnair.submitDate = submitDate;
             questionnair.study = study;

@@ -20,6 +20,7 @@ import net.sf.gazpachosurvey.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachosurvey.repository.QuestionnairRepository;
 import net.sf.gazpachosurvey.repository.StudyRepository;
 import net.sf.gazpachosurvey.services.StudyService;
+import net.sf.gazpachosurvey.types.EntityStatus;
 import net.sf.gazpachosurvey.types.InvitationStatus;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.MailMessageTemplateType;
@@ -88,35 +89,20 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study> implemen
                 MailMessageTemplate invitationTemplate = templates.get(MailMessageTemplateType.INVITATION);
                 for (Participant participant : participants) {
                     Assert.state(!participant.isNew(), "Persist all participant before starting a study.");
-                    Questionnair questionnair = Questionnair.with().study(study)
+                    Questionnair questionnair = Questionnair.with().status(EntityStatus.CONFIRMED).study(study)
                             .questionnairDefinition(questionnairDefinition).participant(participant).build();
                     questionnairRepository.save(questionnair);
 
                     String token = tokenGenerator.generate();
 
                     PersonalInvitation personalInvitation = PersonalInvitation.with().study(study).token(token)
-                            .status(InvitationStatus.ACTIVE).build();
+                            .status(InvitationStatus.ACTIVE).participant(participant).build();
                     invitationRepository.save(personalInvitation);
 
                     MailMessage mailMessage = composeMailMessage(invitationTemplate, participant, token);
                     mailMessageRepository.save(mailMessage);
                 }
             }
-
-            // QuestionnairDefinition questionnairDefinition =
-            // questionnairDefinitionRepository.findOne(running.getSurvey().getId());
-            /*
-             * Map<MailMessageTemplateType, MailMessageTemplate> templates = questionnairDefinition.getMailTemplates();
-             * MailMessageTemplate invitationTemplate = templates.get(MailMessageTemplateType.INVITATION); for
-             * (Participant participant : running.getParticipants()) { Assert.state(!participant.isNew(),
-             * "Persist all participant before starting a questionnairDefinition."); } running =
-             * repository.save(running); // Running entity must be persisted before creating PersonalInvitation for
-             * (Participant participant : running.getParticipants()) { String token = tokenGenerator.generate();
-             * PersonalInvitation personalInvitation = PersonalInvitation.with().study(running).token(token)
-             * .status(InvitationStatus.ACTIVE).build(); invitationRepository.save(personalInvitation); MailMessage
-             * mailMessage = composeMailMessage(invitationTemplate, participant, token);
-             * mailMessageRepository.save(mailMessage); }
-             */
         }
         return study;
     }
