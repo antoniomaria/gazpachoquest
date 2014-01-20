@@ -1,5 +1,11 @@
 package net.sf.gazpachosurvey.security.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import net.sf.gazpachosurvey.domain.core.Participant;
 import net.sf.gazpachosurvey.domain.core.PersonalInvitation;
 import net.sf.gazpachosurvey.domain.core.Questionnair;
@@ -27,6 +33,9 @@ public class RespondentLoginServiceImpl implements LoginService {
     @Autowired
     private QuestionnairRepository questionnairRepository;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Override
     public Person login(final String userName, final String password) {
         Invitation invitation = invitationRepository.findOneByExample(Invitation.with().token(password).build(),
@@ -34,27 +43,29 @@ public class RespondentLoginServiceImpl implements LoginService {
         if (invitation == null) {
             return null; // TODO Throw authentication exception
         }
+
         Participant participant = null;
-        Questionnair questionnair = null;
+        List<Questionnair> questionnairs = new ArrayList<>();
+        Study study = invitation.getStudy();
         if (invitation instanceof PersonalInvitation) {
             PersonalInvitation personalInvitation = (PersonalInvitation) invitation;
             participant = personalInvitation.getParticipant();
-
-            // respondent = personalInvitation.getParticipant()
+            Questionnair example = Questionnair.with().participant(participant).study(study).build();
+            questionnairs = questionnairRepository.findByExample(example, new SearchParameters());
         }
 
-        if (questionnair == null) {
-            questionnair = new Questionnair();
-            Study study = invitation.getSurveyInstance();
-            questionnair.setStudy(study);
+        if (questionnairs.isEmpty()) {
+            participant = Participant.with().firstname("anonymous").build();
+            Questionnair questionnair = Questionnair.with().study(study).build();
             questionnair = questionnairRepository.save(questionnair);
-
-            if (invitation instanceof PersonalInvitation) {
-                PersonalInvitation personalInvitation = (PersonalInvitation) invitation;
-                // personalInvitation.setRespondent(respondent);
-            }
+            questionnairs.add(questionnair);
         }
-        logger.info("Access granted to Respondent {}", questionnair.getId());
-        return null;
+        entityManager.detach(participant);
+        for (Questionnair questionnair : questionnairs) {
+            entityManager.detach(questionnair);
+            participant.getQuestionnairs().add(questionnair);
+        }
+        logger.info("Access granted to Respondent with name {} ", participant.getFirstname());
+        return participant;
     }
 }

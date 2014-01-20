@@ -37,21 +37,9 @@ public class Study extends AbstractAuditable {
     @OneToMany(mappedBy = "study", fetch = FetchType.LAZY)
     private Set<Questionnair> questionnairs;
 
-    // @ManyToMany(fetch = FetchType.LAZY)
-    // @JoinTable(name = "surveyinstance_participant", joinColumns = { @JoinColumn(name = "surveyinstance_id",
-    // referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "participant_id", referencedColumnName
-    // = "id") })
-    // private Set<Participant> participants;
-
     public Study() {
         super();
     }
-
-    /*
-     * public void addParticipant(Participant participant) { Assert.notNull(participant,
-     * "Participant must be not null"); participant.getSurveyInstances().add(this); getParticipants().add(participant);
-     * }
-     */
 
     public DateTime getExpirationDate() {
         return expirationDate;

@@ -51,11 +51,11 @@ public class Invitation extends AbstractPersistable {
         this.token = token;
     }
 
-    public Study getSurveyInstance() {
+    public Study getStudy() {
         return study;
     }
 
-    public void setSurveyInstance(Study study) {
+    public void setStudy(Study study) {
         this.study = study;
     }
 

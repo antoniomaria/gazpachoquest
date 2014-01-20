@@ -1,17 +1,19 @@
 package net.sf.gazpachosurvey.domain.core;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
+import net.sf.gazpachosurvey.domain.support.Person;
 import net.sf.gazpachosurvey.types.Gender;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class Participant extends AbstractAuditable {
+public class Participant extends AbstractAuditable implements Person {
 
     private static final long serialVersionUID = 6716148852807992302L;
 
@@ -25,15 +27,8 @@ public class Participant extends AbstractAuditable {
 
     private Gender gender;
 
-    // @ManyToMany(fetch = FetchType.LAZY)
-    // @JoinTable(name = "questionnair_participant", joinColumns = { @JoinColumn(name = "questionnair_id",
-    // referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "participant_id", referencedColumnName
-    // = "id") })
     @OneToMany(mappedBy = "participant", fetch = FetchType.LAZY)
     private Set<Questionnair> questionnairs;
-
-    // @ManyToMany(mappedBy = "participants", fetch = FetchType.LAZY)
-    // private Set<Study> studies;
 
     public Participant() {
         super();
@@ -146,5 +141,17 @@ public class Participant extends AbstractAuditable {
             participant.questionnairs = questionnairs;
             return participant;
         }
+    }
+
+    @Override
+    public String getName() {
+        return getFirstname();
+    }
+
+    @Override
+    public Set<String> getRoles() {
+        Set<String> rolesSet = new TreeSet<>();
+        rolesSet.add("respondent");
+        return rolesSet;
     }
 }

@@ -57,7 +57,7 @@ public class InvitationServiceTest {
 
         Invitation updated = surveyService.save(existing);
 
-        assertThat(updated.getSurveyInstance()).isNotNull();
+        assertThat(updated.getStudy()).isNotNull();
     }
 
 }

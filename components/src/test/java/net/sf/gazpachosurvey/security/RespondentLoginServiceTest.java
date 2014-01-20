@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.security;
 
+import net.sf.gazpachosurvey.domain.core.Participant;
 import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
 import net.sf.gazpachosurvey.repository.dynamic.QuestionnairAnswersRepository;
 
@@ -33,12 +34,13 @@ public class RespondentLoginServiceTest {
 
     @Test
     public void loginTest() {
-        loginService.login("", "PZXDUNZKK2");
+        Participant respondent = (Participant) loginService.login("", "PF8UCQP36D");
+        System.out.println(respondent.getQuestionnairs());
     }
 
     @Before
     public void setUp() {
-        questionnairAnswersRepository.collectAnswers(QuestionnairDefinition.with().id(56).build());
+        questionnairAnswersRepository.collectAnswers(QuestionnairDefinition.with().id(62).build());
         questionnairAnswersRepository.activeAllAnswers();
 
     }
