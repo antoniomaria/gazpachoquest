@@ -1,5 +1,7 @@
 package net.sf.gazpachosurvey.rest.resources.runtime;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.security.RolesAllowed;
@@ -12,65 +14,45 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
 
+import net.sf.gazpachosurvey.domain.core.Participant;
 import net.sf.gazpachosurvey.domain.core.Questionnair;
-import net.sf.gazpachosurvey.dto.SurveyDTO;
-import net.sf.gazpachosurvey.facades.SurveyAccessorFacade;
-import net.sf.gazpachosurvey.rest.beans.QuestionnairDefinitionBean;
-import net.sf.gazpachosurvey.types.Language;
+import net.sf.gazpachosurvey.dto.QuestionnairDTO;
+import net.sf.gazpachosurvey.facades.QuestionnairFacade;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Path("questionnair")
+@Path("runtime/questionnairs")
 @Provider
 public class QuestionnairResource {
 
     private static final Logger logger = LoggerFactory.getLogger(QuestionnairResource.class);
 
     @Autowired
-    private SurveyAccessorFacade surveyAccessorFacade;
+    private QuestionnairFacade questionnairFacade;
 
     public QuestionnairResource() {
+        super();
     }
 
     @GET
     @RolesAllowed("respondent")
-    @Path("browse")
     @Produces({ "application/json", MediaType.APPLICATION_JSON })
-    public Response browse(@Context
+    public Response list(@Context
     final SecurityContext context) {
         logger.debug("New petition received from {}", context.getUserPrincipal().getName());
-        Questionnair respondent = (Questionnair) context.getUserPrincipal();
+        Participant respondent = (Participant) context.getUserPrincipal();
 
-        Integer surveyId = respondent.getStudy().getSurvey().getId();
+        Set<Questionnair> questionnairs = respondent.getQuestionnairs();
+        List<QuestionnairDTO> questionnairDTOs = new ArrayList<QuestionnairDTO>();
 
-        logger.debug("Respondent {} retriving QuestionnairDefinition for surveyId = {}", respondent.getId(), surveyId);
-
-        return Response.ok().build();
-    }
-
-    @GET
-    @RolesAllowed("respondent")
-    @Path("definition")
-    @Produces({ "application/json", MediaType.APPLICATION_JSON })
-    public Response getDefinition(@Context
-    final SecurityContext context) {
-        logger.debug("New petition received from {}", context.getUserPrincipal().getName());
-        Questionnair respondent = (Questionnair) context.getUserPrincipal();
-        Integer surveyId = respondent.getStudy().getSurvey().getId();
-
-        logger.debug("Respondent {} retriving QuestionnairDefinition for surveyId = {}", respondent.getId(), surveyId);
-
-        SurveyDTO survey = surveyAccessorFacade.findOneSurvey(surveyId);
-
-        Set<Language> translationsSupported = surveyAccessorFacade.findSurveyTranslations(surveyId);
-
-        QuestionnairDefinitionBean definition = QuestionnairDefinitionBean.with()
-                .languageSettings(survey.getLanguageSettings()).language(survey.getLanguage())
-                .translationsSupported(translationsSupported).build();
-
-        return Response.ok(definition).build();
+        for (Questionnair questionnair : questionnairs) {
+            QuestionnairDTO questionnairDTO = questionnairFacade.findOne(questionnair.getId());
+            questionnairDTOs.add(questionnairDTO);
+        }
+        logger.debug("Respondent {} retriving Questionnair list for participantId = {}", respondent.getId());
+        return Response.ok(questionnairDTOs).build();
     }
 
 }

@@ -9,7 +9,65 @@ import net.sf.gazpachosurvey.types.Language;
 
 import org.springframework.util.Assert;
 
-public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements IdentifiableLocalizable<QuestionnairDefinitionLanguageSettingsDTO> {
+public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
+        IdentifiableLocalizable<QuestionnairDefinitionLanguageSettingsDTO> {
+
+    private static final long serialVersionUID = 4558625807621395019L;
+
+    private Language language;
+
+    private QuestionnairDefinitionLanguageSettingsDTO languageSettings;
+
+    private List<QuestionGroupDTO> questionGroups;
+
+    public QuestionnairDefinitionDTO() {
+        super();
+    }
+
+    public void addQuestionGroup(final QuestionGroupDTO questionGroup) {
+        Assert.notNull(questionGroup, "Question Group must be not null");
+        getQuestionGroups().add(questionGroup);
+    }
+
+    @Override
+    public Language getLanguage() {
+        return language;
+    }
+
+    @Override
+    public QuestionnairDefinitionLanguageSettingsDTO getLanguageSettings() {
+        return languageSettings;
+    }
+
+    public QuestionGroupDTO getLastQuestionGroupDTO() {
+        int count = getQuestionGroups().size();
+        return count > 0 ? questionGroups.get(count - 1) : null;
+    }
+
+    public List<QuestionGroupDTO> getQuestionGroups() {
+        if (questionGroups == null) {
+            questionGroups = new ArrayList<>();
+        }
+        return questionGroups;
+    }
+
+    @Override
+    public void setLanguage(final Language language) {
+        this.language = language;
+    }
+
+    @Override
+    public void setLanguageSettings(final QuestionnairDefinitionLanguageSettingsDTO languageSettings) {
+        this.languageSettings = languageSettings;
+    }
+
+    public void setQuestionGroups(final List<QuestionGroupDTO> questionGroups) {
+        this.questionGroups = questionGroups;
+    }
+
+    public static Builder with() {
+        return new BuilderImpl();
+    }
 
     public static interface Builder {
         QuestionnairDefinitionDTO build();
@@ -63,60 +121,4 @@ public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements I
         }
     }
 
-    private static final long serialVersionUID = 4558625807621395019L;
-
-    public static Builder with() {
-        return new BuilderImpl();
-    }
-
-    private Language language;
-
-    private QuestionnairDefinitionLanguageSettingsDTO languageSettings;
-
-    private List<QuestionGroupDTO> questionGroups;
-
-    public QuestionnairDefinitionDTO() {
-        super();
-    }
-
-    public void addQuestionGroup(final QuestionGroupDTO questionGroup) {
-        Assert.notNull(questionGroup, "Question Group must be not null");
-        getQuestionGroups().add(questionGroup);
-    }
-
-    @Override
-    public Language getLanguage() {
-        return language;
-    }
-
-    @Override
-    public QuestionnairDefinitionLanguageSettingsDTO getLanguageSettings() {
-        return languageSettings;
-    }
-
-    public QuestionGroupDTO getLastQuestionGroupDTO() {
-        int count = getQuestionGroups().size();
-        return count > 0 ? questionGroups.get(count - 1) : null;
-    }
-
-    public List<QuestionGroupDTO> getQuestionGroups() {
-        if (questionGroups == null) {
-            questionGroups = new ArrayList<>();
-        }
-        return questionGroups;
-    }
-
-    @Override
-    public void setLanguage(final Language language) {
-        this.language = language;
-    }
-
-    @Override
-    public void setLanguageSettings(final QuestionnairDefinitionLanguageSettingsDTO languageSettings) {
-        this.languageSettings = languageSettings;
-    }
-
-    public void setQuestionGroups(final List<QuestionGroupDTO> questionGroups) {
-        this.questionGroups = questionGroups;
-    }
 }

@@ -38,6 +38,7 @@ public abstract class AbstractIdentifiableDTO implements Identifiable {
     }
 
     @Override
+    @JsonIgnore
     public boolean isNew() {
         return null == getId();
     }
