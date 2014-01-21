@@ -50,7 +50,8 @@ public class RespondentLoginServiceImpl implements LoginService {
         if (invitation instanceof PersonalInvitation) {
             PersonalInvitation personalInvitation = (PersonalInvitation) invitation;
             participant = personalInvitation.getParticipant();
-            Questionnair example = Questionnair.with().participant(participant).study(study).build();
+            Questionnair example = Questionnair.with().participant(Participant.with().id(participant.getId()).build())
+                    .study(Study.with().id(study.getId()).build()).build();
             questionnairs = questionnairRepository.findByExample(example, new SearchParameters());
         }
 
@@ -61,6 +62,7 @@ public class RespondentLoginServiceImpl implements LoginService {
             questionnairs.add(questionnair);
         }
         entityManager.detach(participant);
+        participant.getQuestionnairs().clear();
         for (Questionnair questionnair : questionnairs) {
             entityManager.detach(questionnair);
             participant.getQuestionnairs().add(questionnair);
