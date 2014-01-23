@@ -1,9 +1,9 @@
 package net.sf.gazpachosurvey.dto;
 
-import net.sf.gazpachosurvey.domain.support.LanguageSettings;
 import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
+import net.sf.gazpachosurvey.dto.support.LanguageSettingsDTO;
 
-public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiableDTO implements LanguageSettings {
+public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiableDTO implements LanguageSettingsDTO {
 
     public static interface Builder {
 

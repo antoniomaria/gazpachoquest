@@ -47,7 +47,12 @@
         </exclusion>
       </exclusions>
     </dependency>
-
+    
+    <!-- Project dependencies -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>gazpachosurvey-types</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>commons-lang</groupId>
@@ -59,6 +64,13 @@
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
       <version>2.2</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>1.9.13</version>
     </dependency>
   </dependencies>
 </project>

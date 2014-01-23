@@ -1,8 +1,8 @@
 package net.sf.gazpachosurvey.dto;
 
-import net.sf.gazpachosurvey.domain.support.LanguageSettings;
+import net.sf.gazpachosurvey.dto.support.LanguageSettingsDTO;
 
-public class LabelLanguageSettingsDTO implements LanguageSettings {
+public class LabelLanguageSettingsDTO implements LanguageSettingsDTO {
 
     private static final long serialVersionUID = 8022490578017125663L;
 

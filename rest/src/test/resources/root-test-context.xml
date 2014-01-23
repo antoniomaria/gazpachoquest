@@ -17,6 +17,7 @@
   <import resource="classpath:/jpa-context.xml" />
   <import resource="classpath:/services-context.xml" />
   <import resource="classpath:/components-context.xml" />
+  <import resource="classpath:/questionnair-context.xml" />
   <import resource="classpath:/rest-test-context.xml" />
 
   <context:annotation-config />

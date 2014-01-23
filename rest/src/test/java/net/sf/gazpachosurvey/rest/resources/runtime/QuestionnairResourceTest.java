@@ -42,7 +42,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
-        "classpath:/services-context.xml", "classpath:/components-context.xml" })
+        "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnair-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionnairResource-dataset.xml")
@@ -94,7 +94,8 @@ public class QuestionnairResourceTest {
         List<QuestionnairDTO> questionnairDTOs = mapper.readValue(response, type);
 
         //
-        // Response response = client().target(getBaseUri() + "runtime/questionnairs").request()
+        // Response response = client().target(getBaseUri() +
+        // "runtime/questionnairs").request()
         // .accept(MediaType.APPLICATION_JSON).get();
         System.out.println(questionnairDTOs);
         assertThat(questionnairDTOs).hasSize(1);
@@ -109,7 +110,8 @@ public class QuestionnairResourceTest {
                 .accept(MediaType.APPLICATION_JSON).get(new GenericType<List<QuestionnairDTO>>() {
                 });
         //
-        // Response response = client().target(getBaseUri() + "runtime/questionnairs").request()
+        // Response response = client().target(getBaseUri() +
+        // "runtime/questionnairs").request()
         // .accept(MediaType.APPLICATION_JSON).get();
         System.out.println(questionnairDTOs);
         assertThat(questionnairDTOs).hasSize(1);

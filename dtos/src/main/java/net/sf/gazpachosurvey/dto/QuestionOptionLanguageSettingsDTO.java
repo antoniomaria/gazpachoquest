@@ -1,8 +1,8 @@
 package net.sf.gazpachosurvey.dto;
 
-import net.sf.gazpachosurvey.domain.support.LanguageSettings;
+import net.sf.gazpachosurvey.dto.support.LanguageSettingsDTO;
 
-public class QuestionOptionLanguageSettingsDTO implements LanguageSettings {
+public class QuestionOptionLanguageSettingsDTO implements LanguageSettingsDTO {
 
     public static interface Builder {
 

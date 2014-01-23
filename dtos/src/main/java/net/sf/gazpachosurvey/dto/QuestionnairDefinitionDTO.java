@@ -7,8 +7,6 @@ import net.sf.gazpachosurvey.dto.support.AbstractAuditableDTO;
 import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.types.Language;
 
-import org.springframework.util.Assert;
-
 public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
         IdentifiableLocalizable<QuestionnairDefinitionLanguageSettingsDTO> {
 
@@ -25,7 +23,6 @@ public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
     }
 
     public void addQuestionGroup(final QuestionGroupDTO questionGroup) {
-        Assert.notNull(questionGroup, "Question Group must be not null");
         getQuestionGroups().add(questionGroup);
     }
 

@@ -75,11 +75,10 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachosurvey-components</artifactId>
     </dependency>
-    
-    
+
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachosurvey-questionnaires-backend</artifactId>
+      <artifactId>gazpachosurvey-dtos</artifactId>
     </dependency>
 
     <!-- Spring aspects -->
@@ -154,8 +153,8 @@
       <artifactId>velocity</artifactId>
       <version>1.7</version>
     </dependency>
-    
-    
+
+
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
       <artifactId>jackson-mapper-asl</artifactId>

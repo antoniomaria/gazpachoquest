@@ -1,9 +1,8 @@
 package net.sf.gazpachosurvey.dto.support;
 
-import net.sf.gazpachosurvey.domain.support.LanguageSettings;
 import net.sf.gazpachosurvey.types.Language;
 
-public class TranslationDTO<L extends IdentifiableLocalizable<LSD>, LSD extends LanguageSettings> extends
+public class TranslationDTO<L extends IdentifiableLocalizable<LSD>, LSD extends LanguageSettingsDTO> extends
         AbstractIdentifiableDTO implements IdentifiableLocalizable<LSD> {
 
     private static final long serialVersionUID = -6647673888485425997L;

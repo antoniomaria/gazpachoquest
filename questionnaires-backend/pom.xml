@@ -63,12 +63,7 @@
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachosurvey-domain</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachosurvey-dao</artifactId>
+      <artifactId>gazpachosurvey-services</artifactId>
     </dependency>
 
     <!-- Spring aspects -->

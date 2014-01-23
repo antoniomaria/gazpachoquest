@@ -1,8 +1,8 @@
 package net.sf.gazpachosurvey.dto;
 
-import net.sf.gazpachosurvey.domain.support.LanguageSettings;
+import net.sf.gazpachosurvey.dto.support.LanguageSettingsDTO;
 
-public class QuestionnairDefinitionLanguageSettingsDTO implements LanguageSettings {
+public class QuestionnairDefinitionLanguageSettingsDTO implements LanguageSettingsDTO {
 
     public static interface Builder {
 
@@ -107,8 +107,8 @@ public class QuestionnairDefinitionLanguageSettingsDTO implements LanguageSettin
 
     @Override
     public String toString() {
-        return "QuestionnairDefinitionLanguageSettingsDTO [title=" + title + ", description=" + description + ", welcomeText="
-                + welcomeText + "]";
+        return "QuestionnairDefinitionLanguageSettingsDTO [title=" + title + ", description=" + description
+                + ", welcomeText=" + welcomeText + "]";
     }
 
 }
