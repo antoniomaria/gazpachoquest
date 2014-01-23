@@ -1,6 +1,7 @@
 package net.sf.gazpachosurvey.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PageDTO implements Serializable {
@@ -13,7 +14,14 @@ public class PageDTO implements Serializable {
         super();
     }
 
+    public void addQuestion(QuestionDTO question) {
+        getQuestions().add(question);
+    }
+
     public List<QuestionDTO> getQuestions() {
+        if (questions == null) {
+            questions = new ArrayList<>();
+        }
         return questions;
     }
 

@@ -2,10 +2,13 @@ package net.sf.gazpachosurvey.facades.impl;
 
 import java.util.Set;
 
+import net.sf.gazpachosurvey.domain.core.Question;
+import net.sf.gazpachosurvey.domain.core.QuestionGroup;
 import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
 import net.sf.gazpachosurvey.domain.support.QuestionnairElement;
 import net.sf.gazpachosurvey.dto.PageDTO;
+import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDefinitionLanguageSettingsDTO;
 import net.sf.gazpachosurvey.facades.QuestionnairFacade;
@@ -62,11 +65,21 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
     }
 
     @Transactional
+    @Override
     public PageDTO resolvePage(Integer questionnairId, RenderingMode mode, BrowsingAction action) {
         Questionnair questionnair = questionnairService.findOne(questionnairId);
         QuestionnairElementResolver resolver = resolverSelector.selectBy(mode);
         QuestionnairElement questionnairElement = resolver.resolveFor(questionnair, action);
+        PageDTO page = new PageDTO();
 
-        return null;
+        if (questionnairElement instanceof QuestionGroup) {
+            QuestionGroup questionGroup = (QuestionGroup) questionnairElement;
+
+            for (Question question : questionGroup.getQuestions()) {
+                QuestionDTO questionDTO = mapper.map(question, QuestionDTO.class);
+                page.addQuestion(questionDTO);
+            }
+        }
+        return page;
     }
 }

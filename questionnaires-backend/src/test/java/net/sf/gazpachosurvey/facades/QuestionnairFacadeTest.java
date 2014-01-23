@@ -1,6 +1,9 @@
 package net.sf.gazpachosurvey.facades;
 
+import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDTO;
+import net.sf.gazpachosurvey.types.BrowsingAction;
+import net.sf.gazpachosurvey.types.RenderingMode;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,5 +34,13 @@ public class QuestionnairFacadeTest {
         Integer questionnairId = 63;
         QuestionnairDTO questionnair = questionnairFacade.findOne(questionnairId);
         System.out.println("de winner is: " + questionnair);
+    }
+
+    @Test
+    public void resolvePageTest() {
+        Integer questionnairId = 63;
+        PageDTO page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP,
+                BrowsingAction.ENTERING);
+        System.out.println("de winner is: ");
     }
 }
