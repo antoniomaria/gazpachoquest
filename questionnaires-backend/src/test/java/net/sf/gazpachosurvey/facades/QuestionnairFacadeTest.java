@@ -1,6 +1,8 @@
 package net.sf.gazpachosurvey.facades;
 
+import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachosurvey.dto.PageDTO;
+import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDTO;
 import net.sf.gazpachosurvey.types.BrowsingAction;
 import net.sf.gazpachosurvey.types.RenderingMode;
@@ -41,6 +43,17 @@ public class QuestionnairFacadeTest {
         Integer questionnairId = 63;
         PageDTO page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP,
                 BrowsingAction.ENTERING);
-        System.out.println("de winner is: ");
+        assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(17).build(),
+                QuestionDTO.with().id(18).build(), QuestionDTO.with().id(34).build());
+
+        page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP, BrowsingAction.FORWARD);
+
+        assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(35).build(),
+                QuestionDTO.with().id(36).build(), QuestionDTO.with().id(40).build());
+
+        page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP, BrowsingAction.BACKWARD);
+        assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(17).build(),
+                QuestionDTO.with().id(18).build(), QuestionDTO.with().id(34).build());
+
     }
 }

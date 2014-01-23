@@ -15,6 +15,8 @@ import javax.ws.rs.core.MediaType;
 import net.sf.gazpachosurvey.dto.QuestionnairDTO;
 import net.sf.gazpachosurvey.rest.ApplicationConfig;
 import net.sf.gazpachosurvey.security.LoginService;
+import net.sf.gazpachosurvey.types.BrowsingAction;
+import net.sf.gazpachosurvey.types.RenderingMode;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -103,7 +105,7 @@ public class QuestionnairResourceTest {
     }
 
     @Test
-    public void getQuestionnairsTest() {
+    public void questionnairsListTest() {
         String invitationToken = "PF8UCQP36D";
         client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
         List<QuestionnairDTO> questionnairDTOs = client().target(getBaseUri() + "runtime/questionnairs").request()
@@ -116,6 +118,24 @@ public class QuestionnairResourceTest {
         System.out.println(questionnairDTOs);
         assertThat(questionnairDTOs).hasSize(1);
         System.out.println("fin serafin!");
+    }
+
+    @Test
+    public void pageTest() {
+        String invitationToken = "PF8UCQP36D";
+        Integer questionnairId = 63;
+        RenderingMode mode = RenderingMode.GROUP_BY_GROUP;
+        BrowsingAction action = BrowsingAction.ENTERING;
+
+        client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
+        String response = client()
+                .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
+                        mode, action)).request().accept(MediaType.APPLICATION_JSON).get(String.class);
+        //
+        // Response response = client().target(getBaseUri() +
+        // "runtime/questionnairs").request()
+        // .accept(MediaType.APPLICATION_JSON).get();
+        System.out.println("de winner is !" + response);
     }
 
     @After

@@ -3,6 +3,21 @@ package net.sf.gazpachosurvey.dto;
 import net.sf.gazpachosurvey.dto.support.LanguageSettingsDTO;
 
 public class QuestionLanguageSettingsDTO implements LanguageSettingsDTO {
+    private static final long serialVersionUID = 7670525018631065390L;
+
+    private String title;
+
+    public QuestionLanguageSettingsDTO() {
+        super();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(final String title) {
+        this.title = title;
+    }
 
     public static interface Builder {
 
@@ -43,8 +58,6 @@ public class QuestionLanguageSettingsDTO implements LanguageSettingsDTO {
         }
     }
 
-    private static final long serialVersionUID = 7670525018631065390L;
-
     public static Builder languageSettingsStart(final QuestionDTO.Builder container) {
         return new QuestionLanguageSettingsDTO.BuilderImpl(container);
     }
@@ -53,17 +66,9 @@ public class QuestionLanguageSettingsDTO implements LanguageSettingsDTO {
         return new BuilderImpl(null);
     }
 
-    private String title;
-
-    public QuestionLanguageSettingsDTO() {
-        super();
+    @Override
+    public String toString() {
+        return "QuestionLanguageSettingsDTO [title=" + title + "]";
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(final String title) {
-        this.title = title;
-    }
 }

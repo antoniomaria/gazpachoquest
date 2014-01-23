@@ -7,7 +7,9 @@ import java.util.Set;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -16,8 +18,11 @@ import javax.ws.rs.ext.Provider;
 
 import net.sf.gazpachosurvey.domain.core.Participant;
 import net.sf.gazpachosurvey.domain.core.Questionnair;
+import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDTO;
 import net.sf.gazpachosurvey.facades.QuestionnairFacade;
+import net.sf.gazpachosurvey.types.BrowsingAction;
+import net.sf.gazpachosurvey.types.RenderingMode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +58,21 @@ public class QuestionnairResource {
         }
         logger.debug("Respondent {} retriving Questionnair list for participantId = {}", respondent.getId());
         return Response.ok(questionnairDTOs).build();
+    }
+
+    @GET
+    @Path("/{questionnairId}")
+    @RolesAllowed("respondent")
+    @Produces({ "application/json", MediaType.APPLICATION_JSON })
+    public Response resolvePage(@Context
+    final SecurityContext context, @PathParam("questionnairId")
+    Integer questionnairId, @QueryParam("mode")
+    RenderingMode mode, @QueryParam("action")
+    BrowsingAction action) {
+        logger.debug("New petition received from {}", context.getUserPrincipal().getName());
+        PageDTO page = questionnairFacade.resolvePage(questionnairId, mode, action);
+        // return Response.ok("echo echo: " + questionnairId + " ->" + mode + " |" + action).build();
+        return Response.ok(page).build();
     }
 
 }
