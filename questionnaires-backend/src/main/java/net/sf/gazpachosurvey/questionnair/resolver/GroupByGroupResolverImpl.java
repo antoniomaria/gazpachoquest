@@ -5,8 +5,8 @@ import net.sf.gazpachosurvey.domain.core.BrowsedQuestionGroup;
 import net.sf.gazpachosurvey.domain.core.QuestionGroup;
 import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
-import net.sf.gazpachosurvey.services.BrowsedElementService;
-import net.sf.gazpachosurvey.services.QuestionGroupService;
+import net.sf.gazpachosurvey.repository.BrowsedElementRepository;
+import net.sf.gazpachosurvey.repository.QuestionGroupRepository;
 import net.sf.gazpachosurvey.types.BrowsingAction;
 
 import org.slf4j.Logger;
@@ -23,10 +23,10 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
     private static final Logger logger = LoggerFactory.getLogger(GroupByGroupResolverImpl.class);
 
     @Autowired
-    private BrowsedElementService browsedElementService;
+    private BrowsedElementRepository browsedElementService;
 
     @Autowired
-    private QuestionGroupService questionGroupService;
+    private QuestionGroupRepository questionGroupService;
 
     @Override
     public QuestionGroup resolveFor(final Questionnair questionnair, final BrowsingAction action) {

@@ -4,12 +4,18 @@ import java.util.Set;
 
 import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
+import net.sf.gazpachosurvey.domain.support.QuestionnairElement;
+import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDefinitionLanguageSettingsDTO;
 import net.sf.gazpachosurvey.facades.QuestionnairFacade;
+import net.sf.gazpachosurvey.questionnair.resolver.QuestionnairElementResolver;
+import net.sf.gazpachosurvey.questionnair.resolver.ResolverSelector;
 import net.sf.gazpachosurvey.services.QuestionnairDefinitionService;
 import net.sf.gazpachosurvey.services.QuestionnairService;
+import net.sf.gazpachosurvey.types.BrowsingAction;
 import net.sf.gazpachosurvey.types.Language;
+import net.sf.gazpachosurvey.types.RenderingMode;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class QuestionnairFacadeImpl implements QuestionnairFacade {
+
+    @Autowired
+    private ResolverSelector resolverSelector;
 
     @Autowired
     private QuestionnairService questionnairService;
@@ -50,5 +59,14 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
         questionnairDTO.setLanguageSettings(languageSettings);
         questionnairDTO.setId(questionnairId);
         return questionnairDTO;
+    }
+
+    @Transactional
+    public PageDTO resolvePage(Integer questionnairId, RenderingMode mode, BrowsingAction action) {
+        Questionnair questionnair = questionnairService.findOne(questionnairId);
+        QuestionnairElementResolver resolver = resolverSelector.selectBy(mode);
+        QuestionnairElement questionnairElement = resolver.resolveFor(questionnair, action);
+
+        return null;
     }
 }

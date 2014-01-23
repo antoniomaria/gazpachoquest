@@ -32,6 +32,7 @@
     <module>dao</module>
     <module>dbpopulator</module>
     <module>domain</module>
+    <module>dtos</module>
     <module>questionnaires-backend</module>
     <!-- Ommited temporarly <module>questionnaires-ui</module> -->
     <module>rest</module>
@@ -180,6 +181,12 @@
 
       <dependency>
         <groupId>${project.groupId}</groupId>
+        <artifactId>gazpachosurvey-dtos</artifactId>
+        <version>${project.version} </version>
+      </dependency>
+
+      <dependency>
+        <groupId>${project.groupId}</groupId>
         <artifactId>gazpachosurvey-dao</artifactId>
         <version>${project.version} </version>
       </dependency>
@@ -195,6 +202,13 @@
         <artifactId>gazpachosurvey-components</artifactId>
         <version>${project.version} </version>
       </dependency>
+
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>gazpachosurvey-questionnaires-backend</artifactId>
+        <version>${project.version} </version>
+      </dependency>
+
       <!-- Third party dependencies -->
       <dependency>
         <groupId>org.springframework</groupId>
@@ -303,20 +317,33 @@
   </dependencyManagement>
 
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <configuration>
-            <source>1.7</source>
-            <target>1.7</target>
-            <!-- For generating the JPA metamodel -->
-            <compilerArgument>-proc:none</compilerArgument>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+          <!-- For generating the JPA metamodel -->
+          <compilerArgument>-proc:none</compilerArgument>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 
 </project>

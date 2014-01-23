@@ -10,6 +10,96 @@ import net.sf.gazpachosurvey.types.QuestionType;
 
 public class QuestionDTO extends AbstractIdentifiableDTO implements
         IdentifiableLocalizable<QuestionLanguageSettingsDTO> {
+    private static final long serialVersionUID = 2663159055152157679L;
+
+    private Boolean isRequired;
+
+    private Language language;
+
+    private QuestionLanguageSettingsDTO languageSettings;
+
+    private List<QuestionOptionDTO> questionOptions;
+
+    private List<QuestionDTO> subquestions;
+
+    private QuestionType type;
+
+    public QuestionDTO() {
+        super();
+    }
+
+    public void addQuestionOption(final QuestionOptionDTO questionOption) {
+        if (!getQuestionOptions().contains(questionOption)) {
+            questionOptions.add(questionOption);
+        }
+    }
+
+    public void addSubQuestion(final QuestionDTO subQuestion) {
+        if (!getSubquestions().contains(subQuestion)) {
+            subquestions.add(subQuestion);
+        }
+    }
+
+    public Boolean getIsRequired() {
+        return isRequired;
+    }
+
+    @Override
+    public Language getLanguage() {
+        return language;
+    }
+
+    @Override
+    public QuestionLanguageSettingsDTO getLanguageSettings() {
+        if (languageSettings == null) {
+            languageSettings = new QuestionLanguageSettingsDTO();
+        }
+        return languageSettings;
+    }
+
+    public List<QuestionOptionDTO> getQuestionOptions() {
+        if (questionOptions == null) {
+            questionOptions = new ArrayList<>();
+        }
+        return questionOptions;
+    }
+
+    public List<QuestionDTO> getSubquestions() {
+        if (subquestions == null) {
+            subquestions = new ArrayList<QuestionDTO>();
+        }
+        return subquestions;
+    }
+
+    public QuestionType getType() {
+        return type;
+    }
+
+    public Boolean isRequired() {
+        return isRequired;
+    }
+
+    public void setIsRequired(final Boolean isRequired) {
+        this.isRequired = isRequired;
+    }
+
+    @Override
+    public void setLanguage(final Language language) {
+        this.language = language;
+    }
+
+    @Override
+    public void setLanguageSettings(final QuestionLanguageSettingsDTO languageSettings) {
+        this.languageSettings = languageSettings;
+    }
+
+    public void setRequired(final Boolean isRequired) {
+        this.isRequired = isRequired;
+    }
+
+    public void setType(final QuestionType type) {
+        this.type = type;
+    }
 
     public static interface Builder {
         Builder answers(List<QuestionOptionDTO> answers);
@@ -101,99 +191,8 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         }
     }
 
-    private static final long serialVersionUID = 2663159055152157679L;
-
     public static Builder with() {
         return new BuilderImpl();
-    }
-
-    private Boolean isRequired;
-
-    private Language language;
-
-    private QuestionLanguageSettingsDTO languageSettings;
-
-    private List<QuestionOptionDTO> questionOptions;
-
-    private List<QuestionDTO> subquestions;
-
-    private QuestionType type;
-
-    public QuestionDTO() {
-        super();
-    }
-
-    public void addQuestionOption(final QuestionOptionDTO questionOption) {
-        if (!getQuestionOptions().contains(questionOption)) {
-            questionOptions.add(questionOption);
-        }
-    }
-
-    public void addSubQuestion(final QuestionDTO subQuestion) {
-        if (!getSubquestions().contains(subQuestion)) {
-            subquestions.add(subQuestion);
-        }
-    }
-
-    public Boolean getIsRequired() {
-        return isRequired;
-    }
-
-    @Override
-    public Language getLanguage() {
-        return language;
-    }
-
-    @Override
-    public QuestionLanguageSettingsDTO getLanguageSettings() {
-        if (languageSettings == null) {
-            languageSettings = new QuestionLanguageSettingsDTO();
-        }
-        return languageSettings;
-    }
-
-    public List<QuestionOptionDTO> getQuestionOptions() {
-        if (questionOptions == null) {
-            questionOptions = new ArrayList<>();
-        }
-        return questionOptions;
-    }
-
-    public List<QuestionDTO> getSubquestions() {
-        if (subquestions == null) {
-            subquestions = new ArrayList<QuestionDTO>();
-        }
-        return subquestions;
-    }
-
-    public QuestionType getType() {
-        return type;
-    }
-
-    public Boolean isRequired() {
-        return isRequired;
-    }
-
-    public void setIsRequired(final Boolean isRequired) {
-        this.isRequired = isRequired;
-    }
-
-    @Override
-    public void setLanguage(final Language language) {
-        this.language = language;
-    }
-
-    @Override
-    public void setLanguageSettings(final QuestionLanguageSettingsDTO languageSettings) {
-        this.languageSettings = languageSettings;
-    }
-
-    public void setRequired(final Boolean isRequired) {
-        this.isRequired = isRequired;
-    }
-
-    public void setType(final QuestionType type) {
-        this.type = type;
     }
 
 }

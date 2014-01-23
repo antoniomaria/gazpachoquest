@@ -6,10 +6,11 @@ import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.QuestionGroup;
 import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
-import net.sf.gazpachosurvey.services.BrowsedElementService;
-import net.sf.gazpachosurvey.services.QuestionGroupService;
-import net.sf.gazpachosurvey.services.QuestionService;
-import net.sf.gazpachosurvey.services.QuestionnairDefinitionService;
+import net.sf.gazpachosurvey.repository.BrowsedElementRepository;
+import net.sf.gazpachosurvey.repository.QuestionGroupRepository;
+import net.sf.gazpachosurvey.repository.QuestionRepository;
+import net.sf.gazpachosurvey.repository.QuestionnairDefinitionRepository;
+import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import net.sf.gazpachosurvey.types.BrowsingAction;
 
 import org.slf4j.Logger;
@@ -25,16 +26,16 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
     private static final Logger logger = LoggerFactory.getLogger(QuestionByQuestionResolverImpl.class);
 
     @Autowired
-    private BrowsedElementService browsedElementService;
+    private BrowsedElementRepository browsedElementService;
 
     @Autowired
-    private QuestionGroupService questionGroupService;
+    private QuestionGroupRepository questionGroupService;
 
     @Autowired
-    private QuestionService questionService;
+    private QuestionRepository questionService;
 
     @Autowired
-    private QuestionnairDefinitionService surveyRepository;
+    private QuestionnairDefinitionRepository surveyRepository;
 
     @Override
     public Question resolveFor(final Questionnair questionnair, final BrowsingAction action) {
@@ -88,7 +89,7 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
 
             Integer position = questionService.findPositionInQuestionGroup(lastBrowsedQuestion.getQuestion().getId());
 
-            long questionsCount = questionGroupService.questionsCount(lastQuestionGroup.getId());
+            long questionsCount = questionsCount(lastQuestionGroup.getId());
             if (position < questionsCount - 1) { // Not last in group
                 next = questionService.findOneByPositionInQuestionGroup(lastQuestionGroup.getId(), position + 1);
             } else {
@@ -108,6 +109,12 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
         }
         browsedElementService.save(nextBrowsedQuestion);
         return next;
+    }
+
+    public long questionsCount(final Integer questionGroupId) {
+        return questionService.countByExample(
+                Question.with().questionGroup(QuestionGroup.with().id(questionGroupId).build()).build(),
+                new SearchParameters());
     }
 
     private Question findPreviousQuestion(final int surveyId, final Questionnair respondent,

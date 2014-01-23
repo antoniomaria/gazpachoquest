@@ -6,6 +6,6 @@ import net.sf.gazpachosurvey.types.BrowsingAction;
 
 public interface QuestionnairElementResolver {
 
-    QuestionnairElement resolveFor(Questionnair respondent, BrowsingAction action);
+    QuestionnairElement resolveFor(Questionnair questionnair, BrowsingAction action);
 
 }
