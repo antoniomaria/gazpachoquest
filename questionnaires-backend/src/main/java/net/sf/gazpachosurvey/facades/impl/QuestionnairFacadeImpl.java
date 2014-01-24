@@ -79,6 +79,10 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
                 QuestionDTO questionDTO = mapper.map(question, QuestionDTO.class);
                 page.addQuestion(questionDTO);
             }
+        } else {
+            Question question = (Question) questionnairElement;
+            QuestionDTO questionDTO = mapper.map(question, QuestionDTO.class);
+            page.addQuestion(questionDTO);
         }
         return page;
     }

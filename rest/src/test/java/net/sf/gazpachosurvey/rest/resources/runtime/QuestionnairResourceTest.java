@@ -12,6 +12,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
+import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDTO;
 import net.sf.gazpachosurvey.rest.ApplicationConfig;
 import net.sf.gazpachosurvey.security.LoginService;
@@ -124,18 +125,15 @@ public class QuestionnairResourceTest {
     public void pageTest() {
         String invitationToken = "PF8UCQP36D";
         Integer questionnairId = 63;
-        RenderingMode mode = RenderingMode.GROUP_BY_GROUP;
+        RenderingMode mode = RenderingMode.QUESTION_BY_QUESTION;
         BrowsingAction action = BrowsingAction.ENTERING;
 
         client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
-        String response = client()
+        PageDTO page = client()
                 .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
-                        mode, action)).request().accept(MediaType.APPLICATION_JSON).get(String.class);
-        //
-        // Response response = client().target(getBaseUri() +
-        // "runtime/questionnairs").request()
-        // .accept(MediaType.APPLICATION_JSON).get();
-        System.out.println("de winner is !" + response);
+                        mode, action)).request().accept(MediaType.APPLICATION_JSON).get(PageDTO.class);
+
+        System.out.println("de winner is !" + page.getQuestions());
     }
 
     @After

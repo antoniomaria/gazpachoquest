@@ -74,8 +74,7 @@
 
 
   <!-- Question Mappings -->
-  
-  <mapping>
+  <mapping type="one-way">
     <class-a>net.sf.gazpachosurvey.dto.QuestionDTO</class-a>
     <class-b>net.sf.gazpachosurvey.domain.core.Question</class-b>
     <field>
@@ -90,6 +89,20 @@
     </field>
   </mapping>
 
+  <mapping type="one-way">
+    <class-a>net.sf.gazpachosurvey.domain.core.Question</class-a>
+    <class-b>net.sf.gazpachosurvey.dto.QuestionDTO</class-b>
+    <field>
+      <a>subquestions</a>
+      <b set-method="addSubquestion" type="iterate">subquestions</b>
+      <b-hint>net.sf.gazpachosurvey.dto.QuestionDTO</b-hint>
+    </field>
+    <field>
+      <a>questionOptions</a>
+      <b set-method="addQuestionOption" type="iterate">questionOptions</b>
+      <b-hint>net.sf.gazpachosurvey.dto.QuestionOptionDTO</b-hint>
+    </field>
+  </mapping>
   <!-- QuestionnairDefinition Mappings -->
 
   <mapping type="one-way">
