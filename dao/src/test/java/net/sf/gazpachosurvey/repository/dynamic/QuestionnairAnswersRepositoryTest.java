@@ -7,9 +7,8 @@ import javax.sql.DataSource;
 import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.domain.core.QuestionnairAnswers;
 import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
-import net.sf.gazpachosurvey.domain.core.Study;
-import net.sf.gazpachosurvey.repository.StudyRepository;
 import net.sf.gazpachosurvey.repository.QuestionnairDefinitionRepository;
+import net.sf.gazpachosurvey.repository.QuestionnairRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +39,7 @@ public class QuestionnairAnswersRepositoryTest {
     private QuestionnairAnswersRepository repository;
 
     @Autowired
-    private StudyRepository studyRepository;
+    private QuestionnairRepository questionnairRepository;
 
     @Autowired
     private QuestionnairDefinitionRepository questionnairDefinitionRepository;
@@ -58,19 +57,19 @@ public class QuestionnairAnswersRepositoryTest {
     }
 
     @Test
-    public void saveRespondentTest() {
-        Study study = studyRepository.findOne(131);
-
-        Questionnair questionnair = new Questionnair();
-        questionnair.setId(1);
-        questionnair.setStudy(study);
+    public void saveTest() {
+        Questionnair questionnair = questionnairRepository.findOne(63);
 
         repository.activeAllAnswers();
         QuestionnairAnswers respondentAnswers = new QuestionnairAnswers();
 
         respondentAnswers.setQuestionnair(questionnair);
+        try {
+            respondentAnswers = repository.save(respondentAnswers);
+            assertThat(questionnair.getId()).isGreaterThanOrEqualTo(1);
 
-        respondentAnswers = repository.save(respondentAnswers);
-        assertThat(questionnair.getId()).isGreaterThanOrEqualTo(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -2,6 +2,8 @@ package net.sf.gazpachosurvey.repository.dynamic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,11 +29,11 @@ import org.eclipse.persistence.tools.schemaframework.SchemaManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-@Component
+@Repository
 public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRepository {
 
     private static final Logger logger = LoggerFactory.getLogger(QuestionnairAnswersRepositoryImpl.class);
@@ -52,8 +54,8 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
 
     @Override
     public void activeAllAnswers() {
-        List<QuestionnairDefinition> confirmedSurveys = questionnairDefinitionRepository.findByExample(QuestionnairDefinition.with()
-                .status(EntityStatus.CONFIRMED).build(), new SearchParameters());
+        List<QuestionnairDefinition> confirmedSurveys = questionnairDefinitionRepository.findByExample(
+                QuestionnairDefinition.with().status(EntityStatus.CONFIRMED).build(), new SearchParameters());
         List<DynamicType> dynamicTypes = new ArrayList<>();
         for (QuestionnairDefinition questionnairDefinition : confirmedSurveys) {
             dynamicTypes.add(buildDynamicType(questionnairDefinition.getId()));
@@ -83,27 +85,33 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
 
     @Override
     @Transactional
-    public QuestionnairAnswers save(final QuestionnairAnswers respondentAnswers) {
-        Assert.notNull(respondentAnswers.getQuestionnair());
+    public QuestionnairAnswers save(final QuestionnairAnswers questionnairAnswers) {
+        Assert.notNull(questionnairAnswers.getQuestionnair());
 
         StringBuilder tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(
-                respondentAnswers.getQuestionnair().getQuestionnairDefinition().getId());
+                questionnairAnswers.getQuestionnair().getQuestionnairDefinition().getId());
 
         DynamicEntity entity = newInstance(tableName.toString());
 
-        if (!respondentAnswers.isNew()) {
-            entity.set("id", respondentAnswers.getId());
+        if (!questionnairAnswers.isNew()) {
+            entity.set("id", questionnairAnswers.getId());
         }
-        entity.set("questionnairId", respondentAnswers.getQuestionnair().getId());
+        entity.set("questionnairId", questionnairAnswers.getQuestionnair().getId());
+        Map<String, Object> answers = questionnairAnswers.getAnswers();
+        Set<String> questionCodes = answers.keySet();
+        for (String questionCode : questionCodes) {
+            Object answer = answers.get(questionCode);
+            entity.set(questionCode, answer);
+        }
 
-        if (!respondentAnswers.isNew()) {
+        if (!questionnairAnswers.isNew()) {
             entity = entityManager.merge(entity);
         } else {
             entityManager.persist(entity);
-            respondentAnswers.setId((Integer) entity.get("id"));
+            questionnairAnswers.setId((Integer) entity.get("id"));
         }
         entityManager.flush();
-        return respondentAnswers;
+        return questionnairAnswers;
     }
 
     private DynamicType buildDynamicType(final Integer surveyId) {
@@ -116,7 +124,7 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         JPADynamicTypeBuilder respondentAnswersTypeBuilder = new JPADynamicTypeBuilder(dynamicClass, null, tableName);
 
         respondentAnswersTypeBuilder.addDirectMapping("id", Integer.class, "id");
-        respondentAnswersTypeBuilder.addDirectMapping("respondentId", Integer.class, "respondent_id");
+        respondentAnswersTypeBuilder.addDirectMapping("questionnairId", Integer.class, "respondent_id");
 
         List<Question> questions = questionRepository.findBySurveyId(surveyId);
 

@@ -24,9 +24,10 @@ public class QuestionOption extends AbstractLocalizable<QuestionOptionTranslatio
 
     private static final long serialVersionUID = 2405587054509407178L;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Question question;
 
+    @Column(nullable = false)
     private String code;
 
     @Embedded
@@ -61,22 +62,27 @@ public class QuestionOption extends AbstractLocalizable<QuestionOptionTranslatio
         this.code = code;
     }
 
+    @Override
     public Language getLanguage() {
         return language;
     }
 
+    @Override
     public void setLanguage(Language language) {
         this.language = language;
     }
 
+    @Override
     public QuestionOptionLanguageSettings getLanguageSettings() {
         return languageSettings;
     }
 
+    @Override
     public void setLanguageSettings(QuestionOptionLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }
 
+    @Override
     public Map<Language, QuestionOptionTranslation> getTranslations() {
         if (translations == null) {
             translations = new HashMap<>();

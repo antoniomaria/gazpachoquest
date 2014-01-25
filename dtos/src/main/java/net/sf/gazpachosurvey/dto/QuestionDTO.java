@@ -12,6 +12,8 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         IdentifiableLocalizable<QuestionLanguageSettingsDTO> {
     private static final long serialVersionUID = 2663159055152157679L;
 
+    private String code;
+
     private Boolean isRequired;
 
     private Language language;
@@ -28,13 +30,21 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         super();
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public void addQuestionOption(final QuestionOptionDTO questionOption) {
         if (!getQuestionOptions().contains(questionOption)) {
             questionOptions.add(questionOption);
         }
     }
 
-    public void addSubQuestion(final QuestionDTO subQuestion) {
+    public void addSubquestion(final QuestionDTO subQuestion) {
         if (!getSubquestions().contains(subQuestion)) {
             subquestions.add(subQuestion);
         }
@@ -102,11 +112,14 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
     }
 
     public static interface Builder {
+
+        Builder id(Integer id);
+
+        Builder code(String code);
+
         Builder answers(List<QuestionOptionDTO> answers);
 
         QuestionDTO build();
-
-        Builder id(Integer id);
 
         Builder isRequired(Boolean isRequired);
 
@@ -122,6 +135,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
     }
 
     public static class BuilderImpl implements Builder {
+        private String code;
         private List<QuestionOptionDTO> answers;
         private Integer id;
         private Boolean isRequired;
@@ -140,6 +154,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         public QuestionDTO build() {
             QuestionDTO questionDTO = new QuestionDTO();
             questionDTO.setId(id);
+            questionDTO.code = code;
             questionDTO.isRequired = isRequired;
             questionDTO.type = type;
             questionDTO.language = language;
@@ -187,6 +202,12 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         @Override
         public Builder type(final QuestionType type) {
             this.type = type;
+            return this;
+        }
+
+        @Override
+        public Builder code(String code) {
+            this.code = code;
             return this;
         }
     }

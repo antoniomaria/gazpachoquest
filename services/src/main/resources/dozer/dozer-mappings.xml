@@ -103,8 +103,8 @@
       <b-hint>net.sf.gazpachosurvey.dto.QuestionOptionDTO</b-hint>
     </field>
   </mapping>
-  <!-- QuestionnairDefinition Mappings -->
 
+  <!-- QuestionnairDefinition Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachosurvey.dto.QuestionnairDefinitionDTO</class-a>
     <class-b>net.sf.gazpachosurvey.domain.core.QuestionnairDefinition</class-b>
@@ -122,6 +122,11 @@
       <a>questionGroups</a>
       <b>questionGroups</b>
     </field-exclude>
+  </mapping>
+  
+  <mapping type="one-way" map-id="toDTOwithQuestionGroups">
+    <class-a>net.sf.gazpachosurvey.domain.core.QuestionnairDefinition</class-a>
+    <class-b>net.sf.gazpachosurvey.dto.QuestionnairDefinitionDTO</class-b>
   </mapping>
 
 </mappings>

@@ -3,6 +3,7 @@ package net.sf.gazpachosurvey.domain.core;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -17,8 +18,10 @@ public class Participant extends AbstractAuditable implements Person {
 
     private static final long serialVersionUID = 6716148852807992302L;
 
+    @Column(nullable = false)
     private String firstname;
 
+    @Column(nullable = false)
     private String lastname;
 
     private String email;

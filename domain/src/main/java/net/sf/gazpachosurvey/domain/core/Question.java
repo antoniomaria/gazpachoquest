@@ -33,10 +33,13 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     private static final long serialVersionUID = -4372634574851905803L;
 
+    @Column(nullable = false)
+    private String code;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Question parent;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private QuestionGroup questionGroup;
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -50,6 +53,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     private Boolean isRequired;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private QuestionType type;
 
     @Enumerated(EnumType.STRING)
@@ -74,6 +78,14 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     public void setType(QuestionType type) {
         this.type = type;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public List<Question> getSubquestions() {
@@ -186,6 +198,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     public static class Builder {
         private Integer id;
+        private String code;
         private Question parent;
         private QuestionGroup questionGroup;
         private List<Question> subquestions;
@@ -198,6 +211,11 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
         public Builder id(Integer id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder code(String code) {
+            this.code = code;
             return this;
         }
 
@@ -249,6 +267,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         public Question build() {
             Question question = new Question();
             question.setId(id);
+            question.code = code;
             question.parent = parent;
             question.questionGroup = questionGroup;
             question.subquestions = subquestions;

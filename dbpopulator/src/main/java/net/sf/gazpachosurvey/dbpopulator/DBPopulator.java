@@ -180,36 +180,51 @@ public class DBPopulator {
         questionnairDefinitionEditorFacade.save(labelSet);
 
         // 1 Single Textbox
-        QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).languageSettingsStart()
-                .title("What is your name?").languageSettingsEnd().isRequired(true).build();
+        QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).code("Q1")
+                .languageSettingsStart().title("What is your name?").languageSettingsEnd().isRequired(true).build();
         questionGroup1.addQuestion(question);
         questionGroup1 = questionnairDefinitionEditorFacade.save(questionGroup1);
 
         // 2 Multiple Choice (Only One QuestionOption)
-        question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
+        question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).code("Q2").languageSettingsStart()
                 .title("What is your age group?").languageSettingsEnd().isRequired(true).build();
 
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("0-14 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("15-19 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("20-24 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("25-29 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("30-34 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("35-39 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("40-44 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("45-49 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("50-54 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("55-59 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("60-64 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("65-69 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("70-74 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("75-79 years").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("80 and over").build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("0-14 years")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O2").language(Language.EN).title("15-19 years")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN).title("20-24 years")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("25-29 years")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O5").language(Language.EN).title("30-34 years")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O6").language(Language.EN).title("35-39 years")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O7").language(Language.EN).title("40-44 years")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O8").language(Language.EN).title("45-49 years")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O9").language(Language.EN).title("50-54 years")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O10").language(Language.EN).title("55-59 years")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O11").language(Language.EN).title("60-64 years")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O12").language(Language.EN).title("65-69 years")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O13").language(Language.EN).title("70-74 years")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O14").language(Language.EN).title("75-79 years")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O15").language(Language.EN).title("80 and over")
+                .build());
 
         questionGroup1.addQuestion(question);
         questionGroup1 = questionnairDefinitionEditorFacade.save(questionGroup1);
 
         // 3 Numeric
-        question = QuestionDTO.with().type(QuestionType.N).language(Language.EN).languageSettingsStart()
+        question = QuestionDTO.with().type(QuestionType.N).language(Language.EN).code("Q3").languageSettingsStart()
                 .title("And for our records, specifically how old are you?").languageSettingsEnd().isRequired(true)
                 .build();
 
@@ -217,7 +232,7 @@ public class DBPopulator {
         questionGroup1 = questionnairDefinitionEditorFacade.save(questionGroup1);
 
         // 4 Comment/Essay Box
-        question = QuestionDTO.with().type(QuestionType.T).language(Language.EN).languageSettingsStart()
+        question = QuestionDTO.with().type(QuestionType.T).language(Language.EN).code("Q4").languageSettingsStart()
                 .title("Please tell us a little about yourself. What was your first job, and did you enjoy it?")
                 .languageSettingsEnd().isRequired(true).build();
 
@@ -225,30 +240,26 @@ public class DBPopulator {
         questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup2);
 
         // 5 Multiple Choice (Only One QuestionOption)
-        question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
+        question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).code("Q5").languageSettingsStart()
                 .title("Given your extraordinary age, how do you find using this questionnairDefinition tool?")
                 .languageSettingsEnd().isRequired(true).build();
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN)
+        question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN)
                 .title("Very difficult to read, my eyesight is dim").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN)
+        question.addQuestionOption(QuestionOptionDTO.with().code("O2").language(Language.EN)
                 .title("Easy, my carer is doing it all for me").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN)
+        question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN)
                 .title("How <b><i>dare</i></b> you insult me like that! I'm YOUNG").build());
 
         questionGroup2.addQuestion(question);
         questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup2);
 
         // 6 Multiple Choice (Only One QuestionOption)
-        question = QuestionDTO
-                .with()
-                .type(QuestionType.L)
-                .language(Language.EN)
-                .languageSettingsStart()
-                .title("<font size='+2'><br />&nbsp;<br />Which of these ads makes you want to find out more?<br />&nbsp;<br /></font>")
-                .languageSettingsEnd().isRequired(true).build();
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Ad one").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Ad two").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Ad three").build());
+        question = QuestionDTO.with().type(QuestionType.L).code("Q6").language(Language.EN).languageSettingsStart()
+                .title("Which of these ads makes you want to find out more?").languageSettingsEnd().isRequired(true)
+                .build();
+        question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("Ad one").build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O2").language(Language.EN).title("Ad two").build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN).title("Ad three").build());
 
         questionGroup2.addQuestion(question);
         questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup2);
@@ -257,40 +268,51 @@ public class DBPopulator {
         question = QuestionDTO
                 .with()
                 .type(QuestionType.F)
+                .code("Q7")
                 .language(Language.EN)
                 .languageSettingsStart()
                 .title("Please have a good look at this ad, and then complete the questions below.<br /><img src='http://www.aptigence.com.au/images/lawyer1.jpg' border='1'>")
                 .languageSettingsEnd().isRequired(true).build();
 
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("This ad suggests the lawyer is on my side, not his own").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
+        question.addSubquestion(QuestionDTO.with().code("Q7.1").language(Language.EN).type(QuestionType.L)
+                .languageSettingsStart().title("This ad suggests the lawyer is on my side, not his own")
+                .languageSettingsEnd().build());
+        question.addSubquestion(QuestionDTO.with().code("Q7.2").language(Language.EN).type(QuestionType.L)
+                .languageSettingsStart()
                 .title("This ad suggests that the lawyer is interested in a life of frugal community service")
                 .languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("This ad would be enough to get me to hire this lawyer").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("This ad gives me confidence in the lawyers experience").languageSettingsEnd().build());
+        question.addSubquestion(QuestionDTO.with().code("Q7.3").language(Language.EN).type(QuestionType.L)
+                .languageSettingsStart().title("This ad would be enough to get me to hire this lawyer")
+                .languageSettingsEnd().build());
+        question.addSubquestion(QuestionDTO.with().code("Q7.4").language(Language.EN).type(QuestionType.L)
+                .languageSettingsStart().title("This ad gives me confidence in the lawyers experience")
+                .languageSettingsEnd().build());
 
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Neither agree nor disagree")
+        question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("Agree strongly")
                 .build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O2").language(Language.EN).title("Agree somewhat")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN)
+                .title("Neither agree nor disagree").build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("Disagree somewhat")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O5").language(Language.EN).title("Agree strongly")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O6").language(Language.EN).title("Disagree strongly")
+                .build());
 
         questionGroup3.addQuestion(question);
         questionGroup3 = questionnairDefinitionEditorFacade.save(questionGroup3);
 
         // 8. Multiple_Choice_Multiple_Answers
-        question = QuestionDTO.with().type(QuestionType.M).language(Language.EN).languageSettingsStart()
+        question = QuestionDTO.with().type(QuestionType.M).code("Q8").language(Language.EN).languageSettingsStart()
                 .title("What flavors of ice cream do you like?. Choose all that apply.").languageSettingsEnd()
                 .isRequired(true).build();
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Vanilla").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Chocolate").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Strawberry").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Pistachio").build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("Vanilla").build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O2").language(Language.EN).title("Chocolate").build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN).title("Strawberry")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("Pistachio").build());
 
         questionGroup3.addQuestion(question);
         questionGroup3 = questionnairDefinitionEditorFacade.save(questionGroup3);
@@ -318,67 +340,89 @@ public class DBPopulator {
         survey = questionnairDefinitionEditorFacade.save(survey);
         questionGroup = survey.getLastQuestionGroupDTO();
 
-        // Rating Scale (1-5)
-        QuestionDTO question = QuestionDTO.with().type(QuestionType.F).language(Language.EN).languageSettingsStart()
-                .title("<b>Food Quality</b>").languageSettingsEnd().isRequired(true).build();
+        // Question 1: Rating Scale (1-5)
+        QuestionDTO question = QuestionDTO.with().type(QuestionType.F).code("Q1").language(Language.EN)
+                .languageSettingsStart().title("<b>Food Quality</b>").languageSettingsEnd().isRequired(true).build();
 
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The food is served hot and fresh").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The menu has a good variety of items").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The quality of food is excellent").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The food is tasty and flavorful").languageSettingsEnd().build());
+        question.addSubquestion(QuestionDTO.with().code("Q1.1").language(Language.EN).type(QuestionType.L)
+                .languageSettingsStart().title("The food is served hot and fresh").languageSettingsEnd().build());
+        question.addSubquestion(QuestionDTO.with().code("Q1.2").language(Language.EN).type(QuestionType.L)
+                .languageSettingsStart().title("The menu has a good variety of items").languageSettingsEnd().build());
+        question.addSubquestion(QuestionDTO.with().code("Q1.3").language(Language.EN).type(QuestionType.L)
+                .languageSettingsStart().title("The quality of food is excellent").languageSettingsEnd().build());
+        question.addSubquestion(QuestionDTO.with().code("Q1.4").language(Language.EN).type(QuestionType.L)
+                .languageSettingsStart().title("The food is tasty and flavorful").languageSettingsEnd().build());
 
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Neither agree nor disagree")
+        question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("Agree strongly")
                 .build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O2").language(Language.EN).title("Agree somewhat")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN)
+                .title("Neither agree nor disagree").build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("Disagree somewhat")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O5").language(Language.EN).title("Agree strongly")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O6").language(Language.EN).title("Disagree strongly")
+                .build());
 
         questionGroup.addQuestion(question);
         questionGroup = questionnairDefinitionEditorFacade.save(questionGroup);
 
-        // Rating Scale (Agree-Disagree)
-        question = QuestionDTO.with().type(QuestionType.F).language(Language.EN).languageSettingsStart()
+        // Question 2: Rating Scale (Agree-Disagree)
+        question = QuestionDTO.with().type(QuestionType.F).code("Q2").language(Language.EN).languageSettingsStart()
                 .title("<b>Resturant</b>").languageSettingsEnd().isRequired(true).build();
 
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("My food order was correct and complete").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("Employees are patient when taking my order").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("I was served promptly").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("Availability of sauces, utensils, napkins, etc. was good").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The menu board was easy to read").languageSettingsEnd().build());
-        question.addSubQuestion(QuestionDTO.with().language(Language.EN).type(QuestionType.L).languageSettingsStart()
-                .title("The drive-thru sound system was cleara").languageSettingsEnd().build());
+        question.addSubquestion(QuestionDTO.with().code("Q2.1").language(Language.EN).type(QuestionType.L)
+                .languageSettingsStart().title("My food order was correct and complete").languageSettingsEnd().build());
 
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Neither agree nor disagree")
+        question.addSubquestion(QuestionDTO.with().code("Q2.2").language(Language.EN).type(QuestionType.L)
+                .languageSettingsStart().title("Employees are patient when taking my order").languageSettingsEnd()
                 .build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree somewhat").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Agree strongly").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Disagree strongly").build());
+
+        question.addSubquestion(QuestionDTO.with().code("Q2.3").language(Language.EN).type(QuestionType.L)
+                .languageSettingsStart().title("I was served promptly").languageSettingsEnd().build());
+
+        question.addSubquestion(QuestionDTO.with().code("Q2.4").language(Language.EN).type(QuestionType.L)
+                .languageSettingsStart().title("Availability of sauces, utensils, napkins, etc. was good")
+                .languageSettingsEnd().build());
+
+        question.addSubquestion(QuestionDTO.with().code("Q2.5").language(Language.EN).type(QuestionType.L)
+                .languageSettingsStart().title("The menu board was easy to read").languageSettingsEnd().build());
+
+        question.addSubquestion(QuestionDTO.with().code("Q2.6").language(Language.EN).type(QuestionType.L)
+                .languageSettingsStart().title("The drive-thru sound system was cleara").languageSettingsEnd().build());
+
+        question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("Agree strongly")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O2").language(Language.EN).title("Agree somewhat")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN)
+                .title("Neither agree nor disagree").build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("Disagree somewhat")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O5").language(Language.EN).title("Agree strongly")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("O6").language(Language.EN).title("Disagree strongly")
+                .build());
 
         questionGroup.addQuestion(question);
         questionGroup = questionnairDefinitionEditorFacade.save(questionGroup);
 
-        // Multiple Choice (Only One QuestionOption)
-        question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).languageSettingsStart()
+        // Question 3: Multiple Choice (Only One QuestionOption)
+        question = QuestionDTO.with().type(QuestionType.L).code("Q3").language(Language.EN).languageSettingsStart()
                 .title("Indicate total household income").languageSettingsEnd().isRequired(true).build();
 
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("under 25,000€").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("25,000 - 29,999€").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("30,000 - 34,999€").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("35,000 - 39,999€").build());
-        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).title("Over 85,000€").build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).code("O1").title("under 25,000€")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).code("O2").title("25,000 - 29,999€")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).code("O3").title("30,000 - 34,999€")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).code("O4").title("35,000 - 39,999€")
+                .build());
+        question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).code("O5").title("Over 85,000€")
+                .build());
 
         questionGroup.addQuestion(question);
         questionGroup = questionnairDefinitionEditorFacade.save(questionGroup);

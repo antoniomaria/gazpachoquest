@@ -117,7 +117,7 @@ public final class QuestionnairDefinitionEditorFacadeImpl implements Questionnai
         if (survey.getQuestionGroups().isEmpty()) {
             return mapper.map(entity, QuestionnairDefinitionDTO.class);
         } else {
-            return mapper.map(entity, QuestionnairDefinitionDTO.class, "survey2surveyDTOWithQuestionGroups");
+            return mapper.map(entity, QuestionnairDefinitionDTO.class, "toDTOwithQuestionGroups");
         }
     }
 
@@ -184,8 +184,9 @@ public final class QuestionnairDefinitionEditorFacadeImpl implements Questionnai
         QuestionnairDefinitionLanguageSettings languageSettings = mapper.map(translation.getLanguageSettings(),
                 QuestionnairDefinitionLanguageSettings.class);
         QuestionnairDefinition entity = mapper.map(translation.getTranslatedEntity(), QuestionnairDefinition.class);
-        QuestionnairDefinitionTranslation translationEntity = QuestionnairDefinitionTranslation.with().language(translation.getLanguage())
-                .languageSettings(languageSettings).questionnairDefinition(entity).build();
+        QuestionnairDefinitionTranslation translationEntity = QuestionnairDefinitionTranslation.with()
+                .language(translation.getLanguage()).languageSettings(languageSettings).questionnairDefinition(entity)
+                .build();
         QuestionnairDefinitionTranslation tr = questionnairDefinitionService.saveTranslation(translationEntity);
         translation.setId(tr.getId());
         return translation;
