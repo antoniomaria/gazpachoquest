@@ -15,7 +15,7 @@ import net.sf.gazpachosurvey.dto.support.TranslationDTO;
 
 public interface QuestionnairDefinitionEditorFacade {
 
-    void confirm(QuestionnairDefinitionDTO survey);
+    void confirm(QuestionnairDefinitionDTO questionairDefinition);
 
     LabelDTO save(LabelDTO label);
 
@@ -27,7 +27,7 @@ public interface QuestionnairDefinitionEditorFacade {
 
     QuestionOptionDTO save(QuestionOptionDTO questionOption);
 
-    QuestionnairDefinitionDTO save(QuestionnairDefinitionDTO survey);
+    QuestionnairDefinitionDTO save(QuestionnairDefinitionDTO questionairDefinition);
 
     TranslationDTO<LabelDTO, LabelLanguageSettingsDTO> saveLabelTranslation(
             TranslationDTO<LabelDTO, LabelLanguageSettingsDTO> translation);

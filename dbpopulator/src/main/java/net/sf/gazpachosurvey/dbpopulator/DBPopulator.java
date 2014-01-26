@@ -55,29 +55,30 @@ public class DBPopulator {
 
         Set<ParticipantDTO> participants = addParticipants();
 
-        QuestionnairDefinitionDTO survey = null;
-        survey = createDemoSurvey();
-        asignDefaultMailTemplate(survey);
-        questionnairDefinitionEditorFacade.confirm(survey);
+        QuestionnairDefinitionDTO questionnairDef = null;
+        questionnairDef = createDemoSurvey();
+        asignDefaultMailTemplate(questionnairDef);
+        questionnairDefinitionEditorFacade.confirm(questionnairDef);
 
         Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<>();
-        questionnairDefinitions.add(survey);
+        questionnairDefinitions.add(questionnairDef);
 
         StudyDTO study = StudyDTO.with().questionnairDefinitions(questionnairDefinitions)
                 .type(SurveyInstanceType.BY_INVITATION)
-                .name("New survey " + survey.getLanguageSettings().getTitle() + " started").startDate(DateTime.now())
-                .expirationDate(DateTime.parse("2014-12-31")).participants(participants).build();
+                .name("New survey " + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).participants(participants)
+                .build();
         studyFacade.save(study);
 
-        survey = createFastFoodSurvey();
-        asignDefaultMailTemplate(survey);
-        questionnairDefinitionEditorFacade.confirm(survey);
+        questionnairDef = createFastFoodSurvey();
+        asignDefaultMailTemplate(questionnairDef);
+        questionnairDefinitionEditorFacade.confirm(questionnairDef);
         questionnairDefinitions = new HashSet<>();
-        questionnairDefinitions.add(survey);
+        questionnairDefinitions.add(questionnairDef);
 
         study = StudyDTO.with().questionnairDefinitions(questionnairDefinitions).type(SurveyInstanceType.BY_INVITATION)
-                .name("New survey " + survey.getLanguageSettings().getTitle() + " started").startDate(DateTime.now())
-                .expirationDate(DateTime.parse("2014-12-31"))
+                .name("New survey " + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31"))
 
                 .participants(participants).build();
         studyFacade.save(study);

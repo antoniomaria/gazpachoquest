@@ -64,7 +64,7 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
             JPADynamicHelper helper = new JPADynamicHelper(entityManager);
             helper.addTypes(true, true, dynamicTypes.toArray(new DynamicType[dynamicTypes.size()]));
         }
-        logger.info("{} respondent questionOption tables has been activated", confirmedSurveys.size());
+        logger.info("{} questionnair answer tables has been activated", confirmedSurveys.size());
 
     }
 
@@ -79,7 +79,7 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         // Update database
         new SchemaManager(helper.getSession()).createDefaultTables(true);
 
-        logger.info("QuestionOption table has been created for questionnairDefinition {}",
+        logger.info("Questionnair answer table has been created for questionnairDefinition {}",
                 questionnairDefinition.getId());
     }
 
@@ -114,19 +114,19 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         return questionnairAnswers;
     }
 
-    private DynamicType buildDynamicType(final Integer surveyId) {
+    private DynamicType buildDynamicType(final Integer questionnairId) {
         DynamicClassLoader dcl = new DynamicClassLoader(getClass().getClassLoader());
 
-        String tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(surveyId).toString();
+        String tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(questionnairId).toString();
 
         Class<?> dynamicClass = dcl.createDynamicClass(PACKAGE_PREFIX + tableName);
 
         JPADynamicTypeBuilder respondentAnswersTypeBuilder = new JPADynamicTypeBuilder(dynamicClass, null, tableName);
 
         respondentAnswersTypeBuilder.addDirectMapping("id", Integer.class, "id");
-        respondentAnswersTypeBuilder.addDirectMapping("questionnairId", Integer.class, "respondent_id");
+        respondentAnswersTypeBuilder.addDirectMapping("questionnairId", Integer.class, "questionnair_id");
 
-        List<Question> questions = questionRepository.findBySurveyId(surveyId);
+        List<Question> questions = questionRepository.findByQuestionnairId(questionnairId);
 
         for (Question question : questions) {
             processQuestion(respondentAnswersTypeBuilder, question);
@@ -143,25 +143,26 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         return (DynamicEntity) descriptor.getInstantiationPolicy().buildNewInstance();
     }
 
-    private void processQuestion(final JPADynamicTypeBuilder surveyAnswer, final Question question) {
+    private void processQuestion(final JPADynamicTypeBuilder builder, final Question question) {
         QuestionType questionType = question.getType();
         List<Question> subquestions = question.getSubquestions();
         if (subquestions.isEmpty()) {
             if (questionType.hasMultipleAnswers()) {
-                String baseFieldName = "q" + question.getId();
+                String baseFieldName = new StringBuilder().append(question.getCode()).toString();
                 List<QuestionOption> questionOptions = question.getQuestionOptions();
                 for (QuestionOption questionOption : questionOptions) {
-                    String fieldName = new StringBuilder(baseFieldName).append("x").append(questionOption.getId())
-                            .toString();
-                    surveyAnswer.addDirectMapping(fieldName, questionType.getAnswerType(), fieldName);
+                    String fieldName = new StringBuilder(baseFieldName).append("_").append(questionOption.getCode())
+                            .toString().toLowerCase();
+                    builder.addDirectMapping(fieldName, questionType.getAnswerType(), fieldName);
                 }
             } else {
-                String fieldName = "q" + question.getId();
-                surveyAnswer.addDirectMapping(fieldName, questionType.getAnswerType(), fieldName);
+                String fieldName = new StringBuilder().append(question.getCode().replace(".", "_")).toString()
+                        .toLowerCase();
+                builder.addDirectMapping(fieldName, questionType.getAnswerType(), fieldName);
             }
         }
         for (Question subquestion : subquestions) {
-            processQuestion(surveyAnswer, subquestion);
+            processQuestion(builder, subquestion);
         }
     }
 

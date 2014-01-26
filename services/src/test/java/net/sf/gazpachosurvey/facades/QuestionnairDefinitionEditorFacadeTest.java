@@ -3,6 +3,7 @@ package net.sf.gazpachosurvey.facades;
 import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.QuestionLanguageSettingsDTO;
+import net.sf.gazpachosurvey.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachosurvey.dto.support.TranslationDTO;
 import net.sf.gazpachosurvey.types.Language;
 
@@ -24,16 +25,22 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
         "classpath:/services-context.xml", "classpath:/components-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("QuestionnairDefinitionEditorFacade-dataset.xml")
-public class SurveyEditorFacadeTest {
+@DatabaseSetup("QuestionnairDefinitionEditorFacadeTest-dataset.xml")
+public class QuestionnairDefinitionEditorFacadeTest {
 
     @Autowired
     private QuestionnairDefinitionEditorFacade questionnairDefinitionEditorFacade;
 
     @Test
+    public void confirmTest() {
+        QuestionnairDefinitionDTO questionairDefinition = QuestionnairDefinitionDTO.with().id(6).build();
+        questionnairDefinitionEditorFacade.confirm(questionairDefinition);
+    }
+
+    @Test
     public void saveQuestionTranslation() {
         QuestionDTO question = new QuestionDTO();
-        question.setId(13);
+        question.setId(17);
 
         QuestionLanguageSettingsDTO languageSettings = new QuestionLanguageSettingsDTO();
         languageSettings.setTitle("¿Cual es tu nombre?");

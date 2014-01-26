@@ -14,7 +14,7 @@ public interface QuestionRepository extends GenericRepository<Question> {
     Integer questionGroupId);
 
     @Query("select q from QuestionnairDefinition s join s.questionGroups qg join qg.questions q where s.id = :questionnairDefinition order by index(qg),index(q)")
-    List<Question> findBySurveyId(@Param("questionnairDefinition")
+    List<Question> findByQuestionnairId(@Param("questionnairDefinition")
     Integer surveyId);
 
     @Query("select q from QuestionGroup qg join qg.questions q where qg.id = :questionGroupId and index(q) = :position")
