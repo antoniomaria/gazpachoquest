@@ -5,6 +5,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import java.util.List;
 
 import net.sf.gazpachosurvey.domain.core.Question;
+import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -61,4 +63,17 @@ public class QuestionRepositoryTest {
                 Question.with().id(13).build(), Question.with().id(40).build(), Question.with().id(51).build());
 
     }
+
+    @Test
+    @Transactional
+    public void findByExample() {
+        int parentId = 44;
+        Question parentQuestion = repository.findOne(44);
+        Question example = Question.with().parent(Question.with().id(parentId).build()).build();
+
+        List<Question> questions = repository.findByExample(example, new SearchParameters());
+
+        System.out.println("de winner is " + questions);
+    }
+
 }

@@ -240,7 +240,7 @@ public class DBPopulator {
         questionGroup2.addQuestion(question);
         questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup2);
 
-        // 5 Multiple Choice (Only One QuestionOption)
+        // 5 List (Radio) Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).code("Q5").languageSettingsStart()
                 .title("Given your extraordinary age, how do you find using this questionnairDefinition tool?")
                 .languageSettingsEnd().isRequired(true).build();
@@ -265,7 +265,7 @@ public class DBPopulator {
         questionGroup2.addQuestion(question);
         questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup2);
 
-        // 7 Rating Scale (Agree-Disagree)
+        // 7 Rating Scale (Agree-Disagree) Array Flexible
         question = QuestionDTO
                 .with()
                 .type(QuestionType.F)
@@ -305,7 +305,7 @@ public class DBPopulator {
         questionGroup3.addQuestion(question);
         questionGroup3 = questionnairDefinitionEditorFacade.save(questionGroup3);
 
-        // 8. Multiple_Choice_Multiple_Answers
+        // 8. List checkbox - Multiple_Answers
         question = QuestionDTO.with().type(QuestionType.M).code("Q8").language(Language.EN).languageSettingsStart()
                 .title("What flavors of ice cream do you like?. Choose all that apply.").languageSettingsEnd()
                 .isRequired(true).build();

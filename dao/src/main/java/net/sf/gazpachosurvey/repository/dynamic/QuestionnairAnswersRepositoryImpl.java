@@ -53,12 +53,13 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
     private QuestionnairDefinitionRepository questionnairDefinitionRepository;
 
     @Override
+    @Transactional
     public void activeAllAnswers() {
         List<QuestionnairDefinition> confirmedSurveys = questionnairDefinitionRepository.findByExample(
                 QuestionnairDefinition.with().status(EntityStatus.CONFIRMED).build(), new SearchParameters());
         List<DynamicType> dynamicTypes = new ArrayList<>();
         for (QuestionnairDefinition questionnairDefinition : confirmedSurveys) {
-            dynamicTypes.add(buildDynamicType(questionnairDefinition.getId()));
+            dynamicTypes.add(buildDynamicType(questionnairDefinition));
         }
         if (!dynamicTypes.isEmpty()) {
             JPADynamicHelper helper = new JPADynamicHelper(entityManager);
@@ -75,7 +76,7 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         // the types
         // have been created and add the types through the helper.
         JPADynamicHelper helper = new JPADynamicHelper(entityManager);
-        helper.addTypes(true, true, buildDynamicType(questionnairDefinition.getId()));
+        helper.addTypes(true, true, buildDynamicType(questionnairDefinition));
         // Update database
         new SchemaManager(helper.getSession()).createDefaultTables(true);
 
@@ -114,10 +115,10 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         return questionnairAnswers;
     }
 
-    private DynamicType buildDynamicType(final Integer questionnairId) {
+    private DynamicType buildDynamicType(final QuestionnairDefinition questionnair) {
         DynamicClassLoader dcl = new DynamicClassLoader(getClass().getClassLoader());
 
-        String tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(questionnairId).toString();
+        String tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(questionnair.getId()).toString();
 
         Class<?> dynamicClass = dcl.createDynamicClass(PACKAGE_PREFIX + tableName);
 
@@ -126,7 +127,7 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         respondentAnswersTypeBuilder.addDirectMapping("id", Integer.class, "id");
         respondentAnswersTypeBuilder.addDirectMapping("questionnairId", Integer.class, "questionnair_id");
 
-        List<Question> questions = questionRepository.findByQuestionnairId(questionnairId);
+        List<Question> questions = questionRepository.findByQuestionnairId(questionnair.getId());
 
         for (Question question : questions) {
             processQuestion(respondentAnswersTypeBuilder, question);
@@ -145,8 +146,7 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
 
     private void processQuestion(final JPADynamicTypeBuilder builder, final Question question) {
         QuestionType questionType = question.getType();
-        List<Question> subquestions = question.getSubquestions();
-        if (subquestions.isEmpty()) {
+        if (!questionType.hasSubquestions()) {
             if (questionType.hasMultipleAnswers()) {
                 String baseFieldName = new StringBuilder().append(question.getCode()).toString();
                 List<QuestionOption> questionOptions = question.getQuestionOptions();
@@ -160,10 +160,15 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
                         .toLowerCase();
                 builder.addDirectMapping(fieldName, questionType.getAnswerType(), fieldName);
             }
+        } else {
+            Question example = Question.with().parent(Question.with().id(question.getId()).build()).build();
+            List<Question> subquestions = questionRepository.findByExample(example, new SearchParameters());
+
+            for (Question subquestion : subquestions) {
+                processQuestion(builder, subquestion);
+            }
         }
-        for (Question subquestion : subquestions) {
-            processQuestion(builder, subquestion);
-        }
+
     }
 
 }
