@@ -84,7 +84,7 @@ public class QuestionnairResourceTest {
 
     @Test
     public void getQuestionnairsTestXX() throws JsonParseException, JsonMappingException, IOException {
-        String invitationToken = "PF8UCQP36D";
+        String invitationToken = "RWHY2EWJST";
 
         ObjectMapper mapper = new ObjectMapper();
         JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, QuestionnairDTO.class);
@@ -107,7 +107,7 @@ public class QuestionnairResourceTest {
 
     @Test
     public void questionnairsListTest() {
-        String invitationToken = "PF8UCQP36D";
+        String invitationToken = "RWHY2EWJST";
         client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
         List<QuestionnairDTO> questionnairDTOs = client().target(getBaseUri() + "runtime/questionnairs").request()
                 .accept(MediaType.APPLICATION_JSON).get(new GenericType<List<QuestionnairDTO>>() {
@@ -123,7 +123,7 @@ public class QuestionnairResourceTest {
 
     @Test
     public void pageTest() {
-        String invitationToken = "PF8UCQP36D";
+        String invitationToken = "RWHY2EWJST";
         Integer questionnairId = 63;
         RenderingMode mode = RenderingMode.QUESTION_BY_QUESTION;
         BrowsingAction action = BrowsingAction.ENTERING;
@@ -134,6 +134,14 @@ public class QuestionnairResourceTest {
                         mode, action)).request().accept(MediaType.APPLICATION_JSON).get(PageDTO.class);
 
         System.out.println("de winner is !" + page.getQuestions());
+        action = BrowsingAction.FORWARD;
+
+        client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
+        page = client()
+                .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
+                        mode, action)).request().accept(MediaType.APPLICATION_JSON).get(PageDTO.class);
+        System.out.println("de winner is !" + page.getQuestions());
+
     }
 
     @After
