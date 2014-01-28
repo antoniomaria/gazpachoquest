@@ -5,6 +5,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import java.util.List;
 
 import net.sf.gazpachosurvey.domain.core.Question;
+import net.sf.gazpachosurvey.repository.qbe.SearchMode;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 
 import org.junit.Test;
@@ -20,12 +21,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionRepository-dataset.xml")
+@DbUnitConfiguration(dataSetLoader = foo.ColumnDetectorXmlDataSetLoader.class)
 public class QuestionRepositoryTest {
 
     @Autowired
@@ -69,11 +72,22 @@ public class QuestionRepositoryTest {
     public void findByExample() {
         int parentId = 44;
         Question parentQuestion = repository.findOne(44);
-        Question example = Question.with().parent(Question.with().id(parentId).build()).build();
+        for (Question subQuestion : parentQuestion.getSubquestions()) {
+            System.out.println("subquestion>: " + subQuestion);
+        }
+        System.out.println("algo?" + parentQuestion + " y code: " + parentQuestion.getCode());
+        Question example = Question.with().code("Q7.1").build();
 
-        List<Question> questions = repository.findByExample(example, new SearchParameters());
+        List<Question> questions = repository
+                .findByExample(example, new SearchParameters().searchMode(SearchMode.LIKE));
 
         System.out.println("de winner is " + questions);
-    }
+        System.out.println(" and the parent is: " + questions.get(0).getParent());
 
+        questions = repository.findByExample(Question.with().parent(Question.with().id(44).build()).build(),
+                new SearchParameters().searchMode(SearchMode.LIKE));
+
+        System.out.println("hijos de 44" + questions);
+
+    }
 }

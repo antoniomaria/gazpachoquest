@@ -1,6 +1,8 @@
 package net.sf.gazpachosurvey.test.dbunit;
 
 import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.sql.Connection;
 import java.util.Iterator;
 import java.util.List;
@@ -17,7 +19,9 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.database.QueryDataSet;
 import org.dbunit.database.search.TablesDependencyHelper;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.FlatDtdWriter;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
+import org.dbunit.dataset.xml.FlatXmlWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,7 +81,18 @@ public class DBUnitDataExtractor {
                 // insertion
                 String[] depTableNames = TablesDependencyHelper.getAllDependentTables(connection, "study");
                 IDataSet depDataset = connection.createDataSet(depTableNames);
-                FlatXmlDataSet.write(depDataset, new FileOutputStream("target/dependents.xml"));
+
+                FlatXmlWriter datasetWriter = new FlatXmlWriter(new FileOutputStream("target/dependents.xml"));
+                datasetWriter.setDocType("classpath://gazpachosurvey.dtd");
+                datasetWriter.write(depDataset);
+
+                Writer out = new OutputStreamWriter(new FileOutputStream("target/gazpachosurvey.dtd"));
+                FlatDtdWriter dtdWriter = new FlatDtdWriter(out);
+                dtdWriter.setContentModel(FlatDtdWriter.CHOICE);
+                // You could also use the sequence model which is the default
+                // datasetWriter.setContentModel(FlatDtdWriter.SEQUENCE);
+                dtdWriter.write(depDataset);
+
             }
         } finally {
             if (conn != null) {

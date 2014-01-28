@@ -11,5 +11,4 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
   <jdbc:embedded-database id="dataSource" type="HSQL" />
-
 </beans>
