@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.sf.gazpachosurvey.domain.i18.QuestionnairDefinitionTranslation;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
+import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,12 +20,14 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("SurveyTranslationRepository-dataset.xml")
+@DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class SurveyTranslationRepositoryTest {
 
     @Autowired
@@ -32,10 +35,11 @@ public class SurveyTranslationRepositoryTest {
 
     @Test
     public void findByExample() {
-        QuestionnairDefinitionTranslation entity = QuestionnairDefinitionTranslation.with().translatedEntityId(2).build();
+        QuestionnairDefinitionTranslation entity = QuestionnairDefinitionTranslation.with().translatedEntityId(2)
+                .build();
 
-        List<QuestionnairDefinitionTranslation> translations = surveyTranslationRepository
-                .findByExample(entity, new SearchParameters());
+        List<QuestionnairDefinitionTranslation> translations = surveyTranslationRepository.findByExample(entity,
+                new SearchParameters());
 
         assertThat(translations).contains(QuestionnairDefinitionTranslation.with().id(3).build());
     }

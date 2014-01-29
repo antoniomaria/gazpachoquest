@@ -4,6 +4,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachosurvey.domain.core.Label;
 import net.sf.gazpachosurvey.domain.core.LabelSet;
 import net.sf.gazpachosurvey.domain.core.embeddables.LabelLanguageSettings;
+import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachosurvey.types.Language;
 
 import org.junit.Test;
@@ -18,6 +19,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
@@ -25,6 +27,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("LabelSetService-dataset.xml")
+@DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class LabelSetServiceTest {
 
     @Autowired

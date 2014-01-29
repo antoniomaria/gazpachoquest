@@ -176,6 +176,12 @@
       <!-- Project dependencies -->
       <dependency>
         <groupId>${project.groupId}</groupId>
+        <artifactId>gazpachosurvey-testsuite</artifactId>
+        <version>${project.version} </version>
+      </dependency>
+
+      <dependency>
+        <groupId>${project.groupId}</groupId>
         <artifactId>gazpachosurvey-domain</artifactId>
         <version>${project.version} </version>
       </dependency>
@@ -210,7 +216,7 @@
         <version>${project.version} </version>
       </dependency>
 
-     <dependency>
+      <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>gazpachosurvey-types</artifactId>
         <version>${project.version} </version>

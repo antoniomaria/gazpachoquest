@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 
 import net.sf.gazpachosurvey.domain.core.BrowsedElement;
 import net.sf.gazpachosurvey.domain.core.BrowsedQuestion;
+import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,10 +19,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.springtestdbunit.DbUnitRule;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml" })
 @DatabaseSetup("BrowsedElementRepository-dataset.xml")
+@DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class BrowsedElementRepositoryTest {
 
     @Rule

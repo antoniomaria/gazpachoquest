@@ -9,7 +9,9 @@ import net.sf.gazpachosurvey.domain.core.QuestionnairAnswers;
 import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
 import net.sf.gazpachosurvey.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachosurvey.repository.QuestionnairRepository;
+import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +26,14 @@ import org.springframework.test.jdbc.JdbcTestUtils;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionnairAnswersRepository-dataset.xml")
+@DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class QuestionnairAnswersRepositoryTest {
 
     @Autowired
@@ -63,18 +67,18 @@ public class QuestionnairAnswersRepositoryTest {
 
         repository.activeAllAnswers();
         QuestionnairAnswers respondentAnswers = new QuestionnairAnswers();
-        // respondentAnswers.getAnswers().put("q1", "Antonio Maria");
-        // respondentAnswers.getAnswers().put("q2", "O5");
-        // respondentAnswers.getAnswers().put("q3", 33);
+        respondentAnswers.getAnswers().put("q1", "Antonio Maria");
+        respondentAnswers.getAnswers().put("q2", "O5");
+        respondentAnswers.getAnswers().put("q3", 33);
         String longAnswer = "I started to work in IECISA, 10 years ago";
-        // respondentAnswers.getAnswers().put("q4", ArrayUtils.toObject(longAnswer.toCharArray()));
-        // respondentAnswers.getAnswers().put("q5", "O2");
-        // respondentAnswers.getAnswers().put("q6", "O1");
+        respondentAnswers.getAnswers().put("q4", ArrayUtils.toObject(longAnswer.toCharArray()));
+        respondentAnswers.getAnswers().put("q5", "O2");
+        respondentAnswers.getAnswers().put("q6", "O1");
 
-        // respondentAnswers.getAnswers().put("q7_1", "O1");
-        // respondentAnswers.getAnswers().put("q7_2", "O2");
-        // respondentAnswers.getAnswers().put("q7_3", "O3");
-        // respondentAnswers.getAnswers().put("q7_4", "O1");
+        respondentAnswers.getAnswers().put("q7_1", "O1");
+        respondentAnswers.getAnswers().put("q7_2", "O2");
+        respondentAnswers.getAnswers().put("q7_3", "O3");
+        respondentAnswers.getAnswers().put("q7_4", "O1");
 
         // respondentAnswers.getAnswers().put("q4", "I started to work in IECISA, 10 years ago".toCharArray());
         // Character xCharacter[] = new Character[] {""};

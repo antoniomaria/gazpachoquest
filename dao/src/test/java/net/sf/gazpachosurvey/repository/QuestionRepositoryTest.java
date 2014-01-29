@@ -1,4 +1,5 @@
 package net.sf.gazpachosurvey.repository;
+import net.sf.gazpachosurvey.test.dbunit.support.*;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -28,7 +29,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionRepository-dataset.xml")
-@DbUnitConfiguration(dataSetLoader = foo.ColumnDetectorXmlDataSetLoader.class)
+@DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class QuestionRepositoryTest {
 
     @Autowired

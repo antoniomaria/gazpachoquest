@@ -1,0 +1,248 @@
+<!ELEMENT dataset (
+   (users|
+    participant|
+    study|
+    invitation|
+    questionnair_definition|
+    question_group|
+    question|
+    questionnair|
+    browsed_element|
+    label_set|
+    label|
+    label_translation|
+    mail_message_template|
+    mail_message_template_translation|
+    question_option|
+    question_option_translation|
+    question_translation|
+    question_group_translation|
+    questionnair_definition_translation)*)>
+
+<!ELEMENT users EMPTY>
+<!ATTLIST users
+    id CDATA #REQUIRED
+    created_date CDATA #IMPLIED
+    email CDATA #REQUIRED
+    first_name CDATA #REQUIRED
+    last_modified_date CDATA #IMPLIED
+    last_name CDATA #REQUIRED
+    createdby_id CDATA #IMPLIED
+    lastmodifiedby_id CDATA #IMPLIED
+>
+
+<!ELEMENT participant EMPTY>
+<!ATTLIST participant
+    id CDATA #REQUIRED
+    created_date CDATA #IMPLIED
+    email CDATA #IMPLIED
+    firstname CDATA #REQUIRED
+    gender CDATA #IMPLIED
+    last_modified_date CDATA #IMPLIED
+    lastname CDATA #REQUIRED
+    prefered_language CDATA #IMPLIED
+    createdby_id CDATA #IMPLIED
+    lastmodifiedby_id CDATA #IMPLIED
+>
+
+<!ELEMENT study EMPTY>
+<!ATTLIST study
+    id CDATA #REQUIRED
+    created_date CDATA #IMPLIED
+    expiration_date CDATA #IMPLIED
+    last_modified_date CDATA #IMPLIED
+    name CDATA #IMPLIED
+    start_date CDATA #IMPLIED
+    type CDATA #IMPLIED
+    createdby_id CDATA #IMPLIED
+    lastmodifiedby_id CDATA #IMPLIED
+>
+
+<!ELEMENT invitation EMPTY>
+<!ATTLIST invitation
+    id CDATA #REQUIRED
+    type CDATA #IMPLIED
+    status CDATA #REQUIRED
+    token CDATA #REQUIRED
+    study_id CDATA #IMPLIED
+    participant_id CDATA #IMPLIED
+>
+
+<!ELEMENT questionnair_definition EMPTY>
+<!ATTLIST questionnair_definition
+    id CDATA #REQUIRED
+    created_date CDATA #IMPLIED
+    language CDATA #REQUIRED
+    last_modified_date CDATA #IMPLIED
+    status CDATA #IMPLIED
+    description CDATA #IMPLIED
+    title CDATA #IMPLIED
+    welcometext CDATA #IMPLIED
+    createdby_id CDATA #IMPLIED
+    lastmodifiedby_id CDATA #IMPLIED
+>
+
+<!ELEMENT question_group EMPTY>
+<!ATTLIST question_group
+    id CDATA #REQUIRED
+    created_date CDATA #IMPLIED
+    language CDATA #REQUIRED
+    last_modified_date CDATA #IMPLIED
+    title CDATA #REQUIRED
+    createdby_id CDATA #IMPLIED
+    lastmodifiedby_id CDATA #IMPLIED
+    questionnairdefinition_id CDATA #IMPLIED
+    order_in_survey CDATA #IMPLIED
+>
+
+<!ELEMENT question EMPTY>
+<!ATTLIST question
+    id CDATA #REQUIRED
+    code CDATA #REQUIRED
+    created_date CDATA #IMPLIED
+    is_required CDATA #IMPLIED
+    language CDATA #REQUIRED
+    last_modified_date CDATA #IMPLIED
+    type CDATA #REQUIRED
+    title CDATA #REQUIRED
+    createdby_id CDATA #IMPLIED
+    lastmodifiedby_id CDATA #IMPLIED
+    parent_id CDATA #IMPLIED
+    questiongroup_id CDATA #IMPLIED
+    order_in_subquestions CDATA #IMPLIED
+    order_in_questiongroup CDATA #IMPLIED
+>
+
+<!ELEMENT questionnair EMPTY>
+<!ATTLIST questionnair
+    id CDATA #REQUIRED
+    created_date CDATA #IMPLIED
+    last_modified_date CDATA #IMPLIED
+    status CDATA #IMPLIED
+    submit_date CDATA #IMPLIED
+    createdby_id CDATA #IMPLIED
+    lastmodifiedby_id CDATA #IMPLIED
+    participant_id CDATA #IMPLIED
+    questionnairdefinition_id CDATA #IMPLIED
+    study_id CDATA #IMPLIED
+>
+
+<!ELEMENT browsed_element EMPTY>
+<!ATTLIST browsed_element
+    id CDATA #REQUIRED
+    type CDATA #IMPLIED
+    created_date CDATA #IMPLIED
+    last CDATA #IMPLIED
+    last_modified_date CDATA #IMPLIED
+    createdby_id CDATA #IMPLIED
+    lastmodifiedby_id CDATA #IMPLIED
+    questionnair_id CDATA #IMPLIED
+    question_id CDATA #IMPLIED
+    questiongroup_id CDATA #IMPLIED
+>
+
+<!ELEMENT label_set EMPTY>
+<!ATTLIST label_set
+    id CDATA #REQUIRED
+    language CDATA #REQUIRED
+    name CDATA #IMPLIED
+>
+
+<!ELEMENT label EMPTY>
+<!ATTLIST label
+    id CDATA #REQUIRED
+    created_date CDATA #IMPLIED
+    language CDATA #REQUIRED
+    last_modified_date CDATA #IMPLIED
+    title CDATA #REQUIRED
+    createdby_id CDATA #IMPLIED
+    labelset_id CDATA #IMPLIED
+    lastmodifiedby_id CDATA #IMPLIED
+    sort_order CDATA #IMPLIED
+>
+
+<!ELEMENT label_translation EMPTY>
+<!ATTLIST label_translation
+    id CDATA #REQUIRED
+    language CDATA #REQUIRED
+    title CDATA #REQUIRED
+    label_id CDATA #IMPLIED
+>
+
+<!ELEMENT mail_message_template EMPTY>
+<!ATTLIST mail_message_template
+    id CDATA #REQUIRED
+    created_date CDATA #IMPLIED
+    from_address CDATA #IMPLIED
+    language CDATA #REQUIRED
+    last_modified_date CDATA #IMPLIED
+    reply_to CDATA #IMPLIED
+    type CDATA #REQUIRED
+    body CDATA #IMPLIED
+    subject CDATA #IMPLIED
+    createdby_id CDATA #IMPLIED
+    lastmodifiedby_id CDATA #IMPLIED
+    questionnairdefinition_id CDATA #IMPLIED
+>
+
+<!ELEMENT mail_message_template_translation EMPTY>
+<!ATTLIST mail_message_template_translation
+    id CDATA #REQUIRED
+    created_date CDATA #IMPLIED
+    language CDATA #REQUIRED
+    last_modified_date CDATA #IMPLIED
+    body CDATA #IMPLIED
+    subject CDATA #IMPLIED
+    createdby_id CDATA #IMPLIED
+    lastmodifiedby_id CDATA #IMPLIED
+    mailmessagetemplate_id CDATA #IMPLIED
+>
+
+<!ELEMENT question_option EMPTY>
+<!ATTLIST question_option
+    id CDATA #REQUIRED
+    code CDATA #REQUIRED
+    created_date CDATA #IMPLIED
+    language CDATA #REQUIRED
+    last_modified_date CDATA #IMPLIED
+    title CDATA #REQUIRED
+    createdby_id CDATA #IMPLIED
+    lastmodifiedby_id CDATA #IMPLIED
+    question_id CDATA #IMPLIED
+    order_in_question CDATA #IMPLIED
+>
+
+<!ELEMENT question_option_translation EMPTY>
+<!ATTLIST question_option_translation
+    id CDATA #REQUIRED
+    language CDATA #REQUIRED
+    title CDATA #REQUIRED
+    questionoption_id CDATA #IMPLIED
+>
+
+<!ELEMENT question_translation EMPTY>
+<!ATTLIST question_translation
+    id CDATA #REQUIRED
+    language CDATA #REQUIRED
+    title CDATA #REQUIRED
+    question_id CDATA #IMPLIED
+>
+
+<!ELEMENT question_group_translation EMPTY>
+<!ATTLIST question_group_translation
+    id CDATA #REQUIRED
+    language CDATA #REQUIRED
+    title CDATA #REQUIRED
+    questiongroup_id CDATA #IMPLIED
+>
+
+<!ELEMENT questionnair_definition_translation EMPTY>
+<!ATTLIST questionnair_definition_translation
+    id CDATA #REQUIRED
+    language CDATA #REQUIRED
+    description CDATA #IMPLIED
+    title CDATA #IMPLIED
+    welcometext CDATA #IMPLIED
+    questionnairdefinition_id CDATA #IMPLIED
+>
+

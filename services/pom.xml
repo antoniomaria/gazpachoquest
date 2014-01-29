@@ -60,6 +60,11 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>gazpachosurvey-testsuite</artifactId>
+      <scope>test</scope>
+    </dependency>
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>

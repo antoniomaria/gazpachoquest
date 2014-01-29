@@ -10,6 +10,7 @@ import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
 import net.sf.gazpachosurvey.domain.core.embeddables.QuestionGroupLanguageSettings;
 import net.sf.gazpachosurvey.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachosurvey.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
+import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachosurvey.types.Language;
 
 import org.junit.Test;
@@ -24,12 +25,14 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionnairDefinitionRepository-dataset.xml")
+@DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class QuestionnairDefinitionRepositoryTest {
 
     @Autowired
@@ -51,9 +54,11 @@ public class QuestionnairDefinitionRepositoryTest {
 
     @Test
     public void saveSurveyWithQuestionGroups() {
-        QuestionnairDefinitionLanguageSettings settings = QuestionnairDefinitionLanguageSettings.with().title("My QuestionnairDefinition example")
-                .description("My questionnairDefinition description").build();
-        QuestionnairDefinition questionnairDefinition = QuestionnairDefinition.with().language(Language.ES).languageSettings(settings).build();
+        QuestionnairDefinitionLanguageSettings settings = QuestionnairDefinitionLanguageSettings.with()
+                .title("My QuestionnairDefinition example").description("My questionnairDefinition description")
+                .build();
+        QuestionnairDefinition questionnairDefinition = QuestionnairDefinition.with().language(Language.ES)
+                .languageSettings(settings).build();
         QuestionGroup questionGroup = new QuestionGroup();
         questionGroup.setLanguage(Language.ES);
         QuestionGroupLanguageSettings groupSettings = new QuestionGroupLanguageSettings();
@@ -89,13 +94,16 @@ public class QuestionnairDefinitionRepositoryTest {
 
     @Test
     public void saveTest() {
-        QuestionnairDefinitionLanguageSettings languageSettings = QuestionnairDefinitionLanguageSettings.with().title("My QuestionnairDefinition").build();
-        QuestionnairDefinition questionnairDefinition = QuestionnairDefinition.with().language(Language.EN).languageSettings(languageSettings).build();
+        QuestionnairDefinitionLanguageSettings languageSettings = QuestionnairDefinitionLanguageSettings.with()
+                .title("My QuestionnairDefinition").build();
+        QuestionnairDefinition questionnairDefinition = QuestionnairDefinition.with().language(Language.EN)
+                .languageSettings(languageSettings).build();
         questionnairDefinition = repository.save(questionnairDefinition);
         assertThat(questionnairDefinition.getCreatedDate()).isNotNull();
         assertThat(questionnairDefinition.getCreatedBy()).isNotNull();
 
-        languageSettings = QuestionnairDefinitionLanguageSettings.with().title("My QuestionnairDefinition. Version 1").build();
+        languageSettings = QuestionnairDefinitionLanguageSettings.with().title("My QuestionnairDefinition. Version 1")
+                .build();
         questionnairDefinition.setLanguageSettings(languageSettings);
         questionnairDefinition = repository.save(questionnairDefinition);
         assertThat(questionnairDefinition.getLastModifiedBy()).isNotNull();
