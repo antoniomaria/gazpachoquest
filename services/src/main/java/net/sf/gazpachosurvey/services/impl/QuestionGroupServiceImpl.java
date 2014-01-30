@@ -36,17 +36,17 @@ public class QuestionGroupServiceImpl extends
 
     @Override
     public List<QuestionGroup> findBySurveyId(final Integer surveyId) {
-        return ((QuestionGroupRepository) repository).findBySurveyId(surveyId);
+        return ((QuestionGroupRepository) repository).findByQuestionnairDefinitionId(surveyId);
     }
 
     @Override
     public QuestionGroup findOneByPositionInSurvey(final Integer surveyId, final Integer position) {
-        return ((QuestionGroupRepository) repository).findOneByPositionInSurvey(surveyId, position);
+        return ((QuestionGroupRepository) repository).findOneByPositionInQuestionnairDefinition(surveyId, position);
     }
 
     @Override
     public Integer findPositionInSurvey(final Integer questionGroupId) {
-        return ((QuestionGroupRepository) repository).findPositionInSurvey(questionGroupId);
+        return ((QuestionGroupRepository) repository).findPositionInQuestionnairDefinition(questionGroupId);
     }
 
     @Override

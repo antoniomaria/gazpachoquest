@@ -8,7 +8,7 @@ import net.sf.gazpachosurvey.repository.MailMessageRepository;
 import net.sf.gazpachosurvey.repository.QuestionGroupRepository;
 import net.sf.gazpachosurvey.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachosurvey.repository.dynamic.QuestionnairAnswersRepository;
-import net.sf.gazpachosurvey.repository.i18.SurveyTranslationRepository;
+import net.sf.gazpachosurvey.repository.i18.QuestionnairDefinitionTranslationRepository;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import net.sf.gazpachosurvey.services.QuestionnairDefinitionService;
 import net.sf.gazpachosurvey.types.EntityStatus;
@@ -30,11 +30,11 @@ public class QuestionnairDefinitionServiceImpl extends
     private QuestionnairAnswersRepository questionnairAnswersRepository;
 
     @Autowired
-    private SurveyTranslationRepository surveyTranslationRepository;
+    private QuestionnairDefinitionTranslationRepository questionnairDefinitionTranslationRepository;
 
     @Autowired
     public QuestionnairDefinitionServiceImpl(final QuestionnairDefinitionRepository questionnairDefinitionRepository,
-            final SurveyTranslationRepository translationRepository) {
+            final QuestionnairDefinitionTranslationRepository translationRepository) {
         super(questionnairDefinitionRepository, translationRepository, new QuestionnairDefinitionTranslation.Builder());
     }
 

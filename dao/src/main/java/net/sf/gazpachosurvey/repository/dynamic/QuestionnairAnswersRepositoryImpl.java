@@ -64,6 +64,9 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         if (!dynamicTypes.isEmpty()) {
             JPADynamicHelper helper = new JPADynamicHelper(entityManager);
             helper.addTypes(true, true, dynamicTypes.toArray(new DynamicType[dynamicTypes.size()]));
+
+            DynamicType Algo = helper.getType(TABLE_NAME_PREFIX + 6);
+            System.out.println("fin");
         }
         logger.info("{} questionnair answer tables has been activated", confirmedSurveys.size());
 
@@ -82,6 +85,30 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
 
         logger.info("Questionnair answer table has been created for questionnairDefinition {}",
                 questionnairDefinition.getId());
+    }
+
+    @Override
+    @Transactional
+    public QuestionnairAnswers findByOne(QuestionnairDefinition questionnairDefinition, Integer id) {
+        Assert.notNull(questionnairDefinition);
+        Assert.notNull(id);
+
+        JPADynamicHelper helper = new JPADynamicHelper(entityManager);
+        String typeName = new StringBuilder().append(TABLE_NAME_PREFIX).append(questionnairDefinition.getId())
+                .toString();
+
+        DynamicType type = helper.getType(typeName);
+
+        DynamicEntity entity = (DynamicEntity) entityManager.find(type.getClass(), id);
+        QuestionnairAnswers questionnairAnswers = null;
+        if (entity != null) {
+            questionnairAnswers = new QuestionnairAnswers();
+        }
+        List<String> codes = type.getPropertiesNames();
+        for (String string : codes) {
+            System.out.println("code-> " + string);
+        }
+        return questionnairAnswers;
     }
 
     @Override
@@ -112,13 +139,15 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
             questionnairAnswers.setId((Integer) entity.get("id"));
         }
         entityManager.flush();
+
         return questionnairAnswers;
     }
 
-    private DynamicType buildDynamicType(final QuestionnairDefinition questionnair) {
+    private DynamicType buildDynamicType(final QuestionnairDefinition questionnairDefinition) {
         DynamicClassLoader dcl = new DynamicClassLoader(getClass().getClassLoader());
 
-        String tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(questionnair.getId()).toString();
+        String tableName = new StringBuilder().append(TABLE_NAME_PREFIX).append(questionnairDefinition.getId())
+                .toString();
 
         Class<?> dynamicClass = dcl.createDynamicClass(PACKAGE_PREFIX + tableName);
 
@@ -127,7 +156,7 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         respondentAnswersTypeBuilder.addDirectMapping("id", Integer.class, "id");
         respondentAnswersTypeBuilder.addDirectMapping("questionnairId", Integer.class, "questionnair_id");
 
-        List<Question> questions = questionRepository.findByQuestionnairId(questionnair.getId());
+        List<Question> questions = questionRepository.findByQuestionnairId(questionnairDefinition.getId());
 
         for (Question question : questions) {
             processQuestion(respondentAnswersTypeBuilder, question);

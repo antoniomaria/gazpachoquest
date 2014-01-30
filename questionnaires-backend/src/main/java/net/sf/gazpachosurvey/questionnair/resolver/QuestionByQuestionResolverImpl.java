@@ -49,7 +49,7 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
         Question question = null;
 
         if (browsedElement == null) { // First time entering the questionnairDefinition
-            QuestionGroup initialGroup = questionGroupService.findOneByPositionInSurvey(questionnairDefinitionId,
+            QuestionGroup initialGroup = questionGroupService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId,
                     INITIAL_POSITION);
             question = questionService.findOneByPositionInQuestionGroup(initialGroup.getId(), INITIAL_POSITION);
             lastBrowsedQuestion = BrowsedQuestion.with().questionnair(questionnair).question(question)
@@ -93,8 +93,8 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
             if (position < questionsCount - 1) { // Not last in group
                 next = questionService.findOneByPositionInQuestionGroup(lastQuestionGroup.getId(), position + 1);
             } else {
-                Integer questionGroupPosition = questionGroupService.findPositionInSurvey(lastQuestionGroup.getId());
-                QuestionGroup nextQuestionGroup = questionGroupService.findOneByPositionInSurvey(surveyId,
+                Integer questionGroupPosition = questionGroupService.findPositionInQuestionnairDefinition(lastQuestionGroup.getId());
+                QuestionGroup nextQuestionGroup = questionGroupService.findOneByPositionInQuestionnairDefinition(surveyId,
                         questionGroupPosition + 1);
                 next = questionService.findOneByPositionInQuestionGroup(nextQuestionGroup.getId(), INITIAL_POSITION);
             }

@@ -12,4 +12,6 @@ public interface QuestionnairAnswersRepository {
     void collectAnswers(QuestionnairDefinition questionnairDefinition);
 
     QuestionnairAnswers save(QuestionnairAnswers questionnairAnswers);
+
+    QuestionnairAnswers findByOne(QuestionnairDefinition questionnairDefinition, Integer id);
 }

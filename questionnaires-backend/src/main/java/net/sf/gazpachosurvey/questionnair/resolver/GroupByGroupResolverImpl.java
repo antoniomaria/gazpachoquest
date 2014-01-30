@@ -40,7 +40,7 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         BrowsedQuestionGroup lastBrowsedQuestionGroup = null;
 
         if (browsedElement == null) { // First time entering the questionnairDefinition
-            questionGroup = questionGroupService.findOneByPositionInSurvey(questionnairDefinitionId, INITIAL_POSITION);
+            questionGroup = questionGroupService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId, INITIAL_POSITION);
             lastBrowsedQuestionGroup = BrowsedQuestionGroup.with().questionnair(questionnair)
                     .questionGroup(questionGroup).last(Boolean.TRUE).build();
             browsedElementService.save(lastBrowsedQuestionGroup);
@@ -75,8 +75,8 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         QuestionGroup next = null;
 
         if (nextBrowsedElement == null) {
-            Integer position = questionGroupService.findPositionInSurvey(lastBrowsedElement.getQuestionGroup().getId());
-            next = questionGroupService.findOneByPositionInSurvey(questionnairDefinitionId, position + 1);
+            Integer position = questionGroupService.findPositionInQuestionnairDefinition(lastBrowsedElement.getQuestionGroup().getId());
+            next = questionGroupService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId, position + 1);
 
             // Mark next element as last browsed.
             nextBrowsedQuestionGroup = BrowsedQuestionGroup.with().questionnair(questionnair).questionGroup(next)

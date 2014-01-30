@@ -37,10 +37,11 @@ public class MailMessageTemplateRepositoryTest {
     @Test
     public void findByExampleTest() {
         MailMessageTemplate example = new MailMessageTemplate();
-        example.setQuestionnairDefinition(QuestionnairDefinition.with().id(58).build());
+        example.setQuestionnairDefinition(QuestionnairDefinition.with().id(6).build());
+
         List<MailMessageTemplate> results = mailMessageTemplateRepository
                 .findByExample(example, new SearchParameters());
-        assertThat(results).contains(MailMessageTemplate.with().id(125).build());
+        assertThat(results).contains(MailMessageTemplate.with().id(60).build());
     }
 
 }

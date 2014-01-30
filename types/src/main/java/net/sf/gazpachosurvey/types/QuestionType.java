@@ -6,7 +6,7 @@ public enum QuestionType {
     N("Numeric", false, false,  Integer.class), 
     T("Comment / Essay", false,  false,  Character[].class),
     F("Array Flexible", true, null, null), 
-    M("List Checkbox. (Multiple_Choice)", false, false, Boolean.class);
+    M("List Checkbox. (Multiple_Choice)", false, true, Boolean.class);
     private String description;
     private Boolean hasSubquestions;
     private Boolean hasMultipleAnswers;

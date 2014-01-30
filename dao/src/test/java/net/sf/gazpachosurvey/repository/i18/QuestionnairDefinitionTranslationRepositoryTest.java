@@ -7,6 +7,7 @@ import java.util.List;
 import net.sf.gazpachosurvey.domain.i18.QuestionnairDefinitionTranslation;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
 import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
+import net.sf.gazpachosurvey.types.Language;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,22 +27,22 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("SurveyTranslationRepository-dataset.xml")
+@DatabaseSetup("QuestionnairDefinitionTranslationRepository-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class SurveyTranslationRepositoryTest {
+public class QuestionnairDefinitionTranslationRepositoryTest {
 
     @Autowired
-    private SurveyTranslationRepository surveyTranslationRepository;
+    private QuestionnairDefinitionTranslationRepository questionnairDefinitionTranslationRepository;
 
     @Test
-    public void findByExample() {
-        QuestionnairDefinitionTranslation entity = QuestionnairDefinitionTranslation.with().translatedEntityId(2)
+    public void findByExampleTest() {
+        QuestionnairDefinitionTranslation example = QuestionnairDefinitionTranslation.with().language(Language.ES)
                 .build();
 
-        List<QuestionnairDefinitionTranslation> translations = surveyTranslationRepository.findByExample(entity,
-                new SearchParameters());
+        List<QuestionnairDefinitionTranslation> translations = questionnairDefinitionTranslationRepository
+                .findByExample(example, new SearchParameters());
 
-        assertThat(translations).contains(QuestionnairDefinitionTranslation.with().id(3).build());
+        assertThat(translations).contains(QuestionnairDefinitionTranslation.with().id(7).build());
     }
 
 }

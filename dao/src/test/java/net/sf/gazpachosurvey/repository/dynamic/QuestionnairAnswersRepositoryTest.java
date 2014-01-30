@@ -75,15 +75,31 @@ public class QuestionnairAnswersRepositoryTest {
         respondentAnswers.getAnswers().put("q5", "O2");
         respondentAnswers.getAnswers().put("q6", "O1");
 
+        // Radio options
         respondentAnswers.getAnswers().put("q7_1", "O1");
         respondentAnswers.getAnswers().put("q7_2", "O2");
         respondentAnswers.getAnswers().put("q7_3", "O3");
         respondentAnswers.getAnswers().put("q7_4", "O1");
 
-        // respondentAnswers.getAnswers().put("q4", "I started to work in IECISA, 10 years ago".toCharArray());
-        // Character xCharacter[] = new Character[] {""};
+        // Checkbox list
+        respondentAnswers.getAnswers().put("q8_o1", Boolean.TRUE);
+        respondentAnswers.getAnswers().put("q8_o2", Boolean.TRUE);
+        respondentAnswers.getAnswers().put("q8_o3", Boolean.TRUE);
+        respondentAnswers.getAnswers().put("q8_o4", Boolean.FALSE);
+
         respondentAnswers.setQuestionnair(questionnair);
         respondentAnswers = repository.save(respondentAnswers);
-        assertThat(questionnair.getId()).isGreaterThanOrEqualTo(1);
+        assertThat(respondentAnswers.getId()).isGreaterThanOrEqualTo(1);
+
+        repository.findByOne(questionnair.getQuestionnairDefinition(), respondentAnswers.getId());
+    }
+
+    @Test
+    public void findByQuestionnairIdTest() {
+        repository.activeAllAnswers();
+        Integer questionnairId = 63;
+        Questionnair questionnair = questionnairRepository.findOne(questionnairId);
+
+        // repository.findByQuestionnairId(questionnairId);
     }
 }
