@@ -57,8 +57,21 @@ public class QuestionnairAnswersRepositoryTest {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(datasource);
         assertThat(
                 JdbcTestUtils.countRowsInTable(jdbcTemplate,
-                        String.format("%s%d", QuestionnairAnswersRepository.TABLE_NAME_PREFIX, questionnair.getId())))
+                        String.format("%s%d", QuestionnairAnswersRepository.ENTITY_NAME_PREFIX, questionnair.getId())))
                 .isGreaterThanOrEqualTo(0);
+    }
+
+    @Test
+    public void mySaveTest() {
+        Questionnair questionnair = questionnairRepository.findOne(63);
+        QuestionnairAnswers respondentAnswers = new QuestionnairAnswers();
+        respondentAnswers.setQuestionnair(questionnair);
+
+        respondentAnswers.getAnswers().put("q1", "Antonio Maria");
+        respondentAnswers.getAnswers().put("q2", "O5");
+        respondentAnswers.getAnswers().put("q3", 33);
+        respondentAnswers = repository.mySaveTest(respondentAnswers);
+
     }
 
     @Test
