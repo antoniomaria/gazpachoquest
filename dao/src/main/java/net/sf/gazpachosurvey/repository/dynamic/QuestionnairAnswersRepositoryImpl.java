@@ -118,6 +118,7 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
     EntityManager em;
 
     @Override
+    // @Transactional
     public QuestionnairAnswers mySaveTest(final QuestionnairAnswers questionnairAnswers) {
         QuestionnairDefinition questionnairDefinition = questionnairAnswers.getQuestionnair()
                 .getQuestionnairDefinition();
@@ -131,6 +132,7 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         // Create JPA Dynamic Helper (with the emf above) and after the types
         // have been created and add the types through the helper.
         JPADynamicHelper helper = new JPADynamicHelper(emf);
+        // JPADynamicHelper helper = new JPADynamicHelper(entityManager);
         helper.addTypes(true, true, new DynamicType[] { type });
 
         // Create database and populate
@@ -142,7 +144,9 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         String entityAlias = new StringBuilder().append(ENTITY_NAME_PREFIX).append(questionnairDefinition.getId())
                 .toString();
 
+        // this.em = entityManager;
         this.em = emf.createEntityManager();
+
         em.getTransaction().begin();
         DynamicEntity entity = newInstance(entityAlias);
         entity.set("questionnairId", questionnairAnswers.getQuestionnair().getId());
@@ -164,8 +168,8 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         try {
 
             DynamicEntity found = (DynamicEntity) em.createQuery(
-                    "select e from " + entityAlias + " e where e.id = " + questionnairAnswers.getId())
-                    .getSingleResult();
+                    "select e from " + entityAlias + " e where e.questionnairId = "
+                            + questionnairAnswers.getQuestionnair().getId()).getSingleResult();
 
             System.out.println("y de winner is: " + found.get("q1"));
 

@@ -5,7 +5,7 @@ import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
 
 public interface QuestionnairAnswersRepository {
 
-    String TABLE_NAME_PREFIX = "questionnair_answers_";
+    String ENTITY_NAME_PREFIX = "questionnairanswers";
 
     void activeAllAnswers();
 
@@ -14,4 +14,6 @@ public interface QuestionnairAnswersRepository {
     QuestionnairAnswers save(QuestionnairAnswers questionnairAnswers);
 
     QuestionnairAnswers findByOne(QuestionnairDefinition questionnairDefinition, Integer id);
+
+    QuestionnairAnswers mySaveTest(QuestionnairAnswers questionnairAnswers);
 }
