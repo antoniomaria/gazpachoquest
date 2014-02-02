@@ -5,15 +5,14 @@ import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
 
 public interface QuestionnairAnswersRepository {
 
-    String ENTITY_NAME_PREFIX = "questionnairanswers";
+    String ENTITY_NAME_PREFIX = "questionnair_answers_";
 
     void activeAllAnswers();
 
     void collectAnswers(QuestionnairDefinition questionnairDefinition);
 
-    QuestionnairAnswers save(QuestionnairAnswers questionnairAnswers);
+    QuestionnairAnswers findByOne(Integer questionnairDefinitionId, Integer id);
 
-    QuestionnairAnswers findByOne(QuestionnairDefinition questionnairDefinition, Integer id);
+    QuestionnairAnswers save(Integer questionnairDefinitionId, QuestionnairAnswers questionnairAnswers);
 
-    QuestionnairAnswers mySaveTest(QuestionnairAnswers questionnairAnswers);
 }

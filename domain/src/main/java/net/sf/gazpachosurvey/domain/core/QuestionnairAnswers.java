@@ -13,20 +13,10 @@ public class QuestionnairAnswers implements Persistable {
 
     private Integer id;
 
-    private Questionnair questionnair;
-
     private Map<String, Object> answers;
 
     public QuestionnairAnswers() {
         super();
-    }
-
-    public Questionnair getQuestionnair() {
-        return questionnair;
-    }
-
-    public void setQuestionnair(Questionnair questionnair) {
-        this.questionnair = questionnair;
     }
 
     public Map<String, Object> getAnswers() {
@@ -38,6 +28,14 @@ public class QuestionnairAnswers implements Persistable {
 
     public void setAnswers(Map<String, Object> answers) {
         this.answers = answers;
+    }
+
+    public void setAnswer(String code, Object answer) {
+        this.getAnswers().put(code, answer);
+    }
+
+    public Object getAnswer(String code) {
+        return getAnswers().get(code);
     }
 
     @Override
