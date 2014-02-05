@@ -104,8 +104,8 @@ public class QuestionnairAnswersRepositoryTest {
         questionnairAnswers = new QuestionnairAnswers();
         questionnairAnswers.setId(id);
         questionnairAnswers.setAnswer("q1", "Antonio Maria Sanchez Berrocal");
-        repository.save(questionnairDefinition.getId(), questionnairAnswers);
-        System.out.println("fin");
+        questionnairAnswers = repository.save(questionnairDefinition.getId(), questionnairAnswers);
+        assertThat(questionnairAnswers.getAnswer("q1")).isEqualTo("Antonio Maria Sanchez Berrocal");
     }
 
     @Test

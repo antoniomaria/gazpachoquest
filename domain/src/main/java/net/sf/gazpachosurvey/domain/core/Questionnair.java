@@ -41,6 +41,8 @@ public class Questionnair extends AbstractAuditable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Participant participant;
 
+    private Integer answersId;
+
     public Questionnair() {
         super();
     }
@@ -93,17 +95,32 @@ public class Questionnair extends AbstractAuditable {
         this.status = status;
     }
 
+    public Integer getAnswersId() {
+        return answersId;
+    }
+
+    public void setAnswersId(Integer answersId) {
+        this.answersId = answersId;
+    }
+
     public static Builder with() {
         return new Builder();
     }
 
     public static class Builder {
+        private Integer id;
         private EntityStatus status;
         private Set<BrowsedElement> browsedElements;
         private DateTime submitDate;
         private Study study;
         private QuestionnairDefinition questionnairDefinition;
         private Participant participant;
+        private Integer answersId;
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
 
         public Builder status(EntityStatus status) {
             this.status = status;
@@ -117,6 +134,11 @@ public class Questionnair extends AbstractAuditable {
 
         public Builder submitDate(DateTime submitDate) {
             this.submitDate = submitDate;
+            return this;
+        }
+
+        public Builder answersId(Integer answersId) {
+            this.answersId = answersId;
             return this;
         }
 
@@ -137,12 +159,14 @@ public class Questionnair extends AbstractAuditable {
 
         public Questionnair build() {
             Questionnair questionnair = new Questionnair();
+            questionnair.setId(id);
             questionnair.status = status;
             questionnair.browsedElements = browsedElements;
             questionnair.submitDate = submitDate;
             questionnair.study = study;
             questionnair.questionnairDefinition = questionnairDefinition;
             questionnair.participant = participant;
+            questionnair.answersId = answersId;
             return questionnair;
         }
     }

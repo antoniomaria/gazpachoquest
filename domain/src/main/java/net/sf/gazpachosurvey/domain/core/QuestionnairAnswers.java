@@ -7,6 +7,7 @@ import net.sf.gazpachosurvey.domain.support.Persistable;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.springframework.util.Assert;
 
 public class QuestionnairAnswers implements Persistable {
     private static final long serialVersionUID = -214686516454070394L;
@@ -31,7 +32,8 @@ public class QuestionnairAnswers implements Persistable {
     }
 
     public void setAnswer(String code, Object answer) {
-        this.getAnswers().put(code, answer);
+        Assert.notNull(code);
+        this.getAnswers().put(code.toLowerCase(), answer);
     }
 
     public Object getAnswer(String code) {
