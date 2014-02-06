@@ -111,6 +111,7 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         DynamicEntity found = entityManager.find(type.getJavaClass(), id);
         if (found != null) {
             questionnairAnswers = new QuestionnairAnswers();
+            questionnairAnswers.setId(id);
             List<String> propertyNames = type.getPropertiesNames();
             for (String propertyName : propertyNames) {
                 Object value = found.get(propertyName);
@@ -132,7 +133,8 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         if (!questionnairAnswers.isNew()) {
             // JPADynamicHelper helper = new JPADynamicHelper(entityManager);
             // DynamicType type = helper.getType(entityAlias);
-            // entity = entityManager.find(type.getJavaClass(), questionnairAnswers.getId());
+            // entity = entityManager.find(type.getJavaClass(),
+            // questionnairAnswers.getId());
             // entity = newInstance(entityAlias);
             entity.set("id", questionnairAnswers.getId());
         } else {
@@ -181,7 +183,7 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
     }
 
     private DynamicEntity newInstance(final String entityAlias) {
-        JPADynamicHelper helper = new JPADynamicHelper(this.entityManager);
+        JPADynamicHelper helper = new JPADynamicHelper(entityManager);
         ClassDescriptor descriptor = helper.getSession().getDescriptorForAlias(entityAlias);
         return (DynamicEntity) descriptor.getInstantiationPolicy().buildNewInstance();
     }

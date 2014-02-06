@@ -20,20 +20,24 @@
   <bean id="profilingAdvise" class="net.sf.gazpachosurvey.aspects.ProfilingAdvise"></bean>
 
   <aop:config>
+     
     <aop:pointcut id="serviceOperation" expression="execution(* net.sf.gazpachosurvey.services.*.*(..))" />
+    <!-- 
     <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" order="9999" />
+      -->
 
     <aop:aspect id="profilingAspect" ref="profilingAdvise">
       <aop:around method="doProfiling" pointcut-ref="serviceOperation" />
     </aop:aspect>
   </aop:config>
-
+  
+  <!-- 
   <tx:advice id="txAdvice">
     <tx:attributes>
       <tx:method name="find*" read-only="true" />
       <tx:method name="*" />
     </tx:attributes>
   </tx:advice>
-
+ -->
   <tx:annotation-driven />
 </beans>

@@ -40,15 +40,17 @@
 
   <aop:config>
     <aop:pointcut id="loginOperation" expression="execution(* net.sf.gazpachosurvey.security.*.*(..))" />
+    <!-- 
     <aop:advisor advice-ref="txAdvice" pointcut-ref="loginOperation" order="9999" />
+     -->
   </aop:config>
-
+  <!-- 
   <tx:advice id="txAdvice">
     <tx:attributes>
       <tx:method name="find*" read-only="true" />
       <tx:method name="*" />
     </tx:attributes>
   </tx:advice>
-
+  -->
   <tx:annotation-driven />
 </beans>

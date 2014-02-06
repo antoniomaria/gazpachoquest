@@ -2,9 +2,9 @@ package net.sf.gazpachosurvey.services.impl;
 
 import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.domain.core.QuestionnairAnswers;
+import net.sf.gazpachosurvey.repository.QuestionnairRepository;
 import net.sf.gazpachosurvey.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachosurvey.services.QuestionnairAnswersService;
-import net.sf.gazpachosurvey.services.QuestionnairService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import org.springframework.util.Assert;
 public class QuestionnairAnswersServiceImpl implements QuestionnairAnswersService {
 
     @Autowired
-    private QuestionnairService questionnairService;
+    private QuestionnairRepository questionnairRepository;
 
     @Autowired
     private QuestionnairAnswersRepository repository;
@@ -25,30 +25,34 @@ public class QuestionnairAnswersServiceImpl implements QuestionnairAnswersServic
     }
 
     @Override
+    @Transactional
     public void save(Questionnair questionnair, String questionCode, String answer) {
         Assert.state(!questionnair.isNew(), "Persist the questionnair before saving answers");
-        questionnair = questionnairService.findOne(questionnair.getId());
+        Questionnair fetched = questionnairRepository.findOne(questionnair.getId());
         QuestionnairAnswers questionnairAnswers = null;
-        Integer questionnairDefinitionId = questionnair.getQuestionnairDefinition().getId();
-        if (questionnair.getAnswersId() == null) {
+        Integer questionnairDefinitionId = fetched.getQuestionnairDefinition().getId();
+        if (fetched.getAnswersId() == null) {
             questionnairAnswers = new QuestionnairAnswers();
         } else {
-            questionnairAnswers = repository.findByOne(questionnairDefinitionId, questionnair.getAnswersId());
+            questionnairAnswers = repository.findByOne(questionnairDefinitionId, fetched.getAnswersId());
         }
         questionnairAnswers.setAnswer(questionCode, answer);
         questionnairAnswers = repository.save(questionnairDefinitionId, questionnairAnswers);
 
-        questionnair.setAnswersId(questionnairAnswers.getId());
-        questionnairService.save(questionnair);
+        if (fetched.getAnswersId() == null) {
+            fetched.setAnswersId(questionnairAnswers.getId());
+            questionnairRepository.save(fetched);
+        }
     }
 
     @Override
     @Transactional
     public Object findByQuestionCode(Questionnair questionnair, String questionCode) {
         Assert.state(!questionnair.isNew(), "Persist the questionnair before saving answers");
-        Integer questionnairDefinitionId = questionnair.getQuestionnairDefinition().getId();
-        Integer answersId = questionnair.getAnswersId();
-        if (questionnair.getAnswersId() == null) {
+        Questionnair fetched = questionnairRepository.findOne(questionnair.getId());
+        Integer questionnairDefinitionId = fetched.getQuestionnairDefinition().getId();
+        Integer answersId = fetched.getAnswersId();
+        if (fetched.getAnswersId() == null) {
             return null;
         }
         QuestionnairAnswers answers = repository.findByOne(questionnairDefinitionId, answersId);

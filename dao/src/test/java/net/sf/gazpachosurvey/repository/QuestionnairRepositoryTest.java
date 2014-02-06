@@ -50,10 +50,11 @@ public class QuestionnairRepositoryTest {
 
     @Test
     public void saveTest() {
-        Study running = studyRepository.findOne(96);
+        Study running = studyRepository.findOne(62);
 
         Questionnair questionnair = new Questionnair();
         questionnair.setStudy(running);
+        questionnair.setAnswersId(999);
         Questionnair created = repository.save(questionnair);
 
         assertThat(created.getId()).isGreaterThan(0);
