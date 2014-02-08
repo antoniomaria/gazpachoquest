@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.facades.impl;
 
+import java.util.Map;
 import java.util.Set;
 
 import net.sf.gazpachosurvey.domain.core.Question;
@@ -11,9 +12,12 @@ import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDefinitionLanguageSettingsDTO;
+import net.sf.gazpachosurvey.dto.answers.Answer;
+import net.sf.gazpachosurvey.dto.answers.TextAnswer;
 import net.sf.gazpachosurvey.facades.QuestionnairFacade;
 import net.sf.gazpachosurvey.questionnair.resolver.QuestionnairElementResolver;
 import net.sf.gazpachosurvey.questionnair.resolver.ResolverSelector;
+import net.sf.gazpachosurvey.services.QuestionnairAnswersService;
 import net.sf.gazpachosurvey.services.QuestionnairDefinitionService;
 import net.sf.gazpachosurvey.services.QuestionnairService;
 import net.sf.gazpachosurvey.types.BrowsingAction;
@@ -36,6 +40,9 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
 
     @Autowired
     private QuestionnairDefinitionService questionnairDefinitionService;
+
+    @Autowired
+    private QuestionnairAnswersService questionnairAnswersService;
 
     @Autowired
     private Mapper mapper;
@@ -84,6 +91,27 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
             QuestionDTO questionDTO = mapper.map(question, QuestionDTO.class);
             page.addQuestion(questionDTO);
         }
+
+        Map<String, Object> answers = questionnairAnswersService.findByQuestionnair(questionnair);
+        for (QuestionDTO question : page.getQuestions()) {
+            populateAnswers(question, answers);
+        }
         return page;
+    }
+
+    private void populateAnswers(QuestionDTO question, Map<String, Object> answers) {
+        if (question.getType().hasSubquestions()) {
+            for (QuestionDTO subquestion : question.getSubquestions()) {
+                populateAnswers(subquestion, answers);
+            }
+        } else {
+            Answer answer = null;
+            if (question.getType().getAnswerType().isAssignableFrom(String.class)) {
+                Object value = answers.get(question.getCode());
+                answer = TextAnswer.fromValue((String) value);
+            }
+            question.setAnswer(answer);
+        }
+
     }
 }

@@ -12,10 +12,13 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
+import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDTO;
+import net.sf.gazpachosurvey.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachosurvey.rest.ApplicationConfig;
 import net.sf.gazpachosurvey.security.LoginService;
+import net.sf.gazpachosurvey.services.QuestionnairAnswersService;
 import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachosurvey.types.BrowsingAction;
 import net.sf.gazpachosurvey.types.RenderingMode;
@@ -34,6 +37,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -53,6 +57,12 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @DatabaseSetup("QuestionnairResource-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class QuestionnairResourceTest {
+
+    @Autowired
+    private QuestionnairAnswersRepository repository;
+
+    @Autowired
+    private QuestionnairAnswersService questionnairAnswersService;
 
     private JerseyTestImpl jerseyTest;
 
@@ -144,6 +154,34 @@ public class QuestionnairResourceTest {
                 .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
                         mode, action)).request().accept(MediaType.APPLICATION_JSON).get(PageDTO.class);
         System.out.println("de winner is !" + page.getQuestions());
+
+    }
+
+    @Test
+    public void firstPageTest() {
+        repository.activeAllAnswers();
+
+        Questionnair questionnair = Questionnair.with().id(63).build();
+        String answer = "Antonio Maria";
+        String questionCode = "Q1";
+        questionnairAnswersService.save(questionnair, questionCode, answer);
+
+        String invitationToken = "RWHY2EWJST";
+        Integer questionnairId = 63;
+        RenderingMode mode = RenderingMode.QUESTION_BY_QUESTION;
+        BrowsingAction action = BrowsingAction.ENTERING;
+
+        client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
+        try {
+
+            PageDTO page = client()
+                    .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
+                            mode, action)).request().accept(MediaType.APPLICATION_JSON).get(PageDTO.class);
+            System.out.println("de winner is !" + page.getQuestions());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -3,6 +3,7 @@ package net.sf.gazpachosurvey.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.gazpachosurvey.dto.answers.Answer;
 import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachosurvey.types.Language;
@@ -25,6 +26,8 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
     private List<QuestionDTO> subquestions;
 
     private QuestionType type;
+
+    private Answer answer;
 
     public QuestionDTO() {
         super();
@@ -109,6 +112,14 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
 
     public void setType(final QuestionType type) {
         this.type = type;
+    }
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
     }
 
     public static interface Builder {

@@ -131,14 +131,7 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         Map<String, Object> answers = questionnairAnswers.getAnswers();
         DynamicEntity entity = newInstance(entityAlias);
         if (!questionnairAnswers.isNew()) {
-            // JPADynamicHelper helper = new JPADynamicHelper(entityManager);
-            // DynamicType type = helper.getType(entityAlias);
-            // entity = entityManager.find(type.getJavaClass(),
-            // questionnairAnswers.getId());
-            // entity = newInstance(entityAlias);
             entity.set("id", questionnairAnswers.getId());
-        } else {
-            // entity = newInstance(entityAlias);
         }
         Set<String> questionCodes = answers.keySet();
         for (String questionCode : questionCodes) {

@@ -1,7 +1,7 @@
 package net.sf.gazpachosurvey.domain.core;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import net.sf.gazpachosurvey.domain.support.Persistable;
 
@@ -22,7 +22,7 @@ public class QuestionnairAnswers implements Persistable {
 
     public Map<String, Object> getAnswers() {
         if (answers == null) {
-            this.answers = new HashMap<>();
+            this.answers = new TreeMap<String, Object>(String.CASE_INSENSITIVE_ORDER);
         }
         return answers;
     }

@@ -1,5 +1,7 @@
 package net.sf.gazpachosurvey.services.impl;
 
+import java.util.Map;
+
 import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.domain.core.QuestionnairAnswers;
 import net.sf.gazpachosurvey.repository.QuestionnairRepository;
@@ -56,8 +58,21 @@ public class QuestionnairAnswersServiceImpl implements QuestionnairAnswersServic
             return null;
         }
         QuestionnairAnswers answers = repository.findByOne(questionnairDefinitionId, answersId);
-
         return answers.getAnswer(questionCode);
+    }
+
+    @Transactional
+    @Override
+    public Map<String, Object> findByQuestionnair(Questionnair questionnair) {
+        Assert.state(!questionnair.isNew(), "Persist the questionnair before saving answers");
+        Questionnair fetched = questionnairRepository.findOne(questionnair.getId());
+        Integer questionnairDefinitionId = fetched.getQuestionnairDefinition().getId();
+        Integer answersId = fetched.getAnswersId();
+        if (fetched.getAnswersId() == null) {
+            return null;
+        }
+        QuestionnairAnswers answers = repository.findByOne(questionnairDefinitionId, answersId);
+        return answers.getAnswers();
     }
 
 }
