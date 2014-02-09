@@ -45,9 +45,6 @@ public class QuestionnairAnswersServiceTest {
         String answer = "Antonio Maria";
         String questionCode = "Q1";
         questionnairAnswersService.save(questionnair, questionCode, answer);
-        System.out.println("fin");
-        questionnairAnswersService.save(questionnair, questionCode, answer);
-
     }
 
 }

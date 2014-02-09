@@ -23,6 +23,7 @@ import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachosurvey.types.BrowsingAction;
 import net.sf.gazpachosurvey.types.RenderingMode;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -162,19 +163,50 @@ public class QuestionnairResourceTest {
         repository.activeAllAnswers();
 
         Questionnair questionnair = Questionnair.with().id(63).build();
-        String answer = "Antonio Maria";
-        String questionCode = "Q1";
-        questionnairAnswersService.save(questionnair, questionCode, answer);
+
+        questionnairAnswersService.save(questionnair, "Q1", "Antonio Maria");
+        questionnairAnswersService.save(questionnair, "Q2", "05");
+        questionnairAnswersService.save(questionnair, "Q3", 33);
+        String longAnswer = "I started to work in IECISA, 10 years ago";
+        questionnairAnswersService.save(questionnair, "Q4", ArrayUtils.toObject(longAnswer.toCharArray()));
+        questionnairAnswersService.save(questionnair, "Q5", "O2");
+        questionnairAnswersService.save(questionnair, "Q6", "O1");
+
+        // Radio options
+        questionnairAnswersService.save(questionnair, "q7_1", "O1");
+        questionnairAnswersService.save(questionnair, "q7_2", "O2");
+        questionnairAnswersService.save(questionnair, "q7_3", "O3");
+        questionnairAnswersService.save(questionnair, "q7_4", "O1");
+
+        // Checkbox list
+        questionnairAnswersService.save(questionnair, "q8_o1", Boolean.TRUE);
+        questionnairAnswersService.save(questionnair, "q8_o2", Boolean.TRUE);
+        questionnairAnswersService.save(questionnair, "q8_o3", Boolean.TRUE);
+        questionnairAnswersService.save(questionnair, "q8_o4", Boolean.FALSE);
 
         String invitationToken = "RWHY2EWJST";
         Integer questionnairId = 63;
-        RenderingMode mode = RenderingMode.QUESTION_BY_QUESTION;
+        RenderingMode mode = RenderingMode.GROUP_BY_GROUP;
         BrowsingAction action = BrowsingAction.ENTERING;
 
         client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
         try {
 
             PageDTO page = client()
+                    .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
+                            mode, action)).request().accept(MediaType.APPLICATION_JSON).get(PageDTO.class);
+            System.out.println("de winner is !" + page.getQuestions());
+
+            action = BrowsingAction.FORWARD;
+
+            client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
+            page = client()
+                    .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
+                            mode, action)).request().accept(MediaType.APPLICATION_JSON).get(PageDTO.class);
+            System.out.println("de winner is !" + page.getQuestions());
+
+            client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
+            page = client()
                     .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
                             mode, action)).request().accept(MediaType.APPLICATION_JSON).get(PageDTO.class);
             System.out.println("de winner is !" + page.getQuestions());

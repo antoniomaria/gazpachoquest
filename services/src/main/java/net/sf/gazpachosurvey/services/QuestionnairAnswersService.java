@@ -8,8 +8,8 @@ public interface QuestionnairAnswersService {
 
     Object findByQuestionCode(Questionnair questionnair, String questionCode);
 
-    void save(Questionnair questionnair, String questionCode, String answer);
-
     Map<String, Object> findByQuestionnair(Questionnair questionnair);
+
+    void save(Questionnair questionnair, String questionCode, Object answer);
 
 }

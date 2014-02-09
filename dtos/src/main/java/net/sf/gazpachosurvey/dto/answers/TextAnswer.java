@@ -2,6 +2,8 @@ package net.sf.gazpachosurvey.dto.answers;
 
 public class TextAnswer extends AbstractAnswer {
 
+    private static final long serialVersionUID = 672728157327871902L;
+
     private String value;
 
     public TextAnswer() {

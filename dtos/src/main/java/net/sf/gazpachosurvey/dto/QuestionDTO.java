@@ -3,6 +3,7 @@ package net.sf.gazpachosurvey.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.gazpachosurvey.dto.answers.AbstractAnswer;
 import net.sf.gazpachosurvey.dto.answers.Answer;
 import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachosurvey.dto.support.IdentifiableLocalizable;
@@ -118,7 +119,7 @@ public class QuestionDTO extends AbstractIdentifiableDTO implements
         return answer;
     }
 
-    public void setAnswer(Answer answer) {
+    public void setAnswer(AbstractAnswer answer) {
         this.answer = answer;
     }
 
