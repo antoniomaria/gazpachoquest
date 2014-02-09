@@ -1,10 +1,6 @@
 package net.sf.gazpachosurvey.repository;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-
-import java.util.Set;
-
-import net.sf.gazpachosurvey.domain.core.BrowsedElement;
 import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.domain.core.Study;
 import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
@@ -42,10 +38,8 @@ public class QuestionnairRepositoryTest {
 
     @Test
     public void findOneTest() {
-        Questionnair questionnair = repository.findOne(127);
-
-        Set<BrowsedElement> browsedElements = questionnair.getBrowsedElements();
-        assertThat(browsedElements).isNotEmpty();
+        Questionnair questionnair = repository.findOne(63);
+        assertThat(questionnair).isNotNull();
     }
 
     @Test

@@ -1,5 +1,9 @@
 package net.sf.gazpachosurvey.repository;
 
+import static org.fest.assertions.api.Assertions.assertThat;
+
+import java.util.List;
+
 import net.sf.gazpachosurvey.domain.core.Study;
 import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
@@ -20,9 +24,9 @@ public class StudyRepositoryTest {
     private StudyRepository repository;
 
     @Test
-    public void findOne() {
+    public void findOneByQuestionnairDefinitionTest() {
         Integer questionnairDefinitionId = 6;
-        Study study = repository.findOneByquestionnairDefinition(questionnairDefinitionId);
-        System.out.println("fin: " + study);
+        List<Study> studies = repository.findOneByQuestionnairDefinition(questionnairDefinitionId);
+        assertThat(studies).containsExactly(Study.with().id(62).build());
     }
 }

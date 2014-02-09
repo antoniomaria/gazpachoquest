@@ -1,5 +1,4 @@
 package net.sf.gazpachosurvey.repository;
-import net.sf.gazpachosurvey.test.dbunit.support.*;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -8,6 +7,7 @@ import java.util.List;
 import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.repository.qbe.SearchMode;
 import net.sf.gazpachosurvey.repository.qbe.SearchParameters;
+import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,58 +37,50 @@ public class QuestionRepositoryTest {
 
     @Test
     public void findOneByPositionInQuestionGroupTest() {
-        int questionGroupId = 4;
+        int questionGroupId = 8;
         int position = 1;
         Question question = repository.findOneByPositionInQuestionGroup(questionGroupId, position);
-        assertThat(question).isEqualTo(Question.with().id(30).build());
+        assertThat(question).isEqualTo(Question.with().id(18).build());
     }
 
     @Test
     public void findPositionInQuestionGroupTest() {
-        Integer questionId = 13;
+        Integer questionId = 36;
         Integer position = repository.findPositionInQuestionGroup(questionId);
-        assertThat(position).isEqualTo(2);
+        assertThat(position).isEqualTo(1);
     }
 
     @Test
     public void findQuestionByQuestionGroup() {
-        int questionGroupId = 4;
+        int questionGroupId = 10;
         List<Question> questions = repository.findByQuestionGroupId(questionGroupId);
-        assertThat(questions).containsExactly(Question.with().id(14).build(), Question.with().id(30).build(),
-                Question.with().id(13).build());
+        assertThat(questions).containsExactly(Question.with().id(44).build(), Question.with().id(55).build());
     }
 
     @Test
-    public void findQuestionsBySurvey() {
-        int surveyId = 2;
-        List<Question> questions = repository.findByQuestionnairId(surveyId);
-        assertThat(questions).containsExactly(Question.with().id(31).build(), Question.with().id(32).build(),
-                Question.with().id(36).build(), Question.with().id(14).build(), Question.with().id(30).build(),
-                Question.with().id(13).build(), Question.with().id(40).build(), Question.with().id(51).build());
-
+    public void findQuestionsByQuestionnairDefinitionId() {
+        Integer questionnairDefinitionId = 6;
+        List<Question> questions = repository.findByQuestionnairId(questionnairDefinitionId);
+        assertThat(questions).containsExactly(Question.with().id(17).build(), Question.with().id(18).build(),
+                Question.with().id(34).build(), Question.with().id(35).build(), Question.with().id(36).build(),
+                Question.with().id(40).build(), Question.with().id(44).build(), Question.with().id(55).build());
     }
 
     @Test
     @Transactional
     public void findByExample() {
-        int parentId = 44;
-        Question parentQuestion = repository.findOne(44);
-        for (Question subQuestion : parentQuestion.getSubquestions()) {
-            System.out.println("subquestion>: " + subQuestion);
-        }
-        System.out.println("algo?" + parentQuestion + " y code: " + parentQuestion.getCode());
         Question example = Question.with().code("Q7.1").build();
 
         List<Question> questions = repository
                 .findByExample(example, new SearchParameters().searchMode(SearchMode.LIKE));
-
-        System.out.println("de winner is " + questions);
-        System.out.println(" and the parent is: " + questions.get(0).getParent());
+        assertThat(questions).containsExactly(Question.with().id(51).build());
+        assertThat(questions.get(0).getParent()).isNotNull();
 
         questions = repository.findByExample(Question.with().parent(Question.with().id(44).build()).build(),
                 new SearchParameters().searchMode(SearchMode.LIKE));
 
-        System.out.println("hijos de 44" + questions);
+        assertThat(questions).containsExactly(Question.with().id(51).build(), Question.with().id(52).build(),
+                Question.with().id(53).build(), Question.with().id(54).build());
 
     }
 }

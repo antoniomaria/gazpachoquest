@@ -40,20 +40,14 @@ public class QuestionnairDefinitionRepositoryTest {
 
     @Test
     public void findOne() {
-        int surveyId = 2;
-        QuestionnairDefinition questionnairDefinition = repository.findOne(surveyId);
+        Integer questionnairDefinitionId = 6;
+        QuestionnairDefinition questionnairDefinition = repository.findOne(questionnairDefinitionId);
         List<QuestionGroup> questionGroups = questionnairDefinition.getQuestionGroups();
-        for (QuestionGroup questionGroup : questionGroups) {
-            List<Question> questions = questionGroup.getQuestions();
-            System.out.println(" **** " + questionGroup.getLanguageSettings().getTitle());
-            for (Question question : questions) {
-                System.out.println(question.getId() + " " + question.getLanguageSettings().getTitle());
-            }
-        }
+        assertThat(questionGroups).hasSize(3);
     }
 
     @Test
-    public void saveSurveyWithQuestionGroups() {
+    public void saveWithQuestionGroups() {
         QuestionnairDefinitionLanguageSettings settings = QuestionnairDefinitionLanguageSettings.with()
                 .title("My QuestionnairDefinition example").description("My questionnairDefinition description")
                 .build();
@@ -71,13 +65,16 @@ public class QuestionnairDefinitionRepositoryTest {
 
         Question question = new Question();
         question.setLanguage(Language.ES);
+        question.setCode("Q1");
         QuestionLanguageSettings questionLanguageSettings = new QuestionLanguageSettings();
         questionLanguageSettings.setTitle("Question 1");
+
         question.setLanguageSettings(questionLanguageSettings);
 
         questionGroup.addQuestion(question);
 
         question = new Question();
+        question.setCode("Q2");
         question.setLanguage(Language.ES);
         questionLanguageSettings = new QuestionLanguageSettings();
         questionLanguageSettings.setTitle("Question 2");
