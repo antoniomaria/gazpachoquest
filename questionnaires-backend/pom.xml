@@ -140,6 +140,7 @@
       <version>1.7</version>
     </dependency>
   </dependencies>
+  <!-- 
   <build>
     <plugins>
       <plugin>
@@ -171,4 +172,5 @@
       </plugin>
     </plugins>
   </reporting>
+   -->
 </project>
