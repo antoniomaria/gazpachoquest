@@ -12,6 +12,7 @@ import net.sf.gazpachosurvey.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachosurvey.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
 import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachosurvey.types.Language;
+import net.sf.gazpachosurvey.types.QuestionType;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -66,6 +67,7 @@ public class QuestionnairDefinitionRepositoryTest {
         Question question = new Question();
         question.setLanguage(Language.ES);
         question.setCode("Q1");
+        question.setType(QuestionType.S);
         QuestionLanguageSettings questionLanguageSettings = new QuestionLanguageSettings();
         questionLanguageSettings.setTitle("Question 1");
 
@@ -75,6 +77,7 @@ public class QuestionnairDefinitionRepositoryTest {
 
         question = new Question();
         question.setCode("Q2");
+        question.setType(QuestionType.S);
         question.setLanguage(Language.ES);
         questionLanguageSettings = new QuestionLanguageSettings();
         questionLanguageSettings.setTitle("Question 2");
