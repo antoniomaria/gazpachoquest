@@ -24,7 +24,7 @@ import net.sf.gazpachosurvey.types.EntityStatus;
 import net.sf.gazpachosurvey.types.InvitationStatus;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.MailMessageTemplateType;
-import net.sf.gazpachosurvey.types.SurveyInstanceType;
+import net.sf.gazpachosurvey.types.StudyAccessType;
 import net.sf.gazpachosurvey.util.RandomTokenGenerator;
 
 import org.apache.commons.lang3.StringUtils;
@@ -79,7 +79,7 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study> implemen
 
     @Override
     public Study save(Study study, Set<QuestionnairDefinition> questionnairDefinitions, Set<Participant> participants) {
-        if (SurveyInstanceType.BY_INVITATION.equals(study.getType())) {
+        if (StudyAccessType.BY_INVITATION.equals(study.getType())) {
             study = this.save(study);
             for (QuestionnairDefinition questionnairDefinition : questionnairDefinitions) {
 

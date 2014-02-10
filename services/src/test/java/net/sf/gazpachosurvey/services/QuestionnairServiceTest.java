@@ -31,7 +31,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 public class QuestionnairServiceTest {
 
     @Autowired
-    QuestionnairService questionnairService;
+    private QuestionnairService questionnairService;
 
     @Test
     public void findOneByExampleTest() {

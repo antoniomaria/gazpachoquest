@@ -11,7 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
-import net.sf.gazpachosurvey.types.SurveyInstanceType;
+import net.sf.gazpachosurvey.types.StudyAccessType;
 
 import org.joda.time.DateTime;
 import org.joda.time.contrib.jpa.DateTimeConverter;
@@ -24,7 +24,7 @@ public class Study extends AbstractAuditable {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    private SurveyInstanceType type;
+    private StudyAccessType type;
 
     @Column(columnDefinition = "timestamp")
     @Convert(converter = DateTimeConverter.class)
@@ -57,7 +57,7 @@ public class Study extends AbstractAuditable {
         return startDate;
     }
 
-    public SurveyInstanceType getType() {
+    public StudyAccessType getType() {
         return type;
     }
 
@@ -77,7 +77,7 @@ public class Study extends AbstractAuditable {
         this.startDate = startDate;
     }
 
-    public void setType(SurveyInstanceType type) {
+    public void setType(StudyAccessType type) {
         this.type = type;
     }
 
@@ -88,7 +88,7 @@ public class Study extends AbstractAuditable {
     public static class Builder {
         private Integer id;
         private String name;
-        private SurveyInstanceType type;
+        private StudyAccessType type;
         private DateTime startDate;
         private DateTime expirationDate;
         private Set<Questionnair> questionnairs;
@@ -103,7 +103,7 @@ public class Study extends AbstractAuditable {
             return this;
         }
 
-        public Builder type(SurveyInstanceType type) {
+        public Builder type(StudyAccessType type) {
             this.type = type;
             return this;
         }

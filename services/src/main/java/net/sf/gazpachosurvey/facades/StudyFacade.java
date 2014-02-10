@@ -8,6 +8,6 @@ public interface StudyFacade {
 
     StudyDTO findOne(Integer id);
 
-    StudyDTO save(StudyDTO surveyInstance);
+    StudyDTO save(StudyDTO study);
 
 }

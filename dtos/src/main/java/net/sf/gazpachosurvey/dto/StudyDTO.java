@@ -3,7 +3,7 @@ package net.sf.gazpachosurvey.dto;
 import java.util.Set;
 
 import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
-import net.sf.gazpachosurvey.types.SurveyInstanceType;
+import net.sf.gazpachosurvey.types.StudyAccessType;
 
 import org.joda.time.DateTime;
 
@@ -21,7 +21,7 @@ public class StudyDTO extends AbstractIdentifiableDTO {
 
     private Set<QuestionnairDefinitionDTO> questionnairDefinitions;
 
-    private SurveyInstanceType type;
+    private StudyAccessType type;
 
     public StudyDTO() {
         super();
@@ -43,7 +43,7 @@ public class StudyDTO extends AbstractIdentifiableDTO {
         return startDate;
     }
 
-    public SurveyInstanceType getType() {
+    public StudyAccessType getType() {
         return type;
     }
 
@@ -63,7 +63,7 @@ public class StudyDTO extends AbstractIdentifiableDTO {
         this.startDate = startDate;
     }
 
-    public void setType(final SurveyInstanceType type) {
+    public void setType(final StudyAccessType type) {
         this.type = type;
     }
 
@@ -85,7 +85,7 @@ public class StudyDTO extends AbstractIdentifiableDTO {
         private Set<ParticipantDTO> participants;
         private DateTime startDate;
         private Set<QuestionnairDefinitionDTO> questionnairDefinitions;
-        private SurveyInstanceType type;
+        private StudyAccessType type;
 
         public Builder expirationDate(DateTime expirationDate) {
             this.expirationDate = expirationDate;
@@ -112,7 +112,7 @@ public class StudyDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
-        public Builder type(SurveyInstanceType type) {
+        public Builder type(StudyAccessType type) {
             this.type = type;
             return this;
         }

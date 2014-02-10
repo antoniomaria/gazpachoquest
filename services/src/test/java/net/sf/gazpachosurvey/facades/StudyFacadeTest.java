@@ -1,11 +1,15 @@
 package net.sf.gazpachosurvey.facades;
 
+import static org.fest.assertions.api.Assertions.assertThat;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.gazpachosurvey.dto.ParticipantDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDefinitionDTO;
+import net.sf.gazpachosurvey.dto.StudyDTO;
 import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
+import net.sf.gazpachosurvey.types.StudyAccessType;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +32,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("StudyFacade-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class SurveyInstanceFacadeTest {
+public class StudyFacadeTest {
 
     @Autowired
     private ParticipantFacade participantFacade;
@@ -38,13 +42,17 @@ public class SurveyInstanceFacadeTest {
 
     @Test
     public void saveTest() {
-        QuestionnairDefinitionDTO survey = QuestionnairDefinitionDTO.with().id(58).build();
-
+        QuestionnairDefinitionDTO questionnairDefinition = QuestionnairDefinitionDTO.with().id(6).build();
         Set<ParticipantDTO> participants = new HashSet<>();
-
-        ParticipantDTO participant = participantFacade.findOne(127);
-
+        ParticipantDTO participant = participantFacade.findOne(2);
         participants.add(participant);
 
+        Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<QuestionnairDefinitionDTO>();
+        questionnairDefinitions.add(questionnairDefinition);
+
+        StudyDTO study = StudyDTO.with().type(StudyAccessType.BY_INVITATION).participants(participants)
+                .questionnairDefinitions(questionnairDefinitions).build();
+        study = studyFacade.save(study);
+        assertThat(study.isNew()).isFalse();
     }
 }

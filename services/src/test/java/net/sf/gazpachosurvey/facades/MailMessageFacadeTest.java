@@ -64,7 +64,7 @@ public class MailMessageFacadeTest {
         TranslationDTO<MailMessageTemplateDTO, MailMessageTemplateLanguageSettingsDTO> translation = new TranslationDTO<>();
         translation.setLanguageSettings(languageSettingsInSpanish);
         translation.setLanguage(Language.ES);
-        translation.setTranslatedEntity(MailMessageTemplateDTO.with().id(56).build());
+        translation.setTranslatedEntity(MailMessageTemplateDTO.with().id(60).build());
 
         translation = mailMessageFacade.saveTranslation(translation);
         assertThat(translation.getId()).isNotNull();

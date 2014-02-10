@@ -7,8 +7,8 @@ import net.sf.gazpachosurvey.types.Language;
 
 public interface QuestionnairDefinitionAccessorFacade {
 
-    QuestionnairDefinitionDTO findOneSurvey(Integer surveyId);
+    QuestionnairDefinitionDTO findOneQuestionnairDefinition(Integer questionnairDefinitionId);
 
-    Set<Language> findSurveyTranslations(Integer surveyId);
+    Set<Language> findQuestionnairDefinitionTranslations(Integer questionnairDefinitionId);
 
 }

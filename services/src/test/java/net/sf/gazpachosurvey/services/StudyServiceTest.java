@@ -1,5 +1,7 @@
 package net.sf.gazpachosurvey.services;
 
+import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachosurvey.domain.core.Study;
 import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;
@@ -29,6 +31,8 @@ public class StudyServiceTest {
     private StudyService studyService;
 
     @Test
-    public void saveTest() {
+    public void findOneTest() {
+        Study study = studyService.findOne(62);
+        assertThat(study.isNew()).isFalse();
     }
 }

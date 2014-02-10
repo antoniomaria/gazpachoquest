@@ -25,7 +25,7 @@ import net.sf.gazpachosurvey.types.Gender;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 import net.sf.gazpachosurvey.types.QuestionType;
-import net.sf.gazpachosurvey.types.SurveyInstanceType;
+import net.sf.gazpachosurvey.types.StudyAccessType;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +64,7 @@ public class DBPopulator {
         questionnairDefinitions.add(questionnairDef);
 
         StudyDTO study = StudyDTO.with().questionnairDefinitions(questionnairDefinitions)
-                .type(SurveyInstanceType.BY_INVITATION)
+                .type(StudyAccessType.BY_INVITATION)
                 .name("New survey " + questionnairDef.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).participants(participants)
                 .build();
@@ -76,7 +76,7 @@ public class DBPopulator {
         questionnairDefinitions = new HashSet<>();
         questionnairDefinitions.add(questionnairDef);
 
-        study = StudyDTO.with().questionnairDefinitions(questionnairDefinitions).type(SurveyInstanceType.BY_INVITATION)
+        study = StudyDTO.with().questionnairDefinitions(questionnairDefinitions).type(StudyAccessType.BY_INVITATION)
                 .name("New survey " + questionnairDef.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31"))
 

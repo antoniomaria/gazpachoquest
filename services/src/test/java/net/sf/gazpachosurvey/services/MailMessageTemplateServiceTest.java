@@ -46,14 +46,14 @@ public class MailMessageTemplateServiceTest {
     @Test
     public void findByExampleTest() {
         MailMessageTemplate example = new MailMessageTemplate();
-        example.setQuestionnairDefinition(QuestionnairDefinition.with().id(58).build());
+        example.setQuestionnairDefinition(QuestionnairDefinition.with().id(6).build());
         List<MailMessageTemplate> results = mailMessageTemplateService.findByExample(example, new SearchParameters());
-        assertThat(results).contains(MailMessageTemplate.with().id(125).build());
+        assertThat(results).contains(MailMessageTemplate.with().id(60).build());
     }
 
     @Test
     public void languagesTest() {
-        Set<Language> translations = mailMessageTemplateService.translationsSupported(56);
+        Set<Language> translations = mailMessageTemplateService.translationsSupported(60);
         assertThat(translations).contains(Language.ES);
     }
 

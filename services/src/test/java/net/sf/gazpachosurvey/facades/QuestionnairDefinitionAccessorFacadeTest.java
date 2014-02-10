@@ -1,5 +1,7 @@
 package net.sf.gazpachosurvey.facades;
 
+import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachosurvey.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;
@@ -23,15 +25,16 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionnairDefinitionAccessorFacade-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class SurveyAccessorFacadeTest {
+public class QuestionnairDefinitionAccessorFacadeTest {
 
     @Autowired
     private QuestionnairDefinitionAccessorFacade questionnairDefinitionAccessorFacade;
 
     @Test
     public void findOneSurveyTest() {
-        int surveyId = 2;
-        questionnairDefinitionAccessorFacade.findOneSurvey(surveyId);
-
+        int questionnairDefinitionId = 6;
+        QuestionnairDefinitionDTO questionnairDefinition = questionnairDefinitionAccessorFacade
+                .findOneQuestionnairDefinition(questionnairDefinitionId);
+        assertThat(questionnairDefinition).isNotNull();
     }
 }

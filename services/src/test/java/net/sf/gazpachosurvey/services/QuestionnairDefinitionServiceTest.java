@@ -39,7 +39,7 @@ public class QuestionnairDefinitionServiceTest {
 
     @Test
     public void confirmTest() {
-        QuestionnairDefinition questionnairDefinition = QuestionnairDefinition.with().id(2).build();
+        QuestionnairDefinition questionnairDefinition = QuestionnairDefinition.with().id(6).build();
         questionnairDefinitionService.confirm(questionnairDefinition);
     }
 
@@ -50,15 +50,15 @@ public class QuestionnairDefinitionServiceTest {
 
     @Test
     public void findOneTest() {
-        int surveyId = 2;
-        QuestionnairDefinition questionnairDefinition = questionnairDefinitionService.findOne(surveyId);
+        int questionnairDefinitionId = 6;
+        QuestionnairDefinition questionnairDefinition = questionnairDefinitionService.findOne(questionnairDefinitionId);
         assertThat(questionnairDefinition).isNotNull();
     }
 
     @Test
     public void questionGroupsCountTest() {
-        int surveyId = 2;
-        long count = questionnairDefinitionService.questionGroupsCount(surveyId);
+        int questionnairDefinitionId = 6;
+        long count = questionnairDefinitionService.questionGroupsCount(questionnairDefinitionId);
         assertThat(count).isEqualTo(3);
     }
 
@@ -85,11 +85,12 @@ public class QuestionnairDefinitionServiceTest {
         QuestionnairDefinitionLanguageSettings languageSettings = new QuestionnairDefinitionLanguageSettings();
         languageSettings.setTitle("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
         languageSettings.setDescription("Donec pellentesque consequat orci.");
-        int surveyId = 2;
+        int questionnairDefinitionId = 6;
         QuestionnairDefinitionTranslation translation = QuestionnairDefinitionTranslation.with()
-                .translatedEntityId(surveyId).language(Language.FR).languageSettings(languageSettings).build();
+                .translatedEntityId(questionnairDefinitionId).language(Language.FR).languageSettings(languageSettings)
+                .build();
         questionnairDefinitionService.saveTranslation(translation);
-        Set<Language> translations = questionnairDefinitionService.translationsSupported(surveyId);
+        Set<Language> translations = questionnairDefinitionService.translationsSupported(questionnairDefinitionId);
 
         assertThat(translations).contains(Language.FR);
     }

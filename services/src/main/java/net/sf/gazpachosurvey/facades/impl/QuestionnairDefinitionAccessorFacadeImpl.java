@@ -22,13 +22,13 @@ public class QuestionnairDefinitionAccessorFacadeImpl implements QuestionnairDef
     private QuestionnairDefinitionService questionnairDefinitionService;
 
     @Override
-    public QuestionnairDefinitionDTO findOneSurvey(final Integer surveyId) {
+    public QuestionnairDefinitionDTO findOneQuestionnairDefinition(final Integer surveyId) {
         QuestionnairDefinition questionnairDefinition = questionnairDefinitionService.findOne(surveyId);
         return mapper.map(questionnairDefinition, QuestionnairDefinitionDTO.class);
     }
 
     @Override
-    public Set<Language> findSurveyTranslations(final Integer surveyId) {
+    public Set<Language> findQuestionnairDefinitionTranslations(final Integer surveyId) {
         return questionnairDefinitionService.translationsSupported(surveyId);
     }
 
