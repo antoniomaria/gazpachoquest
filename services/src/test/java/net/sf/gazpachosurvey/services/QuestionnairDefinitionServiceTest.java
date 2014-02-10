@@ -11,6 +11,7 @@ import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachosurvey.types.Language;
 
 import org.joda.time.DateTime;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,7 @@ public class QuestionnairDefinitionServiceTest {
     }
 
     @Test
+    @Ignore
     public void saveTest() {
         QuestionnairDefinitionLanguageSettings languageSettings = QuestionnairDefinitionLanguageSettings.with()
                 .title("My QuestionnairDefinition").build();
