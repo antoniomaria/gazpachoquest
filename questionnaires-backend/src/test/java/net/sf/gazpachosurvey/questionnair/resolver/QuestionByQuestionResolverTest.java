@@ -39,8 +39,8 @@ public class QuestionByQuestionResolverTest {
 
     @Test
     public void resolveForTest() {
-        Integer respondentId = 113;
-        Questionnair respondent = questionnairRepository.findOne(respondentId);
+        Integer questionnairId = 63;
+        Questionnair respondent = questionnairRepository.findOne(questionnairId);
         Question question = (Question) resolver.resolveFor(respondent, BrowsingAction.ENTERING);
         StringBuilder out = new StringBuilder();
         out.append("1: " + question.getLanguageSettings().getTitle() + "\n");

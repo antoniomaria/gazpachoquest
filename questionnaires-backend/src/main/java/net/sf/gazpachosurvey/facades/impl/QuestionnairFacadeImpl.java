@@ -100,8 +100,10 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
         }
 
         Map<String, Object> answers = questionnairAnswersService.findByQuestionnair(questionnair);
-        for (QuestionDTO question : page.getQuestions()) {
-            populateAnswers(question, answers);
+        if (answers != null) {
+            for (QuestionDTO question : page.getQuestions()) {
+                populateAnswers(question, answers);
+            }
         }
         return page;
     }

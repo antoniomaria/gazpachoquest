@@ -42,20 +42,19 @@ public class GroupByGroupResolverTest {
 
     @Test
     public void resolveForTest() {
-        Integer respondentId = 113;
-        Questionnair respondent = questionnairRepository.findOne(respondentId);
-        QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(respondent, BrowsingAction.ENTERING);
+        Integer questionnairId = 63;
+        Questionnair questionnair = questionnairRepository.findOne(questionnairId);
+        QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.ENTERING);
         new StringBuilder();
 
         List<Question> questions = questionGroup.getQuestions();
         int pos = 1;
         for (Question question : questions) {
-
             System.out.println(pos + ". " + question.getLanguageSettings().getTitle());
             pos++;
         }
         System.out.println("*******************");
-        questionGroup = (QuestionGroup) resolver.resolveFor(respondent, BrowsingAction.FORWARD);
+        questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.FORWARD);
 
         questions = questionGroup.getQuestions();
         pos = 1;
