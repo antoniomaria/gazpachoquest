@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.security;
 
+import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachosurvey.domain.core.Participant;
 import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
 import net.sf.gazpachosurvey.repository.dynamic.QuestionnairAnswersRepository;
@@ -34,8 +35,8 @@ public class RespondentLoginServiceTest {
 
     @Test
     public void loginTest() {
-        Participant respondent = (Participant) loginService.login("", "PF8UCQP36D");
-        System.out.println(respondent.getQuestionnairs());
+        Participant respondent = (Participant) loginService.login("", "ABJ5QTFAX2");
+        assertThat(respondent.getQuestionnairs()).hasSize(1);
     }
 
     @Before
