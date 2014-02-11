@@ -42,7 +42,7 @@ public class QuestionnairDefinitionServiceImpl
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = false)
     public QuestionnairDefinition confirm(final QuestionnairDefinition questionnairDefinition) {
         QuestionnairDefinition entity = repository.findOne(questionnairDefinition.getId());
         if (entity.getStatus() == EntityStatus.DRAFT) {

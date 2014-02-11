@@ -113,6 +113,7 @@
   <question_option id="105" code="O4" created_date="2014-02-11 13:40:20.702" language="EN" last_modified_date="2014-02-11 13:40:20.702" title="35,000 - 39,999&#8364;" createdby_id="1" lastmodifiedby_id="1" question_id="101" order_in_question="3"/>
   <question_option id="106" code="O5" created_date="2014-02-11 13:40:20.703" language="EN" last_modified_date="2014-02-11 13:40:20.703" title="Over 85,000&#8364;" createdby_id="1" lastmodifiedby_id="1" question_id="101" order_in_question="4"/>
   <questionnair_definition_translation id="7" language="ES" description="&lt;p&gt;Esto es una encuesta de ejemplo dise&#241;ada para GazpachoSurvey&lt;/p&gt;" title="Ejemplo de encuesta" welcometext="Gracias por participar en esta encuesta" questionnairdefinition_id="6"/>
+  <browsed_element/>
   <sequence seq_name="questionnair_answers_6_seq" seq_count="50"/>
   <sequence seq_name="questionnair_answers_75_seq" seq_count="0"/>
   <sequence seq_name="SEQ_GEN" seq_count="150"/>

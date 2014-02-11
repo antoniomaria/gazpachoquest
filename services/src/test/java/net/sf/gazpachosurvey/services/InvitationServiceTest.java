@@ -39,14 +39,6 @@ public class InvitationServiceTest {
     private InvitationService surveyService;
 
     @Test
-    public void findOneByExampleTest() {
-        // InvitationDTO example = InvitationDTO.with().type(InvitationType.PERSONAL).token("IQF19ZUVMI").build();
-        // InvitationDTO invitation = surveyService.findOneByExample(example, new
-        // SearchParameters().caseSensitive(true));
-        // assertThat(invitation).isNotNull();
-    }
-
-    @Test
     public void saveTest() {
         Study study = studyService.findOne(95);
         Invitation invitation = Invitation.with().study(study).status(InvitationStatus.ACTIVE).token("1234").build();
