@@ -98,7 +98,7 @@ public class QuestionnairResourceTest {
 
     @Test
     public void getQuestionnairsTestXX() throws JsonParseException, JsonMappingException, IOException {
-        String invitationToken = "RWHY2EWJST";
+        String invitationToken = "55GAW02QH2";
 
         ObjectMapper mapper = new ObjectMapper();
         JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, QuestionnairDTO.class);
@@ -121,7 +121,7 @@ public class QuestionnairResourceTest {
 
     @Test
     public void questionnairsListTest() {
-        String invitationToken = "RWHY2EWJST";
+        String invitationToken = "255FXLSESX";
         client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
         List<QuestionnairDTO> questionnairDTOs = client().target(getBaseUri() + "runtime/questionnairs").request()
                 .accept(MediaType.APPLICATION_JSON).get(new GenericType<List<QuestionnairDTO>>() {
@@ -137,7 +137,7 @@ public class QuestionnairResourceTest {
 
     @Test
     public void pageTest() {
-        String invitationToken = "RWHY2EWJST";
+        String invitationToken = "255FXLSESX";
         Integer questionnairId = 63;
         RenderingMode mode = RenderingMode.QUESTION_BY_QUESTION;
         BrowsingAction action = BrowsingAction.ENTERING;
@@ -184,7 +184,7 @@ public class QuestionnairResourceTest {
         questionnairAnswersService.save(questionnair, "q8_o3", Boolean.TRUE);
         questionnairAnswersService.save(questionnair, "q8_o4", Boolean.FALSE);
 
-        String invitationToken = "RWHY2EWJST";
+        String invitationToken = "255FXLSESX";
         Integer questionnairId = 63;
         RenderingMode mode = RenderingMode.GROUP_BY_GROUP;
         BrowsingAction action = BrowsingAction.ENTERING;
