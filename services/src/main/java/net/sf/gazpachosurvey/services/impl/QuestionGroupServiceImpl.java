@@ -15,6 +15,7 @@ import net.sf.gazpachosurvey.services.QuestionGroupService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @Service
@@ -35,21 +36,25 @@ public class QuestionGroupServiceImpl extends
     }
 
     @Override
-    public List<QuestionGroup> findBySurveyId(final Integer surveyId) {
+    @Transactional(readOnly = true)
+    public List<QuestionGroup> findByQuestionnairDefinitionId(final Integer surveyId) {
         return ((QuestionGroupRepository) repository).findByQuestionnairDefinitionId(surveyId);
     }
 
     @Override
-    public QuestionGroup findOneByPositionInSurvey(final Integer surveyId, final Integer position) {
+    @Transactional(readOnly = true)
+    public QuestionGroup findOneByPositionInQuestionnairDefinition(final Integer surveyId, final Integer position) {
         return ((QuestionGroupRepository) repository).findOneByPositionInQuestionnairDefinition(surveyId, position);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Integer findPositionInSurvey(final Integer questionGroupId) {
         return ((QuestionGroupRepository) repository).findPositionInQuestionnairDefinition(questionGroupId);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public long questionsCount(final Integer questionGroupId) {
         return questionRepository.countByExample(
                 Question.with().questionGroup(QuestionGroup.with().id(questionGroupId).build()).build(),
@@ -57,8 +62,10 @@ public class QuestionGroupServiceImpl extends
     }
 
     @Override
+    @Transactional(readOnly = false)
     public QuestionGroup save(final QuestionGroup questionGroup) {
-        Assert.state(!questionGroup.isNew(), "QuestionGroup must be already persisted. Try by adding to QuestionnairDefinition first.");
+        Assert.state(!questionGroup.isNew(),
+                "QuestionGroup must be already persisted. Try by adding to QuestionnairDefinition first.");
 
         QuestionGroup existing = repository.findOne(questionGroup.getId());
 

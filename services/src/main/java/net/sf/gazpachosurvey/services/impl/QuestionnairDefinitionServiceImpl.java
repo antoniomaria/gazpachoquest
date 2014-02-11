@@ -15,10 +15,13 @@ import net.sf.gazpachosurvey.types.EntityStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class QuestionnairDefinitionServiceImpl extends
-        AbstractLocalizedPersistenceService<QuestionnairDefinition, QuestionnairDefinitionTranslation, QuestionnairDefinitionLanguageSettings> implements QuestionnairDefinitionService {
+public class QuestionnairDefinitionServiceImpl
+        extends
+        AbstractLocalizedPersistenceService<QuestionnairDefinition, QuestionnairDefinitionTranslation, QuestionnairDefinitionLanguageSettings>
+        implements QuestionnairDefinitionService {
 
     @Autowired
     private MailMessageRepository mailMessageRepository;
@@ -39,6 +42,7 @@ public class QuestionnairDefinitionServiceImpl extends
     }
 
     @Override
+    @Transactional(readOnly = true)
     public QuestionnairDefinition confirm(final QuestionnairDefinition questionnairDefinition) {
         QuestionnairDefinition entity = repository.findOne(questionnairDefinition.getId());
         if (entity.getStatus() == EntityStatus.DRAFT) {
@@ -49,12 +53,16 @@ public class QuestionnairDefinitionServiceImpl extends
     }
 
     @Override
+    @Transactional(readOnly = true)
     public long questionGroupsCount(final Integer surveyId) {
-        return questionGroupRepository.countByExample(QuestionGroup.with().questionnairDefinition(QuestionnairDefinition.with().id(surveyId).build())
-                .build(), new SearchParameters());
+        return questionGroupRepository
+                .countByExample(
+                        QuestionGroup.with().questionnairDefinition(QuestionnairDefinition.with().id(surveyId).build())
+                                .build(), new SearchParameters());
     }
 
     @Override
+    @Transactional(readOnly = false)
     public QuestionnairDefinition save(final QuestionnairDefinition questionnairDefinition) {
         QuestionnairDefinition existing = null;
         if (questionnairDefinition.isNew()) {

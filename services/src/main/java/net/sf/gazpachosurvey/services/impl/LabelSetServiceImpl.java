@@ -7,6 +7,7 @@ import net.sf.gazpachosurvey.services.LabelSetService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSet> implements LabelSetService {
@@ -17,6 +18,7 @@ public class LabelSetServiceImpl extends AbstractPersistenceService<LabelSet> im
     }
 
     @Override
+    @Transactional(readOnly = false)
     public LabelSet save(final LabelSet labelSet) {
         LabelSet existing = null;
         if (labelSet.isNew()) {

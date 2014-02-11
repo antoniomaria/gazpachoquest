@@ -6,6 +6,7 @@ import net.sf.gazpachosurvey.services.InvitationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class InvitationServiceImpl extends AbstractPersistenceService<Invitation> implements InvitationService {
@@ -16,6 +17,7 @@ public class InvitationServiceImpl extends AbstractPersistenceService<Invitation
     }
 
     @Override
+    @Transactional(readOnly = false)
     public Invitation save(final Invitation entity) {
         Invitation fetched = null;
         if (entity.isNew()) {

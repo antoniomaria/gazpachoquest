@@ -23,7 +23,7 @@ public class BrowsedElement extends AbstractAuditable {
     protected Questionnair questionnair;
 
     @Basic
-    protected Boolean last;
+    protected boolean last;
 
     public BrowsedElement() {
         super();
@@ -37,27 +37,24 @@ public class BrowsedElement extends AbstractAuditable {
         this.questionnair = questionnair;
     }
 
-    public Boolean isLast() {
-        if (last == null) {
-            this.last = Boolean.FALSE;
-        }
+    public boolean isLast() {
         return last;
     }
 
-    public void setLast(Boolean actual) {
-        this.last = actual;
+    public void setLast(boolean actual) {
+        last = actual;
     }
 
     public static class Builder {
         private Questionnair questionnair;
-        private Boolean last;
+        private boolean last;
 
         public Builder questionnair(Questionnair questionnair) {
             this.questionnair = questionnair;
             return this;
         }
 
-        public Builder last(Boolean last) {
+        public Builder last(boolean last) {
             this.last = last;
             return this;
         }

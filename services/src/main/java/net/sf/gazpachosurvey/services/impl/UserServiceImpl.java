@@ -6,6 +6,7 @@ import net.sf.gazpachosurvey.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl extends AbstractPersistenceService<User> implements UserService {
@@ -16,6 +17,7 @@ public class UserServiceImpl extends AbstractPersistenceService<User> implements
     }
 
     @Override
+    @Transactional(readOnly = false)
     public User save(final User user) {
         User existing = null;
         if (user.isNew()) {

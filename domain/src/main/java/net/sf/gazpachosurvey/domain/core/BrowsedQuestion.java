@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
-import net.sf.gazpachosurvey.domain.core.BrowsedQuestionGroup.Builder;
-
 @Entity
 @DiscriminatorValue("Q")
 public class BrowsedQuestion extends BrowsedElement {
@@ -39,9 +37,9 @@ public class BrowsedQuestion extends BrowsedElement {
 
         private Questionnair questionnair;
 
-        private Boolean last;
+        private boolean last;
 
-        public Builder last(Boolean last) {
+        public Builder last(boolean last) {
             this.last = last;
             return this;
         }

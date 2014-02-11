@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import net.sf.gazpachosurvey.domain.core.QuestionOption;
-import net.sf.gazpachosurvey.domain.core.embeddables.QuestionGroupLanguageSettings;
 import net.sf.gazpachosurvey.domain.core.embeddables.QuestionOptionLanguageSettings;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.domain.support.Translation;
@@ -38,7 +37,7 @@ public class QuestionOptionTranslation extends AbstractPersistable implements
 
     public QuestionOption getQuestionOption() {
         if (questionOption == null) {
-            this.questionOption = new QuestionOption();
+            questionOption = new QuestionOption();
         }
         return questionOption;
     }
@@ -47,18 +46,22 @@ public class QuestionOptionTranslation extends AbstractPersistable implements
         this.questionOption = questionOption;
     }
 
+    @Override
     public Language getLanguage() {
         return language;
     }
 
+    @Override
     public void setLanguage(Language language) {
         this.language = language;
     }
 
+    @Override
     public QuestionOptionLanguageSettings getLanguageSettings() {
         return languageSettings;
     }
 
+    @Override
     public void setLanguageSettings(QuestionOptionLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }
@@ -83,16 +86,19 @@ public class QuestionOptionTranslation extends AbstractPersistable implements
             return this;
         }
 
+        @Override
         public Builder language(Language language) {
             this.language = language;
             return this;
         }
 
+        @Override
         public Builder languageSettings(QuestionOptionLanguageSettings languageSettings) {
             this.languageSettings = languageSettings;
             return this;
         }
 
+        @Override
         public QuestionOptionTranslation build() {
             QuestionOptionTranslation questionOptionTranslation = new QuestionOptionTranslation();
             questionOptionTranslation.questionOption = questionOption;

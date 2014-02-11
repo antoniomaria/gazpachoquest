@@ -9,6 +9,7 @@ import net.sf.gazpachosurvey.services.LabelService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @Service
@@ -21,6 +22,7 @@ public class LabelServiceImpl extends
     }
 
     @Override
+    @Transactional(readOnly = false)
     public Label save(final Label entity) {
         Assert.state(!entity.isNew(), "Label must be already persisted. Try by adding to labelSet first.");
         Label existing = repository.save(entity);

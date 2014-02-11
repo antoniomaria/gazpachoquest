@@ -14,6 +14,7 @@ import net.sf.gazpachosurvey.services.QuestionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @Service
@@ -34,16 +35,19 @@ public class QuestionServiceImpl extends
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Question findOneByPositionInQuestionGroup(final Integer questionGroupId, final Integer position) {
         return ((QuestionRepository) repository).findOneByPositionInQuestionGroup(questionGroupId, position);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Integer findPositionInQuestionGroup(final Integer questionId) {
         return ((QuestionRepository) repository).findPositionInQuestionGroup(questionId);
     }
 
     @Override
+    @Transactional(readOnly = false)
     public Question save(final Question question) {
         Assert.state(!question.isNew(),
                 "Question must be already persisted. Try by adding to QuestionGroup or as added as subquestion first.");

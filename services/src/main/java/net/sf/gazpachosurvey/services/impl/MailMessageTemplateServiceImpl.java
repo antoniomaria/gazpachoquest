@@ -9,6 +9,7 @@ import net.sf.gazpachosurvey.services.MailMessageTemplateService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MailMessageTemplateServiceImpl
@@ -23,6 +24,7 @@ public class MailMessageTemplateServiceImpl
     }
 
     @Override
+    @Transactional(readOnly = false)
     public MailMessageTemplate save(final MailMessageTemplate entity) {
         MailMessageTemplate existing = null;
         if (entity.isNew()) {
@@ -35,20 +37,28 @@ public class MailMessageTemplateServiceImpl
             existing.setLanguageSettings(entity.getLanguageSettings());
             existing.setType(entity.getType());
             /*
-             * Map<Language, MailMessageTemplateTranslation> translations = entity.getTranslations(); Map<Language,
-             * MailMessageTemplateTranslation> supportedTranslations = existing.getTranslations(); for (Language
-             * language : translations.keySet()) { MailMessageTemplateTranslation translation =
-             * translations.get(language); if (supportedTranslations.get(language) == null) {
+             * Map<Language, MailMessageTemplateTranslation> translations =
+             * entity.getTranslations(); Map<Language,
+             * MailMessageTemplateTranslation> supportedTranslations =
+             * existing.getTranslations(); for (Language
+             * language : translations.keySet()) {
+             * MailMessageTemplateTranslation translation =
+             * translations.get(language); if
+             * (supportedTranslations.get(language) == null) {
              * existing.addTranslation(language, translation); } }
              */
         }
         return existing;
     }
     /*
-     * public MailMessageTemplateTranslation saveTranslation(MailMessageTemplateTranslation translation) {
+     * public MailMessageTemplateTranslation
+     * saveTranslation(MailMessageTemplateTranslation translation) {
      * Assert.state(!translation.isNew(),
-     * "MailMessageTemplateTranslation must be already persisted. Try by adding to MailMessageTemplate first." );
-     * MailMessageTemplateTranslation existing = translationRepository.findOne(translation.getId());
-     * existing.setLanguageSettings(translation.getLanguageSettings()); return existing; }
+     * "MailMessageTemplateTranslation must be already persisted. Try by adding to MailMessageTemplate first."
+     * );
+     * MailMessageTemplateTranslation existing =
+     * translationRepository.findOne(translation.getId());
+     * existing.setLanguageSettings(translation.getLanguageSettings()); return
+     * existing; }
      */
 }

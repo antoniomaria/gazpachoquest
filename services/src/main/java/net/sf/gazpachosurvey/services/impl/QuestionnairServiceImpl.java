@@ -7,6 +7,7 @@ import net.sf.gazpachosurvey.types.EntityStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class QuestionnairServiceImpl extends AbstractPersistenceService<Questionnair> implements QuestionnairService {
@@ -17,6 +18,7 @@ public class QuestionnairServiceImpl extends AbstractPersistenceService<Question
     }
 
     @Override
+    @Transactional(readOnly = false)
     public Questionnair save(final Questionnair questionnair) {
         Questionnair existing = null;
         if (questionnair.isNew()) {

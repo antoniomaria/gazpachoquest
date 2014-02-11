@@ -9,9 +9,9 @@ import net.sf.gazpachosurvey.domain.i18.QuestionGroupTranslation;
 public interface QuestionGroupService extends
         LocalizedPersistenceService<QuestionGroup, QuestionGroupTranslation, QuestionGroupLanguageSettings> {
 
-    List<QuestionGroup> findBySurveyId(Integer surveyId);
+    List<QuestionGroup> findByQuestionnairDefinitionId(Integer questionnairDefinitionId);
 
-    QuestionGroup findOneByPositionInSurvey(Integer surveyId, Integer position);
+    QuestionGroup findOneByPositionInQuestionnairDefinition(Integer questionnairDefinitionId, Integer position);
 
     Integer findPositionInSurvey(Integer questionGroupId);
 

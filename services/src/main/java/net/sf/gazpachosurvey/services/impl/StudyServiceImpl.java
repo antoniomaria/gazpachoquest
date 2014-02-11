@@ -31,6 +31,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.util.Assert;
@@ -65,6 +66,7 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study> implemen
     }
 
     @Override
+    @Transactional(readOnly = false)
     public Study save(Study study) {
         Study existing = null;
         if (study.isNew()) {
@@ -78,6 +80,7 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study> implemen
     }
 
     @Override
+    @Transactional(readOnly = false)
     public Study save(Study study, Set<QuestionnairDefinition> questionnairDefinitions, Set<Participant> participants) {
         if (StudyAccessType.BY_INVITATION.equals(study.getType())) {
             study = this.save(study);

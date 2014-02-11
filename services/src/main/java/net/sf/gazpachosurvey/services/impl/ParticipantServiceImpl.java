@@ -6,6 +6,7 @@ import net.sf.gazpachosurvey.services.ParticipantService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ParticipantServiceImpl extends AbstractPersistenceService<Participant> implements ParticipantService {
@@ -16,6 +17,7 @@ public class ParticipantServiceImpl extends AbstractPersistenceService<Participa
     }
 
     @Override
+    @Transactional(readOnly = false)
     public Participant save(final Participant entity) {
         Participant existing = null;
         if (entity.isNew()) {

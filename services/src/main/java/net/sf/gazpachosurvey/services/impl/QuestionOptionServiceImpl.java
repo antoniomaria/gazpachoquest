@@ -9,6 +9,7 @@ import net.sf.gazpachosurvey.services.QuestionOptionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @Service
@@ -23,6 +24,7 @@ public class QuestionOptionServiceImpl extends
     }
 
     @Override
+    @Transactional(readOnly = false)
     public QuestionOption save(final QuestionOption entity) {
         Assert.state(!entity.isNew(), "QuestionOption must be already persisted. Try by adding to question first.");
         QuestionOption existing = repository.save(entity);

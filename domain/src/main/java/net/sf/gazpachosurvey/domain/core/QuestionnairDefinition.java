@@ -26,7 +26,8 @@ import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 
 @Entity
-public class QuestionnairDefinition extends AbstractLocalizable<QuestionnairDefinitionTranslation, QuestionnairDefinitionLanguageSettings> {
+public class QuestionnairDefinition extends
+        AbstractLocalizable<QuestionnairDefinitionTranslation, QuestionnairDefinitionLanguageSettings> {
 
     private static final long serialVersionUID = 2560468772707058412L;
 
@@ -49,7 +50,7 @@ public class QuestionnairDefinition extends AbstractLocalizable<QuestionnairDefi
     private Map<Language, QuestionnairDefinitionTranslation> translations;
 
     @OneToMany(mappedBy = "questionnairDefinition", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @OrderColumn(name = "order_in_survey")
+    @OrderColumn(name = "order_in_questionnair")
     private List<QuestionGroup> questionGroups;
 
     @OneToMany(mappedBy = "questionnairDefinition", fetch = FetchType.LAZY)
