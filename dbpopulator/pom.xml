@@ -33,9 +33,5 @@
       <artifactId>gazpachosurvey-services</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachosurvey-components</artifactId>
-    </dependency>
   </dependencies>
 </project>

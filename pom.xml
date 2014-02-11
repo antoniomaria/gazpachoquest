@@ -265,13 +265,6 @@
         <version>${spring.version}</version>
       </dependency>
 
-      <dependency>
-        <artifactId>spring-security-core</artifactId>
-        <groupId>org.springframework.security</groupId>
-        <version>${spring.version}</version>
-      </dependency>
-
-
       <!-- Spring data jpa -->
       <dependency>
         <groupId>org.springframework.data</groupId>
