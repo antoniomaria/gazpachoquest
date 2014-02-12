@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -28,7 +27,6 @@ import net.sf.gazpachosurvey.facades.QuestionnairFacade;
 import net.sf.gazpachosurvey.types.BrowsingAction;
 import net.sf.gazpachosurvey.types.RenderingMode;
 
-import org.glassfish.jersey.server.JSONP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,23 +74,19 @@ public class QuestionnairResource {
     BrowsingAction action) {
         logger.debug("New petition received from {}", context.getUserPrincipal().getName());
         PageDTO page = questionnairFacade.resolvePage(questionnairId, mode, action);
-        // return Response.ok("echo echo: " + questionnairId + " ->" + mode + " |" + action).build();
         return Response.ok(page).build();
     }
-
-    // @BeanParam
 
     @POST
     @Path("/{questionnairId}/answer")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({ "application/json", MediaType.APPLICATION_JSON })
-    @JSONP
-    public Response saveAnswer(@Context
+    public Response saveAnswer(Answer answer, @Context
     final SecurityContext context, @PathParam("questionnairId")
-    @BeanParam
-    Answer answer) {
+    Integer questionnairId, @QueryParam("questionCode")
+    String questionCode) {
         logger.debug("New petition received from {}", context.getUserPrincipal().getName());
-        // return Response.ok("echo echo: " + questionnairId + " ->" + mode + " |" + action).build();
-        return Response.ok("okey").build();
+        questionnairFacade.saveAnswer(questionnairId, questionCode, answer);
+        return Response.ok().build();
     }
 }

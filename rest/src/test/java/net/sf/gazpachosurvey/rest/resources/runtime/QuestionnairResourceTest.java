@@ -235,8 +235,8 @@ public class QuestionnairResourceTest {
             TextAnswer answer = TextAnswer.fromValue("Antonio Maria");
             Entity<TextAnswer> wrapper = Entity.json(answer);
             Response response = client()
-                    .target(String.format("%sruntime/questionnairs/%d/answer", getBaseUri(), questionnairId)).request()
-                    .accept(MediaType.APPLICATION_JSON).post(wrapper);
+                    .target(String.format("%sruntime/questionnairs/%d/answer?questionCode=%s", getBaseUri(),
+                            questionnairId, questionCode)).request().accept(MediaType.APPLICATION_JSON).post(wrapper);
 
             System.out.println("de winner is !" + response.toString());
 
