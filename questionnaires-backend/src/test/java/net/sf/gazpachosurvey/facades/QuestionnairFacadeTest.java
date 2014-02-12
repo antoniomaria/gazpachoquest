@@ -5,6 +5,10 @@ import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDTO;
+import net.sf.gazpachosurvey.dto.answers.Answer;
+import net.sf.gazpachosurvey.dto.answers.BooleanAnswer;
+import net.sf.gazpachosurvey.dto.answers.LongTextAnswer;
+import net.sf.gazpachosurvey.dto.answers.NumericAnswer;
 import net.sf.gazpachosurvey.dto.answers.TextAnswer;
 import net.sf.gazpachosurvey.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachosurvey.services.QuestionnairAnswersService;
@@ -16,6 +20,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -44,6 +49,9 @@ public class QuestionnairFacadeTest {
 
     @Autowired
     private QuestionnairAnswersService questionnairAnswersService;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Before
     public void setUp() {
@@ -91,10 +99,78 @@ public class QuestionnairFacadeTest {
 
     @Test
     public void saveAnswerTest() {
+
         Questionnair questionnair = Questionnair.with().id(63).build();
         String questionCode = "Q1";
-        TextAnswer answer = TextAnswer.fromValue("Antonio Maria");
+        Answer answer = TextAnswer.fromValue("Antonio Maria");
+        Integer questionDefinitionId = jdbcTemplate.queryForInt(
+                "select questionnairdefinition_id from questionnair where id = ?", questionnair.getId());
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
+
+        Integer answersId = jdbcTemplate.queryForInt("select answers_id from questionnair where id = ?",
+                questionnair.getId());
+        assertThat(answersId).isNotNull();
+        Object value = this.jdbcTemplate.queryForObject("select " + questionCode.toLowerCase()
+                + " from questionnair_answers_" + questionDefinitionId + " where id = ?", new Object[] { answersId },
+                String.class);
+        assertThat(value).isEqualTo(answer.getValue());
+
+        questionCode = "Q2";
+        answer = TextAnswer.fromValue("05");
+        questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
+        value = this.jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+                + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
+        assertThat(value).isEqualTo(answer.getValue());
+
+        questionCode = "Q3";
+        answer = NumericAnswer.fromValue(33);
+        questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
+        value = this.jdbcTemplate.queryForInt("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+                + questionDefinitionId + " where id = ?", answersId);
+        assertThat(value).isEqualTo(answer.getValue());
+
+        questionCode = "Q4";
+        answer = LongTextAnswer.fromValue("I started to work in IECISA, 10 years ago");
+        questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
+
+        questionCode = "Q5";
+        answer = TextAnswer.fromValue("02");
+        questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
+        value = this.jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+                + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
+        assertThat(value).isEqualTo(answer.getValue());
+
+        questionCode = "Q6";
+        answer = TextAnswer.fromValue("02");
+        questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
+        value = this.jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+                + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
+        assertThat(value).isEqualTo(answer.getValue());
+
+        questionCode = "Q7_1";
+        answer = TextAnswer.fromValue("01");
+        questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
+        value = this.jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+                + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
+        assertThat(value).isEqualTo(answer.getValue());
+
+        questionCode = "Q7_2";
+        answer = TextAnswer.fromValue("01");
+        questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
+
+        // Checkbox list
+        questionCode = "Q8_O1";
+        answer = BooleanAnswer.valueOf("01", Boolean.TRUE);
+        questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
+
+        questionCode = "Q8_O2";
+        answer = BooleanAnswer.valueOf("02", Boolean.TRUE);
+        questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
+
+        value = this.jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+                + questionDefinitionId + " where id = ?", new Object[] { answersId }, Boolean.class);
+        assertThat(value).isEqualTo(answer.getValue());
+
     }
 
 }
