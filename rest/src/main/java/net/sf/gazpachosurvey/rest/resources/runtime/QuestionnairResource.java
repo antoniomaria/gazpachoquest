@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.BeanParam;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -20,10 +23,12 @@ import net.sf.gazpachosurvey.domain.core.Participant;
 import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDTO;
+import net.sf.gazpachosurvey.dto.answers.Answer;
 import net.sf.gazpachosurvey.facades.QuestionnairFacade;
 import net.sf.gazpachosurvey.types.BrowsingAction;
 import net.sf.gazpachosurvey.types.RenderingMode;
 
+import org.glassfish.jersey.server.JSONP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,4 +80,19 @@ public class QuestionnairResource {
         return Response.ok(page).build();
     }
 
+    // @BeanParam
+
+    @POST
+    @Path("/{questionnairId}/answer")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces({ "application/json", MediaType.APPLICATION_JSON })
+    @JSONP
+    public Response saveAnswer(@Context
+    final SecurityContext context, @PathParam("questionnairId")
+    @BeanParam
+    Answer answer) {
+        logger.debug("New petition received from {}", context.getUserPrincipal().getName());
+        // return Response.ok("echo echo: " + questionnairId + " ->" + mode + " |" + action).build();
+        return Response.ok("okey").build();
+    }
 }

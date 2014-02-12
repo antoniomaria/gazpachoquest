@@ -9,12 +9,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDTO;
+import net.sf.gazpachosurvey.dto.answers.TextAnswer;
 import net.sf.gazpachosurvey.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachosurvey.rest.ApplicationConfig;
 import net.sf.gazpachosurvey.security.LoginService;
@@ -210,6 +213,32 @@ public class QuestionnairResourceTest {
                     .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
                             mode, action)).request().accept(MediaType.APPLICATION_JSON).get(PageDTO.class);
             System.out.println("de winner is !" + page.getQuestions());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void saveAnswerTest() {
+        repository.activeAllAnswers();
+
+        String invitationToken = "255FXLSESX";
+        Integer questionnairId = 63;
+        client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
+        try {/*-
+             String page = client()
+                    .target(String.format("%sruntime/questionnairs/%d/answer", getBaseUri(), questionnairId))..request()
+                    .accept(MediaType.APPLICATION_JSON).get(String.class);
+              */
+            String questionCode = "Q1";
+            TextAnswer answer = TextAnswer.fromValue("Antonio Maria");
+            Entity<TextAnswer> wrapper = Entity.json(answer);
+            Response response = client()
+                    .target(String.format("%sruntime/questionnairs/%d/answer", getBaseUri(), questionnairId)).request()
+                    .accept(MediaType.APPLICATION_JSON).post(wrapper);
+
+            System.out.println("de winner is !" + response.toString());
 
         } catch (Exception e) {
             e.printStackTrace();
