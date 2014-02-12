@@ -1,7 +1,19 @@
 package net.sf.gazpachosurvey.questionnair.support;
 
+import static org.fest.assertions.api.Assertions.assertThat;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.gazpachosurvey.domain.core.Questionnair;
+import net.sf.gazpachosurvey.dto.QuestionDTO;
+import net.sf.gazpachosurvey.dto.answers.TextAnswer;
+import net.sf.gazpachosurvey.facades.QuestionnairDefinitionAccessorFacade;
+import net.sf.gazpachosurvey.repository.dynamic.QuestionnairAnswersRepository;
+import net.sf.gazpachosurvey.services.QuestionnairAnswersService;
 import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +40,36 @@ public class AnswersPopulatorTest {
     @Autowired
     private AnswersPopulator answersPopulator;
 
+    @Autowired
+    private QuestionnairAnswersRepository repository;
+
+    @Autowired
+    private QuestionnairAnswersService questionnairAnswersService;
+
+    @Autowired
+    private QuestionnairDefinitionAccessorFacade questionnairDefinitionAccessorFacade;
+
+    @Before
+    public void setUp() {
+        repository.activeAllAnswers();
+    }
+
     @Test
     public void populateTest() {
-        System.out.println("fin");
+        Integer questionnairId = 63;
+        Questionnair questionnair = Questionnair.with().id(questionnairId).build();
+        String answer = "Antonio Maria";
+        String questionCode = "Q1";
+        questionnairAnswersService.save(questionnair, questionCode, answer);
+        QuestionDTO question = questionnairDefinitionAccessorFacade.findOneQuestion(17);
+
+        List<QuestionDTO> questions = new ArrayList<>();
+        questions.add(question);
+        answersPopulator.populate(questionnair, questions);
+
+        assertThat(question.getAnswer()).isExactlyInstanceOf(TextAnswer.class);
+        assertThat(((TextAnswer) question.getAnswer()).getValue()).isEqualTo("Antonio Maria");
+
     }
 
 }

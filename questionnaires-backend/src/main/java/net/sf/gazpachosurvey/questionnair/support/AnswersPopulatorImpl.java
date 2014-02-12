@@ -17,6 +17,7 @@ import net.sf.gazpachosurvey.types.QuestionType;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class AnswersPopulatorImpl implements AnswersPopulator {
@@ -29,6 +30,7 @@ public class AnswersPopulatorImpl implements AnswersPopulator {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void populate(Questionnair questionnair, List<QuestionDTO> questions) {
         Map<String, Object> answers = questionnairAnswersService.findByQuestionnair(questionnair);
         if (answers == null) {
