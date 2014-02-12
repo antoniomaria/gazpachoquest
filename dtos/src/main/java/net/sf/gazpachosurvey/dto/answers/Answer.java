@@ -11,5 +11,5 @@ import org.codehaus.jackson.annotate.JsonTypeInfo;
         @JsonSubTypes.Type(value = BooleanAnswer.class, name = "B"),
         @JsonSubTypes.Type(value = MultipleAnswer.class, name = "M") })
 public interface Answer extends Serializable {
-
+    Object getValue();
 }

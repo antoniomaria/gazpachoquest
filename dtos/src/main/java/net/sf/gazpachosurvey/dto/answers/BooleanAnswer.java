@@ -2,13 +2,13 @@ package net.sf.gazpachosurvey.dto.answers;
 
 import org.apache.commons.lang.BooleanUtils;
 
-public class BooleanAnswer extends AbstractAnswer {
+public class BooleanAnswer extends SimpleAnswer {
 
     private static final long serialVersionUID = -6283418338635814499L;
 
     private String option;
 
-    private boolean value;
+    private Boolean value;
 
     public BooleanAnswer() {
         super();
@@ -32,11 +32,12 @@ public class BooleanAnswer extends AbstractAnswer {
         this.value = value;
     }
 
-    public boolean getValue() {
+    @Override
+    public Boolean getValue() {
         return value;
     }
 
-    public static BooleanAnswer valueOf(String option, Boolean value) {
+    public static BooleanAnswer valueOf(String option, boolean value) {
         return new BooleanAnswer(option, BooleanUtils.toBoolean(value));
     }
 }

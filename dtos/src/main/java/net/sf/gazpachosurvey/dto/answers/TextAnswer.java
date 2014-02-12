@@ -1,6 +1,6 @@
 package net.sf.gazpachosurvey.dto.answers;
 
-public class TextAnswer extends AbstractAnswer {
+public class TextAnswer extends SimpleAnswer {
 
     private static final long serialVersionUID = 672728157327871902L;
 
@@ -15,6 +15,7 @@ public class TextAnswer extends AbstractAnswer {
         this.value = value;
     }
 
+    @Override
     public String getValue() {
         return value;
     }

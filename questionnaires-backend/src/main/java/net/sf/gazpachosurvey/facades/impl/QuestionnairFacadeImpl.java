@@ -11,6 +11,8 @@ import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDefinitionLanguageSettingsDTO;
+import net.sf.gazpachosurvey.dto.answers.Answer;
+import net.sf.gazpachosurvey.dto.answers.SimpleAnswer;
 import net.sf.gazpachosurvey.facades.QuestionnairFacade;
 import net.sf.gazpachosurvey.questionnair.resolver.QuestionnairElementResolver;
 import net.sf.gazpachosurvey.questionnair.resolver.ResolverSelector;
@@ -96,4 +98,11 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
         return page;
     }
 
+    @Override
+    public void saveAnswer(Integer questionnairId, String questionCode, Answer answer) {
+        Questionnair questionnair = Questionnair.with().id(questionnairId).build();
+        if (answer instanceof SimpleAnswer) {
+            questionnairAnswersService.save(questionnair, questionCode, answer.getValue());
+        }
+    }
 }

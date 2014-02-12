@@ -5,6 +5,7 @@ import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.dto.PageDTO;
 import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDTO;
+import net.sf.gazpachosurvey.dto.answers.TextAnswer;
 import net.sf.gazpachosurvey.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachosurvey.services.QuestionnairAnswersService;
 import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
@@ -86,6 +87,14 @@ public class QuestionnairFacadeTest {
         for (QuestionDTO questionDTO : page.getQuestions()) {
             System.out.println(questionDTO + " " + questionDTO.getAnswer());
         }
+    }
+
+    @Test
+    public void saveAnswerTest() {
+        Questionnair questionnair = Questionnair.with().id(63).build();
+        String questionCode = "Q1";
+        TextAnswer answer = TextAnswer.fromValue("Antonio Maria");
+        questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
     }
 
 }

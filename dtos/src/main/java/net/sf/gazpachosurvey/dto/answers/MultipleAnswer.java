@@ -11,7 +11,7 @@ public class MultipleAnswer extends AbstractAnswer {
 
     public MultipleAnswer() {
         super();
-        this.answers = new ArrayList<>();
+        answers = new ArrayList<>();
     }
 
     public List<Answer> getAnswers() {
@@ -23,12 +23,17 @@ public class MultipleAnswer extends AbstractAnswer {
     }
 
     public void addAnswer(Answer answer) {
-        this.answers.add(answer);
+        answers.add(answer);
     }
 
     @Override
     public String toString() {
         return "MultipleAnswer [answers=" + answers + "]";
+    }
+
+    @Override
+    public Object getValue() {
+        throw new UnsupportedOperationException();
     }
 
 }

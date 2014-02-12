@@ -7,4 +7,6 @@ public abstract class AbstractAnswer implements Answer {
     protected AbstractAnswer() {
         super();
     }
+
+    public abstract Object getValue();
 }
