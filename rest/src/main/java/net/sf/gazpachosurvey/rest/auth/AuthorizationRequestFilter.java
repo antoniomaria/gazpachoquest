@@ -25,7 +25,7 @@ public class AuthorizationRequestFilter implements ContainerRequestFilter {
 
         // We do allow wadl to be retrieve
         if (method.equals("GET")
-                && (requestUrl.equals("application.wadl") || requestUrl.equals("application.wadl/xsd0.xsd"))) {
+                && (requestUrl.equals("/application.wadl") || requestUrl.equals("/application.wadl/xsd0.xsd"))) {
             return;
         }
 

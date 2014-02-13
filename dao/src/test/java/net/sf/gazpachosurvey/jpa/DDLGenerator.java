@@ -16,19 +16,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.eclipse.persistence.config.PersistenceUnitProperties;
-import org.junit.Ignore;
-import org.junit.Test;
 
-@Ignore
-public class GenerateDllTest {
+public class DDLGenerator {
 
-    @Test
-    @Ignore
-    public void DDLGenerationTest() throws IOException {
-        generateDDL("default");
+    public static void main(String args[]) throws Exception {
+        new DDLGenerator().generate("default");
     }
 
-    public void generateDDL(final String databaseProviderName) throws IOException {
+    public void generate(final String databaseProviderName) throws IOException {
 
         File target = new File("target/generated-sources/" + databaseProviderName);
         target.mkdirs();

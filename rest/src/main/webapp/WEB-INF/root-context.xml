@@ -13,11 +13,11 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
-  <import resource="classpath:/datasource-context.xml" />
-  <import resource="classpath:/jpa-context.xml" />
-  <import resource="classpath:/services-context.xml" />
-  <import resource="classpath:/components-context.xml" />
-  <import resource="classpath:/rest-test-context.xml" />
+  <import resource="classpath:/datasource-context.xml"/>
+  <import resource="classpath:/jpa-context.xml"/>
+  <import resource="classpath:/services-context.xml"/>
+  <import resource="classpath:/components-context.xml"/>
+  <import resource="classpath:/questionnair-context.xml"/>
 
   <context:annotation-config />
 
