@@ -8,6 +8,7 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 // http://anismiles.wordpress.com/2012/03/02/securing-versioning-and-auditing-rest-jax-rs-jersey-apis/
@@ -25,18 +26,20 @@ public class AuthorizationRequestFilter implements ContainerRequestFilter {
 
         // We do allow wadl to be retrieve
         if (method.equals("GET")
-                && (requestUrl.equals("/application.wadl") || requestUrl.equals("/application.wadl/xsd0.xsd"))) {
+                && (requestUrl.indexOf("application.wadl") > -1 || requestUrl.indexOf("api-docs") > -1)) {
             return;
         }
 
         // Get the authentification passed in HTTP headers parameters
         String authToken = requestContext.getHeaderString("authorization");
+        if (StringUtils.isNotBlank(authToken)) {
+            AuthorizationRequestContext authRequestContext = AuthorizationRequestContext.with().httpMethod(method)
+                    .requestUrl(requestUrl).authorizationToken(authToken).build();
 
-        AuthorizationRequestContext authRequestContext = AuthorizationRequestContext.with().httpMethod(method)
-                .requestUrl(requestUrl).authorizationToken(authToken).build();
+            SecurityContext context = authorizationService.authorize(authRequestContext);
+            requestContext.setSecurityContext(context);
 
-        SecurityContext context = authorizationService.authorize(authRequestContext);
-        requestContext.setSecurityContext(context);
+        }
     }
 
 }

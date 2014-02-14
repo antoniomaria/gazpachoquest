@@ -31,7 +31,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiResponse;
+import com.wordnik.swagger.annotations.ApiResponses;
+
 @Path("runtime/questionnairs")
+@Api(value = "/runtime/questionnairs", description = "Runtime Questionnairs Interface")
 @Provider
 public class QuestionnairResource {
 
@@ -47,6 +53,9 @@ public class QuestionnairResource {
     @GET
     @RolesAllowed("respondent")
     @Produces({ "application/json", MediaType.APPLICATION_JSON })
+    @ApiOperation(value = "Find avaible questionnairs for respondent given by his invitation token", notes = "More notes about this method")
+    @ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid ID supplied"),
+            @ApiResponse(code = 500, message = "Pet not found") })
     public Response list(@Context
     final SecurityContext context) {
         logger.debug("New petition received from {}", context.getUserPrincipal().getName());
