@@ -31,6 +31,7 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.JavaType;
+import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.filter.HttpBasicAuthFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -146,11 +147,13 @@ public class QuestionnairResourceTest {
         BrowsingAction action = BrowsingAction.ENTERING;
 
         client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
-        PageDTO page = client()
+        PageDTO page = null;
+        Response response = client()
                 .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
-                        mode, action)).request().accept(MediaType.APPLICATION_JSON).get(PageDTO.class);
+                        mode, action)).request().accept(MediaType.APPLICATION_JSON).get();
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
+        page = response.readEntity(PageDTO.class);
 
-        System.out.println("de winner is !" + page.getQuestions());
         action = BrowsingAction.FORWARD;
 
         client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
