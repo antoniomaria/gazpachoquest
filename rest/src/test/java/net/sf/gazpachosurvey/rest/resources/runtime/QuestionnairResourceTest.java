@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.dto.PageDTO;
+import net.sf.gazpachosurvey.dto.QuestionDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDTO;
 import net.sf.gazpachosurvey.dto.answers.TextAnswer;
 import net.sf.gazpachosurvey.repository.dynamic.QuestionnairAnswersRepository;
@@ -37,7 +38,6 @@ import org.glassfish.jersey.client.filter.HttpBasicAuthFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
-import org.glassfish.jersey.test.TestProperties;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,8 +79,8 @@ public class QuestionnairResourceTest {
 
         @Override
         protected ResourceConfig configure() {
-            enable(TestProperties.LOG_TRAFFIC);
-            enable(TestProperties.DUMP_ENTITY);
+            // enable(TestProperties.LOG_TRAFFIC);
+            // enable(TestProperties.DUMP_ENTITY);
             ResourceConfig config = new ApplicationConfig();
             Map<String, Object> properties = new HashMap<String, Object>();
             properties.put("contextConfigLocation", "root-test-context.xml");
@@ -98,10 +98,10 @@ public class QuestionnairResourceTest {
     public void beforeMethod() throws Exception {
         jerseyTest = new JerseyTestImpl();
         jerseyTest.setUp();
+        repository.activeAllAnswers();
     }
 
-    @Test
-    public void getQuestionnairsTestXX() throws JsonParseException, JsonMappingException, IOException {
+    public void getQuestionnairsTestOldWay() throws JsonParseException, JsonMappingException, IOException {
         String invitationToken = "55GAW02QH2";
 
         ObjectMapper mapper = new ObjectMapper();
@@ -110,37 +110,25 @@ public class QuestionnairResourceTest {
         client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
         String response = client().target(getBaseUri() + "runtime/questionnairs").request()
                 .accept(MediaType.APPLICATION_JSON).get(String.class);
-        System.out.println(response);
 
         List<QuestionnairDTO> questionnairDTOs = mapper.readValue(response, type);
-
-        //
-        // Response response = client().target(getBaseUri() +
-        // "runtime/questionnairs").request()
-        // .accept(MediaType.APPLICATION_JSON).get();
-        System.out.println(questionnairDTOs);
         assertThat(questionnairDTOs).hasSize(1);
-        System.out.println("fin serafin!");
     }
 
     @Test
     public void questionnairsListTest() {
         String invitationToken = "255FXLSESX";
         client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
-        List<QuestionnairDTO> questionnairDTOs = client().target(getBaseUri() + "runtime/questionnairs").request()
-                .accept(MediaType.APPLICATION_JSON).get(new GenericType<List<QuestionnairDTO>>() {
-                });
-        //
-        // Response response = client().target(getBaseUri() +
-        // "runtime/questionnairs").request()
-        // .accept(MediaType.APPLICATION_JSON).get();
-        System.out.println(questionnairDTOs);
-        assertThat(questionnairDTOs).hasSize(1);
-        System.out.println("fin serafin!");
+        Response response = client().target(getBaseUri() + "runtime/questionnairs").request()
+                .accept(MediaType.APPLICATION_JSON).get();
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
+        List<QuestionnairDTO> questionnairDTOs = response.readEntity(new GenericType<List<QuestionnairDTO>>() {
+        });
+        assertThat(questionnairDTOs).contains(QuestionnairDTO.with().id(63).build());
     }
 
     @Test
-    public void pageTest() {
+    public void navigateQuestionByQuestionTest() {
         String invitationToken = "255FXLSESX";
         Integer questionnairId = 63;
         RenderingMode mode = RenderingMode.QUESTION_BY_QUESTION;
@@ -154,20 +142,24 @@ public class QuestionnairResourceTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
         page = response.readEntity(PageDTO.class);
 
+        assertThat(page.getQuestions()).containsExactly(QuestionDTO.with().id(17).build());
+
         action = BrowsingAction.FORWARD;
 
         client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
-        page = client()
+        response = client()
                 .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
-                        mode, action)).request().accept(MediaType.APPLICATION_JSON).get(PageDTO.class);
-        System.out.println("de winner is !" + page.getQuestions());
+                        mode, action)).request().accept(MediaType.APPLICATION_JSON).get();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
+        page = response.readEntity(PageDTO.class);
+
+        assertThat(page.getQuestions()).containsExactly(QuestionDTO.with().id(18).build());
 
     }
 
     @Test
-    public void firstPageTest() {
-        repository.activeAllAnswers();
-
+    public void navigateGroupByGroupTest() {
         Questionnair questionnair = Questionnair.with().id(63).build();
 
         questionnairAnswersService.save(questionnair, "Q1", "Antonio Maria");
@@ -196,57 +188,52 @@ public class QuestionnairResourceTest {
         BrowsingAction action = BrowsingAction.ENTERING;
 
         client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
-        try {
+        PageDTO page = null;
+        Response response = client()
+                .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
+                        mode, action)).request().accept(MediaType.APPLICATION_JSON).get();
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
+        page = response.readEntity(PageDTO.class);
 
-            PageDTO page = client()
-                    .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
-                            mode, action)).request().accept(MediaType.APPLICATION_JSON).get(PageDTO.class);
-            System.out.println("de winner is !" + page.getQuestions());
+        assertThat(page.getQuestions()).containsExactly(QuestionDTO.with().id(17).build(),
+                QuestionDTO.with().id(18).build(), QuestionDTO.with().id(34).build());
 
-            action = BrowsingAction.FORWARD;
+        action = BrowsingAction.FORWARD;
 
-            client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
-            page = client()
-                    .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
-                            mode, action)).request().accept(MediaType.APPLICATION_JSON).get(PageDTO.class);
-            System.out.println("de winner is !" + page.getQuestions());
+        client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
+        response = client()
+                .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
+                        mode, action)).request().accept(MediaType.APPLICATION_JSON).get();
 
-            client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
-            page = client()
-                    .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
-                            mode, action)).request().accept(MediaType.APPLICATION_JSON).get(PageDTO.class);
-            System.out.println("de winner is !" + page.getQuestions());
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
+        page = response.readEntity(PageDTO.class);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        assertThat(page.getQuestions()).containsExactly(QuestionDTO.with().id(35).build(),
+                QuestionDTO.with().id(36).build(), QuestionDTO.with().id(40).build());
+
+        client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
+        response = client()
+                .target(String.format("%sruntime/questionnairs/%d?mode=%s&action=%s", getBaseUri(), questionnairId,
+                        mode, action)).request().accept(MediaType.APPLICATION_JSON).get();
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
+        page = response.readEntity(PageDTO.class);
+
+        assertThat(page.getQuestions()).containsExactly(QuestionDTO.with().id(44).build(),
+                QuestionDTO.with().id(55).build());
     }
 
     @Test
     public void saveAnswerTest() {
-        repository.activeAllAnswers();
-
         String invitationToken = "255FXLSESX";
         Integer questionnairId = 63;
         client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
-        try {/*-
-             String page = client()
-                    .target(String.format("%sruntime/questionnairs/%d/answer", getBaseUri(), questionnairId))..request()
-                    .accept(MediaType.APPLICATION_JSON).get(String.class);
-              */
-            String questionCode = "Q1";
-            TextAnswer answer = TextAnswer.fromValue("Antonio Maria");
-            Entity<TextAnswer> wrapper = Entity.json(answer);
-            Response response = client()
-                    .target(String.format("%sruntime/questionnairs/%d/answer?questionCode=%s", getBaseUri(),
-                            questionnairId, questionCode)).request().accept(MediaType.APPLICATION_JSON).post(wrapper);
-
-            System.out.println("de winner is !" + response.toString());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        String questionCode = "Q1";
+        TextAnswer answer = TextAnswer.fromValue("Antonio Maria");
+        Entity<TextAnswer> wrapper = Entity.json(answer);
+        Response response = client()
+                .target(String.format("%sruntime/questionnairs/%d/answer?questionCode=%s", getBaseUri(),
+                        questionnairId, questionCode)).request().accept(MediaType.APPLICATION_JSON).post(wrapper);
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
     }
 
     @After

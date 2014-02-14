@@ -51,4 +51,43 @@ public class QuestionnairDTO extends AbstractIdentifiableDTO {
         this.languageSettings = languageSettings;
     }
 
+    public static Builder with() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private Integer id;
+        private Language language;
+        private Set<Language> supportedLanguages;
+        private QuestionnairDefinitionLanguageSettingsDTO languageSettings;
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder language(Language language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder supportedLanguages(Set<Language> supportedLanguages) {
+            this.supportedLanguages = supportedLanguages;
+            return this;
+        }
+
+        public Builder languageSettings(QuestionnairDefinitionLanguageSettingsDTO languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
+        public QuestionnairDTO build() {
+            QuestionnairDTO questionnairDTO = new QuestionnairDTO();
+            questionnairDTO.setId(id);
+            questionnairDTO.language = language;
+            questionnairDTO.supportedLanguages = supportedLanguages;
+            questionnairDTO.languageSettings = languageSettings;
+            return questionnairDTO;
+        }
+    }
 }
