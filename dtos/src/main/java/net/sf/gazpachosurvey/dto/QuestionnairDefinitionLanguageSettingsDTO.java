@@ -2,6 +2,9 @@ package net.sf.gazpachosurvey.dto;
 
 import net.sf.gazpachosurvey.dto.support.LanguageSettingsDTO;
 
+import com.wordnik.swagger.annotations.ApiModel;
+
+@ApiModel(value = "QuestionnairDefinitionLanguageSettingsDTO", description = "Container for all text content inside the questionnair")
 public class QuestionnairDefinitionLanguageSettingsDTO implements LanguageSettingsDTO {
 
     public static interface Builder {

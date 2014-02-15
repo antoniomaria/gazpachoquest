@@ -39,6 +39,7 @@ import com.wordnik.swagger.annotations.ApiResponses;
 @Path("runtime/questionnairs")
 @Api(value = "/runtime/questionnairs", description = "Runtime Questionnairs Interface")
 @Provider
+@Produces({ "application/json", MediaType.APPLICATION_JSON })
 public class QuestionnairResource {
 
     private static final Logger logger = LoggerFactory.getLogger(QuestionnairResource.class);
@@ -52,10 +53,9 @@ public class QuestionnairResource {
 
     @GET
     @RolesAllowed("respondent")
-    @Produces({ "application/json", MediaType.APPLICATION_JSON })
-    @ApiOperation(value = "Find avaible questionnairs for respondent given by his invitation token", notes = "More notes about this method")
-    @ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid ID supplied"),
-            @ApiResponse(code = 500, message = "Pet not found") })
+    @ApiOperation(value = "Find avaible questionnairs for respondent given by his invitation token", notes = "More notes about this method", response = QuestionnairDTO.class, responseContainer = "List")
+    @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
+            @ApiResponse(code = 200, message = "Questionnairs available") })
     public Response list(@Context
     final SecurityContext context) {
         logger.debug("New petition received from {}", context.getUserPrincipal().getName());
@@ -75,7 +75,11 @@ public class QuestionnairResource {
     @GET
     @Path("/{questionnairId}")
     @RolesAllowed("respondent")
-    @Produces({ "application/json", MediaType.APPLICATION_JSON })
+    @ApiOperation(value = "Fetch the next, current or previous page for the given questionnair", notes = "More notes about this method")
+    // @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
+    // @ApiResponse(code = 200, message = "Questionnairs available") })
+    // @ApiParam(value = "Refers how many questions are returned by page. Usefull for mobile version", required = true)
+    // @ApiParam(value = "Action fired for the respondent", required = true)
     public Response resolvePage(@Context
     final SecurityContext context, @PathParam("questionnairId")
     Integer questionnairId, @QueryParam("mode")
@@ -89,7 +93,9 @@ public class QuestionnairResource {
     @POST
     @Path("/{questionnairId}/answer")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces({ "application/json", MediaType.APPLICATION_JSON })
+    // @ApiOperation(value = "Allow the respondent save answers", response = PageDTO.class)
+    // @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
+    // @ApiResponse(code = 200, message = "Answer saved correctly") })
     public Response saveAnswer(Answer answer, @Context
     final SecurityContext context, @PathParam("questionnairId")
     Integer questionnairId, @QueryParam("questionCode")

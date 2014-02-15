@@ -32,14 +32,16 @@ public class AuthorizationRequestFilter implements ContainerRequestFilter {
 
         // Get the authentification passed in HTTP headers parameters
         String authToken = requestContext.getHeaderString("authorization");
+        SecurityContext context = null;
         if (StringUtils.isNotBlank(authToken)) {
             AuthorizationRequestContext authRequestContext = AuthorizationRequestContext.with().httpMethod(method)
                     .requestUrl(requestUrl).authorizationToken(authToken).build();
 
-            SecurityContext context = authorizationService.authorize(authRequestContext);
-            requestContext.setSecurityContext(context);
-
+            context = authorizationService.authorize(authRequestContext);
+        } else {
+            context = new SecurityContextImpl();
         }
+        requestContext.setSecurityContext(context);
     }
 
 }

@@ -25,6 +25,7 @@
     <vaadin.version>7.1.5</vaadin.version>
     <vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
     <jackson.version>1.9.13</jackson.version>
+    <swagger.version>1.3.3-SNAPSHOT</swagger.version>
   </properties>
 
   <modules>
@@ -60,7 +61,7 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
-
+    <!-- Vaadin repositories -->
     <repository>
       <id>vaadin-addons</id>
       <url>http://maven.vaadin.com/vaadin-addons</url>
@@ -72,6 +73,17 @@
         <enabled>false</enabled>
       </releases>
       <snapshots>
+      </snapshots>
+    </repository>
+
+    <repository>
+      <id>sonatype-snapshot</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
       </snapshots>
     </repository>
   </repositories>
@@ -317,6 +329,23 @@
         <artifactId>jackson-core-lgpl</artifactId>
         <version>${jackson.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>com.wordnik</groupId>
+        <artifactId>swagger-jersey2-jaxrs_2.10</artifactId>
+        <version>${swagger.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>jersey-media-multipart</artifactId>
+            <groupId>org.glassfish.jersey.media</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>jersey-container-servlet-core</artifactId>
+            <groupId>org.glassfish.jersey.containers</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
     </dependencies>
 
   </dependencyManagement>

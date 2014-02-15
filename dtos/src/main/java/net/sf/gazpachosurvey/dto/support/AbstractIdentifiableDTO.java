@@ -40,6 +40,8 @@ public abstract class AbstractIdentifiableDTO implements Identifiable {
 
     @Override
     @JsonIgnore
+    // To be excluded in api-docs
+    @com.fasterxml.jackson.annotation.JsonIgnore
     public boolean isNew() {
         return null == getId();
     }

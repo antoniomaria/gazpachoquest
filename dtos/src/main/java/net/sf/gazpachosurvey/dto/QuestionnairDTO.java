@@ -6,12 +6,18 @@ import java.util.Set;
 import net.sf.gazpachosurvey.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachosurvey.types.Language;
 
+import com.wordnik.swagger.annotations.ApiModel;
+import com.wordnik.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "QuestionnairDTO", description = "Questionnair resource representation")
 public class QuestionnairDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = 1067156345771109606L;
 
+    @ApiModelProperty(value = "Default language", required = true)
     private Language language;
 
+    @ApiModelProperty(value = "Others languages supported", required = false)
     private Set<Language> supportedLanguages;
 
     private QuestionnairDefinitionLanguageSettingsDTO languageSettings;
