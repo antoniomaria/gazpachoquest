@@ -95,7 +95,7 @@
     <field>
       <a>subquestions</a>
       <b set-method="addSubquestion" type="iterate">subquestions</b>
-      <b-hint>net.sf.gazpachosurvey.dto.QuestionDTO</b-hint>
+      <b-hint>net.sf.gazpachosurvey.dto.SubquestionDTO</b-hint>
     </field>
     <field>
       <a>questionOptions</a>

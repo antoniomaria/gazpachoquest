@@ -11,6 +11,7 @@ import net.sf.gazpachosurvey.dto.answers.BooleanAnswer;
 import net.sf.gazpachosurvey.dto.answers.MultipleAnswer;
 import net.sf.gazpachosurvey.dto.answers.NumericAnswer;
 import net.sf.gazpachosurvey.dto.answers.TextAnswer;
+import net.sf.gazpachosurvey.dto.support.AbstractQuestionDTO;
 import net.sf.gazpachosurvey.services.QuestionnairAnswersService;
 import net.sf.gazpachosurvey.types.QuestionType;
 
@@ -41,11 +42,12 @@ public class AnswersPopulatorImpl implements AnswersPopulator {
         }
     }
 
-    private void populateAnswers(QuestionDTO question, Map<String, Object> answers) {
+    private void populateAnswers(AbstractQuestionDTO question, Map<String, Object> answers) {
         if (question.getType().hasSubquestions()) {
-            for (QuestionDTO subquestion : question.getSubquestions()) {
+            /*-
+            for (SubquestionDTO subquestion : question.getSubquestions()) {
                 populateAnswers(subquestion, answers);
-            }
+            }*/
         } else {
             AbstractAnswer answer = null;
             QuestionType type = question.getType();

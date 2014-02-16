@@ -75,7 +75,7 @@ public class QuestionnairResource {
     @GET
     @Path("/{questionnairId}")
     @RolesAllowed("respondent")
-    @ApiOperation(value = "Fetch the next, current or previous page for the given questionnair", notes = "More notes about this method")
+    @ApiOperation(value = "Fetch the next, current or previous page for the given questionnair", notes = "More notes about this method", response = PageDTO.class)
     // @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
     // @ApiResponse(code = 200, message = "Questionnairs available") })
     // @ApiParam(value = "Refers how many questions are returned by page. Usefull for mobile version", required = true)

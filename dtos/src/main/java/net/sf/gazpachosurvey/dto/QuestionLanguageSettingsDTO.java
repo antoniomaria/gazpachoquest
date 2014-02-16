@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.dto;
 
+import net.sf.gazpachosurvey.dto.support.LanguageSettingsContainerBuilder;
 import net.sf.gazpachosurvey.dto.support.LanguageSettingsDTO;
 
 public class QuestionLanguageSettingsDTO implements LanguageSettingsDTO {
@@ -19,51 +20,31 @@ public class QuestionLanguageSettingsDTO implements LanguageSettingsDTO {
         this.title = title;
     }
 
-    public static interface Builder {
-
-        QuestionLanguageSettingsDTO build();
-
-        QuestionDTO.Builder languageSettingsEnd();
-
-        Builder title(String title);
-
-    }
-
-    public static class BuilderImpl implements Builder {
-
-        private final QuestionDTO.Builder container;
+    public static class BuilderImpl<C extends LanguageSettingsContainerBuilder<C>> {
 
         private String title;
 
-        public BuilderImpl(final QuestionDTO.Builder container) {
-            this.container = container;
+        private final C container;
+
+        public BuilderImpl(C builderImpl) {
+            super();
+            this.container = builderImpl;
         }
 
-        @Override
         public QuestionLanguageSettingsDTO build() {
             QuestionLanguageSettingsDTO questionLanguageSettingsDTO = new QuestionLanguageSettingsDTO();
             questionLanguageSettingsDTO.title = title;
             return questionLanguageSettingsDTO;
         }
 
-        @Override
-        public QuestionDTO.Builder languageSettingsEnd() {
+        public C languageSettingsEnd() {
             return container.languageSettings(build());
         }
 
-        @Override
-        public Builder title(final String title) {
+        public BuilderImpl<C> title(final String title) {
             this.title = title;
             return this;
         }
-    }
-
-    public static Builder languageSettingsStart(final QuestionDTO.Builder container) {
-        return new QuestionLanguageSettingsDTO.BuilderImpl(container);
-    }
-
-    public static Builder with() {
-        return new BuilderImpl(null);
     }
 
     @Override

@@ -14,6 +14,7 @@ import net.sf.gazpachosurvey.dto.QuestionOptionDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachosurvey.dto.QuestionnairDefinitionLanguageSettingsDTO;
 import net.sf.gazpachosurvey.dto.StudyDTO;
+import net.sf.gazpachosurvey.dto.SubquestionDTO;
 import net.sf.gazpachosurvey.dto.UserDTO;
 import net.sf.gazpachosurvey.dto.support.TranslationDTO;
 import net.sf.gazpachosurvey.facades.MailMessageFacade;
@@ -48,6 +49,7 @@ public class DBPopulator {
     @Autowired
     private UserFacade userFacade;
 
+    // http://www.objectpartners.com/2012/05/17/creating-a-hierarchical-test-data-builder-using-generics/
     public void populate() {
         // System account
         userFacade.save(UserDTO.with().firstName("temporal.support").lastName("support")
@@ -177,9 +179,6 @@ public class DBPopulator {
 
         label = LabelDTO.with().language(Language.EN).title("Disagree strongly").build();
         labelSet.addLabel(label);
-
-        questionnairDefinitionEditorFacade.save(labelSet);
-
         // 1 Single Textbox
         QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).code("Q1")
                 .languageSettingsStart().title("What is your name?").languageSettingsEnd().isRequired(true).build();
@@ -275,17 +274,17 @@ public class DBPopulator {
                 .title("Please have a good look at this ad, and then complete the questions below.<br /><img src='http://www.aptigence.com.au/images/lawyer1.jpg' border='1'>")
                 .languageSettingsEnd().isRequired(true).build();
 
-        question.addSubquestion(QuestionDTO.with().code("Q7.1").language(Language.EN).type(QuestionType.L)
+        question.addSubquestion(SubquestionDTO.with().code("Q7.1").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("This ad suggests the lawyer is on my side, not his own")
                 .languageSettingsEnd().build());
-        question.addSubquestion(QuestionDTO.with().code("Q7.2").language(Language.EN).type(QuestionType.L)
+        question.addSubquestion(SubquestionDTO.with().code("Q7.2").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart()
                 .title("This ad suggests that the lawyer is interested in a life of frugal community service")
                 .languageSettingsEnd().build());
-        question.addSubquestion(QuestionDTO.with().code("Q7.3").language(Language.EN).type(QuestionType.L)
+        question.addSubquestion(SubquestionDTO.with().code("Q7.3").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("This ad would be enough to get me to hire this lawyer")
                 .languageSettingsEnd().build());
-        question.addSubquestion(QuestionDTO.with().code("Q7.4").language(Language.EN).type(QuestionType.L)
+        question.addSubquestion(SubquestionDTO.with().code("Q7.4").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("This ad gives me confidence in the lawyers experience")
                 .languageSettingsEnd().build());
 
@@ -345,13 +344,13 @@ public class DBPopulator {
         QuestionDTO question = QuestionDTO.with().type(QuestionType.F).code("Q1").language(Language.EN)
                 .languageSettingsStart().title("<b>Food Quality</b>").languageSettingsEnd().isRequired(true).build();
 
-        question.addSubquestion(QuestionDTO.with().code("Q1.1").language(Language.EN).type(QuestionType.L)
+        question.addSubquestion(SubquestionDTO.with().code("Q1.1").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("The food is served hot and fresh").languageSettingsEnd().build());
-        question.addSubquestion(QuestionDTO.with().code("Q1.2").language(Language.EN).type(QuestionType.L)
+        question.addSubquestion(SubquestionDTO.with().code("Q1.2").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("The menu has a good variety of items").languageSettingsEnd().build());
-        question.addSubquestion(QuestionDTO.with().code("Q1.3").language(Language.EN).type(QuestionType.L)
+        question.addSubquestion(SubquestionDTO.with().code("Q1.3").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("The quality of food is excellent").languageSettingsEnd().build());
-        question.addSubquestion(QuestionDTO.with().code("Q1.4").language(Language.EN).type(QuestionType.L)
+        question.addSubquestion(SubquestionDTO.with().code("Q1.4").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("The food is tasty and flavorful").languageSettingsEnd().build());
 
         question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("Agree strongly")
@@ -374,24 +373,24 @@ public class DBPopulator {
         question = QuestionDTO.with().type(QuestionType.F).code("Q2").language(Language.EN).languageSettingsStart()
                 .title("<b>Resturant</b>").languageSettingsEnd().isRequired(true).build();
 
-        question.addSubquestion(QuestionDTO.with().code("Q2.1").language(Language.EN).type(QuestionType.L)
+        question.addSubquestion(SubquestionDTO.with().code("Q2.1").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("My food order was correct and complete").languageSettingsEnd().build());
 
-        question.addSubquestion(QuestionDTO.with().code("Q2.2").language(Language.EN).type(QuestionType.L)
+        question.addSubquestion(SubquestionDTO.with().code("Q2.2").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("Employees are patient when taking my order").languageSettingsEnd()
                 .build());
 
-        question.addSubquestion(QuestionDTO.with().code("Q2.3").language(Language.EN).type(QuestionType.L)
+        question.addSubquestion(SubquestionDTO.with().code("Q2.3").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("I was served promptly").languageSettingsEnd().build());
 
-        question.addSubquestion(QuestionDTO.with().code("Q2.4").language(Language.EN).type(QuestionType.L)
+        question.addSubquestion(SubquestionDTO.with().code("Q2.4").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("Availability of sauces, utensils, napkins, etc. was good")
                 .languageSettingsEnd().build());
 
-        question.addSubquestion(QuestionDTO.with().code("Q2.5").language(Language.EN).type(QuestionType.L)
+        question.addSubquestion(SubquestionDTO.with().code("Q2.5").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("The menu board was easy to read").languageSettingsEnd().build());
 
-        question.addSubquestion(QuestionDTO.with().code("Q2.6").language(Language.EN).type(QuestionType.L)
+        question.addSubquestion(SubquestionDTO.with().code("Q2.6").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("The drive-thru sound system was cleara").languageSettingsEnd().build());
 
         question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("Agree strongly")

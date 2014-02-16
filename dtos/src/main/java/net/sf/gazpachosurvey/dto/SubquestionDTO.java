@@ -1,6 +1,5 @@
 package net.sf.gazpachosurvey.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.gazpachosurvey.dto.support.AbstractQuestionDTO;
@@ -8,26 +7,11 @@ import net.sf.gazpachosurvey.dto.support.LanguageSettingsContainerBuilder;
 import net.sf.gazpachosurvey.types.Language;
 import net.sf.gazpachosurvey.types.QuestionType;
 
-public class QuestionDTO extends AbstractQuestionDTO {
+public class SubquestionDTO extends AbstractQuestionDTO {
     private static final long serialVersionUID = 2663159055152157679L;
 
-    private List<SubquestionDTO> subquestions;
-
-    public QuestionDTO() {
+    public SubquestionDTO() {
         super();
-    }
-
-    public void addSubquestion(final SubquestionDTO subQuestion) {
-        if (!getSubquestions().contains(subQuestion)) {
-            subquestions.add(subQuestion);
-        }
-    }
-
-    public List<SubquestionDTO> getSubquestions() {
-        if (subquestions == null) {
-            subquestions = new ArrayList<SubquestionDTO>();
-        }
-        return subquestions;
     }
 
     public static class BuilderImpl implements LanguageSettingsContainerBuilder<BuilderImpl> {
@@ -44,8 +28,8 @@ public class QuestionDTO extends AbstractQuestionDTO {
             return this;
         }
 
-        public QuestionDTO build() {
-            QuestionDTO questionDTO = new QuestionDTO();
+        public SubquestionDTO build() {
+            SubquestionDTO questionDTO = new SubquestionDTO();
             questionDTO.setId(id);
             questionDTO.code = code;
             questionDTO.isRequired = isRequired;
@@ -71,6 +55,12 @@ public class QuestionDTO extends AbstractQuestionDTO {
             return this;
         }
 
+        @Override
+        public BuilderImpl languageSettings(final QuestionLanguageSettingsDTO languageSettings) {
+            this.languageSettings = languageSettings;
+            return this;
+        }
+
         public QuestionLanguageSettingsDTO.BuilderImpl<BuilderImpl> languageSettingsStart() {
             return new QuestionLanguageSettingsDTO.BuilderImpl<BuilderImpl>(this);
         }
@@ -84,13 +74,6 @@ public class QuestionDTO extends AbstractQuestionDTO {
             this.code = code;
             return this;
         }
-
-        @Override
-        public BuilderImpl languageSettings(QuestionLanguageSettingsDTO languageSettings) {
-            this.languageSettings = languageSettings;
-            return this;
-        }
-
     }
 
     public static BuilderImpl with() {
