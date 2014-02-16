@@ -33,6 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 
@@ -73,18 +74,22 @@ public class QuestionnairResource {
     }
 
     @GET
-    @Path("/{questionnairId}")
+    @Path("/{questionnairId}/page")
     @RolesAllowed("respondent")
     @ApiOperation(value = "Fetch the next, current or previous page for the given questionnair", notes = "More notes about this method", response = PageDTO.class)
-    // @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
-    // @ApiResponse(code = 200, message = "Questionnairs available") })
-    // @ApiParam(value = "Refers how many questions are returned by page. Usefull for mobile version", required = true)
-    // @ApiParam(value = "Action fired for the respondent", required = true)
-    public Response resolvePage(@Context
-    final SecurityContext context, @PathParam("questionnairId")
-    Integer questionnairId, @QueryParam("mode")
-    RenderingMode mode, @QueryParam("action")
-    BrowsingAction action) {
+    @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
+            @ApiResponse(code = 200, message = "Questionnairs available") })
+    public Response resolvePage(
+            @Context
+            final SecurityContext context,
+            @PathParam("questionnairId")
+            @ApiParam(value = "Questionnair id")
+            Integer questionnairId,
+            @ApiParam(value = "Refers how many questions are returned by page. Usefull for mobile version", required = true)
+            @QueryParam("mode")
+            RenderingMode mode, @ApiParam(value = "Action fired for the respondent", required = true)
+            @QueryParam("action")
+            BrowsingAction action) {
         logger.debug("New petition received from {}", context.getUserPrincipal().getName());
         PageDTO page = questionnairFacade.resolvePage(questionnairId, mode, action);
         return Response.ok(page).build();
@@ -93,14 +98,17 @@ public class QuestionnairResource {
     @POST
     @Path("/{questionnairId}/answer")
     @Consumes(MediaType.APPLICATION_JSON)
-    // @ApiOperation(value = "Allow the respondent save answers", response = PageDTO.class)
-    // @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
-    // @ApiResponse(code = 200, message = "Answer saved correctly") })
-    public Response saveAnswer(Answer answer, @Context
+    @ApiOperation(value = "Allow the respondent save answers")
+    @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
+            @ApiResponse(code = 200, message = "Answer saved correctly") })
+    public Response saveAnswer(@ApiParam(value = "Answer", required = true)
+    Answer answer, @Context
     final SecurityContext context, @PathParam("questionnairId")
+    @ApiParam(value = "Questionnair id", required = true)
     Integer questionnairId, @QueryParam("questionCode")
+    @ApiParam(value = "Question Code", required = true)
     String questionCode) {
-        logger.debug("New petition received from {}", context.getUserPrincipal().getName());
+        logger.debug("New attempt for saving answer from {}", context.getUserPrincipal().getName());
         questionnairFacade.saveAnswer(questionnairId, questionCode, answer);
         return Response.ok().build();
     }
