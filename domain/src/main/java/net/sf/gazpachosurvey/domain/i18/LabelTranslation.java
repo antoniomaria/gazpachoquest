@@ -20,7 +20,7 @@ public class LabelTranslation extends AbstractPersistable implements Translation
 
     private static final long serialVersionUID = -7571602125652099550L;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Label label;
 
     @Enumerated(EnumType.STRING)

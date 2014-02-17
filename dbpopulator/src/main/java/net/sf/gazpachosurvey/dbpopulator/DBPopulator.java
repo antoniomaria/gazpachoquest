@@ -71,7 +71,7 @@ public class DBPopulator {
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).participants(participants)
                 .build();
         studyFacade.save(study);
-
+        /*-
         questionnairDef = createFastFoodSurvey();
         asignDefaultMailTemplate(questionnairDef);
         questionnairDefinitionEditorFacade.confirm(questionnairDef);
@@ -84,6 +84,7 @@ public class DBPopulator {
 
                 .participants(participants).build();
         studyFacade.save(study);
+         */
     }
 
     public MailMessageTemplateDTO asignDefaultMailTemplate(final QuestionnairDefinitionDTO survey) {
@@ -307,7 +308,7 @@ public class DBPopulator {
         // 8. List checkbox - Multiple_Answers
         question = QuestionDTO.with().type(QuestionType.M).code("Q8").language(Language.EN).languageSettingsStart()
                 .title("What flavors of ice cream do you like?. Choose all that apply.").languageSettingsEnd()
-                .required(true).build();
+                .required(false).build();
         question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("Vanilla").build());
         question.addQuestionOption(QuestionOptionDTO.with().code("O2").language(Language.EN).title("Chocolate").build());
         question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN).title("Strawberry")

@@ -20,7 +20,7 @@ public class QuestionGroupTranslation extends AbstractPersistable implements Tra
 
     private static final long serialVersionUID = -2719163699375812306L;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private QuestionGroup questionGroup;
 
     @Enumerated(EnumType.STRING)

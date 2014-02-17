@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.domain.core.embeddables;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Lob;
 
@@ -10,8 +11,10 @@ public class MailMessageTemplateLanguageSettings implements LanguageSettings {
 
     private static final long serialVersionUID = -7955983562246873191L;
 
+    @Column(nullable = false)
     private String subject;
 
+    @Column(nullable = false)
     @Lob
     private String body;
 

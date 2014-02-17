@@ -20,7 +20,7 @@ public class QuestionTranslation extends AbstractPersistable implements Translat
 
     private static final long serialVersionUID = 4295351363647972048L;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Question question;
 
     @Enumerated(EnumType.STRING)

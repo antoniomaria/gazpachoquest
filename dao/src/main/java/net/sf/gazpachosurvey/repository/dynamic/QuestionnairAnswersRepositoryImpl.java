@@ -200,7 +200,7 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         } else {
             Question example = Question.with().parent(Question.with().id(question.getId()).build()).build();
             List<Question> subquestions = questionRepository.findByExample(example, new SearchParameters());
-
+            Assert.notEmpty(subquestions, String.format("Type %s requires subquestion", questionType));
             for (Question subquestion : subquestions) {
                 processQuestion(builder, subquestion);
             }

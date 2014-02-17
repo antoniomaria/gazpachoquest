@@ -56,6 +56,10 @@ public class QuestionnairAnswersRepositoryTest {
     public void setUp() {
         this.jdbcTemplate = new JdbcTemplate(datasource);
         repository.activeAllAnswers();
+        int parent = jdbcTemplate.queryForInt("select parent_id from question where id = ?", 46);
+        System.out.println("habemos parent?" + parent);
+        System.out.println("");
+
     }
 
     public void collectAnswersTest() {
@@ -71,7 +75,7 @@ public class QuestionnairAnswersRepositoryTest {
 
     @Test
     public void saveTest() {
-        Questionnair questionnair = questionnairRepository.findOne(63);
+        Questionnair questionnair = questionnairRepository.findOne(58);
         QuestionnairDefinition questionnairDefinition = questionnair.getQuestionnairDefinition();
 
         QuestionnairAnswers questionnairAnswers = new QuestionnairAnswers();
@@ -125,7 +129,7 @@ public class QuestionnairAnswersRepositoryTest {
         int row = jdbcTemplate.update(insertSql, params, types);
         assertThat(row).isGreaterThan(0);
 
-        Questionnair questionnair = questionnairRepository.findOne(63);
+        Questionnair questionnair = questionnairRepository.findOne(58);
         QuestionnairDefinition questionnairDefinition = questionnair.getQuestionnairDefinition();
 
         QuestionnairAnswers fetched = repository.findByOne(questionnairDefinition.getId(), id);

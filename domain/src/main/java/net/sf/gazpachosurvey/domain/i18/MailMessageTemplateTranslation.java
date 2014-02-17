@@ -21,7 +21,7 @@ public class MailMessageTemplateTranslation extends AbstractAuditable implements
 
     private static final long serialVersionUID = 6847847400152631889L;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private MailMessageTemplate mailMessageTemplate;
 
     @Enumerated(EnumType.STRING)

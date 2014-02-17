@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.domain.core.embeddables;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Lob;
 
@@ -13,9 +14,11 @@ public class QuestionnairDefinitionLanguageSettings implements LanguageSettings 
 
     private static final long serialVersionUID = -4067256922719049044L;
 
+    @Column(nullable = false)
     private String title;
 
     @Lob
+    @Column(nullable = false)
     private String description;
 
     @Lob

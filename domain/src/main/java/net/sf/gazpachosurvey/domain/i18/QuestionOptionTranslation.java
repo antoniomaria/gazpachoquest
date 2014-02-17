@@ -21,7 +21,7 @@ public class QuestionOptionTranslation extends AbstractPersistable implements
 
     private static final long serialVersionUID = 5809899129770049770L;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private QuestionOption questionOption;
 
     @Enumerated(EnumType.STRING)

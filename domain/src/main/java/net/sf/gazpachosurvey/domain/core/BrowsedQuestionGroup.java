@@ -35,9 +35,9 @@ public class BrowsedQuestionGroup extends BrowsedElement {
 
         private Questionnair questionnair;
 
-        private boolean last;
+        private Boolean last;
 
-        public Builder last(boolean last) {
+        public Builder last(Boolean last) {
             this.last = last;
             return this;
         }

@@ -16,11 +16,12 @@ import net.sf.gazpachosurvey.domain.support.TranslationBuilder;
 import net.sf.gazpachosurvey.types.Language;
 
 @Entity
-public class QuestionnairDefinitionTranslation extends AbstractPersistable implements Translation<QuestionnairDefinitionLanguageSettings> {
+public class QuestionnairDefinitionTranslation extends AbstractPersistable implements
+        Translation<QuestionnairDefinitionLanguageSettings> {
 
     private static final long serialVersionUID = -1926161817588270977L;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private QuestionnairDefinition questionnairDefinition;
 
     @Enumerated(EnumType.STRING)
@@ -70,7 +71,8 @@ public class QuestionnairDefinitionTranslation extends AbstractPersistable imple
         return new Builder();
     }
 
-    public static class Builder implements TranslationBuilder<QuestionnairDefinitionTranslation, QuestionnairDefinitionLanguageSettings> {
+    public static class Builder implements
+            TranslationBuilder<QuestionnairDefinitionTranslation, QuestionnairDefinitionLanguageSettings> {
         private QuestionnairDefinition questionnairDefinition;
         private Language language;
         private QuestionnairDefinitionLanguageSettings languageSettings;

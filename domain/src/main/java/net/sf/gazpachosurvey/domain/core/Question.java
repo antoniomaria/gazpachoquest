@@ -50,7 +50,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     @OrderColumn(name = "order_in_question")
     private List<QuestionOption> questionOptions;
 
-    private boolean required;
+    private Boolean required;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -126,11 +126,11 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         this.questionOptions = questionOptions;
     }
 
-    public void setRequired(boolean isRequired) {
+    public void setRequired(Boolean isRequired) {
         required = isRequired;
     }
 
-    public boolean isRequired() {
+    public Boolean isRequired() {
         return required;
     }
 
@@ -203,7 +203,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         private QuestionGroup questionGroup;
         private List<Question> subquestions;
         private List<QuestionOption> questionOptions;
-        private boolean required;
+        private Boolean required;
         private QuestionType type;
         private Language language;
         private QuestionLanguageSettings languageSettings;
@@ -239,7 +239,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
             return this;
         }
 
-        public Builder required(boolean required) {
+        public Builder required(Boolean required) {
             this.required = required;
             return this;
         }
