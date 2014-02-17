@@ -23,6 +23,7 @@ public class Questionnair extends AbstractAuditable {
     private static final long serialVersionUID = -5466079670655149390L;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private EntityStatus status;
 
     @OneToMany(mappedBy = "questionnair", fetch = FetchType.LAZY)
@@ -32,13 +33,13 @@ public class Questionnair extends AbstractAuditable {
     @Convert(converter = DateTimeConverter.class)
     private DateTime submitDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Study study;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private QuestionnairDefinition questionnairDefinition;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Participant participant;
 
     private Integer answersId;

@@ -95,15 +95,15 @@ public class QuestionnairDefinitionRepositoryTest {
     @Test
     public void saveTest() {
         QuestionnairDefinitionLanguageSettings languageSettings = QuestionnairDefinitionLanguageSettings.with()
-                .title("My QuestionnairDefinition").build();
+                .title("My QuestionnairDefinition").description("my description").build();
         QuestionnairDefinition questionnairDefinition = QuestionnairDefinition.with().language(Language.EN)
                 .languageSettings(languageSettings).build();
         questionnairDefinition = repository.save(questionnairDefinition);
         assertThat(questionnairDefinition.getCreatedDate()).isNotNull();
         assertThat(questionnairDefinition.getCreatedBy()).isNotNull();
 
-        languageSettings = QuestionnairDefinitionLanguageSettings.with().title("My QuestionnairDefinition. Version 1")
-                .build();
+        languageSettings = QuestionnairDefinitionLanguageSettings.with().description("my description")
+                .title("My QuestionnairDefinition. Version 1").build();
         questionnairDefinition.setLanguageSettings(languageSettings);
         questionnairDefinition = repository.save(questionnairDefinition);
         assertThat(questionnairDefinition.getLastModifiedBy()).isNotNull();

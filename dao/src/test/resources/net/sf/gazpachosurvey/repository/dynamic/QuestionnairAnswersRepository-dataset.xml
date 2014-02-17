@@ -133,6 +133,8 @@
   <questionnair_definition_translation id="7" language="ES" description="&lt;p&gt;Esto es una encuesta de ejemplo dise&#241;ada para GazpachoSurvey&lt;/p&gt;"
     title="Ejemplo de encuesta" welcometext="Gracias por participar en esta encuesta" questionnairdefinition_id="6" />
 
+  <browsed_element/>
   <sequence seq_name="questionnair_answers_6_seq" seq_count="50" />
   <sequence seq_name="SEQ_GEN" seq_count="150" />
+
 </dataset>

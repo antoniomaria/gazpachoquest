@@ -41,7 +41,7 @@ public class MailMessageTemplateRepositoryTest {
 
         List<MailMessageTemplate> results = mailMessageTemplateRepository
                 .findByExample(example, new SearchParameters());
-        assertThat(results).contains(MailMessageTemplate.with().id(60).build());
+        assertThat(results).contains(MailMessageTemplate.with().id(55).build());
     }
 
 }

@@ -4,6 +4,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.domain.core.Study;
 import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
+import net.sf.gazpachosurvey.types.EntityStatus;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,15 +39,16 @@ public class QuestionnairRepositoryTest {
 
     @Test
     public void findOneTest() {
-        Questionnair questionnair = repository.findOne(63);
+        Questionnair questionnair = repository.findOne(58);
         assertThat(questionnair).isNotNull();
     }
 
     @Test
     public void saveTest() {
-        Study running = studyRepository.findOne(62);
+        Study running = studyRepository.findOne(57);
 
         Questionnair questionnair = new Questionnair();
+        questionnair.setStatus(EntityStatus.CONFIRMED);
         questionnair.setStudy(running);
         questionnair.setAnswersId(999);
         Questionnair created = repository.save(questionnair);

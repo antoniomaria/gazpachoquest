@@ -73,7 +73,7 @@ public class QuestionRepositoryTest {
 
         List<Question> questions = repository
                 .findByExample(example, new SearchParameters().searchMode(SearchMode.LIKE));
-        assertThat(questions).containsExactly(Question.with().id(51).build());
+        assertThat(questions).containsExactly(Question.with().id(46).build());
         assertThat(questions.get(0).getParent()).isNotNull();
 
         questions = repository.findByExample(Question.with().parent(Question.with().id(44).build()).build(),
