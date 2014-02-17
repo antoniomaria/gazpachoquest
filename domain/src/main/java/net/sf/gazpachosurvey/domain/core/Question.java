@@ -50,7 +50,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     @OrderColumn(name = "order_in_question")
     private List<QuestionOption> questionOptions;
 
-    private boolean isRequired;
+    private boolean required;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -126,12 +126,12 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         this.questionOptions = questionOptions;
     }
 
-    public boolean isRequired() {
-        return isRequired;
+    public void setRequired(boolean isRequired) {
+        required = isRequired;
     }
 
-    public void setRequired(boolean isRequired) {
-        this.isRequired = isRequired;
+    public boolean isRequired() {
+        return required;
     }
 
     @Override
@@ -203,7 +203,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         private QuestionGroup questionGroup;
         private List<Question> subquestions;
         private List<QuestionOption> questionOptions;
-        private boolean isRequired;
+        private boolean required;
         private QuestionType type;
         private Language language;
         private QuestionLanguageSettings languageSettings;
@@ -239,8 +239,8 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
             return this;
         }
 
-        public Builder isRequired(boolean isRequired) {
-            this.isRequired = isRequired;
+        public Builder required(boolean required) {
+            this.required = required;
             return this;
         }
 
@@ -272,7 +272,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
             question.questionGroup = questionGroup;
             question.subquestions = subquestions;
             question.questionOptions = questionOptions;
-            question.isRequired = isRequired;
+            question.required = required;
             question.type = type;
             question.language = language;
             question.languageSettings = languageSettings;

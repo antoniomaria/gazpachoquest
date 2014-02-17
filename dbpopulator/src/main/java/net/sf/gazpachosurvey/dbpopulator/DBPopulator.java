@@ -181,13 +181,13 @@ public class DBPopulator {
         labelSet.addLabel(label);
         // 1 Single Textbox
         QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).code("Q1")
-                .languageSettingsStart().title("What is your name?").languageSettingsEnd().isRequired(true).build();
+                .languageSettingsStart().title("What is your name?").languageSettingsEnd().required(true).build();
         questionGroup1.addQuestion(question);
         questionGroup1 = questionnairDefinitionEditorFacade.save(questionGroup1);
 
         // 2 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).code("Q2").languageSettingsStart()
-                .title("What is your age group?").languageSettingsEnd().isRequired(true).build();
+                .title("What is your age group?").languageSettingsEnd().required(true).build();
 
         question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("0-14 years")
                 .build());
@@ -225,7 +225,7 @@ public class DBPopulator {
 
         // 3 Numeric
         question = QuestionDTO.with().type(QuestionType.N).language(Language.EN).code("Q3").languageSettingsStart()
-                .title("And for our records, specifically how old are you?").languageSettingsEnd().isRequired(true)
+                .title("And for our records, specifically how old are you?").languageSettingsEnd().required(true)
                 .build();
 
         questionGroup1.addQuestion(question);
@@ -234,7 +234,7 @@ public class DBPopulator {
         // 4 Comment/Essay Box
         question = QuestionDTO.with().type(QuestionType.T).language(Language.EN).code("Q4").languageSettingsStart()
                 .title("Please tell us a little about yourself. What was your first job, and did you enjoy it?")
-                .languageSettingsEnd().isRequired(true).build();
+                .languageSettingsEnd().required(true).build();
 
         questionGroup2.addQuestion(question);
         questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup2);
@@ -242,7 +242,7 @@ public class DBPopulator {
         // 5 List (Radio) Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).code("Q5").languageSettingsStart()
                 .title("Given your extraordinary age, how do you find using this questionnairDefinition tool?")
-                .languageSettingsEnd().isRequired(true).build();
+                .languageSettingsEnd().required(true).build();
         question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN)
                 .title("Very difficult to read, my eyesight is dim").build());
         question.addQuestionOption(QuestionOptionDTO.with().code("O2").language(Language.EN)
@@ -255,7 +255,7 @@ public class DBPopulator {
 
         // 6 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).code("Q6").language(Language.EN).languageSettingsStart()
-                .title("Which of these ads makes you want to find out more?").languageSettingsEnd().isRequired(true)
+                .title("Which of these ads makes you want to find out more?").languageSettingsEnd().required(true)
                 .build();
         question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("Ad one").build());
         question.addQuestionOption(QuestionOptionDTO.with().code("O2").language(Language.EN).title("Ad two").build());
@@ -272,7 +272,7 @@ public class DBPopulator {
                 .language(Language.EN)
                 .languageSettingsStart()
                 .title("Please have a good look at this ad, and then complete the questions below.<br /><img src='http://www.aptigence.com.au/images/lawyer1.jpg' border='1'>")
-                .languageSettingsEnd().isRequired(true).build();
+                .languageSettingsEnd().required(true).build();
 
         question.addSubquestion(SubquestionDTO.with().code("Q7.1").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("This ad suggests the lawyer is on my side, not his own")
@@ -307,7 +307,7 @@ public class DBPopulator {
         // 8. List checkbox - Multiple_Answers
         question = QuestionDTO.with().type(QuestionType.M).code("Q8").language(Language.EN).languageSettingsStart()
                 .title("What flavors of ice cream do you like?. Choose all that apply.").languageSettingsEnd()
-                .isRequired(true).build();
+                .required(true).build();
         question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("Vanilla").build());
         question.addQuestionOption(QuestionOptionDTO.with().code("O2").language(Language.EN).title("Chocolate").build());
         question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN).title("Strawberry")
@@ -342,7 +342,7 @@ public class DBPopulator {
 
         // Question 1: Rating Scale (1-5)
         QuestionDTO question = QuestionDTO.with().type(QuestionType.F).code("Q1").language(Language.EN)
-                .languageSettingsStart().title("<b>Food Quality</b>").languageSettingsEnd().isRequired(true).build();
+                .languageSettingsStart().title("<b>Food Quality</b>").languageSettingsEnd().required(true).build();
 
         question.addSubquestion(SubquestionDTO.with().code("Q1.1").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("The food is served hot and fresh").languageSettingsEnd().build());
@@ -371,7 +371,7 @@ public class DBPopulator {
 
         // Question 2: Rating Scale (Agree-Disagree)
         question = QuestionDTO.with().type(QuestionType.F).code("Q2").language(Language.EN).languageSettingsStart()
-                .title("<b>Resturant</b>").languageSettingsEnd().isRequired(true).build();
+                .title("<b>Resturant</b>").languageSettingsEnd().required(true).build();
 
         question.addSubquestion(SubquestionDTO.with().code("Q2.1").language(Language.EN).type(QuestionType.L)
                 .languageSettingsStart().title("My food order was correct and complete").languageSettingsEnd().build());
@@ -411,7 +411,7 @@ public class DBPopulator {
 
         // Question 3: Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).code("Q3").language(Language.EN).languageSettingsStart()
-                .title("Indicate total household income").languageSettingsEnd().isRequired(true).build();
+                .title("Indicate total household income").languageSettingsEnd().required(true).build();
 
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).code("O1").title("under 25,000€")
                 .build());

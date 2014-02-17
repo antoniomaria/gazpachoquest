@@ -17,7 +17,7 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
 
     protected String code;
 
-    protected boolean isRequired;
+    protected boolean required;
 
     protected Language language;
 
@@ -47,10 +47,6 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
         }
     }
 
-    public boolean getIsRequired() {
-        return isRequired;
-    }
-
     @Override
     public Language getLanguage() {
         return language;
@@ -75,12 +71,12 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
         return type;
     }
 
-    public boolean isRequired() {
-        return isRequired;
+    public void setRequired(boolean required) {
+        this.required = required;
     }
 
-    public void setIsRequired(final boolean isRequired) {
-        this.isRequired = isRequired;
+    public boolean isRequired() {
+        return required;
     }
 
     @Override
@@ -94,7 +90,7 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
     }
 
     public void setRequired(final Boolean isRequired) {
-        this.isRequired = isRequired;
+        required = isRequired;
     }
 
     public void setType(final QuestionType type) {

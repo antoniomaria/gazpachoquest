@@ -34,7 +34,7 @@ public class QuestionDTO extends AbstractQuestionDTO {
         private String code;
         private List<QuestionOptionDTO> answers;
         private Integer id;
-        private boolean isRequired;
+        private boolean required;
         private Language language;
         private QuestionLanguageSettingsDTO languageSettings;
         private QuestionType type;
@@ -48,7 +48,7 @@ public class QuestionDTO extends AbstractQuestionDTO {
             QuestionDTO questionDTO = new QuestionDTO();
             questionDTO.setId(id);
             questionDTO.code = code;
-            questionDTO.isRequired = isRequired;
+            questionDTO.required = required;
             questionDTO.type = type;
             questionDTO.language = language;
             questionDTO.questionOptions = answers;
@@ -61,8 +61,8 @@ public class QuestionDTO extends AbstractQuestionDTO {
             return this;
         }
 
-        public BuilderImpl isRequired(final boolean isRequired) {
-            this.isRequired = isRequired;
+        public BuilderImpl required(final boolean required) {
+            this.required = required;
             return this;
         }
 
