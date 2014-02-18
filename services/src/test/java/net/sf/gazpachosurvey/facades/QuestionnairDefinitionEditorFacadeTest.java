@@ -45,7 +45,7 @@ public class QuestionnairDefinitionEditorFacadeTest {
     @Test
     public void saveQuestionTranslation() {
         QuestionDTO question = new QuestionDTO();
-        question.setId(17);
+        question.setId(12);
 
         QuestionLanguageSettingsDTO languageSettings = new QuestionLanguageSettingsDTO();
         languageSettings.setTitle("¿Cual es tu nombre?");

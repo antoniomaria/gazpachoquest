@@ -34,7 +34,7 @@ public class StudyServiceTest {
 
     @Test
     public void findOneTest() {
-        Study study = studyService.findOne(62);
+        Study study = studyService.findOne(57);
         assertThat(study.isNew()).isFalse();
     }
 }

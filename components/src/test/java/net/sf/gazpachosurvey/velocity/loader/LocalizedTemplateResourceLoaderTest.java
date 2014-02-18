@@ -30,10 +30,10 @@ public class LocalizedTemplateResourceLoaderTest {
 
     @Test
     public void getResourceStreamTest() {
-        InputStream template = templateloader.getResourceStream("60");
+        InputStream template = templateloader.getResourceStream("55");
         assertThat(template).isNotNull();
 
-        template = templateloader.getResourceStream("60/ES");
+        template = templateloader.getResourceStream("55/ES");
         assertThat(template).isNotNull();
     }
 

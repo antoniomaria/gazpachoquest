@@ -41,7 +41,7 @@ public class QuestionnairAnswersServiceTest {
 
     @Test
     public void save() {
-        Questionnair questionnair = Questionnair.with().id(63).build();
+        Questionnair questionnair = Questionnair.with().id(58).build();
         String answer = "Antonio Maria";
         String questionCode = "Q1";
         questionnairAnswersService.save(questionnair, questionCode, answer);

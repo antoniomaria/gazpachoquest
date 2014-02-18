@@ -38,14 +38,14 @@ public class QuestionRepositoryTest {
     @Test
     public void findOneByPositionInQuestionGroupTest() {
         int questionGroupId = 8;
-        int position = 1;
+        int position = 2;
         Question question = repository.findOneByPositionInQuestionGroup(questionGroupId, position);
-        assertThat(question).isEqualTo(Question.with().id(18).build());
+        assertThat(question).isEqualTo(Question.with().id(29).build());
     }
 
     @Test
     public void findPositionInQuestionGroupTest() {
-        Integer questionId = 36;
+        Integer questionId = 31;
         Integer position = repository.findPositionInQuestionGroup(questionId);
         assertThat(position).isEqualTo(1);
     }
@@ -54,16 +54,16 @@ public class QuestionRepositoryTest {
     public void findQuestionByQuestionGroup() {
         int questionGroupId = 10;
         List<Question> questions = repository.findByQuestionGroupId(questionGroupId);
-        assertThat(questions).containsExactly(Question.with().id(44).build(), Question.with().id(55).build());
+        assertThat(questions).containsExactly(Question.with().id(39).build(), Question.with().id(50).build());
     }
 
     @Test
     public void findQuestionsByQuestionnairDefinitionId() {
         Integer questionnairDefinitionId = 6;
         List<Question> questions = repository.findByQuestionnairId(questionnairDefinitionId);
-        assertThat(questions).containsExactly(Question.with().id(17).build(), Question.with().id(18).build(),
-                Question.with().id(34).build(), Question.with().id(35).build(), Question.with().id(36).build(),
-                Question.with().id(40).build(), Question.with().id(44).build(), Question.with().id(55).build());
+        assertThat(questions).containsExactly(Question.with().id(12).build(), Question.with().id(13).build(),
+                Question.with().id(29).build(), Question.with().id(30).build(), Question.with().id(31).build(),
+                Question.with().id(35).build(), Question.with().id(39).build(), Question.with().id(50).build());
     }
 
     @Test
@@ -76,11 +76,11 @@ public class QuestionRepositoryTest {
         assertThat(questions).containsExactly(Question.with().id(46).build());
         assertThat(questions.get(0).getParent()).isNotNull();
 
-        questions = repository.findByExample(Question.with().parent(Question.with().id(44).build()).build(),
+        questions = repository.findByExample(Question.with().parent(Question.with().id(39).build()).build(),
                 new SearchParameters().searchMode(SearchMode.LIKE));
 
-        assertThat(questions).containsExactly(Question.with().id(51).build(), Question.with().id(52).build(),
-                Question.with().id(53).build(), Question.with().id(54).build());
+        assertThat(questions).containsExactly(Question.with().id(46).build(), Question.with().id(47).build(),
+                Question.with().id(48).build(), Question.with().id(49).build());
 
     }
 }

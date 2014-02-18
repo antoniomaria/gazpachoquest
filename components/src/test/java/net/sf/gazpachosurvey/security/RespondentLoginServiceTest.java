@@ -35,7 +35,7 @@ public class RespondentLoginServiceTest {
 
     @Test
     public void loginTest() {
-        Participant respondent = (Participant) loginService.login("", "255FXLSESX");
+        Participant respondent = (Participant) loginService.login("", "UO6QUYLIK1");
         assertThat(respondent.getQuestionnairs()).hasSize(1);
     }
 

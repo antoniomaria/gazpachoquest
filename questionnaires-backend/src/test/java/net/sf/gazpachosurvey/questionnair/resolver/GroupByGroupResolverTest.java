@@ -1,5 +1,7 @@
 package net.sf.gazpachosurvey.questionnair.resolver;
 
+import static org.fest.assertions.api.Assertions.assertThat;
+
 import java.util.List;
 
 import net.sf.gazpachosurvey.domain.core.Question;
@@ -38,31 +40,22 @@ public class GroupByGroupResolverTest {
 
     @Autowired
     @Qualifier("GroupByGroupResolver")
-    QuestionnairElementResolver resolver;
+    private QuestionnairElementResolver resolver;
 
     @Test
     public void resolveForTest() {
-        Integer questionnairId = 63;
+        Integer questionnairId = 58;
         Questionnair questionnair = questionnairRepository.findOne(questionnairId);
         QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.ENTERING);
-        new StringBuilder();
 
         List<Question> questions = questionGroup.getQuestions();
-        int pos = 1;
-        for (Question question : questions) {
-            System.out.println(pos + ". " + question.getLanguageSettings().getTitle());
-            pos++;
-        }
-        System.out.println("*******************");
+        assertThat(questions).containsExactly(Question.with().id(12).build(), Question.with().id(13).build(),
+                Question.with().id(29).build());
         questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.FORWARD);
 
         questions = questionGroup.getQuestions();
-        pos = 1;
-        for (Question question : questions) {
-
-            System.out.println(pos + ". " + question.getLanguageSettings().getTitle());
-            pos++;
-        }
+        assertThat(questions).containsExactly(Question.with().id(30).build(), Question.with().id(31).build(),
+                Question.with().id(35).build());
 
     }
 }

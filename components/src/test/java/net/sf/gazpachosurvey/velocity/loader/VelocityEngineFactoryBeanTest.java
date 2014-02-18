@@ -40,7 +40,7 @@ public class VelocityEngineFactoryBeanTest {
         model.put("gender", "bot");
         model.put("link", "http://localhost:8080/questionaires-ui/token=1234");
         VelocityEngine velocityEngine = velocityFactory.getObject();
-        String templateId = "60";
+        String templateId = "55";
         String body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templateId, "UTF-8", model);
         assertThat(body).contains("Estimado Sr. test");
     }

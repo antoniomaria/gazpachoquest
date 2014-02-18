@@ -79,6 +79,10 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
         return required;
     }
 
+    public boolean getRequired() {
+        return required;
+    }
+
     @Override
     public void setLanguage(final Language language) {
         this.language = language;

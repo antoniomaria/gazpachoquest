@@ -102,7 +102,7 @@ public class QuestionnairResourceTest {
     }
 
     public void getQuestionnairsTestOldWay() throws JsonParseException, JsonMappingException, IOException {
-        String invitationToken = "55GAW02QH2";
+        String invitationToken = "UO6QUYLIK1";
 
         ObjectMapper mapper = new ObjectMapper();
         JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, QuestionnairDTO.class);
@@ -117,20 +117,20 @@ public class QuestionnairResourceTest {
 
     @Test
     public void questionnairsListTest() {
-        String invitationToken = "255FXLSESX";
+        String invitationToken = "UO6QUYLIK1";
         client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
         Response response = client().target(getBaseUri() + "runtime/questionnairs").request()
                 .accept(MediaType.APPLICATION_JSON).get();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
         List<QuestionnairDTO> questionnairDTOs = response.readEntity(new GenericType<List<QuestionnairDTO>>() {
         });
-        assertThat(questionnairDTOs).contains(QuestionnairDTO.with().id(63).build());
+        assertThat(questionnairDTOs).contains(QuestionnairDTO.with().id(58).build());
     }
 
     @Test
     public void navigateQuestionByQuestionTest() {
-        String invitationToken = "255FXLSESX";
-        Integer questionnairId = 63;
+        String invitationToken = "UO6QUYLIK1";
+        Integer questionnairId = 58;
         RenderingMode mode = RenderingMode.QUESTION_BY_QUESTION;
         BrowsingAction action = BrowsingAction.ENTERING;
 
@@ -160,7 +160,7 @@ public class QuestionnairResourceTest {
 
     @Test
     public void navigateGroupByGroupTest() {
-        Questionnair questionnair = Questionnair.with().id(63).build();
+        Questionnair questionnair = Questionnair.with().id(58).build();
 
         questionnairAnswersService.save(questionnair, "Q1", "Antonio Maria");
         questionnairAnswersService.save(questionnair, "Q2", "05");
@@ -182,8 +182,8 @@ public class QuestionnairResourceTest {
         questionnairAnswersService.save(questionnair, "q8_o3", Boolean.TRUE);
         questionnairAnswersService.save(questionnair, "q8_o4", Boolean.FALSE);
 
-        String invitationToken = "255FXLSESX";
-        Integer questionnairId = 63;
+        String invitationToken = "UO6QUYLIK1";
+        Integer questionnairId = questionnair.getId();
         RenderingMode mode = RenderingMode.GROUP_BY_GROUP;
         BrowsingAction action = BrowsingAction.ENTERING;
 
@@ -224,8 +224,8 @@ public class QuestionnairResourceTest {
 
     @Test
     public void saveAnswerTest() {
-        String invitationToken = "255FXLSESX";
-        Integer questionnairId = 63;
+        String invitationToken = "UO6QUYLIK1";
+        Integer questionnairId = 58;
         client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
         String questionCode = "Q1";
         TextAnswer answer = TextAnswer.fromValue("Antonio Maria");

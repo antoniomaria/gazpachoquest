@@ -40,7 +40,7 @@ public class InvitationServiceTest {
 
     @Test
     public void saveTest() {
-        Study study = studyService.findOne(95);
+        Study study = studyService.findOne(57);
         Invitation invitation = Invitation.with().study(study).status(InvitationStatus.ACTIVE).token("1234").build();
         Invitation saved = surveyService.save(invitation);
 

@@ -45,7 +45,7 @@ public class QuestionnairDefinitionServiceTest {
 
     @Test
     public void findAllTest() {
-        assertThat(questionnairDefinitionService.findAll()).hasSize(2);
+        assertThat(questionnairDefinitionService.findAll()).hasSize(1);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class QuestionnairDefinitionServiceTest {
     @Test
     public void saveTest() {
         QuestionnairDefinitionLanguageSettings languageSettings = QuestionnairDefinitionLanguageSettings.with()
-                .title("My QuestionnairDefinition").build();
+                .title("My QuestionnairDefinition").description("My description").build();
         QuestionnairDefinition questionnairDefinition = QuestionnairDefinition.with().language(Language.EN)
                 .languageSettings(languageSettings).build();
         questionnairDefinition = questionnairDefinitionService.save(questionnairDefinition);

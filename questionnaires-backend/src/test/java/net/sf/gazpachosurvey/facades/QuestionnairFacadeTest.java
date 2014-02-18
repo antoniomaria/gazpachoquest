@@ -60,47 +60,51 @@ public class QuestionnairFacadeTest {
 
     @Test
     public void findByOneTest() {
-        Integer questionnairId = 63;
+        Integer questionnairId = 58;
         QuestionnairDTO questionnair = questionnairFacade.findOne(questionnairId);
         assertThat(questionnair).isNotNull();
     }
 
     @Test
     public void resolvePageTest() {
-        Integer questionnairId = 63;
+        Integer questionnairId = 58;
         PageDTO page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP,
                 BrowsingAction.ENTERING);
-        assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(17).build(),
-                QuestionDTO.with().id(18).build(), QuestionDTO.with().id(34).build());
+
+        assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(12).build(),
+                QuestionDTO.with().id(13).build(), QuestionDTO.with().id(29).build());
 
         page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP, BrowsingAction.FORWARD);
 
-        assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(35).build(),
-                QuestionDTO.with().id(36).build(), QuestionDTO.with().id(40).build());
+        assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(30).build(),
+                QuestionDTO.with().id(31).build(), QuestionDTO.with().id(35).build());
 
         page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP, BrowsingAction.BACKWARD);
-        assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(17).build(),
-                QuestionDTO.with().id(18).build(), QuestionDTO.with().id(34).build());
+
+        assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(12).build(),
+                QuestionDTO.with().id(13).build(), QuestionDTO.with().id(29).build());
     }
 
     @Test
     public void resolveFirstPageTest() {
-        Questionnair questionnair = Questionnair.with().id(63).build();
+        Questionnair questionnair = Questionnair.with().id(58).build();
         String answer = "Antonio Maria";
         String questionCode = "Q1";
         questionnairAnswersService.save(questionnair, questionCode, answer);
         PageDTO page = questionnairFacade.resolvePage(questionnair.getId(), RenderingMode.QUESTION_BY_QUESTION,
                 BrowsingAction.ENTERING);
 
-        for (QuestionDTO questionDTO : page.getQuestions()) {
-            System.out.println(questionDTO + " " + questionDTO.getAnswer());
-        }
+        assertThat(page.getQuestions()).isNotEmpty();
+        QuestionDTO questionDTO = page.getQuestions().get(0);
+        assertThat(questionDTO.getId()).isEqualTo(12);
+        assertThat(questionDTO.getAnswer()).isExactlyInstanceOf(TextAnswer.class);
+        assertThat(((TextAnswer) questionDTO.getAnswer()).getValue()).isEqualTo("Antonio Maria");
     }
 
     @Test
     public void saveAnswerTest() {
 
-        Questionnair questionnair = Questionnair.with().id(63).build();
+        Questionnair questionnair = Questionnair.with().id(58).build();
         String questionCode = "Q1";
         Answer answer = TextAnswer.fromValue("Antonio Maria");
         Integer questionDefinitionId = jdbcTemplate.queryForInt(

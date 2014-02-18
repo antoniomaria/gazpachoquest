@@ -1,5 +1,6 @@
 package net.sf.gazpachosurvey.questionnair.resolver;
 
+import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachosurvey.domain.core.Question;
 import net.sf.gazpachosurvey.domain.core.Questionnair;
 import net.sf.gazpachosurvey.repository.QuestionnairRepository;
@@ -35,44 +36,37 @@ public class QuestionByQuestionResolverTest {
 
     @Autowired
     @Qualifier("QuestionByQuestionResolver")
-    QuestionnairElementResolver resolver;
+    private QuestionnairElementResolver resolver;
 
     @Test
     public void resolveForTest() {
-        Integer questionnairId = 63;
+        Integer questionnairId = 58;
         Questionnair respondent = questionnairRepository.findOne(questionnairId);
         Question question = (Question) resolver.resolveFor(respondent, BrowsingAction.ENTERING);
-        StringBuilder out = new StringBuilder();
-        out.append("1: " + question.getLanguageSettings().getTitle() + "\n");
+        assertThat(question.getLanguageSettings().getTitle()).contains("What is your name?");
 
         question = (Question) resolver.resolveFor(respondent, BrowsingAction.FORWARD);
-        out.append("2: " + question.getLanguageSettings().getTitle() + "\n");
+        assertThat(question.getLanguageSettings().getTitle()).contains("What is your age group?");
 
         question = (Question) resolver.resolveFor(respondent, BrowsingAction.FORWARD);
-        out.append("3: " + question.getLanguageSettings().getTitle() + "\n");
+
+        assertThat(question.getLanguageSettings().getTitle()).contains("And for our records,");
+        question = (Question) resolver.resolveFor(respondent, BrowsingAction.FORWARD);
 
         question = (Question) resolver.resolveFor(respondent, BrowsingAction.FORWARD);
-        out.append("4: " + question.getLanguageSettings().getTitle() + "\n");
 
         question = (Question) resolver.resolveFor(respondent, BrowsingAction.FORWARD);
-        out.append("5: " + question.getLanguageSettings().getTitle() + "\n");
 
         question = (Question) resolver.resolveFor(respondent, BrowsingAction.FORWARD);
-        out.append("6: " + question.getLanguageSettings().getTitle() + "\n");
 
-        question = (Question) resolver.resolveFor(respondent, BrowsingAction.FORWARD);
-        out.append("7: " + question.getLanguageSettings().getTitle() + "\n");
-
-        System.out.println(out);
-        System.out.println("************");
-        out = new StringBuilder();
+        assertThat(question.getLanguageSettings().getTitle()).contains("Please have a good look");
 
         question = (Question) resolver.resolveFor(respondent, BrowsingAction.BACKWARD);
-        out.append("6?: " + question.getLanguageSettings().getTitle() + "\n");
+
+        assertThat(question.getLanguageSettings().getTitle()).contains("Which of these ads make");
 
         question = (Question) resolver.resolveFor(respondent, BrowsingAction.BACKWARD);
-        out.append("5?: " + question.getLanguageSettings().getTitle() + "\n");
-        System.out.println(out);
 
+        assertThat(question.getLanguageSettings().getTitle()).contains("Given your extraord");
     }
 }

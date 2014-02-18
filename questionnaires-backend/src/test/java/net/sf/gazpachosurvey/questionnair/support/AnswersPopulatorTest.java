@@ -56,12 +56,13 @@ public class AnswersPopulatorTest {
 
     @Test
     public void populateTest() {
-        Integer questionnairId = 63;
+        Integer questionnairId = 58;
+        Integer firstQuestionId = 12;
         Questionnair questionnair = Questionnair.with().id(questionnairId).build();
         String answer = "Antonio Maria";
         String questionCode = "Q1";
         questionnairAnswersService.save(questionnair, questionCode, answer);
-        QuestionDTO question = questionnairDefinitionAccessorFacade.findOneQuestion(17);
+        QuestionDTO question = questionnairDefinitionAccessorFacade.findOneQuestion(firstQuestionId);
 
         List<QuestionDTO> questions = new ArrayList<>();
         questions.add(question);
