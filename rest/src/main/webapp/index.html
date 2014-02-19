@@ -37,7 +37,8 @@
       log("key: " + key);
       if(key && key.trim() != "") {
         log("added key " + key);
-        window.authorizations.add("key", new ApiKeyAuthorization("api_key", key, "query"));
+        var basicAuthToken = window.btoa("respondent:"+ key);
+        window.authorizations.add("key", new ApiKeyAuthorization("Authorization", key, "header"));
       }
     })
     window.swaggerUi.load();
