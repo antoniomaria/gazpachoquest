@@ -3,6 +3,7 @@ package net.sf.gazpachosurvey.rest;
 import net.sf.gazpachosurvey.rest.auth.AuthorizationRequestFilter;
 import net.sf.gazpachosurvey.rest.resources.runtime.QuestionnairResource;
 
+import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
@@ -17,6 +18,7 @@ public class ApplicationConfig extends ResourceConfig {
 
         register(AuthorizationRequestFilter.class);
         register(QuestionnairResource.class);
+        register(LoggingFilter.class);
 
         // register(JerseyResource.class);
         // register(SpringSingletonResource.class);
