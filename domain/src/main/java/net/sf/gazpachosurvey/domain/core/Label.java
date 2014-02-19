@@ -42,6 +42,7 @@ public class Label extends AbstractLocalizable<LabelTranslation, LabelLanguageSe
         super();
     }
 
+    @Override
     public Map<Language, LabelTranslation> getTranslations() {
         return translations;
     }
@@ -58,18 +59,22 @@ public class Label extends AbstractLocalizable<LabelTranslation, LabelLanguageSe
         this.labelSet = labelSet;
     }
 
+    @Override
     public Language getLanguage() {
         return language;
     }
 
+    @Override
     public void setLanguage(Language language) {
         this.language = language;
     }
 
+    @Override
     public LabelLanguageSettings getLanguageSettings() {
         return languageSettings;
     }
 
+    @Override
     public void setLanguageSettings(LabelLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }

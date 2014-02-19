@@ -73,7 +73,7 @@ public class QuestionnairDefinitionServiceTest {
 
         QuestionnairDefinition created = questionnairDefinitionService.findOne(questionnairDefinition.getId());
         QuestionnairDefinitionLanguageSettings newLanguageSettings = QuestionnairDefinitionLanguageSettings.with()
-                .title("My QuestionnairDefinition. Ver 1").build();
+                .title("My QuestionnairDefinition. Ver 1").description("My description").build();
         created.setLanguageSettings(newLanguageSettings);
 
         QuestionnairDefinition updated = questionnairDefinitionService.save(created);

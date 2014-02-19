@@ -31,12 +31,6 @@
     </dependency>
 
     <dependency>
-      <groupId>com.github.springtestdbunit</groupId>
-      <artifactId>spring-test-dbunit</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
       <groupId>postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <scope>test</scope>
@@ -53,6 +47,13 @@
       <artifactId>hsqldb</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>gazpachosurvey-testsuite</artifactId>
+      <scope>test</scope>
+    </dependency>
+
 
     <!-- Project libraries -->
     <dependency>

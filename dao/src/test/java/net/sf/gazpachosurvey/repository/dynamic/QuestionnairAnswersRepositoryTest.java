@@ -54,12 +54,8 @@ public class QuestionnairAnswersRepositoryTest {
 
     @Before
     public void setUp() {
-        this.jdbcTemplate = new JdbcTemplate(datasource);
+        jdbcTemplate = new JdbcTemplate(datasource);
         repository.activeAllAnswers();
-        int parent = jdbcTemplate.queryForInt("select parent_id from question where id = ?", 46);
-        System.out.println("habemos parent?" + parent);
-        System.out.println("");
-
     }
 
     public void collectAnswersTest() {

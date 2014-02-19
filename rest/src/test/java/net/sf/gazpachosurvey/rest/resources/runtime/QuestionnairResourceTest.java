@@ -38,6 +38,7 @@ import org.glassfish.jersey.client.filter.HttpBasicAuthFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
+import org.glassfish.jersey.test.TestProperties;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,8 +80,8 @@ public class QuestionnairResourceTest {
 
         @Override
         protected ResourceConfig configure() {
-            // enable(TestProperties.LOG_TRAFFIC);
-            // enable(TestProperties.DUMP_ENTITY);
+            enable(TestProperties.LOG_TRAFFIC);
+            enable(TestProperties.DUMP_ENTITY);
             ResourceConfig config = new ApplicationConfig();
             Map<String, Object> properties = new HashMap<String, Object>();
             properties.put("contextConfigLocation", "root-test-context.xml");

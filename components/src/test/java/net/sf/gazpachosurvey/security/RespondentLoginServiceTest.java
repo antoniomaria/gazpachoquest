@@ -2,8 +2,8 @@ package net.sf.gazpachosurvey.security;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachosurvey.domain.core.Participant;
-import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
 import net.sf.gazpachosurvey.repository.dynamic.QuestionnairAnswersRepository;
+import net.sf.gazpachosurvey.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +18,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
@@ -25,6 +26,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("RespondentLoginService-dataset.xml")
+@DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class RespondentLoginServiceTest {
 
     @Autowired
@@ -33,16 +35,15 @@ public class RespondentLoginServiceTest {
     @Autowired
     private QuestionnairAnswersRepository questionnairAnswersRepository;
 
+    @Before
+    public void setUp() {
+        questionnairAnswersRepository.activeAllAnswers();
+    }
+
     @Test
     public void loginTest() {
         Participant respondent = (Participant) loginService.login("", "UO6QUYLIK1");
         assertThat(respondent.getQuestionnairs()).hasSize(1);
     }
 
-    @Before
-    public void setUp() {
-        questionnairAnswersRepository.collectAnswers(QuestionnairDefinition.with().id(62).build());
-        questionnairAnswersRepository.activeAllAnswers();
-
-    }
 }
