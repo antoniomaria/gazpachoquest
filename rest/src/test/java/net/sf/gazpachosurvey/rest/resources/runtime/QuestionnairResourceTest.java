@@ -143,7 +143,7 @@ public class QuestionnairResourceTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
         page = response.readEntity(PageDTO.class);
 
-        assertThat(page.getQuestions()).containsExactly(QuestionDTO.with().id(17).build());
+        assertThat(page.getQuestions()).containsExactly(QuestionDTO.with().id(12).build());
 
         action = BrowsingAction.FORWARD;
 
@@ -155,7 +155,7 @@ public class QuestionnairResourceTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
         page = response.readEntity(PageDTO.class);
 
-        assertThat(page.getQuestions()).containsExactly(QuestionDTO.with().id(18).build());
+        assertThat(page.getQuestions()).containsExactly(QuestionDTO.with().id(13).build());
 
     }
 
@@ -196,8 +196,8 @@ public class QuestionnairResourceTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
         page = response.readEntity(PageDTO.class);
 
-        assertThat(page.getQuestions()).containsExactly(QuestionDTO.with().id(17).build(),
-                QuestionDTO.with().id(18).build(), QuestionDTO.with().id(34).build());
+        assertThat(page.getQuestions()).containsExactly(QuestionDTO.with().id(12).build(),
+                QuestionDTO.with().id(13).build(), QuestionDTO.with().id(29).build());
 
         action = BrowsingAction.FORWARD;
 
@@ -209,8 +209,8 @@ public class QuestionnairResourceTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
         page = response.readEntity(PageDTO.class);
 
-        assertThat(page.getQuestions()).containsExactly(QuestionDTO.with().id(35).build(),
-                QuestionDTO.with().id(36).build(), QuestionDTO.with().id(40).build());
+        assertThat(page.getQuestions()).containsExactly(QuestionDTO.with().id(30).build(),
+                QuestionDTO.with().id(31).build(), QuestionDTO.with().id(35).build());
 
         client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
         response = client()
@@ -219,8 +219,8 @@ public class QuestionnairResourceTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
         page = response.readEntity(PageDTO.class);
 
-        assertThat(page.getQuestions()).containsExactly(QuestionDTO.with().id(44).build(),
-                QuestionDTO.with().id(55).build());
+        assertThat(page.getQuestions()).containsExactly(QuestionDTO.with().id(39).build(),
+                QuestionDTO.with().id(50).build());
     }
 
     @Test

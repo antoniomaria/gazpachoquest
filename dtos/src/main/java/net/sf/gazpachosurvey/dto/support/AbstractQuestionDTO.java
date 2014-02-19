@@ -79,10 +79,6 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
         return required;
     }
 
-    public boolean getRequired() {
-        return required;
-    }
-
     @Override
     public void setLanguage(final Language language) {
         this.language = language;
@@ -91,10 +87,6 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
     @Override
     public void setLanguageSettings(final QuestionLanguageSettingsDTO languageSettings) {
         this.languageSettings = languageSettings;
-    }
-
-    public void setRequired(final Boolean isRequired) {
-        required = isRequired;
     }
 
     public void setType(final QuestionType type) {
