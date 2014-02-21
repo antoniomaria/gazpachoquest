@@ -83,18 +83,21 @@ public class QuestionnairResource {
     @ApiOperation(value = "Fetch the next, current or previous page for the given questionnair", notes = "More notes about this method", response = PageDTO.class)
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
             @ApiResponse(code = 200, message = "Questionnairs available") })
-    public Response resolvePage(
+    public Response getPage(
             @Context
             final SecurityContext context,
             @PathParam("questionnairId")
             @ApiParam(value = "Questionnair id")
             Integer questionnairId,
-            @ApiParam(value = "Refers how many questions are returned by page. Usefull for mobile version", required = true)
+            @ApiParam(name = "mode", value = "Refers how many questions are returned by page.", required = true, defaultValue = "GROUP_BY_GROUP", allowableValues = "QUESTION_BY_QUESTION,GROUP_BY_GROUP", allowMultiple = true)
             @QueryParam("mode")
-            RenderingMode mode, @ApiParam(value = "Action fired for the respondent", required = true)
+            String modeStr,
+            @ApiParam(name = "action", value = "Action fired for the respondent", required = true, defaultValue = "ENTERING", allowableValues = "FORWARD,BACKWARD,ENTERING", allowMultiple = true)
             @QueryParam("action")
-            BrowsingAction action) {
+            String actionStr) {
         logger.debug("New petition received from {}", context.getUserPrincipal().getName());
+        RenderingMode mode = RenderingMode.fromString(modeStr);
+        BrowsingAction action = BrowsingAction.fromString(actionStr);
         PageDTO page = questionnairFacade.resolvePage(questionnairId, mode, action);
         return Response.ok(page).build();
     }
