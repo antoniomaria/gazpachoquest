@@ -56,6 +56,15 @@ public class GroupByGroupResolverTest {
         questions = questionGroup.getQuestions();
         assertThat(questions).containsExactly(Question.with().id(30).build(), Question.with().id(31).build(),
                 Question.with().id(35).build());
+    }
+
+    @Test
+    public void resolveFor2Test() {
+        Integer questionnairId = 61;
+        Questionnair questionnair = questionnairRepository.findOne(questionnairId);
+        QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.ENTERING);
+        System.out.println(questionGroup);
 
     }
+
 }

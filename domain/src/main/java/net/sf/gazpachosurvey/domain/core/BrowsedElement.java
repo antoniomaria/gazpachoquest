@@ -45,22 +45,33 @@ public class BrowsedElement extends AbstractAuditable {
         last = actual;
     }
 
-    public static class Builder {
+    public static BuilderImpl withProps() {
+        return new BuilderImpl();
+    }
+
+    public static class BuilderImpl {
+        private Integer id;
         private Questionnair questionnair;
         private Boolean last;
 
-        public Builder questionnair(Questionnair questionnair) {
+        public BuilderImpl questionnair(Questionnair questionnair) {
             this.questionnair = questionnair;
             return this;
         }
 
-        public Builder last(Boolean last) {
+        public BuilderImpl id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public BuilderImpl last(Boolean last) {
             this.last = last;
             return this;
         }
 
         public BrowsedElement build() {
             BrowsedElement browsedElement = new BrowsedElement();
+            browsedElement.setId(id);
             browsedElement.questionnair = questionnair;
             browsedElement.last = last;
             return browsedElement;

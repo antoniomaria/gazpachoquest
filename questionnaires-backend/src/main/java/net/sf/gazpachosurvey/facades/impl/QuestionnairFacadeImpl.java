@@ -81,7 +81,9 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
         QuestionnairElementResolver resolver = resolverSelector.selectBy(mode);
         QuestionnairElement questionnairElement = resolver.resolveFor(questionnair, action);
         PageDTO page = new PageDTO();
-
+        if (questionnairElement == null) { // TODO Handle exception
+            return page;
+        }
         if (questionnairElement instanceof QuestionGroup) {
             QuestionGroup questionGroup = (QuestionGroup) questionnairElement;
 

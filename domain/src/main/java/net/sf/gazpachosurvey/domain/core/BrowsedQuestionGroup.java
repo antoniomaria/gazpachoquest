@@ -26,8 +26,8 @@ public class BrowsedQuestionGroup extends BrowsedElement {
         this.questionGroup = questionGroup;
     }
 
-    public static Builder with() {
-        return new Builder();
+    public static BrowsedQuestionGroup.Builder with() {
+        return new BrowsedQuestionGroup.Builder();
     }
 
     public static class Builder {

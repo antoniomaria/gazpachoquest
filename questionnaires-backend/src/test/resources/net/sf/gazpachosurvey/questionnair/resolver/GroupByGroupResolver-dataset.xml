@@ -133,8 +133,11 @@
   <questionnair_definition_translation id="7" language="ES" description="&lt;p&gt;Esto es una encuesta de ejemplo dise&#241;ada para GazpachoSurvey&lt;/p&gt;"
     title="Ejemplo de encuesta" welcometext="Gracias por participar en esta encuesta" questionnairdefinition_id="6" />
 
-  <browsed_element/>
+  <browsed_element id="151" type="G" created_date="2014-02-21 18:52:37.679" last="true" last_modified_date="2014-02-21 18:52:37.679" createdby_id="1" lastmodifiedby_id="1" questionnair_id="61" questiongroup_id="8"/>
+  <browsed_element id="152" type="G" created_date="2014-02-21 18:52:57.701" last="false" last_modified_date="2014-02-21 18:52:57.701" createdby_id="1" lastmodifiedby_id="1" questionnair_id="61" questiongroup_id="9"/>
+  <browsed_element id="153" type="G" created_date="2014-02-21 18:53:03.872" last="false" last_modified_date="2014-02-21 18:53:03.872" createdby_id="1" lastmodifiedby_id="1" questionnair_id="61" questiongroup_id="10"/>
+ 
   <sequence seq_name="questionnair_answers_6_seq" seq_count="50" />
-  <sequence seq_name="SEQ_GEN" seq_count="150" />
+  <sequence seq_name="SEQ_GEN" seq_count="200" />
 
 </dataset>
