@@ -72,8 +72,10 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
                 questionGroup = findPreviousQuestionGroup(questionnairDefinitionId, questionnair,
                         lastBrowsedQuestionGroup);
             }
-            lastBrowsedQuestionGroup.setLast(Boolean.FALSE);
-            browsedElementService.save(lastBrowsedQuestionGroup);
+            if (questionGroup != null) { // Prevent that questions are still in range.
+                lastBrowsedQuestionGroup.setLast(Boolean.FALSE);
+                browsedElementService.save(lastBrowsedQuestionGroup);
+            }
         }
         return questionGroup;
     }
@@ -97,7 +99,9 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
                     .getQuestionGroup().getId());
             next = questionGroupService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId,
                     position + 1);
-
+            if (next == null) { // The respondent has reached the last question group
+                return next;
+            }
             // Mark next element as last browsed.
             nextBrowsedQuestionGroup = BrowsedQuestionGroup.with().questionnair(questionnair).questionGroup(next)
                     .last(Boolean.TRUE).build();

@@ -71,7 +71,7 @@ public class DBPopulator {
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).participants(participants)
                 .build();
         studyFacade.save(study);
-        /*-
+
         questionnairDef = createFastFoodSurvey();
         asignDefaultMailTemplate(questionnairDef);
         questionnairDefinitionEditorFacade.confirm(questionnairDef);
@@ -84,7 +84,7 @@ public class DBPopulator {
 
                 .participants(participants).build();
         studyFacade.save(study);
-         */
+
     }
 
     public MailMessageTemplateDTO asignDefaultMailTemplate(final QuestionnairDefinitionDTO survey) {
@@ -180,6 +180,9 @@ public class DBPopulator {
 
         label = LabelDTO.with().language(Language.EN).title("Disagree strongly").build();
         labelSet.addLabel(label);
+        // Comment for testing
+        questionnairDefinitionEditorFacade.save(labelSet);
+
         // 1 Single Textbox
         QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).code("Q1")
                 .languageSettingsStart().title("What is your name?").languageSettingsEnd().required(true).build();

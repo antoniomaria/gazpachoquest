@@ -5,6 +5,8 @@ import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
@@ -26,8 +28,10 @@ public class Participant extends AbstractAuditable implements Person {
 
     private String email;
 
+    @Enumerated(EnumType.STRING)
     private Language preferedLanguage;
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @OneToMany(mappedBy = "participant", fetch = FetchType.LAZY)

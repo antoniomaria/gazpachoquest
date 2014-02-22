@@ -79,9 +79,10 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
             } else {// BACKWARD
                 question = findPreviousQuestion(questionnairDefinitionId, questionnair, lastBrowsedQuestion);
             }
-            lastBrowsedQuestion.setLast(Boolean.FALSE);
-            browsedElementService.save(lastBrowsedQuestion);
-
+            if (question != null) {
+                lastBrowsedQuestion.setLast(Boolean.FALSE);
+                browsedElementService.save(lastBrowsedQuestion);
+            }
         }
         return question;
     }
