@@ -2,6 +2,7 @@ package net.sf.gazpachosurvey.domain.support;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,15 +10,13 @@ import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import net.sf.gazpachosurvey.domain.core.Study;
 import net.sf.gazpachosurvey.types.InvitationStatus;
 
 @Entity
-@Table(name = "invitation")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type")
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING, length = 20)
 public class Invitation extends AbstractPersistable {
 
     private static final long serialVersionUID = -9203813369476903640L;
