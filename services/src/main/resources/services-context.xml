@@ -15,13 +15,13 @@
 
   <import resource="classpath:/dozer/dozer-context.xml" />
 
-  <context:component-scan base-package="net.sf.gazpachosurvey.services.impl,net.sf.gazpachosurvey.facades.impl" />
+  <context:component-scan base-package="net.sf.gazpachoquest.services.impl,net.sf.gazpachoquest.facades.impl" />
 
-  <bean id="profilingAdvise" class="net.sf.gazpachosurvey.aspects.ProfilingAdvise"></bean>
+  <bean id="profilingAdvise" class="net.sf.gazpachoquest.aspects.ProfilingAdvise"></bean>
 
   <aop:config>
      
-    <aop:pointcut id="serviceOperation" expression="execution(* net.sf.gazpachosurvey.services.*.*(..))" />
+    <aop:pointcut id="serviceOperation" expression="execution(* net.sf.gazpachoquest.services.*.*(..))" />
     <!-- 
     <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" order="9999" />
       -->

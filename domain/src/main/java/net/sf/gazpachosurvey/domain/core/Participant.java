@@ -10,10 +10,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import net.sf.gazpachoquest.types.Gender;
+import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
 import net.sf.gazpachosurvey.domain.support.Person;
-import net.sf.gazpachosurvey.types.Gender;
-import net.sf.gazpachosurvey.types.Language;
 
 @Entity
 public class Participant extends AbstractAuditable implements Person {

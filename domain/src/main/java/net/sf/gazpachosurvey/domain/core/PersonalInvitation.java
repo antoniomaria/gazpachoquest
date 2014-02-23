@@ -5,8 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
+import net.sf.gazpachoquest.types.InvitationStatus;
 import net.sf.gazpachosurvey.domain.support.Invitation;
-import net.sf.gazpachosurvey.types.InvitationStatus;
 
 @Entity
 @DiscriminatorValue("P")

@@ -8,12 +8,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
+import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachosurvey.domain.core.Label;
 import net.sf.gazpachosurvey.domain.core.embeddables.LabelLanguageSettings;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.domain.support.Translation;
 import net.sf.gazpachosurvey.domain.support.TranslationBuilder;
-import net.sf.gazpachosurvey.types.Language;
 
 @Entity
 public class LabelTranslation extends AbstractPersistable implements Translation<LabelLanguageSettings> {

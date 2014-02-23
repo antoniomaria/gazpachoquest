@@ -11,8 +11,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
+import net.sf.gazpachoquest.types.InvitationStatus;
 import net.sf.gazpachosurvey.domain.core.Study;
-import net.sf.gazpachosurvey.types.InvitationStatus;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

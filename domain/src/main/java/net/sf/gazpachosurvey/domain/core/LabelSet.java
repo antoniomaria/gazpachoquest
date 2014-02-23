@@ -13,8 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 
+import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
-import net.sf.gazpachosurvey.types.Language;
 
 @Entity
 public class LabelSet extends AbstractPersistable {

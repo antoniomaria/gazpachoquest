@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                              http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>net.sf.gazpachosurvey</groupId>
-  <artifactId>gazpachosurvey</artifactId>
+  <groupId>net.sf.gazpachoquest</groupId>
+  <artifactId>gazpachoquest</artifactId>
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>Application for managing surveys</name>
+  <name>Application for collecting answers through questionnaires</name>
 
   <licenses>
     <license>
@@ -29,17 +29,17 @@
   </properties>
 
   <modules>
-    <module>components</module>
-    <module>dao</module>
-    <module>dbpopulator</module>
+    <module>testsuite</module>
+    <module>types</module>
     <module>domain</module>
+    <module>dao</module>
+    <module>components</module>
     <module>dtos</module>
+    <module>services</module>
+    <module>dbpopulator</module>
     <module>questionnaires-backend</module>
     <!-- Ommited temporarly <module>questionnaires-ui</module> -->
     <module>rest</module>
-    <module>services</module>
-    <module>testsuite</module>
-    <module>types</module>
   </modules>
   <repositories>
     <repository>
@@ -188,49 +188,49 @@
       <!-- Project dependencies -->
       <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>gazpachosurvey-testsuite</artifactId>
+        <artifactId>gazpachoquest-testsuite</artifactId>
         <version>${project.version} </version>
       </dependency>
 
       <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>gazpachosurvey-domain</artifactId>
+        <artifactId>gazpachoquest-domain</artifactId>
         <version>${project.version} </version>
       </dependency>
 
       <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>gazpachosurvey-dtos</artifactId>
+        <artifactId>gazpachoquest-dtos</artifactId>
         <version>${project.version} </version>
       </dependency>
 
       <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>gazpachosurvey-dao</artifactId>
+        <artifactId>gazpachoquest-dao</artifactId>
         <version>${project.version} </version>
       </dependency>
 
       <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>gazpachosurvey-services</artifactId>
+        <artifactId>gazpachoquest-services</artifactId>
         <version>${project.version} </version>
       </dependency>
 
       <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>gazpachosurvey-components</artifactId>
+        <artifactId>gazpachoquest-components</artifactId>
         <version>${project.version} </version>
       </dependency>
 
       <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>gazpachosurvey-questionnaires-backend</artifactId>
+        <artifactId>gazpachoquest-questionnaires-backend</artifactId>
         <version>${project.version} </version>
       </dependency>
 
       <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>gazpachosurvey-types</artifactId>
+        <artifactId>gazpachoquest-types</artifactId>
         <version>${project.version} </version>
       </dependency>
       <!-- Third party dependencies -->

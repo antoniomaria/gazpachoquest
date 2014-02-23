@@ -10,8 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import net.sf.gazpachoquest.types.StudyAccessType;
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
-import net.sf.gazpachosurvey.types.StudyAccessType;
 
 import org.joda.time.DateTime;
 import org.joda.time.contrib.jpa.DateTimeConverter;

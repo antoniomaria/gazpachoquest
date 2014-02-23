@@ -1,4 +1,4 @@
-package net.sf.gazpachosurvey.rest.auth;
+package net.sf.gazpachoquest.rest.auth;
 
 import java.io.File;
 import java.io.IOException;

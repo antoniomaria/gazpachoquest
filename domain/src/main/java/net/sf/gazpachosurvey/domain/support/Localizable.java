@@ -2,7 +2,7 @@ package net.sf.gazpachosurvey.domain.support;
 
 import java.util.Map;
 
-import net.sf.gazpachosurvey.types.Language;
+import net.sf.gazpachoquest.types.Language;
 
 public interface Localizable<LS extends LanguageSettings, TR extends Translation<LS>> extends Persistable {
 

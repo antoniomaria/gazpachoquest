@@ -8,12 +8,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
+import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachosurvey.domain.core.QuestionGroup;
 import net.sf.gazpachosurvey.domain.core.embeddables.QuestionGroupLanguageSettings;
 import net.sf.gazpachosurvey.domain.support.AbstractPersistable;
 import net.sf.gazpachosurvey.domain.support.Translation;
 import net.sf.gazpachosurvey.domain.support.TranslationBuilder;
-import net.sf.gazpachosurvey.types.Language;
 
 @Entity
 public class QuestionGroupTranslation extends AbstractPersistable implements Translation<QuestionGroupLanguageSettings> {

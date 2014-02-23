@@ -17,11 +17,11 @@ import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 
+import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachosurvey.domain.core.embeddables.QuestionGroupLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.QuestionGroupTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
 import net.sf.gazpachosurvey.domain.support.QuestionnairElement;
-import net.sf.gazpachosurvey.types.Language;
 
 @Entity
 public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation, QuestionGroupLanguageSettings>

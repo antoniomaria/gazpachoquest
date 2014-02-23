@@ -18,12 +18,12 @@ import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 
+import net.sf.gazpachoquest.types.EntityStatus;
+import net.sf.gazpachoquest.types.Language;
+import net.sf.gazpachoquest.types.MailMessageTemplateType;
 import net.sf.gazpachosurvey.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.QuestionnairDefinitionTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
-import net.sf.gazpachosurvey.types.EntityStatus;
-import net.sf.gazpachosurvey.types.Language;
-import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 
 @Entity
 public class QuestionnairDefinition extends

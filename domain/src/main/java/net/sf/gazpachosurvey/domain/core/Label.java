@@ -13,10 +13,10 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 
+import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachosurvey.domain.core.embeddables.LabelLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.LabelTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
-import net.sf.gazpachosurvey.types.Language;
 
 @Entity
 public class Label extends AbstractLocalizable<LabelTranslation, LabelLanguageSettings> {

@@ -14,11 +14,11 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 
+import net.sf.gazpachoquest.types.Language;
+import net.sf.gazpachoquest.types.MailMessageTemplateType;
 import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachosurvey.domain.support.AbstractLocalizable;
-import net.sf.gazpachosurvey.types.Language;
-import net.sf.gazpachosurvey.types.MailMessageTemplateType;
 
 @Entity
 public class MailMessageTemplate extends

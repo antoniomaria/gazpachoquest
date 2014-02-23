@@ -8,12 +8,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
+import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
 import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
 import net.sf.gazpachosurvey.domain.support.Translation;
 import net.sf.gazpachosurvey.domain.support.TranslationBuilder;
-import net.sf.gazpachosurvey.types.Language;
 
 @Entity
 public class MailMessageTemplateTranslation extends AbstractAuditable implements

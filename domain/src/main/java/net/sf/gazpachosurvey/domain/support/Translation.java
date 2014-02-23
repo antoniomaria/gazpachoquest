@@ -1,6 +1,6 @@
 package net.sf.gazpachosurvey.domain.support;
 
-import net.sf.gazpachosurvey.types.Language;
+import net.sf.gazpachoquest.types.Language;
 
 public interface Translation<LS extends LanguageSettings> extends Persistable {
     LS getLanguageSettings();

@@ -13,13 +13,13 @@
 
   <import resource="classpath:/datasource-context.xml" />
 
-  <context:component-scan base-package="net.sf.gazpachosurvey.repository.support,net.sf.gazpachosurvey.repository.dynamic,net.sf.gazpachosurvey.dbpopulator" />
+  <context:component-scan base-package="net.sf.gazpachoquest.repository.support,net.sf.gazpachoquest.repository.dynamic,net.sf.gazpachoquest.dbpopulator" />
 
-  <jpa:repositories base-package="net.sf.gazpachosurvey.repository" factory-class="net.sf.gazpachosurvey.repository.support.DefaultRepositoryFactoryBean" />
+  <jpa:repositories base-package="net.sf.gazpachoquest.repository" factory-class="net.sf.gazpachoquest.repository.support.DefaultRepositoryFactoryBean" />
 
   <jpa:auditing auditor-aware-ref="auditorAware" />
 
-  <bean id="auditorAware" class="net.sf.gazpachosurvey.jpa.SimpleAuditorAware" />
+  <bean id="auditorAware" class="net.sf.gazpachoquest.jpa.SimpleAuditorAware" />
 
   <tx:annotation-driven />
 
@@ -36,7 +36,7 @@
     <entry key="eclipselink.ddl-generation.output-mode" value="database" />
     <entry key="databasePlatform" value="${eclipselink.databasePlatform}" />
     <entry key="eclipselink.weaving" value="static" />
-    <entry key="eclipselink.session.customizer" value="net.sf.gazpachosurvey.jpa.CamelNamingStrategy" />
+    <entry key="eclipselink.session.customizer" value="net.sf.gazpachoquest.jpa.CamelNamingStrategy" />
     <entry key="eclipselink.cache.shared.default" value="false" />
   </util:map>
 

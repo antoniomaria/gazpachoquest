@@ -11,8 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachosurvey.domain.support.AbstractAuditable;
-import net.sf.gazpachosurvey.types.EntityStatus;
 
 import org.joda.time.DateTime;
 import org.joda.time.contrib.jpa.DateTimeConverter;

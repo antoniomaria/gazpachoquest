@@ -1,4 +1,4 @@
-package net.sf.gazpachosurvey.rest.auth;
+package net.sf.gazpachoquest.rest.auth;
 
 /*
  * Licensed to the Sakai Foundation (SF) under one
