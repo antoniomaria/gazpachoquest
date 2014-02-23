@@ -20,6 +20,8 @@ CREATE TABLE question_option_translation (id INTEGER NOT NULL, language VARCHAR(
 CREATE TABLE question_translation (id INTEGER NOT NULL, language VARCHAR(255) NOT NULL, TITLE VARCHAR(255) NOT NULL, QUESTION_ID INTEGER, PRIMARY KEY (id));
 CREATE TABLE SEQUENCE (SEQ_NAME VARCHAR(50) NOT NULL, SEQ_COUNT DECIMAL(38), PRIMARY KEY (SEQ_NAME));
 
+CREATE TABLE questionnair_answers_6(id integer NOT NULL, q1 character varying(255), q2 character varying(255), q3 integer, q4 text, q5 character varying(255), q6 character varying(255), q7_1 character varying(255), q7_2 character varying(255), q7_3 character varying(255), q7_4 character varying(255), q8_o1 boolean, q8_o2 boolean, q8_o3 boolean, q8_o4 boolean, PRIMARY KEY (id));
+
 ALTER TABLE browsed_element ADD CONSTRAINT FK_browsed_element_LASTMODIFIEDBY_ID FOREIGN KEY (LASTMODIFIEDBY_ID) REFERENCES users (id);
 ALTER TABLE browsed_element ADD CONSTRAINT FK_browsed_element_CREATEDBY_ID FOREIGN KEY (CREATEDBY_ID) REFERENCES users (id);
 ALTER TABLE browsed_element ADD CONSTRAINT FK_browsed_element_QUESTION_ID FOREIGN KEY (QUESTION_ID) REFERENCES question (id);

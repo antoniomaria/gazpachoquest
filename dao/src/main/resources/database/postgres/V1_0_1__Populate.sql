@@ -90,7 +90,7 @@ INSERT INTO study (id, created_date, expiration_date, last_modified_date, name, 
 -- Data for Name: questionnair; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, participant_id, questionnairdefinition_id, study_id) VALUES (63, NULL, '2014-02-22 16:19:13.862', '2014-02-22 16:19:13.862', 'CONFIRMED', NULL, 1, 1, 2, 6, 62);
+INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, participant_id, questionnairdefinition_id, study_id) VALUES (63, 1, '2014-02-22 16:19:13.862', '2014-02-22 16:19:13.862', 'CONFIRMED', NULL, 1, 1, 2, 6, 62);
 INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, participant_id, questionnairdefinition_id, study_id) VALUES (66, NULL, '2014-02-22 16:19:13.926', '2014-02-22 16:19:13.926', 'CONFIRMED', NULL, 1, 1, 5, 6, 62);
 INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, participant_id, questionnairdefinition_id, study_id) VALUES (69, NULL, '2014-02-22 16:19:13.976', '2014-02-22 16:19:13.976', 'CONFIRMED', NULL, 1, 1, 4, 6, 62);
 INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, participant_id, questionnairdefinition_id, study_id) VALUES (72, NULL, '2014-02-22 16:19:14.001', '2014-02-22 16:19:14.001', 'CONFIRMED', NULL, 1, 1, 3, 6, 62);
@@ -271,28 +271,13 @@ INSERT INTO question_option (id, code, created_date, language, last_modified_dat
 
 
 --
--- TOC entry 2082 (class 0 OID 109533)
--- Dependencies: 181 2071 2086
 -- Data for Name: questionnair_definition_translation; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO questionnair_definition_translation (id, language, description, title, welcometext, questionnairdefinition_id) VALUES (7, 'ES', '<p>Esto es una encuesta de ejemplo diseñada para GazpachoSurvey</p>', 'Ejemplo de encuesta', 'Gracias por participar en esta encuesta', 6);
 
 
---
--- TOC entry 2065 (class 0 OID 108413)
--- Dependencies: 162 2086
--- Data for Name: sequence; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
--- INSERT INTO sequence (seq_name, seq_count) VALUES ('questionnair_answers_6_seq', 0);
--- INSERT INTO sequence (seq_name, seq_count) VALUES ('questionnair_answers_70_seq', 0);
+INSERT INTO sequence (seq_name, seq_count) VALUES ('questionnair_answers_6_seq', 5);
 INSERT INTO sequence (seq_name, seq_count) VALUES ('SEQ_GEN', 150);
--- INSERT INTO sequence (seq_name, seq_count) VALUES ('questionnair_answers_75_seq', 0);
 
-
--- Completed on 2014-02-22 16:21:54 EET
-
---
--- PostgreSQL database dump complete
---
+INSERT INTO questionnair_answers_6 (id, q1, q2, q3, q4, q5, q6, q7_1, q7_2, q7_3, q7_4, q8_o1, q8_o2, q8_o3, q8_o4) VALUES (1, 'Antonio Maria Sanchez Berrocal', '05', 33, 'I started to work in IECISA, 10 years ago', '02', '01', '01', '02', '03', '01', true, true, true, NULL);
