@@ -37,7 +37,7 @@ public class BooleanAnswer extends SimpleAnswer {
         return value;
     }
 
-    public static BooleanAnswer valueOf(String option, boolean value) {
+    public static BooleanAnswer valueOf(String option, Boolean value) {
         return new BooleanAnswer(option, BooleanUtils.toBoolean(value));
     }
 }

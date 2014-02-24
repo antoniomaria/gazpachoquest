@@ -5,6 +5,7 @@ import java.util.Map;
 
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
+import net.sf.gazpachoquest.dto.SubquestionDTO;
 import net.sf.gazpachoquest.dto.answers.AbstractAnswer;
 import net.sf.gazpachoquest.dto.answers.BooleanAnswer;
 import net.sf.gazpachoquest.dto.answers.MultipleAnswer;
@@ -44,10 +45,10 @@ public class AnswersPopulatorImpl implements AnswersPopulator {
 
     private void populateAnswers(AbstractQuestionDTO question, Map<String, Object> answers) {
         if (question.getType().hasSubquestions()) {
-            /*-
-            for (SubquestionDTO subquestion : question.getSubquestions()) {
+            QuestionDTO questionDTO = (QuestionDTO) question;
+            for (SubquestionDTO subquestion : questionDTO.getSubquestions()) {
                 populateAnswers(subquestion, answers);
-            }*/
+            }
         } else {
             AbstractAnswer answer = null;
             QuestionType type = question.getType();
