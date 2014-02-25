@@ -7,6 +7,11 @@
   </listener>
 
   <context-param>
+    <param-name>contextInitializerClasses</param-name>
+    <param-value>net.sf.gazpachoquest.rest.EnviromentDiscovery</param-value>
+  </context-param>
+
+  <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/root-context.xml,/WEB-INF/rest-context.xml</param-value>
   </context-param>
@@ -65,11 +70,11 @@
       <param-name>swagger.api.basepath</param-name>
       <param-value>http://localhost:8081/gazpachosurvey-rest/api</param-value>
     </init-param>
-    <!-- 
-    <init-param>
+    <!--
+      <init-param>
       <param-name>swagger.filter</param-name>
       <param-value>com.wordnik.swagger.sample.util.ApiAuthorizationFilterImpl</param-value>
-    </init-param>  -->
+      </init-param> -->
     <load-on-startup>2</load-on-startup>
   </servlet>
 
