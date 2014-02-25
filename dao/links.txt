@@ -1,0 +1,11 @@
+http://diarmuidmoloney.wordpress.com/2012/04/07/spring-environments/
+
+http://stackoverflow.com/questions/8587489/how-to-set-active-spring-3-1-environment-profile-via-a-properites-file-and-not-v
+
+ConfigurableApplicationContext
+
+http://gordondickens.com/wordpress/2012/06/12/spring-3-1-environment-profiles/
+
+http://stackoverflow.com/questions/13179160/spring-3-1-contextinitializerclasses-not-working-on-weblogic-10-3-6-using-web-xm
+
+https://gist.github.com/rponte/3989915
