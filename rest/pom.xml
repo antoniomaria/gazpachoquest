@@ -75,18 +75,6 @@
       <version>1.7.5</version>
     </dependency>
 
-    <!-- Jdbc drivers -->
-    <dependency>
-      <groupId>postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.hsqldb</groupId>
-      <artifactId>hsqldb</artifactId>
-      <scope>test</scope>
-    </dependency>
-
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>
