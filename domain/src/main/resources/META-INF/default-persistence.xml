@@ -41,6 +41,16 @@
     <!-- Support -->
     <persistence:class>net.sf.gazpachosurvey.domain.support.AbstractInvitation</persistence:class>
 
+
+    <persistence:properties>
+      <persistence:property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
+      <persistence:property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/gazpachoquest" />
+      <persistence:property name="eclipselink.jdbc.user" value="root" />
+      <persistence:property name="eclipselink.jdbc.password" value="admin" />
+      <persistence:property name="eclipselink.weaving" value="static"></persistence:property>
+    </persistence:properties>
+    
+    <!-- 
     <persistence:properties>
       <persistence:property name="eclipselink.jdbc.driver" value="org.postgresql.Driver" />
       <persistence:property name="eclipselink.jdbc.url" value="jdbc:postgresql://localhost:5432/gazpachosurvey" />
@@ -48,5 +58,6 @@
       <persistence:property name="eclipselink.jdbc.password" value="admin" />
       <persistence:property name="eclipselink.weaving" value="static"></persistence:property>
     </persistence:properties>
+     -->
   </persistence:persistence-unit>
 </persistence:persistence>
