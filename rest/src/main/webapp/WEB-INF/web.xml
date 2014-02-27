@@ -16,6 +16,11 @@
     <param-value>/WEB-INF/root-context.xml,/WEB-INF/rest-context.xml</param-value>
   </context-param>
 
+  <context-param>
+    <param-name>spring.profiles.active</param-name>
+    <param-value>mysql,container</param-value>
+  </context-param>
+
   <!-- Jersey servlet -->
   <servlet>
     <servlet-name>jersey-servlet</servlet-name>
@@ -66,10 +71,19 @@
       <param-name>api.version</param-name>
       <param-value>1.0.0</param-value>
     </init-param>
+
+
     <init-param>
       <param-name>swagger.api.basepath</param-name>
-      <param-value>http://localhost:8081/gazpachosurvey-rest/api</param-value>
+      <param-value>http://gazpacho.antoniomaria.cloudbees.net/api</param-value>
     </init-param>
+
+    <!--
+      <init-param>
+      <param-name>swagger.api.basepath</param-name>
+      <param-value>http://localhost:8081/gazpachosurvey-rest/api</param-value>
+      </init-param>
+    -->
     <!--
       <init-param>
       <param-name>swagger.filter</param-name>
