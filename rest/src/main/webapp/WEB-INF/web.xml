@@ -15,10 +15,9 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/root-context.xml,/WEB-INF/rest-context.xml</param-value>
   </context-param>
-
   <context-param>
     <param-name>spring.profiles.active</param-name>
-    <param-value>mysql,container</param-value>
+    <param-value>container,mysql</param-value>
   </context-param>
 
   <!-- Jersey servlet -->

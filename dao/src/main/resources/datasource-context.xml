@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
-  xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-  xmlns:util="http://www.springframework.org/schema/util" xmlns:jee="http://www.springframework.org/schema/jee"
+  xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:util="http://www.springframework.org/schema/util" xmlns:jee="http://www.springframework.org/schema/jee"
   xsi:schemaLocation="
         http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
@@ -10,20 +10,31 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
         http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd">
 
-  <beans profile="postgres">
+
+  <context:property-placeholder location="classpath:/database/jndi.properties" />
+  <!--
+  <beans profile="postgres,standalone,container">
     <context:property-placeholder location="classpath:/database/postgres.properties" />
   </beans>
 
-  <beans profile="mysql">
+  <beans profile="mysql,standalone,container">
     <context:property-placeholder location="classpath:/database/mysql.properties" />
   </beans>
-
+  -->
   <beans profile="test">
     <context:property-placeholder location="classpath:/database/hsql.properties" />
     <jdbc:embedded-database id="dataSource" type="HSQL" />
   </beans>
 
-  <beans profile="standalone">
+  <beans profile="standalone,container,mysql,postgres">
+    <bean id="dataSourceInitializer" class="com.googlecode.flyway.core.Flyway" init-method="migrate">
+      <property name="dataSource" ref="dataSource" />
+      <property name="locations" value="${datasource.scripts.location}" />
+      <property name="encoding" value="UTF-8" />
+    </bean>
+  </beans>
+
+  <beans profile="standalone,mysql,postgres">
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
       <property name="driverClass" value="${jdbc.driver.class}" />
       <property name="jdbcUrl" value="${jdbc.url}" />
@@ -32,16 +43,8 @@
     </bean>
   </beans>
 
-  <beans profile="container">
-    <context:property-placeholder location="classpath:/database/jndi.properties" />
+  <beans profile="container,mysql,postgres">
     <jee:jndi-lookup id="dataSource" jndi-name="${jndi.name}" />
   </beans>
 
-  <beans profile="standalone,container">
-    <bean id="dataSourceInitializer" class="com.googlecode.flyway.core.Flyway" init-method="migrate">
-      <property name="dataSource" ref="dataSource" />
-      <property name="locations" value="${datasource.scripts.location}" />
-      <property name="encoding" value="UTF-8" />
-    </bean>
-  </beans>
 </beans>
