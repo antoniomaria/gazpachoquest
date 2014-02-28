@@ -17,7 +17,7 @@
   </context-param>
   <context-param>
     <param-name>spring.profiles.active</param-name>
-    <param-value>container,mysql</param-value>
+    <param-value>container,db_mysql</param-value>
   </context-param>
 
   <!-- Jersey servlet -->

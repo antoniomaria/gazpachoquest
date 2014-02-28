@@ -12,21 +12,12 @@
 
 
   <context:property-placeholder location="classpath:/database/jndi.properties" />
-  <!--
-  <beans profile="postgres,standalone,container">
-    <context:property-placeholder location="classpath:/database/postgres.properties" />
-  </beans>
 
-  <beans profile="mysql,standalone,container">
-    <context:property-placeholder location="classpath:/database/mysql.properties" />
-  </beans>
-  -->
   <beans profile="test">
-    <context:property-placeholder location="classpath:/database/hsql.properties" />
     <jdbc:embedded-database id="dataSource" type="HSQL" />
   </beans>
 
-  <beans profile="standalone,container,mysql,postgres">
+  <beans profile="standalone,container">
     <bean id="dataSourceInitializer" class="com.googlecode.flyway.core.Flyway" init-method="migrate">
       <property name="dataSource" ref="dataSource" />
       <property name="locations" value="${datasource.scripts.location}" />
@@ -34,7 +25,7 @@
     </bean>
   </beans>
 
-  <beans profile="standalone,mysql,postgres">
+  <beans profile="standalone">
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
       <property name="driverClass" value="${jdbc.driver.class}" />
       <property name="jdbcUrl" value="${jdbc.url}" />
@@ -43,7 +34,7 @@
     </bean>
   </beans>
 
-  <beans profile="container,mysql,postgres">
+  <beans profile="container">
     <jee:jndi-lookup id="dataSource" jndi-name="${jndi.name}" />
   </beans>
 

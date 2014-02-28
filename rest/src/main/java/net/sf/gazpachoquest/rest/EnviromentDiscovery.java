@@ -30,38 +30,28 @@ public class EnviromentDiscovery implements ApplicationContextInitializer<Config
         String activeProfiles[] = environment.getActiveProfiles();
 
         if (activeProfiles.length == 0) {
-            environment.setActiveProfiles("test");
+            environment.setActiveProfiles("test,db_hsql");
         }
 
         logger.info("Application running using profiles: {}", Arrays.toString(environment.getActiveProfiles()));
 
         String instanceInfoString = environment.getProperty(GAZPACHO_APP_KEY);
 
-        PropertySourcesPlaceholderConfigurer propertyHolder = new PropertySourcesPlaceholderConfigurer();
-
-        if (environment.acceptsProfiles("postgres")) {
-            try {
-                environment.getPropertySources().addLast(
-                        new ResourcePropertySource("classpath:/database/postgres.properties"));
-            } catch (IOException e) {
-                throw new IllegalStateException("postgres.properties not found in classpath", e);
+        String dbEngine = null;
+        for (String profile : activeProfiles) {
+            if (profile.startsWith("db_")) {
+                dbEngine = profile;
+                break;
             }
-        } else if (environment.acceptsProfiles("mysql")) {
-            try {
-                environment.getPropertySources().addLast(
-                        new ResourcePropertySource("classpath:/database/mysql.properties"));
-            } catch (IOException e) {
-                throw new IllegalStateException("postgres.properties not found in classpath", e);
-            }
-        } else {
-            try {
-                environment.getPropertySources().addLast(
-                        new ResourcePropertySource("classpath:/database/hsql.properties"));
-            } catch (IOException e) {
-                throw new IllegalStateException("postgres.properties not found in classpath", e);
-            }
-            environment.setActiveProfiles("test", "standalone");
         }
+        try {
+            environment.getPropertySources().addLast(
+                    new ResourcePropertySource(String.format("classpath:/database/%s.properties", dbEngine)));
+        } catch (IOException e) {
+            throw new IllegalStateException(dbEngine + ".properties not found in classpath", e);
+        }
+
+        PropertySourcesPlaceholderConfigurer propertyHolder = new PropertySourcesPlaceholderConfigurer();
 
         Map<String, String> environmentProperties = parseInstanceInfo(instanceInfoString);
         if (!environmentProperties.isEmpty()) {
