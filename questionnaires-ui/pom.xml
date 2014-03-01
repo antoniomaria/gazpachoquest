@@ -6,35 +6,32 @@
     <artifactId>gazpachoquest</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <artifactId>questionnaires-ui</artifactId>
+  <artifactId>gazpachoquest-questionnaires-ui</artifactId>
   <packaging>war</packaging>
-  <name>questionnaires-ui Maven Webapp</name>
+  <name>gazpachoquest-questionnaires-ui</name>
   <url>http://maven.apache.org</url>
   <dependencies>
+    <!-- Provided scope -->
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>6.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- Test scope -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
 
-    <!-- Jdbc drivers -->
-    <dependency>
-      <groupId>postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-    </dependency>
-
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachoquest-services</artifactId>
+      <artifactId>gazpachoquest-dtos</artifactId>
     </dependency>
 
     <!-- Third party libraries -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-    </dependency>
-
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-server</artifactId>
@@ -60,32 +57,32 @@
 
     <dependency>
       <groupId>com.vaadin</groupId>
-      <artifactId>vaadin-push</artifactId>
-      <version>${vaadin.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.vaadin</groupId>
       <artifactId>vaadin-themes</artifactId>
       <version>${vaadin.version}</version>
     </dependency>
 
+    <!-- https://vaadin.com/directory#addon/cdi-properties -->
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>3.0.1</version>
-      <scope>provided</scope>
+      <groupId>org.vaadin.addon</groupId>
+      <artifactId>cdi-properties</artifactId>
+      <version>0.9.2</version>
+    </dependency>
+    <!-- https://vaadin.com/directory#addon/cdi-mvp:vaadin -->
+    <dependency>
+      <groupId>org.vaadin.addon</groupId>
+      <artifactId>cdi-mvp</artifactId>
+      <version>0.9.5</version>
+    </dependency>
+    <!-- Vaadin Official DI support. -->
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-cdi</artifactId>
+      <version>1.0.0.alpha1</version>
     </dependency>
 
-    <dependency>
-      <groupId>ru.xpoft.vaadin</groupId>
-      <artifactId>spring-vaadin-integration</artifactId>
-      <version>2.0.1</version>
-    </dependency>
   </dependencies>
 
   <build>
-
     <plugins>
       <!-- As we are doing "inplace" GWT compilation, ensure the widgetset -->
       <!-- directory is cleaned properly -->

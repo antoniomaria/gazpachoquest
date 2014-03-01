@@ -22,7 +22,7 @@
     <eclipselink.version>2.5.0</eclipselink.version>
     <postgres.version>9.1-901.jdbc4</postgres.version>
     <mysql.version>5.1.23</mysql.version>
-    <vaadin.version>7.1.5</vaadin.version>
+    <vaadin.version>7.1.6</vaadin.version>
     <vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
     <jackson.version>1.9.13</jackson.version>
     <swagger.version>1.3.2</swagger.version>
@@ -73,9 +73,9 @@
         <enabled>false</enabled>
       </releases>
       <snapshots>
+        <enabled>true</enabled>
       </snapshots>
     </repository>
-
     <repository>
       <id>sonatype-snapshot</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
@@ -349,7 +349,14 @@
     </dependencies>
 
   </dependencyManagement>
-
+  <profiles>
+    <profile>
+      <id>development</id>
+      <properties>
+        <rest.api.basepath>http://gazpacho.antoniomaria.cloudbees.net</rest.api.basepath>
+      </properties>
+    </profile>
+  </profiles>
   <build>
     <plugins>
       <plugin>

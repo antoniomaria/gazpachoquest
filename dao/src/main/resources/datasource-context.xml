@@ -32,7 +32,7 @@
     </bean>
   </beans>
 
-  <beans profile="container">
+  <beans profile="container">                     
     <context:property-placeholder location="classpath:/database/jndi.properties" />
     <jee:jndi-lookup id="dataSource" jndi-name="${jndi.name}" />
   </beans>
