@@ -24,7 +24,7 @@ public class QuestionnairesUI extends UI {
     private static final long serialVersionUID = 1265851857862002747L;
 
     @Inject
-    private GazpachoClient client;
+    private QuestionnairsClient client;
 
     @Override
     protected void init(VaadinRequest request) {
@@ -32,7 +32,7 @@ public class QuestionnairesUI extends UI {
         // layout.setStyleName(Reindeer.LAYOUT_BLUE);
         layout.setMargin(true);
         setContent(layout);
-        List<QuestionnairDTO> questionnaires = client.findQuestionnaires();
+        List<QuestionnairDTO> questionnaires = client.list();
 
         String message = questionnaires.get(0).getLanguageSettings().getTitle();
         Label label = new Label(message);
