@@ -1,0 +1,3 @@
+<jaxrs:providers>
+  <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+</jaxrs:providers>

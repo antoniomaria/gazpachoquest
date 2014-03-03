@@ -10,14 +10,41 @@
   <packaging>war</packaging>
   <name>gazpachoquest-questionnaires-ui</name>
   <url>http://maven.apache.org</url>
+  <properties>
+    <openejb.version>4.6.0</openejb.version>
+    <tomee.version>1.6.0</tomee.version>
+  </properties>
   <dependencies>
-    <!-- Provided scope -->
+  <!-- 
     <dependency>
-      <groupId>javax</groupId>
+      <groupId>org.apache.openejb</groupId>
       <artifactId>javaee-api</artifactId>
-      <version>6.0</version>
-      <scope>provided</scope>
+      <version>6.0-5</version>
+      <scope>test</scope>
     </dependency>
+ -->
+ 
+    <dependency>
+      <groupId>org.apache.openejb</groupId>
+      <artifactId>tomee-embedded</artifactId>
+      <version>${tomee.version}</version>
+      <scope>test</scope>
+    </dependency>
+<!-- 
+    <dependency>
+      <groupId>org.apache.openejb</groupId>
+      <artifactId>openejb-cxf-rs</artifactId>
+      <version>${openejb.version}</version>
+      <scope>test</scope>
+    </dependency>
+ -->
+
+    <dependency>
+      <groupId>org.apache.openejb</groupId>
+      <artifactId>tomee-jaxrs</artifactId>
+      <version>${tomee.version}</version>
+    </dependency>
+ 
     <!-- Test scope -->
     <dependency>
       <groupId>junit</groupId>
@@ -26,9 +53,10 @@
     </dependency>
 
     <!-- Project libraries -->
+
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachoquest-dtos</artifactId>
+      <artifactId>gazpachoquest-api</artifactId>
     </dependency>
 
     <!-- Third party libraries -->
@@ -78,10 +106,37 @@
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-cdi</artifactId>
       <version>1.0.0.alpha1</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>vaadin-server</artifactId>
+          <groupId>com.vaadin</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>vaadin-shared</artifactId>
+          <groupId>com.vaadin</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
-  </dependencies>
+    <dependency>
+      <groupId>com.fasterxml.jackson.jaxrs</groupId>
+      <artifactId>jackson-jaxrs-json-provider</artifactId>
+      <version>2.3.2</version>
+    </dependency>
 
+    <!-- Jersey JAX-RS Client
+      <dependency>
+      <groupId>org.glassfish.jersey.core</groupId>
+      <artifactId>jersey-client</artifactId>
+      <version>2.0</version>
+      </dependency>
+
+      <dependency>
+      <groupId>org.glassfish.jersey.media</groupId>
+      <artifactId>jersey-media-json-jackson</artifactId>
+      <version>${jersey.version}</version>
+      </dependency> -->
+  </dependencies>
   <build>
     <plugins>
       <!-- As we are doing "inplace" GWT compilation, ensure the widgetset -->

@@ -47,7 +47,7 @@
         </exclusion>
       </exclusions>
     </dependency>
-    
+
     <!-- Project dependencies -->
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -66,14 +66,6 @@
       <version>2.2</version>
     </dependency>
 
-  <!-- 
-    <dependency>
-      <groupId>org.codehaus.jackson</groupId>
-      <artifactId>jackson-mapper-asl</artifactId>
-      <version>1.9.13</version>
-    </dependency>
-     -->
-    
     <!-- Rest api Documenter -->
     <dependency>
       <groupId>com.wordnik</groupId>
