@@ -23,13 +23,13 @@ import java.util.Map;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.metamodel.SingularAttribute;
 
+import net.sf.gazpachoquest.domain.support.Persistable;
 import net.sf.gazpachoquest.repository.support.NamedQueryUtil;
 import net.sf.gazpachoquest.repository.support.Range;
 import net.sf.gazpachoquest.repository.support.Ranges.RangeDate;
 import net.sf.gazpachoquest.repository.support.Ranges.RangeInteger;
 import net.sf.gazpachoquest.repository.support.Ranges.RangeLocalDate;
 import net.sf.gazpachoquest.repository.support.Ranges.RangeLocalDateTime;
-import net.sf.gazpachosurvey.domain.support.Persistable;
 
 import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.ToStringBuilder;

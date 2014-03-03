@@ -1,9 +1,9 @@
 package net.sf.gazpachoquest.services;
 
+import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachoquest.services.QuestionnairAnswersService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
-import net.sf.gazpachosurvey.domain.core.Questionnair;
 
 import org.junit.Before;
 import org.junit.Test;

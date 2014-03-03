@@ -1,8 +1,8 @@
 package net.sf.gazpachoquest.services;
 
-import net.sf.gazpachosurvey.domain.core.Question;
-import net.sf.gazpachosurvey.domain.core.embeddables.QuestionLanguageSettings;
-import net.sf.gazpachosurvey.domain.i18.QuestionTranslation;
+import net.sf.gazpachoquest.domain.core.Question;
+import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
+import net.sf.gazpachoquest.domain.i18.QuestionTranslation;
 
 public interface QuestionService extends
         LocalizedPersistenceService<Question, QuestionTranslation, QuestionLanguageSettings> {

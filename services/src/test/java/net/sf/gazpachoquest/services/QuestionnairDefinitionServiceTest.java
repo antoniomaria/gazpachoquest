@@ -4,12 +4,12 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.Set;
 
+import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
+import net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.Language;
-import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
-import net.sf.gazpachosurvey.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
-import net.sf.gazpachosurvey.domain.i18.QuestionnairDefinitionTranslation;
 
 import org.joda.time.DateTime;
 import org.junit.Test;

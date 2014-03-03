@@ -1,9 +1,9 @@
 package net.sf.gazpachoquest.facades.impl;
 
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.UserDTO;
 import net.sf.gazpachoquest.facades.UserFacade;
 import net.sf.gazpachoquest.services.UserService;
-import net.sf.gazpachosurvey.domain.user.User;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;

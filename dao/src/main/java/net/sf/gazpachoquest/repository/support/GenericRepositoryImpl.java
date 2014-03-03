@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import net.sf.gazpachoquest.domain.support.Persistable;
 import net.sf.gazpachoquest.repository.qbe.ByExampleEnhancedSpecification;
 import net.sf.gazpachoquest.repository.qbe.SearchParameters;
-import net.sf.gazpachosurvey.domain.support.Persistable;
 
 import org.apache.commons.lang.Validate;
 import org.springframework.data.domain.Page;

@@ -1,11 +1,11 @@
 package net.sf.gazpachoquest.services.impl;
 
+import net.sf.gazpachoquest.domain.core.QuestionOption;
+import net.sf.gazpachoquest.domain.core.embeddables.QuestionOptionLanguageSettings;
+import net.sf.gazpachoquest.domain.i18.QuestionOptionTranslation;
 import net.sf.gazpachoquest.repository.QuestionOptionRepository;
 import net.sf.gazpachoquest.repository.i18.QuestionOptionTranslationRepository;
 import net.sf.gazpachoquest.services.QuestionOptionService;
-import net.sf.gazpachosurvey.domain.core.QuestionOption;
-import net.sf.gazpachosurvey.domain.core.embeddables.QuestionOptionLanguageSettings;
-import net.sf.gazpachosurvey.domain.i18.QuestionOptionTranslation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

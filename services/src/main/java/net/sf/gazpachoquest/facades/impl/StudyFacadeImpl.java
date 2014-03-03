@@ -3,14 +3,14 @@ package net.sf.gazpachoquest.facades.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.sf.gazpachoquest.domain.core.Participant;
+import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.core.Study;
 import net.sf.gazpachoquest.dto.ParticipantDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachoquest.dto.StudyDTO;
 import net.sf.gazpachoquest.facades.StudyFacade;
 import net.sf.gazpachoquest.services.StudyService;
-import net.sf.gazpachosurvey.domain.core.Participant;
-import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
-import net.sf.gazpachosurvey.domain.core.Study;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;

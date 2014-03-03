@@ -1,13 +1,13 @@
 package net.sf.gazpachoquest.facades.impl;
 
+import net.sf.gazpachoquest.domain.core.MailMessageTemplate;
+import net.sf.gazpachoquest.domain.core.embeddables.MailMessageTemplateLanguageSettings;
+import net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachoquest.dto.MailMessageTemplateDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.support.TranslationDTO;
 import net.sf.gazpachoquest.facades.MailMessageFacade;
 import net.sf.gazpachoquest.services.MailMessageTemplateService;
-import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
-import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
-import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;

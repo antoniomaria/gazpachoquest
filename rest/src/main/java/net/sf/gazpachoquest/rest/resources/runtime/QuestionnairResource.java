@@ -20,14 +20,14 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
 
+import net.sf.gazpachoquest.domain.core.Participant;
+import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.dto.PageDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.facades.QuestionnairFacade;
 import net.sf.gazpachoquest.types.BrowsingAction;
 import net.sf.gazpachoquest.types.RenderingMode;
-import net.sf.gazpachosurvey.domain.core.Participant;
-import net.sf.gazpachosurvey.domain.core.Questionnair;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -4,9 +4,9 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.repository.QuestionGroupRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
-import net.sf.gazpachosurvey.domain.core.QuestionGroup;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

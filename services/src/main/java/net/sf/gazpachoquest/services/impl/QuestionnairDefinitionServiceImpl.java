@@ -1,5 +1,9 @@
 package net.sf.gazpachoquest.services.impl;
 
+import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
+import net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation;
 import net.sf.gazpachoquest.repository.MailMessageRepository;
 import net.sf.gazpachoquest.repository.QuestionGroupRepository;
 import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
@@ -8,10 +12,6 @@ import net.sf.gazpachoquest.repository.i18.QuestionnairDefinitionTranslationRepo
 import net.sf.gazpachoquest.repository.qbe.SearchParameters;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
 import net.sf.gazpachoquest.types.EntityStatus;
-import net.sf.gazpachosurvey.domain.core.QuestionGroup;
-import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
-import net.sf.gazpachosurvey.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
-import net.sf.gazpachosurvey.domain.i18.QuestionnairDefinitionTranslation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

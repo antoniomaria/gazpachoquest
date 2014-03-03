@@ -1,6 +1,6 @@
 package net.sf.gazpachoquest.services;
 
-import net.sf.gazpachosurvey.domain.user.User;
+import net.sf.gazpachoquest.domain.user.User;
 
 public interface UserService extends PersistenceService<User> {
 

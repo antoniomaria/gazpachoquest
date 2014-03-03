@@ -2,10 +2,10 @@ package net.sf.gazpachoquest.services.impl;
 
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.support.Persistable;
 import net.sf.gazpachoquest.repository.qbe.SearchParameters;
 import net.sf.gazpachoquest.repository.support.GenericRepository;
 import net.sf.gazpachoquest.services.PersistenceService;
-import net.sf.gazpachosurvey.domain.support.Persistable;
 
 public abstract class AbstractPersistenceService<T extends Persistable> implements PersistenceService<T> {
 

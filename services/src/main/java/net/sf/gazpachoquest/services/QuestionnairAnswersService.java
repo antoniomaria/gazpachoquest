@@ -2,7 +2,7 @@ package net.sf.gazpachoquest.services;
 
 import java.util.Map;
 
-import net.sf.gazpachosurvey.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.core.Questionnair;
 
 public interface QuestionnairAnswersService {
 

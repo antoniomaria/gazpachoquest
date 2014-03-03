@@ -15,21 +15,15 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/root-context.xml,/WEB-INF/rest-context.xml</param-value>
   </context-param>
-
   <context-param>
     <param-name>spring.profiles.active</param-name>
-    <param-value>container,postgres</param-value>
+    <param-value>container,db_postgres</param-value>
   </context-param>
 
   <!-- Jersey servlet -->
   <servlet>
     <servlet-name>jersey-servlet</servlet-name>
     <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-    <!-- The package where you put your REST-services <init-param> <param-name>com.sun.jersey.config.property.packages</param-name>
-      <param-value>net.sf.gazpachosurvey</param-value> </init-param> <init-param>
-      <param-name>com.sun.jersey.config.property.resourceConfigClass</param-name>
-      <param-value>com.sun.jersey.api.core.PackagesResourceConfig</param-value>
-      </init-param> -->
     <!-- <init-param> <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
       <param-value>com.sun.jersey.api.container.filter.GZIPContentEncodingFilter</param-value>
       </init-param> <init-param> <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>

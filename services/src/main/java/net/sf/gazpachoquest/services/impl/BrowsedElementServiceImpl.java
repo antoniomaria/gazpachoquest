@@ -1,8 +1,8 @@
 package net.sf.gazpachoquest.services.impl;
 
+import net.sf.gazpachoquest.domain.core.BrowsedElement;
 import net.sf.gazpachoquest.repository.BrowsedElementRepository;
 import net.sf.gazpachoquest.services.BrowsedElementService;
-import net.sf.gazpachosurvey.domain.core.BrowsedElement;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;

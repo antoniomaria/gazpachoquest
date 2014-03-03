@@ -2,14 +2,14 @@ package net.sf.gazpachoquest.facades.impl;
 
 import java.util.Set;
 
+import net.sf.gazpachoquest.domain.core.Question;
+import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachoquest.facades.QuestionnairDefinitionAccessorFacade;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
 import net.sf.gazpachoquest.types.Language;
-import net.sf.gazpachosurvey.domain.core.Question;
-import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,11 +1,11 @@
 package net.sf.gazpachoquest.services.impl;
 
+import net.sf.gazpachoquest.domain.core.Label;
+import net.sf.gazpachoquest.domain.core.embeddables.LabelLanguageSettings;
+import net.sf.gazpachoquest.domain.i18.LabelTranslation;
 import net.sf.gazpachoquest.repository.LabelRepository;
 import net.sf.gazpachoquest.repository.i18.LabelTranslationRepository;
 import net.sf.gazpachoquest.services.LabelService;
-import net.sf.gazpachosurvey.domain.core.Label;
-import net.sf.gazpachosurvey.domain.core.embeddables.LabelLanguageSettings;
-import net.sf.gazpachosurvey.domain.i18.LabelTranslation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

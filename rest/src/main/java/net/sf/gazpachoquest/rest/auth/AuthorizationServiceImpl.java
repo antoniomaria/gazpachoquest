@@ -4,10 +4,10 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
+import net.sf.gazpachoquest.domain.support.Person;
 import net.sf.gazpachoquest.security.LoginService;
 import net.sf.gazpachoquest.security.LoginServiceFactory;
 import net.sf.gazpachoquest.security.LoginServiceType;
-import net.sf.gazpachosurvey.domain.support.Person;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

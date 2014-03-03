@@ -3,6 +3,7 @@ package net.sf.gazpachoquest.questionnair.support;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.SubquestionDTO;
@@ -14,7 +15,6 @@ import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.dto.support.AbstractQuestionDTO;
 import net.sf.gazpachoquest.services.QuestionnairAnswersService;
 import net.sf.gazpachoquest.types.QuestionType;
-import net.sf.gazpachosurvey.domain.core.Questionnair;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;

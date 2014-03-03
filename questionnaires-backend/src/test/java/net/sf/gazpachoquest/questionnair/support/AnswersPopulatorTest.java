@@ -5,6 +5,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.facades.QuestionnairDefinitionAccessorFacade;
@@ -12,7 +13,6 @@ import net.sf.gazpachoquest.questionnair.support.AnswersPopulator;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachoquest.services.QuestionnairAnswersService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
-import net.sf.gazpachosurvey.domain.core.Questionnair;
 
 import org.junit.Before;
 import org.junit.Test;

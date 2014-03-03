@@ -2,8 +2,11 @@ package net.sf.gazpachoquest.dto.answers;
 
 import java.io.Serializable;
 
-import org.codehaus.jackson.annotate.JsonSubTypes;
-import org.codehaus.jackson.annotate.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+//import org.codehaus.jackson.annotate.JsonSubTypes;
+//import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "type")
 @JsonSubTypes({ @JsonSubTypes.Type(value = TextAnswer.class, name = "T"),

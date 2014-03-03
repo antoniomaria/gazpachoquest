@@ -2,8 +2,8 @@ package net.sf.gazpachoquest.services;
 
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.support.Persistable;
 import net.sf.gazpachoquest.repository.qbe.SearchParameters;
-import net.sf.gazpachosurvey.domain.support.Persistable;
 
 public interface PersistenceService<T extends Persistable> {
     long count();

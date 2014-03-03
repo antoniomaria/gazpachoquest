@@ -6,13 +6,13 @@ import java.sql.Types;
 
 import javax.sql.DataSource;
 
+import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.core.QuestionnairAnswers;
+import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
-import net.sf.gazpachosurvey.domain.core.Questionnair;
-import net.sf.gazpachosurvey.domain.core.QuestionnairAnswers;
-import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Before;

@@ -1,13 +1,13 @@
 package net.sf.gazpachoquest.repository;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachoquest.domain.core.Label;
+import net.sf.gazpachoquest.domain.core.LabelSet;
+import net.sf.gazpachoquest.domain.core.embeddables.LabelLanguageSettings;
 import net.sf.gazpachoquest.repository.LabelRepository;
 import net.sf.gazpachoquest.repository.LabelSetRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.Language;
-import net.sf.gazpachosurvey.domain.core.Label;
-import net.sf.gazpachosurvey.domain.core.LabelSet;
-import net.sf.gazpachosurvey.domain.core.embeddables.LabelLanguageSettings;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

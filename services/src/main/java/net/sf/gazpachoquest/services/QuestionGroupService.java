@@ -2,9 +2,9 @@ package net.sf.gazpachoquest.services;
 
 import java.util.List;
 
-import net.sf.gazpachosurvey.domain.core.QuestionGroup;
-import net.sf.gazpachosurvey.domain.core.embeddables.QuestionGroupLanguageSettings;
-import net.sf.gazpachosurvey.domain.i18.QuestionGroupTranslation;
+import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.embeddables.QuestionGroupLanguageSettings;
+import net.sf.gazpachoquest.domain.i18.QuestionGroupTranslation;
 
 public interface QuestionGroupService extends
         LocalizedPersistenceService<QuestionGroup, QuestionGroupTranslation, QuestionGroupLanguageSettings> {

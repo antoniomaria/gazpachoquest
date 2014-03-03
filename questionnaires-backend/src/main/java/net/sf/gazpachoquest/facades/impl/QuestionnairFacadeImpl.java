@@ -2,6 +2,11 @@ package net.sf.gazpachoquest.facades.impl;
 
 import java.util.Set;
 
+import net.sf.gazpachoquest.domain.core.Question;
+import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.support.QuestionnairElement;
 import net.sf.gazpachoquest.dto.PageDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
@@ -18,11 +23,6 @@ import net.sf.gazpachoquest.services.QuestionnairService;
 import net.sf.gazpachoquest.types.BrowsingAction;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.RenderingMode;
-import net.sf.gazpachosurvey.domain.core.Question;
-import net.sf.gazpachosurvey.domain.core.QuestionGroup;
-import net.sf.gazpachosurvey.domain.core.Questionnair;
-import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
-import net.sf.gazpachosurvey.domain.support.QuestionnairElement;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;

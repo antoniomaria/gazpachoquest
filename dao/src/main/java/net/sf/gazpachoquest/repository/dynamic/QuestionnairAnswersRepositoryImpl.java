@@ -8,16 +8,16 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import net.sf.gazpachoquest.domain.core.Question;
+import net.sf.gazpachoquest.domain.core.QuestionOption;
+import net.sf.gazpachoquest.domain.core.QuestionnairAnswers;
+import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.repository.QuestionOptionRepository;
 import net.sf.gazpachoquest.repository.QuestionRepository;
 import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachoquest.repository.qbe.SearchParameters;
 import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.QuestionType;
-import net.sf.gazpachosurvey.domain.core.Question;
-import net.sf.gazpachosurvey.domain.core.QuestionOption;
-import net.sf.gazpachosurvey.domain.core.QuestionnairAnswers;
-import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
 
 import org.eclipse.persistence.descriptors.ClassDescriptor;
 import org.eclipse.persistence.dynamic.DynamicClassLoader;
@@ -38,7 +38,7 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
 
     private static final Logger logger = LoggerFactory.getLogger(QuestionnairAnswersRepositoryImpl.class);
 
-    private static final String PACKAGE_PREFIX = "net.sf.gazpachosurvey.domain.dynamic.";
+    private static final String PACKAGE_PREFIX = "net.sf.gazpachoquest.domain.dynamic.";
 
     @PersistenceContext
     private EntityManager entityManager;

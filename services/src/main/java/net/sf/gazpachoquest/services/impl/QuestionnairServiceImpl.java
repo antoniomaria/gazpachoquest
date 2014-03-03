@@ -1,9 +1,9 @@
 package net.sf.gazpachoquest.services.impl;
 
+import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.services.QuestionnairService;
 import net.sf.gazpachoquest.types.EntityStatus;
-import net.sf.gazpachosurvey.domain.core.Questionnair;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

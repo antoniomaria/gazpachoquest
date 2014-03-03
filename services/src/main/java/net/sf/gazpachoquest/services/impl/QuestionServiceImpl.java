@@ -2,15 +2,15 @@ package net.sf.gazpachoquest.services.impl;
 
 import javax.annotation.Resource;
 
+import net.sf.gazpachoquest.domain.core.Question;
+import net.sf.gazpachoquest.domain.core.QuestionOption;
+import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
+import net.sf.gazpachoquest.domain.i18.QuestionTranslation;
 import net.sf.gazpachoquest.repository.QuestionGroupRepository;
 import net.sf.gazpachoquest.repository.QuestionRepository;
 import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachoquest.repository.i18.QuestionTranslationRepository;
 import net.sf.gazpachoquest.services.QuestionService;
-import net.sf.gazpachosurvey.domain.core.Question;
-import net.sf.gazpachosurvey.domain.core.QuestionOption;
-import net.sf.gazpachosurvey.domain.core.embeddables.QuestionLanguageSettings;
-import net.sf.gazpachosurvey.domain.i18.QuestionTranslation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

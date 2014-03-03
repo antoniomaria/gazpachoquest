@@ -2,7 +2,6 @@ package net.sf.gazpachoquest.rest.resources.runtime;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
@@ -14,28 +13,24 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.dto.PageDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachoquest.rest.ApplicationConfig;
+import net.sf.gazpachoquest.rest.contrib.Jackson2Feature;
 import net.sf.gazpachoquest.security.LoginService;
 import net.sf.gazpachoquest.services.QuestionnairAnswersService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.BrowsingAction;
 import net.sf.gazpachoquest.types.RenderingMode;
-import net.sf.gazpachosurvey.domain.core.Questionnair;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.JavaType;
 import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.filter.HttpBasicAuthFilter;
-import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.test.TestProperties;
@@ -91,7 +86,7 @@ public class QuestionnairResourceTest {
 
         @Override
         protected void configureClient(final ClientConfig config) {
-            config.register(new JacksonFeature());
+            config.register(new Jackson2Feature());
         }
     }
 
@@ -102,19 +97,20 @@ public class QuestionnairResourceTest {
         repository.activeAllAnswers();
     }
 
-    public void getQuestionnairsTestOldWay() throws JsonParseException, JsonMappingException, IOException {
-        String invitationToken = "UO6QUYLIK1";
+    /*-
+     public void getQuestionnairsTestOldWay() throws JsonParseException, JsonMappingException, IOException {
+     String invitationToken = "UO6QUYLIK1";
 
-        ObjectMapper mapper = new ObjectMapper();
-        JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, QuestionnairDTO.class);
+     ObjectMapper mapper = new ObjectMapper();
+     JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, QuestionnairDTO.class);
 
-        client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
-        String response = client().target(getBaseUri() + "runtime/questionnairs").request()
-                .accept(MediaType.APPLICATION_JSON).get(String.class);
+     client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
+     String response = client().target(getBaseUri() + "runtime/questionnairs").request()
+     .accept(MediaType.APPLICATION_JSON).get(String.class);
 
-        List<QuestionnairDTO> questionnairDTOs = mapper.readValue(response, type);
-        assertThat(questionnairDTOs).hasSize(1);
-    }
+     List<QuestionnairDTO> questionnairDTOs = mapper.readValue(response, type);
+     assertThat(questionnairDTOs).hasSize(1);
+     }*/
 
     @Test
     public void questionnairsListTest() {

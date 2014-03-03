@@ -1,9 +1,9 @@
 package net.sf.gazpachoquest.services.impl;
 
+import net.sf.gazpachoquest.domain.core.Label;
+import net.sf.gazpachoquest.domain.core.LabelSet;
 import net.sf.gazpachoquest.repository.LabelSetRepository;
 import net.sf.gazpachoquest.services.LabelSetService;
-import net.sf.gazpachosurvey.domain.core.Label;
-import net.sf.gazpachosurvey.domain.core.LabelSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

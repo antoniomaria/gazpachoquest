@@ -6,16 +6,16 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import net.sf.gazpachoquest.domain.core.Participant;
+import net.sf.gazpachoquest.domain.core.PersonalInvitation;
+import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.core.Study;
+import net.sf.gazpachoquest.domain.support.Invitation;
+import net.sf.gazpachoquest.domain.support.Person;
 import net.sf.gazpachoquest.repository.InvitationRepository;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.repository.qbe.SearchParameters;
 import net.sf.gazpachoquest.security.LoginService;
-import net.sf.gazpachosurvey.domain.core.Participant;
-import net.sf.gazpachosurvey.domain.core.PersonalInvitation;
-import net.sf.gazpachosurvey.domain.core.Questionnair;
-import net.sf.gazpachosurvey.domain.core.Study;
-import net.sf.gazpachosurvey.domain.support.Invitation;
-import net.sf.gazpachosurvey.domain.support.Person;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
