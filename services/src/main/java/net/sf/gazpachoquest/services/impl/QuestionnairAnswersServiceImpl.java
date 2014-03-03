@@ -2,11 +2,11 @@ package net.sf.gazpachoquest.services.impl;
 
 import java.util.Map;
 
+import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.core.QuestionnairAnswers;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachoquest.services.QuestionnairAnswersService;
-import net.sf.gazpachosurvey.domain.core.Questionnair;
-import net.sf.gazpachosurvey.domain.core.QuestionnairAnswers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

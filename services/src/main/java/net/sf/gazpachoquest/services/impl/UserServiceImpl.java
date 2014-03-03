@@ -1,8 +1,8 @@
 package net.sf.gazpachoquest.services.impl;
 
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.repository.UserRepository;
 import net.sf.gazpachoquest.services.UserService;
-import net.sf.gazpachosurvey.domain.user.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

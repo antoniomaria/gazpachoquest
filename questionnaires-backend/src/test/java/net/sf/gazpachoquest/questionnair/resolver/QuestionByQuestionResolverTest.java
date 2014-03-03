@@ -1,12 +1,12 @@
 package net.sf.gazpachoquest.questionnair.resolver;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachoquest.domain.core.Question;
+import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.questionnair.resolver.QuestionnairElementResolver;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.BrowsingAction;
-import net.sf.gazpachosurvey.domain.core.Question;
-import net.sf.gazpachosurvey.domain.core.Questionnair;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

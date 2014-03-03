@@ -2,8 +2,8 @@ package net.sf.gazpachoquest.repository;
 
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.repository.support.GenericRepository;
-import net.sf.gazpachosurvey.domain.core.Question;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

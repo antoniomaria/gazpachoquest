@@ -2,7 +2,10 @@ package net.sf.gazpachoquest.dto.support;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.codehaus.jackson.annotate.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+// import org.codehaus.jackson.annotate.JsonIgnore;
 
 public abstract class AbstractIdentifiableDTO implements Identifiable {
 
@@ -40,8 +43,6 @@ public abstract class AbstractIdentifiableDTO implements Identifiable {
 
     @Override
     @JsonIgnore
-    // To be excluded in api-docs
-    @com.fasterxml.jackson.annotation.JsonIgnore
     public boolean isNew() {
         return null == getId();
     }

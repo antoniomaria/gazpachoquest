@@ -4,12 +4,12 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import javax.sql.DataSource;
 
+import net.sf.gazpachoquest.domain.core.Study;
+import net.sf.gazpachoquest.domain.support.Invitation;
 import net.sf.gazpachoquest.services.InvitationService;
 import net.sf.gazpachoquest.services.StudyService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.InvitationStatus;
-import net.sf.gazpachosurvey.domain.core.Study;
-import net.sf.gazpachosurvey.domain.support.Invitation;
 
 import org.junit.Rule;
 import org.junit.Test;

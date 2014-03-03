@@ -1,13 +1,13 @@
 package net.sf.gazpachoquest.repository;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.core.Study;
 import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.repository.StudyRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.EntityStatus;
-import net.sf.gazpachosurvey.domain.core.Questionnair;
-import net.sf.gazpachosurvey.domain.core.Study;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

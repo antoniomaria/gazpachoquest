@@ -1,11 +1,11 @@
 package net.sf.gazpachoquest.repository;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachoquest.domain.core.BrowsedElement;
+import net.sf.gazpachoquest.domain.core.BrowsedQuestion;
 import net.sf.gazpachoquest.repository.BrowsedElementRepository;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
-import net.sf.gazpachosurvey.domain.core.BrowsedElement;
-import net.sf.gazpachosurvey.domain.core.BrowsedQuestion;
 
 import org.junit.Ignore;
 import org.junit.Test;

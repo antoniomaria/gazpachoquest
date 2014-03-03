@@ -5,7 +5,7 @@
   <!-- LabelSet Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.LabelSetDTO</class-a>
-    <class-b>net.sf.gazpachosurvey.domain.core.LabelSet</class-b>
+    <class-b>net.sf.gazpachoquest.domain.core.LabelSet</class-b>
     <field>
       <a>name</a>
       <b>name</b>
@@ -21,7 +21,7 @@
   </mapping>
 
   <mapping type="one-way">
-    <class-a>net.sf.gazpachosurvey.domain.core.LabelSet</class-a>
+    <class-a>net.sf.gazpachoquest.domain.core.LabelSet</class-a>
     <class-b>net.sf.gazpachoquest.dto.LabelSetDTO</class-b>
     <field>
       <a>name</a>
@@ -39,7 +39,7 @@
   </mapping>
 
   <mapping map-id="LabelSet.default">
-    <class-a>net.sf.gazpachosurvey.domain.core.LabelSet</class-a>
+    <class-a>net.sf.gazpachoquest.domain.core.LabelSet</class-a>
     <class-b>net.sf.gazpachoquest.dto.LabelSetDTO</class-b>
     <field>
       <a>name</a>
@@ -54,16 +54,16 @@
   <!-- QuestionGroup Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.QuestionGroupDTO</class-a>
-    <class-b>net.sf.gazpachosurvey.domain.core.QuestionGroup</class-b>
+    <class-b>net.sf.gazpachoquest.domain.core.QuestionGroup</class-b>
     <field>
       <a>questions</a>
       <b set-method="addQuestion" type="iterate">questions</b>
-      <b-hint>net.sf.gazpachosurvey.domain.core.Question</b-hint>
+      <b-hint>net.sf.gazpachoquest.domain.core.Question</b-hint>
     </field>
   </mapping>
 
   <mapping type="one-way">
-    <class-a>net.sf.gazpachosurvey.domain.core.QuestionGroup</class-a>
+    <class-a>net.sf.gazpachoquest.domain.core.QuestionGroup</class-a>
     <class-b>net.sf.gazpachoquest.dto.QuestionGroupDTO</class-b>
     <field>
       <a>questions</a>
@@ -76,21 +76,21 @@
   <!-- Question Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.QuestionDTO</class-a>
-    <class-b>net.sf.gazpachosurvey.domain.core.Question</class-b>
+    <class-b>net.sf.gazpachoquest.domain.core.Question</class-b>
     <field>
       <a>subquestions</a>
       <b set-method="addSubquestion" type="iterate">subquestions</b>
-      <b-hint>net.sf.gazpachosurvey.domain.core.Question</b-hint>
+      <b-hint>net.sf.gazpachoquest.domain.core.Question</b-hint>
     </field>
     <field>
       <a>questionOptions</a>
       <b set-method="addQuestionOption" type="iterate">questionOptions</b>
-      <b-hint>net.sf.gazpachosurvey.domain.core.QuestionOption</b-hint>
+      <b-hint>net.sf.gazpachoquest.domain.core.QuestionOption</b-hint>
     </field>
   </mapping>
 
   <mapping type="one-way">
-    <class-a>net.sf.gazpachosurvey.domain.core.Question</class-a>
+    <class-a>net.sf.gazpachoquest.domain.core.Question</class-a>
     <class-b>net.sf.gazpachoquest.dto.QuestionDTO</class-b>
     <field>
       <a>subquestions</a>
@@ -107,16 +107,16 @@
   <!-- QuestionnairDefinition Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO</class-a>
-    <class-b>net.sf.gazpachosurvey.domain.core.QuestionnairDefinition</class-b>
+    <class-b>net.sf.gazpachoquest.domain.core.QuestionnairDefinition</class-b>
     <field>
       <a>questionGroups</a>
       <b set-method="addQuestionGroup" type="iterate">questionGroups</b>
-      <b-hint>net.sf.gazpachosurvey.domain.core.QuestionGroup</b-hint>
+      <b-hint>net.sf.gazpachoquest.domain.core.QuestionGroup</b-hint>
     </field>
   </mapping>
 
   <mapping type="one-way">
-    <class-a>net.sf.gazpachosurvey.domain.core.QuestionnairDefinition</class-a>
+    <class-a>net.sf.gazpachoquest.domain.core.QuestionnairDefinition</class-a>
     <class-b>net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO</class-b>
     <field-exclude type="one-way">
       <a>questionGroups</a>
@@ -125,7 +125,7 @@
   </mapping>
   
   <mapping type="one-way" map-id="toDTOwithQuestionGroups">
-    <class-a>net.sf.gazpachosurvey.domain.core.QuestionnairDefinition</class-a>
+    <class-a>net.sf.gazpachoquest.domain.core.QuestionnairDefinition</class-a>
     <class-b>net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO</class-b>
   </mapping>
 

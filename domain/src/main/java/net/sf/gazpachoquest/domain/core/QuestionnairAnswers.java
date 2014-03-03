@@ -1,0 +1,84 @@
+package net.sf.gazpachoquest.domain.core;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+import net.sf.gazpachoquest.domain.support.Persistable;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.springframework.util.Assert;
+
+public class QuestionnairAnswers implements Persistable {
+    private static final long serialVersionUID = -214686516454070394L;
+
+    private Integer id;
+
+    private Map<String, Object> answers;
+
+    public QuestionnairAnswers() {
+        super();
+    }
+
+    public Map<String, Object> getAnswers() {
+        if (answers == null) {
+            this.answers = new TreeMap<String, Object>(String.CASE_INSENSITIVE_ORDER);
+        }
+        return answers;
+    }
+
+    public void setAnswers(Map<String, Object> answers) {
+        this.answers = answers;
+    }
+
+    public void setAnswer(String code, Object answer) {
+        Assert.notNull(code);
+        this.getAnswers().put(code.toLowerCase(), answer);
+    }
+
+    public Object getAnswer(String code) {
+        return getAnswers().get(code);
+    }
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean isNew() {
+        return null == getId();
+    }
+
+    @Override
+    public int hashCode() {
+        if (!isNew()) {
+            return (new HashCodeBuilder()).append(getId()).toHashCode();
+        } else {
+            return HashCodeBuilder.reflectionHashCode(this);
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Persistable) {
+            final Persistable other = (Persistable) obj;
+            if (!isNew()) {
+                return (new EqualsBuilder()).append(getId(), other.getId()).isEquals();
+            } else {
+                return EqualsBuilder.reflectionEquals(this, obj);
+            }
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Entity of type %s with id: %s", this.getClass().getName(), getId());
+    }
+}

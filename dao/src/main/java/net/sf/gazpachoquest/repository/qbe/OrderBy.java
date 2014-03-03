@@ -15,8 +15,8 @@ import java.io.Serializable;
 
 import javax.persistence.metamodel.SingularAttribute;
 
+import net.sf.gazpachoquest.domain.support.Persistable;
 import net.sf.gazpachoquest.repository.support.NamedQueryUtil;
-import net.sf.gazpachosurvey.domain.support.Persistable;
 
 import org.apache.commons.lang.Validate;
 

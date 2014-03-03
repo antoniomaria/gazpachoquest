@@ -1,6 +1,6 @@
 package net.sf.gazpachoquest.services;
 
-import net.sf.gazpachosurvey.domain.core.Participant;
+import net.sf.gazpachoquest.domain.core.Participant;
 
 public interface ParticipantService extends PersistenceService<Participant> {
 

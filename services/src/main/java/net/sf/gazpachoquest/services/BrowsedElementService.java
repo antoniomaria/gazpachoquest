@@ -1,6 +1,6 @@
 package net.sf.gazpachoquest.services;
 
-import net.sf.gazpachosurvey.domain.core.BrowsedElement;
+import net.sf.gazpachoquest.domain.core.BrowsedElement;
 
 import org.joda.time.DateTime;
 

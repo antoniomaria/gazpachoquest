@@ -4,11 +4,11 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation;
 import net.sf.gazpachoquest.repository.i18.QuestionnairDefinitionTranslationRepository;
 import net.sf.gazpachoquest.repository.qbe.SearchParameters;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.Language;
-import net.sf.gazpachosurvey.domain.i18.QuestionnairDefinitionTranslation;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

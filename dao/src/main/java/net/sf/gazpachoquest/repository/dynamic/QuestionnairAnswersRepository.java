@@ -1,7 +1,7 @@
 package net.sf.gazpachoquest.repository.dynamic;
 
-import net.sf.gazpachosurvey.domain.core.QuestionnairAnswers;
-import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.core.QuestionnairAnswers;
+import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 
 public interface QuestionnairAnswersRepository {
 

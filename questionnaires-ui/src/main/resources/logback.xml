@@ -18,7 +18,7 @@
     </encoder>
   </appender>
 
-  <logger name="net.sf.gazpachosurvey" level="DEBUG" />
+  <logger name="net.sf.gazpachoquest" level="DEBUG" />
 
   <logger name="ru.xpoft" level="DEBUG" />
 

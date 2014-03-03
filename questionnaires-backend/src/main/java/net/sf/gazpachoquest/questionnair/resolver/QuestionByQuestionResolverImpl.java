@@ -2,18 +2,18 @@ package net.sf.gazpachoquest.questionnair.resolver;
 
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.core.BrowsedElement;
+import net.sf.gazpachoquest.domain.core.BrowsedQuestion;
+import net.sf.gazpachoquest.domain.core.Question;
+import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.repository.BrowsedElementRepository;
 import net.sf.gazpachoquest.repository.QuestionGroupRepository;
 import net.sf.gazpachoquest.repository.QuestionRepository;
 import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachoquest.repository.qbe.SearchParameters;
 import net.sf.gazpachoquest.types.BrowsingAction;
-import net.sf.gazpachosurvey.domain.core.BrowsedElement;
-import net.sf.gazpachosurvey.domain.core.BrowsedQuestion;
-import net.sf.gazpachosurvey.domain.core.Question;
-import net.sf.gazpachosurvey.domain.core.QuestionGroup;
-import net.sf.gazpachosurvey.domain.core.Questionnair;
-import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

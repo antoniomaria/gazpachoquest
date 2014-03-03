@@ -14,7 +14,7 @@ import java.util.List;
 
 import javax.persistence.metamodel.SingularAttribute;
 
-import net.sf.gazpachosurvey.domain.support.Persistable;
+import net.sf.gazpachoquest.domain.support.Persistable;
 
 import org.apache.commons.lang.Validate;
 

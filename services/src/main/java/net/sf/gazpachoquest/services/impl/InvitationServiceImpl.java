@@ -1,8 +1,8 @@
 package net.sf.gazpachoquest.services.impl;
 
+import net.sf.gazpachoquest.domain.support.Invitation;
 import net.sf.gazpachoquest.repository.InvitationRepository;
 import net.sf.gazpachoquest.services.InvitationService;
-import net.sf.gazpachosurvey.domain.support.Invitation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

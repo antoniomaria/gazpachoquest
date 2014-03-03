@@ -20,7 +20,7 @@
 
   <context:annotation-config />
 
-  <context:component-scan base-package="net.sf.gazpachosurvey.questionnaires" />
+  <context:component-scan base-package="net.sf.gazpachoquest.questionnaires" />
 
   <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
     <property name="basename" value="classpath:/locales/messages" />

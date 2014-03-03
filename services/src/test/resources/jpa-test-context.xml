@@ -23,7 +23,7 @@
 
   <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" p:entityManagerFactory-ref="entityManagerFactory" />
 
-  <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" p:dataSource-ref="dataSource" p:packagesToScan="net.sf.gazpachosurvey.domain"
+  <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" p:dataSource-ref="dataSource" p:packagesToScan="net.sf.gazpachoquest.domain"
     p:jpaVendorAdapter-ref="eclipseLinkVendor" p:jpaPropertyMap-ref="jpaPropertyMap">
   </bean>
 

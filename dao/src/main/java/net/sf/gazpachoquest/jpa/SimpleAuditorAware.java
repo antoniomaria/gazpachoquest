@@ -1,6 +1,6 @@
 package net.sf.gazpachoquest.jpa;
 
-import net.sf.gazpachosurvey.domain.user.User;
+import net.sf.gazpachoquest.domain.user.User;
 
 import org.springframework.data.domain.AuditorAware;
 

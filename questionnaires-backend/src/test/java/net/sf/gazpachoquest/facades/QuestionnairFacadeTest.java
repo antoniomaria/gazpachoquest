@@ -1,6 +1,7 @@
 package net.sf.gazpachoquest.facades;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.dto.PageDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
@@ -15,7 +16,6 @@ import net.sf.gazpachoquest.services.QuestionnairAnswersService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.BrowsingAction;
 import net.sf.gazpachoquest.types.RenderingMode;
-import net.sf.gazpachosurvey.domain.core.Questionnair;
 
 import org.junit.Before;
 import org.junit.Test;

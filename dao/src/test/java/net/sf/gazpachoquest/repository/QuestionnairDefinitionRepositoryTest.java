@@ -4,16 +4,16 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.core.Question;
+import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.core.embeddables.QuestionGroupLanguageSettings;
+import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
+import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
 import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
-import net.sf.gazpachosurvey.domain.core.Question;
-import net.sf.gazpachosurvey.domain.core.QuestionGroup;
-import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
-import net.sf.gazpachosurvey.domain.core.embeddables.QuestionGroupLanguageSettings;
-import net.sf.gazpachosurvey.domain.core.embeddables.QuestionLanguageSettings;
-import net.sf.gazpachosurvey.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

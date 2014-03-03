@@ -4,11 +4,11 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.core.MailMessageTemplate;
+import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.repository.MailMessageTemplateRepository;
 import net.sf.gazpachoquest.repository.qbe.SearchParameters;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
-import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
-import net.sf.gazpachosurvey.domain.core.QuestionnairDefinition;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

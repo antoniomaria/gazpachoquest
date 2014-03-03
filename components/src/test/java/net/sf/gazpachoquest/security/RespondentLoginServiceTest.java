@@ -1,10 +1,10 @@
 package net.sf.gazpachoquest.security;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachoquest.domain.core.Participant;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachoquest.security.LoginService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
-import net.sf.gazpachosurvey.domain.core.Participant;
 
 import org.junit.Before;
 import org.junit.Test;

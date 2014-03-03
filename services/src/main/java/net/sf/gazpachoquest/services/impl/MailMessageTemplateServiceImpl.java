@@ -1,11 +1,11 @@
 package net.sf.gazpachoquest.services.impl;
 
+import net.sf.gazpachoquest.domain.core.MailMessageTemplate;
+import net.sf.gazpachoquest.domain.core.embeddables.MailMessageTemplateLanguageSettings;
+import net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachoquest.repository.MailMessageTemplateRepository;
 import net.sf.gazpachoquest.repository.i18.MailMessageTemplateTranslationRepository;
 import net.sf.gazpachoquest.services.MailMessageTemplateService;
-import net.sf.gazpachosurvey.domain.core.MailMessageTemplate;
-import net.sf.gazpachosurvey.domain.core.embeddables.MailMessageTemplateLanguageSettings;
-import net.sf.gazpachosurvey.domain.i18.MailMessageTemplateTranslation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

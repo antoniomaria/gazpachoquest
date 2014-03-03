@@ -1,7 +1,7 @@
 package net.sf.gazpachoquest.repository;
 
+import net.sf.gazpachoquest.domain.core.BrowsedElement;
 import net.sf.gazpachoquest.repository.support.GenericRepository;
-import net.sf.gazpachosurvey.domain.core.BrowsedElement;
 
 import org.joda.time.DateTime;
 import org.springframework.data.jpa.repository.Query;

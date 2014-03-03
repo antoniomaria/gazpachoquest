@@ -3,7 +3,9 @@ package net.sf.gazpachoquest.dto.answers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+//import org.codehaus.jackson.annotate.JsonIgnore;
 
 public class MultipleAnswer extends AbstractAnswer {
 
