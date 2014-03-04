@@ -2,6 +2,7 @@ package net.sf.gazpachoquest.questionnaires;
 
 import java.util.List;
 
+import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
@@ -19,12 +20,14 @@ import com.vaadin.ui.VerticalLayout;
 @Theme("gazpacho")
 @Title("Gazpacho Questionnaires")
 @CDIUI
+@SessionScoped
+// @SessionScoped
 public class QuestionnairesUI extends UI {
 
     private static final long serialVersionUID = 1265851857862002747L;
 
     @Inject
-    private QuestionnairsClient client;
+    private transient QuestionnairsClient client;
 
     @Override
     protected void init(VaadinRequest request) {

@@ -20,7 +20,7 @@ import com.vaadin.cdi.UIScoped;
 
 // @Stateless
 @UIScoped
-// SessionScoped
+// @SessionScoped
 public class QuestionnairsClient implements Questionnairs {
 
     private static final long serialVersionUID = -3540740377335442445L;
@@ -39,7 +39,7 @@ public class QuestionnairsClient implements Questionnairs {
     @PostConstruct
     public void init() {
         logger.debug("Initializing instance of class %s", QuestionnairsClient.class.getSimpleName());
-        this.proxy = JAXRSClientFactory.create(baseURI, Questionnairs.class,
+        proxy = JAXRSClientFactory.create(baseURI, Questionnairs.class,
                 Collections.singletonList(new JacksonJsonProvider()), "respondent", "12345678", null);
     }
 
