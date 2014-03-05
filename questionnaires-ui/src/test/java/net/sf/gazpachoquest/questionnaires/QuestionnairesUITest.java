@@ -3,7 +3,6 @@ package net.sf.gazpachoquest.questionnaires;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
@@ -14,12 +13,11 @@ import com.vaadin.cdi.ArchiveProvider;
 // import org.jboss.arquillian.api.Deployment;
 
 @RunWith(Arquillian.class)
-@RunAsClient
+// @RunAsClient
 public class QuestionnairesUITest {
 
     /**
-     * * Note in this example, we must add content to "beans.xml" in order to
-     * enable * our decorator in CDI/Weld -- this
+     * * Note in this example, we must add content to "beans.xml" in order to enable * our decorator in CDI/Weld -- this
      * is done in the deployment using the syntax below:
      */
     @Deployment
