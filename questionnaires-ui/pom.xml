@@ -16,6 +16,19 @@
         <arquillian.version>1.0.0.Alpha1</arquillian.version>
     
   </properties>
+    <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.jboss.arquillian</groupId>
+        <artifactId>arquillian-bom</artifactId>
+        <version>1.0.3.Final</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  
+  
   <dependencies>
 
     <dependency>
@@ -44,15 +57,56 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
-    <!--
-      <dependency>
-      <groupId>org.jglue.cdi-unit</groupId>
-      <artifactId>cdi-unit</artifactId>
-      <version>2.2.1</version>
-      <scope>test</scope>
-      </dependency> -->
 
-<dependency>
+
+    <!-- Arquillian vaadin -->
+    <dependency>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-container</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.openejb</groupId>
+      <artifactId>arquillian-tomee-embedded</artifactId>
+      <version>1.5.0</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>wagon-provider-api</artifactId>
+          <groupId>org.apache.maven.wagon</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>wagon-file</artifactId>
+          <groupId>org.apache.maven.wagon</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.shrinkwrap.resolver</groupId>
+      <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>wagon-http-shared</artifactId>
+          <groupId>org.apache.maven.wagon</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>wagon-provider-api</artifactId>
+          <groupId>org.apache.maven.wagon</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>wagon-http-lightweight</artifactId>
+          <groupId>org.apache.maven.wagon</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>wagon-file</artifactId>
+          <groupId>org.apache.maven.wagon</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    
+    <!-- 
+    <dependency>
         <groupId>org.jboss.arquillian</groupId>
         <artifactId>arquillian-junit</artifactId>
         <version>${arquillian.version}</version>
@@ -72,7 +126,7 @@
             </exclusion>
         </exclusions>
       </dependency>
-
+       -->
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>
