@@ -33,12 +33,12 @@ public class QuestionnairsClient implements Questionnairs {
 
     public QuestionnairsClient() {
         super();
-        logger.debug("New instance of class %s created", QuestionnairsClient.class.getSimpleName());
+        logger.debug("New instance of class {} created", QuestionnairsClient.class.getSimpleName());
     }
 
     @PostConstruct
     public void init() {
-        logger.debug("Initializing instance of class %s", QuestionnairsClient.class.getSimpleName());
+        logger.debug("Initializing instance of class {}", QuestionnairsClient.class.getSimpleName());
         proxy = JAXRSClientFactory.create(baseURI, Questionnairs.class,
                 Collections.singletonList(new JacksonJsonProvider()), "respondent", "12345678", null);
     }

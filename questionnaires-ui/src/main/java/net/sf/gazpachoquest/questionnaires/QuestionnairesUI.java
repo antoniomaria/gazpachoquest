@@ -6,7 +6,9 @@ import javax.inject.Inject;
 
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 
-import com.vaadin.annotations.Theme;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.annotations.Title;
 import com.vaadin.cdi.CDIUI;
 import com.vaadin.server.VaadinRequest;
@@ -16,20 +18,22 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-@Theme("gazpacho")
+// @Theme("gazpacho")
 @Title("Gazpacho Questionnaires")
 @CDIUI
-// @SessionScoped
-// @SessionScoped
 public class QuestionnairesUI extends UI {
 
     private static final long serialVersionUID = 1265851857862002747L;
+
+    private static final Logger logger = LoggerFactory.getLogger(QuestionnairesUI.class);
 
     @Inject
     private QuestionnairsClient client;
 
     @Override
     protected void init(VaadinRequest request) {
+        logger.info("New Vaadin UI created");
+
         final VerticalLayout layout = new VerticalLayout();
         // layout.setStyleName(Reindeer.LAYOUT_BLUE);
         layout.setMargin(true);
@@ -47,7 +51,6 @@ public class QuestionnairesUI extends UI {
         });
         layout.addComponent(label);
         layout.addComponent(button);
-
     }
 
 }
