@@ -1,5 +1,6 @@
 package net.sf.gazpachoquest.api;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -16,7 +17,7 @@ import net.sf.gazpachoquest.types.RenderingMode;
 
 @Path("/api/runtime/questionnairs")
 @Produces(MediaType.APPLICATION_JSON)
-public interface Questionnairs {
+public interface Questionnairs extends Serializable {
 
     @GET
     List<QuestionnairDTO> list();

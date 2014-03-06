@@ -28,7 +28,7 @@ public class QuestionnairesUITest {
     @Deployment
     public static Archive<?> createTestArchive() {
         return ArchiveProvider.createWebArchive("gazpachoquest-questionnaires-ui", QuestionnairesUI.class,
-                QuestionnairsClient.class);
+                QuestionnairsClient.class, SessionStore.class);
     }
 
     /*-
@@ -47,7 +47,11 @@ public class QuestionnairesUITest {
     public void initTest() throws IOException, SAXException {
         System.out.println("hola holitas" + contextPath);
         final WebClient webClient = new WebClient();
-        final HtmlPage page = webClient.getPage(contextPath.toExternalForm());
+
+        webClient.addRequestHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        webClient.addRequestHeader("Pragma", "no-cache"); // HTTP 1.0.
+        webClient.addRequestHeader("Expires", "0"); //
+        final HtmlPage page = webClient.getPage(contextPath.toExternalForm() + "?invitation=12345678");
 
         final String pageAsText = page.asText();
 

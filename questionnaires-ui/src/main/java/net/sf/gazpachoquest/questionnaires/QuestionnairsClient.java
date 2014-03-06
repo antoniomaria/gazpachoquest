@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 import net.sf.gazpachoquest.api.Questionnairs;
 import net.sf.gazpachoquest.dto.PageDTO;
@@ -18,9 +19,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.vaadin.cdi.UIScoped;
 
-// @Stateless
 @UIScoped
-// @SessionScoped
 public class QuestionnairsClient implements Questionnairs {
 
     private static final long serialVersionUID = -3540740377335442445L;
@@ -31,6 +30,9 @@ public class QuestionnairsClient implements Questionnairs {
 
     private Questionnairs proxy;
 
+    @Inject
+    private SessionStore store;
+
     public QuestionnairsClient() {
         super();
         logger.debug("New instance of class {} created", QuestionnairsClient.class.getSimpleName());
@@ -38,7 +40,8 @@ public class QuestionnairsClient implements Questionnairs {
 
     @PostConstruct
     public void init() {
-        logger.debug("Initializing instance of class {}", QuestionnairsClient.class.getSimpleName());
+        logger.debug("Initializing instance of class {} with Session = {}", QuestionnairsClient.class.getSimpleName(),
+                store.getPayload());
         proxy = JAXRSClientFactory.create(baseURI, Questionnairs.class,
                 Collections.singletonList(new JacksonJsonProvider()), "respondent", "12345678", null);
     }

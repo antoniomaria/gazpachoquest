@@ -28,11 +28,19 @@ public class QuestionnairesUI extends UI {
     private static final Logger logger = LoggerFactory.getLogger(QuestionnairesUI.class);
 
     @Inject
+    private SessionStore store;
+
+    @Inject
     private QuestionnairsClient client;
 
     @Override
     protected void init(VaadinRequest request) {
         logger.info("New Vaadin UI created");
+        String invitation = request.getParameter("invitation");
+        String payload = store.getPayload();
+        String uri = request.getPathInfo();
+        logger.info("Invitation: {} of sessions : {}", invitation, SessionStore.INSTANCE_COUNT.get());
+        store.setPayload("mi pay load");
 
         final VerticalLayout layout = new VerticalLayout();
         // layout.setStyleName(Reindeer.LAYOUT_BLUE);
