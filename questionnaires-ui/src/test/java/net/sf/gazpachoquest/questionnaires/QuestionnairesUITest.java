@@ -16,8 +16,6 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.vaadin.cdi.ArchiveProvider;
 
-// import org.jboss.arquillian.api.Deployment;
-
 @RunWith(Arquillian.class)
 @RunAsClient
 public class QuestionnairesUITest {
@@ -28,7 +26,7 @@ public class QuestionnairesUITest {
     @Deployment
     public static Archive<?> createTestArchive() {
         return ArchiveProvider.createWebArchive("gazpachoquest-questionnaires-ui", QuestionnairesUI.class,
-                QuestionnairsClient.class, SessionStore.class);
+                QuestionnairsClient.class);
     }
 
     /*-

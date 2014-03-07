@@ -37,7 +37,14 @@ public class ArchiveProvider {
 
     public static WebArchive createWebArchive(String warName, Class... classes) {
         WebArchive archive = base(warName);
-        archive.addClasses(classes);
+        // archive.addClasses(classes);
+        // archive.addPackage(Package.getPackage("net.sf.gazpachoquest.questionnaires.util"));
+
+        archive.addPackage(Package.getPackage("net.sf.gazpachoquest.questionnaires"));
+
+        // archive.addPackage(Package.getPackage("net.sf.gazpachoquest.questionnaires.util"));
+        // archive.addPackage(Package.getPackage("net.sf.gazpachoquest.questionnaires.views"));
+
         System.out.println(archive.toString(true));
         return archive;
     }
