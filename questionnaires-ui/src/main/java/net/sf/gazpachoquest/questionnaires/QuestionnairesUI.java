@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vaadin.annotations.Title;
-import com.vaadin.cdi.CDIUI;
 import com.vaadin.cdi.CDIViewProvider;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
@@ -18,7 +17,7 @@ import com.vaadin.ui.VerticalLayout;
 
 // @Theme("gazpacho")
 @Title("Gazpacho Questionnaires")
-@CDIUI
+// @CDIUI
 public class QuestionnairesUI extends UI {
 
     private static final long serialVersionUID = 1265851857862002747L;

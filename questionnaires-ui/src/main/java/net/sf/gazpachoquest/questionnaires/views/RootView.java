@@ -1,10 +1,7 @@
 package net.sf.gazpachoquest.questionnaires.views;
 
-import javax.inject.Inject;
-
 import net.sf.gazpachoquest.questionnaires.util.SessionStore;
 
-import com.vaadin.cdi.CDIView;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -12,10 +9,10 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
-@CDIView
+// @CDIView
 public class RootView extends AbstractView {
     // UI scoped
-    @Inject
+    // @Inject
     private SessionStore sessionStore;
 
     @Override
