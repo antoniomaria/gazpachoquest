@@ -11,7 +11,6 @@ package net.sf.gazpachoquest.questionnaires;
 
 import javax.inject.Inject;
 
-import com.vaadin.cdi.CDIUI;
 import com.vaadin.cdi.access.AccessControl;
 import com.vaadin.cdi.access.JaasAccessControl;
 import com.vaadin.server.VaadinRequest;
@@ -20,7 +19,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-@CDIUI
+// @CDIUI
 public class UnsecuredUI extends UI {
 
     @Inject
