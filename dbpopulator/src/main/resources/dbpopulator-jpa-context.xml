@@ -30,13 +30,13 @@
   </bean>
 
   <util:map id="jpaPropertyMap">
-    <entry key="eclipselink.logging.logger" value="org.eclipse.persistence.logging.Slf4jSessionLogger" />
+    <entry key="eclipselink.logging.logger" value="net.sf.gazpachoquest.jpa.eclipselink.Slf4jSessionLogger" />
     <entry key="eclipselink.logging.parameters" value="true" />
     <entry key="eclipselink.ddl-generation" value="drop-and-create-tables" />
     <entry key="eclipselink.ddl-generation.output-mode" value="database" />
     <entry key="databasePlatform" value="${eclipselink.databasePlatform}" />
     <entry key="eclipselink.weaving" value="static" />
-    <entry key="eclipselink.session.customizer" value="net.sf.gazpachoquest.jpa.CamelNamingStrategy" />
+    <entry key="eclipselink.session.customizer" value="net.sf.gazpachoquest.jpa.eclipselink.CamelNamingStrategy" />
     <entry key="eclipselink.cache.shared.default" value="false" />
   </util:map>
 

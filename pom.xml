@@ -34,8 +34,7 @@
     <module>testsuite</module>
     <module>api</module>
     <module>types</module>
-    <module>domain</module>
-    <module>dao</module>
+    <module>persistence</module>
     <module>components</module>
     <module>dtos</module>
     <module>services</module>

@@ -17,7 +17,7 @@
 
   <jpa:auditing auditor-aware-ref="auditorAware" />
 
-  <bean id="auditorAware" class="net.sf.gazpachoquest.jpa.SimpleAuditorAware" />
+  <bean id="auditorAware" class="net.sf.gazpachoquest.domain.audit.SimpleAuditorAware" />
 
   <tx:annotation-driven />
 
@@ -28,15 +28,15 @@
   </bean>
 
   <util:map id="jpaPropertyMap">
-    <entry key="eclipselink.logging.logger" value="org.eclipse.persistence.logging.Slf4jSessionLogger" />
+    <entry key="eclipselink.logging.logger" value="net.sf.gazpachoquest.jpa.eclipselink.Slf4jSessionLogger" />
     <entry key="eclipselink.logging.parameters" value="true" />
 
     <entry key="eclipselink.ddl-generation" value="create-tables" />
     <entry key="eclipselink.ddl-generation.output-mode" value="database" />
     <entry key="databasePlatform" value="org.eclipse.persistence.platform.database.HSQLPlatform" />
     <entry key="eclipselink.weaving" value="static" />
-    <entry key="eclipselink.session.customizer" value="net.sf.gazpachoquest.jpa.CamelNamingStrategy" />
-    <entry key="eclipselink.cache.shared.default" value="false" />
+    <entry key="eclipselink.session.customizer" value="net.sf.gazpachoquest.jpa.eclipselink.CamelNamingStrategy" />
+    <entry key="eclipselink.cache.shared.default" value="true" />
   </util:map>
 
   <bean id="eclipseLinkVendor" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter" />
