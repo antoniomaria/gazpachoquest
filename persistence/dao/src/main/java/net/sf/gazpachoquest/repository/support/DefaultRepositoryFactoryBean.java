@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.EntityManager;
 
+import net.sf.gazpachoquest.qbe.ByExampleSpecification;
+import net.sf.gazpachoquest.qbe.NamedQueryUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean;

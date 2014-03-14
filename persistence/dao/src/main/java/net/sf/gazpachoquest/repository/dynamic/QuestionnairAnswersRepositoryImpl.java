@@ -12,10 +12,10 @@ import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionOption;
 import net.sf.gazpachoquest.domain.core.QuestionnairAnswers;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.QuestionOptionRepository;
 import net.sf.gazpachoquest.repository.QuestionRepository;
 import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
-import net.sf.gazpachoquest.repository.qbe.SearchParameters;
 import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.QuestionType;
 

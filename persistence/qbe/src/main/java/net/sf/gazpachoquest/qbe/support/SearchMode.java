@@ -6,7 +6,7 @@
  * either express or implied. See the License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.itim.smsgateway.qbe.support;
+package net.sf.gazpachoquest.qbe.support;
 
 /**
  * Static values to use in conjunction with {@link SearchParameters} object. It maps the kind of search you can do in

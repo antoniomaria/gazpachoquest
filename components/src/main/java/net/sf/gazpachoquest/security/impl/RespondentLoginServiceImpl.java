@@ -12,9 +12,9 @@ import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.Study;
 import net.sf.gazpachoquest.domain.support.Invitation;
 import net.sf.gazpachoquest.domain.support.Person;
+import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.InvitationRepository;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
-import net.sf.gazpachoquest.repository.qbe.SearchParameters;
 import net.sf.gazpachoquest.security.LoginService;
 
 import org.slf4j.Logger;

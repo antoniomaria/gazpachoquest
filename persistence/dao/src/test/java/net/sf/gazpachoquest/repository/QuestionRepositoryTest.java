@@ -5,9 +5,8 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.repository.QuestionRepository;
-import net.sf.gazpachoquest.repository.qbe.SearchMode;
-import net.sf.gazpachoquest.repository.qbe.SearchParameters;
+import net.sf.gazpachoquest.qbe.support.SearchMode;
+import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;

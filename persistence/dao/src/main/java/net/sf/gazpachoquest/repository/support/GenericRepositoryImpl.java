@@ -6,8 +6,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import net.sf.gazpachoquest.domain.support.Persistable;
-import net.sf.gazpachoquest.repository.qbe.ByExampleEnhancedSpecification;
-import net.sf.gazpachoquest.repository.qbe.SearchParameters;
+import net.sf.gazpachoquest.qbe.ByExampleSpecification;
+import net.sf.gazpachoquest.qbe.NamedQueryUtil;
+import net.sf.gazpachoquest.qbe.Range;
+import net.sf.gazpachoquest.qbe.RangeSpecification;
+import net.sf.gazpachoquest.qbe.support.ByExampleEnhancedSpecification;
+import net.sf.gazpachoquest.qbe.support.SearchParameters;
 
 import org.apache.commons.lang.Validate;
 import org.springframework.data.domain.Page;
@@ -35,7 +39,8 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
     private Class<T> type;
 
     /**
-     * Creates a new {@link SimpleJpaRepository} to manage objects of the given {@link JpaEntityInformation}.
+     * Creates a new {@link SimpleJpaRepository} to manage objects of the given
+     * {@link JpaEntityInformation}.
      * 
      * @param entityInformation
      * @param entityManager
@@ -55,7 +60,8 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
     }
 
     /**
-     * Creates a new {@link SimpleJpaRepository} to manage objects of the given domain type.
+     * Creates a new {@link SimpleJpaRepository} to manage objects of the given
+     * domain type.
      * 
      * @param domainClass
      * @param em

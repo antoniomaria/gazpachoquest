@@ -6,11 +6,11 @@ import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionGroupLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionGroupTranslation;
+import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.QuestionGroupRepository;
 import net.sf.gazpachoquest.repository.QuestionRepository;
 import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachoquest.repository.i18.QuestionGroupTranslationRepository;
-import net.sf.gazpachoquest.repository.qbe.SearchParameters;
 import net.sf.gazpachoquest.services.QuestionGroupService;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -6,31 +6,29 @@
  * either express or implied. See the License for the specific language governing permissions and limitations under the
  * License.
  */
-package net.sf.gazpachoquest.repository.qbe;
-
-import static net.sf.gazpachoquest.repository.qbe.OrderByDirection.ASC;
-import static net.sf.gazpachoquest.repository.qbe.OrderByDirection.DESC;
+package net.sf.gazpachoquest.qbe.support;
 
 import java.io.Serializable;
 
 import javax.persistence.metamodel.SingularAttribute;
 
 import net.sf.gazpachoquest.domain.support.Persistable;
-import net.sf.gazpachoquest.repository.support.NamedQueryUtil;
+import net.sf.gazpachoquest.qbe.NamedQueryUtil;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 
 /**
- * Holder class for search ordering used by the {@link SearchParameters}. When used with {@link NamedQueryUtil}, you
+ * Holder class for search ordering used by the {@link SearchParameters}. When
+ * used with {@link NamedQueryUtil}, you
  * pass column name. For other usage, pass the property name.
  */
 public class OrderBy implements Serializable {
     private static final long serialVersionUID = 1L;
     private final String columnOrProperty;
-    private OrderByDirection direction = ASC;
+    private OrderByDirection direction = OrderByDirection.ASC;
 
     public OrderBy(final SingularAttribute<? extends Persistable, ? extends Serializable> attribute) {
-        this(attribute, ASC);
+        this(attribute, OrderByDirection.ASC);
     }
 
     public OrderBy(final SingularAttribute<? extends Persistable, ? extends Serializable> attribute,
@@ -42,7 +40,7 @@ public class OrderBy implements Serializable {
     }
 
     public OrderBy(final String columnOrProperty) {
-        this(columnOrProperty, ASC);
+        this(columnOrProperty, OrderByDirection.ASC);
     }
 
     public OrderBy(final String columnOrProperty, final OrderByDirection direction) {
@@ -65,6 +63,6 @@ public class OrderBy implements Serializable {
     }
 
     public boolean isOrderDesc() {
-        return DESC == direction;
+        return OrderByDirection.DESC == direction;
     }
 }

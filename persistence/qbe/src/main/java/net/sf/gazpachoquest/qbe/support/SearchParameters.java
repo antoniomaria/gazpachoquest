@@ -6,12 +6,12 @@
  * either express or implied. See the License for the specific language governing permissions and limitations under the
  * License.
  */
-package net.sf.gazpachoquest.repository.qbe;
+package net.sf.gazpachoquest.qbe.support;
 
-import static net.sf.gazpachoquest.repository.support.Ranges.RangeDate.rangeDate;
-import static net.sf.gazpachoquest.repository.support.Ranges.RangeLocalDate.rangeLocalDate;
-import static net.sf.gazpachoquest.repository.support.Ranges.RangeLocalDateTime.rangeLocalDateTime;
-import static org.apache.commons.lang.StringUtils.isNotBlank;
+import static net.sf.gazpachoquest.qbe.Ranges.RangeDate.rangeDate;
+import static net.sf.gazpachoquest.qbe.Ranges.RangeLocalDate.rangeLocalDate;
+import static net.sf.gazpachoquest.qbe.Ranges.RangeLocalDateTime.rangeLocalDateTime;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,15 +24,15 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.metamodel.SingularAttribute;
 
 import net.sf.gazpachoquest.domain.support.Persistable;
-import net.sf.gazpachoquest.repository.support.NamedQueryUtil;
-import net.sf.gazpachoquest.repository.support.Range;
-import net.sf.gazpachoquest.repository.support.Ranges.RangeDate;
-import net.sf.gazpachoquest.repository.support.Ranges.RangeInteger;
-import net.sf.gazpachoquest.repository.support.Ranges.RangeLocalDate;
-import net.sf.gazpachoquest.repository.support.Ranges.RangeLocalDateTime;
+import net.sf.gazpachoquest.qbe.NamedQueryUtil;
+import net.sf.gazpachoquest.qbe.Range;
+import net.sf.gazpachoquest.qbe.Ranges.RangeDate;
+import net.sf.gazpachoquest.qbe.Ranges.RangeInteger;
+import net.sf.gazpachoquest.qbe.Ranges.RangeLocalDate;
+import net.sf.gazpachoquest.qbe.Ranges.RangeLocalDateTime;
 
-import org.apache.commons.lang.Validate;
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
@@ -44,16 +44,19 @@ import org.joda.time.LocalDateTime;
  * A SearchParameters helps you drive your search in the following areas:
  * <ul>
  * <li>Configure the search mode (EQUALS, LIKE, ...)</li>
- * <li>Pagination: it allows you to limit your search results to a specific range.</li>
+ * <li>Pagination: it allows you to limit your search results to a specific
+ * range.</li>
  * <li>Allow you to specify ORDER BY and ASC/DESC</li>
  * <li>Enable/disable case sensitivity</li>
  * <li>Enable/disable 2d level cache</li>
- * <li>LIKE search against all string values: simply set the searchPattern property</li>
- * <li>Named query: if you set a named query it will be executed. Named queries can be defined in annotation or
- * src/main/resources/META-INF/orm.xml</li>
+ * <li>LIKE search against all string values: simply set the searchPattern
+ * property</li>
+ * <li>Named query: if you set a named query it will be executed. Named queries
+ * can be defined in annotation or src/main/resources/META-INF/orm.xml</li>
  * </ul>
  * 
- * Note : All requests are limited to a maximum number of elements to prevent resource exhaustion.
+ * Note : All requests are limited to a maximum number of elements to prevent
+ * resource exhaustion.
  * 
  * @see QueryByExample
  * @see SearchMode
@@ -334,7 +337,8 @@ public class SearchParameters implements Serializable {
     }
 
     /**
-     * Add the passed {@link EntitySelector} in order to construct an OR predicate for the underlying foreign key.
+     * Add the passed {@link EntitySelector} in order to construct an OR
+     * predicate for the underlying foreign key.
      */
     public SearchParameters entity(final EntitySelector<?, ? extends Persistable, ?> entitySelector) {
         addEntity(entitySelector);
@@ -373,7 +377,8 @@ public class SearchParameters implements Serializable {
     }
 
     /**
-     * Returns the attribute (x-to-one association) which must be fetched with an inner join.
+     * Returns the attribute (x-to-one association) which must be fetched with
+     * an inner join.
      */
     public List<SingularAttribute<?, ?>> getInnerJoinAttributes() {
         return getJoinAttributes(JoinType.INNER);
@@ -384,7 +389,8 @@ public class SearchParameters implements Serializable {
     }
 
     /**
-     * Returns the attribute (x-to-one association) which must be fetched with a left join.
+     * Returns the attribute (x-to-one association) which must be fetched with a
+     * left join.
      */
     public List<SingularAttribute<?, ?>> getLeftJoinAttributes() {
         return getJoinAttributes(JoinType.LEFT);
@@ -455,7 +461,8 @@ public class SearchParameters implements Serializable {
     }
 
     /**
-     * Returns true if a named query has been set, false otherwise. When it returns true, the DAO layer will call the
+     * Returns true if a named query has been set, false otherwise. When it
+     * returns true, the DAO layer will call the
      * namedQuery.
      */
     public boolean hasNamedQuery() {
@@ -467,14 +474,16 @@ public class SearchParameters implements Serializable {
     }
 
     /**
-     * When it returns true, it indicates to the DAO layer to use the passed searchPattern on all string properties.
+     * When it returns true, it indicates to the DAO layer to use the passed
+     * searchPattern on all string properties.
      */
     public boolean hasSearchPattern() {
         return isNotBlank(searchPattern);
     }
 
     /**
-     * The passed attribute (x-to-one association) will be fetched with a inner join.
+     * The passed attribute (x-to-one association) will be fetched with a inner
+     * join.
      */
     public SearchParameters innerJoin(final SingularAttribute<?, ?> xToOneAttribute) {
         getInnerJoinAttributes().add(xToOneAttribute);
@@ -498,7 +507,8 @@ public class SearchParameters implements Serializable {
     }
 
     /**
-     * The passed attribute (x-to-one association) will be fetched with a left join.
+     * The passed attribute (x-to-one association) will be fetched with a left
+     * join.
      */
     public SearchParameters leftJoin(final SingularAttribute<?, ?> xToOneAttribute) {
         getLeftJoinAttributes().add(xToOneAttribute);
@@ -531,7 +541,8 @@ public class SearchParameters implements Serializable {
     }
 
     /**
-     * Fluently set the named query to be used by the DAO layer. Null by default.
+     * Fluently set the named query to be used by the DAO layer. Null by
+     * default.
      */
     public SearchParameters namedQuery(final String namedQuery) {
         setNamedQuery(namedQuery);
@@ -590,7 +601,8 @@ public class SearchParameters implements Serializable {
     }
 
     /**
-     * Add the passed {@link PropertySelector} in order to construct an OR predicate for the corresponding property.
+     * Add the passed {@link PropertySelector} in order to construct an OR
+     * predicate for the corresponding property.
      */
     public SearchParameters property(final PropertySelector<?, ?> propertySelector) {
         addProperty(propertySelector);
@@ -607,7 +619,8 @@ public class SearchParameters implements Serializable {
     }
 
     /**
-     * Add the passed {@link Range} in order to create a 'range' predicate on the corresponding property.
+     * Add the passed {@link Range} in order to create a 'range' predicate on
+     * the corresponding property.
      */
     public SearchParameters range(final Range<?, ?> range) {
         addRange(range);
@@ -645,7 +658,8 @@ public class SearchParameters implements Serializable {
     // -----------------------------------
 
     /**
-     * Fluently set the pattern which may contains wildcards (ex: "e%r%ka" ). The passed searchPattern is used by the
+     * Fluently set the pattern which may contains wildcards (ex: "e%r%ka" ).
+     * The passed searchPattern is used by the
      * DAO layer on all string properties. Null by default.
      */
     public SearchParameters searchPattern(final String searchPattern) {
@@ -714,7 +728,8 @@ public class SearchParameters implements Serializable {
     // -----------------------------------
 
     /**
-     * Set the pattern which may contains wildcards (ex: "e%r%ka" ). The passed searchPattern is used by the DAO layer
+     * Set the pattern which may contains wildcards (ex: "e%r%ka" ). The passed
+     * searchPattern is used by the DAO layer
      * on all string properties. Null by default.
      */
     public void setSearchPattern(final String searchPattern) {

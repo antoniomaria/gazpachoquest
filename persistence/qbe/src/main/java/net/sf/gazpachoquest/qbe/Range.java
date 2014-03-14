@@ -3,7 +3,7 @@
  * within your company? email us at info@jaxio.com Follow us on twitter: @springfuse Template
  * pack-backend-sd:src/main/java/project/repository/support/Range.p.vm.java
  */
-package org.itim.smsgateway.qbe;
+package net.sf.gazpachoquest.qbe;
 
 import java.io.Serializable;
 

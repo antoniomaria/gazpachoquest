@@ -2,7 +2,8 @@ package net.sf.gazpachoquest.repository.support;
 
 import java.util.List;
 
-import net.sf.gazpachoquest.repository.qbe.SearchParameters;
+import net.sf.gazpachoquest.qbe.Range;
+import net.sf.gazpachoquest.qbe.support.SearchParameters;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

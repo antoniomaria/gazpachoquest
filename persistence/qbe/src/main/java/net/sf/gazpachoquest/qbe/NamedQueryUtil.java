@@ -6,7 +6,7 @@
  * either express or implied. See the License for the specific language governing permissions and limitations under the
  * License.
  */
-package org.itim.smsgateway.qbe;
+package net.sf.gazpachoquest.qbe;
 
 import java.util.Calendar;
 import java.util.List;
@@ -17,8 +17,9 @@ import javax.persistence.Parameter;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.itim.smsgateway.qbe.support.OrderBy;
-import org.itim.smsgateway.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.qbe.support.OrderBy;
+import net.sf.gazpachoquest.qbe.support.SearchParameters;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

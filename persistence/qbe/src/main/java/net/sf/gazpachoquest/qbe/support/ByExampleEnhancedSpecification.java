@@ -1,9 +1,9 @@
-package net.sf.gazpachoquest.repository.qbe;
+package net.sf.gazpachoquest.qbe.support;
 
 import static javax.persistence.metamodel.Attribute.PersistentAttributeType.EMBEDDED;
 import static javax.persistence.metamodel.Attribute.PersistentAttributeType.MANY_TO_ONE;
 import static javax.persistence.metamodel.Attribute.PersistentAttributeType.ONE_TO_ONE;
-import static org.apache.commons.lang.StringUtils.isNotEmpty;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -27,7 +27,7 @@ import javax.persistence.metamodel.SingularAttribute;
 
 import net.sf.gazpachoquest.domain.support.Persistable;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.eclipse.persistence.indirection.ValueHolderInterface;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.ReflectionUtils;
@@ -103,8 +103,10 @@ public class ByExampleEnhancedSpecification {
             }
 
             /**
-             * Invoke byExample method for each not null x-to-one association when their pk is not set. This allows you
-             * to search entities based on an associated entity's properties value.
+             * Invoke byExample method for each not null x-to-one association
+             * when their pk is not set. This allows you
+             * to search entities based on an associated entity's properties
+             * value.
              */
             @SuppressWarnings("unchecked")
             public <T extends Persistable, M2O extends Persistable> List<Predicate> byExampleOnXToOne(
@@ -115,8 +117,11 @@ public class ByExampleEnhancedSpecification {
                     if (attr.getPersistentAttributeType() == MANY_TO_ONE
                             || attr.getPersistentAttributeType() == ONE_TO_ONE) { //
                         /*
-                         * Attribute<? super T, ?> m2oattr = mt.getAttribute(attr.getName()); M2O m2oValue = (M2O)
-                         * ReflectionUtils .invokeMethod((Method)m2oattr.getJavaMember(), mtValue);
+                         * Attribute<? super T, ?> m2oattr =
+                         * mt.getAttribute(attr.getName()); M2O m2oValue = (M2O)
+                         * ReflectionUtils
+                         * .invokeMethod((Method)m2oattr.getJavaMember(),
+                         * mtValue);
                          */
 
                         M2O m2oValue = (M2O) getValue(mtValue, mt.getAttribute(attr.getName()));

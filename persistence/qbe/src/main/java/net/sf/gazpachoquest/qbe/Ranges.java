@@ -1,4 +1,4 @@
-package net.sf.gazpachoquest.repository.support;
+package net.sf.gazpachoquest.qbe;
 
 /*
  * Copyright 2012 JAXIO http://www.jaxio.com Licensed under the Apache License, Version 2.0 (the "License"); you may not

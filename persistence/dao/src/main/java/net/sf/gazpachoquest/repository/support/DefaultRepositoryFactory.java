@@ -13,6 +13,9 @@ import java.io.Serializable;
 
 import javax.persistence.EntityManager;
 
+import net.sf.gazpachoquest.qbe.ByExampleSpecification;
+import net.sf.gazpachoquest.qbe.NamedQueryUtil;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.query.QueryExtractor;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
@@ -24,10 +27,10 @@ import org.springframework.util.Assert;
 
 public class DefaultRepositoryFactory extends JpaRepositoryFactory {
 
-    private ByExampleSpecification byExampleSpecification;
+    private final ByExampleSpecification byExampleSpecification;
     private final EntityManager entityManager;
     private final QueryExtractor extractor;
-    private NamedQueryUtil namedQueryUtil;
+    private final NamedQueryUtil namedQueryUtil;
 
     public DefaultRepositoryFactory(final EntityManager entityManager,
             final ByExampleSpecification byExampleSpecification, final NamedQueryUtil namedQueryUtil) {
@@ -68,7 +71,8 @@ public class DefaultRepositoryFactory extends JpaRepositoryFactory {
     }
 
     /**
-     * Returns whether the given repository interface requires a QueryDsl specific implementation to be chosen.
+     * Returns whether the given repository interface requires a QueryDsl
+     * specific implementation to be chosen.
      * 
      * @param repositoryInterface
      * @return

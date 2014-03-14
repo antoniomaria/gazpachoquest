@@ -8,11 +8,11 @@ import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.BrowsedElementRepository;
 import net.sf.gazpachoquest.repository.QuestionGroupRepository;
 import net.sf.gazpachoquest.repository.QuestionRepository;
 import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
-import net.sf.gazpachoquest.repository.qbe.SearchParameters;
 import net.sf.gazpachoquest.types.BrowsingAction;
 
 import org.slf4j.Logger;
@@ -50,7 +50,8 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
         BrowsedQuestion lastBrowsedQuestion = null;
         Question question = null;
 
-        if (browsedElement == null) { // First time entering the questionnairDefinition
+        if (browsedElement == null) { // First time entering the
+                                      // questionnairDefinition
             question = findFirstQuestion(questionnairDefinitionId);
             lastBrowsedQuestion = BrowsedQuestion.with().questionnair(questionnair).question(question)
                     .last(Boolean.TRUE).build();

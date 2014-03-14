@@ -7,9 +7,9 @@ import net.sf.gazpachoquest.domain.core.BrowsedQuestionGroup;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.BrowsedElementRepository;
 import net.sf.gazpachoquest.repository.QuestionGroupRepository;
-import net.sf.gazpachoquest.repository.qbe.SearchParameters;
 import net.sf.gazpachoquest.types.BrowsingAction;
 
 import org.slf4j.Logger;
@@ -42,7 +42,8 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         QuestionGroup questionGroup = null;
         BrowsedQuestionGroup lastBrowsedQuestionGroup = null;
 
-        if (browsedElement == null) { // First time entering the questionnairDefinition
+        if (browsedElement == null) { // First time entering the
+                                      // questionnairDefinition
             questionGroup = findFirstQuestionGroup(questionnairDefinitionId);
             lastBrowsedQuestionGroup = BrowsedQuestionGroup.with().questionnair(questionnair)
                     .questionGroup(questionGroup).last(Boolean.TRUE).build();
@@ -72,7 +73,8 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
                 questionGroup = findPreviousQuestionGroup(questionnairDefinitionId, questionnair,
                         lastBrowsedQuestionGroup);
             }
-            if (questionGroup != null) { // Prevent that questions are still in range.
+            if (questionGroup != null) { // Prevent that questions are still in
+                                         // range.
                 lastBrowsedQuestionGroup.setLast(Boolean.FALSE);
                 browsedElementService.save(lastBrowsedQuestionGroup);
             }
@@ -99,7 +101,8 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
                     .getQuestionGroup().getId());
             next = questionGroupService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId,
                     position + 1);
-            if (next == null) { // The respondent has reached the last question group
+            if (next == null) { // The respondent has reached the last question
+                                // group
                 return next;
             }
             // Mark next element as last browsed.
