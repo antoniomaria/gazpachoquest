@@ -1,4 +1,4 @@
-package com.example.cdisubviewbug;
+package org.example.cdisubviewbug;
 
 import java.util.Arrays;
 import java.util.HashSet;

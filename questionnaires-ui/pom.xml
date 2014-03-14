@@ -156,9 +156,18 @@
     </dependency>
 
     <dependency>
+      <groupId>org.vaadin.addons</groupId>
+      <artifactId>history</artifactId>
+      <version>1.1.0</version>
+    </dependency>
+
+
+    <dependency>
       <groupId>com.fasterxml.jackson.jaxrs</groupId>
       <artifactId>jackson-jaxrs-json-provider</artifactId>
     </dependency>
+
+
   </dependencies>
   <build>
     <plugins>

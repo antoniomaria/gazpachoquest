@@ -1,6 +1,5 @@
-package com.example.cdisubviewbug;
+package org.example.cdisubviewbug;
 
-import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Button;
@@ -9,7 +8,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
-@CDIView(value = MainView.VIEW_ID)
+// @CDIView(value = MainView.VIEW_ID)
 public class MainView extends VerticalLayout implements View {
     public static final String VIEW_ID = "main";
 

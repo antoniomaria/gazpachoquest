@@ -1,4 +1,4 @@
-package com.example.cdisubviewbug;
+package org.example.cdisubviewbug;
 
 
 public class CdiNavViewProvider {// extends CDIViewProvider {

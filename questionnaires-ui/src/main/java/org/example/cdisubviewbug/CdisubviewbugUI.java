@@ -1,15 +1,14 @@
-package com.example.cdisubviewbug;
+package org.example.cdisubviewbug;
 
 import javax.inject.Inject;
 
-import com.vaadin.cdi.CDIUI;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-@CDIUI
+// @CDIUI
 public class CdisubviewbugUI extends UI {
 
     private final VerticalLayout vl = new VerticalLayout();
