@@ -1,6 +1,5 @@
 package net.sf.gazpachoquest.questionnaires.views;
 
-import com.vaadin.cdi.CDIView;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
@@ -8,7 +7,7 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-@CDIView
+// @CDIView
 public class LoginView extends AbstractView {
 
     private static final long serialVersionUID = 6808925001649270387L;

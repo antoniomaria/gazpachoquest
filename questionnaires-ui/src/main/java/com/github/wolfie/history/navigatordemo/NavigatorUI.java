@@ -1,5 +1,7 @@
 package com.github.wolfie.history.navigatordemo;
 
+import javax.inject.Inject;
+
 import com.github.wolfie.history.HistoryExtension;
 import com.github.wolfie.history.tabledemo.AboutView;
 import com.github.wolfie.history.tabledemo.MyPojo;
@@ -7,6 +9,7 @@ import com.github.wolfie.history.tabledemo.TableView;
 import com.github.wolfie.history.tabledemo.TableView.TableSelectionListener;
 import com.vaadin.annotations.Title;
 import com.vaadin.cdi.CDIUI;
+import com.vaadin.cdi.CDIViewProvider;
 import com.vaadin.navigator.NavigationStateManager;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
@@ -32,10 +35,17 @@ public class NavigatorUI extends UI implements ViewDisplay {
         // default implementation is fine.
     }
 
+    @Inject
+    private CDIViewProvider viewProvider;
+
     private Navigator navigator;
     private HistoryExtension history;
     private TabSheet tabSheet;
 
+    @Inject
+    TableView tableView;
+
+    /*-
     private final TableView tableView = new TableView(new TableSelectionListener() {
         @Override
         public void tableSelectionChanged(final MyPojo selectedPojo) {
@@ -46,6 +56,17 @@ public class NavigatorUI extends UI implements ViewDisplay {
             }
         }
     });
+     */
+    private class MyTableSelectionListener implements TableSelectionListener {
+        @Override
+        public void tableSelectionChanged(final MyPojo selectedPojo) {
+            if (selectedPojo != null) {
+                navigator.navigateTo("/table/" + selectedPojo.getId());
+            } else {
+                navigator.navigateTo("");
+            }
+        }
+    }
 
     private final AboutView aboutView = new AboutView();
     private String contextPath;
@@ -53,12 +74,15 @@ public class NavigatorUI extends UI implements ViewDisplay {
     @Override
     protected void init(final VaadinRequest request) {
         contextPath = VaadinServlet.getCurrent().getServletContext().getContextPath();
-
+        tableView.setListener(new MyTableSelectionListener());
         history = new HistoryExtension();
         history.extend(this);
 
         final NavigationStateManager pushStateManager = history.createNavigationStateManager(contextPath + APP_URL);
         navigator = new Navigator(this, pushStateManager, this);
+
+        navigator.addProvider(viewProvider);
+
         navigator.addView("", tableView);
         navigator.addView("/table", tableView);
         navigator.addView("/about", aboutView);

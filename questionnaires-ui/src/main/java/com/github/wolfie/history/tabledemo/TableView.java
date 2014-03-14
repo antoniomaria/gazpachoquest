@@ -1,5 +1,9 @@
 package com.github.wolfie.history.tabledemo;
 
+import javax.annotation.security.RolesAllowed;
+
+import com.vaadin.cdi.CDIView;
+import com.vaadin.data.Container;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
@@ -9,6 +13,8 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Table;
 
+@RolesAllowed("respondent")
+@CDIView()
 public class TableView extends CustomComponent implements View {
 
     public interface TableSelectionListener {
@@ -25,7 +31,7 @@ public class TableView extends CustomComponent implements View {
     private final Table table = new Table();
     private final DetailsView detailsView = new DetailsView();
 
-    private final TableSelectionListener listener;
+    private TableSelectionListener listener;
 
     private final ValueChangeListener tableValueChangeListener = new ValueChangeListener() {
         @Override
@@ -37,8 +43,8 @@ public class TableView extends CustomComponent implements View {
         }
     };
 
-    public TableView(final TableSelectionListener listener) {
-        this.listener = listener;
+    public TableView() {
+        super();
 
         setSizeFull();
 
@@ -59,6 +65,15 @@ public class TableView extends CustomComponent implements View {
         splitpanel.setSecondComponent(detailsView);
     }
 
+    public void setListener(TableSelectionListener listener) {
+        this.listener = listener;
+    }
+
+    public TableView(final TableSelectionListener listener) {
+        this();
+        this.listener = listener;
+    }
+
     /**
      * Searches through the Table's Container for a pojo with a given id.
      * 
@@ -68,6 +83,9 @@ public class TableView extends CustomComponent implements View {
      */
     private MyPojo findPojoById(final int id) {
         @SuppressWarnings("unchecked")
+        Container datasource = table.getContainerDataSource();
+
+        System.out.println("null pointer malo");
         final BeanItemContainer<MyPojo> container = ((BeanItemContainer<MyPojo>) table.getContainerDataSource());
         for (final MyPojo bean : container.getItemIds()) {
             if (bean.getId() == id) {
