@@ -154,23 +154,23 @@
         <version>1.0.1</version>
       </dependency>
       <!-- Arquillian CDI JUnit Framework
-      <dependency>
+        <dependency>
         <groupId>org.jboss.arquillian</groupId>
         <artifactId>arquillian-junit</artifactId>
         <version>${arquillian.version}</version>
-      </dependency>
-      <dependency>
+        </dependency>
+        <dependency>
         <groupId>org.jboss.arquillian.container</groupId>
         <artifactId>arquillian-weld-embedded</artifactId>
         <version>${arquillian.version}</version>
         <exclusions>
-            <exclusion>
-              <groupId>javax.el</groupId>
-              <artifactId>el-api</artifactId>
-            </exclusion>
+        <exclusion>
+        <groupId>javax.el</groupId>
+        <artifactId>el-api</artifactId>
+        </exclusion>
         </exclusions>
-      </dependency>
- -->
+        </dependency>
+      -->
       <!-- JDBC drivers -->
       <dependency>
         <groupId>postgresql</groupId>
@@ -213,6 +213,12 @@
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>jcl-over-slf4j</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jul-to-slf4j</artifactId>
         <version>${slf4j.version}</version>
       </dependency>
 
