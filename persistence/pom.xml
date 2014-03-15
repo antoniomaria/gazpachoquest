@@ -7,9 +7,9 @@
     <artifactId>gazpachoquest</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <artifactId>persistence</artifactId>
+  <artifactId>gazpacho-persistence</artifactId>
   <packaging>pom</packaging>
-  <name>persistence</name>
+  <name>gazpacho-persistence</name>
 
   <modules>
     <module>domain</module>
@@ -45,8 +45,5 @@
         <version>${project.version} </version>
       </dependency>
     </dependencies>
-
   </dependencyManagement>
-
-
 </project>

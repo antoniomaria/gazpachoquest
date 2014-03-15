@@ -11,7 +11,7 @@
                            http://www.springframework.org/schema/data/jpa/spring-jpa-1.2.xsd
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
-  <context:component-scan base-package="net.sf.gazpachoquest.repository.support,net.sf.gazpachoquest.repository.dynamic" />
+  <context:component-scan base-package="net.sf.gazpachoquest.repository.support,net.sf.gazpachoquest.repository.dynamic,net.sf.gazpachoquest.qbe" />
 
   <jpa:repositories base-package="net.sf.gazpachoquest.repository" factory-class="net.sf.gazpachoquest.repository.support.DefaultRepositoryFactoryBean" />
 

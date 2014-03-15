@@ -11,7 +11,7 @@
                            http://www.springframework.org/schema/data/jpa/spring-jpa-1.2.xsd
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
-  <context:component-scan base-package="net.sf.gazpachoquest.repository.support,net.sf.gazpachoquest.repository.dynamic" />
+  <context:component-scan base-package="net.sf.gazpachoquest.repository.support,net.sf.gazpachoquest.repository.dynamic,net.sf.gazpachoquest.qbe" />
 
   <jpa:repositories base-package="net.sf.gazpachoquest.repository" factory-class="net.sf.gazpachoquest.repository.support.DefaultRepositoryFactoryBean" />
 
@@ -36,7 +36,8 @@
     <entry key="databasePlatform" value="org.eclipse.persistence.platform.database.HSQLPlatform" />
     <entry key="eclipselink.weaving" value="static" />
     <entry key="eclipselink.session.customizer" value="net.sf.gazpachoquest.jpa.eclipselink.CamelNamingStrategy" />
-    <entry key="eclipselink.cache.shared.default" value="true" />
+    <!-- Cache is disable because breaks the MailMessageTemplateServiceTest test -->
+    <entry key="eclipselink.cache.shared.default" value="false" />
   </util:map>
 
   <bean id="eclipseLinkVendor" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter" />

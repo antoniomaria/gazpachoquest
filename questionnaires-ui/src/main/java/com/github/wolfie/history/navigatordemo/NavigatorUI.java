@@ -8,7 +8,6 @@ import com.github.wolfie.history.tabledemo.MyPojo;
 import com.github.wolfie.history.tabledemo.TableView;
 import com.github.wolfie.history.tabledemo.TableView.TableSelectionListener;
 import com.vaadin.annotations.Title;
-import com.vaadin.cdi.CDIUI;
 import com.vaadin.cdi.CDIViewProvider;
 import com.vaadin.navigator.NavigationStateManager;
 import com.vaadin.navigator.Navigator;
@@ -24,7 +23,7 @@ import com.vaadin.ui.UI;
 
 @SuppressWarnings("serial")
 @Title("Navigator Integration Example")
-@CDIUI
+// @CDIUI
 public class NavigatorUI extends UI implements ViewDisplay {
 
     private static final String APP_URL = "/NavDemo";

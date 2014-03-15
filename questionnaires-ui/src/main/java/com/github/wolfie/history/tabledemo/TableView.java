@@ -1,8 +1,5 @@
 package com.github.wolfie.history.tabledemo;
 
-import javax.annotation.security.RolesAllowed;
-
-import com.vaadin.cdi.CDIView;
 import com.vaadin.data.Container;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -13,8 +10,8 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Table;
 
-@RolesAllowed("respondent")
-@CDIView()
+// @RolesAllowed("respondent")
+// @CDIView()
 public class TableView extends CustomComponent implements View {
 
     public interface TableSelectionListener {

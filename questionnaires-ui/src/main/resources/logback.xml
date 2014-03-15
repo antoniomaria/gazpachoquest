@@ -15,7 +15,6 @@
 
   <logger name="net.sf.gazpachoquest" level="DEBUG" />
 
-
   <logger name="com.vaadin.cdi" level="DEBUG" />
   
   <root level="ERROR">
