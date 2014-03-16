@@ -9,23 +9,21 @@ import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vaadin.ui.UI;
-
 @Named
 public class MessageResource {
 
     private static final Logger logger = LoggerFactory.getLogger(MessageResource.class);
 
-    private static final String BUNDLE_NAME = "messages";
+    public static final String BUNDLE_NAME = "resources.messages";
 
     public MessageResource() {
         super();
     }
 
-    public static String getString(String key) {
+    public String getString(Locale locale, String key) {
         // .properties does not like space
         key = key.replaceAll(" ", ""); //$NON-NLS-1$
-        Locale locale = UI.getCurrent().getLocale();
+        // Locale locale = UI.getCurrent().getLocale();
         // Get the bundle for our current locale
         ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME, locale);
         try {
