@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
-    <artifactId>persistence</artifactId>
+    <artifactId>gazpacho-persistence</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-dao</artifactId>
