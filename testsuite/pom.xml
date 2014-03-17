@@ -68,7 +68,8 @@
 
     <dependency>
       <groupId>net.sf.gazpachoquest</groupId>
-      <artifactId>gazpachoquest-dao</artifactId>
+      <artifactId>gazpachoquest-db</artifactId>
+      <scope>provided</scope>
     </dependency>
 
 

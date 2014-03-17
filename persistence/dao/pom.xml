@@ -50,6 +50,11 @@
 
 	<!-- Project libraries -->
     <dependency>
+      <groupId>net.sf.gazpachoquest</groupId>
+      <artifactId>gazpachoquest-db</artifactId>
+    </dependency>
+    
+    <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-qbe</artifactId>
     </dependency>
