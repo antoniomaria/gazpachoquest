@@ -8,5 +8,5 @@
       </entity-listeners>
     </persistence-unit-defaults>
   </persistence-unit-metadata>
-  <converter class="org.joda.time.contrib.jpa.DateTimeConverter" />
+  <converter class="net.sf.gazpachoquest.jpa.eclipselink.DateTimeConverter" />
 </entity-mappings>
