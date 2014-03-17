@@ -10,13 +10,6 @@
         http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
-  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="driverClassName" value="org.postgresql.Driver" />
-    <property name="url" value="jdbc:postgresql://localhost:5432/gazpachoquest" />
-    <property name="username" value="postgres" />
-    <property name="password" value="admin" />
-  </bean>
-
   <bean id="dbUnitDataExtractor" class="net.sf.gazpachoquest.test.dbunit.DBUnitDataExtractor">
     <property name="dataSource" ref="dataSource" />
     <property name="dataSetName" value="target/dbunit-dataset.xml" />
