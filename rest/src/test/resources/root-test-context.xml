@@ -16,6 +16,7 @@
   <import resource="classpath:/datasource-test-context.xml" />
   <import resource="classpath:/jpa-test-context.xml" />
   <import resource="classpath:/services-context.xml" />
+  <import resource="classpath:/facades-context.xml" />
   <import resource="classpath:/components-context.xml" />
   <import resource="classpath:/questionnair-context.xml" />
   <import resource="classpath:/rest-test-context.xml" />

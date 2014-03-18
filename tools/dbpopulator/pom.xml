@@ -30,7 +30,7 @@
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachoquest-services</artifactId>
+      <artifactId>gazpachoquest-facades</artifactId>
     </dependency>
 
   </dependencies>

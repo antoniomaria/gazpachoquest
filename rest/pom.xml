@@ -87,6 +87,21 @@
 
     <dependency>
       <groupId>${project.groupId}</groupId>
+      <artifactId>gazpachoquest-services</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>cglib</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.ow2.asm</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-components</artifactId>
       <exclusions>
         <exclusion>

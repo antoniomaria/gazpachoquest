@@ -10,7 +10,6 @@ import net.sf.gazpachoquest.dto.answers.BooleanAnswer;
 import net.sf.gazpachoquest.dto.answers.LongTextAnswer;
 import net.sf.gazpachoquest.dto.answers.NumericAnswer;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
-import net.sf.gazpachoquest.facades.QuestionnairFacade;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachoquest.services.QuestionnairAnswersService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
@@ -35,7 +34,8 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
-        "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnair-context.xml" })
+        "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnair-context.xml",
+        "classpath:/facades-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionnairFacade-dataset.xml")
@@ -115,7 +115,7 @@ public class QuestionnairFacadeTest {
         Integer answersId = jdbcTemplate.queryForInt("select answers_id from questionnair where id = ?",
                 questionnair.getId());
         assertThat(answersId).isNotNull();
-        Object value = this.jdbcTemplate.queryForObject("select " + questionCode.toLowerCase()
+        Object value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase()
                 + " from questionnair_answers_" + questionDefinitionId + " where id = ?", new Object[] { answersId },
                 String.class);
         assertThat(value).isEqualTo(answer.getValue());
@@ -123,14 +123,14 @@ public class QuestionnairFacadeTest {
         questionCode = "Q2";
         answer = TextAnswer.fromValue("05");
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
-        value = this.jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
                 + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
         assertThat(value).isEqualTo(answer.getValue());
 
         questionCode = "Q3";
         answer = NumericAnswer.fromValue(33);
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
-        value = this.jdbcTemplate.queryForInt("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+        value = jdbcTemplate.queryForInt("select " + questionCode.toLowerCase() + " from questionnair_answers_"
                 + questionDefinitionId + " where id = ?", answersId);
         assertThat(value).isEqualTo(answer.getValue());
 
@@ -141,21 +141,21 @@ public class QuestionnairFacadeTest {
         questionCode = "Q5";
         answer = TextAnswer.fromValue("02");
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
-        value = this.jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
                 + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
         assertThat(value).isEqualTo(answer.getValue());
 
         questionCode = "Q6";
         answer = TextAnswer.fromValue("02");
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
-        value = this.jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
                 + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
         assertThat(value).isEqualTo(answer.getValue());
 
         questionCode = "Q7_1";
         answer = TextAnswer.fromValue("01");
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
-        value = this.jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
                 + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
         assertThat(value).isEqualTo(answer.getValue());
 
@@ -172,7 +172,7 @@ public class QuestionnairFacadeTest {
         answer = BooleanAnswer.valueOf("02", Boolean.TRUE);
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
 
-        value = this.jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
                 + questionDefinitionId + " where id = ?", new Object[] { answersId }, Boolean.class);
         assertThat(value).isEqualTo(answer.getValue());
 

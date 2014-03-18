@@ -16,6 +16,7 @@
   <import resource="classpath:/datasource-context.xml"/>
   <import resource="classpath:/jpa-context.xml"/>
   <import resource="classpath:/services-context.xml"/>
+  <import resource="classpath:/facades-context.xml"/>
   <import resource="classpath:/components-context.xml"/>
   <import resource="classpath:/questionnair-context.xml"/>
 
