@@ -19,8 +19,8 @@ import org.eclipse.persistence.config.PersistenceUnitProperties;
 
 public class DDLGenerator {
     public void generate(final String databaseProviderName) throws IOException {
-
         File target = new File("target/generated-sources/" + databaseProviderName);
+        target.delete();
         target.mkdirs();
 
         Map<String, String> persistProperties = new HashMap<String, String>();
@@ -32,6 +32,12 @@ public class DDLGenerator {
                 "net.sf.gazpachoquest.jpa.eclipselink.CamelNamingStrategy");
 
         persistProperties.put(PersistenceUnitProperties.APP_LOCATION, target.getPath());
+
+        if (databaseProviderName.equals("postgres")) {
+            addPostgresSettings(persistProperties);
+        } else {
+            addMysqlSettings(persistProperties);
+        }
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("default", persistProperties);
         emf.createEntityManager();
@@ -50,5 +56,19 @@ public class DDLGenerator {
             }
         }
         Files.delete(input);
+    }
+
+    private void addMysqlSettings(Map<String, String> persistProperties) {
+        persistProperties.put(PersistenceUnitProperties.JDBC_DRIVER, "com.mysql.jdbc.Driver");
+        persistProperties.put(PersistenceUnitProperties.JDBC_URL, "jdbc:mysql://localhost:3306/gazpachoquest");
+        persistProperties.put(PersistenceUnitProperties.JDBC_USER, "root");
+        persistProperties.put(PersistenceUnitProperties.JDBC_PASSWORD, "admin");
+    }
+
+    public void addPostgresSettings(Map<String, String> persistProperties) {
+        persistProperties.put(PersistenceUnitProperties.JDBC_DRIVER, "org.postgresql.Driver");
+        persistProperties.put(PersistenceUnitProperties.JDBC_URL, "jdbc:postgresql://localhost:5432/gazpachoquest");
+        persistProperties.put(PersistenceUnitProperties.JDBC_USER, "postgres");
+        persistProperties.put(PersistenceUnitProperties.JDBC_PASSWORD, "admin");
     }
 }
