@@ -1,6 +1,6 @@
 package net.sf.gazpachoquest.questionnaires.util;
 
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 
@@ -15,7 +15,7 @@ public class ClientProducer {
 
     @Produces
     @GazpachoClient
-    @Dependent
+    @RequestScoped
     public MyRestClient createRestClient() {
         int id = 123456;
         logger.info("Creating client with id = {}", id);
@@ -27,6 +27,7 @@ public class ClientProducer {
     MyRestClient client) {
         logger.info("Closing client with id = {}", client.getId());
 
+        System.out.println("cerrando!!");
     }
 
 }

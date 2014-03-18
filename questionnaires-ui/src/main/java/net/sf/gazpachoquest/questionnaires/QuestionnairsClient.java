@@ -36,6 +36,7 @@ public class QuestionnairsClient implements Questionnairs {
     public void init() {
         proxy = JAXRSClientFactory.create(baseURI, Questionnairs.class,
                 Collections.singletonList(new JacksonJsonProvider()), "respondent", "12345678", null);
+        // WebClient.client(proxy).reset();
     }
 
     @Override
