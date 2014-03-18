@@ -1,4 +1,4 @@
-package net.sf.gazpachoquest.jpa;
+package net.sf.gazpachoquest.ddlgenerator;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,11 +18,6 @@ import javax.persistence.Persistence;
 import org.eclipse.persistence.config.PersistenceUnitProperties;
 
 public class DDLGenerator {
-
-    public static void main(String args[]) throws Exception {
-        new DDLGenerator().generate("default");
-    }
-
     public void generate(final String databaseProviderName) throws IOException {
 
         File target = new File("target/generated-sources/" + databaseProviderName);
@@ -34,7 +29,7 @@ public class DDLGenerator {
         persistProperties.put(PersistenceUnitProperties.DDL_GENERATION, "drop-and-create-tables");
         persistProperties.put(PersistenceUnitProperties.DDL_GENERATION_MODE, "sql-script");
         persistProperties.put(PersistenceUnitProperties.SESSION_CUSTOMIZER,
-                "net.sf.gazpachoquest.jpa.CamelNamingStrategy");
+                "net.sf.gazpachoquest.jpa.eclipselink.CamelNamingStrategy");
 
         persistProperties.put(PersistenceUnitProperties.APP_LOCATION, target.getPath());
 

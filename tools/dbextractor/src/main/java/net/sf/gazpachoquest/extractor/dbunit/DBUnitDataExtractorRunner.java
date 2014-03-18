@@ -1,12 +1,18 @@
-package net.sf.gazpachoquest.test.dbunit;
+package net.sf.gazpachoquest.extractor.dbunit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.support.ResourcePropertySource;
 
 public class DBUnitDataExtractorRunner {
 
+    private final static Logger logger = LoggerFactory.getLogger(DBUnitDataExtractorRunner.class);
+
     public static void main(final String[] args) throws Exception {
         String dbEngine = "db_postgres";
+        logger.info("Extracting data from {} database in DBUnit format");
+
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext();
         ctx.getEnvironment().setActiveProfiles("standalone", dbEngine);
         ctx.refresh();
@@ -18,5 +24,8 @@ public class DBUnitDataExtractorRunner {
         DBUnitDataExtractor extractor = (DBUnitDataExtractor) ctx.getBean("dbUnitDataExtractor");
         extractor.extract();
         ctx.close();
+
+        logger.info("Done successfully. Check your target directory");
+
     }
 }

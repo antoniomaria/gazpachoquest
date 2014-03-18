@@ -37,11 +37,11 @@
     <module>persistence</module>
     <module>components</module>
     <module>dtos</module>
-    <module>services</module>
-    <module>dbpopulator</module>
+    <module>services</module>    
     <module>questionnaires-backend</module>
     <!-- Ommited temporarly <module>questionnaires-ui</module> -->
     <module>rest</module>
+	<module>tools</module>
   </modules>
   <repositories>
     <repository>
@@ -390,6 +390,20 @@
         </exclusions>
       </dependency>
 
+	    <!-- Google flyway -->
+      <dependency>
+        <groupId>com.googlecode.flyway</groupId>
+        <artifactId>flyway-core</artifactId>
+        <version>2.2</version>
+      </dependency>
+
+    <!-- C3P0 DBpool -->
+      <dependency>
+        <groupId>com.mchange</groupId>
+        <artifactId>c3p0</artifactId>
+        <version>0.9.5-pre6</version>
+      </dependency>
+      
     </dependencies>
 
   </dependencyManagement>

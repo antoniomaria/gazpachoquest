@@ -1,8 +1,6 @@
-package net.sf.gazpachoquest.test.dbunit;
+package net.sf.gazpachoquest.extractor.dbunit;
 
 import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.sql.Connection;
 import java.util.Iterator;
 import java.util.List;
@@ -19,7 +17,6 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.database.QueryDataSet;
 import org.dbunit.database.search.TablesDependencyHelper;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.xml.FlatDtdWriter;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlWriter;
 import org.slf4j.Logger;
@@ -34,9 +31,12 @@ public class DBUnitDataExtractor {
 
     private static final Logger logger = LoggerFactory.getLogger(DBUnitDataExtractor.class);
     /**
-     * A regular expression that is used to get the table name from a SQL 'select' statement. This pattern matches a
-     * string that starts with any characters, followed by the case-insensitive word 'from', followed by a table name of
-     * the form 'foo' or 'schema.foo', followed by any number of remaining characters.
+     * A regular expression that is used to get the table name from a SQL
+     * 'select' statement. This pattern matches a
+     * string that starts with any characters, followed by the case-insensitive
+     * word 'from', followed by a table name of
+     * the form 'foo' or 'schema.foo', followed by any number of remaining
+     * characters.
      */
     // private static final Pattern TABLE_MATCH_PATTERN =
     // Pattern.compile(".*\\s+from\\s+(\\w+(\\.\\w+)?).*",
@@ -52,7 +52,8 @@ public class DBUnitDataExtractor {
     private List<String> tableList;
 
     /**
-     * Performs the extraction. If no tables or queries are specified, data from entire database will be extracted.
+     * Performs the extraction. If no tables or queries are specified, data from
+     * entire database will be extracted.
      * Otherwise, a partial extraction will be performed.
      * 
      * @throws Exception
@@ -79,19 +80,11 @@ public class DBUnitDataExtractor {
                 // tables that
                 // have a PK which is a FK on X, in the right order for
                 // insertion
-                String[] depTableNames = TablesDependencyHelper.getAllDependentTables(connection, "study");
+                String[] depTableNames = TablesDependencyHelper.getAllDependentTables(connection, "text_message");
                 IDataSet depDataset = connection.createDataSet(depTableNames);
 
                 FlatXmlWriter datasetWriter = new FlatXmlWriter(new FileOutputStream("target/dependents.xml"));
-                datasetWriter.setDocType("classpath://gazpachosurvey.dtd");
                 datasetWriter.write(depDataset);
-
-                Writer out = new OutputStreamWriter(new FileOutputStream("target/gazpachosurvey.dtd"));
-                FlatDtdWriter dtdWriter = new FlatDtdWriter(out);
-                dtdWriter.setContentModel(FlatDtdWriter.CHOICE);
-                // You could also use the sequence model which is the default
-                // datasetWriter.setContentModel(FlatDtdWriter.SEQUENCE);
-                dtdWriter.write(depDataset);
 
             }
         } finally {
@@ -103,7 +96,8 @@ public class DBUnitDataExtractor {
     }
 
     /**
-     * Name of the XML file that will be created. Defaults to <code>dbunit-dataset.xml</code>.
+     * Name of the XML file that will be created. Defaults to
+     * <code>dbunit-dataset.xml</code>.
      * 
      * @param name
      *            file name.
@@ -113,7 +107,8 @@ public class DBUnitDataExtractor {
     }
 
     /**
-     * The data source of the database from which the data will be extracted. This property is required.
+     * The data source of the database from which the data will be extracted.
+     * This property is required.
      * 
      * @param ds
      */
@@ -130,8 +125,10 @@ public class DBUnitDataExtractor {
     }
 
     /**
-     * List of SQL queries (i.e. 'select' statements) that will be used executed to retrieve the data to be extracted.
-     * If the table being queried is also specified in the <code>tableList</code> property, the query will be ignored
+     * List of SQL queries (i.e. 'select' statements) that will be used executed
+     * to retrieve the data to be extracted.
+     * If the table being queried is also specified in the
+     * <code>tableList</code> property, the query will be ignored
      * and all rows will be extracted from that table.
      * 
      * @param list

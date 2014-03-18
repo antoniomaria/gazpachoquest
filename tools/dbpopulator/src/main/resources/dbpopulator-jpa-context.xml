@@ -13,13 +13,13 @@
 
   <import resource="classpath:/datasource-context.xml" />
 
-  <context:component-scan base-package="net.sf.gazpachoquest.repository.support,net.sf.gazpachoquest.repository.dynamic,net.sf.gazpachoquest.dbpopulator" />
+  <context:component-scan base-package="net.sf.gazpachoquest.repository.support,net.sf.gazpachoquest.repository.dynamic,net.sf.gazpachoquest.dbpopulator,net.sf.gazpachoquest.qbe" />
 
   <jpa:repositories base-package="net.sf.gazpachoquest.repository" factory-class="net.sf.gazpachoquest.repository.support.DefaultRepositoryFactoryBean" />
 
   <jpa:auditing auditor-aware-ref="auditorAware" />
 
-  <bean id="auditorAware" class="net.sf.gazpachoquest.jpa.SimpleAuditorAware" />
+  <bean id="auditorAware" class="net.sf.gazpachoquest.domain.audit.SimpleAuditorAware" />
 
   <tx:annotation-driven />
 
