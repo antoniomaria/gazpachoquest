@@ -8,8 +8,6 @@ import java.util.Set;
 import net.sf.gazpachoquest.dto.ParticipantDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachoquest.dto.StudyDTO;
-import net.sf.gazpachoquest.facades.ParticipantFacade;
-import net.sf.gazpachoquest.facades.StudyFacade;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.StudyAccessType;
 
@@ -30,7 +28,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
-        "classpath:/services-context.xml", "classpath:/components-context.xml" })
+        "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/facades-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("StudyFacade-dataset.xml")

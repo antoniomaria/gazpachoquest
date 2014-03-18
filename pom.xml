@@ -35,8 +35,9 @@
     <module>api</module>
     <module>types</module>
     <module>persistence</module>
-    <module>components</module>
+    <module>components</module>	
     <module>dtos</module>
+	<module>facades</module>  
     <module>services</module>    
     <module>questionnaires-backend</module>
     <!-- Ommited temporarly <module>questionnaires-ui</module> -->
@@ -246,7 +247,13 @@
         <artifactId>gazpachoquest-dtos</artifactId>
         <version>${project.version} </version>
       </dependency>
-
+	  
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>gazpachoquest-facades</artifactId>
+        <version>${project.version} </version>
+      </dependency>
+	  
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>gazpachoquest-dao</artifactId>

@@ -13,29 +13,6 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
-  <context:component-scan base-package="net.sf.gazpachoquest.services.impl" />
-
-  <bean id="profilingAdvise" class="net.sf.gazpachoquest.aspects.ProfilingAdvise"></bean>
-
-  <aop:config>
-     
-    <aop:pointcut id="serviceOperation" expression="execution(* net.sf.gazpachoquest.services.*.*(..))" />
-    <!-- 
-    <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" order="9999" />
-      -->
-
-    <aop:aspect id="profilingAspect" ref="profilingAdvise">
-      <aop:around method="doProfiling" pointcut-ref="serviceOperation" />
-    </aop:aspect>
-  </aop:config>
-  
-  <!-- 
-  <tx:advice id="txAdvice">
-    <tx:attributes>
-      <tx:method name="find*" read-only="true" />
-      <tx:method name="*" />
-    </tx:attributes>
-  </tx:advice>
- -->
-  <tx:annotation-driven />
+  <import resource="classpath:/dozer/dozer-context.xml" />
+  <context:component-scan base-package="net.sf.gazpachoquest.facades.impl" />
 </beans>
