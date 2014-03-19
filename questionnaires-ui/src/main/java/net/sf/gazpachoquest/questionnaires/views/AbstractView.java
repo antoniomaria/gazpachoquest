@@ -2,7 +2,7 @@ package net.sf.gazpachoquest.questionnaires.views;
 
 import javax.inject.Inject;
 
-import net.sf.gazpachoquest.questionnaires.util.LoggableEvent;
+import net.sf.gazpachoquest.questionnaires.resource.LoggableEvent;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;

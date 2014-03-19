@@ -17,7 +17,7 @@ import net.sf.gazpachoquest.types.RenderingMode;
 
 @Path("/api/runtime/questionnairs")
 @Produces(MediaType.APPLICATION_JSON)
-public interface Questionnairs extends Serializable {
+public interface QuestionnairResource extends Serializable {
 
     @GET
     List<QuestionnairDTO> list();

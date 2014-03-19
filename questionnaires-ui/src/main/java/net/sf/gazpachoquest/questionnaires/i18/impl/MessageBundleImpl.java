@@ -1,10 +1,12 @@
-package net.sf.gazpachoquest.questionnaires.util;
+package net.sf.gazpachoquest.questionnaires.i18.impl;
 
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import javax.inject.Named;
+
+import net.sf.gazpachoquest.questionnaires.i18.MessageResource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

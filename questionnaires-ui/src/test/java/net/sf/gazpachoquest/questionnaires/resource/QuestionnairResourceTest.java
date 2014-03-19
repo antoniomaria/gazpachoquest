@@ -1,10 +1,13 @@
-package net.sf.gazpachoquest.questionnaires.util;
+package net.sf.gazpachoquest.questionnaires.resource;
 
-import static org.fest.assertions.api.Assertions.assertThat;
-
-import java.util.Locale;
+import java.util.List;
 
 import javax.inject.Inject;
+
+import net.sf.gazpachoquest.api.QuestionnairResource;
+import net.sf.gazpachoquest.dto.QuestionnairDTO;
+import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
+import net.sf.gazpachoquest.questionnaires.resource.ResourceProducer;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -24,35 +27,28 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
-public class MessageResourceTest {
+public class QuestionnairResourceTest {
 
     @Inject
-    @MessageBundle
-    private MessageResource messageResource;
+    @GazpachoResource
+    private QuestionnairResource questionnairResource;
 
     @Deployment
     public static Archive<?> createTestArchive() {
         String beansDescriptor = Descriptors.create(BeansDescriptor.class).exportAsString();
-
-        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "myarchive.jar").addClasses(MessageBundle.class)
-                .addClasses(MessageBundleImpl.class).addClasses(MessageResource.class)
-                .addClasses(MessageResourceProducer.class)
-
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "myarchive.jar")
+                .addClasses(QuestionnairResource.class, ResourceProducer.class, GazpachoResource.class)
                 .addAsResource("resources/messages.properties")
                 .addAsManifestResource(new StringAsset(beansDescriptor), "beans.xml");
-
         return archive;
     }
 
     @Test
-    public void getStringTest() {
-        Locale locale = Locale.ENGLISH;
-        String resource = messageResource.getString(locale, "login.language.select.label");
-        System.out.println("y de winner is: " + resource);
-        assertThat(resource).contains("select");
-        locale = new Locale("ES");
-        resource = messageResource.getString(locale, "login.language.select.label");
-        assertThat(resource).contains("seleccione");
+    public void listTest() {
+        List<QuestionnairDTO> questionnairs = questionnairResource.list();
+        for (QuestionnairDTO questionnairDTO : questionnairs) {
+            System.out.println(questionnairDTO.getId() + " " + questionnairDTO.getLanguageSettings().getTitle());
+        }
 
     }
 }

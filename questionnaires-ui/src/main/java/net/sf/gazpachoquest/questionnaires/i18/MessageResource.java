@@ -1,4 +1,4 @@
-package net.sf.gazpachoquest.questionnaires.util;
+package net.sf.gazpachoquest.questionnaires.i18;
 
 import java.util.Locale;
 

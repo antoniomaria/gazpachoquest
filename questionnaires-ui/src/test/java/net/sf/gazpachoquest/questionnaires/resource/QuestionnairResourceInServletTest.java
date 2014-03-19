@@ -1,8 +1,12 @@
-package net.sf.gazpachoquest.questionnaires.util;
+package net.sf.gazpachoquest.questionnaires.resource;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import net.sf.gazpachoquest.api.QuestionnairResource;
+import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
+import net.sf.gazpachoquest.questionnaires.resource.ResourceProducer;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -29,7 +33,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 @RunWith(Arquillian.class)
 @RunAsClient
-public class MyRestClientInServletTest {
+public class QuestionnairResourceInServletTest {
 
     @ArquillianResource
     private URL contextPath;
@@ -40,16 +44,17 @@ public class MyRestClientInServletTest {
         String beansDescriptor = Descriptors.create(BeansDescriptor.class).exportAsString();
         return ShrinkWrap
                 .create(WebArchive.class, "test.war")
-                .addClasses(ClientProducer.class, GazpachoClient.class, MyRestClient.class, MyRestClientImpl.class,
-                        MyRestClientTestServlet.class)
+                .addClasses(ResourceProducer.class, GazpachoResource.class, QuestionnairResource.class,
+                        QuestionnairResourceTestServlet.class)
                 .addAsWebInfResource(new StringAsset(beansDescriptor), "beans.xml");
     }
 
     @Test
-    public void getIdTest() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
+    public void listTest() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
         final WebClient webClient = new WebClient();
 
-        webClient.addRequestHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        webClient.addRequestHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP
+                                                                                            // 1.1.
         webClient.addRequestHeader("Pragma", "no-cache"); // HTTP 1.0.
         webClient.addRequestHeader("Expires", "0"); //
         final HtmlPage page = webClient.getPage(contextPath.toExternalForm() + "/testServlet");

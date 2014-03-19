@@ -1,4 +1,4 @@
-package net.sf.gazpachoquest.questionnaires.util;
+package net.sf.gazpachoquest.questionnaires.resource;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
