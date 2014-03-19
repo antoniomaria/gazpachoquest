@@ -28,7 +28,9 @@ public class ResourceProducer {
     public QuestionnairResource createQuestionnairResource(HttpServletRequest request) {
         String userName = "respondent";
         String password = "12345678";
-        logger.debug("de winner is: " + (request != null ? request : null));
+        String usernameString = (String) request.getSession().getAttribute("username");
+        logger.info("de winner is: " + usernameString);
+        System.out.println(" ************************************************************-----> " + usernameString);
         QuestionnairResource proxy = JAXRSClientFactory.create(baseURI, QuestionnairResource.class,
                 Collections.singletonList(new JacksonJsonProvider()), userName, password, null);
         return proxy;

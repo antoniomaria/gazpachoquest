@@ -1,13 +1,6 @@
 package net.sf.gazpachoquest.questionnaires.views;
 
-import java.util.List;
 import java.util.Locale;
-
-import javax.inject.Inject;
-
-import net.sf.gazpachoquest.api.QuestionnairResource;
-import net.sf.gazpachoquest.dto.QuestionnairDTO;
-import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +10,8 @@ import com.vaadin.data.validator.AbstractValidator;
 import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.VaadinService;
+import com.vaadin.server.WrappedSession;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -43,10 +38,6 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
     private final PasswordField password;
 
     private final Button loginButton;
-
-    @Inject
-    @GazpachoResource
-    private QuestionnairResource questionnairResource;
 
     private ComboBox createLanguageSelector() {
         ComboBox languageSelector = new ComboBox("com.vaadin.demo.dashboard.DashboardUI.Language");
@@ -180,8 +171,8 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
     public void buttonClick(ClickEvent event) {
         logger.info("Submitting login");
         System.out.println("button on click");
-        List<QuestionnairDTO> questionnairs = questionnairResource.list();
-        System.out.println(questionnairs);
+        // List<QuestionnairDTO> questionnairs = questionnairResource.list();
+        // System.out.println(questionnairs);
         //
         // Validate the fields using the navigator. By using validors for the
         // fields we reduce the amount of queries we have to use to the database
@@ -193,6 +184,7 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
 
         String username = user.getValue();
         String password = this.password.getValue();
+        WrappedSession session = VaadinService.getCurrentRequest().getWrappedSession();
 
         //
         // Validate username and password with database here. For examples sake
@@ -200,13 +192,13 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
         //
         boolean isValid = username.equals("test@test.com") && password.equals("passw0rd");
 
-        if (isValid) {
+        if (isValid || true) {
             // Store the current user in the service session
             getSession().setAttribute("user", username);
-
+            session.setAttribute("username", username);
+            session.setAttribute("password", password);
             // Navigate to main view
-            // getUI().getNavigator().navigateTo(SimpleLoginMainView.NAME);
-
+            getUI().getNavigator().navigateTo(QuestionnairView.NAME);
         } else {
 
             // Wrong password clear the password field and refocuses it

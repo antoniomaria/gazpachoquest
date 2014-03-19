@@ -3,7 +3,9 @@ package net.sf.gazpachoquest.questionnaires.security;
 import java.io.Serializable;
 import java.security.Principal;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Produces;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -64,8 +66,8 @@ public class UserNameAccessControl extends AccessControl implements Serializable
         getCurrentRequest().logout();
     }
 
-    // @Produces
-    // @RequestScoped
+    @Produces
+    @RequestScoped
     // @GazpachoResource
     public static HttpServletRequest getCurrentRequest() {
         HttpServletRequest request = VaadinServletService.getCurrentServletRequest();
