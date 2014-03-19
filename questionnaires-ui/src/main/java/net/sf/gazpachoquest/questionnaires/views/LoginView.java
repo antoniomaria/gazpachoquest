@@ -1,6 +1,16 @@
 package net.sf.gazpachoquest.questionnaires.views;
 
+import java.util.List;
 import java.util.Locale;
+
+import javax.inject.Inject;
+
+import net.sf.gazpachoquest.api.QuestionnairResource;
+import net.sf.gazpachoquest.dto.QuestionnairDTO;
+import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.vaadin.cdi.CDIView;
 import com.vaadin.data.validator.AbstractValidator;
@@ -24,6 +34,8 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
 
     private static final long serialVersionUID = 2314128852757221652L;
 
+    private static Logger logger = LoggerFactory.getLogger(LoginView.class);
+
     public static final String NAME = "";
 
     private final TextField user;
@@ -31,6 +43,10 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
     private final PasswordField password;
 
     private final Button loginButton;
+
+    @Inject
+    @GazpachoResource
+    private QuestionnairResource questionnairResource;
 
     private ComboBox createLanguageSelector() {
         ComboBox languageSelector = new ComboBox("com.vaadin.demo.dashboard.DashboardUI.Language");
@@ -162,7 +178,10 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
 
     @Override
     public void buttonClick(ClickEvent event) {
-
+        logger.info("Submitting login");
+        System.out.println("button on click");
+        List<QuestionnairDTO> questionnairs = questionnairResource.list();
+        System.out.println(questionnairs);
         //
         // Validate the fields using the navigator. By using validors for the
         // fields we reduce the amount of queries we have to use to the database

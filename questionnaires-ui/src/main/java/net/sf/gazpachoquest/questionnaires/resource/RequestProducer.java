@@ -9,8 +9,6 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Produces;
 import javax.servlet.AsyncContext;
 import javax.servlet.DispatcherType;
 import javax.servlet.RequestDispatcher;
@@ -32,9 +30,9 @@ public class RequestProducer {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestProducer.class);
 
-    @Produces
-    @RequestScoped
-    @GazpachoResource
+    // @Produces
+    // @RequestScoped
+    // @GazpachoResource
     public static HttpServletRequest getCurrentRequest() {
         HttpServletRequest request = new HttpServletRequest() {
 

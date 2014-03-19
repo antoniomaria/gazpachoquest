@@ -25,11 +25,10 @@ public class ResourceProducer {
     @Produces
     @GazpachoResource
     @RequestScoped
-    public QuestionnairResource createQuestionnairResource(@GazpachoResource
-    HttpServletRequest request) {
+    public QuestionnairResource createQuestionnairResource(HttpServletRequest request) {
         String userName = "respondent";
         String password = "12345678";
-        logger.debug("de winner is: " + (request != null ? request.getParameter("") : null));
+        logger.debug("de winner is: " + (request != null ? request : null));
         QuestionnairResource proxy = JAXRSClientFactory.create(baseURI, QuestionnairResource.class,
                 Collections.singletonList(new JacksonJsonProvider()), userName, password, null);
         return proxy;
