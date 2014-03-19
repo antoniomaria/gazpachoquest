@@ -6,8 +6,6 @@ import javax.inject.Inject;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
-import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
-import net.sf.gazpachoquest.questionnaires.resource.ResourceProducer;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -36,9 +34,10 @@ public class QuestionnairResourceTest {
     @Deployment
     public static Archive<?> createTestArchive() {
         String beansDescriptor = Descriptors.create(BeansDescriptor.class).exportAsString();
-        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "myarchive.jar")
-                .addClasses(QuestionnairResource.class, ResourceProducer.class, GazpachoResource.class)
-                .addAsResource("resources/messages.properties")
+        JavaArchive archive = ShrinkWrap
+                .create(JavaArchive.class, "myarchive.jar")
+                .addClasses(QuestionnairResource.class, RequestProducer.class, ResourceProducer.class,
+                        GazpachoResource.class).addAsResource("resources/messages.properties")
                 .addAsManifestResource(new StringAsset(beansDescriptor), "beans.xml");
         return archive;
     }

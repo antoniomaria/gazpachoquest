@@ -5,6 +5,7 @@ import java.util.Collections;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
+import javax.servlet.http.HttpServletRequest;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;
 
@@ -24,9 +25,11 @@ public class ResourceProducer {
     @Produces
     @GazpachoResource
     @RequestScoped
-    public QuestionnairResource createQuestionnairResource() {
+    public QuestionnairResource createQuestionnairResource(@GazpachoResource
+    HttpServletRequest request) {
         String userName = "respondent";
         String password = "12345678";
+        logger.debug("de winner is: " + (request != null ? request.getParameter("") : null));
         QuestionnairResource proxy = JAXRSClientFactory.create(baseURI, QuestionnairResource.class,
                 Collections.singletonList(new JacksonJsonProvider()), userName, password, null);
         return proxy;
