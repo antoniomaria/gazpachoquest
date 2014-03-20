@@ -1,13 +1,17 @@
 package net.sf.gazpachoquest.questionnaires.views;
 
+import java.util.Collections;
 import java.util.Locale;
 
+import net.sf.gazpachoquest.api.QuestionnairResource;
+import net.sf.gazpachoquest.questionnaires.resource.ResourceProducer;
+
+import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.vaadin.cdi.CDIView;
-import com.vaadin.data.validator.AbstractValidator;
-import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.VaadinService;
@@ -19,7 +23,6 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
@@ -33,11 +36,9 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
 
     public static final String NAME = "";
 
-    private final TextField user;
+    private final TextField invitationTextField;
 
-    private final PasswordField password;
-
-    private final Button loginButton;
+    private final Button enterButton;
 
     private ComboBox createLanguageSelector() {
         ComboBox languageSelector = new ComboBox("com.vaadin.demo.dashboard.DashboardUI.Language");
@@ -70,7 +71,7 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
         setSizeFull();
 
         // Language bar in the top-right corner for selecting
-        // user interface language
+        // invitation interface language
         final HorizontalLayout languageBar = new HorizontalLayout();
         languageBar.setHeight("50px");
         // addComponent(languageBar);
@@ -100,28 +101,19 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
 
         // }
 
-        // Create the user input field
-        user = new TextField("User:");
-        user.setWidth("300px");
-        user.setRequired(true);
-        user.setInputPrompt("Your username (eg. joe@email.com)");
-        user.addValidator(new EmailValidator("Username must be an email address"));
-        user.setInvalidAllowed(false);
-
-        // Create the password input field
-        password = new PasswordField("Password:");
-        password.setWidth("300px");
-        password.addValidator(new PasswordValidator());
-        password.setRequired(true);
-        password.setValue("");
-        password.setNullRepresentation("");
+        // Create the invitation input field
+        invitationTextField = new TextField("Invitation key:");
+        invitationTextField.setWidth("300px");
+        invitationTextField.setRequired(true);
+        invitationTextField.setInputPrompt("Your questionnair invitation key (eg. 12345678)");
+        invitationTextField.setInvalidAllowed(false);
 
         // Create login button
-        loginButton = new Button("Login", this);
+        enterButton = new Button("Enter", this);
 
         // Add both to a panel
-        VerticalLayout fields = new VerticalLayout(languageSelector, user, password, loginButton);
-        fields.setCaption("Please login to access the application. (test@test.com/passw0rd)");
+        VerticalLayout fields = new VerticalLayout(languageSelector, invitationTextField, enterButton);
+        fields.setCaption("Please enter your invitation key to access the questionnair");
         fields.setSpacing(true);
         fields.setMargin(new MarginInfo(true, true, true, false));
         fields.setSizeUndefined();
@@ -136,41 +128,13 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
 
     @Override
     public void enter(ViewChangeEvent event) {
-        // focus the username field when user arrives to the login view
-        user.focus();
-    }
-
-    //
-    // Validator for validating the passwords
-    //
-    private static final class PasswordValidator extends AbstractValidator<String> {
-
-        public PasswordValidator() {
-            super("The password provided is not valid");
-        }
-
-        @Override
-        protected boolean isValidValue(String value) {
-            //
-            // Password must be at least 8 characters long and contain at least
-            // one number
-            //
-            if (value != null && (value.length() < 8 || !value.matches(".*\\d.*"))) {
-                return false;
-            }
-            return true;
-        }
-
-        @Override
-        public Class<String> getType() {
-            return String.class;
-        }
+        // focus the username field when invitation arrives to the login view
+        invitationTextField.focus();
     }
 
     @Override
     public void buttonClick(ClickEvent event) {
         logger.info("Submitting login");
-        System.out.println("button on click");
         // List<QuestionnairDTO> questionnairs = questionnairResource.list();
         // System.out.println(questionnairs);
         //
@@ -178,32 +142,33 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
         // fields we reduce the amount of queries we have to use to the database
         // for wrongly entered passwords
         //
-        if (!user.isValid() || !password.isValid()) {
+        if (!invitationTextField.isValid()) {
             return;
         }
 
-        String username = user.getValue();
-        String password = this.password.getValue();
+        String invitation = invitationTextField.getValue();
         WrappedSession session = VaadinService.getCurrentRequest().getWrappedSession();
+
+        QuestionnairResource proxy = JAXRSClientFactory.create(ResourceProducer.BASE_URI, QuestionnairResource.class,
+                Collections.singletonList(new JacksonJsonProvider()), "respondent", invitation, null);
 
         //
         // Validate username and password with database here. For examples sake
         // I use a dummy username and password.
         //
-        boolean isValid = username.equals("test@test.com") && password.equals("passw0rd");
+        boolean isValid = proxy.list().size() > 0;
+        if (isValid) {
+            // Store the current invitation in the service session
+            getSession().setAttribute("invitation", invitation);
+            session.setAttribute("username", "respondent");
+            session.setAttribute("password", invitation);
 
-        if (isValid || true) {
-            // Store the current user in the service session
-            getSession().setAttribute("user", username);
-            session.setAttribute("username", username);
-            session.setAttribute("password", password);
             // Navigate to main view
             getUI().getNavigator().navigateTo(QuestionnairView.NAME);
         } else {
-
             // Wrong password clear the password field and refocuses it
-            this.password.setValue(null);
-            this.password.focus();
+            this.invitationTextField.setValue(null);
+            this.invitationTextField.focus();
         }
     }
 }

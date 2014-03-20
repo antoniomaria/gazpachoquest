@@ -20,19 +20,18 @@ public class ResourceProducer {
 
     private static Logger logger = LoggerFactory.getLogger(ResourceProducer.class);
 
-    private final String baseURI = "http://gazpacho.antoniomaria.cloudbees.net/";
+    public static final String BASE_URI = "http://gazpacho.antoniomaria.cloudbees.net/";
 
     @Produces
     @GazpachoResource
     @RequestScoped
     public QuestionnairResource createQuestionnairResource(HttpServletRequest request) {
-        String userName = "respondent";
-        String password = "12345678";
-        String usernameString = (String) request.getSession().getAttribute("username");
-        logger.info("de winner is: " + usernameString);
-        System.out.println(" ************************************************************-----> " + usernameString);
-        QuestionnairResource proxy = JAXRSClientFactory.create(baseURI, QuestionnairResource.class,
-                Collections.singletonList(new JacksonJsonProvider()), userName, password, null);
+        String username = (String) request.getSession().getAttribute("username");
+        String password = (String) request.getSession().getAttribute("password");
+
+        logger.info("Getting QuestionnairResource using credentials {}/{}: ", username, password);
+        QuestionnairResource proxy = JAXRSClientFactory.create(BASE_URI, QuestionnairResource.class,
+                Collections.singletonList(new JacksonJsonProvider()), username, password, null);
         return proxy;
     }
 
