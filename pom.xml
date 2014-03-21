@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                              http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                              http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.gazpachoquest</groupId>
   <artifactId>gazpachoquest</artifactId>
@@ -30,19 +31,25 @@
     <arquillian.versionx>1.0.0.Alpha1</arquillian.versionx>
   </properties>
 
+  <scm>
+    <connection>scm:git:https://github.com/antoniomaria/gazpachoquest.git</connection>
+    <developerConnection>scm:git:https://github.com/antoniomaria/gazpachoquest.git</developerConnection>
+    <url>scm:git:https://github.com/antoniomaria/gazpachoquest.git</url>
+  </scm>
+
   <modules>
     <module>testsuite</module>
     <module>api</module>
     <module>types</module>
     <module>persistence</module>
-    <module>components</module>	
+    <module>components</module>
     <module>dtos</module>
-	<module>facades</module>  
-    <module>services</module>    
+    <module>facades</module>
+    <module>services</module>
     <module>questionnaires-backend</module>
     <!-- Ommited temporarly <module>questionnaires-ui</module> -->
     <module>rest</module>
-	<module>tools</module>
+    <module>tools</module>
   </modules>
   <repositories>
     <repository>
@@ -247,13 +254,13 @@
         <artifactId>gazpachoquest-dtos</artifactId>
         <version>${project.version} </version>
       </dependency>
-	  
+
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>gazpachoquest-facades</artifactId>
         <version>${project.version} </version>
       </dependency>
-	  
+
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>gazpachoquest-dao</artifactId>
@@ -410,7 +417,7 @@
         <artifactId>c3p0</artifactId>
         <version>0.9.5-pre6</version>
       </dependency>
-      
+
     </dependencies>
 
   </dependencyManagement>
