@@ -32,9 +32,9 @@
   </properties>
 
   <scm>
-    <connection>scm:git:git@github.com:antoniomaria/gazpachoquest.git</connection>
+    <connection>scm:git:git://github.com/antoniomaria/gazpachoquest.git</connection>
     <developerConnection>scm:git:git@github.com:antoniomaria/gazpachoquest.git</developerConnection>
-    <url>scm:git:git@github.com:antoniomaria/gazpachoquest.git</url>
+    <url>https://github.com/antoniomaria/gazpachoquest</url>
   </scm>
 
   <modules>
