@@ -3,7 +3,7 @@
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
     <artifactId>gazpachoquest</artifactId>
-    <version>0.5.0-RELEASE</version>
+    <version>0.5.1-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-dtos</artifactId>
   <packaging>jar</packaging>
@@ -14,7 +14,7 @@
     <connection>scm:git:git@github.com:antoniomaria/gazpachoquest.git</connection>
     <url>scm:git:git@github.com:antoniomaria/gazpachoquest.git</url>
     <developerConnection>scm:git:git@github.com:antoniomaria/gazpachoquest.git</developerConnection>
-    <tag>gazpachoquest-0.5.0-RELEASE</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <!-- http://wiki.cloudbees.com/bin/view/DEV/CloudBees+Private+Maven+Repository -->
