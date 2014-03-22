@@ -4,7 +4,7 @@
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
     <artifactId>gazpacho-persistence</artifactId>
-    <version>1.0.0.SNAPSHOT</version>
+    <version>0.0.5-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-domain</artifactId>
   <name>gazpachoquest-domain</name>
