@@ -10,6 +10,25 @@
   <artifactId>gazpachoquest-ddlgenerator</artifactId>
   <name>gazpachoquest-ddlgenerator</name>
   <url>http://maven.apache.org</url>
+
+
+  <scm>
+    <connection>scm:git:git@github.com:antoniomaria/gazpachoquest.git</connection>
+    <url>scm:git:git@github.com:antoniomaria/gazpachoquest.git</url>
+    <developerConnection>scm:git:git@github.com:antoniomaria/gazpachoquest.git</developerConnection>
+  </scm>
+
+  <!-- http://wiki.cloudbees.com/bin/view/DEV/CloudBees+Private+Maven+Repository -->
+  <distributionManagement>
+    <snapshotRepository>
+      <id>cloudbees-private-snapshot-repository</id>
+      <url>dav:https://repository-antoniomaria.forge.cloudbees.com/snapshot/</url>
+    </snapshotRepository>
+    <repository>
+      <id>cloudbees-private-repository</id>
+      <url>dav:https://repository-antoniomaria.forge.cloudbees.com/release/</url>
+    </repository>
+  </distributionManagement>
   <dependencies>
 
     <dependency>
