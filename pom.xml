@@ -454,6 +454,7 @@
           <compilerArgument>-proc:none</compilerArgument>
         </configuration>
       </plugin>
+      <!-- mvn release:perform -Dgoals='deploy -f /home/antoniomaria/git/antoniomaria/gazpachosurvey/pom.xml' -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
