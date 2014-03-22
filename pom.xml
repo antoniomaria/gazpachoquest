@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                              http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.gazpachoquest</groupId>
   <artifactId>gazpachoquest</artifactId>
   <packaging>pom</packaging>
-  <version>1.0.0.SNAPSHOT</version>
+  <version>0.5.0.RELEASE</version>
   <name>Application for collecting answers through questionnaires</name>
 
   <licenses>
@@ -35,6 +35,7 @@
     <connection>scm:git:git@github.com:antoniomaria/gazpachoquest.git</connection>
     <url>scm:git:git@github.com:antoniomaria/gazpachoquest.git</url>
     <developerConnection>scm:git:git@github.com:antoniomaria/gazpachoquest.git</developerConnection>
+    <tag>gazpachoquest-0.5.0.RELEASE</tag>
   </scm>
 
   <!-- http://wiki.cloudbees.com/bin/view/DEV/CloudBees+Private+Maven+Repository -->
