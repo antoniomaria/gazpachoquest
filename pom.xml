@@ -37,6 +37,18 @@
     <developerConnection>scm:git:git@github.com:antoniomaria/gazpachoquest.git</developerConnection>
   </scm>
 
+  <!-- http://wiki.cloudbees.com/bin/view/DEV/CloudBees+Private+Maven+Repository -->
+  <distributionManagement>
+  
+    <snapshotRepository>
+      <id>cloudbees-private-snapshot-repository</id>
+      <url>dav:https://repository-antoniomaria.forge.cloudbees.com/snapshot/</url>
+    </snapshotRepository>
+    <repository>
+      <id>cloudbees-private-repository</id>
+      <url>dav:https://repository-antoniomaria.forge.cloudbees.com/release/</url>
+    </repository>
+  </distributionManagement>
   <modules>
     <module>testsuite</module>
     <module>api</module>
@@ -466,6 +478,13 @@
         </executions>
       </plugin>
     </plugins>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-webdav</artifactId>
+        <version>1.0-beta-2</version>
+      </extension>
+    </extensions>
   </build>
 
 </project>
