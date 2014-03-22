@@ -3,7 +3,7 @@
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
     <artifactId>gazpachoquest</artifactId>
-    <version>0.5.0.RELEASE</version>
+    <version>0.5.1.SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-services</artifactId>
   <packaging>jar</packaging>
