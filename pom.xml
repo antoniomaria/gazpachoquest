@@ -460,6 +460,7 @@
         <version>2.5</version>
         <configuration>
           <autoVersionSubmodules>true</autoVersionSubmodules>
+          <releaseProfiles>cloudbees</releaseProfiles>
         </configuration>
       </plugin>
 
