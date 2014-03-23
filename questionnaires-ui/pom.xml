@@ -16,27 +16,7 @@
     <arquillian.version>1.0.0.Alpha1</arquillian.version>
     <version.shrinkwrap.resolvers>2.1.0-alpha-1</version.shrinkwrap.resolvers>
   </properties>
-  
-  
-  <scm>
-    <connection>scm:git:git@github.com:antoniomaria/gazpachoquest.git</connection>
-    <url>scm:git:git@github.com:antoniomaria/gazpachoquest.git</url>
-    <developerConnection>scm:git:git@github.com:antoniomaria/gazpachoquest.git</developerConnection>
-  </scm>
-
-  <!-- http://wiki.cloudbees.com/bin/view/DEV/CloudBees+Private+Maven+Repository -->
-  <distributionManagement>
-    <snapshotRepository>
-      <id>cloudbees-private-snapshot-repository</id>
-      <url>dav:https://repository-antoniomaria.forge.cloudbees.com/snapshot/</url>
-    </snapshotRepository>
-    <repository>
-      <id>cloudbees-private-repository</id>
-      <url>dav:https://repository-antoniomaria.forge.cloudbees.com/release/</url>
-    </repository>
-  </distributionManagement>
-  
-  <dependencyManagement>
+    <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>org.jboss.shrinkwrap.resolver</groupId>
