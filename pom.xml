@@ -16,8 +16,9 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <spring.version>3.1.4.RELEASE</spring.version>
-    <spring.data.jpa.version>1.4.0.RELEASE</spring.data.jpa.version>
+    <spring.version>3.2.8.RELEASE</spring.version>
+    <spring.data.jpa.version>1.5.1.RELEASE</spring.data.jpa.version>
+    <spring.asm.version>3.1.4.RELEASE</spring.asm.version>
     <slf4j.version>1.7.5</slf4j.version>
     <logback.version>1.0.13</logback.version>
     <eclipselink.version>2.5.0</eclipselink.version>
@@ -308,6 +309,12 @@
 
       <dependency>
         <groupId>org.springframework</groupId>
+        <artifactId>spring-context-support</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
         <artifactId>spring-web</artifactId>
         <version>${spring.version}</version>
       </dependency>
@@ -341,7 +348,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-asm</artifactId>
-        <version>${spring.version}</version>
+        <version>${spring.asm.version}</version>
       </dependency>
 
       <!-- Spring data jpa -->
@@ -490,8 +497,6 @@
         <artifactId>asm-util</artifactId>
         <version>4.0</version>
       </dependency>
-
-
     </dependencies>
 
 
