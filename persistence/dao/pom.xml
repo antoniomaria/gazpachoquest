@@ -9,8 +9,8 @@
   <packaging>jar</packaging>
   <name>gazpachoquest-dao</name>
   <url>http://maven.apache.org</url>
-  
-  
+
+
   <dependencies>
 
     <!-- Test dependencies -->
@@ -50,18 +50,18 @@
       <scope>test</scope>
     </dependency>
 
-	<!-- Project libraries -->
+    <!-- Project libraries -->
     <dependency>
       <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-db</artifactId>
     </dependency>
-    
+
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-qbe</artifactId>
     </dependency>
-    	
-    <!-- JDBC drivers  -->
+
+    <!-- JDBC drivers -->
     <dependency>
       <groupId>postgresql</groupId>
       <artifactId>postgresql</artifactId>
@@ -97,7 +97,6 @@
     <dependency>
       <groupId>cglib</groupId>
       <artifactId>cglib</artifactId>
-      <version>2.2.2</version>
     </dependency>
 
     <dependency>
@@ -105,10 +104,10 @@
       <artifactId>spring-asm</artifactId>
       <version>${spring.version}</version>
     </dependency>
+
     <dependency>
       <groupId>asm</groupId>
       <artifactId>asm-all</artifactId>
-      <version>2.1</version>
       <scope>test</scope>
     </dependency>
     <!-- Project libraries -->
@@ -150,34 +149,14 @@
     </dependency>
 
     <dependency>
-      <groupId>net.java.dev.inflector</groupId>
-      <artifactId>inflector</artifactId>
-      <version>0.7.0</version>
-    </dependency>
-
-    <dependency>
       <groupId>com.mchange</groupId>
       <artifactId>c3p0</artifactId>
-      <version>0.9.5-pre6</version>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>2.6</version>
-    </dependency>
-
-    <dependency>
-      <groupId>joda-time</groupId>
-      <artifactId>joda-time</artifactId>
-      <version>2.2</version>
     </dependency>
 
     <!-- Google flyway -->
     <dependency>
       <groupId>com.googlecode.flyway</groupId>
       <artifactId>flyway-core</artifactId>
-      <version>2.2</version>
     </dependency>
   </dependencies>
 </project>

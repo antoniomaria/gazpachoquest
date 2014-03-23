@@ -1,6 +1,6 @@
 package net.sf.gazpachoquest.dto.answers;
 
-import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang3.BooleanUtils;
 
 public class BooleanAnswer extends SimpleAnswer {
 

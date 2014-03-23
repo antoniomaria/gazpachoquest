@@ -74,16 +74,15 @@
       <artifactId>gazpachoquest-types</artifactId>
     </dependency>
 
+    <!-- Third parties -->
     <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>2.6</version>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
     </dependency>
 
     <dependency>
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
-      <version>2.2</version>
     </dependency>
 
     <!-- Rest api Documenter -->
@@ -92,7 +91,7 @@
       <artifactId>swagger-annotations</artifactId>
       <version>${swagger.version}</version>
     </dependency>
-    
+
     <!-- Jackson provider -->
     <dependency>
       <groupId>com.fasterxml.jackson.jaxrs</groupId>

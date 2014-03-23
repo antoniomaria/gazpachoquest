@@ -152,19 +152,6 @@
       </exclusions>
     </dependency>
 
-    <!-- Required for http status constants -->
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>4.3.1</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>commons-logging</artifactId>
-          <groupId>commons-logging</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
     <!-- Rest api Documenter -->
     <dependency>
       <groupId>com.wordnik</groupId>
@@ -185,7 +172,6 @@
       <groupId>com.fasterxml.jackson.jaxrs</groupId>
       <artifactId>jackson-jaxrs-json-provider</artifactId>
     </dependency>
-
   </dependencies>
 
   <profiles>

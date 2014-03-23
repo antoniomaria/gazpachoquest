@@ -1,6 +1,6 @@
 package net.sf.gazpachoquest.dto.answers;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class LongTextAnswer extends SimpleAnswer {
 

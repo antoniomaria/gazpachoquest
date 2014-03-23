@@ -27,8 +27,5 @@
       <artifactId>slf4j-api</artifactId>
       <scope>provided</scope>
     </dependency>
-
   </dependencies>
-
-
 </project>
