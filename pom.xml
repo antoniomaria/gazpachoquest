@@ -60,6 +60,7 @@
     <module>components</module>
     <module>dtos</module>
     <module>facades</module>
+	<module>jaas</module>
     <module>services</module>
     <module>questionnaires-backend</module>
     <!-- Ommited temporarly <module>questionnaires-ui</module> -->
