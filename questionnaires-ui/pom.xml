@@ -16,7 +16,7 @@
     <arquillian.version>1.0.0.Alpha1</arquillian.version>
     <version.shrinkwrap.resolvers>2.1.0-alpha-1</version.shrinkwrap.resolvers>
   </properties>
-    <dependencyManagement>
+  <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>org.jboss.shrinkwrap.resolver</groupId>
@@ -68,7 +68,7 @@
       <artifactId>fest-assert-core</artifactId>
       <scope>test</scope>
     </dependency>
-    
+
     <dependency>
       <groupId>net.sourceforge.htmlunit</groupId>
       <artifactId>htmlunit</artifactId>
@@ -100,6 +100,11 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>gazpachoquest-jaas</artifactId>
     </dependency>
 
     <!-- Third party libraries -->

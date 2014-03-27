@@ -6,13 +6,22 @@ public class UserPrincipal implements Principal {
 
     private String name;
 
-    public UserPrincipal(String name) {
+    private String password;
+
+    public UserPrincipal() {
         super();
-        this.name = name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -20,4 +29,29 @@ public class UserPrincipal implements Principal {
         return name;
     }
 
+    public static Builder with() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private String name;
+        private String password;
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public UserPrincipal build() {
+            UserPrincipal userPrincipal = new UserPrincipal();
+            userPrincipal.name = name;
+            userPrincipal.password = password;
+            return userPrincipal;
+        }
+    }
 }

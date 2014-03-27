@@ -1,10 +1,11 @@
-package net.sf.gazpachoquest.questionnaires.views;
+package net.sf.gazpachoquest.questionnaires.views.login;
 
 import java.util.Collections;
 import java.util.Locale;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;
 import net.sf.gazpachoquest.questionnaires.resource.ResourceProducer;
+import net.sf.gazpachoquest.questionnaires.views.QuestionnairView;
 
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.slf4j.Logger;
@@ -27,12 +28,12 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
 
-@CDIView(LoginView.NAME)
-public class LoginView extends CustomComponent implements View, Button.ClickListener {
+@CDIView(OldLoginView.NAME)
+public class OldLoginView extends CustomComponent implements View, Button.ClickListener {
 
     private static final long serialVersionUID = 2314128852757221652L;
 
-    private static Logger logger = LoggerFactory.getLogger(LoginView.class);
+    private static Logger logger = LoggerFactory.getLogger(OldLoginView.class);
 
     public static final String NAME = "";
 
@@ -67,7 +68,7 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
         languageSelector.setItemCaption(locale, "XX");
     }
 
-    public LoginView() {
+    public OldLoginView() {
         setSizeFull();
 
         // Language bar in the top-right corner for selecting

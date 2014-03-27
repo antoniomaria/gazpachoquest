@@ -2,11 +2,13 @@ package net.sf.gazpachoquest.questionnaires.views;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
+import net.sf.gazpachoquest.questionnaires.views.login.LoginView;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
 @CDIView(QuestionnairView.NAME)
+@RolesAllowed("respondent")
 public class QuestionnairView extends CustomComponent implements View {
 
     private static final long serialVersionUID = -4474306191162456568L;

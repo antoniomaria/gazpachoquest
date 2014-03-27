@@ -8,6 +8,7 @@ import javax.enterprise.inject.Produces;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;
+import net.sf.gazpachoquest.jaas.UserPrincipal;
 
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.client.WebClient;
@@ -26,13 +27,14 @@ public class ResourceProducer {
     @GazpachoResource
     @RequestScoped
     public QuestionnairResource createQuestionnairResource(HttpServletRequest request) {
-        String username = (String) request.getSession().getAttribute("username");
-        String password = (String) request.getSession().getAttribute("password");
+        UserPrincipal principal = (UserPrincipal) request.getUserPrincipal();
+        String password = principal.getPassword();
+        String username = principal.getName();
 
         logger.info("Getting QuestionnairResource using credentials {}/{}: ", username, password);
-        QuestionnairResource proxy = JAXRSClientFactory.create(BASE_URI, QuestionnairResource.class,
+        QuestionnairResource resource = JAXRSClientFactory.create(BASE_URI, QuestionnairResource.class,
                 Collections.singletonList(new JacksonJsonProvider()), username, password, null);
-        return proxy;
+        return resource;
     }
 
     public void closeQuestionnairResource(@Disposes

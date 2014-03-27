@@ -32,7 +32,7 @@ public class GazpachoLoginModuleTest {
 
         // Initialization of Group
         // before GroupPrincipal
-        Principal principal = new UserPrincipal("respondent");
+        Principal principal = UserPrincipal.with().name("respondent").build();
         Set<Principal> principals = new HashSet<Principal>();
         principals.add(principal);
         Subject subject = new Subject(true, principals, new HashSet<Principal>(), new HashSet<Principal>());

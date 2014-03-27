@@ -97,8 +97,7 @@ public class GazpachoLoginModule implements LoginModule {
 
     @Override
     public boolean commit() throws LoginException {
-
-        userPrincipal = new UserPrincipal(username);
+        userPrincipal = UserPrincipal.with().name(username).password(password).build();
         subject.getPrincipals().add(userPrincipal);
 
         if (userGroups != null && userGroups.size() > 0) {
