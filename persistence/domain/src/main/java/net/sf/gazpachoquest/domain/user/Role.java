@@ -8,7 +8,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
-import net.sf.gazpachoquest.domain.support.User;
 
 @Entity
 public class Role extends AbstractPersistable {
@@ -23,7 +22,15 @@ public class Role extends AbstractPersistable {
     private Set<Permission> permissions;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private Set<User> users;
+    private Set<Subject> subjects;
+
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
+    }
 
     public String getDescription() {
         return description;
@@ -39,14 +46,6 @@ public class Role extends AbstractPersistable {
 
     public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     public String getName() {
@@ -99,7 +98,6 @@ public class Role extends AbstractPersistable {
             role.name = name;
             role.description = description;
             role.permissions = permissions;
-            role.users = users;
             return role;
         }
     }

@@ -5,8 +5,7 @@ import java.util.List;
 import javax.security.auth.login.AccountNotFoundException;
 
 import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.domain.support.User;
-import net.sf.gazpachoquest.domain.user.Participant;
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.auth.Account;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
@@ -44,12 +43,12 @@ public class LoginManagerImpl implements LoginManager {
         Account account = Account.with().email(user.getEmail()).givenNames(user.getGivenNames())
                 .surname(user.getSurname()).apiKey(apiKey).build();
 
-        if (user instanceof Participant) {
-            Participant participant = (Participant) user;
+        if (user instanceof User) {
+            User participant = user;
             account = new RespondentAccount(account);
 
             Questionnair questionnairExample = Questionnair.with()
-                    .participant(Participant.with().id(participant.getId()).build()).build();
+                    .participant(User.with().id(participant.getId()).build()).build();
 
             List<Questionnair> questionnairs = questionnairService.findByExample(questionnairExample,
                     new SearchParameters());

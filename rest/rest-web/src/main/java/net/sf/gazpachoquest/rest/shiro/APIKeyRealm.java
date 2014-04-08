@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.persistence.PersistenceException;
 
-import net.sf.gazpachoquest.domain.support.User;
 import net.sf.gazpachoquest.domain.user.Permission;
 import net.sf.gazpachoquest.domain.user.Role;
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.services.PermissionService;
 import net.sf.gazpachoquest.services.RoleService;

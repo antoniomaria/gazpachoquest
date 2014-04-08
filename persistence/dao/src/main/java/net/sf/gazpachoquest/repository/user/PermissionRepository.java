@@ -5,19 +5,15 @@
  * 
  * Contributors: antoniomaria - initial API and implementation
  ******************************************************************************/
-package net.sf.gazpachoquest.domain.audit;
+package net.sf.gazpachoquest.repository.user;
 
-import net.sf.gazpachoquest.domain.user.User;
+import net.sf.gazpachoquest.domain.user.Permission;
+import net.sf.gazpachoquest.repository.support.GenericRepository;
 
-import org.springframework.data.domain.AuditorAware;
+public interface PermissionRepository extends GenericRepository<Permission> {
 
-public class SimpleAuditorAware implements AuditorAware<User> {
+    // @Query("select p from Permission p left join p.role r left join r.users u where u.id = :userId")
+    // List<Permission> findByUser(@Param("userId")
+    // Integer userId);
 
-    @Override
-    public User getCurrentAuditor() {
-        Integer userId = 1;
-        User auditor = new User();
-        auditor.setId(userId);
-        return auditor;
-    }
 }

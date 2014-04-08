@@ -5,9 +5,9 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.sf.gazpachoquest.dto.ParticipantDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachoquest.dto.StudyDTO;
+import net.sf.gazpachoquest.dto.UserDTO;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.StudyAccessType;
 
@@ -37,7 +37,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 public class StudyFacadeTest {
 
     @Autowired
-    private ParticipantFacade participantFacade;
+    private UserFacade participantFacade;
 
     @Autowired
     private StudyFacade studyFacade;
@@ -45,8 +45,8 @@ public class StudyFacadeTest {
     @Test
     public void saveTest() {
         QuestionnairDefinitionDTO questionnairDefinition = QuestionnairDefinitionDTO.with().id(6).build();
-        Set<ParticipantDTO> participants = new HashSet<>();
-        ParticipantDTO participant = participantFacade.findOne(2);
+        Set<UserDTO> participants = new HashSet<>();
+        UserDTO participant = participantFacade.findOne(2);
         participants.add(participant);
 
         Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<QuestionnairDefinitionDTO>();

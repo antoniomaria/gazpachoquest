@@ -5,19 +5,16 @@
  * 
  * Contributors: antoniomaria - initial API and implementation
  ******************************************************************************/
-package net.sf.gazpachoquest.domain.audit;
+package net.sf.gazpachoquest.facades;
 
-import net.sf.gazpachoquest.domain.user.User;
+import net.sf.gazpachoquest.dto.GroupDTO;
 
-import org.springframework.data.domain.AuditorAware;
+public interface GroupFacade {
 
-public class SimpleAuditorAware implements AuditorAware<User> {
+    GroupDTO save(GroupDTO group);
 
-    @Override
-    public User getCurrentAuditor() {
-        Integer userId = 1;
-        User auditor = new User();
-        auditor.setId(userId);
-        return auditor;
-    }
+    GroupDTO findOne(Integer id);
+
+    void delete(Integer id);
+
 }

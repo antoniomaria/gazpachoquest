@@ -8,10 +8,11 @@
  * Contributors:
  *     antoniomaria - initial API and implementation
  ******************************************************************************/
-package net.sf.gazpachoquest.services;
+package net.sf.gazpachoquest.repository.user;
 
 import net.sf.gazpachoquest.domain.user.User;
+import net.sf.gazpachoquest.repository.support.GenericRepository;
 
-public interface UserService extends PersistenceService<User> {
+public interface UserRepository extends GenericRepository<User> {
 
 }

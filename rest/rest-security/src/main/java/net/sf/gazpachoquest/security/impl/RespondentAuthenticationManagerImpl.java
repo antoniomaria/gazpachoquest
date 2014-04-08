@@ -9,7 +9,7 @@ import net.sf.gazpachoquest.domain.core.PersonalInvitation;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.Study;
 import net.sf.gazpachoquest.domain.support.Invitation;
-import net.sf.gazpachoquest.domain.user.Participant;
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.security.AuthenticationManager;
@@ -44,20 +44,20 @@ public class RespondentAuthenticationManagerImpl implements AuthenticationManage
 
         List<Questionnair> questionnairs = new ArrayList<>();
         Study study = invitation.getStudy();
-        Participant participant = null;
+        User participant = null;
         if (invitation instanceof PersonalInvitation) {
             PersonalInvitation personalInvitation = (PersonalInvitation) invitation;
             participant = personalInvitation.getParticipant();
             Questionnair questionnairExample = Questionnair.with()
-                    .participant(Participant.with().id(participant.getId()).build())
+                    .participant(User.with().id(participant.getId()).build())
                     .study(Study.with().id(study.getId()).build()).build();
             questionnairs = questionnairService.findByExample(questionnairExample, new SearchParameters());
         }
 
         if (questionnairs.isEmpty()) {
-            participant = Participant.with().giveNames("anonymous").surname("anonymous")
-                    .email("no-reply@gazpachoquest.net").build();
-            participant = (Participant) userService.save(participant);
+            participant = User.with().givenNames("anonymous").surname("anonymous").email("no-reply@gazpachoquest.net")
+                    .build();
+            participant = userService.save(participant);
             Questionnair questionnair = Questionnair.with().study(study).participant(participant).build();
             questionnair = questionnairService.save(questionnair);
             questionnairs.add(questionnair);

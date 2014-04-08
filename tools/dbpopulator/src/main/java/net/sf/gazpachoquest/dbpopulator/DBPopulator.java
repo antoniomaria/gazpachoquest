@@ -14,8 +14,6 @@ import net.sf.gazpachoquest.dto.LabelDTO;
 import net.sf.gazpachoquest.dto.LabelSetDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateLanguageSettingsDTO;
-import net.sf.gazpachoquest.dto.ManagerDTO;
-import net.sf.gazpachoquest.dto.ParticipantDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionGroupDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
@@ -23,12 +21,12 @@ import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.StudyDTO;
 import net.sf.gazpachoquest.dto.SubquestionDTO;
+import net.sf.gazpachoquest.dto.UserDTO;
 import net.sf.gazpachoquest.dto.support.TranslationDTO;
 import net.sf.gazpachoquest.facades.MailMessageFacade;
-import net.sf.gazpachoquest.facades.ManagerFacade;
-import net.sf.gazpachoquest.facades.ParticipantFacade;
 import net.sf.gazpachoquest.facades.QuestionnairDefinitionEditorFacade;
 import net.sf.gazpachoquest.facades.StudyFacade;
+import net.sf.gazpachoquest.facades.UserFacade;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
@@ -45,10 +43,7 @@ public class DBPopulator {
     private MailMessageFacade mailMessageFacade;
 
     @Autowired
-    private ManagerFacade managerFacade;
-
-    @Autowired
-    private ParticipantFacade participantFacade;
+    private UserFacade userFacade;
 
     @Autowired
     private QuestionnairDefinitionEditorFacade questionnairDefinitionEditorFacade;
@@ -59,16 +54,16 @@ public class DBPopulator {
     // http://www.objectpartners.com/2012/05/17/creating-a-hierarchical-test-data-builder-using-generics/
     public void populate() {
         // System account
-        managerFacade.save(ManagerDTO.with().givenNames("support").surname("support").email("support@gazpacho.net")
+        userFacade.save(UserDTO.with().givenNames("support").surname("support").email("support@gazpacho.net")
                 .username("support").build());
 
-        Set<ParticipantDTO> participants = addParticipants();
+        Set<UserDTO> participants = addParticipants();
 
         populateForJUnitTest(participants);
         populateForDemo(participants);
     }
 
-    public void populateForJUnitTest(Set<ParticipantDTO> participants) {
+    public void populateForJUnitTest(Set<UserDTO> participants) {
         QuestionnairDefinitionDTO questionnairDef = null;
         questionnairDef = createDemoSurvey();
         asignDefaultMailTemplate(questionnairDef);
@@ -90,7 +85,7 @@ public class DBPopulator {
         studyFacade.save(study);
     }
 
-    public void populateForDemo(Set<ParticipantDTO> participants) {
+    public void populateForDemo(Set<UserDTO> participants) {
 
         QuestionnairDefinitionDTO questionnairDef = createFastFoodSurvey();
         asignDefaultMailTemplate(questionnairDef);
@@ -458,24 +453,24 @@ public class DBPopulator {
         return survey;
     }
 
-    protected Set<ParticipantDTO> addParticipants() {
-        ParticipantDTO tyrion = ParticipantDTO.with().preferedLanguage(Language.EN).givenNames("Tyrion")
-                .surname("Lannister").email("tyrion.lannister@kingslanding.net").gender(Gender.MALE).build();
-        tyrion = participantFacade.save(tyrion);
+    protected Set<UserDTO> addParticipants() {
+        UserDTO tyrion = UserDTO.with().preferedLanguage(Language.EN).givenNames("Tyrion").surname("Lannister")
+                .email("tyrion.lannister@kingslanding.net").gender(Gender.MALE).build();
+        tyrion = userFacade.save(tyrion);
 
-        ParticipantDTO jon = ParticipantDTO.with().preferedLanguage(Language.ES).givenNames("Jon").surname("Snow")
+        UserDTO jon = UserDTO.with().preferedLanguage(Language.ES).givenNames("Jon").surname("Snow")
                 .email("jon.snow@nightswatch.net").gender(Gender.MALE).build();
-        jon = participantFacade.save(jon);
+        jon = userFacade.save(jon);
 
-        ParticipantDTO arya = ParticipantDTO.with().givenNames("Arya").surname("Stark")
-                .email("arya.stark@winterfell.net").gender(Gender.FEMALE).build();
-        arya = participantFacade.save(arya);
+        UserDTO arya = UserDTO.with().givenNames("Arya").surname("Stark").email("arya.stark@winterfell.net")
+                .gender(Gender.FEMALE).build();
+        arya = userFacade.save(arya);
 
-        ParticipantDTO catelyn = ParticipantDTO.with().preferedLanguage(Language.FI).givenNames("Catelyn")
-                .surname("Stark").email("catelyn.stark@winterfell.net").gender(Gender.FEMALE).build();
-        catelyn = participantFacade.save(catelyn);
+        UserDTO catelyn = UserDTO.with().preferedLanguage(Language.FI).givenNames("Catelyn").surname("Stark")
+                .email("catelyn.stark@winterfell.net").gender(Gender.FEMALE).build();
+        catelyn = userFacade.save(catelyn);
 
-        Set<ParticipantDTO> participants = new HashSet<>();
+        Set<UserDTO> participants = new HashSet<>();
         participants.add(tyrion);
         participants.add(arya);
         participants.add(catelyn);

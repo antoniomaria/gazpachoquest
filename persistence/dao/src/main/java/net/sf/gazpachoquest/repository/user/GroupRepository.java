@@ -5,19 +5,11 @@
  * 
  * Contributors: antoniomaria - initial API and implementation
  ******************************************************************************/
-package net.sf.gazpachoquest.domain.audit;
+package net.sf.gazpachoquest.repository.user;
 
-import net.sf.gazpachoquest.domain.user.User;
+import net.sf.gazpachoquest.domain.user.Group;
+import net.sf.gazpachoquest.repository.support.GenericRepository;
 
-import org.springframework.data.domain.AuditorAware;
+public interface GroupRepository extends GenericRepository<Group> {
 
-public class SimpleAuditorAware implements AuditorAware<User> {
-
-    @Override
-    public User getCurrentAuditor() {
-        Integer userId = 1;
-        User auditor = new User();
-        auditor.setId(userId);
-        return auditor;
-    }
 }

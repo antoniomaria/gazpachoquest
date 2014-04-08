@@ -5,19 +5,10 @@
  * 
  * Contributors: antoniomaria - initial API and implementation
  ******************************************************************************/
-package net.sf.gazpachoquest.domain.audit;
+package net.sf.gazpachoquest.services;
 
-import net.sf.gazpachoquest.domain.user.User;
+import net.sf.gazpachoquest.domain.user.Group;
 
-import org.springframework.data.domain.AuditorAware;
+public interface GroupService extends PersistenceService<Group> {
 
-public class SimpleAuditorAware implements AuditorAware<User> {
-
-    @Override
-    public User getCurrentAuditor() {
-        Integer userId = 1;
-        User auditor = new User();
-        auditor.setId(userId);
-        return auditor;
-    }
 }

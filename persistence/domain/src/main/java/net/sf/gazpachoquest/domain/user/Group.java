@@ -5,12 +5,11 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-
-import net.sf.gazpachoquest.domain.support.AbstractAuditable;
-import net.sf.gazpachoquest.domain.support.User;
+import javax.persistence.Table;
 
 @Entity
-public class Group extends AbstractAuditable {
+@Table(name = "groups")
+public class Group extends Subject {
 
     private static final long serialVersionUID = 2209952243152855595L;
 

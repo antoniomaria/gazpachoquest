@@ -14,7 +14,7 @@
                            http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
 
-  <context:component-scan base-package="net.sf.gazpachoquest.services.impl" />
+  <context:component-scan base-package="net.sf.gazpachoquest.services" />
 
   <bean id="profilingAdvise" class="net.sf.gazpachoquest.aspects.ProfilingAdvise"></bean>
 

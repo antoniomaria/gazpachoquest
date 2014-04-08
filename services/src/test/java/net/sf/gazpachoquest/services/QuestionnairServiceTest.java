@@ -3,7 +3,7 @@ package net.sf.gazpachoquest.services;
 import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.Study;
-import net.sf.gazpachoquest.domain.user.Participant;
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
@@ -37,7 +37,7 @@ public class QuestionnairServiceTest {
 
     @Test
     public void findOneByExampleTest() {
-        Participant participant = Participant.with().id(2).build();
+        User participant = User.with().id(2).build();
         Study study = Study.with().id(57).build();
         Questionnair example = Questionnair.with().participant(participant).study(study).build();
         Questionnair questionnair = questionnairService.findOneByExample(example, new SearchParameters());

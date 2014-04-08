@@ -1,12 +1,9 @@
 /*******************************************************************************
- * Copyright (c) 2014 antoniomariasanchez at gmail.com.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the GNU Public License v3.0
- * which accompanies this distribution, and is available at
- * http://www.gnu.org/licenses/gpl.html
+ * Copyright (c) 2014 antoniomariasanchez at gmail.com. All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0 which accompanies this distribution, and is
+ * available at http://www.gnu.org/licenses/gpl.html
  * 
- * Contributors:
- *     antoniomaria - initial API and implementation
+ * Contributors: antoniomaria - initial API and implementation
  ******************************************************************************/
 package net.sf.gazpachoquest.facades.impl;
 
@@ -15,10 +12,10 @@ import java.util.Set;
 
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.Study;
-import net.sf.gazpachoquest.domain.user.Participant;
-import net.sf.gazpachoquest.dto.ParticipantDTO;
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachoquest.dto.StudyDTO;
+import net.sf.gazpachoquest.dto.UserDTO;
 import net.sf.gazpachoquest.facades.StudyFacade;
 import net.sf.gazpachoquest.services.StudyService;
 
@@ -49,9 +46,9 @@ public class StudyFacadeImpl implements StudyFacade {
     @Override
     public StudyDTO save(final StudyDTO study) {
         Study entity = mapper.map(study, Study.class);
-        Set<Participant> participants = new HashSet<Participant>();
-        for (ParticipantDTO participantDTO : study.getParticipants()) {
-            Participant participant = mapper.map(participantDTO, Participant.class);
+        Set<User> participants = new HashSet<User>();
+        for (UserDTO participantDTO : study.getParticipants()) {
+            User participant = mapper.map(participantDTO, User.class);
             participants.add(participant);
         }
 

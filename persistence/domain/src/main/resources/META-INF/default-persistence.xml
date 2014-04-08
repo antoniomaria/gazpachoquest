@@ -27,10 +27,11 @@
     <persistence:class>net.sf.gazpachoquest.domain.core.Study</persistence:class>
 
     <!-- User -->
-    <persistence:class>net.sf.gazpachoquest.domain.user.Manager</persistence:class>
-    <persistence:class>net.sf.gazpachoquest.domain.user.Participant</persistence:class>
+    <persistence:class>net.sf.gazpachoquest.domain.user.Subject</persistence:class>
+    <persistence:class>net.sf.gazpachoquest.domain.user.User</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.user.Role</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.user.Permission</persistence:class>
+    <persistence:class>net.sf.gazpachoquest.domain.user.Group</persistence:class>
 
     <!-- i18 -->
     <persistence:class>net.sf.gazpachoquest.domain.i18.LabelTranslation</persistence:class>
@@ -41,8 +42,6 @@
     <persistence:class>net.sf.gazpachoquest.domain.i18.QuestionTranslation</persistence:class>
     <!-- Support -->
     <persistence:class>net.sf.gazpachoquest.domain.support.AbstractInvitation</persistence:class>
-    <persistence:class>net.sf.gazpachoquest.domain.support.User</persistence:class>
-
     <!--
       <persistence:properties>
       <persistence:property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
