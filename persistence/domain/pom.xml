@@ -40,6 +40,7 @@
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
       <artifactId>javax.persistence</artifactId>
+      <scope>provided</scope>
     </dependency>
 
     <!-- Spring data jpa -->

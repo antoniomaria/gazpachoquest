@@ -12,14 +12,12 @@
 
   <context:property-placeholder location="classpath:/database/db_postgres.properties" />
 
-  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-    <property name="driverClassName" value="${jdbc.driver.class}" />
-    <property name="url" value="${jdbc.url}" />
-    <property name="username" value="${jdbc.username}" />
-    <property name="password" value="${jdbc.password}" />
-    <property name="maxActive" value="150" />
-    <property name="timeBetweenEvictionRunsMillis" value="60000" />
-  </bean>
 
+  <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <property name="driverClass" value="${jdbc.driver.class}" />
+    <property name="jdbcUrl" value="${jdbc.url}" />
+    <property name="user" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+  </bean>
 
 </beans>

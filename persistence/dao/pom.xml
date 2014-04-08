@@ -93,7 +93,7 @@
         </exclusion>
       </exclusions>
     </dependency>
-
+<!-- 
     <dependency>
       <groupId>cglib</groupId>
       <artifactId>cglib</artifactId>
@@ -102,13 +102,13 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-asm</artifactId>
-    </dependency>
+    </dependency> 
 
     <dependency>
       <groupId>asm</groupId>
       <artifactId>asm-all</artifactId>
       <scope>test</scope>
-    </dependency>
+    </dependency>-->
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -145,6 +145,7 @@
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
       <artifactId>javax.persistence</artifactId>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>

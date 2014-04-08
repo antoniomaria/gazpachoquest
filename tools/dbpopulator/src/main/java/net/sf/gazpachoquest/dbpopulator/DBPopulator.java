@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2014 antoniomariasanchez at gmail.com. All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0 which accompanies this distribution, and is
+ * available at http://www.gnu.org/licenses/gpl.html
+ * 
+ * Contributors: antoniomaria - initial API and implementation
+ ******************************************************************************/
 package net.sf.gazpachoquest.dbpopulator;
 
 import java.util.HashSet;
@@ -7,6 +14,7 @@ import net.sf.gazpachoquest.dto.LabelDTO;
 import net.sf.gazpachoquest.dto.LabelSetDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.ManagerDTO;
 import net.sf.gazpachoquest.dto.ParticipantDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionGroupDTO;
@@ -15,13 +23,12 @@ import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.StudyDTO;
 import net.sf.gazpachoquest.dto.SubquestionDTO;
-import net.sf.gazpachoquest.dto.UserDTO;
 import net.sf.gazpachoquest.dto.support.TranslationDTO;
 import net.sf.gazpachoquest.facades.MailMessageFacade;
+import net.sf.gazpachoquest.facades.ManagerFacade;
 import net.sf.gazpachoquest.facades.ParticipantFacade;
 import net.sf.gazpachoquest.facades.QuestionnairDefinitionEditorFacade;
 import net.sf.gazpachoquest.facades.StudyFacade;
-import net.sf.gazpachoquest.facades.UserFacade;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
@@ -38,6 +45,9 @@ public class DBPopulator {
     private MailMessageFacade mailMessageFacade;
 
     @Autowired
+    private ManagerFacade managerFacade;
+
+    @Autowired
     private ParticipantFacade participantFacade;
 
     @Autowired
@@ -46,17 +56,19 @@ public class DBPopulator {
     @Autowired
     private StudyFacade studyFacade;
 
-    @Autowired
-    private UserFacade userFacade;
-
     // http://www.objectpartners.com/2012/05/17/creating-a-hierarchical-test-data-builder-using-generics/
     public void populate() {
         // System account
-        userFacade.save(UserDTO.with().firstName("temporal.support").lastName("support")
-                .email("support.temporal@gazpacho.net").build());
+        managerFacade.save(ManagerDTO.with().givenNames("support").surname("support").email("support@gazpacho.net")
+                .username("support").build());
 
         Set<ParticipantDTO> participants = addParticipants();
 
+        populateForJUnitTest(participants);
+        populateForDemo(participants);
+    }
+
+    public void populateForJUnitTest(Set<ParticipantDTO> participants) {
         QuestionnairDefinitionDTO questionnairDef = null;
         questionnairDef = createDemoSurvey();
         asignDefaultMailTemplate(questionnairDef);
@@ -67,18 +79,27 @@ public class DBPopulator {
 
         StudyDTO study = StudyDTO.with().questionnairDefinitions(questionnairDefinitions)
                 .type(StudyAccessType.BY_INVITATION)
-                .name("New survey " + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .name("New private Questionnair " + questionnairDef.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).participants(participants)
                 .build();
         studyFacade.save(study);
 
-        questionnairDef = createFastFoodSurvey();
+        study = StudyDTO.with().questionnairDefinitions(questionnairDefinitions).type(StudyAccessType.OPEN_ACCESS)
+                .name("New open Questionnair " + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        studyFacade.save(study);
+    }
+
+    public void populateForDemo(Set<ParticipantDTO> participants) {
+
+        QuestionnairDefinitionDTO questionnairDef = createFastFoodSurvey();
         asignDefaultMailTemplate(questionnairDef);
         questionnairDefinitionEditorFacade.confirm(questionnairDef);
-        questionnairDefinitions = new HashSet<>();
+        Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<>();
         questionnairDefinitions.add(questionnairDef);
 
-        study = StudyDTO.with().questionnairDefinitions(questionnairDefinitions).type(StudyAccessType.BY_INVITATION)
+        StudyDTO study = StudyDTO.with().questionnairDefinitions(questionnairDefinitions)
+                .type(StudyAccessType.BY_INVITATION)
                 .name("New survey " + questionnairDef.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31"))
 
@@ -163,25 +184,6 @@ public class DBPopulator {
         survey.addQuestionGroup(questionGroup3);
         survey = questionnairDefinitionEditorFacade.save(survey);
         questionGroup3 = survey.getLastQuestionGroupDTO();
-
-        LabelSetDTO labelSet = LabelSetDTO.with().language(Language.EN).name("Feelings").build();
-        labelSet = questionnairDefinitionEditorFacade.save(labelSet);
-
-        LabelDTO label = LabelDTO.with().language(Language.EN).title("Agree strongly").build();
-        labelSet.addLabel(label);
-        label = LabelDTO.with().language(Language.EN).title("Agree somewhat").build();
-        labelSet.addLabel(label);
-
-        label = LabelDTO.with().language(Language.EN).title("Neither agree nor disagree").build();
-        labelSet.addLabel(label);
-
-        label = LabelDTO.with().language(Language.EN).title("Disagree somewhat").build();
-        labelSet.addLabel(label);
-
-        label = LabelDTO.with().language(Language.EN).title("Disagree strongly").build();
-        labelSet.addLabel(label);
-        // Comment for testing
-        questionnairDefinitionEditorFacade.save(labelSet);
 
         // 1 Single Textbox
         QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).code("Q1")
@@ -324,6 +326,28 @@ public class DBPopulator {
         return survey;
     }
 
+    public void puopulateLabelSet() {
+        LabelSetDTO labelSet = LabelSetDTO.with().language(Language.EN).name("Feelings").build();
+        labelSet = questionnairDefinitionEditorFacade.save(labelSet);
+
+        LabelDTO label = LabelDTO.with().language(Language.EN).title("Agree strongly").build();
+        labelSet.addLabel(label);
+        label = LabelDTO.with().language(Language.EN).title("Agree somewhat").build();
+        labelSet.addLabel(label);
+
+        label = LabelDTO.with().language(Language.EN).title("Neither agree nor disagree").build();
+        labelSet.addLabel(label);
+
+        label = LabelDTO.with().language(Language.EN).title("Disagree somewhat").build();
+        labelSet.addLabel(label);
+
+        label = LabelDTO.with().language(Language.EN).title("Disagree strongly").build();
+        labelSet.addLabel(label);
+
+        // Comment for testing
+        questionnairDefinitionEditorFacade.save(labelSet);
+    }
+
     public QuestionnairDefinitionDTO createFastFoodSurvey() {
         QuestionnairDefinitionDTO survey = QuestionnairDefinitionDTO
                 .with()
@@ -435,20 +459,20 @@ public class DBPopulator {
     }
 
     protected Set<ParticipantDTO> addParticipants() {
-        ParticipantDTO tyrion = ParticipantDTO.with().preferedLanguage(Language.EN).firstname("Tyrion")
-                .lastname("Lannister").email("tyrion.lannister@kingslanding.net").gender(Gender.MALE).build();
+        ParticipantDTO tyrion = ParticipantDTO.with().preferedLanguage(Language.EN).givenNames("Tyrion")
+                .surname("Lannister").email("tyrion.lannister@kingslanding.net").gender(Gender.MALE).build();
         tyrion = participantFacade.save(tyrion);
 
-        ParticipantDTO jon = ParticipantDTO.with().preferedLanguage(Language.ES).firstname("Jon").lastname("Snow")
+        ParticipantDTO jon = ParticipantDTO.with().preferedLanguage(Language.ES).givenNames("Jon").surname("Snow")
                 .email("jon.snow@nightswatch.net").gender(Gender.MALE).build();
         jon = participantFacade.save(jon);
 
-        ParticipantDTO arya = ParticipantDTO.with().firstname("Arya").lastname("Stark")
+        ParticipantDTO arya = ParticipantDTO.with().givenNames("Arya").surname("Stark")
                 .email("arya.stark@winterfell.net").gender(Gender.FEMALE).build();
         arya = participantFacade.save(arya);
 
-        ParticipantDTO catelyn = ParticipantDTO.with().preferedLanguage(Language.FI).firstname("Catelyn")
-                .lastname("Stark").email("catelyn.stark@winterfell.net").gender(Gender.FEMALE).build();
+        ParticipantDTO catelyn = ParticipantDTO.with().preferedLanguage(Language.FI).givenNames("Catelyn")
+                .surname("Stark").email("catelyn.stark@winterfell.net").gender(Gender.FEMALE).build();
         catelyn = participantFacade.save(catelyn);
 
         Set<ParticipantDTO> participants = new HashSet<>();

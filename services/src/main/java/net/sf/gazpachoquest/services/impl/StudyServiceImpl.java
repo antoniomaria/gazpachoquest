@@ -1,24 +1,35 @@
+/*******************************************************************************
+ * Copyright (c) 2014 antoniomariasanchez at gmail.com.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ * 
+ * Contributors:
+ *     antoniomaria - initial API and implementation
+ ******************************************************************************/
 package net.sf.gazpachoquest.services.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import net.sf.gazpachoquest.domain.core.AnonymousInvitation;
 import net.sf.gazpachoquest.domain.core.MailMessage;
 import net.sf.gazpachoquest.domain.core.MailMessageTemplate;
-import net.sf.gazpachoquest.domain.core.Participant;
 import net.sf.gazpachoquest.domain.core.PersonalInvitation;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.Study;
 import net.sf.gazpachoquest.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation;
+import net.sf.gazpachoquest.domain.user.Participant;
 import net.sf.gazpachoquest.repository.InvitationRepository;
 import net.sf.gazpachoquest.repository.MailMessageRepository;
-import net.sf.gazpachoquest.repository.ParticipantRepository;
 import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.repository.StudyRepository;
+import net.sf.gazpachoquest.repository.UserRepository;
 import net.sf.gazpachoquest.services.StudyService;
 import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.InvitationStatus;
@@ -46,7 +57,7 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study> implemen
     private MailMessageRepository mailMessageRepository;
 
     @Autowired
-    private ParticipantRepository participantRepository;
+    private UserRepository participantRepository;
 
     @Autowired
     private QuestionnairDefinitionRepository questionnairDefinitionRepository;
@@ -82,8 +93,8 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study> implemen
     @Override
     @Transactional(readOnly = false)
     public Study save(Study study, Set<QuestionnairDefinition> questionnairDefinitions, Set<Participant> participants) {
+        study = this.save(study);
         if (StudyAccessType.BY_INVITATION.equals(study.getType())) {
-            study = this.save(study);
             for (QuestionnairDefinition questionnairDefinition : questionnairDefinitions) {
 
                 questionnairDefinition = questionnairDefinitionRepository.findOne(questionnairDefinition.getId());
@@ -106,6 +117,16 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study> implemen
                     mailMessageRepository.save(mailMessage);
                 }
             }
+        } else {
+            Assert.notEmpty(questionnairDefinitions, "questionnairDefinitions required");
+            Assert.state(questionnairDefinitions.size() == 1,
+                    "Only one questionnairDefinitions supported for Open Access studies");
+            String token = tokenGenerator.generate();
+
+            AnonymousInvitation anonymousInvitation = AnonymousInvitation.with().study(study).token(token)
+                    .status(InvitationStatus.ACTIVE).build();
+            invitationRepository.save(anonymousInvitation);
+
         }
         return study;
     }
@@ -114,8 +135,8 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study> implemen
             final Participant participant, final String surveyLinkToken) {
 
         Map<String, Object> model = new HashMap<>();
-        model.put("lastname", StringUtils.defaultIfBlank(participant.getLastname(), ""));
-        model.put("firstname", StringUtils.defaultIfBlank(participant.getFirstname(), ""));
+        model.put("lastname", StringUtils.defaultIfBlank(participant.getSurname(), ""));
+        model.put("firstname", StringUtils.defaultIfBlank(participant.getGivenNames(), ""));
         model.put("gender", participant.getGender());
         model.put("link", "http://localhost:8080/questionaires-ui/token=" + surveyLinkToken);
 

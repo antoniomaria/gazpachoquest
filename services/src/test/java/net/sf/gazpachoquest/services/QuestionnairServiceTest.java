@@ -1,9 +1,9 @@
 package net.sf.gazpachoquest.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import net.sf.gazpachoquest.domain.core.Participant;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.Study;
+import net.sf.gazpachoquest.domain.user.Participant;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 

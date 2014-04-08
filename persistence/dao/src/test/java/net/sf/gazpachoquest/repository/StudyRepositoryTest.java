@@ -36,7 +36,7 @@ public class StudyRepositoryTest {
     @Test
     public void findOneByQuestionnairDefinitionTest() {
         Integer questionnairDefinitionId = 6;
-        List<Study> studies = repository.findOneByQuestionnairDefinition(questionnairDefinitionId);
+        List<Study> studies = repository.findByQuestionnairDefinition(questionnairDefinitionId);
         assertThat(studies).containsExactly(Study.with().id(57).build());
     }
 }

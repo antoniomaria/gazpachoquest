@@ -7,13 +7,6 @@
   <version>0.5.1-SNAPSHOT</version>
   <name>Application for collecting answers through questionnaires</name>
 
-  <licenses>
-    <license>
-      <name>Creative Commons Attribution Share Alike 3.0</name>
-      <url>http://www.spdx.org/licenses/CC-BY-SA-3.0</url>
-    </license>
-  </licenses>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring.version>3.2.8.RELEASE</spring.version>
@@ -27,7 +20,7 @@
     <vaadin.version>7.1.6</vaadin.version>
     <vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
     <jersey.version>2.5.1</jersey.version>
-    <swagger.version>1.3.2</swagger.version>
+    <swagger.version>1.3.4</swagger.version>
     <jackson.version>2.3.2</jackson.version>
     <joda.time.version>2.3</joda.time.version>
     <commons.lang3.version>3.3.1</commons.lang3.version>
@@ -63,8 +56,8 @@
     <module>jaas</module>
     <module>services</module>
     <module>questionnaires-backend</module>
-    <!-- Ommited temporarly <module>questionnaires-ui</module> -->
-    <module>rest</module>
+    <!-- Ommited temporarly <module>questionnaires-ui</module>-->
+    <module>rest</module> 
     <module>tools</module>
   </modules>
   <repositories>
@@ -268,6 +261,12 @@
 
       <dependency>
         <groupId>${project.groupId}</groupId>
+        <artifactId>gazpachoquest-rest-security</artifactId>
+        <version>${project.version} </version>
+      </dependency>
+
+      <dependency>
+        <groupId>${project.groupId}</groupId>
         <artifactId>gazpachoquest-dao</artifactId>
         <version>${project.version} </version>
       </dependency>
@@ -351,7 +350,6 @@
         <version>${spring.version}</version>
       </dependency>
 
-
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-asm</artifactId>
@@ -405,6 +403,17 @@
         <version>${jackson.version}</version>
       </dependency>
 
+      <dependency>
+        <groupId>com.fasterxml.jackson.module</groupId>
+        <artifactId>jackson-module-scala_2.10</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.module</groupId>
+        <artifactId>jackson-module-jsonSchema</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
       <!-- API rest documenter -->
       <dependency>
         <groupId>com.wordnik</groupId>
@@ -421,7 +430,16 @@
           </exclusion>
         </exclusions>
       </dependency>
-
+      <dependency>
+        <groupId>com.wordnik</groupId>
+        <artifactId>swagger-core_2.10</artifactId>
+        <version>${swagger.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.wordnik</groupId>
+        <artifactId>swagger-jaxrs_2.10</artifactId>
+        <version>${swagger.version}</version>
+      </dependency>
       <!-- Google flyway -->
       <dependency>
         <groupId>com.googlecode.flyway</groupId>

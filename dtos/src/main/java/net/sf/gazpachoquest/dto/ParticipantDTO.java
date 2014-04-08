@@ -1,27 +1,42 @@
+/*******************************************************************************
+ * Copyright (c) 2014 antoniomariasanchez at gmail.com.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ * 
+ * Contributors:
+ *     antoniomaria - initial API and implementation
+ ******************************************************************************/
 package net.sf.gazpachoquest.dto;
 
-import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
 
-public class ParticipantDTO extends AbstractIdentifiableDTO {
+public class ParticipantDTO extends AbstractUserDTO {
+
+    private static final long serialVersionUID = 1284879816117827887L;
+
+    public ParticipantDTO() {
+        super();
+    }
 
     public static class Builder {
         private String email;
-        private String firstname;
+        private String givenNames;
         private Gender gender;
         private Integer id;
-        private String lastname;
+        private String surname;
         private Language preferedLanguage;
 
         public ParticipantDTO build() {
             ParticipantDTO participantDTO = new ParticipantDTO();
             participantDTO.setId(id);
-            participantDTO.firstname = firstname;
-            participantDTO.lastname = lastname;
-            participantDTO.email = email;
-            participantDTO.gender = gender;
-            participantDTO.preferedLanguage = preferedLanguage;
+            participantDTO.setGivenNames(givenNames);
+            participantDTO.setSurname(surname);
+            participantDTO.setEmail(email);
+            participantDTO.setGender(gender);
+            participantDTO.setPreferedLanguage(preferedLanguage);
             return participantDTO;
         }
 
@@ -30,8 +45,8 @@ public class ParticipantDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
-        public Builder firstname(final String firstname) {
-            this.firstname = firstname;
+        public Builder givenNames(final String givenNames) {
+            this.givenNames = givenNames;
             return this;
         }
 
@@ -45,8 +60,8 @@ public class ParticipantDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
-        public Builder lastname(final String lastname) {
-            this.lastname = lastname;
+        public Builder surname(final String surname) {
+            this.surname = surname;
             return this;
         }
 
@@ -56,64 +71,8 @@ public class ParticipantDTO extends AbstractIdentifiableDTO {
         }
     }
 
-    private static final long serialVersionUID = 1284879816117827887L;
-
     public static Builder with() {
         return new Builder();
-    }
-
-    private String email;
-
-    private String firstname;
-
-    private Gender gender;
-
-    private String lastname;
-
-    private Language preferedLanguage;
-
-    public ParticipantDTO() {
-        super();
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public Language getPreferedLanguage() {
-        return preferedLanguage;
-    }
-
-    public void setEmail(final String email) {
-        this.email = email;
-    }
-
-    public void setFirstname(final String firstname) {
-        this.firstname = firstname;
-    }
-
-    public void setGender(final Gender gender) {
-        this.gender = gender;
-    }
-
-    public void setLastname(final String lastname) {
-        this.lastname = lastname;
-    }
-
-    public void setPreferedLanguage(final Language preferedLanguage) {
-        this.preferedLanguage = preferedLanguage;
     }
 
 }

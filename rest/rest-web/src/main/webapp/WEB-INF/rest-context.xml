@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:cxf="http://cxf.apache.org/core"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+http://cxf.apache.org/jaxrs
+http://cxf.apache.org/schemas/jaxrs.xsd">
+  <import resource="classpath:META-INF/cxf/cxf.xml" />
+  <!--
+    <context:property-placeholder />
+    <context:annotation-config />
+    <bean class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer" />
+    <bean class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer" />
+  -->
+
+  <bean id="questionnairResource" class="net.sf.gazpachoquest.rest.resources.QuestionnairResource" autowire="byType" />
+
+  <bean id="authenticationResource" class="net.sf.gazpachoquest.rest.resources.AuthenticationResource" autowire="byType" />
+
+
+  <!-- Swagger writers -->
+  <bean id="resourceWriter" class="com.wordnik.swagger.jaxrs.listing.ResourceListingProvider" />
+  <bean id="apiWriter" class="com.wordnik.swagger.jaxrs.listing.ApiDeclarationProvider" />
+
+  <!-- JSON mapper -->
+  <bean id="jsonProvider" class="com.wordnik.swagger.jaxrs.json.JacksonJsonProvider" />
+
+  <!-- Swagger API listing resource -->
+  <bean id="swaggerResourceJSON" class="com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON" />
+
+  <cxf:bus>
+    <cxf:features>
+      <cxf:logging />
+    </cxf:features>
+  </cxf:bus>
+  <!-- this scans the classes for resources -->
+  <bean id="swaggerConfig" class="com.wordnik.swagger.jaxrs.config.BeanConfig">
+    <property name="resourcePackage" value="net.sf.gazpachoquest.rest.resources" />
+    <property name="version" value="1.0.0" />
+    <property name="basePath" value="http://localhost:8081/gazpachoquest-rest-web/api" />
+    <property name="title" value="GazpachoQuest REST Interface" />
+    <property name="description" value="This is the endpoint to all gazpacho quest services" />
+    <property name="contact" value="antoniomariasanchez@gmail.com" />
+    <property name="license" value="Apache 2.0 License" />
+    <property name="licenseUrl" value="http://www.apache.org/licenses/LICENSE-2.0.html" />
+    <property name="scan" value="true" />
+  </bean>
+
+  <!-- https://github.com/pires/fabric8-cxf-shiro 
+  // http://howtodoinjava.com/2013/07/25/jax-rs-2-0-resteasy-3-0-2-final-security-tutorial/
+  
+  -->
+  <jaxrs:server id="services" address="/">
+    <jaxrs:serviceBeans>
+      <ref bean="authenticationResource" />
+      <ref bean="questionnairResource" />
+      <ref bean="swaggerResourceJSON" />
+    </jaxrs:serviceBeans>
+    <jaxrs:providers>
+      <ref bean="jsonProvider" />
+
+      <!-- required for writing swagger classes -->
+      <ref bean="resourceWriter" />
+      <ref bean="apiWriter" />
+    </jaxrs:providers>
+  </jaxrs:server>
+
+</beans>

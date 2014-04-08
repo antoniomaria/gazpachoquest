@@ -13,8 +13,9 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
 
-  <context:component-scan base-package="net.sf.gazpachoquest.security.impl,net.sf.gazpachoquest.util.impl,net.sf.gazpachoquest.aspects" />
+  <context:component-scan base-package="net.sf.gazpachoquest.util.impl,net.sf.gazpachoquest.aspects" />
   <aop:aspectj-autoproxy />
+  <!-- 
   <bean class="net.sf.gazpachoquest.security.impl.LoginServiceFactoryImpl">
     <property name="implementations">
       <map>
@@ -22,7 +23,7 @@
       </map>
     </property>
   </bean>
-
+ -->
   <bean id="localizedTemplateResourceLoader" class="net.sf.gazpachoquest.velocity.loader.LocalizedTemplateResourceLoaderImpl" autowire="byType"></bean>
 
   <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
@@ -39,8 +40,9 @@
   </bean>
 
   <aop:config>
-    <aop:pointcut id="loginOperation" expression="execution(* net.sf.gazpachoquest.security.*.*(..))" />
     <!-- 
+    <aop:pointcut id="loginOperation" expression="execution(* net.sf.gazpachoquest.security.*.*(..))" />
+   
     <aop:advisor advice-ref="txAdvice" pointcut-ref="loginOperation" order="9999" />
      -->
   </aop:config>
