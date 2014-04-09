@@ -20,12 +20,15 @@ import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.Study;
 import net.sf.gazpachoquest.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation;
+import net.sf.gazpachoquest.domain.user.Group;
 import net.sf.gazpachoquest.domain.user.User;
+import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.InvitationRepository;
 import net.sf.gazpachoquest.repository.MailMessageRepository;
 import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.repository.StudyRepository;
+import net.sf.gazpachoquest.repository.user.GroupRepository;
 import net.sf.gazpachoquest.repository.user.UserRepository;
 import net.sf.gazpachoquest.services.StudyService;
 import net.sf.gazpachoquest.types.EntityStatus;
@@ -54,7 +57,10 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study> implemen
     private MailMessageRepository mailMessageRepository;
 
     @Autowired
-    private UserRepository participantRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private GroupRepository groupRepository;
 
     @Autowired
     private QuestionnairDefinitionRepository questionnairDefinitionRepository;
@@ -98,6 +104,9 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study> implemen
 
                 Map<MailMessageTemplateType, MailMessageTemplate> templates = questionnairDefinition.getMailTemplates();
                 MailMessageTemplate invitationTemplate = templates.get(MailMessageTemplateType.INVITATION);
+
+                Group example = Group.with().name("Respondents").build();
+                Group respondentsGroup = groupRepository.findOneByExample(example, new SearchParameters());
                 for (User participant : participants) {
                     Assert.state(!participant.isNew(), "Persist all participant before starting a study.");
                     Questionnair questionnair = Questionnair.with().status(EntityStatus.CONFIRMED).study(study)
@@ -112,6 +121,12 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study> implemen
 
                     MailMessage mailMessage = composeMailMessage(invitationTemplate, participant, token);
                     mailMessageRepository.save(mailMessage);
+
+                    if (groupRepository.isUserInGroup(participant.getId(), "Respondents") == 0) {
+                        participant = userRepository.findOne(participant.getId());
+                        respondentsGroup.assignUser(participant);
+
+                    }
                 }
             }
         } else {

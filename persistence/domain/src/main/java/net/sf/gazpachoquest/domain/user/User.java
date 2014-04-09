@@ -7,6 +7,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.domain.user;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -84,6 +85,9 @@ public class User extends Subject {
     }
 
     public Set<Group> getGroups() {
+        if (groups == null) {
+            this.groups = new HashSet<>();
+        }
         return groups;
     }
 

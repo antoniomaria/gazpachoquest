@@ -10,6 +10,7 @@ package net.sf.gazpachoquest.dbpopulator;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.sf.gazpachoquest.dto.GroupDTO;
 import net.sf.gazpachoquest.dto.LabelDTO;
 import net.sf.gazpachoquest.dto.LabelSetDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateDTO;
@@ -23,6 +24,7 @@ import net.sf.gazpachoquest.dto.StudyDTO;
 import net.sf.gazpachoquest.dto.SubquestionDTO;
 import net.sf.gazpachoquest.dto.UserDTO;
 import net.sf.gazpachoquest.dto.support.TranslationDTO;
+import net.sf.gazpachoquest.facades.GroupFacade;
 import net.sf.gazpachoquest.facades.MailMessageFacade;
 import net.sf.gazpachoquest.facades.QuestionnairDefinitionEditorFacade;
 import net.sf.gazpachoquest.facades.StudyFacade;
@@ -46,6 +48,9 @@ public class DBPopulator {
     private UserFacade userFacade;
 
     @Autowired
+    private GroupFacade groupFacade;
+
+    @Autowired
     private QuestionnairDefinitionEditorFacade questionnairDefinitionEditorFacade;
 
     @Autowired
@@ -54,13 +59,23 @@ public class DBPopulator {
     // http://www.objectpartners.com/2012/05/17/creating-a-hierarchical-test-data-builder-using-generics/
     public void populate() {
         // System account
+
         userFacade.save(UserDTO.with().givenNames("support").surname("support").email("support@gazpacho.net")
                 .username("support").build());
+
+        GroupDTO groupDTO = GroupDTO.with().name("Respondents").description("Respondent group").build();
+        groupDTO = groupFacade.save(groupDTO);
 
         Set<UserDTO> participants = addParticipants();
 
         populateForJUnitTest(participants);
         populateForDemo(participants);
+
+        for (UserDTO userDTO : participants) {
+            // groupFacade.addUserToGroup(userDTO, groupDTO.getId());
+        }
+
+        // groupFacade.save(groupDTO);
     }
 
     public void populateForJUnitTest(Set<UserDTO> participants) {

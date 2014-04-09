@@ -55,4 +55,43 @@ public class Group extends Subject {
         user.getGroups().add(this);
     }
 
+    public static Builder with() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private Integer id;
+        private String name;
+        private String description;
+        private Set<User> users;
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder users(Set<User> users) {
+            this.users = users;
+            return this;
+        }
+
+        public Group build() {
+            Group group = new Group();
+            group.setId(id);
+            group.name = name;
+            group.description = description;
+            group.users = users;
+            return group;
+        }
+    }
 }

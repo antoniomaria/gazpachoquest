@@ -8,7 +8,9 @@
 package net.sf.gazpachoquest.facades.impl;
 
 import net.sf.gazpachoquest.domain.user.Group;
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.GroupDTO;
+import net.sf.gazpachoquest.dto.UserDTO;
 import net.sf.gazpachoquest.facades.GroupFacade;
 import net.sf.gazpachoquest.services.GroupService;
 
@@ -43,6 +45,16 @@ public class GroupFacadeImpl implements GroupFacade {
     public GroupDTO save(final GroupDTO group) {
         Group entity = mapper.map(group, Group.class);
         return mapper.map(groupService.save(entity), GroupDTO.class);
+    }
+
+    @Override
+    public void addUserToGroup(UserDTO userDTO, Integer groupId) {
+        User user = null;
+        if (userDTO != null) {
+            user = mapper.map(userDTO, User.class);
+        }
+        groupService.addUserToGroup(user, groupId);
+
     }
 
 }
