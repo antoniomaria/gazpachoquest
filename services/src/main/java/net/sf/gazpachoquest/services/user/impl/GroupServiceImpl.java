@@ -8,6 +8,7 @@
 package net.sf.gazpachoquest.services.user.impl;
 
 import net.sf.gazpachoquest.domain.user.Group;
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.repository.user.GroupRepository;
 import net.sf.gazpachoquest.services.GroupService;
 import net.sf.gazpachoquest.services.core.impl.AbstractPersistenceService;
@@ -33,6 +34,14 @@ public class GroupServiceImpl extends AbstractPersistenceService<Group> implemen
         } else {
             existing = repository.findOne(group.getId());
             existing.setName(group.getName());
+            existing.setDescription(group.getDescription());
+
+            for (User user : group.getUsers()) {
+                if (user.isNew()) {
+                    continue;
+                }
+                existing.assignUser(user);
+            }
         }
         return existing;
     }
