@@ -5,12 +5,16 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import net.sf.gazpachoquest.domain.support.AbstractAuditable;
+
 @Entity
 @Table(name = "groups")
-public class Group extends Subject {
+public class Group extends AbstractAuditable {
 
     private static final long serialVersionUID = 2209952243152855595L;
 
@@ -22,8 +26,20 @@ public class Group extends Subject {
     @ManyToMany(mappedBy = "groups", fetch = FetchType.LAZY)
     private Set<User> users;
 
+    @ManyToMany
+    @JoinTable(name = "group_role", joinColumns = { @JoinColumn(name = "group_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
+    private Set<Role> roles;
+
     public Group() {
         super();
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public String getName() {

@@ -11,7 +11,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -23,16 +22,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.support.AbstractAuditable;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
 
 @Entity
-// @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-// @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING, length = 20)
-@DiscriminatorValue("U")
 @Table(name = "users")
-// @MappedSuperclass
-public class User extends Subject {
+public class User extends AbstractAuditable {
 
     private static final long serialVersionUID = 7209387649701141462L;
 
@@ -63,6 +59,10 @@ public class User extends Subject {
     @ManyToMany
     @JoinTable(name = "user_group", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "group_id", referencedColumnName = "id") })
     private Set<Group> groups;
+
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
+    private Set<Role> roles;
 
     public User() {
         super();

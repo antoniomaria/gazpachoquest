@@ -2,26 +2,18 @@ package net.sf.gazpachoquest.domain.user;
 
 import java.util.Set;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "subject_type", discriminatorType = DiscriminatorType.STRING, length = 20)
+// @Entity
+// @Inheritance(strategy = InheritanceType.JOINED)
+// @DiscriminatorColumn(name = "subject_type", discriminatorType = DiscriminatorType.STRING, length = 20)
 public class Subject extends AbstractAuditable {
 
     private static final long serialVersionUID = -8086977287021294986L;
 
-    @ManyToMany
-    @JoinTable(name = "subject_role", joinColumns = { @JoinColumn(name = "subject_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
+    // @ManyToMany
+    // @JoinTable(name = "subject_role", joinColumns = { @JoinColumn(name = "subject_id", referencedColumnName = "id")
+    // }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
     private Set<Role> roles;
 
     public Subject() {

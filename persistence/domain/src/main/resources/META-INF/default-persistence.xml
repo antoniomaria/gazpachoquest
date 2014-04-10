@@ -27,7 +27,6 @@
     <persistence:class>net.sf.gazpachoquest.domain.core.Study</persistence:class>
 
     <!-- User -->
-    <persistence:class>net.sf.gazpachoquest.domain.user.Subject</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.user.User</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.user.Role</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.user.Permission</persistence:class>
