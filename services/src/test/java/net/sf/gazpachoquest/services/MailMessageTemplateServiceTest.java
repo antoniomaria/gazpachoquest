@@ -10,6 +10,8 @@ import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.services.MailMessageTemplateService;
+import net.sf.gazpachoquest.services.UserService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;

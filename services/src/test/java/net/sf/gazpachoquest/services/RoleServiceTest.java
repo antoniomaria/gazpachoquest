@@ -5,6 +5,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.user.Role;
+import net.sf.gazpachoquest.services.RoleService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;

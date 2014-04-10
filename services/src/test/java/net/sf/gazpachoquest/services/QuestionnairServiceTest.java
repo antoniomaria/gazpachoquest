@@ -5,6 +5,7 @@ import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.Study;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.services.QuestionnairService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;

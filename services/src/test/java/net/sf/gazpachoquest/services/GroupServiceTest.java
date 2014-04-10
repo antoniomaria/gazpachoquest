@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.sf.gazpachoquest.domain.user.Group;
 import net.sf.gazpachoquest.domain.user.User;
+import net.sf.gazpachoquest.services.GroupService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;
