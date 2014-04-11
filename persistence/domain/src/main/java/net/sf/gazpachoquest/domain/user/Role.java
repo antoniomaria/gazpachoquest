@@ -5,7 +5,6 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
 
@@ -18,7 +17,7 @@ public class Role extends AbstractPersistable {
 
     private String description;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<Permission> permissions;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)

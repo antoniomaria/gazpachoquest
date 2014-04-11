@@ -1,8 +1,11 @@
 package net.sf.gazpachoquest.domain.user;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
 
@@ -17,8 +20,9 @@ public class Permission extends AbstractPersistable {
         super();
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Role role;
+    @ManyToMany
+    @JoinTable(name = "role_permission", joinColumns = { @JoinColumn(name = "permission_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
+    private Set<Role> roles;
 
     public String getName() {
         return name;
@@ -28,12 +32,12 @@ public class Permission extends AbstractPersistable {
         this.name = name;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public static Builder with() {
@@ -43,7 +47,6 @@ public class Permission extends AbstractPersistable {
     public static class Builder {
         private Integer id;
         private String name;
-        private Role role;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -55,15 +58,9 @@ public class Permission extends AbstractPersistable {
             return this;
         }
 
-        public Builder role(Role role) {
-            this.role = role;
-            return this;
-        }
-
         public Permission build() {
             Permission permission = new Permission();
             permission.name = name;
-            permission.role = role;
             permission.setId(id);
             return permission;
         }

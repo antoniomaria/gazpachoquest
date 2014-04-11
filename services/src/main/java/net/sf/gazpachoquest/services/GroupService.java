@@ -10,6 +10,7 @@ package net.sf.gazpachoquest.services;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.user.Group;
+import net.sf.gazpachoquest.domain.user.Permission;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 
@@ -26,5 +27,7 @@ public interface GroupService extends PersistenceService<Group> {
     boolean isUserInGroup(Integer userId, String groupName);
 
     List<Role> getRoles(Integer groupId);
+
+    List<Permission> getPermissions(Integer groupId);
 
 }
