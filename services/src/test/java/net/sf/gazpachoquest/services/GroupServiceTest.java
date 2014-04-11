@@ -1,11 +1,12 @@
 package net.sf.gazpachoquest.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.domain.core.Study;
+
+import java.util.List;
+
+import net.sf.gazpachoquest.domain.user.Group;
+import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
-import net.sf.gazpachoquest.services.QuestionnairService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;
@@ -17,7 +18,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -28,20 +28,47 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
         "classpath:/services-context.xml", "classpath:/components-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("QuestionnairService-dataset.xml")
+@DatabaseSetup("GroupService-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-@Transactional
-public class QuestionnairServiceTest {
+public class GroupServiceTest {
 
     @Autowired
-    private QuestionnairService questionnairService;
+    private GroupService groupService;
 
     @Test
-    public void findOneByExampleTest() {
-        User participant = User.with().id(2).build();
-        Study study = Study.with().id(57).build();
-        Questionnair example = Questionnair.with().participant(participant).study(study).build();
-        Questionnair questionnair = questionnairService.findOneByExample(example, new SearchParameters());
-        assertThat(questionnair.getId()).isEqualTo(58);
+    public void getUsersInGroupTest() {
+        Integer groupId = 2;
+        List<User> users = groupService.getUsersInGroup(groupId);
+        assertThat(users).hasSize(4);
+    }
+
+    @Test
+    public void getRolesTest() {
+        Integer groupId = 2;
+        List<Role> roles = groupService.getRoles(groupId);
+        assertThat(roles).hasSize(2);
+    }
+
+    @Test
+    public void findGroupsTest() {
+        Integer userId = 3;
+        List<Group> groups = groupService.findGroups(userId);
+        assertThat(groups).containsExactly(Group.with().id(2).build());
+    }
+
+    @Test
+    public void isUserInGroupTest() {
+        Integer userId = 3;
+        Integer groupId = 2;
+        boolean isInGroup = groupService.isUserInGroup(userId, groupId);
+        assertThat(isInGroup).isTrue();
+    }
+
+    @Test
+    public void isUserInGroupIdentifiedByNameTest() {
+        Integer userId = 3;
+        String groupName = "Respondents";
+        boolean isInGroup = groupService.isUserInGroup(userId, groupName);
+        assertThat(isInGroup).isTrue();
     }
 }

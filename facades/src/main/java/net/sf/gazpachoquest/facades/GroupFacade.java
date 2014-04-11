@@ -8,6 +8,7 @@
 package net.sf.gazpachoquest.facades;
 
 import net.sf.gazpachoquest.dto.GroupDTO;
+import net.sf.gazpachoquest.dto.UserDTO;
 
 public interface GroupFacade {
 
@@ -16,5 +17,7 @@ public interface GroupFacade {
     GroupDTO findOne(Integer id);
 
     void delete(Integer id);
+
+    void addUserToGroup(UserDTO userDTO, Integer groupId);
 
 }

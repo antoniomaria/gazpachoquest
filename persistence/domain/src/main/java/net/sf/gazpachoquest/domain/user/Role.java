@@ -22,14 +22,29 @@ public class Role extends AbstractPersistable {
     private Set<Permission> permissions;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private Set<Subject> subjects;
+    private Set<User> users;
 
-    public Set<Subject> getSubjects() {
-        return subjects;
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    private Set<Group> groups;
+
+    public Role() {
+        super();
     }
 
-    public void setSubjects(Set<Subject> subjects) {
-        this.subjects = subjects;
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public String getDescription() {
@@ -64,8 +79,6 @@ public class Role extends AbstractPersistable {
         private Integer id;
         private String name;
         private String description;
-        private Set<Permission> permissions;
-        private Set<User> users;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -82,22 +95,11 @@ public class Role extends AbstractPersistable {
             return this;
         }
 
-        public Builder permissions(Set<Permission> permissions) {
-            this.permissions = permissions;
-            return this;
-        }
-
-        public Builder users(Set<User> users) {
-            this.users = users;
-            return this;
-        }
-
         public Role build() {
             Role role = new Role();
             role.setId(id);
             role.name = name;
             role.description = description;
-            role.permissions = permissions;
             return role;
         }
     }

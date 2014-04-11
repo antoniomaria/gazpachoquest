@@ -7,8 +7,6 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto;
 
-import java.util.Set;
-
 import net.sf.gazpachoquest.dto.support.AbstractAuditableDTO;
 
 public class GroupDTO extends AbstractAuditableDTO {
@@ -17,16 +15,10 @@ public class GroupDTO extends AbstractAuditableDTO {
 
     private String name;
 
-    private Set<UserDTO> users;
+    private String description;
 
     public GroupDTO() {
         super();
-    }
-
-    public void addUser(final UserDTO user) {
-        if (!getUsers().contains(user)) {
-            users.add(user);
-        }
     }
 
     public String getName() {
@@ -37,12 +29,12 @@ public class GroupDTO extends AbstractAuditableDTO {
         this.name = name;
     }
 
-    public Set<UserDTO> getUsers() {
-        return users;
+    public String getDescription() {
+        return description;
     }
 
-    public void setUsers(Set<UserDTO> users) {
-        this.users = users;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public static Builder with() {
@@ -51,15 +43,22 @@ public class GroupDTO extends AbstractAuditableDTO {
 
     public static class Builder {
         private String name;
+        private String description;
 
         public Builder name(String name) {
             this.name = name;
             return this;
         }
 
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
         public GroupDTO build() {
             GroupDTO groupDTO = new GroupDTO();
             groupDTO.name = name;
+            groupDTO.description = description;
             return groupDTO;
         }
     }
