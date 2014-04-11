@@ -37,37 +37,36 @@ public class GroupServiceTest {
 
     @Test
     public void getUsersInGroupTest() {
-        Integer groupId = 118;
+        Integer groupId = 2;
         List<User> users = groupService.getUsersInGroup(groupId);
         assertThat(users).hasSize(4);
     }
 
     @Test
     public void getRolesTest() {
-        Integer groupId = 118;
+        Integer groupId = 2;
         List<Role> roles = groupService.getRoles(groupId);
-        System.out.println(roles);
         assertThat(roles).hasSize(2);
     }
 
     @Test
     public void findGroupsTest() {
-        Integer userId = 2;
+        Integer userId = 3;
         List<Group> groups = groupService.findGroups(userId);
-        assertThat(groups).containsExactly(Group.with().id(118).build());
+        assertThat(groups).containsExactly(Group.with().id(2).build());
     }
 
     @Test
     public void isUserInGroupTest() {
-        Integer userId = 2;
-        Integer groupId = 118;
+        Integer userId = 3;
+        Integer groupId = 2;
         boolean isInGroup = groupService.isUserInGroup(userId, groupId);
         assertThat(isInGroup).isTrue();
     }
 
     @Test
     public void isUserInGroupIdentifiedByNameTest() {
-        Integer userId = 2;
+        Integer userId = 3;
         String groupName = "Respondents";
         boolean isInGroup = groupService.isUserInGroup(userId, groupName);
         assertThat(isInGroup).isTrue();
