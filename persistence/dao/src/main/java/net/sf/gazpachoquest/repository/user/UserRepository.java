@@ -10,9 +10,23 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.repository.user;
 
+import java.util.List;
+
+import net.sf.gazpachoquest.domain.user.Group;
+import net.sf.gazpachoquest.domain.user.Permission;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.repository.support.GenericRepository;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 public interface UserRepository extends GenericRepository<User> {
 
+    @Query("select p from Permission p left join p.roles r left join r.users u where u.id = :userId")
+    List<Permission> getPermissions(@Param("userId")
+    Integer userId);
+
+    @Query("select g from Group g  left join g.users u where u.id = :userId")
+    List<Group> getGroups(@Param("userId")
+    Integer userId);
 }

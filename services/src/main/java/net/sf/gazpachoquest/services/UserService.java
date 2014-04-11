@@ -10,8 +10,15 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services;
 
+import java.util.List;
+
+import net.sf.gazpachoquest.domain.user.Group;
+import net.sf.gazpachoquest.domain.user.Permission;
 import net.sf.gazpachoquest.domain.user.User;
 
 public interface UserService extends PersistenceService<User> {
 
+    List<Permission> getPermissions(Integer userId);
+
+    List<Group> getGroups(Integer userId);
 }

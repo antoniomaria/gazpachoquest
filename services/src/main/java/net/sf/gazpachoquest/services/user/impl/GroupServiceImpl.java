@@ -51,12 +51,6 @@ public class GroupServiceImpl extends AbstractPersistenceService<Group> implemen
 
     @Override
     @Transactional(readOnly = true)
-    public List<Group> findGroups(Integer userId) {
-        return ((GroupRepository) repository).findGroups(userId);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
     public List<User> getUsersInGroup(Integer groupId) {
         return ((GroupRepository) repository).findUsersInGroup(groupId);
     }

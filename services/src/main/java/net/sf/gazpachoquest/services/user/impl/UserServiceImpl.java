@@ -7,6 +7,10 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.user.impl;
 
+import java.util.List;
+
+import net.sf.gazpachoquest.domain.user.Group;
+import net.sf.gazpachoquest.domain.user.Permission;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.repository.user.UserRepository;
 import net.sf.gazpachoquest.services.UserService;
@@ -52,5 +56,16 @@ public class UserServiceImpl extends AbstractPersistenceService<User> implements
             existing.setGender(user.getGender());
         }
         return existing;
+    }
+
+    @Override
+    public List<Permission> getPermissions(Integer userId) {
+        return ((UserRepository) repository).getPermissions(userId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Group> getGroups(Integer userId) {
+        return ((UserRepository) repository).getGroups(userId);
     }
 }

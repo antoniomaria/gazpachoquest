@@ -20,10 +20,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface GroupRepository extends GenericRepository<Group> {
 
-    @Query("select g from Group g  left join g.users u where u.id = :userId")
-    List<Group> findGroups(@Param("userId")
-    Integer userId);
-
     @Query("select count(g) from Group g left join g.users u where u.id = :userId and g.id = :groupId")
     int isUserInGroup(@Param("userId")
     Integer userId, @Param("groupId")

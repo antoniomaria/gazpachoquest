@@ -18,8 +18,6 @@ public interface GroupService extends PersistenceService<Group> {
 
     void addUserToGroup(User user, Integer groupId);
 
-    List<Group> findGroups(Integer userId);
-
     boolean isUserInGroup(Integer userId, Integer groupId);
 
     List<User> getUsersInGroup(Integer groupId);
