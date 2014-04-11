@@ -10,6 +10,7 @@ package net.sf.gazpachoquest.services;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.user.Group;
+import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 
 public interface GroupService extends PersistenceService<Group> {
@@ -20,8 +21,10 @@ public interface GroupService extends PersistenceService<Group> {
 
     boolean isUserInGroup(Integer userId, Integer groupId);
 
-    List<User> findUsersInGroup(Integer groupId);
+    List<User> getUsersInGroup(Integer groupId);
 
     boolean isUserInGroup(Integer userId, String groupName);
+
+    List<Role> getRoles(Integer groupId);
 
 }

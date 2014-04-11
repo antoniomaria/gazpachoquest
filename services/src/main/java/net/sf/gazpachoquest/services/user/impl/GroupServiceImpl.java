@@ -10,6 +10,7 @@ package net.sf.gazpachoquest.services.user.impl;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.user.Group;
+import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.repository.user.GroupRepository;
 import net.sf.gazpachoquest.repository.user.UserRepository;
@@ -48,13 +49,19 @@ public class GroupServiceImpl extends AbstractPersistenceService<Group> implemen
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Group> findGroups(Integer userId) {
         return ((GroupRepository) repository).findGroups(userId);
     }
 
     @Override
-    public List<User> findUsersInGroup(Integer groupId) {
+    @Transactional(readOnly = true)
+    public List<User> getUsersInGroup(Integer groupId) {
         return ((GroupRepository) repository).findUsersInGroup(groupId);
+    }
+
+    public List<Role> getRoles(Integer groupId) {
+        return ((GroupRepository) repository).getRoles(groupId);
     }
 
     @Transactional(readOnly = false)
