@@ -1,4 +1,4 @@
-package net.sf.gazpachoquest.rest.shiro;
+package net.sf.gazpachoquest.security.shiro;
 
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.subject.PrincipalCollection;

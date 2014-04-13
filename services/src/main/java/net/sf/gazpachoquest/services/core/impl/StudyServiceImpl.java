@@ -39,6 +39,7 @@ import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.InvitationStatus;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
+import net.sf.gazpachoquest.types.RoleScope;
 import net.sf.gazpachoquest.types.StudyAccessType;
 import net.sf.gazpachoquest.util.RandomTokenGenerator;
 
@@ -52,147 +53,193 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.util.Assert;
 
 @Service
-public class StudyServiceImpl extends AbstractPersistenceService<Study> implements StudyService {
+public class StudyServiceImpl extends AbstractPersistenceService<Study>
+		implements StudyService {
 
-    @Autowired
-    private InvitationRepository invitationRepository;
+	@Autowired
+	private InvitationRepository invitationRepository;
 
-    @Autowired
-    private MailMessageRepository mailMessageRepository;
+	@Autowired
+	private MailMessageRepository mailMessageRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    @Autowired
-    private GroupRepository groupRepository;
+	@Autowired
+	private GroupRepository groupRepository;
 
-    @Autowired
-    private QuestionnairDefinitionRepository questionnairDefinitionRepository;
+	@Autowired
+	private QuestionnairDefinitionRepository questionnairDefinitionRepository;
 
-    @Autowired
-    private QuestionnairRepository questionnairRepository;
+	@Autowired
+	private QuestionnairRepository questionnairRepository;
 
-    @Autowired
-    private RandomTokenGenerator tokenGenerator;
+	@Autowired
+	private RandomTokenGenerator tokenGenerator;
 
-    @Autowired
-    private VelocityEngineFactoryBean velocityFactory;
+	@Autowired
+	private VelocityEngineFactoryBean velocityFactory;
 
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Autowired
 	private PermissionRepository permissionRepository;
-	
-    @Autowired
-    public StudyServiceImpl(final StudyRepository repository) {
-        super(repository);
-    }
 
-    @Override
-    @Transactional(readOnly = false)
-    public Study save(Study study) {
-        Study existing = null;
-        if (study.isNew()) {
-            existing = repository.save(study);
-        } else {
-            existing = repository.findOne(study.getId());
-            existing.setStartDate(study.getStartDate());
-            existing.setExpirationDate(study.getExpirationDate());
-        }
-        return existing;
-    }
+	@Autowired
+	public StudyServiceImpl(final StudyRepository repository) {
+		super(repository);
+	}
 
-    @Override
-    @Transactional(readOnly = false)
-    public Study save(Study study, Set<QuestionnairDefinition> questionnairDefinitions, Set<User> participants) {
-        study = this.save(study);
-        if (StudyAccessType.BY_INVITATION.equals(study.getType())) {
-            for (QuestionnairDefinition questionnairDefinition : questionnairDefinitions) {
+	@Override
+	@Transactional(readOnly = false)
+	public Study save(Study study) {
+		Study existing = null;
+		if (study.isNew()) {
+			existing = repository.save(study);
+		} else {
+			existing = repository.findOne(study.getId());
+			existing.setStartDate(study.getStartDate());
+			existing.setExpirationDate(study.getExpirationDate());
+		}
+		return existing;
+	}
 
-                questionnairDefinition = questionnairDefinitionRepository.findOne(questionnairDefinition.getId());
+	@Override
+	@Transactional(readOnly = false)
+	public Study save(Study study,
+			Set<QuestionnairDefinition> questionnairDefinitions,
+			Set<User> participants) {
+		study = this.save(study);
+		if (StudyAccessType.BY_INVITATION.equals(study.getType())) {
+			for (QuestionnairDefinition questionnairDefinition : questionnairDefinitions) {
 
-                Map<MailMessageTemplateType, MailMessageTemplate> templates = questionnairDefinition.getMailTemplates();
-                MailMessageTemplate invitationTemplate = templates.get(MailMessageTemplateType.INVITATION);
+				questionnairDefinition = questionnairDefinitionRepository
+						.findOne(questionnairDefinition.getId());
 
-                Group example = Group.with().name("Respondents").build();
-                Group respondentsGroup = groupRepository.findOneByExample(example, new SearchParameters());
-                for (User participant : participants) {
-                    Assert.state(!participant.isNew(), "Persist all participant before starting a study.");
-                    Questionnair questionnair = Questionnair.with().status(EntityStatus.CONFIRMED).study(study)
-                            .questionnairDefinition(questionnairDefinition).participant(participant).build();
-                    questionnair = questionnairRepository.save(questionnair);
+				Map<MailMessageTemplateType, MailMessageTemplate> templates = questionnairDefinition
+						.getMailTemplates();
+				MailMessageTemplate invitationTemplate = templates
+						.get(MailMessageTemplateType.INVITATION);
 
-                    String token = tokenGenerator.generate();
+				Group example = Group.with().name("Respondents").build();
+				Group respondentsGroup = groupRepository.findOneByExample(
+						example, new SearchParameters());
+				for (User participant : participants) {
+					Assert.state(!participant.isNew(),
+							"Persist all participant before starting a study.");
+					Questionnair questionnair = Questionnair.with()
+							.status(EntityStatus.CONFIRMED).study(study)
+							.questionnairDefinition(questionnairDefinition)
+							.participant(participant).build();
+					questionnair = questionnairRepository.save(questionnair);
 
-                    participant = userRepository.findOne(participant.getId());
-                    
-                    Role roleExample = Role.with().name(participant.getAcronym()).build();
-                    Role personalRole = roleRepository.findOneByExample(roleExample, new SearchParameters());
-                    Permission permission = Permission.with().name("questionnair:read,write:" + questionnair.getId()).build();
-                    permissionRepository.save(permission);
-                    
-                    personalRole.assignPermission(permission);
-                    
-                    PersonalInvitation personalInvitation = PersonalInvitation.with().study(study).token(token)
-                            .status(InvitationStatus.ACTIVE).participant(participant).build();
-                    invitationRepository.save(personalInvitation);
+					String token = tokenGenerator.generate();
 
-                    MailMessage mailMessage = composeMailMessage(invitationTemplate, participant, token);
-                    mailMessageRepository.save(mailMessage);
+					participant = userRepository.findOne(participant.getId());
 
-                    if (groupRepository.isUserInGroup(participant.getId(), "Respondents") == 0) {
-                        respondentsGroup.assignUser(participant);
-                    }
-                }
-            }
-        } else {
-            Assert.notEmpty(questionnairDefinitions, "questionnairDefinitions required");
-            Assert.state(questionnairDefinitions.size() == 1,
-                    "Only one questionnairDefinitions supported for Open Access studies");
-            String token = tokenGenerator.generate();
+					Role personalRole = findOrCreateBy(participant);
 
-            AnonymousInvitation anonymousInvitation = AnonymousInvitation.with().study(study).token(token)
-                    .status(InvitationStatus.ACTIVE).build();
-            invitationRepository.save(anonymousInvitation);
+					Permission permission = Permission
+							.with()
+							.name("questionnair:read,write:"
+									+ questionnair.getId()).build();
+					permissionRepository.save(permission);
 
-        }
-        return study;
-    }
+					personalRole.assignPermission(permission);
 
-    private MailMessage composeMailMessage(final MailMessageTemplate mailMessageTemplate, final User participant,
-            final String surveyLinkToken) {
+					PersonalInvitation personalInvitation = PersonalInvitation
+							.with().study(study).token(token)
+							.status(InvitationStatus.ACTIVE)
+							.participant(participant).build();
+					invitationRepository.save(personalInvitation);
 
-        Map<String, Object> model = new HashMap<>();
-        model.put("lastname", StringUtils.defaultIfBlank(participant.getSurname(), ""));
-        model.put("firstname", StringUtils.defaultIfBlank(participant.getGivenNames(), ""));
-        model.put("gender", participant.getGender());
-        model.put("link", "http://localhost:8080/questionaires-ui/token=" + surveyLinkToken);
+					MailMessage mailMessage = composeMailMessage(
+							invitationTemplate, participant, token);
+					mailMessageRepository.save(mailMessage);
 
-        Language preferedLanguage = participant.getPreferedLanguage();
+					if (groupRepository.isUserInGroup(participant.getId(),
+							"Respondents") == 0) {
+						respondentsGroup.assignUser(participant);
+					}
+				}
+			}
+		} else {
+			Assert.notEmpty(questionnairDefinitions,
+					"questionnairDefinitions required");
+			Assert.state(questionnairDefinitions.size() == 1,
+					"Only one questionnairDefinitions supported for Open Access studies");
+			String token = tokenGenerator.generate();
 
-        StringBuilder templateLocation = new StringBuilder().append(mailMessageTemplate.getId());
-        if (preferedLanguage != null) {
-            templateLocation.append("/");
-            templateLocation.append(preferedLanguage);
-        }
-        VelocityEngine velocityEngine = velocityFactory.getObject();
+			AnonymousInvitation anonymousInvitation = AnonymousInvitation
+					.with().study(study).token(token)
+					.status(InvitationStatus.ACTIVE).build();
+			invitationRepository.save(anonymousInvitation);
+		}
+		return study;
+	}
 
-        String body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templateLocation.toString(), "UTF-8",
-                model);
+	private Role findOrCreateBy(User user) {
+		Role example = Role.with().name(user.getAcronym()).build();
+		Role role = roleRepository.findOneByExample(example,
+				new SearchParameters());
+		if (role == null) {
+			role = Role
+					.with()
+					.name(user.getAcronym())
+					.scope(RoleScope.USER)
+					.description(
+							String.format("Specific role for %s %s ",
+									user.getGivenNames(), user.getSurname()))
+					.build();
+			role = roleRepository.save(role);
+			user.assignToRole(role);
+		}
+		return role;
+	}
 
-        MailMessageTemplateLanguageSettings languageSettings = mailMessageTemplate.getLanguageSettings();
-        if (preferedLanguage != null && !preferedLanguage.equals(mailMessageTemplate.getLanguage())) {
-            MailMessageTemplateTranslation preferedTranslation = mailMessageTemplate.getTranslations().get(
-                    preferedLanguage);
-            if (preferedTranslation != null) {
-                languageSettings = preferedTranslation.getLanguageSettings();
-            }
-        }
-        MailMessage mailMessage = MailMessage.with().subject(languageSettings.getSubject()).to(participant.getEmail())
-                .replyTo(mailMessageTemplate.getReplyTo()).from(mailMessageTemplate.getFromAddress()).text(body)
-                .build();
-        return mailMessage;
-    }
+	private MailMessage composeMailMessage(
+			final MailMessageTemplate mailMessageTemplate,
+			final User participant, final String surveyLinkToken) {
+
+		Map<String, Object> model = new HashMap<>();
+		model.put("lastname",
+				StringUtils.defaultIfBlank(participant.getSurname(), ""));
+		model.put("firstname",
+				StringUtils.defaultIfBlank(participant.getGivenNames(), ""));
+		model.put("gender", participant.getGender());
+		model.put("link", "http://localhost:8080/questionaires-ui/token="
+				+ surveyLinkToken);
+
+		Language preferedLanguage = participant.getPreferedLanguage();
+
+		StringBuilder templateLocation = new StringBuilder()
+				.append(mailMessageTemplate.getId());
+		if (preferedLanguage != null) {
+			templateLocation.append("/");
+			templateLocation.append(preferedLanguage);
+		}
+		VelocityEngine velocityEngine = velocityFactory.getObject();
+
+		String body = VelocityEngineUtils.mergeTemplateIntoString(
+				velocityEngine, templateLocation.toString(), "UTF-8", model);
+
+		MailMessageTemplateLanguageSettings languageSettings = mailMessageTemplate
+				.getLanguageSettings();
+		if (preferedLanguage != null
+				&& !preferedLanguage.equals(mailMessageTemplate.getLanguage())) {
+			MailMessageTemplateTranslation preferedTranslation = mailMessageTemplate
+					.getTranslations().get(preferedLanguage);
+			if (preferedTranslation != null) {
+				languageSettings = preferedTranslation.getLanguageSettings();
+			}
+		}
+		MailMessage mailMessage = MailMessage.with()
+				.subject(languageSettings.getSubject())
+				.to(participant.getEmail())
+				.replyTo(mailMessageTemplate.getReplyTo())
+				.from(mailMessageTemplate.getFromAddress()).text(body).build();
+		return mailMessage;
+	}
 
 }

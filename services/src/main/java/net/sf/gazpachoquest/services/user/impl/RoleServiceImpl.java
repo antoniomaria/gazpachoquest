@@ -38,10 +38,4 @@ public class RoleServiceImpl extends AbstractPersistenceService<Role> implements
         }
         return existing;
     }
-
-    @Override
-    public List<Role> findByUser(Integer userId) {
-        // return ((RoleRepository) repository).findByUser(userId);
-        return null;
-    }
 }

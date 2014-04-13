@@ -7,12 +7,9 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services;
 
-import java.util.List;
-
 import net.sf.gazpachoquest.domain.user.Permission;
 
 public interface PermissionService extends PersistenceService<Permission> {
 
-    List<Permission> findByUser(Integer userId);
 
 }

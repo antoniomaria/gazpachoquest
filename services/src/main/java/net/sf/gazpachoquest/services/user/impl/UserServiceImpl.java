@@ -7,17 +7,18 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.user.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import net.sf.gazpachoquest.domain.user.Group;
 import net.sf.gazpachoquest.domain.user.Permission;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
-import net.sf.gazpachoquest.repository.user.RoleRepository;
+import net.sf.gazpachoquest.repository.user.GroupRepository;
 import net.sf.gazpachoquest.repository.user.UserRepository;
 import net.sf.gazpachoquest.services.UserService;
 import net.sf.gazpachoquest.services.core.impl.AbstractPersistenceService;
-import net.sf.gazpachoquest.types.RoleScope;
 import net.sf.gazpachoquest.util.AcronymGenerator;
 import net.sf.gazpachoquest.util.RandomTokenGenerator;
 
@@ -36,10 +37,10 @@ public class UserServiceImpl extends AbstractPersistenceService<User> implements
 	private RandomTokenGenerator tokenGenerator;
 
 	@Autowired
-	private RoleRepository roleRepository;
-
-	@Autowired
 	private AcronymGenerator acronymGenerator;
+	
+	@Autowired
+	private GroupRepository groupRepository;
 
 	@Autowired
 	public UserServiceImpl(final UserRepository repository) {
@@ -61,13 +62,6 @@ public class UserServiceImpl extends AbstractPersistenceService<User> implements
 			user.setAcronym(acronym);
 
 			existing = repository.save(user);
-			Role role = new Role();
-			role.setName(acronym);
-			role.setScope(RoleScope.USER);
-			role.setDescription(String.format("Specific role for %s %s ",
-					user.getGivenNames(), user.getSurname()));
-			role = roleRepository.save(role);
-			user.assignToRole(role);
 		} else {
 			existing = repository.findOne(user.getId());
 			existing.setEmail(user.getEmail());
@@ -81,13 +75,26 @@ public class UserServiceImpl extends AbstractPersistenceService<User> implements
 	}
 
 	@Override
-	public List<Permission> getPermissions(Integer userId) {
-		return ((UserRepository) repository).getPermissions(userId);
+	public Set<Permission> getPermissions(Integer userId) {
+		Set<Permission> permissions = new HashSet<Permission>();
+		permissions.addAll(((UserRepository) repository).getPermissions(userId));
+		List<Group> groups = ((UserRepository) repository).getGroups(userId);
+		for (Group group : groups) {
+			List<Permission> groupPermissions = groupRepository.getPermissions(group.getId());
+			permissions.addAll(groupPermissions);
+		}
+		
+		return permissions;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Group> getGroups(Integer userId) {
 		return ((UserRepository) repository).getGroups(userId);
+	}
+
+	@Override
+	public Set<Role> getRoles(Integer userId) {
+		return ((UserRepository) repository).getRoles(userId);
 	}
 }

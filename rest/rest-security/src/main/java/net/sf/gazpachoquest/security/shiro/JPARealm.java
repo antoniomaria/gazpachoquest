@@ -1,6 +1,6 @@
-package net.sf.gazpachoquest.rest.shiro;
+package net.sf.gazpachoquest.security.shiro;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.PersistenceException;
 
@@ -26,7 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class APIKeyRealm extends AuthorizingRealm {
+public class JPARealm extends AuthorizingRealm {
 
     @Autowired
     private UserService userService;
@@ -78,11 +78,12 @@ public class APIKeyRealm extends AuthorizingRealm {
         User user = (User) getAvailablePrincipal(principals);
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        List<Role> roles = roleService.findByUser(user.getId());
+        
+        Set<Role> roles = userService.getRoles(user.getId());
         for (Role role : roles) {
-            info.addRole(role.getName());
-        }
-        List<Permission> permissions = permissionService.findByUser(user.getId());
+			info.addRole(role.getName());
+		}
+        Set<Permission> permissions = userService.getPermissions(user.getId());
 
         for (Permission permission : permissions) {
             info.addStringPermission(permission.getName());

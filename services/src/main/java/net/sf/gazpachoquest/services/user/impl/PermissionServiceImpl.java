@@ -38,10 +38,4 @@ public class PermissionServiceImpl extends AbstractPersistenceService<Permission
         }
         return existing;
     }
-
-    @Override
-    public List<Permission> findByUser(Integer userId) {
-        // return ((PermissionRepository) repository).findByUser(userId);
-        return null;
-    }
 }

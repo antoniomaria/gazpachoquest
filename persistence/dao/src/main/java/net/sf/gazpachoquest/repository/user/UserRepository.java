@@ -11,9 +11,11 @@
 package net.sf.gazpachoquest.repository.user;
 
 import java.util.List;
+import java.util.Set;
 
 import net.sf.gazpachoquest.domain.user.Group;
 import net.sf.gazpachoquest.domain.user.Permission;
+import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.repository.support.GenericRepository;
 
@@ -29,4 +31,8 @@ public interface UserRepository extends GenericRepository<User> {
     @Query("select g from Group g  left join g.users u where u.id = :userId")
     List<Group> getGroups(@Param("userId")
     Integer userId);
+
+
+    @Query("select r from Role r  left join r.users u where u.id = :userId")
+	Set<Role> getRoles(@Param("userId") Integer userId);
 }

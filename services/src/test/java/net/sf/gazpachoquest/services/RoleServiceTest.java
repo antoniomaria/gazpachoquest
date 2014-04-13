@@ -33,11 +33,4 @@ public class RoleServiceTest {
 
     @Autowired
     private RoleService roleService;
-
-    @Test
-    public void findRolesByUserTest() {
-        Integer userId = 2;
-        List<Role> roles = roleService.findByUser(userId);
-        assertThat(roles).contains(Role.with().id(1).build());
-    }
 }

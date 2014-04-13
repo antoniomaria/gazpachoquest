@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+  <users id="1" acronym="SUPPSUPP" api_key="SWUW3PWNH30F4S4" created_date="2014-04-13 18:11:45.051" email="support@gazpacho.net" given_names="support" last_modified_date="2014-04-13 18:11:45.051" surname="support" username="support" createdby_id="1" lastmodifiedby_id="1"/>
+  <users id="3" acronym="TYRILANN" api_key="ATVRLBXDU41DIS7" created_date="2014-04-13 18:11:45.507" email="tyrion.lannister@kingslanding.net" gender="MALE" given_names="Tyrion" last_modified_date="2014-04-13 18:11:45.507" prefered_language="EN" surname="Lannister" createdby_id="1" lastmodifiedby_id="1"/>
+  <users id="4" acronym="JONSNOW" api_key="KDJQR2GEO4LO3NS" created_date="2014-04-13 18:11:45.522" email="jon.snow@nightswatch.net" gender="MALE" given_names="Jon" last_modified_date="2014-04-13 18:11:45.522" prefered_language="ES" surname="Snow" createdby_id="1" lastmodifiedby_id="1"/>
+  <users id="5" acronym="ARYASTAR" api_key="41PRJVWKGUNE8E9" created_date="2014-04-13 18:11:45.542" email="arya.stark@winterfell.net" gender="FEMALE" given_names="Arya" last_modified_date="2014-04-13 18:11:45.542" surname="Stark" createdby_id="1" lastmodifiedby_id="1"/>
+  <users id="6" acronym="CATESTAR" api_key="TZEBE2ENHS050JN" created_date="2014-04-13 18:11:45.56" email="catelyn.stark@winterfell.net" gender="FEMALE" given_names="Catelyn" last_modified_date="2014-04-13 18:11:45.56" prefered_language="FI" surname="Stark" createdby_id="1" lastmodifiedby_id="1"/>
+
+
+  <study id="57" created_date="2014-04-13 18:11:50.621" expiration_date="2014-04-13 18:11:50.471" last_modified_date="2014-04-13 18:11:50.621" name="New private Questionnair Sample QuestionnairDefinition started" start_date="2014-04-13 18:11:50.472" type="BY_INVITATION" createdby_id="1" lastmodifiedby_id="1"/>
+  <study id="78" created_date="2014-04-13 18:11:52.377" expiration_date="2014-04-13 18:11:52.257" last_modified_date="2014-04-13 18:11:52.377" name="New open Questionnair Sample QuestionnairDefinition started" start_date="2014-04-13 18:11:52.258" type="OPEN_ACCESS" createdby_id="1" lastmodifiedby_id="1"/>
+  <study id="114" created_date="2014-04-13 18:11:55.521" expiration_date="2014-04-13 18:11:55.494" last_modified_date="2014-04-13 18:11:55.521" name="New survey Food Quality QuestionnairDefinition started" start_date="2014-04-13 18:11:55.495" type="BY_INVITATION" createdby_id="1" lastmodifiedby_id="1"/>
+  
+  <invitation id="61" type="P" status="ACTIVE" token="004YBV72TH" study_id="57" participant_id="6"/>
+  <invitation id="66" type="P" status="ACTIVE" token="81JQVJPZ81" study_id="57" participant_id="5"/>
+  <invitation id="71" type="P" status="ACTIVE" token="JJRJMP4S4U" study_id="57" participant_id="4"/>
+  <invitation id="76" type="P" status="ACTIVE" token="LYSJEDBJVE" study_id="57" participant_id="3"/>
+  <invitation id="79" type="A" status="ACTIVE" token="97CSMP420M" study_id="78"/>
+  <invitation id="117" type="P" status="ACTIVE" token="E2DVRRWUC7" study_id="114" participant_id="6"/>
+  <invitation id="121" type="P" status="ACTIVE" token="JGV8V70XK8" study_id="114" participant_id="5"/>
+  <invitation id="125" type="P" status="ACTIVE" token="C1GXMM8H4O" study_id="114" participant_id="4"/>
+  <invitation id="129" type="P" status="ACTIVE" token="J1ATAFY06V" study_id="114" participant_id="3"/>
+
+  <permission id="60" name="questionnair:read,write:58"/>
+  <permission id="65" name="questionnair:read,write:63"/>
+  <permission id="70" name="questionnair:read,write:68"/>
+  <permission id="75" name="questionnair:read:73"/>
+  <permission id="116" name="questionnair:read,write:115"/>
+  <permission id="120" name="questionnair:read,write:119"/>
+  <permission id="124" name="questionnair:read,write:123"/>
+  <permission id="128" name="questionnair:read,write:127"/>
+
+  <questionnair_definition id="7" created_date="2014-04-13 18:11:45.652" language="EN" last_modified_date="2014-04-13 18:11:45.652" status="CONFIRMED" description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample questionnairDefinition&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;" title="Sample QuestionnairDefinition" welcometext="Thank you for taking the time to participate in this questionnairDefinition." createdby_id="1" lastmodifiedby_id="1"/>
+  <questionnair_definition id="80" created_date="2014-04-13 18:11:52.546" language="EN" last_modified_date="2014-04-13 18:11:52.546" status="CONFIRMED" description="We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry." title="Food Quality QuestionnairDefinition" welcometext="Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:" createdby_id="1" lastmodifiedby_id="1"/>
+
+
+  <questionnair id="58" created_date="2014-04-13 18:11:50.949" last_modified_date="2014-04-13 18:11:50.949" status="CONFIRMED" createdby_id="1" lastmodifiedby_id="1" participant_id="6" questionnairdefinition_id="7" study_id="57"/>
+  <questionnair id="63" created_date="2014-04-13 18:11:51.72" last_modified_date="2014-04-13 18:11:51.72" status="CONFIRMED" createdby_id="1" lastmodifiedby_id="1" participant_id="5" questionnairdefinition_id="7" study_id="57"/>
+  <questionnair id="68" created_date="2014-04-13 18:11:51.85" last_modified_date="2014-04-13 18:11:51.85" status="CONFIRMED" createdby_id="1" lastmodifiedby_id="1" participant_id="4" questionnairdefinition_id="7" study_id="57"/>
+  <questionnair id="73" created_date="2014-04-13 18:11:52.052" last_modified_date="2014-04-13 18:11:52.052" status="CONFIRMED" createdby_id="1" lastmodifiedby_id="1" participant_id="3" questionnairdefinition_id="7" study_id="57"/>
+  <questionnair id="115" created_date="2014-04-13 18:11:55.553" last_modified_date="2014-04-13 18:11:55.553" status="CONFIRMED" createdby_id="1" lastmodifiedby_id="1" participant_id="6" questionnairdefinition_id="80" study_id="114"/>
+  <questionnair id="119" created_date="2014-04-13 18:11:55.617" last_modified_date="2014-04-13 18:11:55.617" status="CONFIRMED" createdby_id="1" lastmodifiedby_id="1" participant_id="5" questionnairdefinition_id="80" study_id="114"/>
+  <questionnair id="123" created_date="2014-04-13 18:11:55.679" last_modified_date="2014-04-13 18:11:55.679" status="CONFIRMED" createdby_id="1" lastmodifiedby_id="1" participant_id="4" questionnairdefinition_id="80" study_id="114"/>
+  <questionnair id="127" created_date="2014-04-13 18:11:55.748" last_modified_date="2014-04-13 18:11:55.748" status="CONFIRMED" createdby_id="1" lastmodifiedby_id="1" participant_id="3" questionnairdefinition_id="80" study_id="114"/>
+
+  <groups id="2" created_date="2014-04-13 18:11:45.486" description="Respondent group" last_modified_date="2014-04-13 18:11:45.486" name="Respondents" createdby_id="1" lastmodifiedby_id="1"/>
+ 
+  <role id="59" description="Specific role for Catelyn Stark " name="CATESTAR" scope="USER"/>
+  <role id="64" description="Specific role for Arya Stark " name="ARYASTAR" scope="USER"/>
+  <role id="69" description="Specific role for Jon Snow " name="JONSNOW" scope="USER"/>
+  <role id="74" description="Specific role for Tyrion Lannister " name="TYRILANN" scope="USER"/>
+  <role_permission permission_id="60" role_id="59"/>
+  <role_permission permission_id="65" role_id="64"/>
+  <role_permission permission_id="70" role_id="69"/>
+  <role_permission permission_id="75" role_id="74"/>
+  <role_permission permission_id="116" role_id="59"/>
+  <role_permission permission_id="120" role_id="64"/>
+  <role_permission permission_id="124" role_id="69"/>
+  <role_permission permission_id="128" role_id="74"/>
+  <sequence seq_name="SEQ_GEN" seq_count="150"/>
+  <user_group group_id="2" user_id="3"/>
+  <user_group group_id="2" user_id="4"/>
+  <user_group group_id="2" user_id="5"/>
+  <user_group group_id="2" user_id="6"/>
+  <user_role role_id="59" user_id="6"/>
+  <user_role role_id="64" user_id="5"/>
+  <user_role role_id="69" user_id="4"/>
+  <user_role role_id="74" user_id="3"/>
+ </dataset>

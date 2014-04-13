@@ -13,6 +13,4 @@ import net.sf.gazpachoquest.domain.user.Role;
 
 public interface RoleService extends PersistenceService<Role> {
 
-    List<Role> findByUser(Integer userId);
-
 }
