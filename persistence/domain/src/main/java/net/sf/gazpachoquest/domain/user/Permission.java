@@ -1,5 +1,6 @@
 package net.sf.gazpachoquest.domain.user;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -33,6 +34,9 @@ public class Permission extends AbstractPersistable {
     }
 
     public Set<Role> getRoles() {
+    	if (roles == null){
+    		this.roles = new HashSet<Role>();
+    	}
         return roles;
     }
 

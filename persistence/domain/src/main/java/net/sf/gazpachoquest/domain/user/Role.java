@@ -1,12 +1,17 @@
 package net.sf.gazpachoquest.domain.user;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
+import net.sf.gazpachoquest.types.RoleScope;
 
 @Entity
 public class Role extends AbstractPersistable {
@@ -25,12 +30,19 @@ public class Role extends AbstractPersistable {
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<Group> groups;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RoleScope scope;
 
     public Role() {
         super();
     }
 
     public Set<Group> getGroups() {
+    	if (groups == null){
+    		this.groups = new HashSet<Group>();
+    	}
         return groups;
     }
 
@@ -39,6 +51,9 @@ public class Role extends AbstractPersistable {
     }
 
     public Set<User> getUsers() {
+    	if (users == null){
+    		this.users = new HashSet<User>();
+    	}
         return users;
     }
 
@@ -55,6 +70,9 @@ public class Role extends AbstractPersistable {
     }
 
     public Set<Permission> getPermissions() {
+    	if (permissions == null){
+    		this.permissions = new HashSet<Permission>();
+    	}
         return permissions;
     }
 
@@ -70,7 +88,20 @@ public class Role extends AbstractPersistable {
         this.name = name;
     }
 
-    public static Builder with() {
+    public RoleScope getScope() {
+		return scope;
+	}
+
+	public void setScope(RoleScope scope) {
+		this.scope = scope;
+	}
+	
+	public void assignPermission(Permission permission){
+		getPermissions().add(permission);
+		permission.getRoles().add(this);
+	}
+
+	public static Builder with() {
         return new Builder();
     }
 
@@ -78,9 +109,15 @@ public class Role extends AbstractPersistable {
         private Integer id;
         private String name;
         private String description;
+        private RoleScope scope;
 
         public Builder id(Integer id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder scope(RoleScope scope) {
+            this.scope = scope;
             return this;
         }
 
@@ -97,6 +134,7 @@ public class Role extends AbstractPersistable {
         public Role build() {
             Role role = new Role();
             role.setId(id);
+            role.scope = scope;
             role.name = name;
             role.description = description;
             return role;

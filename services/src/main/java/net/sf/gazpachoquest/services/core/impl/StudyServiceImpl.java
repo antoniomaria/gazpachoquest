@@ -21,6 +21,8 @@ import net.sf.gazpachoquest.domain.core.Study;
 import net.sf.gazpachoquest.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachoquest.domain.user.Group;
+import net.sf.gazpachoquest.domain.user.Permission;
+import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.InvitationRepository;
@@ -29,6 +31,8 @@ import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.repository.StudyRepository;
 import net.sf.gazpachoquest.repository.user.GroupRepository;
+import net.sf.gazpachoquest.repository.user.PermissionRepository;
+import net.sf.gazpachoquest.repository.user.RoleRepository;
 import net.sf.gazpachoquest.repository.user.UserRepository;
 import net.sf.gazpachoquest.services.StudyService;
 import net.sf.gazpachoquest.types.EntityStatus;
@@ -74,6 +78,12 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study> implemen
     @Autowired
     private VelocityEngineFactoryBean velocityFactory;
 
+	@Autowired
+	private RoleRepository roleRepository;
+	
+	@Autowired
+	private PermissionRepository permissionRepository;
+	
     @Autowired
     public StudyServiceImpl(final StudyRepository repository) {
         super(repository);
@@ -111,10 +121,19 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study> implemen
                     Assert.state(!participant.isNew(), "Persist all participant before starting a study.");
                     Questionnair questionnair = Questionnair.with().status(EntityStatus.CONFIRMED).study(study)
                             .questionnairDefinition(questionnairDefinition).participant(participant).build();
-                    questionnairRepository.save(questionnair);
+                    questionnair = questionnairRepository.save(questionnair);
 
                     String token = tokenGenerator.generate();
 
+                    participant = userRepository.findOne(participant.getId());
+                    
+                    Role roleExample = Role.with().name(participant.getAcronym()).build();
+                    Role personalRole = roleRepository.findOneByExample(roleExample, new SearchParameters());
+                    Permission permission = Permission.with().name("questionnair:read,write:" + questionnair.getId()).build();
+                    permissionRepository.save(permission);
+                    
+                    personalRole.assignPermission(permission);
+                    
                     PersonalInvitation personalInvitation = PersonalInvitation.with().study(study).token(token)
                             .status(InvitationStatus.ACTIVE).participant(participant).build();
                     invitationRepository.save(personalInvitation);
@@ -123,9 +142,7 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study> implemen
                     mailMessageRepository.save(mailMessage);
 
                     if (groupRepository.isUserInGroup(participant.getId(), "Respondents") == 0) {
-                        participant = userRepository.findOne(participant.getId());
                         respondentsGroup.assignUser(participant);
-
                     }
                 }
             }

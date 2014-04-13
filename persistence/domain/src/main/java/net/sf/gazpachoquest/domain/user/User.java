@@ -64,6 +64,10 @@ public class User extends AbstractAuditable {
     @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
     private Set<Role> roles;
 
+
+    @Column(nullable = false, unique = true)
+    private String acronym;
+    
     public User() {
         super();
     }
@@ -95,7 +99,18 @@ public class User extends AbstractAuditable {
         this.groups = groups;
     }
 
-    @Override
+    public Set<Role> getRoles() {
+    	if (roles == null){
+    		this.roles =new HashSet<Role>();
+    	}
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	@Override
     public void setId(Integer id) {
         super.setId(id);
     }
@@ -147,8 +162,21 @@ public class User extends AbstractAuditable {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
+    
+    public void assignToRole(Role role){
+    	getRoles().add(role);
+    	role.getUsers().add(this);
+    }
 
-    public static Builder with() {
+    public String getAcronym() {
+		return acronym;
+	}
+
+	public void setAcronym(String acronym) {
+		this.acronym = acronym;
+	}
+
+	public static Builder with() {
         return new Builder();
     }
 
@@ -160,6 +188,7 @@ public class User extends AbstractAuditable {
         private String apiKey;
         private Language preferedLanguage;
         private Gender gender;
+        private String acronym;
 
         public Builder givenNames(String givenNames) {
             this.givenNames = givenNames;
@@ -196,6 +225,11 @@ public class User extends AbstractAuditable {
             return this;
         }
 
+        public Builder acronym(String acronym) {
+            this.acronym = acronym;
+            return this;
+        }
+
         public User build() {
             User user = new User();
             user.setId(id);
@@ -203,6 +237,7 @@ public class User extends AbstractAuditable {
             user.surname = surname;
             user.email = email;
             user.apiKey = apiKey;
+            user.acronym = acronym;
             user.preferedLanguage = preferedLanguage;
             user.gender = gender;
             return user;
