@@ -36,9 +36,11 @@ import net.sf.gazpachoquest.repository.user.RoleRepository;
 import net.sf.gazpachoquest.repository.user.UserRepository;
 import net.sf.gazpachoquest.services.StudyService;
 import net.sf.gazpachoquest.types.EntityStatus;
+import net.sf.gazpachoquest.types.EntityType;
 import net.sf.gazpachoquest.types.InvitationStatus;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
+import net.sf.gazpachoquest.types.Perm;
 import net.sf.gazpachoquest.types.RoleScope;
 import net.sf.gazpachoquest.types.StudyAccessType;
 import net.sf.gazpachoquest.util.RandomTokenGenerator;
@@ -140,12 +142,12 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study>
 
 					Role personalRole = findOrCreateBy(participant);
 
-					Permission permission = Permission
-							.with()
-							.name("questionnair:read,write:"
-									+ questionnair.getId()).build();
-					permissionRepository.save(permission);
+					Permission permission = Permission.with()
+							.addPerm(Perm.READ).addPerm(Perm.UPDATE)
+							.scope(EntityType.QUESTIONNAIR)
+							.entityId(questionnair.getId()).build();
 
+					permissionRepository.save(permission);
 					personalRole.assignPermission(permission);
 
 					PersonalInvitation personalInvitation = PersonalInvitation

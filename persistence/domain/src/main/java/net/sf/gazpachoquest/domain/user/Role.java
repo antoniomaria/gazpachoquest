@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
 import net.sf.gazpachoquest.types.RoleScope;
@@ -22,7 +23,7 @@ public class Role extends AbstractPersistable {
 
     private String description;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private Set<Permission> permissions;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
@@ -30,7 +31,7 @@ public class Role extends AbstractPersistable {
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<Group> groups;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RoleScope scope;
@@ -98,7 +99,7 @@ public class Role extends AbstractPersistable {
 	
 	public void assignPermission(Permission permission){
 		getPermissions().add(permission);
-		permission.getRoles().add(this);
+		permission.setRole(this);
 	}
 
 	public static Builder with() {

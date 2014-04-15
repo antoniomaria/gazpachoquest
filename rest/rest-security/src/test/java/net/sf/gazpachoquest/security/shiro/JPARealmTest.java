@@ -52,7 +52,7 @@ public class JPARealmTest {
 
 		Subject subject = SecurityUtils.getSubject();
 		AuthenticationToken token = new APIKeyToken.Builder().apiKey(
-				"ATVRLBXDU41DIS7").build();
+				"59HBD014UN9L8NM").build();
 		subject.login(token);
 
 		System.out.println("fin:" + subject.getPrincipal());

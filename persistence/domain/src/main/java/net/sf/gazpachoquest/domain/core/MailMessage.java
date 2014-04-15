@@ -16,7 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
-import net.sf.gazpachoquest.jpa.eclipselink.DateTimeConverter;
+import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
 
 import org.joda.time.DateTime;
 

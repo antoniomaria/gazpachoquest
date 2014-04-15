@@ -38,7 +38,7 @@ public interface GroupRepository extends GenericRepository<Group> {
     List<Role> getRoles(@Param("groupId")
     Integer groupId);
 
-    @Query("select p from Permission p left join p.roles r left join r.groups g where g.id = :groupId")
+    @Query("select p from Permission p left join p.role r left join r.groups g where g.id = :groupId")
     List<Permission> getPermissions(@Param("groupId")
     Integer groupId);
 

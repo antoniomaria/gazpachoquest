@@ -20,7 +20,7 @@ import javax.persistence.OneToMany;
 
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
 import net.sf.gazpachoquest.domain.user.User;
-import net.sf.gazpachoquest.jpa.eclipselink.DateTimeConverter;
+import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
 import net.sf.gazpachoquest.types.EntityStatus;
 
 import org.joda.time.DateTime;

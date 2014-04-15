@@ -13,29 +13,31 @@ import net.sf.gazpachoquest.domain.user.Permission;
 import net.sf.gazpachoquest.repository.user.PermissionRepository;
 import net.sf.gazpachoquest.services.PermissionService;
 import net.sf.gazpachoquest.services.core.impl.AbstractPersistenceService;
+import net.sf.gazpachoquest.types.Perm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class PermissionServiceImpl extends AbstractPersistenceService<Permission> implements PermissionService {
+public class PermissionServiceImpl extends
+		AbstractPersistenceService<Permission> implements PermissionService {
 
-    @Autowired
-    public PermissionServiceImpl(final PermissionRepository repository) {
-        super(repository);
-    }
+	@Autowired
+	public PermissionServiceImpl(final PermissionRepository repository) {
+		super(repository);
+	}
 
-    @Override
-    @Transactional(readOnly = false)
-    public Permission save(final Permission permission) {
-        Permission existing = null;
-        if (permission.isNew()) {
-            existing = repository.save(permission);
-        } else {
-            existing = repository.findOne(permission.getId());
-            existing.setName(permission.getName());
-        }
-        return existing;
-    }
+	@Override
+	@Transactional(readOnly = false)
+	public Permission save(final Permission permission) {
+		Permission existing = null;
+		if (permission.isNew()) {
+			existing = repository.save(permission);
+		} else {
+			existing = repository.findOne(permission.getId());
+			existing.setNumeral(permission.getNumeral());
+		}
+		return existing;
+	}
 }

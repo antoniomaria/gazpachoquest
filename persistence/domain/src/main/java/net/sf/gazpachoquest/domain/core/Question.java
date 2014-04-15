@@ -46,7 +46,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     @Column(nullable = false)
     private String code;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     private Question parent;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

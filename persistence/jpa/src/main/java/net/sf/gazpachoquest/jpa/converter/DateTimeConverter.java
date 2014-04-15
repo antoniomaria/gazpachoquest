@@ -8,7 +8,7 @@
  * Contributors:
  *     antoniomaria - initial API and implementation
  ******************************************************************************/
-package net.sf.gazpachoquest.jpa.eclipselink;
+package net.sf.gazpachoquest.jpa.converter;
 
 import java.util.Date;
 

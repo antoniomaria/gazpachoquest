@@ -24,7 +24,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends GenericRepository<User> {
 
-    @Query("select p from Permission p left join p.roles r left join r.users u where u.id = :userId")
+    @Query("select p from Permission p left join p.role r left join r.users u where u.id = :userId")
     List<Permission> getPermissions(@Param("userId")
     Integer userId);
 

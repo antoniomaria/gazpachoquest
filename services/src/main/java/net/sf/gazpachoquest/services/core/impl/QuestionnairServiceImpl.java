@@ -12,6 +12,7 @@ package net.sf.gazpachoquest.services.core.impl;
 
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
+import net.sf.gazpachoquest.repository.user.PermissionRepository;
 import net.sf.gazpachoquest.services.QuestionnairService;
 import net.sf.gazpachoquest.types.EntityStatus;
 
@@ -20,23 +21,29 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class QuestionnairServiceImpl extends AbstractPersistenceService<Questionnair> implements QuestionnairService {
+public class QuestionnairServiceImpl extends
+		AbstractPersistenceService<Questionnair> implements QuestionnairService {
 
-    @Autowired
-    public QuestionnairServiceImpl(final QuestionnairRepository questionnairRepository) {
-        super(questionnairRepository);
-    }
+	@Autowired
+	private PermissionRepository permissionRepository;
 
-    @Override
-    @Transactional(readOnly = false)
-    public Questionnair save(final Questionnair questionnair) {
-        Questionnair existing = null;
-        if (questionnair.isNew()) {
-            questionnair.setStatus(EntityStatus.DRAFT);
-            existing = repository.save(questionnair);
-        } else {
-            existing = repository.findOne(questionnair.getId());
-        }
-        return existing;
-    }
+	@Autowired
+	public QuestionnairServiceImpl(
+			final QuestionnairRepository questionnairRepository) {
+		super(questionnairRepository);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public Questionnair save(final Questionnair questionnair) {
+		Questionnair existing = null;
+		if (questionnair.isNew()) {
+			questionnair.setStatus(EntityStatus.DRAFT);
+			existing = repository.save(questionnair);
+		} else {
+			existing = repository.findOne(questionnair.getId());
+		}
+		return existing;
+	}
+
 }

@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 import net.sf.gazpachoquest.domain.user.User;
-import net.sf.gazpachoquest.jpa.eclipselink.DateTimeConverter;
+import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
 
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedBy;

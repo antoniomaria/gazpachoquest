@@ -21,7 +21,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
-import net.sf.gazpachoquest.jpa.eclipselink.DateTimeConverter;
+import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
 import net.sf.gazpachoquest.types.StudyAccessType;
 
 import org.joda.time.DateTime;

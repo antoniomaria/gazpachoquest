@@ -23,7 +23,7 @@ import net.sf.gazpachoquest.qbe.RangeSpecification;
 import net.sf.gazpachoquest.qbe.support.ByExampleEnhancedSpecification;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
