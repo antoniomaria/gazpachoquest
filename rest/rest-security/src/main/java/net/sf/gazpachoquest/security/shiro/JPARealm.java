@@ -11,7 +11,6 @@ import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.services.PermissionService;
 import net.sf.gazpachoquest.services.RoleService;
 import net.sf.gazpachoquest.services.UserService;
-import net.sf.gazpachoquest.types.Perm;
 
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
@@ -99,4 +98,5 @@ public class JPARealm extends AuthorizingRealm {
 		}
 		return info;
 	}
+
 }

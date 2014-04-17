@@ -39,16 +39,19 @@ public class JPARealmTest {
 	@Autowired
 	private JPARealm apiKeyRealm;
 
+	@Autowired
+	private SecurityManager securityManager;
+	
 	@Test
 	public void loginTest() {
 		// instantiate or acquire a Realm instance. We'll discuss Realms later.
 
-		SecurityManager securityManager = new DefaultSecurityManager(
-				apiKeyRealm);
+		//SecurityManager securityManager = new DefaultSecurityManager(
+			//	apiKeyRealm);
 
 		// Make the SecurityManager instance available to the entire application
 		// via static memory:
-		SecurityUtils.setSecurityManager(securityManager);
+		// SecurityUtils.setSecurityManager(securityManager);
 
 		Subject subject = SecurityUtils.getSubject();
 		AuthenticationToken token = new APIKeyToken.Builder().apiKey(
