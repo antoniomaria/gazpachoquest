@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.ext.Provider;
 
 import net.sf.gazpachoquest.dto.PageDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
@@ -22,6 +23,7 @@ import net.sf.gazpachoquest.facades.QuestionnairFacade;
 import net.sf.gazpachoquest.types.BrowsingAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,7 @@ import com.wordnik.swagger.annotations.ApiResponses;
 
 @Path("/questionnairs")
 @Api(value = "questionnairs", description = "Questionnairs Interface")
-// @Provider
+@Provider
 @Produces(MediaType.APPLICATION_JSON)
 // https://github.com/jurberg/rest-security/
 // http://www.thebuzzmedia.com/designing-a-secure-rest-api-without-oauth-authentication/
@@ -62,6 +64,8 @@ public class QuestionnairResource {
     @ApiParam(value = "Questionnair id")
     Integer questionnairId) {
         logger.debug("New petition received");
+        SecurityUtils.getSubject().checkPermission("questionnair:read:"+questionnairId);
+
         //
         // logger.debug("New petition received from {}", context.getUserPrincipal().getName());
 
