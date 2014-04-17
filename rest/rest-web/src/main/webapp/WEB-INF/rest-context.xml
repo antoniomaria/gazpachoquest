@@ -20,7 +20,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
   <bean id="authenticationResource" class="net.sf.gazpachoquest.rest.resources.AuthenticationResource" autowire="byType" />
 
-
+  <bean id="securityContextFilter" class="net.sf.gazpachoquest.filter.SecurityContextFilter"/>
+  
   <!-- Swagger writers -->
   <bean id="resourceWriter" class="com.wordnik.swagger.jaxrs.listing.ResourceListingProvider" />
   <bean id="apiWriter" class="com.wordnik.swagger.jaxrs.listing.ApiDeclarationProvider" />
@@ -40,7 +41,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   <bean id="swaggerConfig" class="com.wordnik.swagger.jaxrs.config.BeanConfig">
     <property name="resourcePackage" value="net.sf.gazpachoquest.rest.resources" />
     <property name="version" value="1.0.0" />
-    <property name="basePath" value="http://localhost:8081/gazpachoquest-rest-web/api" />
+    <property name="basePath" value="http://localhost:8080/gazpachoquest-rest-web/api" />
     <property name="title" value="GazpachoQuest REST Interface" />
     <property name="description" value="This is the endpoint to all gazpacho quest services" />
     <property name="contact" value="antoniomariasanchez@gmail.com" />
@@ -65,6 +66,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
       <!-- required for writing swagger classes -->
       <ref bean="resourceWriter" />
       <ref bean="apiWriter" />
+      <ref bean="securityContextFilter"/> 
     </jaxrs:providers>
   </jaxrs:server>
 

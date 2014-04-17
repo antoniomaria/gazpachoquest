@@ -19,7 +19,7 @@
   <script type="text/javascript">
     $(function () {
       window.swaggerUi = new SwaggerUi({
-      url: "http://localhost:8081/gazpachoquest-rest-web/api/api-docs",
+      url: "http://localhost:8080/gazpachoquest-rest-web/api/api-docs",
       dom_id: "swagger-ui-container",
       supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
       onComplete: function(swaggerApi, swaggerUi){

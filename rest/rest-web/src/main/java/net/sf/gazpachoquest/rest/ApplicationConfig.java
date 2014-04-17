@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+import net.sf.gazpachoquest.filter.SecurityContextFilter;
 import net.sf.gazpachoquest.rest.resources.AuthenticationResource;
 import net.sf.gazpachoquest.rest.resources.QuestionnairResource;
 
@@ -35,6 +36,7 @@ public class ApplicationConfig extends Application {
         classes.add(ResourceListingProvider.class);
         classes.add(ApiDeclarationProvider.class);
 
+        classes.add(SecurityContextFilter.class);
         return classes;
     }
 
