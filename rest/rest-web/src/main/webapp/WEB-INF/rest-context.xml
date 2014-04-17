@@ -20,7 +20,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
   <bean id="authenticationResource" class="net.sf.gazpachoquest.rest.resources.AuthenticationResource" autowire="byType" />
 
-  <bean id="securityContextFilter" class="net.sf.gazpachoquest.filter.SecurityContextFilter"/>
+  <!-- Shiro login -->
+  <bean id="securityContextFilter" class="net.sf.gazpachoquest.rest.filter.SecurityContextFilter"/>
   
   <!-- Swagger writers -->
   <bean id="resourceWriter" class="com.wordnik.swagger.jaxrs.listing.ResourceListingProvider" />
@@ -32,6 +33,9 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   <!-- Swagger API listing resource -->
   <bean id="swaggerResourceJSON" class="com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON" />
 
+  <!-- Shiro Exception Handler -->
+  <bean id="shiroExceptionHandler" class="net.sf.gazpachoquest.rest.exception.ShiroExceptionHandler"/>
+  
   <cxf:bus>
     <cxf:features>
       <cxf:logging />
@@ -66,7 +70,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
       <!-- required for writing swagger classes -->
       <ref bean="resourceWriter" />
       <ref bean="apiWriter" />
-      <ref bean="securityContextFilter"/> 
+      <ref bean="securityContextFilter"/>
+      <ref bean="shiroExceptionHandler"/> 
     </jaxrs:providers>
   </jaxrs:server>
 

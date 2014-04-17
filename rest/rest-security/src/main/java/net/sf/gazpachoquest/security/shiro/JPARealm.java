@@ -41,12 +41,12 @@ public class JPARealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken token) throws AuthenticationException {
 		APIKeyToken upToken = (APIKeyToken) token;
-		String apiKey = upToken.getCredentials().toString();
+		String apiKey = upToken.getApiKey();
 
 		// Null apikey is invalid
 		if (apiKey == null) {
 			throw new AccountException(
-					"Null apikeys are not allowed by this realm.");
+					"API Key is required");
 		}
 		User example = new User.Builder().apiKey(apiKey).build();
 		User user = null;

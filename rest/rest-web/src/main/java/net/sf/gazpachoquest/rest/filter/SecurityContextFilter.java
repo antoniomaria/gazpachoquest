@@ -1,4 +1,4 @@
-package net.sf.gazpachoquest.filter;
+package net.sf.gazpachoquest.rest.filter;
 
 import java.lang.reflect.Method;
 
@@ -48,9 +48,7 @@ public class SecurityContextFilter implements RequestHandler {
 		Subject subject = SecurityUtils.getSubject();
 		AuthenticationToken token = new APIKeyToken.Builder().apiKey(
 				apiKey).build();
-		subject.login(token);
-
-
+		subject.login(token); // 
 		return null;
 	}
 
