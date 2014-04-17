@@ -20,20 +20,20 @@ import net.sf.gazpachoquest.dto.QuestionGroupDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionLanguageSettingsDTO;
-import net.sf.gazpachoquest.dto.StudyDTO;
+import net.sf.gazpachoquest.dto.ResearchDTO;
 import net.sf.gazpachoquest.dto.SubquestionDTO;
 import net.sf.gazpachoquest.dto.UserDTO;
 import net.sf.gazpachoquest.dto.support.TranslationDTO;
 import net.sf.gazpachoquest.facades.GroupFacade;
 import net.sf.gazpachoquest.facades.MailMessageFacade;
 import net.sf.gazpachoquest.facades.QuestionnairDefinitionEditorFacade;
-import net.sf.gazpachoquest.facades.StudyFacade;
+import net.sf.gazpachoquest.facades.ResearchFacade;
 import net.sf.gazpachoquest.facades.UserFacade;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
 import net.sf.gazpachoquest.types.QuestionType;
-import net.sf.gazpachoquest.types.StudyAccessType;
+import net.sf.gazpachoquest.types.ResearchAccessType;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ public class DBPopulator {
     private QuestionnairDefinitionEditorFacade questionnairDefinitionEditorFacade;
 
     @Autowired
-    private StudyFacade studyFacade;
+    private ResearchFacade researchFacade;
 
     // http://www.objectpartners.com/2012/05/17/creating-a-hierarchical-test-data-builder-using-generics/
     public void populate() {
@@ -87,17 +87,17 @@ public class DBPopulator {
         Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<>();
         questionnairDefinitions.add(questionnairDef);
 
-        StudyDTO study = StudyDTO.with().questionnairDefinitions(questionnairDefinitions)
-                .type(StudyAccessType.BY_INVITATION)
+        ResearchDTO research = ResearchDTO.with().questionnairDefinitions(questionnairDefinitions)
+                .type(ResearchAccessType.BY_INVITATION)
                 .name("New private Questionnair " + questionnairDef.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).respondents(respondents)
                 .build();
-        studyFacade.save(study);
+        researchFacade.save(research);
 
-        study = StudyDTO.with().questionnairDefinitions(questionnairDefinitions).type(StudyAccessType.OPEN_ACCESS)
+        research = ResearchDTO.with().questionnairDefinitions(questionnairDefinitions).type(ResearchAccessType.OPEN_ACCESS)
                 .name("New open Questionnair " + questionnairDef.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        studyFacade.save(study);
+        researchFacade.save(research);
     }
 
     public void populateForDemo(Set<UserDTO> respondents) {
@@ -108,13 +108,13 @@ public class DBPopulator {
         Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<>();
         questionnairDefinitions.add(questionnairDef);
 
-        StudyDTO study = StudyDTO.with().questionnairDefinitions(questionnairDefinitions)
-                .type(StudyAccessType.BY_INVITATION)
+        ResearchDTO ressearch = ResearchDTO.with().questionnairDefinitions(questionnairDefinitions)
+                .type(ResearchAccessType.BY_INVITATION)
                 .name("New survey " + questionnairDef.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31"))
 
                 .respondents(respondents).build();
-        studyFacade.save(study);
+        researchFacade.save(ressearch);
 
     }
 

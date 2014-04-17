@@ -11,11 +11,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
-import net.sf.gazpachoquest.types.StudyAccessType;
+import net.sf.gazpachoquest.types.ResearchAccessType;
 
 import org.joda.time.DateTime;
 
-public class StudyDTO extends AbstractIdentifiableDTO {
+public class ResearchDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = -8624509103476946501L;
 
@@ -29,9 +29,9 @@ public class StudyDTO extends AbstractIdentifiableDTO {
 
     private Set<QuestionnairDefinitionDTO> questionnairDefinitions;
 
-    private StudyAccessType type;
+    private ResearchAccessType type;
 
-    public StudyDTO() {
+    public ResearchDTO() {
         super();
     }
 
@@ -54,7 +54,7 @@ public class StudyDTO extends AbstractIdentifiableDTO {
         return startDate;
     }
 
-    public StudyAccessType getType() {
+    public ResearchAccessType getType() {
         return type;
     }
 
@@ -74,7 +74,7 @@ public class StudyDTO extends AbstractIdentifiableDTO {
         this.startDate = startDate;
     }
 
-    public void setType(final StudyAccessType type) {
+    public void setType(final ResearchAccessType type) {
         this.type = type;
     }
 
@@ -96,7 +96,7 @@ public class StudyDTO extends AbstractIdentifiableDTO {
         private Set<UserDTO> respondents;
         private DateTime startDate;
         private Set<QuestionnairDefinitionDTO> questionnairDefinitions;
-        private StudyAccessType type;
+        private ResearchAccessType type;
 
         public Builder expirationDate(DateTime expirationDate) {
             this.expirationDate = expirationDate;
@@ -123,20 +123,20 @@ public class StudyDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
-        public Builder type(StudyAccessType type) {
+        public Builder type(ResearchAccessType type) {
             this.type = type;
             return this;
         }
 
-        public StudyDTO build() {
-            StudyDTO studyDTO = new StudyDTO();
-            studyDTO.expirationDate = expirationDate;
-            studyDTO.name = name;
-            studyDTO.respondents = respondents;
-            studyDTO.startDate = startDate;
-            studyDTO.questionnairDefinitions = questionnairDefinitions;
-            studyDTO.type = type;
-            return studyDTO;
+        public ResearchDTO build() {
+            ResearchDTO researchDTO = new ResearchDTO();
+            researchDTO.expirationDate = expirationDate;
+            researchDTO.name = name;
+            researchDTO.respondents = respondents;
+            researchDTO.startDate = startDate;
+            researchDTO.questionnairDefinitions = questionnairDefinitions;
+            researchDTO.type = type;
+            return researchDTO;
         }
     }
 }

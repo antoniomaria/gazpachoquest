@@ -15,53 +15,11 @@ import net.sf.gazpachoquest.types.InvitationStatus;
 import net.sf.gazpachoquest.types.InvitationType;
 
 public class InvitationDTO extends AbstractIdentifiableDTO {
-
-    public static class Builder {
-        private InvitationStatus status;
-        private StudyDTO surveyInstance;
-
-        private String token;
-        private InvitationType type;
-
-        public InvitationDTO build() {
-            InvitationDTO invitationDTO = new InvitationDTO();
-            invitationDTO.token = token;
-            invitationDTO.surveyInstance = surveyInstance;
-            invitationDTO.status = status;
-            invitationDTO.type = type;
-            return invitationDTO;
-        }
-
-        public Builder status(final InvitationStatus status) {
-            this.status = status;
-            return this;
-        }
-
-        public Builder surveyInstance(final StudyDTO surveyInstance) {
-            this.surveyInstance = surveyInstance;
-            return this;
-        }
-
-        public Builder token(final String token) {
-            this.token = token;
-            return this;
-        }
-
-        public Builder type(final InvitationType type) {
-            this.type = type;
-            return this;
-        }
-    }
-
     private static final long serialVersionUID = -2776483997831033883L;
-
-    public static Builder with() {
-        return new Builder();
-    }
 
     private InvitationStatus status;
 
-    private StudyDTO surveyInstance;
+    private ResearchDTO research;
 
     private String token;
 
@@ -71,8 +29,8 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
         return status;
     }
 
-    public StudyDTO getSurveyInstance() {
-        return surveyInstance;
+    public ResearchDTO getResearch() {
+        return research;
     }
 
     public String getToken() {
@@ -87,8 +45,8 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
         this.status = status;
     }
 
-    public void setSurveyInstance(final StudyDTO surveyInstance) {
-        this.surveyInstance = surveyInstance;
+    public void setResearch(final ResearchDTO research) {
+        this.research = research;
     }
 
     public void setToken(final String token) {
@@ -98,4 +56,48 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
     public void setType(final InvitationType type) {
         this.type = type;
     }
+
+
+    public static class Builder {
+        private InvitationStatus status;
+        private ResearchDTO research;
+
+        private String token;
+        private InvitationType type;
+
+        public InvitationDTO build() {
+            InvitationDTO invitationDTO = new InvitationDTO();
+            invitationDTO.token = token;
+            invitationDTO.research = research;
+            invitationDTO.status = status;
+            invitationDTO.type = type;
+            return invitationDTO;
+        }
+
+        public Builder status(final InvitationStatus status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder research(final ResearchDTO research) {
+            this.research = research;
+            return this;
+        }
+
+        public Builder token(final String token) {
+            this.token = token;
+            return this;
+        }
+
+        public Builder type(final InvitationType type) {
+            this.type = type;
+            return this;
+        }
+    }
+
+
+    public static Builder with() {
+        return new Builder();
+    }
+
 }

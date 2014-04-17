@@ -24,7 +24,7 @@
     <persistence:class>net.sf.gazpachoquest.domain.core.QuestionnairDefinition</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.core.QuestionOption</persistence:class>
 
-    <persistence:class>net.sf.gazpachoquest.domain.core.Study</persistence:class>
+    <persistence:class>net.sf.gazpachoquest.domain.core.Research</persistence:class>
 
     <!-- User -->
     <persistence:class>net.sf.gazpachoquest.domain.user.User</persistence:class>

@@ -4,8 +4,8 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.List;
 
-import net.sf.gazpachoquest.domain.core.Study;
-import net.sf.gazpachoquest.repository.StudyRepository;
+import net.sf.gazpachoquest.domain.core.Research;
+import net.sf.gazpachoquest.repository.ResearchRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;
@@ -26,17 +26,17 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("StudyRepository-dataset.xml")
+@DatabaseSetup("ResearchRepository-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class StudyRepositoryTest {
+public class ResearchRepositoryTest {
 
     @Autowired
-    private StudyRepository repository;
+    private ResearchRepository repository;
 
     @Test
     public void findOneByQuestionnairDefinitionTest() {
         Integer questionnairDefinitionId = 6;
-        List<Study> studies = repository.findByQuestionnairDefinition(questionnairDefinitionId);
-        assertThat(studies).containsExactly(Study.with().id(57).build());
+        List<Research> researchs = repository.findByQuestionnairDefinition(questionnairDefinitionId);
+        assertThat(researchs).containsExactly(Research.with().id(57).build());
     }
 }

@@ -44,7 +44,7 @@ public class PersonalInvitation extends Invitation {
     public static class Builder extends Invitation.Builder {
 
         private String token;
-        private Study study;
+        private Research research;
         private InvitationStatus status;
         private User respondent;
 
@@ -55,8 +55,8 @@ public class PersonalInvitation extends Invitation {
         }
 
         @Override
-        public Builder study(Study study) {
-            this.study = study;
+        public Builder research(Research research) {
+            this.research = research;
             return this;
         }
 
@@ -78,7 +78,7 @@ public class PersonalInvitation extends Invitation {
     }
 
     private PersonalInvitation(Builder builder) {
-        super(builder.token, builder.study, builder.status);
+        super(builder.token, builder.research, builder.status);
         this.respondent = builder.respondent;
     }
 }

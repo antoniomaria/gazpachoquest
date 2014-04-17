@@ -6,10 +6,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
-import net.sf.gazpachoquest.dto.StudyDTO;
+import net.sf.gazpachoquest.dto.ResearchDTO;
 import net.sf.gazpachoquest.dto.UserDTO;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
-import net.sf.gazpachoquest.types.StudyAccessType;
+import net.sf.gazpachoquest.types.ResearchAccessType;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,16 +31,16 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
         "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/facades-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("StudyFacade-dataset.xml")
+@DatabaseSetup("ResearchFacade-dataset.xml")
 @Transactional
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class StudyFacadeTest {
+public class ResearchFacadeTest {
 
     @Autowired
     private UserFacade respondentFacade;
 
     @Autowired
-    private StudyFacade studyFacade;
+    private ResearchFacade researchFacade;
 
     @Test
     public void saveTest() {
@@ -52,9 +52,9 @@ public class StudyFacadeTest {
         Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<QuestionnairDefinitionDTO>();
         questionnairDefinitions.add(questionnairDefinition);
 
-        StudyDTO study = StudyDTO.with().type(StudyAccessType.BY_INVITATION).respondents(respondents)
+        ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION).respondents(respondents)
                 .questionnairDefinitions(questionnairDefinitions).build();
-        study = studyFacade.save(study);
-        assertThat(study.isNew()).isFalse();
+        research = researchFacade.save(research);
+        assertThat(research.isNew()).isFalse();
     }
 }

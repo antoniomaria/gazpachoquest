@@ -10,14 +10,14 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.facades;
 
-import net.sf.gazpachoquest.dto.StudyDTO;
+import net.sf.gazpachoquest.dto.ResearchDTO;
 
-public interface StudyFacade {
+public interface ResearchFacade {
 
     void delete(Integer id);
 
-    StudyDTO findOne(Integer id);
+    ResearchDTO findOne(Integer id);
 
-    StudyDTO save(StudyDTO study);
+    ResearchDTO save(ResearchDTO research);
 
 }

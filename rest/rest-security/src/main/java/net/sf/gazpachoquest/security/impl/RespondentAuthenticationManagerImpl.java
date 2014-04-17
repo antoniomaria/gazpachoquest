@@ -7,7 +7,7 @@ import javax.security.auth.login.AccountNotFoundException;
 
 import net.sf.gazpachoquest.domain.core.PersonalInvitation;
 import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.domain.core.Study;
+import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.support.Invitation;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
@@ -43,14 +43,14 @@ public class RespondentAuthenticationManagerImpl implements AuthenticationManage
         }
 
         List<Questionnair> questionnairs = new ArrayList<>();
-        Study study = invitation.getStudy();
+        Research research = invitation.getResearch();
         User respondent = null;
         if (invitation instanceof PersonalInvitation) {
             PersonalInvitation personalInvitation = (PersonalInvitation) invitation;
             respondent = personalInvitation.getRespondent();
             Questionnair questionnairExample = Questionnair.with()
                     .respondent(User.with().id(respondent.getId()).build())
-                    .study(Study.with().id(study.getId()).build()).build();
+                    .research(Research.with().id(research.getId()).build()).build();
             questionnairs = questionnairService.findByExample(questionnairExample, new SearchParameters());
         }
 
@@ -58,7 +58,7 @@ public class RespondentAuthenticationManagerImpl implements AuthenticationManage
             respondent = User.with().givenNames("anonymous").surname("anonymous").email("no-reply@gazpachoquest.net")
                     .build();
             respondent = userService.save(respondent);
-            Questionnair questionnair = Questionnair.with().study(study).respondent(respondent).build();
+            Questionnair questionnair = Questionnair.with().research(research).respondent(respondent).build();
             questionnair = questionnairService.save(questionnair);
             questionnairs.add(questionnair);
         }

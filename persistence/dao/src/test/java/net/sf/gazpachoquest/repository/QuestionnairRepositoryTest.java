@@ -2,10 +2,10 @@ package net.sf.gazpachoquest.repository;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.domain.core.Study;
+import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
-import net.sf.gazpachoquest.repository.StudyRepository;
+import net.sf.gazpachoquest.repository.ResearchRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.EntityStatus;
 
@@ -35,7 +35,7 @@ public class QuestionnairRepositoryTest {
     private QuestionnairRepository repository;
 
     @Autowired
-    private StudyRepository studyRepository;
+    private ResearchRepository researchRepository;
 
     @Autowired
     private QuestionnairDefinitionRepository questionnairDefinitionRepository;
@@ -48,11 +48,11 @@ public class QuestionnairRepositoryTest {
 
     @Test
     public void saveTest() {
-        Study running = studyRepository.findOne(57);
+        Research running = researchRepository.findOne(57);
 
         Questionnair questionnair = new Questionnair();
         questionnair.setStatus(EntityStatus.CONFIRMED);
-        questionnair.setStudy(running);
+        questionnair.setResearch(running);
         questionnair.setAnswersId(999);
         Questionnair created = repository.save(questionnair);
 

@@ -11,53 +11,53 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
-import net.sf.gazpachoquest.domain.core.Study;
+import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
-import net.sf.gazpachoquest.dto.StudyDTO;
+import net.sf.gazpachoquest.dto.ResearchDTO;
 import net.sf.gazpachoquest.dto.UserDTO;
-import net.sf.gazpachoquest.facades.StudyFacade;
-import net.sf.gazpachoquest.services.StudyService;
+import net.sf.gazpachoquest.facades.ResearchFacade;
+import net.sf.gazpachoquest.services.ResearchService;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StudyFacadeImpl implements StudyFacade {
+public class ResearchFacadeImpl implements ResearchFacade {
 
     @Autowired
     private Mapper mapper;
 
     @Autowired
-    private StudyService studyService;
+    private ResearchService researchService;
 
     @Override
     public void delete(final Integer id) {
-        studyService.delete(id);
+        researchService.delete(id);
     }
 
     @Override
-    public StudyDTO findOne(final Integer id) {
-        Study entity = studyService.findOne(id);
-        return mapper.map(entity, StudyDTO.class);
+    public ResearchDTO findOne(final Integer id) {
+        Research entity = researchService.findOne(id);
+        return mapper.map(entity, ResearchDTO.class);
     }
 
     @Override
-    public StudyDTO save(final StudyDTO study) {
-        Study entity = mapper.map(study, Study.class);
+    public ResearchDTO save(final ResearchDTO research) {
+        Research entity = mapper.map(research, Research.class);
         Set<User> respondents = new HashSet<User>();
-        for (UserDTO respondentDTO : study.getRespondents()) {
+        for (UserDTO respondentDTO : research.getRespondents()) {
             User respondent = mapper.map(respondentDTO, User.class);
             respondents.add(respondent);
         }
 
         Set<QuestionnairDefinition> questionnairDefinitions = new HashSet<QuestionnairDefinition>();
-        for (QuestionnairDefinitionDTO questionnairDefinitionDTO : study.getQuestionnairDefinitions()) {
+        for (QuestionnairDefinitionDTO questionnairDefinitionDTO : research.getQuestionnairDefinitions()) {
             QuestionnairDefinition questionnairDefinition = mapper.map(questionnairDefinitionDTO, QuestionnairDefinition.class);
             questionnairDefinitions.add(questionnairDefinition);
         }
-        entity = studyService.save(entity, questionnairDefinitions, respondents);
-        return mapper.map(entity, StudyDTO.class);
+        entity = researchService.save(entity, questionnairDefinitions, respondents);
+        return mapper.map(entity, ResearchDTO.class);
     }
 }

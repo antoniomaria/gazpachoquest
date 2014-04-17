@@ -42,7 +42,7 @@ public class Questionnair extends AbstractAuditable {
     private DateTime submitDate;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Study study;
+    private Research research;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private QuestionnairDefinition questionnairDefinition;
@@ -64,8 +64,8 @@ public class Questionnair extends AbstractAuditable {
         return submitDate;
     }
 
-    public Study getStudy() {
-        return study;
+    public Research getResearch() {
+        return research;
     }
 
     public void setBrowsedElements(final Set<BrowsedElement> browsedElements) {
@@ -76,8 +76,8 @@ public class Questionnair extends AbstractAuditable {
         this.submitDate = submitDate;
     }
 
-    public void setStudy(final Study study) {
-        this.study = study;
+    public void setResearch(final Research research) {
+        this.research = research;
     }
 
     public QuestionnairDefinition getQuestionnairDefinition() {
@@ -121,7 +121,7 @@ public class Questionnair extends AbstractAuditable {
         private EntityStatus status;
         private Set<BrowsedElement> browsedElements;
         private DateTime submitDate;
-        private Study study;
+        private Research research;
         private QuestionnairDefinition questionnairDefinition;
         private User respondent;
         private Integer answersId;
@@ -151,8 +151,8 @@ public class Questionnair extends AbstractAuditable {
             return this;
         }
 
-        public Builder study(Study study) {
-            this.study = study;
+        public Builder research(Research research) {
+            this.research = research;
             return this;
         }
 
@@ -172,7 +172,7 @@ public class Questionnair extends AbstractAuditable {
             questionnair.status = status;
             questionnair.browsedElements = browsedElements;
             questionnair.submitDate = submitDate;
-            questionnair.study = study;
+            questionnair.research = research;
             questionnair.questionnairDefinition = questionnairDefinition;
             questionnair.respondent = respondent;
             questionnair.answersId = answersId;

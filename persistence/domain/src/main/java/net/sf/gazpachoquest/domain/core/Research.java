@@ -22,19 +22,19 @@ import javax.persistence.OneToMany;
 
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
 import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
-import net.sf.gazpachoquest.types.StudyAccessType;
+import net.sf.gazpachoquest.types.ResearchAccessType;
 
 import org.joda.time.DateTime;
 
 @Entity
-public class Study extends AbstractAuditable {
+public class Research extends AbstractAuditable {
 
     private static final long serialVersionUID = -5917291757324504802L;
 
     private String name;
 
     @Enumerated(EnumType.STRING)
-    private StudyAccessType type;
+    private ResearchAccessType type;
 
     @Column(columnDefinition = "timestamp")
     @Convert(converter = DateTimeConverter.class)
@@ -44,10 +44,10 @@ public class Study extends AbstractAuditable {
     @Convert(converter = DateTimeConverter.class)
     private DateTime expirationDate;
 
-    @OneToMany(mappedBy = "study", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "research", fetch = FetchType.LAZY)
     private Set<Questionnair> questionnairs;
 
-    public Study() {
+    public Research() {
         super();
     }
 
@@ -67,7 +67,7 @@ public class Study extends AbstractAuditable {
         return startDate;
     }
 
-    public StudyAccessType getType() {
+    public ResearchAccessType getType() {
         return type;
     }
 
@@ -87,7 +87,7 @@ public class Study extends AbstractAuditable {
         this.startDate = startDate;
     }
 
-    public void setType(StudyAccessType type) {
+    public void setType(ResearchAccessType type) {
         this.type = type;
     }
 
@@ -98,7 +98,7 @@ public class Study extends AbstractAuditable {
     public static class Builder {
         private Integer id;
         private String name;
-        private StudyAccessType type;
+        private ResearchAccessType type;
         private DateTime startDate;
         private DateTime expirationDate;
         private Set<Questionnair> questionnairs;
@@ -113,7 +113,7 @@ public class Study extends AbstractAuditable {
             return this;
         }
 
-        public Builder type(StudyAccessType type) {
+        public Builder type(ResearchAccessType type) {
             this.type = type;
             return this;
         }
@@ -133,15 +133,15 @@ public class Study extends AbstractAuditable {
             return this;
         }
 
-        public Study build() {
-            Study study = new Study();
-            study.setId(id);
-            study.name = name;
-            study.type = type;
-            study.startDate = startDate;
-            study.expirationDate = expirationDate;
-            study.questionnairs = questionnairs;
-            return study;
+        public Research build() {
+            Research research = new Research();
+            research.setId(id);
+            research.name = name;
+            research.type = type;
+            research.startDate = startDate;
+            research.expirationDate = expirationDate;
+            research.questionnairs = questionnairs;
+            return research;
         }
     }
 }

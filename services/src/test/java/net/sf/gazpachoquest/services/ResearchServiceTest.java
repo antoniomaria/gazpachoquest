@@ -1,8 +1,8 @@
 package net.sf.gazpachoquest.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import net.sf.gazpachoquest.domain.core.Study;
-import net.sf.gazpachoquest.services.StudyService;
+import net.sf.gazpachoquest.domain.core.Research;
+import net.sf.gazpachoquest.services.ResearchService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;
@@ -24,16 +24,16 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
         "classpath:/services-context.xml", "classpath:/components-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("StudyService-dataset.xml")
+@DatabaseSetup("ResearchService-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class StudyServiceTest {
+public class ResearchServiceTest {
 
     @Autowired
-    private StudyService studyService;
+    private ResearchService researchService;
 
     @Test
     public void findOneTest() {
-        Study study = studyService.findOne(57);
-        assertThat(study.isNew()).isFalse();
+        Research research = researchService.findOne(57);
+        assertThat(research.isNew()).isFalse();
     }
 }

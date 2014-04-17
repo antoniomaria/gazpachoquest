@@ -4,10 +4,10 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import javax.sql.DataSource;
 
-import net.sf.gazpachoquest.domain.core.Study;
+import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.support.Invitation;
 import net.sf.gazpachoquest.services.InvitationService;
-import net.sf.gazpachoquest.services.StudyService;
+import net.sf.gazpachoquest.services.ResearchService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.InvitationStatus;
 
@@ -35,15 +35,15 @@ public class InvitationServiceTest {
     private DataSource datasource;
 
     @Autowired
-    private StudyService studyService;
+    private ResearchService researchService;
 
     @Autowired
     private InvitationService surveyService;
 
     @Test
     public void saveTest() {
-        Study study = studyService.findOne(57);
-        Invitation invitation = Invitation.with().study(study).status(InvitationStatus.ACTIVE).token("1234").build();
+        Research research = researchService.findOne(57);
+        Invitation invitation = Invitation.with().research(research).status(InvitationStatus.ACTIVE).token("1234").build();
         Invitation saved = surveyService.save(invitation);
 
         Integer invitationId = saved.getId();
@@ -53,7 +53,7 @@ public class InvitationServiceTest {
 
         Invitation updated = surveyService.save(existing);
 
-        assertThat(updated.getStudy()).isNotNull();
+        assertThat(updated.getResearch()).isNotNull();
     }
 
 }

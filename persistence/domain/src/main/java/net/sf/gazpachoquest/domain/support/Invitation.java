@@ -21,7 +21,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
-import net.sf.gazpachoquest.domain.core.Study;
+import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.types.InvitationStatus;
 
 @Entity
@@ -35,7 +35,7 @@ public class Invitation extends AbstractPersistable {
     protected String token;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    protected Study study;
+    protected Research research;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -45,10 +45,10 @@ public class Invitation extends AbstractPersistable {
         super();
     }
 
-    protected Invitation(String token, Study study, InvitationStatus status) {
+    protected Invitation(String token, Research research, InvitationStatus status) {
         super();
         this.token = token;
-        this.study = study;
+        this.research = research;
         this.status = status;
     }
 
@@ -60,12 +60,12 @@ public class Invitation extends AbstractPersistable {
         this.token = token;
     }
 
-    public Study getStudy() {
-        return study;
+    public Research getResearch() {
+        return research;
     }
 
-    public void setStudy(Study study) {
-        this.study = study;
+    public void setResearch(Research research) {
+        this.research = research;
     }
 
     public InvitationStatus getStatus() {
@@ -83,7 +83,7 @@ public class Invitation extends AbstractPersistable {
     public static class Builder {
         private Integer id;
         private String token;
-        private Study study;
+        private Research research;
         private InvitationStatus status;
 
         public Builder id(Integer id) {
@@ -96,8 +96,8 @@ public class Invitation extends AbstractPersistable {
             return this;
         }
 
-        public Builder study(Study study) {
-            this.study = study;
+        public Builder research(Research research) {
+            this.research = research;
             return this;
         }
 
@@ -109,7 +109,7 @@ public class Invitation extends AbstractPersistable {
         public Invitation build() {
             Invitation invitation = new Invitation();
             invitation.token = token;
-            invitation.study = study;
+            invitation.research = research;
             invitation.status = status;
             invitation.setId(id);
             return invitation;

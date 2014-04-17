@@ -2,7 +2,7 @@ package net.sf.gazpachoquest.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.domain.core.Study;
+import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.services.QuestionnairService;
@@ -39,8 +39,8 @@ public class QuestionnairServiceTest {
     @Test
     public void findOneByExampleTest() {
         User respondent = User.with().id(2).build();
-        Study study = Study.with().id(57).build();
-        Questionnair example = Questionnair.with().respondent(respondent).study(study).build();
+        Research research = Research.with().id(57).build();
+        Questionnair example = Questionnair.with().respondent(respondent).research(research).build();
         Questionnair questionnair = questionnairService.findOneByExample(example, new SearchParameters());
         assertThat(questionnair.getId()).isEqualTo(58);
     }

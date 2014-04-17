@@ -10,11 +10,11 @@ package net.sf.gazpachoquest.services;
 import java.util.Set;
 
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
-import net.sf.gazpachoquest.domain.core.Study;
+import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.user.User;
 
-public interface StudyService extends PersistenceService<Study> {
+public interface ResearchService extends PersistenceService<Research> {
 
-    Study save(Study study, Set<QuestionnairDefinition> questionnairDefinitions, Set<User> respondents);
+    Research save(Research research, Set<QuestionnairDefinition> questionnairDefinitions, Set<User> respondents);
 
 }
