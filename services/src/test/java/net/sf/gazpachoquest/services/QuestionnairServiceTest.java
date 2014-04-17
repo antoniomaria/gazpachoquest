@@ -38,9 +38,9 @@ public class QuestionnairServiceTest {
 
     @Test
     public void findOneByExampleTest() {
-        User participant = User.with().id(2).build();
+        User respondent = User.with().id(2).build();
         Study study = Study.with().id(57).build();
-        Questionnair example = Questionnair.with().participant(participant).study(study).build();
+        Questionnair example = Questionnair.with().respondent(respondent).study(study).build();
         Questionnair questionnair = questionnairService.findOneByExample(example, new SearchParameters());
         assertThat(questionnair.getId()).isEqualTo(58);
     }

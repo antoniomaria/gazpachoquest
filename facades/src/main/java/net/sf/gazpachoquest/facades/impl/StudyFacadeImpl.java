@@ -46,18 +46,18 @@ public class StudyFacadeImpl implements StudyFacade {
     @Override
     public StudyDTO save(final StudyDTO study) {
         Study entity = mapper.map(study, Study.class);
-        Set<User> participants = new HashSet<User>();
-        for (UserDTO participantDTO : study.getParticipants()) {
-            User participant = mapper.map(participantDTO, User.class);
-            participants.add(participant);
+        Set<User> respondents = new HashSet<User>();
+        for (UserDTO respondentDTO : study.getRespondents()) {
+            User respondent = mapper.map(respondentDTO, User.class);
+            respondents.add(respondent);
         }
 
         Set<QuestionnairDefinition> questionnairDefinitions = new HashSet<QuestionnairDefinition>();
         for (QuestionnairDefinitionDTO questionnairDefinitionDTO : study.getQuestionnairDefinitions()) {
-            QuestionnairDefinition participant = mapper.map(questionnairDefinitionDTO, QuestionnairDefinition.class);
-            questionnairDefinitions.add(participant);
+            QuestionnairDefinition questionnairDefinition = mapper.map(questionnairDefinitionDTO, QuestionnairDefinition.class);
+            questionnairDefinitions.add(questionnairDefinition);
         }
-        entity = studyService.save(entity, questionnairDefinitions, participants);
+        entity = studyService.save(entity, questionnairDefinitions, respondents);
         return mapper.map(entity, StudyDTO.class);
     }
 }

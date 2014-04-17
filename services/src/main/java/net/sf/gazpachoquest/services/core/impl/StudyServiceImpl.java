@@ -111,7 +111,7 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study>
 	@Transactional(readOnly = false)
 	public Study save(Study study,
 			Set<QuestionnairDefinition> questionnairDefinitions,
-			Set<User> participants) {
+			Set<User> respondents) {
 		study = this.save(study);
 		if (StudyAccessType.BY_INVITATION.equals(study.getType())) {
 			for (QuestionnairDefinition questionnairDefinition : questionnairDefinitions) {
@@ -127,20 +127,20 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study>
 				Group example = Group.with().name("Respondents").build();
 				Group respondentsGroup = groupRepository.findOneByExample(
 						example, new SearchParameters());
-				for (User participant : participants) {
-					Assert.state(!participant.isNew(),
-							"Persist all participant before starting a study.");
+				for (User respondent : respondents) {
+					Assert.state(!respondent.isNew(),
+							"Persist all respondents before starting a study.");
 					Questionnair questionnair = Questionnair.with()
 							.status(EntityStatus.CONFIRMED).study(study)
 							.questionnairDefinition(questionnairDefinition)
-							.participant(participant).build();
+							.respondent(respondent).build();
 					questionnair = questionnairRepository.save(questionnair);
 
 					String token = tokenGenerator.generate();
 
-					participant = userRepository.findOne(participant.getId());
+					respondent = userRepository.findOne(respondent.getId());
 
-					Role personalRole = findOrCreateBy(participant);
+					Role personalRole = findOrCreateBy(respondent);
 
 					Permission permission = Permission.with()
 							.addPerm(Perm.READ).addPerm(Perm.UPDATE)
@@ -153,16 +153,16 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study>
 					PersonalInvitation personalInvitation = PersonalInvitation
 							.with().study(study).token(token)
 							.status(InvitationStatus.ACTIVE)
-							.participant(participant).build();
+							.respondent(respondent).build();
 					invitationRepository.save(personalInvitation);
 
 					MailMessage mailMessage = composeMailMessage(
-							invitationTemplate, participant, token);
+							invitationTemplate, respondent, token);
 					mailMessageRepository.save(mailMessage);
 
-					if (groupRepository.isUserInGroup(participant.getId(),
+					if (groupRepository.isUserInGroup(respondent.getId(),
 							"Respondents") == 0) {
-						respondentsGroup.assignUser(participant);
+						respondentsGroup.assignUser(respondent);
 					}
 				}
 			}
@@ -202,18 +202,18 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study>
 
 	private MailMessage composeMailMessage(
 			final MailMessageTemplate mailMessageTemplate,
-			final User participant, final String surveyLinkToken) {
+			final User respondent, final String surveyLinkToken) {
 
 		Map<String, Object> model = new HashMap<>();
 		model.put("lastname",
-				StringUtils.defaultIfBlank(participant.getSurname(), ""));
+				StringUtils.defaultIfBlank(respondent.getSurname(), ""));
 		model.put("firstname",
-				StringUtils.defaultIfBlank(participant.getGivenNames(), ""));
-		model.put("gender", participant.getGender());
+				StringUtils.defaultIfBlank(respondent.getGivenNames(), ""));
+		model.put("gender", respondent.getGender());
 		model.put("link", "http://localhost:8080/questionaires-ui/token="
 				+ surveyLinkToken);
 
-		Language preferedLanguage = participant.getPreferedLanguage();
+		Language preferedLanguage = respondent.getPreferedLanguage();
 
 		StringBuilder templateLocation = new StringBuilder()
 				.append(mailMessageTemplate.getId());
@@ -238,7 +238,7 @@ public class StudyServiceImpl extends AbstractPersistenceService<Study>
 		}
 		MailMessage mailMessage = MailMessage.with()
 				.subject(languageSettings.getSubject())
-				.to(participant.getEmail())
+				.to(respondent.getEmail())
 				.replyTo(mailMessageTemplate.getReplyTo())
 				.from(mailMessageTemplate.getFromAddress()).text(body).build();
 		return mailMessage;

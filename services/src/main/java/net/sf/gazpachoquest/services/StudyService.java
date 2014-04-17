@@ -15,6 +15,6 @@ import net.sf.gazpachoquest.domain.user.User;
 
 public interface StudyService extends PersistenceService<Study> {
 
-    Study save(Study study, Set<QuestionnairDefinition> questionnairDefinitions, Set<User> participants);
+    Study save(Study study, Set<QuestionnairDefinition> questionnairDefinitions, Set<User> respondents);
 
 }

@@ -23,18 +23,18 @@ public class PersonalInvitation extends Invitation {
     private static final long serialVersionUID = -9203813369476903640L;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User participant;
+    private User respondent;
 
     public PersonalInvitation() {
         super();
     }
 
-    public User getParticipant() {
-        return participant;
+    public User getRespondent() {
+        return respondent;
     }
 
-    public void setParticipant(User participant) {
-        this.participant = participant;
+    public void setRespondent(User respondent) {
+        this.respondent = respondent;
     }
 
     public static Builder with() {
@@ -46,7 +46,7 @@ public class PersonalInvitation extends Invitation {
         private String token;
         private Study study;
         private InvitationStatus status;
-        private User participant;
+        private User respondent;
 
         @Override
         public Builder token(String token) {
@@ -60,8 +60,8 @@ public class PersonalInvitation extends Invitation {
             return this;
         }
 
-        public Builder participant(User participant) {
-            this.participant = participant;
+        public Builder respondent(User respondent) {
+            this.respondent = respondent;
             return this;
         }
 
@@ -79,6 +79,6 @@ public class PersonalInvitation extends Invitation {
 
     private PersonalInvitation(Builder builder) {
         super(builder.token, builder.study, builder.status);
-        this.participant = builder.participant;
+        this.respondent = builder.respondent;
     }
 }

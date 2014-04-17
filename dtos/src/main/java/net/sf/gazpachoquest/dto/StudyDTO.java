@@ -23,7 +23,7 @@ public class StudyDTO extends AbstractIdentifiableDTO {
 
     private String name;
 
-    private Set<UserDTO> participants;
+    private Set<UserDTO> respondents;
 
     private DateTime startDate;
 
@@ -43,11 +43,11 @@ public class StudyDTO extends AbstractIdentifiableDTO {
         return name;
     }
 
-    public Set<UserDTO> getParticipants() {
-        if (this.participants == null) {
-            this.participants = new HashSet<>();
+    public Set<UserDTO> getRespondents() {
+        if (this.respondents == null) {
+            this.respondents = new HashSet<>();
         }
-        return participants;
+        return respondents;
     }
 
     public DateTime getStartDate() {
@@ -66,8 +66,8 @@ public class StudyDTO extends AbstractIdentifiableDTO {
         this.name = name;
     }
 
-    public void setParticipants(final Set<UserDTO> participants) {
-        this.participants = participants;
+    public void setRespondents(final Set<UserDTO> respondents) {
+        this.respondents = respondents;
     }
 
     public void setStartDate(final DateTime startDate) {
@@ -93,7 +93,7 @@ public class StudyDTO extends AbstractIdentifiableDTO {
     public static class Builder {
         private DateTime expirationDate;
         private String name;
-        private Set<UserDTO> participants;
+        private Set<UserDTO> respondents;
         private DateTime startDate;
         private Set<QuestionnairDefinitionDTO> questionnairDefinitions;
         private StudyAccessType type;
@@ -108,8 +108,8 @@ public class StudyDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
-        public Builder participants(Set<UserDTO> participants) {
-            this.participants = participants;
+        public Builder respondents(Set<UserDTO> respondents) {
+            this.respondents = respondents;
             return this;
         }
 
@@ -132,7 +132,7 @@ public class StudyDTO extends AbstractIdentifiableDTO {
             StudyDTO studyDTO = new StudyDTO();
             studyDTO.expirationDate = expirationDate;
             studyDTO.name = name;
-            studyDTO.participants = participants;
+            studyDTO.respondents = respondents;
             studyDTO.startDate = startDate;
             studyDTO.questionnairDefinitions = questionnairDefinitions;
             studyDTO.type = type;

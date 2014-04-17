@@ -66,19 +66,19 @@ public class DBPopulator {
         GroupDTO groupDTO = GroupDTO.with().name("Respondents").description("Respondent group").build();
         groupDTO = groupFacade.save(groupDTO);
 
-        Set<UserDTO> participants = addParticipants();
+        Set<UserDTO> respondents = addRespondents();
 
-        populateForJUnitTest(participants);
-        populateForDemo(participants);
+        populateForJUnitTest(respondents);
+        populateForDemo(respondents);
 
-        for (UserDTO userDTO : participants) {
+        for (UserDTO userDTO : respondents) {
             // groupFacade.addUserToGroup(userDTO, groupDTO.getId());
         }
 
         // groupFacade.save(groupDTO);
     }
 
-    public void populateForJUnitTest(Set<UserDTO> participants) {
+    public void populateForJUnitTest(Set<UserDTO> respondents) {
         QuestionnairDefinitionDTO questionnairDef = null;
         questionnairDef = createDemoSurvey();
         asignDefaultMailTemplate(questionnairDef);
@@ -90,7 +90,7 @@ public class DBPopulator {
         StudyDTO study = StudyDTO.with().questionnairDefinitions(questionnairDefinitions)
                 .type(StudyAccessType.BY_INVITATION)
                 .name("New private Questionnair " + questionnairDef.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).participants(participants)
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).respondents(respondents)
                 .build();
         studyFacade.save(study);
 
@@ -100,7 +100,7 @@ public class DBPopulator {
         studyFacade.save(study);
     }
 
-    public void populateForDemo(Set<UserDTO> participants) {
+    public void populateForDemo(Set<UserDTO> respondents) {
 
         QuestionnairDefinitionDTO questionnairDef = createFastFoodSurvey();
         asignDefaultMailTemplate(questionnairDef);
@@ -113,7 +113,7 @@ public class DBPopulator {
                 .name("New survey " + questionnairDef.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31"))
 
-                .participants(participants).build();
+                .respondents(respondents).build();
         studyFacade.save(study);
 
     }
@@ -468,7 +468,7 @@ public class DBPopulator {
         return survey;
     }
 
-    protected Set<UserDTO> addParticipants() {
+    protected Set<UserDTO> addRespondents() {
         UserDTO tyrion = UserDTO.with().preferedLanguage(Language.EN).givenNames("Tyrion").surname("Lannister")
                 .email("tyrion.lannister@kingslanding.net").gender(Gender.MALE).build();
         tyrion = userFacade.save(tyrion);
@@ -485,12 +485,12 @@ public class DBPopulator {
                 .email("catelyn.stark@winterfell.net").gender(Gender.FEMALE).build();
         catelyn = userFacade.save(catelyn);
 
-        Set<UserDTO> participants = new HashSet<>();
-        participants.add(tyrion);
-        participants.add(arya);
-        participants.add(catelyn);
-        participants.add(jon);
-        return participants;
+        Set<UserDTO> respondents = new HashSet<>();
+        respondents.add(tyrion);
+        respondents.add(arya);
+        respondents.add(catelyn);
+        respondents.add(jon);
+        return respondents;
     }
 
 }

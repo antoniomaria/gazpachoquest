@@ -28,7 +28,7 @@ import org.springframework.util.Assert;
 public class GroupServiceImpl extends AbstractPersistenceService<Group> implements GroupService {
 
     @Autowired
-    private UserRepository participantRepository;
+    private UserRepository respondentRepository;
 
     @Autowired
     public GroupServiceImpl(final GroupRepository repository) {
@@ -72,7 +72,7 @@ public class GroupServiceImpl extends AbstractPersistenceService<Group> implemen
         Assert.notNull(group, "Group not found");
         Assert.state(!user.isNew(), "Persist user before adding to groups");
 
-        user = participantRepository.findOne(user.getId());
+        user = respondentRepository.findOne(user.getId());
         Assert.notNull(user, "User not found");
         group.assignUser(user);
     }

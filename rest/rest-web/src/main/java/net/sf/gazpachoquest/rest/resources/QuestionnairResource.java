@@ -64,7 +64,6 @@ public class QuestionnairResource {
         logger.debug("New petition received");
         //
         // logger.debug("New petition received from {}", context.getUserPrincipal().getName());
-        // Participant respondent = (Participant) context.getUserPrincipal();
 
         QuestionnairDTO questionnairDTO = questionnairFacade.findOne(questionnairId);
         logger.debug("Respondent retriving Questionnair Definition = {}", questionnairDTO.getId());

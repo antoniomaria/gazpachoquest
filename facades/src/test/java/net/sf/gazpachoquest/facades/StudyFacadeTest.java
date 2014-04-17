@@ -37,7 +37,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 public class StudyFacadeTest {
 
     @Autowired
-    private UserFacade participantFacade;
+    private UserFacade respondentFacade;
 
     @Autowired
     private StudyFacade studyFacade;
@@ -45,14 +45,14 @@ public class StudyFacadeTest {
     @Test
     public void saveTest() {
         QuestionnairDefinitionDTO questionnairDefinition = QuestionnairDefinitionDTO.with().id(6).build();
-        Set<UserDTO> participants = new HashSet<>();
-        UserDTO participant = participantFacade.findOne(2);
-        participants.add(participant);
+        Set<UserDTO> respondents = new HashSet<>();
+        UserDTO respondent = respondentFacade.findOne(2);
+        respondents.add(respondent);
 
         Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<QuestionnairDefinitionDTO>();
         questionnairDefinitions.add(questionnairDefinition);
 
-        StudyDTO study = StudyDTO.with().type(StudyAccessType.BY_INVITATION).participants(participants)
+        StudyDTO study = StudyDTO.with().type(StudyAccessType.BY_INVITATION).respondents(respondents)
                 .questionnairDefinitions(questionnairDefinitions).build();
         study = studyFacade.save(study);
         assertThat(study.isNew()).isFalse();

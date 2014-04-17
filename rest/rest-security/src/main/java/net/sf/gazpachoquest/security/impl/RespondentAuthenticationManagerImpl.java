@@ -44,28 +44,28 @@ public class RespondentAuthenticationManagerImpl implements AuthenticationManage
 
         List<Questionnair> questionnairs = new ArrayList<>();
         Study study = invitation.getStudy();
-        User participant = null;
+        User respondent = null;
         if (invitation instanceof PersonalInvitation) {
             PersonalInvitation personalInvitation = (PersonalInvitation) invitation;
-            participant = personalInvitation.getParticipant();
+            respondent = personalInvitation.getRespondent();
             Questionnair questionnairExample = Questionnair.with()
-                    .participant(User.with().id(participant.getId()).build())
+                    .respondent(User.with().id(respondent.getId()).build())
                     .study(Study.with().id(study.getId()).build()).build();
             questionnairs = questionnairService.findByExample(questionnairExample, new SearchParameters());
         }
 
         if (questionnairs.isEmpty()) {
-            participant = User.with().givenNames("anonymous").surname("anonymous").email("no-reply@gazpachoquest.net")
+            respondent = User.with().givenNames("anonymous").surname("anonymous").email("no-reply@gazpachoquest.net")
                     .build();
-            participant = userService.save(participant);
-            Questionnair questionnair = Questionnair.with().study(study).participant(participant).build();
+            respondent = userService.save(respondent);
+            Questionnair questionnair = Questionnair.with().study(study).respondent(respondent).build();
             questionnair = questionnairService.save(questionnair);
             questionnairs.add(questionnair);
         }
 
         RespondentAccount.Builder builder = new RespondentAccount.Builder();
-        RespondentAccount account = builder.email(participant.getEmail()).givenNames(participant.getGivenNames())
-                .surname(participant.getSurname()).apiKey(participant.getApiKey()).build();
+        RespondentAccount account = builder.email(respondent.getEmail()).givenNames(respondent.getGivenNames())
+                .surname(respondent.getSurname()).apiKey(respondent.getApiKey()).build();
 
         for (Questionnair questionnair : questionnairs) {
             account.addQuestionnairId(questionnair.getId());

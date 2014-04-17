@@ -48,7 +48,7 @@ public class Questionnair extends AbstractAuditable {
     private QuestionnairDefinition questionnairDefinition;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private User participant;
+    private User respondent;
 
     private Integer answersId;
 
@@ -88,12 +88,12 @@ public class Questionnair extends AbstractAuditable {
         this.questionnairDefinition = questionnairDefinition;
     }
 
-    public User getParticipant() {
-        return participant;
+    public User getRespondent() {
+        return respondent;
     }
 
-    public void setParticipant(User participant) {
-        this.participant = participant;
+    public void setRespondent(User respondent) {
+        this.respondent = respondent;
     }
 
     public EntityStatus getStatus() {
@@ -123,7 +123,7 @@ public class Questionnair extends AbstractAuditable {
         private DateTime submitDate;
         private Study study;
         private QuestionnairDefinition questionnairDefinition;
-        private User participant;
+        private User respondent;
         private Integer answersId;
 
         public Builder id(Integer id) {
@@ -161,8 +161,8 @@ public class Questionnair extends AbstractAuditable {
             return this;
         }
 
-        public Builder participant(User participant) {
-            this.participant = participant;
+        public Builder respondent(User respondent) {
+            this.respondent = respondent;
             return this;
         }
 
@@ -174,7 +174,7 @@ public class Questionnair extends AbstractAuditable {
             questionnair.submitDate = submitDate;
             questionnair.study = study;
             questionnair.questionnairDefinition = questionnairDefinition;
-            questionnair.participant = participant;
+            questionnair.respondent = respondent;
             questionnair.answersId = answersId;
             return questionnair;
         }

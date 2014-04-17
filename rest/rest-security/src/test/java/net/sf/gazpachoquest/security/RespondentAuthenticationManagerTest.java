@@ -28,12 +28,12 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
         "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/rest-security-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("ParticipantAuthenticationManager-dataset.xml")
+@DatabaseSetup("RespondentAuthenticationManager-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class ParticipantAuthenticationManagerTest {
+public class RespondentAuthenticationManagerTest {
 
     @Autowired
-    @Qualifier("participantAuthManager")
+    @Qualifier("respondentAuthManager")
     private AuthenticationManager authenticationManager;
 
     @Test

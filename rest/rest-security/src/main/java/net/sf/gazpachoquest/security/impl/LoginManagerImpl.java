@@ -44,11 +44,11 @@ public class LoginManagerImpl implements LoginManager {
                 .surname(user.getSurname()).apiKey(apiKey).build();
 
         if (user instanceof User) {
-            User participant = user;
+            User respondent = user;
             account = new RespondentAccount(account);
 
             Questionnair questionnairExample = Questionnair.with()
-                    .participant(User.with().id(participant.getId()).build()).build();
+                    .respondent(User.with().id(respondent.getId()).build()).build();
 
             List<Questionnair> questionnairs = questionnairService.findByExample(questionnairExample,
                     new SearchParameters());

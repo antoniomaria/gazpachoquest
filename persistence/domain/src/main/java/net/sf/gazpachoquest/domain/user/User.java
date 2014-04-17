@@ -53,7 +53,7 @@ public class User extends AbstractAuditable {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @OneToMany(mappedBy = "participant", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "respondent", fetch = FetchType.LAZY)
     private Set<Questionnair> questionnairs;
 
     @ManyToMany
