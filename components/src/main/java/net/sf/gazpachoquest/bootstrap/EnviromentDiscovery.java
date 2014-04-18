@@ -126,21 +126,4 @@ public class EnviromentDiscovery implements
 		return is;
 	}
 
-	private Map<String, String> parseInstanceInfo(String instanceInfoString) {
-		Map<String, String> properties = new HashMap<String, String>();
-		if (StringUtils.isNotBlank(instanceInfoString)) {
-			// ObjectMapper mapper = new ObjectMapper();
-			try {
-				// properties = mapper.readValue(instanceInfoString, new
-				// TypeReference<HashMap<String, String>>() {
-				// });
-			} catch (Exception e) {
-				logger.warn(
-						"Errors found parsing GAZPACHO_APP json string. Using default settings",
-						e);
-			}
-		}
-		return properties;
-	}
-
 }
