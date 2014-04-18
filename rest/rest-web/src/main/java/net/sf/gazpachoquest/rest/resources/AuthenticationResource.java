@@ -29,26 +29,20 @@ import com.wordnik.swagger.annotations.ApiParam;
 @Provider
 public class AuthenticationResource {
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthenticationResource.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(AuthenticationResource.class);
 
-    @Autowired
-    @Qualifier("respondentAuthManager")
-    private AuthenticationManager respondentAuthManager;
+	@Autowired
+	@Qualifier("respondentAuthManager")
+	private AuthenticationManager respondentAuthManager;
 
-    @GET
-    @Path("/respondent")
-    @ApiOperation(value = "Authentication for respondents", response = RespondentAccount.class)
-    public Response authenticate(@QueryParam("invitation")
-    @ApiParam(value = "Invitation")
-    String invitation) {
-        logger.info("New respondent authentication petition received");
-        Account account = null;
-        try {
-            account = respondentAuthManager.authenticate(null, invitation);
-        } catch (AccountNotFoundException e) {
-            logger.warn("Login access failure", e);
-            return Response.status(Status.UNAUTHORIZED).build();
-        }
-        return Response.ok(account).build();
-    }
+	@GET
+	@Path("/respondent")
+	@ApiOperation(value = "Authentication for respondents", response = RespondentAccount.class)
+	public Response authenticate(
+			@QueryParam("invitation") @ApiParam(value = "Invitation") String invitation) throws AccountNotFoundException {
+		logger.info("New respondent authentication petition received");
+		Account account = respondentAuthManager.authenticate(null, invitation);
+		return Response.ok(account).build();
+	}
 }

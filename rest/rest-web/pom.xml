@@ -97,12 +97,12 @@
       <version>3.1.0</version>
       <scope>provided</scope>
     </dependency>
-
+<!-- 
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <scope>provided</scope>
-    </dependency>
+    </dependency> -->
 
     <!-- Third parties -->
     <dependency>

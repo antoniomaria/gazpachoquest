@@ -33,14 +33,16 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   <!-- Swagger API listing resource -->
   <bean id="swaggerResourceJSON" class="com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON" />
 
-  <!-- Shiro Exception Handler -->
+  <!-- Exception Handlers -->
   <bean id="shiroExceptionHandler" class="net.sf.gazpachoquest.rest.exception.ShiroExceptionHandler"/>
+  <bean id="accountNotFoundExceptionHandler" class="net.sf.gazpachoquest.rest.exception.AccountNotFoundExceptionHandler" />
   
   <cxf:bus>
     <cxf:features>
       <cxf:logging />
     </cxf:features>
   </cxf:bus>
+  
   <!-- this scans the classes for resources -->
   <bean id="swaggerConfig" class="com.wordnik.swagger.jaxrs.config.BeanConfig">
     <property name="resourcePackage" value="net.sf.gazpachoquest.rest.resources" />
@@ -71,7 +73,9 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
       <ref bean="resourceWriter" />
       <ref bean="apiWriter" />
       <ref bean="securityContextFilter"/>
-      <ref bean="shiroExceptionHandler"/> 
+      <!-- Exception handlers -->
+      <ref bean="shiroExceptionHandler"/>
+      <ref bean="accountNotFoundExceptionHandler"/>
     </jaxrs:providers>
   </jaxrs:server>
 

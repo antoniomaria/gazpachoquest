@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.gazpachoquest</groupId>
   <artifactId>gazpachoquest</artifactId>
@@ -56,8 +57,8 @@
     <module>jaas</module>
     <module>services</module>
     <module>questionnaires-backend</module>
-    <!-- Ommited temporarly <module>questionnaires-ui</module>-->
-    <module>rest</module> 
+    <!-- Ommited temporarly <module>questionnaires-ui</module> -->
+    <module>rest</module>
     <module>tools</module>
   </modules>
   <repositories>
@@ -305,6 +306,12 @@
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
         <version>${spring.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
 
       <dependency>
@@ -503,8 +510,7 @@
       </dependency>
 
       <!-- CGlib and ASM -->
-      <!-- Allows to weave classes that don't implement any interface. By example
-        test classes -->
+      <!-- Allows to weave classes that don't implement any interface. By example test classes -->
       <dependency>
         <groupId>cglib</groupId>
         <artifactId>cglib</artifactId>

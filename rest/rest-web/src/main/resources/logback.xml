@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
-
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 
     <!-- encoders are assigned by default the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
@@ -14,8 +13,6 @@
   <logger name="org.eclipse.persistence.logging.sql" level="DEBUG" />
 
   <logger name="net.sf.gazpachoquest" level="DEBUG" />
-
-  <logger name="com.wordnik.swagger" level="DEBUG" />
 
   <root level="ERROR">
     <appender-ref ref="STDOUT" />
