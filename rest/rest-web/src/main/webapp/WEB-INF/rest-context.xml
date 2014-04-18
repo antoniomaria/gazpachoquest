@@ -36,6 +36,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   <!-- Exception Handlers -->
   <bean id="shiroExceptionHandler" class="net.sf.gazpachoquest.rest.exception.ShiroExceptionHandler"/>
   <bean id="accountNotFoundExceptionHandler" class="net.sf.gazpachoquest.rest.exception.AccountNotFoundExceptionHandler" />
+  <bean id="defaultExceptionHandler" class="net.sf.gazpachoquest.rest.exception.DefaultExceptionHandler" />
   
   <cxf:bus>
     <cxf:features>
@@ -76,6 +77,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
       <!-- Exception handlers -->
       <ref bean="shiroExceptionHandler"/>
       <ref bean="accountNotFoundExceptionHandler"/>
+      <ref bean="defaultExceptionHandler"/>
     </jaxrs:providers>
   </jaxrs:server>
 

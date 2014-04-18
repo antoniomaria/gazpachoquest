@@ -14,15 +14,11 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
-
   <context-param>
     <param-name>contextInitializerClasses</param-name>
     <param-value>net.sf.gazpachoquest.bootstrap.EnviromentDiscovery</param-value>
   </context-param>
-  <context-param>
-    <param-name>spring.profiles.active</param-name>
-    <param-value>db_postgres,standalone</param-value>
-  </context-param>
+  
   <servlet>
     <servlet-name>CXFServlet</servlet-name>
     <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>

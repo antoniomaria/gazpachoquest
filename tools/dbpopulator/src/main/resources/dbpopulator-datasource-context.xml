@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
-  <context:property-placeholder location="classpath:/database/db_postgres.properties" />
+  <context:property-placeholder location="classpath:/database/postgres.properties" />
 
 
   <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">

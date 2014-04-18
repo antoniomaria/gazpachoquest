@@ -19,11 +19,11 @@
   </bean>
 
   <beans profile="mysql">
-    <context:property-placeholder location="classpath:/database/db_mysql.properties" ignore-unresolvable="false" />
+    <context:property-placeholder location="classpath:/database/mysql.properties" ignore-unresolvable="false" />
   </beans>
 
   <beans profile="postgres">
-    <context:property-placeholder location="classpath:/database/db_postgres.properties" ignore-unresolvable="false" />
+    <context:property-placeholder location="classpath:/database/postgres.properties" ignore-unresolvable="false" />
   </beans>
 
 

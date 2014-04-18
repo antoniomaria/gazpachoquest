@@ -8,6 +8,7 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import net.sf.gazpachoquest.rest.exception.AccountNotFoundExceptionHandler;
+import net.sf.gazpachoquest.rest.exception.DefaultExceptionHandler;
 import net.sf.gazpachoquest.rest.exception.ShiroExceptionHandler;
 import net.sf.gazpachoquest.rest.filter.SecurityContextFilter;
 import net.sf.gazpachoquest.rest.resources.AuthenticationResource;
@@ -36,6 +37,7 @@ public class ApplicationConfig extends Application {
 
 		classes.add(ShiroExceptionHandler.class);
 		classes.add(AccountNotFoundExceptionHandler.class);
+		classes.add(DefaultExceptionHandler.class);
 		return classes;
 	}
 

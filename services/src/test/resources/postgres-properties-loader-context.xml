@@ -24,6 +24,6 @@
    
    -->
 
-  <context:property-placeholder location="classpath:/database/db_postgres.properties" />
+  <context:property-placeholder location="classpath:/database/postgres.properties" />
 
 </beans>
