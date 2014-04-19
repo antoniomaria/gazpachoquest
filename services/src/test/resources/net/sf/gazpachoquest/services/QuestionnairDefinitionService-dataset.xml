@@ -20,6 +20,8 @@
     title="QuestionGroup 3" createdby_id="1" lastmodifiedby_id="1" questionnairdefinition_id="7" order_in_questionnair="2" />
   <question />
 
+  <question_translation />
+
   <question_option />
   <questionnair />
   <groups />

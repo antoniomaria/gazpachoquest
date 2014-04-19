@@ -55,6 +55,8 @@
     required="false" type="M" title="What flavors of ice cream do you like?. Choose all that apply." createdby_id="1"
     lastmodifiedby_id="1" questiongroup_id="11" order_in_questiongroup="1" />
 
+  <question_translation />
+
   <questionnair />
   <groups />
   <role />

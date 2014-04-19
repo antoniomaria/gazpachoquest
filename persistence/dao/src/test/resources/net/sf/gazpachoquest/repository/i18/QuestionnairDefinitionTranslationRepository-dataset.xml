@@ -14,6 +14,8 @@
     createdby_id="1" lastmodifiedby_id="1" />
   <question_group />
   <question />
+  <question_translation />
+
   <question_option />
   <questionnair />
 

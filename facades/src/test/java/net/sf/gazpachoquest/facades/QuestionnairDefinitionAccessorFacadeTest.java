@@ -11,9 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -22,11 +19,10 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
         "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/facades-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+         DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionnairDefinitionAccessorFacade-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-@Transactional
 public class QuestionnairDefinitionAccessorFacadeTest {
 
     @Autowired
@@ -34,7 +30,7 @@ public class QuestionnairDefinitionAccessorFacadeTest {
 
     @Test
     public void findOneSurveyTest() {
-        int questionnairDefinitionId = 6;
+        int questionnairDefinitionId = 7;
         QuestionnairDefinitionDTO questionnairDefinition = questionnairDefinitionAccessorFacade
                 .findOneQuestionnairDefinition(questionnairDefinitionId);
         assertThat(questionnairDefinition).isNotNull();

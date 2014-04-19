@@ -15,9 +15,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -26,11 +23,10 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
         "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/facades-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+         DbUnitTestExecutionListener.class })
 @DatabaseSetup("MailMessageFacadeTest-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-@Transactional
 public class MailMessageFacadeTest {
 
     @Autowired
@@ -66,7 +62,7 @@ public class MailMessageFacadeTest {
         TranslationDTO<MailMessageTemplateDTO, MailMessageTemplateLanguageSettingsDTO> translation = new TranslationDTO<>();
         translation.setLanguageSettings(languageSettingsInSpanish);
         translation.setLanguage(Language.ES);
-        translation.setTranslatedEntity(MailMessageTemplateDTO.with().id(60).build());
+        translation.setTranslatedEntity(MailMessageTemplateDTO.with().id(55).build());
 
         translation = mailMessageFacade.saveTranslation(translation);
         assertThat(translation.getId()).isNotNull();

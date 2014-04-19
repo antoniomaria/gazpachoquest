@@ -21,6 +21,7 @@
   <questionnair_definition />
   <question_group />
   <question />
+  <question_translation />
 
   <question_option />
   <questionnair />

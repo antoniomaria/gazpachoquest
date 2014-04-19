@@ -15,9 +15,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -26,10 +23,9 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
         "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/facades-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, 
+        DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionnairDefinitionEditorFacadeTest-dataset.xml")
-@Transactional
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class QuestionnairDefinitionEditorFacadeTest {
 
@@ -38,14 +34,13 @@ public class QuestionnairDefinitionEditorFacadeTest {
 
     @Test
     public void confirmTest() {
-        QuestionnairDefinitionDTO questionairDefinition = QuestionnairDefinitionDTO.with().id(6).build();
+        QuestionnairDefinitionDTO questionairDefinition = QuestionnairDefinitionDTO.with().id(7).build();
         questionnairDefinitionEditorFacade.confirm(questionairDefinition);
     }
 
     @Test
     public void saveQuestionTranslation() {
-        QuestionDTO question = new QuestionDTO();
-        question.setId(12);
+        QuestionDTO question = QuestionDTO.with().id(12).build();
 
         QuestionLanguageSettingsDTO languageSettings = new QuestionLanguageSettingsDTO();
         languageSettings.setTitle("¿Cual es tu nombre?");

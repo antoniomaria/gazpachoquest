@@ -38,6 +38,8 @@
   <question_group />
   <question />
 
+  <question_translation />
+
   <groups />
   <role />
   <user_group />

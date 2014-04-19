@@ -61,6 +61,8 @@
     required="false" type="M" title="What flavors of ice cream do you like?. Choose all that apply." createdby_id="1"
     lastmodifiedby_id="1" questiongroup_id="11" order_in_questiongroup="1" />
 
+  <question_translation />
+
   <question_option id="51" code="O1" created_date="2014-04-19 10:35:12.755" language="EN" last_modified_date="2014-04-19 10:35:12.755"
     title="Vanilla" createdby_id="1" lastmodifiedby_id="1" question_id="50" order_in_question="0" />
   <question_option id="52" code="O2" created_date="2014-04-19 10:35:12.758" language="EN" last_modified_date="2014-04-19 10:35:12.758"
