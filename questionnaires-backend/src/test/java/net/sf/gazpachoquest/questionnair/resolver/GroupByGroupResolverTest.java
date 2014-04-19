@@ -7,7 +7,6 @@ import java.util.List;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.questionnair.resolver.QuestionnairElementResolver;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.BrowsingAction;
@@ -59,13 +58,5 @@ public class GroupByGroupResolverTest {
                 Question.with().id(35).build());
     }
 
-    @Test
-    public void resolveFor2Test() {
-        Integer questionnairId = 61;
-        Questionnair questionnair = questionnairRepository.findOne(questionnairId);
-        QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.ENTERING);
-        System.out.println(questionGroup);
-
-    }
 
 }

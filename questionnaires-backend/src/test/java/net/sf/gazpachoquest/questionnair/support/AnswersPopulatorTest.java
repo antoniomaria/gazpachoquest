@@ -71,7 +71,6 @@ public class AnswersPopulatorTest {
 
         assertThat(question.getAnswer()).isExactlyInstanceOf(TextAnswer.class);
         assertThat(((TextAnswer) question.getAnswer()).getValue()).isEqualTo("Antonio Maria");
-
     }
 
 }

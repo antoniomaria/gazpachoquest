@@ -105,12 +105,12 @@ public class QuestionnairFacadeTest {
         Questionnair questionnair = Questionnair.with().id(58).build();
         String questionCode = "Q1";
         Answer answer = TextAnswer.fromValue("Antonio Maria");
-        Integer questionDefinitionId = jdbcTemplate.queryForInt(
-                "select questionnairdefinition_id from questionnair where id = ?", questionnair.getId());
+        Integer questionDefinitionId = jdbcTemplate.queryForObject(
+                "select questionnairdefinition_id from questionnair where id = ?", Integer.class, questionnair.getId());
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
 
-        Integer answersId = jdbcTemplate.queryForInt("select answers_id from questionnair where id = ?",
-                questionnair.getId());
+        Integer answersId = jdbcTemplate.queryForObject("select answers_id from questionnair where id = ?",
+        		Integer.class, questionnair.getId() );
         assertThat(answersId).isNotNull();
         Object value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase()
                 + " from questionnair_answers_" + questionDefinitionId + " where id = ?", new Object[] { answersId },
@@ -127,8 +127,8 @@ public class QuestionnairFacadeTest {
         questionCode = "Q3";
         answer = NumericAnswer.fromValue(33);
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
-        value = jdbcTemplate.queryForInt("select " + questionCode.toLowerCase() + " from questionnair_answers_"
-                + questionDefinitionId + " where id = ?", answersId);
+        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+                + questionDefinitionId + " where id = ?", Integer.class, answersId);
         assertThat(value).isEqualTo(answer.getValue());
 
         questionCode = "Q4";
