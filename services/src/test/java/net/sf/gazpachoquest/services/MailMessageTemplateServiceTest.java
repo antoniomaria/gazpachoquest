@@ -45,7 +45,7 @@ public class MailMessageTemplateServiceTest {
     @Test
     public void findByExampleTest() {
         MailMessageTemplate example = new MailMessageTemplate();
-        example.setQuestionnairDefinition(QuestionnairDefinition.with().id(6).build());
+        example.setQuestionnairDefinition(QuestionnairDefinition.with().id(7).build());
         List<MailMessageTemplate> results = mailMessageTemplateService.findByExample(example, new SearchParameters());
         assertThat(results).contains(MailMessageTemplate.with().id(55).build());
     }

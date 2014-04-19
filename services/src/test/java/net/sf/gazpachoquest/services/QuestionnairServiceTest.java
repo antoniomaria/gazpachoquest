@@ -5,7 +5,6 @@ import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
-import net.sf.gazpachoquest.services.QuestionnairService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;
@@ -15,33 +14,32 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
-        "classpath:/services-context.xml", "classpath:/components-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
+		"classpath:/datasource-test-context.xml",
+		"classpath:/services-context.xml", "classpath:/components-context.xml" })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+		DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionnairService-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-@Transactional
 public class QuestionnairServiceTest {
 
-    @Autowired
-    private QuestionnairService questionnairService;
+	@Autowired
+	private QuestionnairService questionnairService;
 
-    @Test
-    public void findOneByExampleTest() {
-        User respondent = User.with().id(2).build();
-        Research research = Research.with().id(57).build();
-        Questionnair example = Questionnair.with().respondent(respondent).research(research).build();
-        Questionnair questionnair = questionnairService.findOneByExample(example, new SearchParameters());
-        assertThat(questionnair.getId()).isEqualTo(58);
-    }
+	@Test
+	public void findOneByExampleTest() {
+		User respondent = User.with().id(6).build();
+		Research research = Research.with().id(57).build();
+		Questionnair example = Questionnair.with().respondent(respondent)
+				.research(research).build();
+		Questionnair questionnair = questionnairService.findOneByExample(
+				example, new SearchParameters());
+		assertThat(questionnair).isEqualTo(Questionnair.with().id(58).build());
+	}
 }

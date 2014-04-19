@@ -27,5 +27,26 @@
   <invitation id="76" type="P" status="ACTIVE" token="90POKHJE16" research_id="57" respondent_id="3" />
   <invitation id="79" type="A" status="ACTIVE" token="SYZPVHYMLK" research_id="78" />
 
+  <questionnair_definition />
+  <question_group />
+  <question />
+
+  <question_option />
+  <questionnair />
+  <groups />
+  <role />
+  <user_group />
+  <mail_message_template />
+  <mail_message_template_translation />
+  <questionnair_definition_translation />
+  <user_role />
+  <group_role/>
+  
+  <permission />
+
+
+  <label_set />
+  <label />
+  <browsed_element />
   <sequence seq_name="SEQ_GEN" seq_count="150" />
 </dataset>

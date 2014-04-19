@@ -34,7 +34,7 @@ public class QuestionGroupServiceTest {
 
     @Test
     public void questionsCountTest() {
-        Integer questionGroupId = 8;
+        Integer questionGroupId = 9;
         long count = questionGroupService.questionsCount(questionGroupId);
         assertThat(count).isEqualTo(3);
     }
