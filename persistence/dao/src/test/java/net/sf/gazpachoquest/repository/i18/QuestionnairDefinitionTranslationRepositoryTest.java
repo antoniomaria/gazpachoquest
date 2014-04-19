@@ -42,7 +42,7 @@ public class QuestionnairDefinitionTranslationRepositoryTest {
         List<QuestionnairDefinitionTranslation> translations = questionnairDefinitionTranslationRepository
                 .findByExample(example, new SearchParameters());
 
-        assertThat(translations).contains(QuestionnairDefinitionTranslation.with().id(7).build());
+        assertThat(translations).contains(QuestionnairDefinitionTranslation.with().id(8).build());
     }
 
 }

@@ -17,9 +17,10 @@
   <script src='swagger-ui.js' type='text/javascript'></script>
   <script src='lib/highlight.7.3.pack.js' type='text/javascript'></script>
   <script type="text/javascript">
+  // http://localhost:8080/gazpachoquest-rest-web/api/api-docs
     $(function () {
       window.swaggerUi = new SwaggerUi({
-      url: "http://localhost:8080/gazpachoquest-rest-web/api/api-docs",
+      url: "<%= application.getAttribute("basePath").toString()%>/api/api-docs",
       dom_id: "swagger-ui-container",
       supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
       onComplete: function(swaggerApi, swaggerUi){

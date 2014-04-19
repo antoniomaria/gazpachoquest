@@ -46,14 +46,13 @@ public class GroupServiceTest {
     public void getRolesTest() {
         Integer groupId = 2;
         List<Role> roles = groupService.getRoles(groupId);
-        assertThat(roles).hasSize(2);
+        assertThat(roles).hasSize(1);
     }
 
     @Test
     public void getPermissionsTest() {
         Integer groupId = 2;
         List<Permission> permissions = groupService.getPermissions(groupId);
-        System.out.println(permissions);
         assertThat(permissions).hasSize(1);
     }
 

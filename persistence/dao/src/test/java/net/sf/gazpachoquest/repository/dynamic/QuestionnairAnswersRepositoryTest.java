@@ -60,7 +60,7 @@ public class QuestionnairAnswersRepositoryTest {
     }
 
     public void collectAnswersTest() {
-        Integer questionnairIdInteger = 6;
+        Integer questionnairIdInteger = 7;
         QuestionnairDefinition questionnair = questionnairDefinitionRepository.findOne(questionnairIdInteger);
 
         repository.collectAnswers(questionnair);
@@ -122,7 +122,7 @@ public class QuestionnairAnswersRepositoryTest {
         // define SQL types of the arguments
         int[] types = new int[] { Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types.INTEGER };
 
-        String insertSql = "INSERT INTO questionnair_answers_6 (id, q1, q2, q3) values(?,?,?,?)";
+        String insertSql = "INSERT INTO questionnair_answers_7 (id, q1, q2, q3) values(?,?,?,?)";
         int row = jdbcTemplate.update(insertSql, params, types);
         assertThat(row).isGreaterThan(0);
 

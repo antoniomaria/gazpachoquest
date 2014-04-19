@@ -37,7 +37,7 @@ public class MailMessageTemplateRepositoryTest {
     @Test
     public void findByExampleTest() {
         MailMessageTemplate example = new MailMessageTemplate();
-        example.setQuestionnairDefinition(QuestionnairDefinition.with().id(6).build());
+        example.setQuestionnairDefinition(QuestionnairDefinition.with().id(7).build());
 
         List<MailMessageTemplate> results = mailMessageTemplateRepository
                 .findByExample(example, new SearchParameters());

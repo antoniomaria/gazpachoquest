@@ -42,7 +42,7 @@ public class QuestionnairDefinitionRepositoryTest {
 
     @Test
     public void findOne() {
-        Integer questionnairDefinitionId = 6;
+        Integer questionnairDefinitionId = 7;
         QuestionnairDefinition questionnairDefinition = repository.findOne(questionnairDefinitionId);
         List<QuestionGroup> questionGroups = questionnairDefinition.getQuestionGroups();
         assertThat(questionGroups).hasSize(3);

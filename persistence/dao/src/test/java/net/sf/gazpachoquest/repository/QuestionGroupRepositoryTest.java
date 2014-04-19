@@ -36,22 +36,22 @@ public class QuestionGroupRepositoryTest {
     @Test
     public void findOneByPositionInQuestionnairTest() {
         Integer position = 2;
-        Integer questionnairDefinitionId = 6;
+        Integer questionnairDefinitionId = 7;
         QuestionGroup questionGroup = questionGroupRepository.findOneByPositionInQuestionnairDefinition(
                 questionnairDefinitionId, position);
-        assertThat(questionGroup).isEqualTo(QuestionGroup.with().id(10).build());
+        assertThat(questionGroup).isEqualTo(QuestionGroup.with().id(11).build());
     }
 
     @Test
     public void findPositionInQuestionnairDefinitionTest() {
-        int questionGroupId = 9;
+        int questionGroupId = 10;
         Integer pos = questionGroupRepository.findPositionInQuestionnairDefinition(questionGroupId);
         assertThat(pos).isEqualTo(1);
     }
 
     @Test
     public void findByQuestionnairDefinitionIdTest() {
-        int questionnairDefinitionId = 6;
+        int questionnairDefinitionId = 7;
         List<QuestionGroup> questiongroups = questionGroupRepository
                 .findByQuestionnairDefinitionId(questionnairDefinitionId);
         assertThat(questiongroups).hasSize(3);

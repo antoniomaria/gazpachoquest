@@ -68,7 +68,12 @@ public class EnviromentDiscovery implements
 		}
 		String dbEngine = config.getProperty("db.engine.name");
 		String managedBy = config.getProperty("dbpool.managedBy");
-		// environment.addActiveProfile(dbEngine);
+		String port = config.getProperty("http.port");
+		String schema = config.getProperty("http.schema");
+		// Define baseURI
+		String basePath = createBasePath(schema, host, port, contextPath);
+		servletContext.setAttribute("basePath", basePath);
+		
 		environment.addActiveProfile(managedBy);
 		logger.info("Application running using {} profiles: {}",
 				environment.getActiveProfiles().length,
@@ -78,6 +83,7 @@ public class EnviromentDiscovery implements
 			for (String key : config.stringPropertyNames()) {
 				props.put(key, config.getProperty(key));
 			}
+			props.put("basePath", basePath);
 			MapPropertySource mapSource = new MapPropertySource("props", props);
 			environment.getPropertySources().addLast(mapSource);
 			environment.getPropertySources().addLast(
@@ -90,6 +96,19 @@ public class EnviromentDiscovery implements
 		}
 		// Register hook to close application context on JVM shutdown
 		ctx.registerShutdownHook();
+	}
+
+	private String createBasePath(String schema, String host,
+			String port, String contextPath) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(schema).append("://");
+		builder.append(host);
+		
+		if (!port.equals("80")){
+			builder.append(":").append(port);	
+		}
+		builder.append(contextPath);
+		return builder.toString();
 	}
 
 	public void reconfigureLogback(InputStream source) throws JoranException {

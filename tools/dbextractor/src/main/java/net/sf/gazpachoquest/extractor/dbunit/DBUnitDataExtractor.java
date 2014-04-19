@@ -45,9 +45,6 @@ public class DBUnitDataExtractor {
      * string that starts with any characters, followed by the case-insensitive word 'from', followed by a table name of
      * the form 'foo' or 'schema.foo', followed by any number of remaining characters.
      */
-    // private static final Pattern TABLE_MATCH_PATTERN =
-    // Pattern.compile(".*\\s+from\\s+(\\w+(\\.\\w+)?).*",
-    // Pattern.CASE_INSENSITIVE);
     private static final Pattern TABLE_MATCH_PATTERN = Pattern.compile("from\\s(?<tableName>\\w+)");
     private String dataSetName = "dbunit-dataset.xml";
     private DataSource dataSource;
@@ -86,7 +83,7 @@ public class DBUnitDataExtractor {
                 // tables that
                 // have a PK which is a FK on X, in the right order for
                 // insertion
-                String[] depTableNames = TablesDependencyHelper.getAllDependentTables(connection, "users");
+                String[] depTableNames = TablesDependencyHelper.getAllDependentTables(connection, "research");
                 IDataSet depDataset = connection.createDataSet(depTableNames);
 
                 FlatXmlWriter datasetWriter = new FlatXmlWriter(new FileOutputStream("target/dependents.xml"));

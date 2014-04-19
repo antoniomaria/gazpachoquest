@@ -59,7 +59,6 @@ public class DBPopulator {
     // http://www.objectpartners.com/2012/05/17/creating-a-hierarchical-test-data-builder-using-generics/
     public void populate() {
         // System account
-
         userFacade.save(UserDTO.with().givenNames("support").surname("support").email("support@gazpacho.net")
                 .username("support").build());
 
@@ -69,13 +68,7 @@ public class DBPopulator {
         Set<UserDTO> respondents = addRespondents();
 
         populateForJUnitTest(respondents);
-        populateForDemo(respondents);
-
-        for (UserDTO userDTO : respondents) {
-            // groupFacade.addUserToGroup(userDTO, groupDTO.getId());
-        }
-
-        // groupFacade.save(groupDTO);
+        // populateForDemo(respondents);
     }
 
     public void populateForJUnitTest(Set<UserDTO> respondents) {
