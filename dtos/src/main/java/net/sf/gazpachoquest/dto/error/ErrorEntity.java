@@ -1,16 +1,5 @@
-package net.sf.gazpachoquest.rest.exception;
+package net.sf.gazpachoquest.dto.error;
 
-import java.util.List;
-import java.util.Map;
-
-import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.domain.core.QuestionGroup;
-import net.sf.gazpachoquest.domain.core.QuestionOption;
-import net.sf.gazpachoquest.domain.core.Question.Builder;
-import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
-import net.sf.gazpachoquest.domain.i18.QuestionTranslation;
-import net.sf.gazpachoquest.types.Language;
-import net.sf.gazpachoquest.types.QuestionType;
 
 public class ErrorEntity {
 

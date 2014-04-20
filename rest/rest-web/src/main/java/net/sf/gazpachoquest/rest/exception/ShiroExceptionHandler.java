@@ -5,6 +5,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 
+import net.sf.gazpachoquest.dto.error.ErrorEntity;
+
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authz.AuthorizationException;

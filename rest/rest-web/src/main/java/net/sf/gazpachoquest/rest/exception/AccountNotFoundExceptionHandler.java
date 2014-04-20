@@ -6,6 +6,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 
+import net.sf.gazpachoquest.dto.error.ErrorEntity;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
