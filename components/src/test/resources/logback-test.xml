@@ -11,7 +11,7 @@
     </encoder>
   </appender>
 
-  <logger name="org.eclipse.persistence.logging.sql" level="DEBUG" />
+  <logger name="org.eclipse.persistence.logging.sql" level="INFO" />
 
   <logger name="net.sf.gazpachoquest" level="DEBUG" />
 
