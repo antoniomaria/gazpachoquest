@@ -38,14 +38,14 @@ public class RespondentAuthenticationManagerTest {
 
     @Test
     public void findByTest() throws AccountNotFoundException {
-        Account account = authenticationManager.authenticate("respondent", "90DOUTSBAA");
+        Account account = authenticationManager.authenticate("respondent", "90POKHJE16");
         assertThat(account).isInstanceOf(RespondentAccount.class);
         RespondentAccount respondentAccount = (RespondentAccount) account;
 
         assertThat(respondentAccount.getGivenNames()).isEqualTo("Tyrion");
-        assertThat(respondentAccount.getGrantedQuestionnairIds()).contains(57);
+        assertThat(respondentAccount.getGrantedQuestionnairIds()).contains(73);
 
-        account = authenticationManager.authenticate("respondent", "WG0RFB4ORU");
+        account = authenticationManager.authenticate("respondent", "SYZPVHYMLK");
         assertThat(account).isInstanceOf(RespondentAccount.class);
         respondentAccount = (RespondentAccount) account;
         assertThat(respondentAccount.getGivenNames()).isEqualTo("anonymous");

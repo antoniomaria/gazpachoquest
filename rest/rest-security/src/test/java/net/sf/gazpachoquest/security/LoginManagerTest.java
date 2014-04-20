@@ -36,12 +36,12 @@ public class LoginManagerTest {
 
     @Test
     public void loginTest() throws AccountNotFoundException {
-        Account account = loginManager.login("ES619O31DPD8DYJ");
+        Account account = loginManager.login("B868UOHUTKUDWXM");
         assertThat(account).isNotNull();
         assertThat(account).isInstanceOf(RespondentAccount.class);
         assertThat(account.getGivenNames()).isEqualTo("Tyrion");
 
-        account = loginManager.login("TUQOC51ZMG9CAU4");
+        account = loginManager.login("9BNONCVRNG4JPBQ");
         assertThat(account).isNotNull();
         assertThat(account).isInstanceOf(Account.class);
         assertThat(account.getGivenNames()).isEqualTo("support");

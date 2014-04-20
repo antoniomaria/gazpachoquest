@@ -1,12 +1,11 @@
 package net.sf.gazpachoquest.security.shiro;
 
-import net.sf.gazpachoquest.security.shiro.JPARealm;
-import net.sf.gazpachoquest.security.shiro.APIKeyToken;
+import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.junit.Test;
@@ -44,26 +43,18 @@ public class JPARealmTest {
 	
 	@Test
 	public void loginTest() {
-		// instantiate or acquire a Realm instance. We'll discuss Realms later.
-
-		//SecurityManager securityManager = new DefaultSecurityManager(
-			//	apiKeyRealm);
-
-		// Make the SecurityManager instance available to the entire application
-		// via static memory:
-		// SecurityUtils.setSecurityManager(securityManager);
-
 		Subject subject = SecurityUtils.getSubject();
 		AuthenticationToken token = new APIKeyToken.Builder().apiKey(
 				"59HBD014UN9L8NM").build();
 		subject.login(token);
 
-		System.out.println("fin:" + subject.getPrincipal());
+		assertThat(subject.getPrincipal()).isInstanceOf(User.class);
+		assertThat(subject.getPrincipal()).isEqualTo(User.with().id(3).build());
+		
 		boolean isRespondent = subject.hasRole("respondent");
 		System.out.println("is respondent ?" + isRespondent);
 		boolean isPermitted = subject.isPermitted("questionnair:read:73");
-		System.out.println("is isPermitted ?" + isPermitted);
-
+		assertThat(isPermitted).isTrue();
 	}
 
 }
