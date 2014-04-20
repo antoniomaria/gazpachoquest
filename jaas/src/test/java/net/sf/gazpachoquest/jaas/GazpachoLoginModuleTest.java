@@ -56,7 +56,8 @@ public class GazpachoLoginModuleTest {
         List<QuestionnairDTO> questionnairDTOs = new ArrayList<>();
         questionnairDTOs.add(QuestionnairDTO.with().id(123).build());
         questionnairResource.setQuestionnairDTOs(questionnairDTOs);
-        // loginModule.setQuestionnairResource(questionnairResource);
+        
+        loginModule.setQuestionnairResource(questionnairResource);
         assertThat(loginModule.login()).isTrue();
     }
 
