@@ -102,7 +102,7 @@ public class QuestionnairFacadeTest {
     @Test
     public void saveAnswerTest() {
 
-        Questionnair questionnair = Questionnair.with().id(58).build();
+        Questionnair questionnair = Questionnair.with().id(63).build();
         String questionCode = "Q1";
         Answer answer = TextAnswer.fromValue("Antonio Maria");
         Integer questionDefinitionId = jdbcTemplate.queryForObject(
