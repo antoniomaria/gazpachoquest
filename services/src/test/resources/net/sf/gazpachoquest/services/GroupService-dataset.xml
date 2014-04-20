@@ -53,5 +53,9 @@
 
   <permission id="76" entity_id="73" numeral="3" scope="Q" role_id="75" />
 
+
+  <label_set />
+  <label />
+  <browsed_element />
   <sequence seq_name="SEQ_GEN" seq_count="150" />
 </dataset>

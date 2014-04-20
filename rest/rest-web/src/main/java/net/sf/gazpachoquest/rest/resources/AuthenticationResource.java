@@ -7,7 +7,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.Provider;
 
 import net.sf.gazpachoquest.dto.auth.Account;
@@ -23,7 +22,7 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 
-@Path("/auth")
+@Path("/api/auth")
 @Api(value = "/auth", description = "Authentication Interface")
 @Produces(MediaType.APPLICATION_JSON)
 @Provider

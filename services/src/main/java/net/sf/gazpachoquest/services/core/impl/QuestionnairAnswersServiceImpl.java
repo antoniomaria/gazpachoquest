@@ -37,7 +37,7 @@ public class QuestionnairAnswersServiceImpl implements QuestionnairAnswersServic
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = false)
     public void save(Questionnair questionnair, String questionCode, Object answer) {
         Assert.state(!questionnair.isNew(), "Persist the questionnair before saving answers");
         Questionnair fetched = questionnairRepository.findOne(questionnair.getId());

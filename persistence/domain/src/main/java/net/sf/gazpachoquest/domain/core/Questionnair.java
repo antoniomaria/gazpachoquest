@@ -9,6 +9,7 @@ package net.sf.gazpachoquest.domain.core;
 
 import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -50,6 +51,7 @@ public class Questionnair extends AbstractAuditable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User respondent;
 
+    @Basic
     private Integer answersId;
 
     public Questionnair() {
