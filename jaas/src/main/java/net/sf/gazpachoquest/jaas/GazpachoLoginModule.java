@@ -25,8 +25,10 @@ import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
 
+import net.sf.gazpachoquest.api.AuthenticationResource;
 import net.sf.gazpachoquest.api.QuestionnairResource;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
+import net.sf.gazpachoquest.dto.auth.Account;
 
 import org.apache.cxf.common.util.Base64Utility;
 import org.apache.cxf.jaxrs.client.ClientWebApplicationException;
@@ -39,97 +41,97 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 public class GazpachoLoginModule implements LoginModule {
 
-    private static Logger logger = LoggerFactory.getLogger(GazpachoLoginModule.class);
+	private static Logger logger = LoggerFactory
+			.getLogger(GazpachoLoginModule.class);
 
-    public static final String BASE_URI = "http://gazpacho.antoniomaria.cloudbees.net/";
+	public static final String BASE_URI = "http://gazpacho.antoniomaria.cloudbees.net/";
 
-    private CallbackHandler handler;
-    private Subject subject;
-    private UserPrincipal userPrincipal;
-    private RolePrincipal rolePrincipal;
-    private String username;
-    private String password;
-    private List<String> userGroups;
-    private QuestionnairResource questionnairResource;
+	private CallbackHandler handler;
+	private Subject subject;
+	private UserPrincipal userPrincipal;
+	private RolePrincipal rolePrincipal;
+	private String username;
+	private String password;
+	private List<String> userGroups;
+	private AuthenticationResource authenticationResource;
 
-    @Override
-    public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState,
-            Map<String, ?> options) {
+	@Override
+	public void initialize(Subject subject, CallbackHandler callbackHandler,
+			Map<String, ?> sharedState, Map<String, ?> options) {
 
-        handler = callbackHandler;
-        this.subject = subject;
-        questionnairResource = JAXRSClientFactory.create(BASE_URI, QuestionnairResource.class,
-                Collections.singletonList(new JacksonJsonProvider()), null);
-    }
+		handler = callbackHandler;
+		this.subject = subject;
+		authenticationResource = JAXRSClientFactory.create(BASE_URI,
+				AuthenticationResource.class,
+				Collections.singletonList(new JacksonJsonProvider()), null);
+	}
 
-    public void setQuestionnairResource(QuestionnairResource questionnairResource) {
-        this.questionnairResource = questionnairResource;
-    }
+	public void setAuthenticationResource(
+			AuthenticationResource authenticationResource) {
+		this.authenticationResource = authenticationResource;
+	}
 
-    @Override
-    public boolean login() throws LoginException {
+	@Override
+	public boolean login() throws LoginException {
 
-        Callback[] callbacks = new Callback[2];
-        callbacks[0] = new NameCallback("username");
-        callbacks[1] = new PasswordCallback("password", true);
+		Callback[] callbacks = new Callback[2];
+		callbacks[0] = new NameCallback("username");
+		callbacks[1] = new PasswordCallback("password", true);
 
-        try {
-            handler.handle(callbacks);
-            String username = ((NameCallback) callbacks[0]).getName();
-            String password = String.valueOf(((PasswordCallback) callbacks[1]).getPassword());
-            logger.info("New username attempt for user: {}", username);
+		try {
+			handler.handle(callbacks);
+			String username = ((NameCallback) callbacks[0]).getName();
+			String password = String.valueOf(((PasswordCallback) callbacks[1])
+					.getPassword());
+			logger.info("New username attempt for user: {}", username);
 
-            String authorizationHeader = "Basic "
-                    + Base64Utility.encode(String.format("%s:%s", username, password).getBytes());
-            WebClient.client(questionnairResource).header("Authorization", authorizationHeader);
+			Account account = authenticationResource.authenticate(password);
 
-            List<QuestionnairDTO> questionnaires = questionnairResource.list();
-            if (questionnaires.isEmpty()) {
-                throw new LoginException("Authentication failed");
-            }
+			logger.info(
+					"Access granted to respondent identified by invitation {}",
+					password);
+			this.username = username;
+			this.password = password;
+			userGroups = new ArrayList<String>();
+			userGroups.add("respondent");
+			return true;
+		} catch (ClientWebApplicationException e) {
+			logger.error(e.getMessage(), e);
+			throw new LoginException(e.getMessage());
+		} catch (IOException e) {
+			throw new LoginException(e.getMessage());
+		} catch (UnsupportedCallbackException e) {
+			throw new LoginException(e.getMessage());
+		}
 
-            logger.info("Access granted to respondent identified by invitation {}", password);
-            this.username = username;
-            this.password = password;
-            userGroups = new ArrayList<String>();
-            userGroups.add("respondent");
-            return true;
-        } catch (ClientWebApplicationException e) {
-            logger.error(e.getMessage(), e);
-            throw new LoginException(e.getMessage());
-        } catch (IOException e) {
-            throw new LoginException(e.getMessage());
-        } catch (UnsupportedCallbackException e) {
-            throw new LoginException(e.getMessage());
-        }
+	}
 
-    }
+	@Override
+	public boolean commit() throws LoginException {
+		userPrincipal = UserPrincipal.with().name(username).password(password)
+				.build();
+		subject.getPrincipals().add(userPrincipal);
 
-    @Override
-    public boolean commit() throws LoginException {
-        userPrincipal = UserPrincipal.with().name(username).password(password).build();
-        subject.getPrincipals().add(userPrincipal);
+		if (userGroups != null && userGroups.size() > 0) {
+			for (String groupName : userGroups) {
+				rolePrincipal = new RolePrincipal(groupName);
+				subject.getPrincipals().add(rolePrincipal);
+			}
+		}
 
-        if (userGroups != null && userGroups.size() > 0) {
-            for (String groupName : userGroups) {
-                rolePrincipal = new RolePrincipal(groupName);
-                subject.getPrincipals().add(rolePrincipal);
-            }
-        }
+		return true;
+	}
 
-        return true;
-    }
+	@Override
+	public boolean abort() throws LoginException {
+		return false;
+	}
 
-    @Override
-    public boolean abort() throws LoginException {
-        return false;
-    }
-
-    @Override
-    public boolean logout() throws LoginException {
-        subject.getPrincipals().remove(userPrincipal);
-        subject.getPrincipals().remove(rolePrincipal);
-        return true;
-    }
+	@Override
+	public boolean logout() throws LoginException {
+		subject.getPrincipals().remove(userPrincipal);
+		subject.getPrincipals().remove(rolePrincipal);
+		return true;
+	}
 
 }
