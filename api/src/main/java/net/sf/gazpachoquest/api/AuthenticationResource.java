@@ -16,7 +16,6 @@ import net.sf.gazpachoquest.dto.auth.Account;
 public interface AuthenticationResource extends Serializable{
 
 	@GET
-	@Path("/respondent")
 	Account authenticate(@QueryParam("username") String username,
 			@QueryParam("password") String password);
 	

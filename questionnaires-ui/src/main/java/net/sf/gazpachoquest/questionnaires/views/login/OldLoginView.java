@@ -38,7 +38,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
 
-@CDIView(OldLoginView.NAME)
+//@CDIView(OldLoginView.NAME)
 public class OldLoginView extends CustomComponent implements View, Button.ClickListener {
 
     private static final long serialVersionUID = 2314128852757221652L;

@@ -18,19 +18,21 @@ import com.vaadin.ui.Panel;
 
 public class GazpachoViewDisplay extends Panel implements ViewDisplay {
 
-    public GazpachoViewDisplay() {
-        setSizeFull();
-    }
+	private static final long serialVersionUID = 6287152165941299841L;
 
-    @Override
-    public void showView(View view) {
-        if (view instanceof CustomComponent) {
-            setContent((CustomComponent) view);
-        } else if (view instanceof ComponentContainer) {
-            setContent((ComponentContainer) view);
-        } else {
-            throw new IllegalStateException("View not supported! ");
-        }
-    }
+	public GazpachoViewDisplay() {
+		setSizeFull();
+	}
+
+	@Override
+	public void showView(View view) {
+		if (view instanceof CustomComponent) {
+			setContent((CustomComponent) view);
+		} else if (view instanceof ComponentContainer) {
+			setContent((ComponentContainer) view);
+		} else {
+			throw new IllegalStateException("View not supported! ");
+		}
+	}
 
 }

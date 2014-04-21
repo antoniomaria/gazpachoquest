@@ -10,13 +10,12 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.questionnaires.views;
 
-import java.util.List;
-
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
+import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
 import net.sf.gazpachoquest.questionnaires.views.login.LoginView;
 
@@ -27,46 +26,53 @@ import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.VaadinService;
+import com.vaadin.server.VaadinServletService;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 
 @CDIView(QuestionnairView.NAME)
-@RolesAllowed("respondent")
+@RolesAllowed(RespondentAccount.DEFAULT_ROLE_NAME)
 public class QuestionnairView extends CustomComponent implements View {
 
-    private static final long serialVersionUID = -4474306191162456568L;
+	private static final long serialVersionUID = -4474306191162456568L;
 
-    public static final String NAME = "questionnair";
+	public static final String NAME = "questionnair";
 
-    private static Logger logger = LoggerFactory.getLogger(LoginView.class);
+	private static Logger logger = LoggerFactory.getLogger(LoginView.class);
 
-    @Inject
-    @GazpachoResource
-    private QuestionnairResource questionnairResource;
+	@Inject
+	@GazpachoResource
+	private QuestionnairResource questionnairResource;
 
-    @Override
-    public void enter(ViewChangeEvent event) {
-        logger.debug("Entering {} view ", QuestionnairView.NAME);
-        // explicitly log the view change - this could also be done with an
-        // interceptor or a decorator
-        // loggableEvent.fire(new LoggableEvent("Enter view [" + event.getViewName() + "]"));
-        setSizeFull();
+	@Override
+	public void enter(ViewChangeEvent event) {
+		logger.debug("Entering {} view ", QuestionnairView.NAME);
+		// explicitly log the view change - this could also be done with an
+		// interceptor or a decorator
+		// loggableEvent.fire(new LoggableEvent("Enter view [" +
+		// event.getViewName() + "]"));
+		setSizeFull();
+		RespondentAccount respondent = (RespondentAccount) VaadinServletService
+				.getCurrentServletRequest().getUserPrincipal();
 
-        Integer questionnairId = 1;
-		QuestionnairDTO questionnair = questionnairResource.getDefinition(questionnairId );
+		QuestionnairDTO questionnair = questionnairResource
+				.getDefinition(respondent.getGrantedQuestionnairIds()
+						.iterator().next());
 
-        VerticalLayout mainLayout = new VerticalLayout();
-        mainLayout.setSizeFull();
+		VerticalLayout mainLayout = new VerticalLayout();
+		mainLayout.setSizeFull();
 
-        String username = (String) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("username");
+		String username = (String) VaadinService.getCurrentRequest()
+				.getWrappedSession().getAttribute("username");
 
-        Label label = new Label("Welcome " + username + " to take the questionnair: "
-                + questionnair.getLanguageSettings().getTitle());
-        mainLayout.addComponent(label);
-        // mainLayout.setExpandRatio(content, 1);
+		Label label = new Label("Welcome " + username
+				+ " to take the questionnair: "
+				+ questionnair.getLanguageSettings().getTitle());
+		mainLayout.addComponent(label);
+		// mainLayout.setExpandRatio(content, 1);
 
-        setCompositionRoot(mainLayout);
-    }
+		setCompositionRoot(mainLayout);
+	}
 
 }

@@ -12,14 +12,18 @@ import java.util.Set;
 
 public class RespondentAccount extends AbstractAccount {
 
-    private Set<Integer> grantedQuestionnairIds;
 
+	public static final String USER_NAME = "respondent";
+	
+	public static final String DEFAULT_ROLE_NAME = "respondent";
+
+	private static final long serialVersionUID = -4244027794423453379L;
+
+	private Set<Integer> grantedQuestionnairIds;
+	
+	
     public RespondentAccount() {
         super();
-    }
-
-    public RespondentAccount(AbstractAccount respondentAccount) {
-        super(respondentAccount);
     }
 
     public Set<Integer> getGrantedQuestionnairIds() {
@@ -33,10 +37,17 @@ public class RespondentAccount extends AbstractAccount {
         this.grantedQuestionnairIds = grantedQuestionnairIds;
     }
 
-    public void addQuestionnairId(Integer id) {
+    public void grantQuestionnairId(Integer id) {
         getGrantedQuestionnairIds().add(id);
     }
+    
+    public void assingRole(String role){
+    	getRoles().add(RoleAccount.with().name(role).build());
+    }
 
+    public static Builder with(){
+    	return new Builder();
+    }
     public static class Builder {
         private String givenNames;
         private String surname;

@@ -68,8 +68,10 @@ public class RespondentAuthenticationManagerImpl implements AuthenticationManage
                 .surname(respondent.getSurname()).apiKey(respondent.getApiKey()).build();
 
         for (Questionnair questionnair : questionnairs) {
-            account.addQuestionnairId(questionnair.getId());
+            account.grantQuestionnairId(questionnair.getId());
         }
+        
+        account.assingRole(RespondentAccount.DEFAULT_ROLE_NAME);
         return account;
     }
 }

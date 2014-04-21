@@ -1,9 +1,18 @@
 package net.sf.gazpachoquest.dto.auth;
 
+import java.io.Serializable;
 import java.security.Principal;
 import java.util.Set;
 
-public interface Account extends Principal {
+import net.sf.gazpachoquest.dto.answers.TextAnswer;
+
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "type")
+@JsonSubTypes({ @JsonSubTypes.Type(value = TextAnswer.class, name = "T"),
+		@JsonSubTypes.Type(value = RespondentAccount.class, name = "R"), })
+public interface Account extends Principal, Serializable {
 
 	String getGivenNames();
 
@@ -21,12 +30,12 @@ public interface Account extends Principal {
 
 	void setApiKey(String apiKey);
 
-	Set<String> getRoles();
+	Set<RoleAccount> getRoles();
 
-	void setRoles(Set<String> roles);
+	void setRoles(Set<RoleAccount> roles);
 
 	String getName();
-	
+
 	String getFullName();
 
 }

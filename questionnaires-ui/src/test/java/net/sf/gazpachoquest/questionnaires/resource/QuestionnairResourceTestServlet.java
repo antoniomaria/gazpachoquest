@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;
-import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
 
 @WebServlet(name = "testServlet", urlPatterns = { "/testServlet" })
 public class QuestionnairResourceTestServlet extends HttpServlet {

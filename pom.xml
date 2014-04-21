@@ -540,10 +540,11 @@
             <artifactId>geronimo-javamail_1.4_spec</artifactId>
             <groupId>org.apache.geronimo.specs</groupId>
           </exclusion>
+          <!-- 
           <exclusion>
             <artifactId>wsdl4j</artifactId>
             <groupId>wsdl4j</groupId>
-          </exclusion>
+          </exclusion>  -->
           <exclusion>
             <artifactId>woodstox-core-asl</artifactId>
             <groupId>org.codehaus.woodstox</groupId>

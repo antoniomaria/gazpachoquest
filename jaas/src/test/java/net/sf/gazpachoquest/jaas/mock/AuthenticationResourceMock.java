@@ -3,9 +3,6 @@ package net.sf.gazpachoquest.jaas.mock;
 import java.net.URI;
 import java.util.Date;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.MediaType;

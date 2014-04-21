@@ -10,17 +10,12 @@ package net.sf.gazpachoquest.dto.auth;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.sf.gazpachoquest.dto.answers.TextAnswer;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "type")
-@JsonSubTypes({ @JsonSubTypes.Type(value = TextAnswer.class, name = "T"),
-		@JsonSubTypes.Type(value = RespondentAccount.class, name = "R"), })
+import com.fasterxml.jackson.annotation.JsonIgnore;
 public abstract class AbstractAccount implements Account {
+
+	private static final long serialVersionUID = -8204465435506099291L;
 
 	protected String givenNames;
 
@@ -30,20 +25,10 @@ public abstract class AbstractAccount implements Account {
 
 	protected String apiKey;
 
-	protected Set<String> roles;
+	protected Set<RoleAccount> roles;
 
-	public AbstractAccount() {
+	protected AbstractAccount() {
 		super();
-	}
-
-	public AbstractAccount(AbstractAccount abstractAccount) {
-		this();
-		this.givenNames = abstractAccount.givenNames;
-		this.surname = abstractAccount.surname;
-		this.email = abstractAccount.email;
-		this.apiKey = abstractAccount.apiKey;
-		this.roles = new HashSet<>();
-		this.roles.addAll(abstractAccount.getRoles());
 	}
 
 	@Override
@@ -87,7 +72,7 @@ public abstract class AbstractAccount implements Account {
 	}
 
 	@Override
-	public Set<String> getRoles() {
+	public Set<RoleAccount> getRoles() {
 		if (roles == null) {
 			this.roles = new HashSet<>();
 		}
@@ -95,7 +80,7 @@ public abstract class AbstractAccount implements Account {
 	}
 
 	@Override
-	public void setRoles(Set<String> roles) {
+	public void setRoles(Set<RoleAccount> roles) {
 		this.roles = roles;
 	}
 
@@ -105,10 +90,12 @@ public abstract class AbstractAccount implements Account {
 	}
 
 	@Override
+	@JsonIgnore
 	public String getName() {
 		return givenNames;
 	}
 
+	@JsonIgnore
 	public String getFullName() {
 		return new StringBuilder().append(givenNames).append(" ")
 				.append(surname).toString();

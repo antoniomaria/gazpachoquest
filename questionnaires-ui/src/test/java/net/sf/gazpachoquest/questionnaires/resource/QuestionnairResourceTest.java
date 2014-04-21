@@ -1,7 +1,5 @@
 package net.sf.gazpachoquest.questionnaires.resource;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;

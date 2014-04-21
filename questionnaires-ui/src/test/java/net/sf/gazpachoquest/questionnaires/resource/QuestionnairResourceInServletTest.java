@@ -5,8 +5,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;
-import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
-import net.sf.gazpachoquest.questionnaires.resource.ResourceProducer;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;

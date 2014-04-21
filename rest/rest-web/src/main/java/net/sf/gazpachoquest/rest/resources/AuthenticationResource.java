@@ -11,6 +11,7 @@ import javax.ws.rs.ext.Provider;
 
 import net.sf.gazpachoquest.dto.auth.AbstractAccount;
 import net.sf.gazpachoquest.dto.auth.Account;
+import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.security.AccountType;
 import net.sf.gazpachoquest.security.AuthenticationManager;
 import net.sf.gazpachoquest.security.AuthenticationManagerFactory;
@@ -47,10 +48,13 @@ public class AuthenticationResource {
 		if (StringUtils.isBlank(username)) {
 			throw new AccountNotFoundException("Username is required");
 		}
-		if ("respondent".equals(username)) {
+		if (RespondentAccount.USER_NAME.equals(username)) {
 			authManager = authenticationManagerFactory
 					.getObject(AccountType.RESPONDENT);
+		}else{
+			throw new AccountNotFoundException("Wrong credentials");
 		}
+		
 		Account account = authManager.authenticate(username, password);
 		return Response.ok(account).build();
 	}

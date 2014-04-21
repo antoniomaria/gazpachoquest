@@ -10,7 +10,6 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.jaas;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 
@@ -19,12 +18,12 @@ import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.PasswordCallback;
-import javax.security.auth.callback.UnsupportedCallbackException;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
 
 import net.sf.gazpachoquest.api.AuthenticationResource;
 import net.sf.gazpachoquest.dto.auth.Account;
+import net.sf.gazpachoquest.dto.auth.RoleAccount;
 
 import org.apache.cxf.jaxrs.client.ClientWebApplicationException;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
@@ -38,7 +37,7 @@ public class GazpachoLoginModule implements LoginModule {
 	private static Logger logger = LoggerFactory
 			.getLogger(GazpachoLoginModule.class);
 
-	public static final String BASE_URI = "http://gazpacho.antoniomaria.cloudbees.net/";
+	public static final String BASE_URI = "http://aurora:8080/gazpachoquest-rest-web/api";
 
 	private CallbackHandler handler;
 	private Subject subject;
@@ -84,9 +83,8 @@ public class GazpachoLoginModule implements LoginModule {
 		} catch (ClientWebApplicationException e) {
 			logger.error(e.getMessage(), e);
 			throw new LoginException(e.getMessage());
-		} catch (IOException e) {
-			throw new LoginException(e.getMessage());
-		} catch (UnsupportedCallbackException e) {
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
 			throw new LoginException(e.getMessage());
 		}
 
@@ -95,6 +93,9 @@ public class GazpachoLoginModule implements LoginModule {
 	@Override
 	public boolean commit() throws LoginException {
 		subject.getPrincipals().add(userPrincipal);
+		for (RoleAccount role : userPrincipal.getRoles()) {
+			subject.getPrincipals().add(role);
+		}
 		return true;
 	}
 
@@ -106,6 +107,9 @@ public class GazpachoLoginModule implements LoginModule {
 	@Override
 	public boolean logout() throws LoginException {
 		subject.getPrincipals().remove(userPrincipal);
+		for (RoleAccount role : userPrincipal.getRoles()) {
+			subject.getPrincipals().remove(role);
+		}
 		return true;
 	}
 
