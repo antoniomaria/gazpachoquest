@@ -7,7 +7,6 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto.auth;
 
-import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "type")
 @JsonSubTypes({ @JsonSubTypes.Type(value = TextAnswer.class, name = "T"),
 		@JsonSubTypes.Type(value = RespondentAccount.class, name = "R"), })
-public abstract class AbstractAccount implements Principal, Account {
+public abstract class AbstractAccount implements Account {
 
 	protected String givenNames;
 
@@ -108,6 +107,11 @@ public abstract class AbstractAccount implements Principal, Account {
 	@Override
 	public String getName() {
 		return givenNames;
+	}
+
+	public String getFullName() {
+		return new StringBuilder().append(givenNames).append(" ")
+				.append(surname).toString();
 	}
 
 }

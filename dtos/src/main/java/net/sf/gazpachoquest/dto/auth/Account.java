@@ -1,29 +1,32 @@
 package net.sf.gazpachoquest.dto.auth;
 
+import java.security.Principal;
 import java.util.Set;
 
-public interface Account {
+public interface Account extends Principal {
 
-	public abstract String getGivenNames();
+	String getGivenNames();
 
-	public abstract void setGivenNames(String givenNames);
+	void setGivenNames(String givenNames);
 
-	public abstract String getSurname();
+	String getSurname();
 
-	public abstract void setSurname(String surname);
+	void setSurname(String surname);
 
-	public abstract String getEmail();
+	String getEmail();
 
-	public abstract void setEmail(String email);
+	void setEmail(String email);
 
-	public abstract String getApiKey();
+	String getApiKey();
 
-	public abstract void setApiKey(String apiKey);
+	void setApiKey(String apiKey);
 
-	public abstract Set<String> getRoles();
+	Set<String> getRoles();
 
-	public abstract void setRoles(Set<String> roles);
+	void setRoles(Set<String> roles);
 
-	public abstract String getName();
+	String getName();
+	
+	String getFullName();
 
 }

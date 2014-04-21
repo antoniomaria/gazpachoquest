@@ -53,7 +53,8 @@ public class QuestionnairView extends CustomComponent implements View {
         // loggableEvent.fire(new LoggableEvent("Enter view [" + event.getViewName() + "]"));
         setSizeFull();
 
-        List<QuestionnairDTO> questionnairs = questionnairResource.list();
+        Integer questionnairId = 1;
+		QuestionnairDTO questionnair = questionnairResource.getDefinition(questionnairId );
 
         VerticalLayout mainLayout = new VerticalLayout();
         mainLayout.setSizeFull();
@@ -61,7 +62,7 @@ public class QuestionnairView extends CustomComponent implements View {
         String username = (String) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("username");
 
         Label label = new Label("Welcome " + username + " to take the questionnair: "
-                + questionnairs.get(0).getLanguageSettings().getTitle());
+                + questionnair.getLanguageSettings().getTitle());
         mainLayout.addComponent(label);
         // mainLayout.setExpandRatio(content, 1);
 

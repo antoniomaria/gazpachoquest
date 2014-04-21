@@ -22,11 +22,11 @@ import org.junit.Test;
 @Ignore
 public class GazpachoLoginModuleTest {
 
-    private GazpachoLoginModule loginModule;
+    private GazpachoLoginModuleTested loginModule;
 
     @Before
     public void setUp() {
-        loginModule = new GazpachoLoginModule();
+        loginModule = new GazpachoLoginModuleTested();
 
         // Initialization of Group
         // before GroupPrincipal

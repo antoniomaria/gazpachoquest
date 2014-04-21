@@ -11,7 +11,9 @@
 package net.sf.gazpachoquest.jaas;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import javax.security.auth.Subject;
@@ -33,16 +35,20 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
-public class GazpachoLoginModule implements LoginModule {
+public class GazpachoLoginModuleTested implements LoginModule {
 
 	private static Logger logger = LoggerFactory
-			.getLogger(GazpachoLoginModule.class);
+			.getLogger(GazpachoLoginModuleTested.class);
 
 	public static final String BASE_URI = "http://gazpacho.antoniomaria.cloudbees.net/";
 
 	private CallbackHandler handler;
 	private Subject subject;
-	private Account userPrincipal;
+	private UserPrincipal userPrincipal;
+	private RolePrincipal rolePrincipal;
+	private String username;
+	private String password;
+	private List<String> userGroups;
 	private AuthenticationResource authenticationResource;
 
 	@Override
@@ -79,7 +85,10 @@ public class GazpachoLoginModule implements LoginModule {
 					password);
 
 			logger.info("Access granted to user {}", account.getFullName());
-			this.userPrincipal = account;
+			this.username = username;
+			this.password = password;
+			userGroups = new ArrayList<String>();
+			userGroups.add("respondent");
 			return true;
 		} catch (ClientWebApplicationException e) {
 			logger.error(e.getMessage(), e);
@@ -94,7 +103,17 @@ public class GazpachoLoginModule implements LoginModule {
 
 	@Override
 	public boolean commit() throws LoginException {
+		userPrincipal = UserPrincipal.with().name(username).password(password)
+				.build();
 		subject.getPrincipals().add(userPrincipal);
+
+		if (userGroups != null && userGroups.size() > 0) {
+			for (String groupName : userGroups) {
+				rolePrincipal = new RolePrincipal(groupName);
+				subject.getPrincipals().add(rolePrincipal);
+			}
+		}
+
 		return true;
 	}
 
@@ -106,6 +125,7 @@ public class GazpachoLoginModule implements LoginModule {
 	@Override
 	public boolean logout() throws LoginException {
 		subject.getPrincipals().remove(userPrincipal);
+		subject.getPrincipals().remove(rolePrincipal);
 		return true;
 	}
 

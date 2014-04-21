@@ -167,7 +167,7 @@ public class OldLoginView extends CustomComponent implements View, Button.ClickL
         // Validate username and password with database here. For examples sake
         // I use a dummy username and password.
         //
-        boolean isValid = proxy.list().size() > 0;
+        boolean isValid = true;
         if (isValid) {
             // Store the current invitation in the service session
             getSession().setAttribute("invitation", invitation);

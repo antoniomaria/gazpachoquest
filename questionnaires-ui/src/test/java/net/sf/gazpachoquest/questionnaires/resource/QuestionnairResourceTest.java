@@ -27,26 +27,31 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class QuestionnairResourceTest {
 
-    @Inject
-    @GazpachoResource
-    private QuestionnairResource questionnairResource;
+	@Inject
+	@GazpachoResource
+	private QuestionnairResource questionnairResource;
 
-    @Deployment
-    public static Archive<?> createTestArchive() {
-        String beansDescriptor = Descriptors.create(BeansDescriptor.class).exportAsString();
-        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "myarchive.jar")
-                .addClasses(QuestionnairResource.class, ResourceProducer.class, GazpachoResource.class)
-                .addAsResource("resources/messages.properties")
-                .addAsManifestResource(new StringAsset(beansDescriptor), "beans.xml");
-        return archive;
-    }
+	@Deployment
+	public static Archive<?> createTestArchive() {
+		String beansDescriptor = Descriptors.create(BeansDescriptor.class)
+				.exportAsString();
+		JavaArchive archive = ShrinkWrap
+				.create(JavaArchive.class, "myarchive.jar")
+				.addClasses(QuestionnairResource.class, ResourceProducer.class,
+						GazpachoResource.class)
+				.addAsResource("resources/messages.properties")
+				.addAsManifestResource(new StringAsset(beansDescriptor),
+						"beans.xml");
+		return archive;
+	}
 
-    @Test
-    public void listTest() {
-        List<QuestionnairDTO> questionnairs = questionnairResource.list();
-        for (QuestionnairDTO questionnairDTO : questionnairs) {
-            System.out.println(questionnairDTO.getId() + " " + questionnairDTO.getLanguageSettings().getTitle());
-        }
+	@Test
+	public void listTest() {
+		Integer questionnairId = 58;
+		QuestionnairDTO questionnair = questionnairResource
+				.getDefinition(questionnairId);
+		System.out.println(questionnair.getId() + " "
+				+ questionnair.getLanguageSettings().getTitle());
 
-    }
+	}
 }

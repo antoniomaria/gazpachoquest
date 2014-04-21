@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
@@ -11,8 +12,6 @@
   <name>gazpachoquest-questionnaires-ui</name>
   <url>http://maven.apache.org</url>
   <properties>
-    <openejb.version>4.6.0</openejb.version>
-    <tomee.version>1.6.0</tomee.version>
     <arquillian.version>1.0.0.Alpha1</arquillian.version>
     <version.shrinkwrap.resolvers>2.1.0-alpha-1</version.shrinkwrap.resolvers>
   </properties>
@@ -36,25 +35,6 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>tomee-embedded</artifactId>
-      <version>${tomee.version}</version>
-      <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>slf4j-jdk14</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.openejb</groupId>
-      <artifactId>tomee-jaxrs</artifactId>
-      <version>${tomee.version}</version>
-      <scope>provided</scope>
-    </dependency>
 
     <!-- Test scope -->
     <dependency>
@@ -76,6 +56,14 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- Provided scope -->
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>jsr311-api</artifactId>
+      <version>1.1.1</version>
+      <scope>provided</scope>
+    </dependency>
+
     <!-- Arquillian vaadin -->
     <dependency>
       <groupId>org.jboss.arquillian.junit</groupId>
@@ -88,6 +76,12 @@
       <artifactId>arquillian-tomee-embedded</artifactId>
       <version>1.6.0</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>tomcat-dbcp</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -118,12 +112,10 @@
       <artifactId>vaadin-client-compiled</artifactId>
       <version>${vaadin.version}</version>
     </dependency>
-    <!-- Needed when using the widgetset optimizer (custom ConnectorBundleLoaderFactory).
-      For widgetset compilation, vaadin-client-compiler is automatically added
-      on the compilation classpath by vaadin-maven-plugin so normally there is
-      no need for an explicit dependency. -->
-    <!-- <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client-compiler</artifactId>
-      <version>${vaadin.version}</version> <scope>provided</scope> </dependency> -->
+    <!-- Needed when using the widgetset optimizer (custom ConnectorBundleLoaderFactory). For widgetset compilation, vaadin-client-compiler 
+      is automatically added on the compilation classpath by vaadin-maven-plugin so normally there is no need for an explicit dependency. -->
+    <!-- <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client-compiler</artifactId> <version>${vaadin.version}</version> 
+      <scope>provided</scope> </dependency> -->
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-client</artifactId>
@@ -172,7 +164,7 @@
       <version>1.1.0</version>
     </dependency>
 
-
+    <!-- JAckson Mapper -->
     <dependency>
       <groupId>com.fasterxml.jackson.jaxrs</groupId>
       <artifactId>jackson-jaxrs-json-provider</artifactId>
@@ -183,6 +175,12 @@
       <artifactId>jul-to-slf4j</artifactId>
     </dependency>
 
+    <!-- Provided scope if deployed in tomee -->
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -217,8 +215,7 @@
         <configuration>
           <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
           <!-- <runTarget>mobilemail</runTarget> -->
-          <!-- We are doing "inplace" but into subdir VAADIN/widgetsets. This
-            way compatible with Vaadin eclipse plugin. -->
+          <!-- We are doing "inplace" but into subdir VAADIN/widgetsets. This way compatible with Vaadin eclipse plugin. -->
           <webappDirectory>${basedir}/src/main/webapp/VAADIN/widgetsets</webappDirectory>
           <hostedWebapp>${basedir}/src/main/webapp/VAADIN/widgetsets</hostedWebapp>
           <noServer>true</noServer>
@@ -251,8 +248,7 @@
 
     <pluginManagement>
       <plugins>
-        <!--This plugin's configuration is used to store Eclipse m2e settings
-          only. It has no influence on the Maven build itself. -->
+        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
         <plugin>
           <groupId>org.eclipse.m2e</groupId>
           <artifactId>lifecycle-mapping</artifactId>

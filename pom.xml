@@ -25,6 +25,7 @@
     <jackson.version>2.3.2</jackson.version>
     <joda.time.version>2.3</joda.time.version>
     <commons.lang3.version>3.3.1</commons.lang3.version>
+    <cxf.version>2.6.9</cxf.version>
   </properties>
 
 
@@ -522,12 +523,38 @@
         <artifactId>asm-all</artifactId>
         <version>2.1</version>
       </dependency>
-      <!-- Used in services -->
+
+
+      <!-- Apache cxf -->
+      <!-- Provided scope if deployed in tomee -->
       <dependency>
-        <groupId>org.ow2.asm</groupId>
-        <artifactId>asm-util</artifactId>
-        <version>4.0</version>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+        <version>${cxf.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>jaxb-impl</artifactId>
+            <groupId>com.sun.xml.bind</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>geronimo-javamail_1.4_spec</artifactId>
+            <groupId>org.apache.geronimo.specs</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>wsdl4j</artifactId>
+            <groupId>wsdl4j</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>woodstox-core-asl</artifactId>
+            <groupId>org.codehaus.woodstox</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>xmlschema-core</artifactId>
+            <groupId>org.apache.ws.xmlschema</groupId>
+          </exclusion>
+        </exclusions>
       </dependency>
+
     </dependencies>
 
 
