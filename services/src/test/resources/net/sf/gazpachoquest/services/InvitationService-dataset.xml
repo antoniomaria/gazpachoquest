@@ -28,6 +28,7 @@
   <invitation id="79" type="A" status="ACTIVE" token="SYZPVHYMLK" research_id="78" />
 
   <questionnair_definition />
+  <questionnair_definition_translation/>
   <question_group />
   <question />
   <question_translation />

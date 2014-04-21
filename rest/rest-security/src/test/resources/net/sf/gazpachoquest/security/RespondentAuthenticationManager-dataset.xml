@@ -34,6 +34,7 @@
     description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample questionnairDefinition&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;"
     title="Sample QuestionnairDefinition" welcometext="Thank you for taking the time to participate in this questionnairDefinition."
     createdby_id="1" lastmodifiedby_id="1" />
+  <questionnair_definition_translation />
   <question_group />
   <question />
   <question_translation />

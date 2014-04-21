@@ -22,7 +22,7 @@
   <invitation />
 
   <questionnair_definition />
-
+  <questionnair_definition_translation />
   <question_group />
 
   <question />
