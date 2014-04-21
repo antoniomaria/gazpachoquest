@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.PageDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
@@ -19,7 +20,6 @@ import net.sf.gazpachoquest.types.BrowsingAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +58,11 @@ public class QuestionnairResource {
 			@ApiResponse(code = 200, message = "Questionnairs available") })
 	public Response getDefinition(
 			@PathParam("questionnairId") @ApiParam(value = "Questionnair id") Integer questionnairId) {
-		Subject subject = SecurityUtils.getSubject();
+		User subject = (User) SecurityUtils.getSubject().getPrincipal();
 		SecurityUtils.getSubject().checkPermission(
 				"questionnair:read:" + questionnairId);
-		logger.debug("Fetching Questionnair Definition {}", questionnairId);
+		logger.debug("Fetching Questionnair Definition {} for user {}",
+				questionnairId, subject.getFullName());
 		QuestionnairDTO questionnairDTO = questionnairFacade
 				.findOne(questionnairId);
 		return Response.ok(questionnairDTO).build();
@@ -74,14 +75,16 @@ public class QuestionnairResource {
 			@ApiResponse(code = 404, message = "Invalid invitation token supplied"),
 			@ApiResponse(code = 200, message = "Questionnairs available") })
 	public Response getPage(
-			
+
 			@PathParam("questionnairId") @ApiParam(value = "Questionnair id") Integer questionnairId,
 			@ApiParam(name = "mode", value = "Refers how many questions are returned by page.", required = true, defaultValue = "GROUP_BY_GROUP", allowableValues = "QUESTION_BY_QUESTION,GROUP_BY_GROUP", allowMultiple = true) @QueryParam("mode") String modeStr,
 			@ApiParam(name = "action", value = "Action fired for the respondent", required = true, defaultValue = "ENTERING", allowableValues = "FORWARD,BACKWARD,ENTERING", allowMultiple = true) @QueryParam("action") String actionStr) {
-		logger.debug("New petition received");
 		SecurityUtils.getSubject().checkPermission(
 				"questionnair:read:" + questionnairId);
-		logger.debug("Fetching Questionnair Definition {}", questionnairId);
+		User subject = (User) SecurityUtils.getSubject().getPrincipal();
+		logger.debug("Fetching questionnairId {} page {} for {} user {}",
+				questionnairId, actionStr, subject.getFullName());
+
 		RenderingMode mode = RenderingMode.fromString(modeStr);
 		BrowsingAction action = BrowsingAction.fromString(actionStr);
 		PageDTO page = questionnairFacade.resolvePage(questionnairId, mode,
@@ -100,12 +103,12 @@ public class QuestionnairResource {
 			@ApiParam(value = "Answer", required = true) Answer answer,
 			@PathParam("questionnairId") @ApiParam(value = "Questionnair id", required = true) Integer questionnairId,
 			@QueryParam("questionCode") @ApiParam(value = "Question Code", required = true) String questionCode) {
-
 		SecurityUtils.getSubject().checkPermission(
 				"questionnair:update:" + questionnairId);
-		logger.debug("New attempt for saving answer");
-		
-		logger.debug("Fetching Questionnair Definition {}", questionnairId);
+
+		User subject = (User) SecurityUtils.getSubject().getPrincipal();
+		logger.debug("User {} saving answers for questionnairId {}",
+				subject.getFullName(), questionnairId);
 		questionnairFacade.saveAnswer(questionnairId, questionCode, answer);
 		return Response.ok().build();
 	}

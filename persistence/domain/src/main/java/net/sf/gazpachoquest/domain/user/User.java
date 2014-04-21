@@ -20,6 +20,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
@@ -176,6 +178,10 @@ public class User extends AbstractAuditable {
 		this.acronym = acronym;
 	}
 
+	@Transient
+	public String getFullName(){
+		return new StringBuilder().append(givenNames).append(" ").append(surname).toString();
+	}
 	public static Builder with() {
         return new Builder();
     }
