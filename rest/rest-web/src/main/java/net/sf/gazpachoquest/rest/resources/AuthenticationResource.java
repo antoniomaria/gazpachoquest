@@ -51,7 +51,7 @@ public class AuthenticationResource {
 			authManager = authenticationManagerFactory
 					.getObject(AccountType.RESPONDENT);
 		}
-		Account abstractAccount = authManager.authenticate(null, password);
-		return Response.ok(abstractAccount).build();
+		Account account = authManager.authenticate(username, password);
+		return Response.ok(account).build();
 	}
 }

@@ -17,5 +17,8 @@ public interface AuthenticationResource extends Serializable{
 
 	@GET
 	@Path("/respondent")
-	Account authenticate(@QueryParam("invitation") String invitation );
+	Account authenticate(@QueryParam("username") String username,
+			@QueryParam("password") String password);
+	
+
 }
