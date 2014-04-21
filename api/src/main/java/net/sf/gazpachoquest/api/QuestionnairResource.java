@@ -27,7 +27,7 @@ import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.types.BrowsingAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
-@Path("/api/questionnairs")
+@Path("/questionnairs")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public interface QuestionnairResource extends Serializable {

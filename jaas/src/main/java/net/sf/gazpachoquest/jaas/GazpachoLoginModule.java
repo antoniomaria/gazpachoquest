@@ -27,6 +27,7 @@ import net.sf.gazpachoquest.dto.auth.RoleAccount;
 
 import org.apache.cxf.jaxrs.client.ClientWebApplicationException;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
+import org.apache.cxf.jaxrs.client.ServerWebApplicationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,6 +82,9 @@ public class GazpachoLoginModule implements LoginModule {
 			this.userPrincipal = account;
 			return true;
 		} catch (ClientWebApplicationException e) {
+			logger.error(e.getMessage(), e);
+			throw new LoginException(e.getMessage());
+		} catch (ServerWebApplicationException e) {
 			logger.error(e.getMessage(), e);
 			throw new LoginException(e.getMessage());
 		} catch (Exception e) {

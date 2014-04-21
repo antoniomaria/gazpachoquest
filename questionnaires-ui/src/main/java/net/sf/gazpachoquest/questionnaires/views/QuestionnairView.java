@@ -55,7 +55,10 @@ public class QuestionnairView extends CustomComponent implements View {
 		setSizeFull();
 		RespondentAccount respondent = (RespondentAccount) VaadinServletService
 				.getCurrentServletRequest().getUserPrincipal();
-
+		Integer questionnairId = respondent.getGrantedQuestionnairIds()
+				.iterator().next();
+		logger.debug("Trying to fetch questionnair identified with id  = {} ",
+				questionnairId);
 		QuestionnairDTO questionnair = questionnairResource
 				.getDefinition(respondent.getGrantedQuestionnairIds()
 						.iterator().next());
@@ -63,10 +66,7 @@ public class QuestionnairView extends CustomComponent implements View {
 		VerticalLayout mainLayout = new VerticalLayout();
 		mainLayout.setSizeFull();
 
-		String username = (String) VaadinService.getCurrentRequest()
-				.getWrappedSession().getAttribute("username");
-
-		Label label = new Label("Welcome " + username
+		Label label = new Label("Welcome " + respondent.getFullName()
 				+ " to take the questionnair: "
 				+ questionnair.getLanguageSettings().getTitle());
 		mainLayout.addComponent(label);
