@@ -11,4 +11,12 @@
   <bean class="org.apache.shiro.mgt.DefaultSecurityManager">
     <constructor-arg ref="JPARealm" />
   </bean>
+
+  <bean class="net.sf.gazpachoquest.security.impl.AuthenticationManagerFactoryImpl">
+    <property name="implementations">
+      <map>
+        <entry key="RESPONDENT" value-ref="respondentAuthManager" />
+      </map>
+    </property>
+  </bean>
 </beans>

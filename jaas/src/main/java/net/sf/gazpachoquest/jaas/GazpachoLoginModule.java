@@ -85,7 +85,7 @@ public class GazpachoLoginModule implements LoginModule {
 					.getPassword());
 			logger.info("New username attempt for user: {}", username);
 
-			Account account = authenticationResource.authenticate(password);
+			Account abstractAccount = authenticationResource.authenticate(password);
 
 			logger.info(
 					"Access granted to respondent identified by invitation {}",

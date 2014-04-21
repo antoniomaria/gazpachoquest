@@ -10,7 +10,7 @@ package net.sf.gazpachoquest.dto.auth;
 import java.util.HashSet;
 import java.util.Set;
 
-public class RespondentAccount extends Account {
+public class RespondentAccount extends AbstractAccount {
 
     private Set<Integer> grantedQuestionnairIds;
 
@@ -18,7 +18,7 @@ public class RespondentAccount extends Account {
         super();
     }
 
-    public RespondentAccount(Account respondentAccount) {
+    public RespondentAccount(AbstractAccount respondentAccount) {
         super(respondentAccount);
     }
 

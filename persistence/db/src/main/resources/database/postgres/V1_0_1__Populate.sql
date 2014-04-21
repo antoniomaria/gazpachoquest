@@ -137,11 +137,11 @@ INSERT INTO role (id, description, name, scope) VALUES (74, 'Specific role for T
 -- Data for Name: invitation; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (61, 'P', 'ACTIVE', 'JNDSWUNZN9', 57, 6);
+INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (61, 'P', 'ACTIVE', '1234567890', 57, 6);
 INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (66, 'P', 'ACTIVE', '7BCYSFJ8S5', 57, 5);
 INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (71, 'P', 'ACTIVE', 'PZL1WBDDOH', 57, 4);
 INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (76, 'P', 'ACTIVE', 'VGUHBMNCEH', 57, 3);
-INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (79, 'A', 'ACTIVE', 'M19OLM2JWY', 78, NULL);
+INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (79, 'A', 'ACTIVE', '0123456789', 78, NULL);
 INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (117, 'P', 'ACTIVE', 'PARA9Y4ML6', 114, 6);
 INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (121, 'P', 'ACTIVE', '9ORTYE1NAX', 114, 5);
 INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (125, 'P', 'ACTIVE', 'S0PQILAJQ1', 114, 4);

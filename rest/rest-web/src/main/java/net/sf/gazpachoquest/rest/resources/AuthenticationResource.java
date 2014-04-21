@@ -9,20 +9,22 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 
+import net.sf.gazpachoquest.dto.auth.AbstractAccount;
 import net.sf.gazpachoquest.dto.auth.Account;
-import net.sf.gazpachoquest.dto.auth.RespondentAccount;
+import net.sf.gazpachoquest.security.AccountType;
 import net.sf.gazpachoquest.security.AuthenticationManager;
+import net.sf.gazpachoquest.security.AuthenticationManagerFactory;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 
-@Path("/api/auth")
+@Path("/auth")
 @Api(value = "/auth", description = "Authentication Interface")
 @Produces(MediaType.APPLICATION_JSON)
 @Provider
@@ -32,16 +34,24 @@ public class AuthenticationResource {
 			.getLogger(AuthenticationResource.class);
 
 	@Autowired
-	@Qualifier("respondentAuthManager")
-	private AuthenticationManager respondentAuthManager;
+	private AuthenticationManagerFactory authenticationManagerFactory;
 
 	@GET
-	@Path("/respondent")
-	@ApiOperation(value = "Authentication for respondents", response = RespondentAccount.class)
+	@ApiOperation(value = "Authentication for users", response = AbstractAccount.class)
 	public Response authenticate(
-			@QueryParam("invitation") @ApiParam(value = "Invitation") String invitation) throws AccountNotFoundException {
-		logger.info("New respondent authentication petition received");
-		Account account = respondentAuthManager.authenticate(null, invitation);
-		return Response.ok(account).build();
+			@QueryParam("username") @ApiParam(value = "User name") String username,
+			@QueryParam("password") @ApiParam(value = "User name") String password)
+			throws AccountNotFoundException {
+		logger.info("New authentication petition received");
+		AuthenticationManager authManager = null;
+		if (StringUtils.isBlank(username)) {
+			throw new AccountNotFoundException("Username is required");
+		}
+		if ("respondent".equals(username)) {
+			authManager = authenticationManagerFactory
+					.getObject(AccountType.RESPONDENT);
+		}
+		Account abstractAccount = authManager.authenticate(null, password);
+		return Response.ok(abstractAccount).build();
 	}
 }
