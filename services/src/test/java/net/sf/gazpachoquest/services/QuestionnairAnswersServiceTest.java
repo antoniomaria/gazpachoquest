@@ -1,14 +1,16 @@
 package net.sf.gazpachoquest.services;
 
+import javax.sql.DataSource;
+
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
-import net.sf.gazpachoquest.services.QuestionnairAnswersService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -35,9 +37,14 @@ public class QuestionnairAnswersServiceTest {
     @Autowired
     private QuestionnairAnswersService questionnairAnswersService;
 
+    @Autowired
+    private DataSource dataSource;
+
     @Before
     public void setUp() {
         questionnairAnswersRepository.activeAllAnswers();
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        jdbcTemplate.execute("INSERT INTO questionnair_answers_7(id, q1) VALUES (1,'Antonio Maria')");
     }
 
     @Test
