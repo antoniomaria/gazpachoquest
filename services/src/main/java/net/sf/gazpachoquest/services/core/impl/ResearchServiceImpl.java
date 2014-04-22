@@ -16,6 +16,7 @@ import net.sf.gazpachoquest.domain.core.MailMessage;
 import net.sf.gazpachoquest.domain.core.MailMessageTemplate;
 import net.sf.gazpachoquest.domain.core.PersonalInvitation;
 import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.core.QuestionnairAnswers;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.core.embeddables.MailMessageTemplateLanguageSettings;
@@ -30,6 +31,7 @@ import net.sf.gazpachoquest.repository.MailMessageRepository;
 import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.repository.ResearchRepository;
+import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachoquest.repository.user.GroupRepository;
 import net.sf.gazpachoquest.repository.user.PermissionRepository;
 import net.sf.gazpachoquest.repository.user.RoleRepository;
@@ -41,8 +43,8 @@ import net.sf.gazpachoquest.types.InvitationStatus;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
 import net.sf.gazpachoquest.types.Perm;
-import net.sf.gazpachoquest.types.RoleScope;
 import net.sf.gazpachoquest.types.ResearchAccessType;
+import net.sf.gazpachoquest.types.RoleScope;
 import net.sf.gazpachoquest.util.RandomTokenGenerator;
 
 import org.apache.commons.lang3.StringUtils;
@@ -55,193 +57,168 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.util.Assert;
 
 @Service
-public class ResearchServiceImpl extends AbstractPersistenceService<Research>
-		implements ResearchService {
+public class ResearchServiceImpl extends AbstractPersistenceService<Research> implements ResearchService {
 
-	@Autowired
-	private InvitationRepository invitationRepository;
+    @Autowired
+    private InvitationRepository invitationRepository;
 
-	@Autowired
-	private MailMessageRepository mailMessageRepository;
+    @Autowired
+    private MailMessageRepository mailMessageRepository;
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Autowired
-	private GroupRepository groupRepository;
+    @Autowired
+    private GroupRepository groupRepository;
 
-	@Autowired
-	private QuestionnairDefinitionRepository questionnairDefinitionRepository;
+    @Autowired
+    private QuestionnairDefinitionRepository questionnairDefinitionRepository;
 
-	@Autowired
-	private QuestionnairRepository questionnairRepository;
+    @Autowired
+    private QuestionnairRepository questionnairRepository;
 
-	@Autowired
-	private RandomTokenGenerator tokenGenerator;
+    @Autowired
+    private RandomTokenGenerator tokenGenerator;
 
-	@Autowired
-	private VelocityEngineFactoryBean velocityFactory;
+    @Autowired
+    private VelocityEngineFactoryBean velocityFactory;
 
-	@Autowired
-	private RoleRepository roleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-	@Autowired
-	private PermissionRepository permissionRepository;
+    @Autowired
+    private PermissionRepository permissionRepository;
 
-	@Autowired
-	public ResearchServiceImpl(final ResearchRepository repository) {
-		super(repository);
-	}
+    @Autowired
+    private QuestionnairAnswersRepository questionnairAnswersRepository;
 
-	@Override
-	@Transactional(readOnly = false)
-	public Research save(Research research) {
-		Research existing = null;
-		if (research.isNew()) {
-			existing = repository.save(research);
-		} else {
-			existing = repository.findOne(research.getId());
-			existing.setStartDate(research.getStartDate());
-			existing.setExpirationDate(research.getExpirationDate());
-		}
-		return existing;
-	}
+    @Autowired
+    public ResearchServiceImpl(final ResearchRepository repository) {
+        super(repository);
+    }
 
-	@Override
-	@Transactional(readOnly = false)
-	public Research save(Research research,
-			Set<QuestionnairDefinition> questionnairDefinitions,
-			Set<User> respondents) {
-		research = this.save(research);
-		if (ResearchAccessType.BY_INVITATION.equals(research.getType())) {
-			for (QuestionnairDefinition questionnairDefinition : questionnairDefinitions) {
+    @Override
+    @Transactional(readOnly = false)
+    public Research save(Research research) {
+        Research existing = null;
+        if (research.isNew()) {
+            existing = repository.save(research);
+        } else {
+            existing = repository.findOne(research.getId());
+            existing.setStartDate(research.getStartDate());
+            existing.setExpirationDate(research.getExpirationDate());
+        }
+        return existing;
+    }
 
-				questionnairDefinition = questionnairDefinitionRepository
-						.findOne(questionnairDefinition.getId());
+    @Override
+    @Transactional(readOnly = false)
+    public Research save(Research research, Set<QuestionnairDefinition> questionnairDefinitions, Set<User> respondents) {
+        research = this.save(research);
+        if (ResearchAccessType.BY_INVITATION.equals(research.getType())) {
+            for (QuestionnairDefinition questionnairDefinition : questionnairDefinitions) {
 
-				Map<MailMessageTemplateType, MailMessageTemplate> templates = questionnairDefinition
-						.getMailTemplates();
-				MailMessageTemplate invitationTemplate = templates
-						.get(MailMessageTemplateType.INVITATION);
+                questionnairDefinition = questionnairDefinitionRepository.findOne(questionnairDefinition.getId());
 
-				Group example = Group.with().name("Respondents").build();
-				Group respondentsGroup = groupRepository.findOneByExample(
-						example, new SearchParameters());
-				for (User respondent : respondents) {
-					Assert.state(!respondent.isNew(),
-							"Persist all respondents before starting a research.");
-					Questionnair questionnair = Questionnair.with()
-							.status(EntityStatus.CONFIRMED).research(research)
-							.questionnairDefinition(questionnairDefinition)
-							.respondent(respondent).build();
-					questionnair = questionnairRepository.save(questionnair);
+                Map<MailMessageTemplateType, MailMessageTemplate> templates = questionnairDefinition.getMailTemplates();
+                MailMessageTemplate invitationTemplate = templates.get(MailMessageTemplateType.INVITATION);
 
-					String token = tokenGenerator.generate();
+                Group example = Group.with().name("Respondents").build();
+                Group respondentsGroup = groupRepository.findOneByExample(example, new SearchParameters());
+                for (User respondent : respondents) {
+                    Assert.state(!respondent.isNew(), "Persist all respondents before starting a research.");
+                    Questionnair questionnair = Questionnair.with().status(EntityStatus.CONFIRMED).research(research)
+                            .questionnairDefinition(questionnairDefinition).respondent(respondent).build();
+                    questionnair = questionnairRepository.save(questionnair);
+                    // Create answers holder
+                    QuestionnairAnswers questionnairAnswers = new QuestionnairAnswers();
+                    questionnairAnswers = questionnairAnswersRepository.save(questionnair.getQuestionnairDefinition()
+                            .getId(), questionnairAnswers);
+                    questionnair.setAnswersId(questionnairAnswers.getId());
 
-					respondent = userRepository.findOne(respondent.getId());
+                    String token = tokenGenerator.generate();
 
-					Role personalRole = findOrCreateBy(respondent);
+                    respondent = userRepository.findOne(respondent.getId());
 
-					Permission permission = Permission.with()
-							.addPerm(Perm.READ).addPerm(Perm.UPDATE)
-							.scope(EntityType.QUESTIONNAIR)
-							.entityId(questionnair.getId()).build();
+                    Role personalRole = findOrCreateBy(respondent);
 
-					permissionRepository.save(permission);
-					personalRole.assignPermission(permission);
+                    Permission permission = Permission.with().addPerm(Perm.READ).addPerm(Perm.UPDATE)
+                            .scope(EntityType.QUESTIONNAIR).entityId(questionnair.getId()).build();
 
-					PersonalInvitation personalInvitation = PersonalInvitation
-							.with().research(research).token(token)
-							.status(InvitationStatus.ACTIVE)
-							.respondent(respondent).build();
-					invitationRepository.save(personalInvitation);
+                    permissionRepository.save(permission);
+                    personalRole.assignPermission(permission);
 
-					MailMessage mailMessage = composeMailMessage(
-							invitationTemplate, respondent, token);
-					mailMessageRepository.save(mailMessage);
+                    PersonalInvitation personalInvitation = PersonalInvitation.with().research(research).token(token)
+                            .status(InvitationStatus.ACTIVE).respondent(respondent).build();
+                    invitationRepository.save(personalInvitation);
 
-					if (groupRepository.isUserInGroup(respondent.getId(),
-							"Respondents") == 0) {
-						respondentsGroup.assignUser(respondent);
-					}
-				}
-			}
-		} else {
-			Assert.notEmpty(questionnairDefinitions,
-					"questionnairDefinitions required");
-			Assert.state(questionnairDefinitions.size() == 1,
-					"Only one questionnairDefinitions supported for Open Access studies");
-			String token = tokenGenerator.generate();
+                    MailMessage mailMessage = composeMailMessage(invitationTemplate, respondent, token);
+                    mailMessageRepository.save(mailMessage);
 
-			AnonymousInvitation anonymousInvitation = AnonymousInvitation
-					.with().research(research).token(token)
-					.status(InvitationStatus.ACTIVE).build();
-			invitationRepository.save(anonymousInvitation);
-		}
-		return research;
-	}
+                    if (groupRepository.isUserInGroup(respondent.getId(), "Respondents") == 0) {
+                        respondentsGroup.assignUser(respondent);
+                    }
+                }
+            }
+        } else {
+            Assert.notEmpty(questionnairDefinitions, "questionnairDefinitions required");
+            Assert.state(questionnairDefinitions.size() == 1,
+                    "Only one questionnairDefinitions supported for Open Access studies");
+            String token = tokenGenerator.generate();
 
-	private Role findOrCreateBy(User user) {
-		Role example = Role.with().name(user.getAcronym()).build();
-		Role role = roleRepository.findOneByExample(example,
-				new SearchParameters());
-		if (role == null) {
-			role = Role
-					.with()
-					.name(user.getAcronym())
-					.scope(RoleScope.USER)
-					.description(
-							String.format("Specific role for %s %s ",
-									user.getGivenNames(), user.getSurname()))
-					.build();
-			role = roleRepository.save(role);
-			user.assignToRole(role);
-		}
-		return role;
-	}
+            AnonymousInvitation anonymousInvitation = AnonymousInvitation.with().research(research).token(token)
+                    .status(InvitationStatus.ACTIVE).build();
+            invitationRepository.save(anonymousInvitation);
+        }
+        return research;
+    }
 
-	private MailMessage composeMailMessage(
-			final MailMessageTemplate mailMessageTemplate,
-			final User respondent, final String surveyLinkToken) {
+    private Role findOrCreateBy(User user) {
+        Role example = Role.with().name(user.getAcronym()).build();
+        Role role = roleRepository.findOneByExample(example, new SearchParameters());
+        if (role == null) {
+            role = Role.with().name(user.getAcronym()).scope(RoleScope.USER)
+                    .description(String.format("Specific role for %s %s ", user.getGivenNames(), user.getSurname()))
+                    .build();
+            role = roleRepository.save(role);
+            user.assignToRole(role);
+        }
+        return role;
+    }
 
-		Map<String, Object> model = new HashMap<>();
-		model.put("lastname",
-				StringUtils.defaultIfBlank(respondent.getSurname(), ""));
-		model.put("firstname",
-				StringUtils.defaultIfBlank(respondent.getGivenNames(), ""));
-		model.put("gender", respondent.getGender());
-		model.put("link", "http://localhost:8080/questionaires-ui/token="
-				+ surveyLinkToken);
+    private MailMessage composeMailMessage(final MailMessageTemplate mailMessageTemplate, final User respondent,
+            final String surveyLinkToken) {
 
-		Language preferedLanguage = respondent.getPreferedLanguage();
+        Map<String, Object> model = new HashMap<>();
+        model.put("lastname", StringUtils.defaultIfBlank(respondent.getSurname(), ""));
+        model.put("firstname", StringUtils.defaultIfBlank(respondent.getGivenNames(), ""));
+        model.put("gender", respondent.getGender());
+        model.put("link", "http://localhost:8080/questionaires-ui/token=" + surveyLinkToken);
 
-		StringBuilder templateLocation = new StringBuilder()
-				.append(mailMessageTemplate.getId());
-		if (preferedLanguage != null) {
-			templateLocation.append("/");
-			templateLocation.append(preferedLanguage);
-		}
-		VelocityEngine velocityEngine = velocityFactory.getObject();
+        Language preferedLanguage = respondent.getPreferedLanguage();
 
-		String body = VelocityEngineUtils.mergeTemplateIntoString(
-				velocityEngine, templateLocation.toString(), "UTF-8", model);
+        StringBuilder templateLocation = new StringBuilder().append(mailMessageTemplate.getId());
+        if (preferedLanguage != null) {
+            templateLocation.append("/");
+            templateLocation.append(preferedLanguage);
+        }
+        VelocityEngine velocityEngine = velocityFactory.getObject();
 
-		MailMessageTemplateLanguageSettings languageSettings = mailMessageTemplate
-				.getLanguageSettings();
-		if (preferedLanguage != null
-				&& !preferedLanguage.equals(mailMessageTemplate.getLanguage())) {
-			MailMessageTemplateTranslation preferedTranslation = mailMessageTemplate
-					.getTranslations().get(preferedLanguage);
-			if (preferedTranslation != null) {
-				languageSettings = preferedTranslation.getLanguageSettings();
-			}
-		}
-		MailMessage mailMessage = MailMessage.with()
-				.subject(languageSettings.getSubject())
-				.to(respondent.getEmail())
-				.replyTo(mailMessageTemplate.getReplyTo())
-				.from(mailMessageTemplate.getFromAddress()).text(body).build();
-		return mailMessage;
-	}
+        String body = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templateLocation.toString(), "UTF-8",
+                model);
+
+        MailMessageTemplateLanguageSettings languageSettings = mailMessageTemplate.getLanguageSettings();
+        if (preferedLanguage != null && !preferedLanguage.equals(mailMessageTemplate.getLanguage())) {
+            MailMessageTemplateTranslation preferedTranslation = mailMessageTemplate.getTranslations().get(
+                    preferedLanguage);
+            if (preferedTranslation != null) {
+                languageSettings = preferedTranslation.getLanguageSettings();
+            }
+        }
+        MailMessage mailMessage = MailMessage.with().subject(languageSettings.getSubject()).to(respondent.getEmail())
+                .replyTo(mailMessageTemplate.getReplyTo()).from(mailMessageTemplate.getFromAddress()).text(body)
+                .build();
+        return mailMessage;
+    }
 
 }

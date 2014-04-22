@@ -18,6 +18,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
 import net.sf.gazpachoquest.domain.user.User;
@@ -112,6 +113,11 @@ public class Questionnair extends AbstractAuditable {
 
     public void setAnswersId(Integer answersId) {
         this.answersId = answersId;
+    }
+
+    @Transient
+    public boolean isDraft() {
+        return status == null ? true : status == EntityStatus.DRAFT;
     }
 
     public static Builder with() {

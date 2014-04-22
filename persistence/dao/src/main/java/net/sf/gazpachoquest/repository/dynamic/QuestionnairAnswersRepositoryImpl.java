@@ -154,8 +154,8 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
             entityManager.persist(entity);
             questionnairAnswers.setId((Integer) entity.get("id"));
         }
-        entityManager.flush();
-        entityManager.clear();
+        // entityManager.flush();
+        // entityManager.clear();
         return questionnairAnswers;
     }
 
