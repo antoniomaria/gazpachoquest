@@ -14,6 +14,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,6 +24,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 		DbUnitTestExecutionListener.class })
 @DatabaseSetup("ResearchService-dataset.xml")
+@DatabaseTearDown("ResearchService-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class ResearchServiceTest {
 

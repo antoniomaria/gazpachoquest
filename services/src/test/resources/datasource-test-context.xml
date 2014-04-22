@@ -11,4 +11,8 @@
 
   <jdbc:embedded-database id="dataSource" type="HSQL" />
 
+
+  <bean class="org.springframework.jdbc.core.JdbcTemplate">
+    <constructor-arg ref="dataSource" />
+  </bean>
 </beans>

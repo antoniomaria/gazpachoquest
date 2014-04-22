@@ -14,6 +14,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
@@ -22,6 +23,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 		DbUnitTestExecutionListener.class })
 @DatabaseSetup("LocalizedTemplateResourceLoader-dataset.xml")
+@DatabaseTearDown("LocalizedTemplateResourceLoader-dataset.xml")
 public class LocalizedTemplateResourceLoaderTest {
 
 	@Autowired

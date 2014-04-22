@@ -18,6 +18,7 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
@@ -25,6 +26,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, 
         DbUnitTestExecutionListener.class })
 @DatabaseSetup("VelocityEngineFactoryBean-dataset.xml")
+@DatabaseTearDown("VelocityEngineFactoryBean-dataset.xml")
 public class VelocityEngineFactoryBeanTest {
 
     @Autowired

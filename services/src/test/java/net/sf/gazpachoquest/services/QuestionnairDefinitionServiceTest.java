@@ -7,7 +7,6 @@ import java.util.Set;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation;
-import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.Language;
 
@@ -19,11 +18,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,6 +31,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 		DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionnairDefinitionService-dataset.xml")
+@DatabaseTearDown("QuestionnairDefinitionService-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class QuestionnairDefinitionServiceTest {
 
