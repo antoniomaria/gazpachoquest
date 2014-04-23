@@ -28,6 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
@@ -37,7 +38,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
         "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnair-context.xml",
         "classpath:/facades-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("QuestionnairFacade-dataset.xml")
+@DatabaseSetup(value = "QuestionnairFacade-dataset.xml", type = DatabaseOperation.CLEAN_INSERT)
 @DatabaseTearDown("QuestionnairFacade-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class QuestionnairFacadeTest {
@@ -63,14 +64,14 @@ public class QuestionnairFacadeTest {
 
     @Test
     public void findByOneTest() {
-        Integer questionnairId = 58;
+        Integer questionnairId = 70;
         QuestionnairDTO questionnair = questionnairFacade.findOne(questionnairId);
         assertThat(questionnair).isNotNull();
     }
 
     @Test
     public void resolvePageTest() {
-        Integer questionnairId = 58;
+        Integer questionnairId = 70;
         PageDTO page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP,
                 BrowsingAction.ENTERING);
 
@@ -90,7 +91,7 @@ public class QuestionnairFacadeTest {
 
     @Test
     public void resolveFirstPageTest() {
-        Questionnair questionnair = Questionnair.with().id(58).build();
+        Questionnair questionnair = Questionnair.with().id(70).build();
         String answer = "Antonio Maria";
         String questionCode = "Q1";
         questionnairAnswersService.save(questionnair, questionCode, answer);
@@ -106,7 +107,7 @@ public class QuestionnairFacadeTest {
 
     @Test
     public void saveAnswerTest() {
-        Questionnair questionnair = Questionnair.with().id(63).build();
+        Questionnair questionnair = Questionnair.with().id(75).build();
         String questionCode = "Q1";
         Answer answer = TextAnswer.fromValue("Antonio Maria");
         Integer questionDefinitionId = jdbcTemplate.queryForObject(
