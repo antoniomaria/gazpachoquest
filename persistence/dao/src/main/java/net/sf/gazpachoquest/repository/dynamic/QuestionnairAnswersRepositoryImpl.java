@@ -109,7 +109,8 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
     @Override
     @Transactional
     public QuestionnairAnswers findByOne(Integer questionnairDefinitionId, Integer id) {
-        Assert.notNull(questionnairDefinitionId);
+        Assert.notNull(questionnairDefinitionId, "Questionnair definition id is required ");
+        Assert.notNull(id, "Questionnair answers id is required");
         QuestionnairAnswers questionnairAnswers = null;
 
         String entityAlias = new StringBuilder().append(ENTITY_NAME_PREFIX).append(questionnairDefinitionId).toString();
