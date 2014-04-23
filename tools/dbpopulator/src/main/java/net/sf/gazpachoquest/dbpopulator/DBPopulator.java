@@ -17,6 +17,7 @@ import net.sf.gazpachoquest.dto.MailMessageTemplateDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionGroupDTO;
+import net.sf.gazpachoquest.dto.QuestionGroupLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionLanguageSettingsDTO;
@@ -87,7 +88,8 @@ public class DBPopulator {
                 .build();
         researchFacade.save(research);
 
-        research = ResearchDTO.with().questionnairDefinitions(questionnairDefinitions).type(ResearchAccessType.OPEN_ACCESS)
+        research = ResearchDTO.with().questionnairDefinitions(questionnairDefinitions)
+                .type(ResearchAccessType.OPEN_ACCESS)
                 .name("New open Questionnair " + questionnairDef.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
         researchFacade.save(research);
@@ -171,6 +173,12 @@ public class DBPopulator {
 
         survey.addQuestionGroup(questionGroup1);
         survey = questionnairDefinitionEditorFacade.save(survey);
+
+        TranslationDTO<QuestionGroupDTO, QuestionGroupLanguageSettingsDTO> questionGroupTranslation = new TranslationDTO<>();
+        questionGroupTranslation.setLanguage(Language.ES);
+        questionGroupTranslation.setLanguageSettings(QuestionGroupLanguageSettingsDTO.with().title("Grupo 1").build());
+
+        questionnairDefinitionEditorFacade.saveQuestionGroupTranslation(questionGroupTranslation);
 
         questionGroup1 = survey.getLastQuestionGroupDTO();
 
