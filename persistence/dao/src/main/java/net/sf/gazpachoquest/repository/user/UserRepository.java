@@ -32,7 +32,7 @@ public interface UserRepository extends GenericRepository<User> {
     List<Group> getGroups(@Param("userId")
     Integer userId);
 
-
     @Query("select r from Role r  left join r.users u where u.id = :userId")
-	Set<Role> getRoles(@Param("userId") Integer userId);
+    Set<Role> getRoles(@Param("userId")
+    Integer userId);
 }

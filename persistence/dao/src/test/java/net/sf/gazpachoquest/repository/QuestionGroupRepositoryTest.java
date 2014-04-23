@@ -22,44 +22,39 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
-		"classpath:/datasource-test-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-		DbUnitTestExecutionListener.class })
+@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml" })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionGroupRepository-dataset.xml")
 @DatabaseTearDown("QuestionGroupRepository-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class QuestionGroupRepositoryTest {
 
-	@Autowired
-	private QuestionGroupRepository questionGroupRepository;
+    @Autowired
+    private QuestionGroupRepository questionGroupRepository;
 
-	@Test
-	public void findOneByPositionInQuestionnairTest() {
-		Integer position = 2;
-		Integer questionnairDefinitionId = 7;
-		QuestionGroup questionGroup = questionGroupRepository
-				.findOneByPositionInQuestionnairDefinition(
-						questionnairDefinitionId, position);
-		assertThat(questionGroup)
-				.isEqualTo(QuestionGroup.with().id(11).build());
-	}
+    @Test
+    public void findOneByPositionInQuestionnairTest() {
+        Integer position = 2;
+        Integer questionnairDefinitionId = 7;
+        QuestionGroup questionGroup = questionGroupRepository.findOneByPositionInQuestionnairDefinition(
+                questionnairDefinitionId, position);
+        assertThat(questionGroup).isEqualTo(QuestionGroup.with().id(11).build());
+    }
 
-	@Test
-	public void findPositionInQuestionnairDefinitionTest() {
-		int questionGroupId = 10;
-		Integer pos = questionGroupRepository
-				.findPositionInQuestionnairDefinition(questionGroupId);
-		assertThat(pos).isEqualTo(1);
-	}
+    @Test
+    public void findPositionInQuestionnairDefinitionTest() {
+        int questionGroupId = 10;
+        Integer pos = questionGroupRepository.findPositionInQuestionnairDefinition(questionGroupId);
+        assertThat(pos).isEqualTo(1);
+    }
 
-	@Test
-	public void findByQuestionnairDefinitionIdTest() {
-		int questionnairDefinitionId = 7;
-		List<QuestionGroup> questiongroups = questionGroupRepository
-				.findByQuestionnairDefinitionId(questionnairDefinitionId);
-		assertThat(questiongroups).hasSize(3);
+    @Test
+    public void findByQuestionnairDefinitionIdTest() {
+        int questionnairDefinitionId = 7;
+        List<QuestionGroup> questiongroups = questionGroupRepository
+                .findByQuestionnairDefinitionId(questionnairDefinitionId);
+        assertThat(questiongroups).hasSize(3);
 
-	}
+    }
 
 }

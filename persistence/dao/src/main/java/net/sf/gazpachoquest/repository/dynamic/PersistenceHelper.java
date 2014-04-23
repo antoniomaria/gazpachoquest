@@ -10,7 +10,6 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.repository.dynamic;
 
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;

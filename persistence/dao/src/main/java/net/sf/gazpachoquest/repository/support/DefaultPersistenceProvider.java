@@ -23,7 +23,8 @@ import org.springframework.data.jpa.repository.query.QueryExtractor;
 
 /**
  * 
- * @author Boris lam This class is use when you use DefaultRepositoryFactory to override default repository factory
+ * @author Boris lam This class is use when you use DefaultRepositoryFactory to
+ *         override default repository factory
  *         class.
  * 
  */
@@ -74,7 +75,8 @@ public enum DefaultPersistenceProvider implements QueryExtractor, Serializable {
         }
 
         /**
-         * Return custom placeholder ({@code *}) as Hibernate does create invalid queries for count queries for objects
+         * Return custom placeholder ({@code *}) as Hibernate does create
+         * invalid queries for count queries for objects
          * with compound keys.
          * 
          * @see HHH-4044
@@ -100,7 +102,8 @@ public enum DefaultPersistenceProvider implements QueryExtractor, Serializable {
     };
 
     /**
-     * Determines the {@link PersistenceProvider} from the given {@link EntityManager}. If no special one can be
+     * Determines the {@link PersistenceProvider} from the given
+     * {@link EntityManager}. If no special one can be
      * determined {@value #GENERIC_JPA} will be returned.
      * 
      * @param em
@@ -123,7 +126,8 @@ public enum DefaultPersistenceProvider implements QueryExtractor, Serializable {
      * Creates a new {@link PersistenceProvider}.
      * 
      * @param entityManagerClassName
-     *            the name of the provider specific {@link EntityManager} implementation
+     *            the name of the provider specific {@link EntityManager}
+     *            implementation
      */
     private DefaultPersistenceProvider(final String entityManagerClassName) {
 
@@ -132,7 +136,10 @@ public enum DefaultPersistenceProvider implements QueryExtractor, Serializable {
 
     /*
      * (non-Javadoc)
-     * @see org.springframework.data.jpa.repository.query.QueryExtractor#canExtractQuery ()
+     * 
+     * @see
+     * org.springframework.data.jpa.repository.query.QueryExtractor#canExtractQuery
+     * ()
      */
     @Override
     public boolean canExtractQuery() {
@@ -141,7 +148,8 @@ public enum DefaultPersistenceProvider implements QueryExtractor, Serializable {
     }
 
     /**
-     * Returns the placeholder to be used for simple count queries. Default implementation returns {@code *}.
+     * Returns the placeholder to be used for simple count queries. Default
+     * implementation returns {@code *}.
      * 
      * @return
      */
