@@ -14,14 +14,15 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
         "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/facades-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-         DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionnairDefinitionAccessorFacade-dataset.xml")
+@DatabaseTearDown("QuestionnairDefinitionAccessorFacade-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class QuestionnairDefinitionAccessorFacadeTest {
 

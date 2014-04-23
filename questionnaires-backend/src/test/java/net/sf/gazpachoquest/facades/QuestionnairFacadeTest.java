@@ -16,6 +16,7 @@ import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.BrowsingAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +29,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -36,6 +38,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
         "classpath:/facades-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionnairFacade-dataset.xml")
+@DatabaseTearDown("QuestionnairFacade-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class QuestionnairFacadeTest {
 
@@ -54,6 +57,8 @@ public class QuestionnairFacadeTest {
     @Before
     public void setUp() {
         repository.activeAllAnswers();
+        jdbcTemplate.update("INSERT INTO questionnair_answers_7 (id) values(?)", 5);
+        jdbcTemplate.update("INSERT INTO questionnair_answers_7 (id) values(?)", 10);
     }
 
     @Test
@@ -101,7 +106,6 @@ public class QuestionnairFacadeTest {
 
     @Test
     public void saveAnswerTest() {
-
         Questionnair questionnair = Questionnair.with().id(63).build();
         String questionCode = "Q1";
         Answer answer = TextAnswer.fromValue("Antonio Maria");
@@ -110,7 +114,7 @@ public class QuestionnairFacadeTest {
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
 
         Integer answersId = jdbcTemplate.queryForObject("select answers_id from questionnair where id = ?",
-        		Integer.class, questionnair.getId() );
+                Integer.class, questionnair.getId());
         assertThat(answersId).isNotNull();
         Object value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase()
                 + " from questionnair_answers_" + questionDefinitionId + " where id = ?", new Object[] { answersId },
@@ -175,4 +179,8 @@ public class QuestionnairFacadeTest {
 
     }
 
+    @After
+    public void tearDown() {
+        jdbcTemplate.update("delete from questionnair_answers_7");
+    }
 }

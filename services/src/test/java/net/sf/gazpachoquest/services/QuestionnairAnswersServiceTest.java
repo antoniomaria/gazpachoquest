@@ -25,57 +25,52 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
-		"classpath:/datasource-test-context.xml",
-		"classpath:/services-context.xml", "classpath:/components-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-		DbUnitTestExecutionListener.class })
+@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
+        "classpath:/services-context.xml", "classpath:/components-context.xml" })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionnairAnswersService-dataset.xml")
 @DatabaseTearDown("QuestionnairAnswersService-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class QuestionnairAnswersServiceTest {
 
-	@Autowired
-	private QuestionnairAnswersRepository questionnairAnswersRepository;
+    @Autowired
+    private QuestionnairAnswersRepository questionnairAnswersRepository;
 
-	@Autowired
-	private QuestionnairAnswersService questionnairAnswersService;
+    @Autowired
+    private QuestionnairAnswersService questionnairAnswersService;
 
-	@Autowired
-	private QuestionnairAnswersRepository repository;
+    @Autowired
+    private QuestionnairAnswersRepository repository;
 
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-	private int answersId = 5;
+    private final int answersId = 5;
 
-	@Before
-	public void setUp() {
-		repository.activeAllAnswers();
-		String insertSql = "INSERT INTO questionnair_answers_7 (id) values(?)";
-		jdbcTemplate.update(insertSql, answersId);
-	}
+    @Before
+    public void setUp() {
+        repository.activeAllAnswers();
+        String insertSql = "INSERT INTO questionnair_answers_7 (id) values(?)";
+        jdbcTemplate.update(insertSql, answersId);
+    }
 
-	@Test
-	public void save() {
-		Questionnair questionnair = Questionnair.with().id(58).answersId(answersId).build();
-		String answer = "Antonio Maria";
-		String questionCode = "Q1";
-		questionnairAnswersService.save(questionnair, questionCode, answer);
-		
-		Map<String, Object> answers = jdbcTemplate
-				.queryForMap(
-						"select q1,q2,q3,q5,q6,q7_1,q8_o1 from questionnair_answers_7 where id = ?",
-						answersId);
-		assertThat(answers).isNotEmpty();
-		assertThat(answers.get("q1")).isEqualTo("Antonio Maria");
-		
-	}
+    @Test
+    public void save() {
+        Questionnair questionnair = Questionnair.with().id(58).answersId(answersId).build();
+        String answer = "Antonio Maria";
+        String questionCode = "Q1";
+        questionnairAnswersService.save(questionnair, questionCode, answer);
 
-	@After
-	public void tearDown() {
-		jdbcTemplate.update("delete from questionnair_answers_7 where id = ?",
-				answersId);
-	}
+        Map<String, Object> answers = jdbcTemplate.queryForMap(
+                "select q1,q2,q3,q5,q6,q7_1,q8_o1 from questionnair_answers_7 where id = ?", answersId);
+        assertThat(answers).isNotEmpty();
+        assertThat(answers.get("q1")).isEqualTo("Antonio Maria");
+
+    }
+
+    @After
+    public void tearDown() {
+        jdbcTemplate.update("delete from questionnair_answers_7 where id = ?", answersId);
+    }
 
 }

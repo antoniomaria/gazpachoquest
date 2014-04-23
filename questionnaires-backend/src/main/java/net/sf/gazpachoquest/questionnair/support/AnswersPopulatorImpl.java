@@ -66,13 +66,13 @@ public class AnswersPopulatorImpl implements AnswersPopulator {
             if (!type.hasMultipleAnswers()) {
                 if (QuestionType.S.equals(type) || QuestionType.L.equals(type)) {
                     Object value = answers.get(questionCode);
-                    answer = TextAnswer.fromValue((String) value);
+                    answer = value != null ? TextAnswer.fromValue((String) value) : null;
                 } else if (QuestionType.N.equals(type)) {
                     Object value = answers.get(questionCode);
-                    answer = NumericAnswer.fromValue((Integer) value);
+                    answer = value != null ? NumericAnswer.fromValue((Integer) value) : null;
                 } else if (QuestionType.T.equals(type)) {
                     Character[] value = (Character[]) answers.get(questionCode);
-                    answer = new TextAnswer(new String(ArrayUtils.toPrimitive(value)));
+                    answer = value != null ? new TextAnswer(new String(ArrayUtils.toPrimitive(value))) : null;
                 } else {
                     throw new IllegalStateException(type + " not supported");
                 }
@@ -83,6 +83,9 @@ public class AnswersPopulatorImpl implements AnswersPopulator {
                     String optionCode = questionOptionDTO.getCode();
                     String answerCode = new StringBuilder(questionCode).append("_").append(optionCode).toString();
                     Object value = answers.get(answerCode);
+                    if (value == null) {
+                        continue;
+                    }
                     // Only checkbox are supported
                     if (type.getAnswerType().isAssignableFrom(Boolean.class)) {
                         ((MultipleAnswer) answer).addAnswer(BooleanAnswer.valueOf(optionCode, (Boolean) value));

@@ -13,28 +13,29 @@ import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachoquest.services.QuestionnairAnswersService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
         "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnair-context.xml",
         "classpath:/facades-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("AnswersPopulatorTest-dataset.xml")
+@DatabaseTearDown("AnswersPopulatorTest-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class AnswersPopulatorTest {
 
@@ -50,9 +51,13 @@ public class AnswersPopulatorTest {
     @Autowired
     private QuestionnairDefinitionAccessorFacade questionnairDefinitionAccessorFacade;
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
     @Before
     public void setUp() {
         repository.activeAllAnswers();
+        jdbcTemplate.update("INSERT INTO questionnair_answers_7 (id) values(?)", 5);
     }
 
     @Test
@@ -73,4 +78,8 @@ public class AnswersPopulatorTest {
         assertThat(((TextAnswer) question.getAnswer()).getValue()).isEqualTo("Antonio Maria");
     }
 
+    @After
+    public void tearDown() {
+        jdbcTemplate.update("delete from questionnair_answers_7");
+    }
 }
