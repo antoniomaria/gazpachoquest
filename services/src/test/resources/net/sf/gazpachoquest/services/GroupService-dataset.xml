@@ -58,5 +58,9 @@
   <label_set />
   <label />
   <browsed_element />
+  
+  <mail_message_template />
+  <mail_message_template_translation />
+  
   <sequence seq_name="SEQ_GEN" seq_count="150" />
 </dataset>
