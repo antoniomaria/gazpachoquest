@@ -41,9 +41,9 @@ public class Role extends AbstractPersistable {
     }
 
     public Set<Group> getGroups() {
-    	if (groups == null){
-    		this.groups = new HashSet<Group>();
-    	}
+        if (groups == null) {
+            this.groups = new HashSet<Group>();
+        }
         return groups;
     }
 
@@ -52,9 +52,9 @@ public class Role extends AbstractPersistable {
     }
 
     public Set<User> getUsers() {
-    	if (users == null){
-    		this.users = new HashSet<User>();
-    	}
+        if (users == null) {
+            this.users = new HashSet<User>();
+        }
         return users;
     }
 
@@ -71,9 +71,9 @@ public class Role extends AbstractPersistable {
     }
 
     public Set<Permission> getPermissions() {
-    	if (permissions == null){
-    		this.permissions = new HashSet<Permission>();
-    	}
+        if (permissions == null) {
+            this.permissions = new HashSet<Permission>();
+        }
         return permissions;
     }
 
@@ -90,19 +90,19 @@ public class Role extends AbstractPersistable {
     }
 
     public RoleScope getScope() {
-		return scope;
-	}
+        return scope;
+    }
 
-	public void setScope(RoleScope scope) {
-		this.scope = scope;
-	}
-	
-	public void assignPermission(Permission permission){
-		getPermissions().add(permission);
-		permission.setRole(this);
-	}
+    public void setScope(RoleScope scope) {
+        this.scope = scope;
+    }
 
-	public static Builder with() {
+    public void assignPermission(Permission permission) {
+        getPermissions().add(permission);
+        permission.setRole(this);
+    }
+
+    public static Builder with() {
         return new Builder();
     }
 
