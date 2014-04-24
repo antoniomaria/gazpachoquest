@@ -62,8 +62,9 @@ public class EnviromentDiscovery implements ApplicationContextInitializer<Config
         String managedBy = config.getProperty("dbpool.managedBy");
         String port = config.getProperty("http.port");
         String schema = config.getProperty("http.schema");
+        String hostAlias = config.getProperty("http.host.alias");
         // Define baseURI
-        String basePath = createBasePath(schema, host, port, contextPath);
+        String basePath = createBasePath(schema, hostAlias, port, contextPath);
         servletContext.setAttribute("basePath", basePath);
 
         environment.addActiveProfile(managedBy);

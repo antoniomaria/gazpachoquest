@@ -1,12 +1,9 @@
 /*******************************************************************************
- * Copyright (c) 2014 antoniomariasanchez at gmail.com.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the GNU Public License v3.0
- * which accompanies this distribution, and is available at
- * http://www.gnu.org/licenses/gpl.html
+ * Copyright (c) 2014 antoniomariasanchez at gmail.com. All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0 which accompanies this distribution, and is
+ * available at http://www.gnu.org/licenses/gpl.html
  * 
- * Contributors:
- *     antoniomaria - initial API and implementation
+ * Contributors: antoniomaria - initial API and implementation
  ******************************************************************************/
 package net.sf.gazpachoquest.ddlgenerator;
 
@@ -45,8 +42,10 @@ public class DDLGenerator {
 
         if (databaseProviderName.equals("postgres")) {
             addPostgresSettings(persistProperties);
-        } else {
+        } else if (databaseProviderName.equals("mysql")) {
             addMysqlSettings(persistProperties);
+        } else {
+            addHSQLettings(persistProperties);
         }
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("default", persistProperties);
@@ -80,5 +79,12 @@ public class DDLGenerator {
         persistProperties.put(PersistenceUnitProperties.JDBC_URL, "jdbc:postgresql://localhost:5432/gazpachoquest");
         persistProperties.put(PersistenceUnitProperties.JDBC_USER, "postgres");
         persistProperties.put(PersistenceUnitProperties.JDBC_PASSWORD, "admin");
+    }
+
+    public void addHSQLettings(Map<String, String> persistProperties) {
+        persistProperties.put(PersistenceUnitProperties.JDBC_DRIVER, "org.hsqldb.jdbcDriver");
+        persistProperties.put(PersistenceUnitProperties.JDBC_URL, "jdbc:hsqldb:mem:testdb");
+        persistProperties.put(PersistenceUnitProperties.JDBC_USER, "sa");
+        persistProperties.put(PersistenceUnitProperties.JDBC_PASSWORD, "");
     }
 }
