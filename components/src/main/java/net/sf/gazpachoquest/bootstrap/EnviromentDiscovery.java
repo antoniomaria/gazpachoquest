@@ -63,6 +63,13 @@ public class EnviromentDiscovery implements ApplicationContextInitializer<Config
         String port = config.getProperty("http.port");
         String schema = config.getProperty("http.schema");
         String hostAlias = config.getProperty("http.host.alias");
+
+        logger.info("Database engine {}", dbEngine);
+        logger.info("DBPool Managed By: {}", managedBy);
+        logger.info("Default port: {}", port);
+        logger.info("Host Alias: {}", hostAlias);
+        logger.info("Schema: {}", schema);
+
         // Define baseURI
         String basePath = createBasePath(schema, hostAlias, port, contextPath);
         servletContext.setAttribute("basePath", basePath);
