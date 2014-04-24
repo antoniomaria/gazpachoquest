@@ -530,7 +530,7 @@
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-        <version>${cxf.version}</version>
+        <version>${cxf.version}</version>  <!-- 
         <exclusions>
           <exclusion>
             <artifactId>jaxb-impl</artifactId>
@@ -540,11 +540,11 @@
             <artifactId>geronimo-javamail_1.4_spec</artifactId>
             <groupId>org.apache.geronimo.specs</groupId>
           </exclusion>
-          <!-- 
+        
           <exclusion>
             <artifactId>wsdl4j</artifactId>
             <groupId>wsdl4j</groupId>
-          </exclusion>  -->
+          </exclusion> 
           <exclusion>
             <artifactId>woodstox-core-asl</artifactId>
             <groupId>org.codehaus.woodstox</groupId>
@@ -553,7 +553,7 @@
             <artifactId>xmlschema-core</artifactId>
             <groupId>org.apache.ws.xmlschema</groupId>
           </exclusion>
-        </exclusions>
+        </exclusions>  -->
       </dependency>
 
     </dependencies>
