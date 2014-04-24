@@ -62,4 +62,22 @@ public class QuestionLanguageSettingsDTO implements LanguageSettingsDTO {
         return "QuestionLanguageSettingsDTO [title=" + title + "]";
     }
 
+    public static Builder with() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private String title;
+
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public QuestionLanguageSettingsDTO build() {
+            QuestionLanguageSettingsDTO questionLanguageSettingsDTO = new QuestionLanguageSettingsDTO();
+            questionLanguageSettingsDTO.title = title;
+            return questionLanguageSettingsDTO;
+        }
+    }
 }

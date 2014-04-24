@@ -18,7 +18,9 @@ import net.sf.gazpachoquest.dto.MailMessageTemplateLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionGroupDTO;
 import net.sf.gazpachoquest.dto.QuestionGroupLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
+import net.sf.gazpachoquest.dto.QuestionOptionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.ResearchDTO;
@@ -168,20 +170,22 @@ public class DBPopulator {
 
         questionnairDefinitionEditorFacade.saveSurveyTranslation(surveyTranslation);
 
+        // Page 1
         QuestionGroupDTO questionGroup1 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
                 .title("QuestionGroup 1").pageLanguageSettingsEnd().build();
 
         survey.addQuestionGroup(questionGroup1);
         survey = questionnairDefinitionEditorFacade.save(survey);
 
+        questionGroup1 = survey.getLastQuestionGroupDTO();
+
         TranslationDTO<QuestionGroupDTO, QuestionGroupLanguageSettingsDTO> questionGroupTranslation = new TranslationDTO<>();
         questionGroupTranslation.setLanguage(Language.ES);
         questionGroupTranslation.setLanguageSettings(QuestionGroupLanguageSettingsDTO.with().title("Grupo 1").build());
-
+        questionGroupTranslation.setTranslatedEntity(questionGroup1);
         questionnairDefinitionEditorFacade.saveQuestionGroupTranslation(questionGroupTranslation);
 
-        questionGroup1 = survey.getLastQuestionGroupDTO();
-
+        // Page 2
         QuestionGroupDTO questionGroup2 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
                 .title("QuestionGroup 2").pageLanguageSettingsEnd().build();
 
@@ -189,6 +193,13 @@ public class DBPopulator {
         survey = questionnairDefinitionEditorFacade.save(survey);
         questionGroup2 = survey.getLastQuestionGroupDTO();
 
+        questionGroupTranslation = new TranslationDTO<>();
+        questionGroupTranslation.setLanguage(Language.ES);
+        questionGroupTranslation.setLanguageSettings(QuestionGroupLanguageSettingsDTO.with().title("Grupo 2").build());
+        questionGroupTranslation.setTranslatedEntity(questionGroup2);
+        questionnairDefinitionEditorFacade.saveQuestionGroupTranslation(questionGroupTranslation);
+
+        // Page 3
         QuestionGroupDTO questionGroup3 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
                 .title("QuestionGroup 3").pageLanguageSettingsEnd().build();
 
@@ -196,49 +207,76 @@ public class DBPopulator {
         survey = questionnairDefinitionEditorFacade.save(survey);
         questionGroup3 = survey.getLastQuestionGroupDTO();
 
+        questionGroupTranslation = new TranslationDTO<>();
+        questionGroupTranslation.setLanguage(Language.ES);
+        questionGroupTranslation.setLanguageSettings(QuestionGroupLanguageSettingsDTO.with().title("Grupo 3").build());
+        questionGroupTranslation.setTranslatedEntity(questionGroup3);
+        questionnairDefinitionEditorFacade.saveQuestionGroupTranslation(questionGroupTranslation);
+
         // 1 Single Textbox
         QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).code("Q1")
                 .languageSettingsStart().title("What is your name?").languageSettingsEnd().required(true).build();
         questionGroup1.addQuestion(question);
         questionGroup1 = questionnairDefinitionEditorFacade.save(questionGroup1);
+        question = questionGroup1.getLastQuestionDTO();
+
+        TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> questionTranslation = new TranslationDTO<>();
+        questionTranslation.setLanguage(Language.ES);
+        questionTranslation.setLanguageSettings(QuestionLanguageSettingsDTO.with().title("¿Cómo te llamas?").build());
+        questionTranslation.setTranslatedEntity(question);
+        questionnairDefinitionEditorFacade.saveQuestionTranslation(questionTranslation);
 
         // 2 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).code("Q2").languageSettingsStart()
                 .title("What is your age group?").languageSettingsEnd().required(true).build();
 
-        question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("0-14 years")
+        question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("0-18 years")
                 .build());
-        question.addQuestionOption(QuestionOptionDTO.with().code("O2").language(Language.EN).title("15-19 years")
+        question.addQuestionOption(QuestionOptionDTO.with().code("O2").language(Language.EN).title("19-26 years")
                 .build());
-        question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN).title("20-24 years")
+        question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN).title("27-40 years")
                 .build());
-        question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("25-29 years")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().code("O5").language(Language.EN).title("30-34 years")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().code("O6").language(Language.EN).title("35-39 years")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().code("O7").language(Language.EN).title("40-44 years")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().code("O8").language(Language.EN).title("45-49 years")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().code("O9").language(Language.EN).title("50-54 years")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().code("O10").language(Language.EN).title("55-59 years")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().code("O11").language(Language.EN).title("60-64 years")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().code("O12").language(Language.EN).title("65-69 years")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().code("O13").language(Language.EN).title("70-74 years")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().code("O14").language(Language.EN).title("75-79 years")
-                .build());
-        question.addQuestionOption(QuestionOptionDTO.with().code("O15").language(Language.EN).title("80 and over")
+        question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("40 and over")
                 .build());
 
         questionGroup1.addQuestion(question);
         questionGroup1 = questionnairDefinitionEditorFacade.save(questionGroup1);
+        question = questionGroup1.getLastQuestionDTO();
+
+        questionTranslation = new TranslationDTO<>();
+        questionTranslation.setLanguage(Language.ES);
+        questionTranslation.setLanguageSettings(QuestionLanguageSettingsDTO.with().title("¿Cuál es su grupo de edad?")
+                .build());
+        questionTranslation.setTranslatedEntity(question);
+        questionnairDefinitionEditorFacade.saveQuestionTranslation(questionTranslation);
+
+        TranslationDTO<QuestionOptionDTO, QuestionOptionLanguageSettingsDTO> questionOptionTranslation = new TranslationDTO<>();
+        questionOptionTranslation.setLanguage(Language.ES);
+        questionOptionTranslation.setLanguageSettings(QuestionOptionLanguageSettingsDTO.with().title("0-18 años")
+                .build());
+        questionOptionTranslation.setTranslatedEntity(question.getQuestionOptions().get(0));
+        questionnairDefinitionEditorFacade.saveQuestionOptionTranslation(questionOptionTranslation);
+
+        questionOptionTranslation = new TranslationDTO<>();
+        questionOptionTranslation.setLanguage(Language.ES);
+        questionOptionTranslation.setLanguageSettings(QuestionOptionLanguageSettingsDTO.with().title("19-26 años")
+                .build());
+        questionOptionTranslation.setTranslatedEntity(question.getQuestionOptions().get(1));
+        questionnairDefinitionEditorFacade.saveQuestionOptionTranslation(questionOptionTranslation);
+
+        questionOptionTranslation = new TranslationDTO<>();
+        questionOptionTranslation.setLanguage(Language.ES);
+        questionOptionTranslation.setLanguageSettings(QuestionOptionLanguageSettingsDTO.with().title("27-40 años")
+                .build());
+        questionOptionTranslation.setTranslatedEntity(question.getQuestionOptions().get(2));
+        questionnairDefinitionEditorFacade.saveQuestionOptionTranslation(questionOptionTranslation);
+
+        questionOptionTranslation = new TranslationDTO<>();
+        questionOptionTranslation.setLanguage(Language.ES);
+        questionOptionTranslation.setLanguageSettings(QuestionOptionLanguageSettingsDTO.with().title("Más de 40 años")
+                .build());
+        questionOptionTranslation.setTranslatedEntity(question.getQuestionOptions().get(3));
+        questionnairDefinitionEditorFacade.saveQuestionOptionTranslation(questionOptionTranslation);
 
         // 3 Numeric
         question = QuestionDTO.with().type(QuestionType.N).language(Language.EN).code("Q3").languageSettingsStart()
@@ -248,6 +286,14 @@ public class DBPopulator {
         questionGroup1.addQuestion(question);
         questionGroup1 = questionnairDefinitionEditorFacade.save(questionGroup1);
 
+        question = questionGroup1.getLastQuestionDTO();
+        questionTranslation = new TranslationDTO<>();
+        questionTranslation.setLanguage(Language.ES);
+        questionTranslation.setLanguageSettings(QuestionLanguageSettingsDTO.with()
+                .title("¿Qué edad tienes exactamente?").build());
+        questionTranslation.setTranslatedEntity(question);
+        questionnairDefinitionEditorFacade.saveQuestionTranslation(questionTranslation);
+
         // 4 Comment/Essay Box
         question = QuestionDTO.with().type(QuestionType.T).language(Language.EN).code("Q4").languageSettingsStart()
                 .title("Please tell us a little about yourself. What was your first job, and did you enjoy it?")
@@ -255,6 +301,14 @@ public class DBPopulator {
 
         questionGroup2.addQuestion(question);
         questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup2);
+
+        question = questionGroup2.getLastQuestionDTO();
+        questionTranslation = new TranslationDTO<>();
+        questionTranslation.setLanguage(Language.ES);
+        questionTranslation.setLanguageSettings(QuestionLanguageSettingsDTO.with()
+                .title("Cuentanos un poco sobre ti. ¿Cuál fue tu primer trabajo?, ¿era divertido?").build());
+        questionTranslation.setTranslatedEntity(question);
+        questionnairDefinitionEditorFacade.saveQuestionTranslation(questionTranslation);
 
         // 5 List (Radio) Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).language(Language.EN).code("Q5").languageSettingsStart()
@@ -269,6 +323,14 @@ public class DBPopulator {
 
         questionGroup2.addQuestion(question);
         questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup2);
+
+        question = questionGroup2.getLastQuestionDTO();
+        questionTranslation = new TranslationDTO<>();
+        questionTranslation.setLanguage(Language.ES);
+        questionTranslation.setLanguageSettings(QuestionLanguageSettingsDTO.with()
+                .title("Dada tu extraodinaria edad, ¿Qué opinas de esta herramienta?").build());
+        questionTranslation.setTranslatedEntity(question);
+        questionnairDefinitionEditorFacade.saveQuestionTranslation(questionTranslation);
 
         // 6 Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).code("Q6").language(Language.EN).languageSettingsStart()
@@ -337,7 +399,7 @@ public class DBPopulator {
         return survey;
     }
 
-    public void puopulateLabelSet() {
+    public void populateLabelSet() {
         LabelSetDTO labelSet = LabelSetDTO.with().language(Language.EN).name("Feelings").build();
         labelSet = questionnairDefinitionEditorFacade.save(labelSet);
 
@@ -355,7 +417,6 @@ public class DBPopulator {
         label = LabelDTO.with().language(Language.EN).title("Disagree strongly").build();
         labelSet.addLabel(label);
 
-        // Comment for testing
         questionnairDefinitionEditorFacade.save(labelSet);
     }
 
