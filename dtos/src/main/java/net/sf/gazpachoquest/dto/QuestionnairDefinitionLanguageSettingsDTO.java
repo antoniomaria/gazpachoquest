@@ -23,7 +23,7 @@ public class QuestionnairDefinitionLanguageSettingsDTO implements LanguageSettin
 
         Builder description(String description);
 
-        QuestionnairDefinitionDTO.Builder surveyLanguageSettingsEnd();
+        QuestionnairDefinitionDTO.Builder questionnairLanguageSettingsEnd();
 
         Builder title(String title);
 
@@ -57,7 +57,7 @@ public class QuestionnairDefinitionLanguageSettingsDTO implements LanguageSettin
         }
 
         @Override
-        public QuestionnairDefinitionDTO.Builder surveyLanguageSettingsEnd() {
+        public QuestionnairDefinitionDTO.Builder questionnairLanguageSettingsEnd() {
             return container.languageSettings(build());
         }
 

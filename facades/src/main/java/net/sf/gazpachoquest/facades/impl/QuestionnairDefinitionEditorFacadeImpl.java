@@ -188,7 +188,7 @@ public final class QuestionnairDefinitionEditorFacadeImpl implements Questionnai
     }
 
     @Override
-    public TranslationDTO<QuestionnairDefinitionDTO, QuestionnairDefinitionLanguageSettingsDTO> saveSurveyTranslation(
+    public TranslationDTO<QuestionnairDefinitionDTO, QuestionnairDefinitionLanguageSettingsDTO> saveQuestionnairTranslation(
             final TranslationDTO<QuestionnairDefinitionDTO, QuestionnairDefinitionLanguageSettingsDTO> translation) {
 
         QuestionnairDefinitionLanguageSettings languageSettings = mapper.map(translation.getLanguageSettings(),

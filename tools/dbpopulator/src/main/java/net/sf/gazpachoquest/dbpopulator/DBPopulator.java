@@ -10,6 +10,7 @@ package net.sf.gazpachoquest.dbpopulator;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.sf.gazpachoquest.dbpopulator.samples.SampleQuizCreator;
 import net.sf.gazpachoquest.dto.GroupDTO;
 import net.sf.gazpachoquest.dto.LabelDTO;
 import net.sf.gazpachoquest.dto.LabelSetDTO;
@@ -70,8 +71,8 @@ public class DBPopulator {
 
         Set<UserDTO> respondents = addRespondents();
 
-        populateForJUnitTest(respondents);
-        // populateForDemo(respondents);
+        // populateForJUnitTest(respondents);
+        populateForDemo(respondents);
     }
 
     public void populateForJUnitTest(Set<UserDTO> respondents) {
@@ -98,8 +99,7 @@ public class DBPopulator {
     }
 
     public void populateForDemo(Set<UserDTO> respondents) {
-
-        QuestionnairDefinitionDTO questionnairDef = createFastFoodSurvey();
+        QuestionnairDefinitionDTO questionnairDef = new SampleQuizCreator().create();
         asignDefaultMailTemplate(questionnairDef);
         questionnairDefinitionEditorFacade.confirm(questionnairDef);
         Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<>();
@@ -112,7 +112,6 @@ public class DBPopulator {
 
                 .respondents(respondents).build();
         researchFacade.save(ressearch);
-
     }
 
     public MailMessageTemplateDTO asignDefaultMailTemplate(final QuestionnairDefinitionDTO survey) {
@@ -152,12 +151,12 @@ public class DBPopulator {
         QuestionnairDefinitionDTO survey = QuestionnairDefinitionDTO
                 .with()
                 .language(Language.EN)
-                .surveyLanguageSettingsStart()
+                .questionnairLanguageSettingsStart()
                 .title("Sample QuestionnairDefinition")
                 .description(
                         "<p>This is a <strong><em>sample questionnairDefinition</em></strong> designed for testing GazpachoSurvey.</p>")
                 .welcomeText("Thank you for taking the time to participate in this questionnairDefinition.")
-                .surveyLanguageSettingsEnd().build();
+                .questionnairLanguageSettingsEnd().build();
         survey = questionnairDefinitionEditorFacade.save(survey);
 
         TranslationDTO<QuestionnairDefinitionDTO, QuestionnairDefinitionLanguageSettingsDTO> surveyTranslation = new TranslationDTO<>();
@@ -168,7 +167,7 @@ public class DBPopulator {
                 .welcomeText("Gracias por participar en esta encuesta").build());
         surveyTranslation.setTranslatedEntity(survey);
 
-        questionnairDefinitionEditorFacade.saveSurveyTranslation(surveyTranslation);
+        questionnairDefinitionEditorFacade.saveQuestionnairTranslation(surveyTranslation);
 
         // Page 1
         QuestionGroupDTO questionGroup1 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
@@ -424,13 +423,13 @@ public class DBPopulator {
         QuestionnairDefinitionDTO survey = QuestionnairDefinitionDTO
                 .with()
                 .language(Language.EN)
-                .surveyLanguageSettingsStart()
+                .questionnairLanguageSettingsStart()
                 .title("Food Quality QuestionnairDefinition")
                 .description(
                         "We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry.")
                 .welcomeText(
                         "Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:")
-                .surveyLanguageSettingsEnd().build();
+                .questionnairLanguageSettingsEnd().build();
         survey = questionnairDefinitionEditorFacade.save(survey);
 
         QuestionGroupDTO questionGroup = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()

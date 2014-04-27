@@ -85,7 +85,7 @@ public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
 
         Builder languageSettings(QuestionnairDefinitionLanguageSettingsDTO languageSettings);
 
-        QuestionnairDefinitionLanguageSettingsDTO.Builder surveyLanguageSettingsStart();
+        QuestionnairDefinitionLanguageSettingsDTO.Builder questionnairLanguageSettingsStart();
     }
 
     public static class BuilderImpl implements Builder {
@@ -123,7 +123,7 @@ public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
         }
 
         @Override
-        public QuestionnairDefinitionLanguageSettingsDTO.Builder surveyLanguageSettingsStart() {
+        public QuestionnairDefinitionLanguageSettingsDTO.Builder questionnairLanguageSettingsStart() {
             return QuestionnairDefinitionLanguageSettingsDTO.surveyLanguageSettingsStart(this);
         }
     }

@@ -51,7 +51,7 @@ public interface QuestionnairDefinitionEditorFacade {
     TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> saveQuestionTranslation(
             TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> translation);
 
-    TranslationDTO<QuestionnairDefinitionDTO, QuestionnairDefinitionLanguageSettingsDTO> saveSurveyTranslation(
+    TranslationDTO<QuestionnairDefinitionDTO, QuestionnairDefinitionLanguageSettingsDTO> saveQuestionnairTranslation(
             TranslationDTO<QuestionnairDefinitionDTO, QuestionnairDefinitionLanguageSettingsDTO> translation);
 
 }
