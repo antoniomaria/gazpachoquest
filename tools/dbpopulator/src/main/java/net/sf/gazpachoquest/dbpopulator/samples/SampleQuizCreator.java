@@ -14,7 +14,9 @@ import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SampleQuizCreator {
 
     @Autowired
@@ -162,7 +164,7 @@ public class SampleQuizCreator {
         questionnairDefinitionEditorFacade.saveQuestionTranslation(questionTranslation);
 
         // 4. List checkbox - Multiple_Answers
-        question = QuestionDTO.with().type(QuestionType.M).code("Q3").language(Language.EN).languageSettingsStart()
+        question = QuestionDTO.with().type(QuestionType.M).code("Q4").language(Language.EN).languageSettingsStart()
                 .title("Which ones of these European capital are near by a river? Choose all that apply.")
                 .languageSettingsEnd().required(false).build();
         question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("Vatican City")
@@ -212,7 +214,7 @@ public class SampleQuizCreator {
         question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).code("Q5").languageSettingsStart()
                 .title("What does EU stand for??").languageSettingsEnd().required(true).build();
         questionGroup2.addQuestion(question);
-        questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup1);
+        questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup2);
         question = questionGroup2.getLastQuestionDTO();
 
         questionTranslation = new TranslationDTO<>();
@@ -239,7 +241,7 @@ public class SampleQuizCreator {
                 .build());
 
         questionGroup2.addQuestion(question);
-        questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup1);
+        questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup2);
         question = questionGroup1.getLastQuestionDTO();
 
         questionTranslation = new TranslationDTO<>();
@@ -287,7 +289,7 @@ public class SampleQuizCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("Chipre").build());
 
         questionGroup2.addQuestion(question);
-        questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup1);
+        questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup2);
 
         question = questionGroup2.getLastQuestionDTO();
         questionTranslation = new TranslationDTO<>();
@@ -330,7 +332,7 @@ public class SampleQuizCreator {
                 .build();
 
         questionGroup2.addQuestion(question);
-        questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup1);
+        questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup2);
 
         question = questionGroup2.getLastQuestionDTO();
         questionTranslation = new TranslationDTO<>();
@@ -350,7 +352,7 @@ public class SampleQuizCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("Roma").build());
 
         questionGroup3.addQuestion(question);
-        questionGroup3 = questionnairDefinitionEditorFacade.save(questionGroup1);
+        questionGroup3 = questionnairDefinitionEditorFacade.save(questionGroup3);
         question = questionGroup3.getLastQuestionDTO();
 
         questionTranslation = new TranslationDTO<>();
@@ -400,7 +402,7 @@ public class SampleQuizCreator {
                 .build());
 
         questionGroup3.addQuestion(question);
-        questionGroup3 = questionnairDefinitionEditorFacade.save(questionGroup1);
+        questionGroup3 = questionnairDefinitionEditorFacade.save(questionGroup3);
         question = questionGroup3.getLastQuestionDTO();
 
         questionTranslation = new TranslationDTO<>();
@@ -443,7 +445,7 @@ public class SampleQuizCreator {
                 .title("Which nationality has the first european that to get Congo?").languageSettingsEnd()
                 .required(true).build();
         questionGroup3.addQuestion(question);
-        questionGroup3 = questionnairDefinitionEditorFacade.save(questionGroup1);
+        questionGroup3 = questionnairDefinitionEditorFacade.save(questionGroup3);
         question = questionGroup3.getLastQuestionDTO();
 
         questionTranslation = new TranslationDTO<>();
@@ -467,7 +469,7 @@ public class SampleQuizCreator {
                 .build());
 
         questionGroup3.addQuestion(question);
-        questionGroup3 = questionnairDefinitionEditorFacade.save(questionGroup1);
+        questionGroup3 = questionnairDefinitionEditorFacade.save(questionGroup3);
         question = questionGroup3.getLastQuestionDTO();
 
         questionTranslation = new TranslationDTO<>();
@@ -505,7 +507,7 @@ public class SampleQuizCreator {
         questionOptionTranslation.setTranslatedEntity(question.getQuestionOptions().get(3));
         questionnairDefinitionEditorFacade.saveQuestionOptionTranslation(questionOptionTranslation);
 
-        return null;
+        return questionnair;
     }
 
 }
