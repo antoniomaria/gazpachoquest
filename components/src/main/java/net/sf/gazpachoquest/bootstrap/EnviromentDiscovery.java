@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContextInitializer;
@@ -29,27 +30,26 @@ public class EnviromentDiscovery implements ApplicationContextInitializer<Config
 
     private static final String CONFIG_FILE_NAME = "config.properties";
 
+    private static final String GAZPACHO_QUEST_ENGINE_NAME = "gazpachoQuestEngineName";
+
     @Override
     public void initialize(ConfigurableWebApplicationContext ctx) {
         ConfigurableEnvironment environment = ctx.getEnvironment();
         ServletContext servletContext = ctx.getServletContext();
         String contextPath = servletContext.getContextPath();
-        String host = "";
-        try {
-            host = InetAddress.getLocalHost().getHostName();
-        } catch (UnknownHostException e1) {
-            logger.warn("Impossible to get host name.");
-        }
-        logger.info("Application deployed int host {} using context path: {}", host, contextPath);
+        // This variable has the same meaning as host, but i can be redefined in
+        // case of cluster deployment.
+        String engineName = resolveEngineName(environment);
+        logger.info("Application deployed int host {} using context path: {}", engineName, contextPath);
 
-        InputStream configurationSource = getResourceAsStream(servletContext, host, contextPath, CONFIG_FILE_NAME);
+        InputStream configurationSource = getResourceAsStream(servletContext, engineName, contextPath, CONFIG_FILE_NAME);
         Properties config = new Properties();
         try {
             config.load(configurationSource);
         } catch (IOException | NullPointerException | IllegalArgumentException e) {
             throw new IllegalStateException("Initilizatition Error. Couldn't load " + CONFIG_FILE_NAME);
         }
-        InputStream logbackSource = getResourceAsStream(servletContext, host, contextPath, "logback.xml");
+        InputStream logbackSource = getResourceAsStream(servletContext, engineName, contextPath, "logback.xml");
         try {
             if (logbackSource != null) {
                 reconfigureLogback(logbackSource);
@@ -93,6 +93,19 @@ public class EnviromentDiscovery implements ApplicationContextInitializer<Config
         }
         // Register hook to close application context on JVM shutdown
         ctx.registerShutdownHook();
+    }
+
+    private String resolveEngineName(ConfigurableEnvironment environment) {
+        String engineName = environment.getProperty(GAZPACHO_QUEST_ENGINE_NAME);
+        if (StringUtils.isNotBlank(engineName)) {
+            return engineName;
+        }
+        try {
+            engineName = InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException e1) {
+            logger.warn("Impossible to get host name.");
+        }
+        return engineName;
     }
 
     private String createBasePath(String schema, String host, String port, String contextPath) {
