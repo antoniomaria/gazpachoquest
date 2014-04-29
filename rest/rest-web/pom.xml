@@ -341,13 +341,34 @@
                 <goal>run</goal>
               </goals>
               <configuration>
-                <port>13000</port>
-                <path>/jaxrs-service</path>
+                <port>8080</port>
+                <path>/gazpachoquest-rest-web</path>
                 <useSeparateTomcatClassLoader>true</useSeparateTomcatClassLoader>
               </configuration>
             </execution>
           </executions>
         </plugin>
+        <plugin>
+          <groupId>org.codehaus.cargo</groupId>
+          <artifactId>cargo-maven2-plugin</artifactId>
+          <version>1.4.8</version>
+          <configuration>
+            <container>
+              <containerId>tomcat6x</containerId>
+              <zipUrlInstaller>
+                <url>ftp://ftp.funet.fi/pub/mirrors/apache.org/tomcat/tomcat-6/v6.0.39/bin/apache-tomcat-6.0.39.zip</url>
+                <downloadDir>${project.build.directory}/downloads</downloadDir>
+                <extractDir>${project.build.directory}/extracts</extractDir>
+              </zipUrlInstaller>
+            </container>
+            <configuration>
+              <properties>
+                <cargo.servlet.port>8081</cargo.servlet.port>
+              </properties>
+            </configuration>
+          </configuration>
+        </plugin>
+
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
