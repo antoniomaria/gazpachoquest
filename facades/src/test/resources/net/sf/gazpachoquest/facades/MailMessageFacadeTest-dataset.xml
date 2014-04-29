@@ -1,40 +1,37 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <users id="1" acronym="SUPPSUPP" api_key="9BNONCVRNG4JPBQ" created_date="2014-04-19 10:35:10.713" email="support@gazpacho.net"
-    given_names="support" last_modified_date="2014-04-19 10:35:10.713" surname="support" username="support" createdby_id="1"
-    lastmodifiedby_id="1" />
+  <role id="1" description="Specific role for support support " name="User Role" />
+  <users id="1" api_key="9BNONCVRNG4JPBQ" created_date="2014-04-19 10:35:10.713" email="support@gazpacho.net" given_names="support" last_modified_date="2014-04-19 10:35:10.713"
+    surname="support" username="support" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="1" />
+
   <research />
   <invitation />
 
-  <questionnair_definition id="7" created_date="2014-04-19 10:35:11.358" language="EN"
-    last_modified_date="2014-04-19 10:35:11.358" status="CONFIRMED"
-    description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample questionnairDefinition&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;"
-    title="Sample QuestionnairDefinition" welcometext="Thank you for taking the time to participate in this questionnairDefinition."
-    createdby_id="1" lastmodifiedby_id="1" />
+  <questionnair_definition id="7" created_date="2014-04-19 10:35:11.358" language="EN" last_modified_date="2014-04-19 10:35:11.358"
+    status="CONFIRMED" description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample questionnairDefinition&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;"
+    title="Sample QuestionnairDefinition" welcometext="Thank you for taking the time to participate in this questionnairDefinition." createdby_id="1"
+    lastmodifiedby_id="1" />
 
   <question_group />
   <question />
-  <question_translation/>
+  <question_translation />
   <question_option />
   <questionnair />
   <groups />
-  <role />
   <user_group />
 
-  <mail_message_template id="55" created_date="2014-04-19 10:35:13.034" from_address="support@gazpacho.net"
-    language="EN" last_modified_date="2014-04-19 10:35:13.034" reply_to="support@gazpacho.net" type="INVITATION"
+  <mail_message_template id="55" created_date="2014-04-19 10:35:13.034" from_address="support@gazpacho.net" language="EN"
+    last_modified_date="2014-04-19 10:35:13.034" reply_to="support@gazpacho.net" type="INVITATION"
     body="Dear Mr. $lastname, &lt;br&gt; You have been invited to take this questionnairDefinition. &lt;br&gt;The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.&lt;a href=&quot;$link&quot;&gt;Click here&lt;/a&gt; to take the questionnairDefinition"
-    subject="PersonalInvitation to participate in questionnairDefinition" createdby_id="1" lastmodifiedby_id="1"
-    questionnairdefinition_id="7" />
-  <mail_message_template_translation id="56" created_date="2014-04-19 10:35:13.11" language="ES"
-    last_modified_date="2014-04-19 10:35:13.11"
+    subject="PersonalInvitation to participate in questionnairDefinition" createdby_id="1" lastmodifiedby_id="1" questionnairdefinition_id="7" />
+  <mail_message_template_translation id="56" created_date="2014-04-19 10:35:13.11" language="ES" last_modified_date="2014-04-19 10:35:13.11"
     body="Estimado Sr. $lastname, &lt;br&gt; Has sido invitado para participar en esta encuesta &lt;br&gt;Nos dedicas 15 minutos para realizar la encuesta?, puedes interrumpirla y completarla m&#225;s tarde si es necesario&lt;a href=&quot;$link&quot;&gt;Click aqui&lt;/a&gt; para empezar"
     subject="Invitaci&#243;n para participar en una encuesta" createdby_id="1" lastmodifiedby_id="1" mailmessagetemplate_id="55" />
 
   <questionnair_definition_translation />
   <user_role />
-  <group_role/>
-  
+  <group_role />
+
   <permission />
 
 

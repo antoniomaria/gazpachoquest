@@ -18,6 +18,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -57,16 +58,16 @@ public class User extends AbstractAuditable {
     @OneToMany(mappedBy = "respondent", fetch = FetchType.LAZY)
     private Set<Questionnair> questionnairs;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_group", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "group_id", referencedColumnName = "id") })
     private Set<Group> groups;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
     private Set<Role> roles;
 
-    @Column(nullable = false, unique = true)
-    private String acronym;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Role defaultRole;
 
     public User() {
         super();
@@ -90,7 +91,7 @@ public class User extends AbstractAuditable {
 
     public Set<Group> getGroups() {
         if (groups == null) {
-            this.groups = new HashSet<>();
+            groups = new HashSet<>();
         }
         return groups;
     }
@@ -101,7 +102,7 @@ public class User extends AbstractAuditable {
 
     public Set<Role> getRoles() {
         if (roles == null) {
-            this.roles = new HashSet<Role>();
+            roles = new HashSet<Role>();
         }
         return roles;
     }
@@ -168,12 +169,12 @@ public class User extends AbstractAuditable {
         role.getUsers().add(this);
     }
 
-    public String getAcronym() {
-        return acronym;
+    public Role getDefaultRole() {
+        return defaultRole;
     }
 
-    public void setAcronym(String acronym) {
-        this.acronym = acronym;
+    public void setDefaultRole(Role defaultRole) {
+        this.defaultRole = defaultRole;
     }
 
     @Transient
@@ -242,7 +243,6 @@ public class User extends AbstractAuditable {
             user.surname = surname;
             user.email = email;
             user.apiKey = apiKey;
-            user.acronym = acronym;
             user.preferedLanguage = preferedLanguage;
             user.gender = gender;
             return user;

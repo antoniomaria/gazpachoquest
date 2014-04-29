@@ -16,6 +16,7 @@ import net.sf.gazpachoquest.domain.user.Permission;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.repository.user.GroupRepository;
+import net.sf.gazpachoquest.repository.user.RoleRepository;
 import net.sf.gazpachoquest.repository.user.UserRepository;
 import net.sf.gazpachoquest.services.UserService;
 import net.sf.gazpachoquest.services.core.impl.AbstractPersistenceService;
@@ -28,73 +29,78 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserServiceImpl extends AbstractPersistenceService<User> implements
-		UserService {
+public class UserServiceImpl extends AbstractPersistenceService<User> implements UserService {
 
-	private static final int API_KEY_LENGTH = 15;
+    private static final int API_KEY_LENGTH = 15;
 
-	@Autowired
-	private RandomTokenGenerator tokenGenerator;
+    @Autowired
+    private RandomTokenGenerator tokenGenerator;
 
-	@Autowired
-	private AcronymGenerator acronymGenerator;
-	
-	@Autowired
-	private GroupRepository groupRepository;
+    @Autowired
+    private AcronymGenerator acronymGenerator;
 
-	@Autowired
-	public UserServiceImpl(final UserRepository repository) {
-		super(repository);
-	}
+    @Autowired
+    private GroupRepository groupRepository;
 
-	@Override
-	@Transactional(readOnly = false)
-	public User save(final User user) {
-		User existing = null;
-		if (user.isNew()) {
-			String apikey = user.getApiKey();
-			if (StringUtils.isBlank(apikey)) {
-				apikey = tokenGenerator.generate(API_KEY_LENGTH);
-				user.setApiKey(apikey);
-			}
-			String acronym = acronymGenerator.generate(user.getGivenNames(),
-					user.getSurname());
-			user.setAcronym(acronym);
+    @Autowired
+    private RoleRepository roleRepository;
 
-			existing = repository.save(user);
-		} else {
-			existing = repository.findOne(user.getId());
-			existing.setEmail(user.getEmail());
-			existing.setGivenNames(user.getGivenNames());
-			existing.setSurname(user.getSurname());
+    @Autowired
+    public UserServiceImpl(final UserRepository repository) {
+        super(repository);
+    }
 
-			existing.setPreferedLanguage(user.getPreferedLanguage());
-			existing.setGender(user.getGender());
-		}
-		return existing;
-	}
+    @Override
+    @Transactional(readOnly = false)
+    public User save(final User user) {
+        User existing = null;
+        if (user.isNew()) {
+            String apikey = user.getApiKey();
+            if (StringUtils.isBlank(apikey)) {
+                apikey = tokenGenerator.generate(API_KEY_LENGTH);
+                user.setApiKey(apikey);
+            }
+            Role role = Role.with().name("User Role")
+                    .description(String.format("Specific role for %s %s ", user.getGivenNames(), user.getSurname()))
+                    .build();
+            existing = repository.save(user);
 
-	@Override
-	public Set<Permission> getPermissions(Integer userId) {
-		Set<Permission> permissions = new HashSet<Permission>();
-		permissions.addAll(((UserRepository) repository).getPermissions(userId));
-		List<Group> groups = ((UserRepository) repository).getGroups(userId);
-		for (Group group : groups) {
-			List<Permission> groupPermissions = groupRepository.getPermissions(group.getId());
-			permissions.addAll(groupPermissions);
-		}
-		
-		return permissions;
-	}
+            role = roleRepository.save(role);
+            existing.assignToRole(role);
+            existing.setDefaultRole(role);
+        } else {
+            existing = repository.findOne(user.getId());
+            existing.setEmail(user.getEmail());
+            existing.setGivenNames(user.getGivenNames());
+            existing.setSurname(user.getSurname());
 
-	@Override
-	@Transactional(readOnly = true)
-	public List<Group> getGroups(Integer userId) {
-		return ((UserRepository) repository).getGroups(userId);
-	}
+            existing.setPreferedLanguage(user.getPreferedLanguage());
+            existing.setGender(user.getGender());
+        }
+        return existing;
+    }
 
-	@Override
-	public Set<Role> getRoles(Integer userId) {
-		return ((UserRepository) repository).getRoles(userId);
-	}
+    @Override
+    public Set<Permission> getPermissions(Integer userId) {
+        Set<Permission> permissions = new HashSet<Permission>();
+        permissions.addAll(((UserRepository) repository).getPermissions(userId));
+        List<Group> groups = ((UserRepository) repository).getGroups(userId);
+        for (Group group : groups) {
+            List<Permission> groupPermissions = groupRepository.getPermissions(group.getId());
+            permissions.addAll(groupPermissions);
+        }
+
+        return permissions;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Group> getGroups(Integer userId) {
+        return ((UserRepository) repository).getGroups(userId);
+    }
+
+    @Override
+    public Set<Role> getRoles(Integer userId) {
+        return ((UserRepository) repository).getRoles(userId);
+    }
 }

@@ -1,26 +1,30 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <users id="1" acronym="SUPPSUPP" api_key="9BNONCVRNG4JPBQ" created_date="2014-04-19 10:35:10.713" email="support@gazpacho.net"
-    given_names="support" last_modified_date="2014-04-19 10:35:10.713" surname="support" username="support" createdby_id="1"
-    lastmodifiedby_id="1" />
-  <users id="3" acronym="TYRILANN" api_key="B868UOHUTKUDWXM" created_date="2014-04-19 10:35:11.206" email="tyrion.lannister@kingslanding.net"
-    gender="MALE" given_names="Tyrion" last_modified_date="2014-04-19 10:35:11.206" prefered_language="EN" surname="Lannister"
-    createdby_id="1" lastmodifiedby_id="1" />
-  <users id="4" acronym="JONSNOW" api_key="HLME1JSCHZMVBH3" created_date="2014-04-19 10:35:11.222" email="jon.snow@nightswatch.net"
-    gender="MALE" given_names="Jon" last_modified_date="2014-04-19 10:35:11.222" prefered_language="ES" surname="Snow"
-    createdby_id="1" lastmodifiedby_id="1" />
-  <users id="5" acronym="ARYASTAR" api_key="YRG6AEJX2VTKFGA" created_date="2014-04-19 10:35:11.244" email="arya.stark@winterfell.net"
-    gender="FEMALE" given_names="Arya" last_modified_date="2014-04-19 10:35:11.244" surname="Stark" createdby_id="1"
-    lastmodifiedby_id="1" />
-  <users id="6" acronym="CATESTAR" api_key="PCN1SYW4X977UE7" created_date="2014-04-19 10:35:11.263" email="catelyn.stark@winterfell.net"
-    gender="FEMALE" given_names="Catelyn" last_modified_date="2014-04-19 10:35:11.263" prefered_language="FI" surname="Stark"
-    createdby_id="1" lastmodifiedby_id="1" />
+
+  <role id="1" description="Specific role for support support " name="User Role" />
+  <role id="5" description="Specific role for Tyrion Lannister " name="User Role" />
+  <role id="7" description="Specific role for Jon Snow " name="User Role" />
+  <role id="9" description="Specific role for Arya Stark " name="User Role" />
+  <role id="11" description="Specific role for Catelyn Stark " name="User Role" />
+
+  <users id="1" api_key="9BNONCVRNG4JPBQ" created_date="2014-04-19 10:35:10.713" email="support@gazpacho.net" given_names="support" last_modified_date="2014-04-19 10:35:10.713"
+    surname="support" username="support" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="1" />
+  <users id="3" api_key="B868UOHUTKUDWXM" created_date="2014-04-19 10:35:11.206" email="tyrion.lannister@kingslanding.net" gender="MALE" given_names="Tyrion"
+    last_modified_date="2014-04-19 10:35:11.206" prefered_language="EN" surname="Lannister" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="5" />
+  <users id="4" api_key="HLME1JSCHZMVBH3" created_date="2014-04-19 10:35:11.222" email="jon.snow@nightswatch.net" gender="MALE" given_names="Jon"
+    last_modified_date="2014-04-19 10:35:11.222" prefered_language="ES" surname="Snow" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="7" />
+  <users id="5" api_key="YRG6AEJX2VTKFGA" created_date="2014-04-19 10:35:11.244" email="arya.stark@winterfell.net" gender="FEMALE" given_names="Arya"
+    last_modified_date="2014-04-19 10:35:11.244" surname="Stark" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="9" />
+  <users id="6" api_key="PCN1SYW4X977UE7" created_date="2014-04-19 10:35:11.263" email="catelyn.stark@winterfell.net" gender="FEMALE" given_names="Catelyn"
+    last_modified_date="2014-04-19 10:35:11.263" prefered_language="FI" surname="Stark" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="11" />
+
+
   <research id="57" created_date="2014-04-19 10:35:13.867" expiration_date="2014-04-19 10:35:13.812" last_modified_date="2014-04-19 10:35:13.867"
-    name="New private Questionnair Sample QuestionnairDefinition started" start_date="2014-04-19 10:35:13.813" type="BY_INVITATION"
-    createdby_id="1" lastmodifiedby_id="1" />
+    name="New private Questionnair Sample QuestionnairDefinition started" start_date="2014-04-19 10:35:13.813" type="BY_INVITATION" createdby_id="1"
+    lastmodifiedby_id="1" />
   <research id="78" created_date="2014-04-19 10:35:14.444" expiration_date="2014-04-19 10:35:14.419" last_modified_date="2014-04-19 10:35:14.444"
-    name="New open Questionnair Sample QuestionnairDefinition started" start_date="2014-04-19 10:35:14.42" type="OPEN_ACCESS"
-    createdby_id="1" lastmodifiedby_id="1" />
+    name="New open Questionnair Sample QuestionnairDefinition started" start_date="2014-04-19 10:35:14.42" type="OPEN_ACCESS" createdby_id="1"
+    lastmodifiedby_id="1" />
 
 
   <invitation id="61" type="P" status="ACTIVE" token="NHAZXA4UK9" research_id="57" respondent_id="6" />
@@ -29,11 +33,10 @@
   <invitation id="76" type="P" status="ACTIVE" token="90POKHJE16" research_id="57" respondent_id="3" />
   <invitation id="79" type="A" status="ACTIVE" token="SYZPVHYMLK" research_id="78" />
 
-  <questionnair_definition id="7" created_date="2014-04-19 10:35:11.358" language="EN"
-    last_modified_date="2014-04-19 10:35:11.358" status="CONFIRMED"
-    description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample questionnairDefinition&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;"
-    title="Sample QuestionnairDefinition" welcometext="Thank you for taking the time to participate in this questionnairDefinition."
-    createdby_id="1" lastmodifiedby_id="1" />
+  <questionnair_definition id="7" created_date="2014-04-19 10:35:11.358" language="EN" last_modified_date="2014-04-19 10:35:11.358"
+    status="CONFIRMED" description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample questionnairDefinition&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;"
+    title="Sample QuestionnairDefinition" welcometext="Thank you for taking the time to participate in this questionnairDefinition." createdby_id="1"
+    lastmodifiedby_id="1" />
   <questionnair_definition_translation />
   <question_group />
   <question />
@@ -41,14 +44,14 @@
 
   <question_option />
 
-  <questionnair id="58" created_date="2014-04-19 10:35:13.943" last_modified_date="2014-04-19 10:35:13.943" status="CONFIRMED"
-    createdby_id="1" lastmodifiedby_id="1" questionnairdefinition_id="7" research_id="57" respondent_id="6" />
-  <questionnair id="63" created_date="2014-04-19 10:35:14.218" last_modified_date="2014-04-19 10:35:14.218" status="CONFIRMED"
-    createdby_id="1" lastmodifiedby_id="1" questionnairdefinition_id="7" research_id="57" respondent_id="5" />
-  <questionnair id="68" created_date="2014-04-19 10:35:14.289" last_modified_date="2014-04-19 10:35:14.289" status="CONFIRMED"
-    createdby_id="1" lastmodifiedby_id="1" questionnairdefinition_id="7" research_id="57" respondent_id="4" />
-  <questionnair id="73" created_date="2014-04-19 10:35:14.345" last_modified_date="2014-04-19 10:35:14.345" status="CONFIRMED"
-    createdby_id="1" lastmodifiedby_id="1" questionnairdefinition_id="7" research_id="57" respondent_id="3" />
+  <questionnair id="58" created_date="2014-04-19 10:35:13.943" last_modified_date="2014-04-19 10:35:13.943" status="CONFIRMED" createdby_id="1"
+    lastmodifiedby_id="1" questionnairdefinition_id="7" research_id="57" respondent_id="6" />
+  <questionnair id="63" created_date="2014-04-19 10:35:14.218" last_modified_date="2014-04-19 10:35:14.218" status="CONFIRMED" createdby_id="1"
+    lastmodifiedby_id="1" questionnairdefinition_id="7" research_id="57" respondent_id="5" />
+  <questionnair id="68" created_date="2014-04-19 10:35:14.289" last_modified_date="2014-04-19 10:35:14.289" status="CONFIRMED" createdby_id="1"
+    lastmodifiedby_id="1" questionnairdefinition_id="7" research_id="57" respondent_id="4" />
+  <questionnair id="73" created_date="2014-04-19 10:35:14.345" last_modified_date="2014-04-19 10:35:14.345" status="CONFIRMED" createdby_id="1"
+    lastmodifiedby_id="1" questionnairdefinition_id="7" research_id="57" respondent_id="3" />
 
   <groups />
   <role />

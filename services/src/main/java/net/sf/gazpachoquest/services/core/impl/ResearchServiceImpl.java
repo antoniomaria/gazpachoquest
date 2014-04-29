@@ -44,7 +44,6 @@ import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
 import net.sf.gazpachoquest.types.Perm;
 import net.sf.gazpachoquest.types.ResearchAccessType;
-import net.sf.gazpachoquest.types.RoleScope;
 import net.sf.gazpachoquest.util.RandomTokenGenerator;
 
 import org.apache.commons.lang3.StringUtils;
@@ -140,7 +139,7 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
 
                     respondent = userRepository.findOne(respondent.getId());
 
-                    Role personalRole = findOrCreateBy(respondent);
+                    Role personalRole = respondent.getDefaultRole();
 
                     Permission permission = Permission.with().addPerm(Perm.READ).addPerm(Perm.UPDATE)
                             .scope(EntityType.QUESTIONNAIR).entityId(questionnair.getId()).build();
@@ -171,19 +170,6 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
             invitationRepository.save(anonymousInvitation);
         }
         return research;
-    }
-
-    private Role findOrCreateBy(User user) {
-        Role example = Role.with().name(user.getAcronym()).build();
-        Role role = roleRepository.findOneByExample(example, new SearchParameters());
-        if (role == null) {
-            role = Role.with().name(user.getAcronym()).scope(RoleScope.USER)
-                    .description(String.format("Specific role for %s %s ", user.getGivenNames(), user.getSurname()))
-                    .build();
-            role = roleRepository.save(role);
-            user.assignToRole(role);
-        }
-        return role;
     }
 
     private MailMessage composeMailMessage(final MailMessageTemplate mailMessageTemplate, final User respondent,

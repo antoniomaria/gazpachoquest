@@ -39,11 +39,11 @@ public class JPARealmTest {
     @Test
     public void loginTest() {
         Subject subject = SecurityUtils.getSubject();
-        AuthenticationToken token = new APIKeyToken.Builder().apiKey("59HBD014UN9L8NM").build();
+        AuthenticationToken token = new APIKeyToken.Builder().apiKey("PCN1SYW4X977UE7").build();
         subject.login(token);
 
         assertThat(subject.getPrincipal()).isInstanceOf(User.class);
-        assertThat(subject.getPrincipal()).isEqualTo(User.with().id(3).build());
+        assertThat(subject.getPrincipal()).isEqualTo(User.with().id(6).build());
 
         boolean isRespondent = subject.hasRole("respondent");
         System.out.println("is respondent ?" + isRespondent);

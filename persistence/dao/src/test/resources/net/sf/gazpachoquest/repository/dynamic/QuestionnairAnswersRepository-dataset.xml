@@ -1,11 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <users id="1" acronym="SUPPSUPP" api_key="9BNONCVRNG4JPBQ" created_date="2014-04-19 10:35:10.713" email="support@gazpacho.net"
+  <role id="1" description="Specific role for support support " name="User Role"/>
+  <role id="2" description="Specific role for Catelyn Stark " name="User Role"/>
+  
+  <users id="1" api_key="9BNONCVRNG4JPBQ" created_date="2014-04-19 10:35:10.713" email="support@gazpacho.net"
     given_names="support" last_modified_date="2014-04-19 10:35:10.713" surname="support" username="support" createdby_id="1"
-    lastmodifiedby_id="1" />
-  <users id="6" acronym="CATESTAR" api_key="PCN1SYW4X977UE7" created_date="2014-04-19 10:35:11.263" email="catelyn.stark@winterfell.net"
+    lastmodifiedby_id="1" defaultrole_id="1" />
+  <users id="6"  api_key="PCN1SYW4X977UE7" created_date="2014-04-19 10:35:11.263" email="catelyn.stark@winterfell.net"
     gender="FEMALE" given_names="Catelyn" last_modified_date="2014-04-19 10:35:11.263" prefered_language="FI" surname="Stark"
-    createdby_id="1" lastmodifiedby_id="1" />
+    createdby_id="1" lastmodifiedby_id="1" defaultrole_id="2"/>
 
   <research id="57" created_date="2014-04-19 10:35:13.867" expiration_date="2014-04-19 10:35:13.812" last_modified_date="2014-04-19 10:35:13.867"
     name="New private Questionnair Sample QuestionnairDefinition started" start_date="2014-04-19 10:35:13.813" type="BY_INVITATION"
@@ -77,7 +80,6 @@
     createdby_id="1" lastmodifiedby_id="1" questionnairdefinition_id="7" research_id="57" respondent_id="6" />
 
   <groups />
-  <role />
   <user_group />
   <mail_message_template />
   <mail_message_template_translation />
