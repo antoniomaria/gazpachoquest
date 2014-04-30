@@ -3,15 +3,13 @@
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
     <artifactId>gazpachoquest</artifactId>
-    <version>0.5.1</version>
+    <version>0.5.1-SNAPSHOT</version>
   </parent>
-  <artifactId>gazpachoquest-facades</artifactId>
+  <artifactId>gazpachoquest-services</artifactId>
   <packaging>jar</packaging>
-  <name>gazpachoquest-facades</name>
+  <name>gazpachoquest-services</name>
   <url>http://maven.apache.org</url>
-  
   <dependencies>
-
     <!-- Test dependencies -->
     <dependency>
       <groupId>junit</groupId>
@@ -63,12 +61,22 @@
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachoquest-services</artifactId>
+      <artifactId>gazpachoquest-domain</artifactId>
     </dependency>
-	<!-- Third parties -->
+
     <dependency>
-      <groupId>net.sf.dozer</groupId>
-      <artifactId>dozer</artifactId>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>gazpachoquest-dao</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>gazpachoquest-components</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>gazpachoquest-dtos</artifactId>
     </dependency>
   </dependencies>
 </project>

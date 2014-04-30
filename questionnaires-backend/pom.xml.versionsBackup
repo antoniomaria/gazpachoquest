@@ -3,19 +3,23 @@
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
     <artifactId>gazpachoquest</artifactId>
-    <version>0.5.1</version>
+    <version>0.5.1-SNAPSHOT</version>
   </parent>
-  <artifactId>gazpachoquest-facades</artifactId>
+  <artifactId>gazpachoquest-questionnaires-backend</artifactId>
   <packaging>jar</packaging>
-  <name>gazpachoquest-facades</name>
+  <name>gazpachoquest-questionnaires-backend</name>
   <url>http://maven.apache.org</url>
-  
   <dependencies>
-
     <!-- Test dependencies -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>gazpachoquest-testsuite</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -55,20 +59,10 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachoquest-testsuite</artifactId>
-      <scope>test</scope>
-    </dependency>
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachoquest-services</artifactId>
-    </dependency>
-	<!-- Third parties -->
-    <dependency>
-      <groupId>net.sf.dozer</groupId>
-      <artifactId>dozer</artifactId>
+      <artifactId>gazpachoquest-facades</artifactId>
     </dependency>
   </dependencies>
 </project>

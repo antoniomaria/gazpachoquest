@@ -3,12 +3,13 @@
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
     <artifactId>gazpachoquest</artifactId>
-    <version>0.5.1</version>
+    <version>0.5.1-SNAPSHOT</version>
   </parent>
-  <artifactId>gazpachoquest-services</artifactId>
+  <artifactId>gazpachoquest-components</artifactId>
   <packaging>jar</packaging>
-  <name>gazpachoquest-services</name>
+  <name>gazpachoquest-components</name>
   <url>http://maven.apache.org</url>
+
   <dependencies>
     <!-- Test dependencies -->
     <dependency>
@@ -26,12 +27,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.github.springtestdbunit</groupId>
-      <artifactId>spring-test-dbunit</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -58,6 +53,20 @@
       <artifactId>gazpachoquest-testsuite</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <!-- Scope provided -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -69,14 +78,64 @@
       <artifactId>gazpachoquest-dao</artifactId>
     </dependency>
 
+    <!-- Spring aspects -->
     <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachoquest-components</artifactId>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aspects</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachoquest-dtos</artifactId>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+    </dependency>
+    <!-- 
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-jndi</artifactId>
+      <version>8.1.14.v20131031</version>
+    </dependency>  -->
   </dependencies>
+  <!--
+    <build>
+    <plugins>
+    <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>findbugs-maven-plugin</artifactId>
+    <version>2.5.3</version>
+    <configuration>
+    <effort>Max</effort>
+    <threshold>Low</threshold>
+    <xmlOutput>true</xmlOutput>
+    </configuration>
+    <executions>
+    <execution>
+    <phase>verify</phase>
+    <goals>
+    <goal>check</goal>
+    </goals>
+    </execution>
+    </executions>
+    </plugin>
+    </plugins>
+    </build>
+    <reporting>
+    <plugins>
+    <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>findbugs-maven-plugin</artifactId>
+    <version>2.5.3</version>
+    </plugin>
+    </plugins>
+    </reporting>
+  -->
 </project>

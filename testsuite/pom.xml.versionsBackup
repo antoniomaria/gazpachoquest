@@ -3,22 +3,22 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
-    <artifactId>gazpachoquest-tools</artifactId>
-    <version>0.5.1</version>
+    <artifactId>gazpachoquest</artifactId>
+    <version>0.5.1-SNAPSHOT</version>
   </parent>
-  <artifactId>gazpachoquest-dbextractor</artifactId>
-  <name>gazpachoquest-dbextractor</name>
+  <artifactId>gazpachoquest-testsuite</artifactId>
+  <name>gazpachoquest-testsuite</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
   <dependencies>
     <!-- Logger logback -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
@@ -66,26 +66,11 @@
     </dependency>
 
     <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-    </dependency>
-    
-    <!-- Project libraries -->
-    <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-db</artifactId>
-    </dependency> 
-    
-    <!-- Google flyway -->
-    <dependency>
-      <groupId>com.googlecode.flyway</groupId>
-      <artifactId>flyway-core</artifactId>
+      <scope>provided</scope>
     </dependency>
-    
-    <!-- C3P0 DBpool -->
-    <dependency>
-      <groupId>com.mchange</groupId>
-      <artifactId>c3p0</artifactId>
-    </dependency>
+
+
   </dependencies>
 </project>

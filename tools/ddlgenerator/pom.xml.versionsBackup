@@ -1,22 +1,15 @@
+<?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
     <artifactId>gazpachoquest-tools</artifactId>
-    <version>0.5.1</version>
+    <version>0.5.1-SNAPSHOT</version>
   </parent>
-  <artifactId>gazpachoquest-dbpopulator</artifactId>
-  <packaging>jar</packaging>
-  <name>gazpachoquest-dbpopulator</name>
+  <artifactId>gazpachoquest-ddlgenerator</artifactId>
+  <name>gazpachoquest-ddlgenerator</name>
   <url>http://maven.apache.org</url>
-
   <dependencies>
-    <!-- Test dependencies -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
 
     <dependency>
       <groupId>mysql</groupId>
@@ -27,12 +20,11 @@
       <groupId>postgresql</groupId>
       <artifactId>postgresql</artifactId>
     </dependency>
-
-    <!-- Project libraries -->
+  
+    <!-- Project dependencies -->
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachoquest-facades</artifactId>
+      <artifactId>gazpachoquest-dao</artifactId>
     </dependency>
-
   </dependencies>
 </project>
