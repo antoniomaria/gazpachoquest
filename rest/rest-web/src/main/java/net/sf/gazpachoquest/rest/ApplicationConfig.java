@@ -21,37 +21,37 @@ import com.wordnik.swagger.jaxrs.listing.ResourceListingProvider;
 @ApplicationPath("/api")
 public class ApplicationConfig extends Application {
 
-	private String resourcePackage = "net.sf.gazpachoquest.rest";
+    private String resourcePackage = "net.sf.gazpachoquest.rest";
 
-	// https://github.com/rvullriede/swagger-core/blob/master/samples/swagger-java-sample-app-cxf/src/main/java/com/wordnik/swagger/sample/util/ApplicationConfig.java
-	@Override
-	public Set<Class<?>> getClasses() {
-		Set<Class<?>> classes = new HashSet<Class<?>>();
-		classes.add(QuestionnairResource.class);
-		classes.add(AuthenticationResource.class);
-		classes.add(ApiListingResourceJSON.class);
-		classes.add(ResourceListingProvider.class);
-		classes.add(ApiDeclarationProvider.class);
+    // https://github.com/rvullriede/swagger-core/blob/master/samples/swagger-java-sample-app-cxf/src/main/java/com/wordnik/swagger/sample/util/ApplicationConfig.java
+    @Override
+    public Set<Class<?>> getClasses() {
+        Set<Class<?>> classes = new HashSet<Class<?>>();
+        classes.add(QuestionnairResource.class);
+        classes.add(AuthenticationResource.class);
+        classes.add(ApiListingResourceJSON.class);
+        classes.add(ResourceListingProvider.class);
+        classes.add(ApiDeclarationProvider.class);
 
-		classes.add(SecurityContextFilter.class);
+        classes.add(SecurityContextFilter.class);
 
-		classes.add(ShiroExceptionHandler.class);
-		classes.add(AccountNotFoundExceptionHandler.class);
-		classes.add(DefaultExceptionHandler.class);
-		return classes;
-	}
+        classes.add(ShiroExceptionHandler.class);
+        classes.add(AccountNotFoundExceptionHandler.class);
+        classes.add(DefaultExceptionHandler.class);
+        return classes;
+    }
 
-	@Override
-	public Set<Object> getSingletons() {
-		return Collections.emptySet();
-	}
+    @Override
+    public Set<Object> getSingletons() {
+        return Collections.emptySet();
+    }
 
-	public final String getResourcePackage() {
-		return this.resourcePackage;
-	}
+    public final String getResourcePackage() {
+        return this.resourcePackage;
+    }
 
-	public final void setResourcePackage(final String ressourcePackage) {
-		this.resourcePackage = ressourcePackage;
-	}
+    public final void setResourcePackage(final String ressourcePackage) {
+        this.resourcePackage = ressourcePackage;
+    }
 
 }

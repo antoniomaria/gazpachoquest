@@ -39,11 +39,10 @@ public class HelloWorldIT {
     public void testJsonRoundtrip() throws Exception {
         List<Object> providers = new ArrayList<Object>();
         providers.add(new JacksonJaxbJsonProvider());
-        //JsonBean inputBean = new JsonBean();
-        //inputBean.setVal1("Maple");
+        // JsonBean inputBean = new JsonBean();
+        // inputBean.setVal1("Maple");
         WebClient client = WebClient.create(endpointUrl + "/hello/jsonBean", providers);
-        Response r = client.accept(MediaType.APPLICATION_JSON_TYPE).type(MediaType.APPLICATION_JSON_TYPE)
-                .post(null);
+        Response r = client.accept(MediaType.APPLICATION_JSON_TYPE).type(MediaType.APPLICATION_JSON_TYPE).post(null);
         assertEquals(Response.Status.OK.getStatusCode(), r.getStatus());
         /*-
         MappingJsonFactory factory = new MappingJsonFactory();

@@ -11,24 +11,19 @@ import net.sf.gazpachoquest.dto.error.ErrorEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AccountNotFoundExceptionHandler implements
-		ExceptionMapper<AccountNotFoundException> {
+public class AccountNotFoundExceptionHandler implements ExceptionMapper<AccountNotFoundException> {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(AccountNotFoundExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(AccountNotFoundExceptionHandler.class);
 
-	/**
-	 * Exception fired from AuthenticationResource
-	 */
-	@Override
-	public Response toResponse(AccountNotFoundException exception) {
-		logger.warn("Login access failure: {}", exception.getMessage());
-		return Response
-				.status(Status.FORBIDDEN)
-				.type(MediaType.APPLICATION_JSON)
-				.entity(ErrorEntity.with().message(exception.getMessage())
-						.build()).build();
+    /**
+     * Exception fired from AuthenticationResource
+     */
+    @Override
+    public Response toResponse(AccountNotFoundException exception) {
+        logger.warn("Login access failure: {}", exception.getMessage());
+        return Response.status(Status.FORBIDDEN).type(MediaType.APPLICATION_JSON)
+                .entity(ErrorEntity.with().message(exception.getMessage()).build()).build();
 
-	}
+    }
 
 }

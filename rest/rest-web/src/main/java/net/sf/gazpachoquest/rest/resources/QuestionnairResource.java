@@ -40,76 +40,74 @@ import com.wordnik.swagger.annotations.ApiResponses;
 // http://www.thebuzzmedia.com/designing-a-secure-rest-api-without-oauth-authentication/
 public class QuestionnairResource {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(QuestionnairResource.class);
+    private static final Logger logger = LoggerFactory.getLogger(QuestionnairResource.class);
 
-	@Autowired
-	private QuestionnairFacade questionnairFacade;
+    @Autowired
+    private QuestionnairFacade questionnairFacade;
 
-	public QuestionnairResource() {
-		super();
-	}
+    public QuestionnairResource() {
+        super();
+    }
 
-	@GET
-	@Path("/{questionnairId}")
-	@ApiOperation(value = "Get questionnair definition", notes = "More notes about this method", response = QuestionnairDTO.class)
-	@ApiResponses(value = {
-			@ApiResponse(code = 404, message = "Invalid invitation token supplied"),
-			@ApiResponse(code = 200, message = "Questionnairs available") })
-	public Response getDefinition(
-			@PathParam("questionnairId") @ApiParam(value = "Questionnair id") Integer questionnairId) {
-		User subject = (User) SecurityUtils.getSubject().getPrincipal();
-		SecurityUtils.getSubject().checkPermission(
-				"questionnair:read:" + questionnairId);
-		logger.debug("Fetching Questionnair Definition {} for user {}",
-				questionnairId, subject.getFullName());
-		QuestionnairDTO questionnairDTO = questionnairFacade
-				.findOne(questionnairId);
-		return Response.ok(questionnairDTO).build();
-	}
+    @GET
+    @Path("/{questionnairId}")
+    @ApiOperation(value = "Get questionnair definition", notes = "More notes about this method", response = QuestionnairDTO.class)
+    @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
+            @ApiResponse(code = 200, message = "Questionnairs available") })
+    public Response getDefinition(@PathParam("questionnairId")
+    @ApiParam(value = "Questionnair id")
+    Integer questionnairId) {
+        User subject = (User) SecurityUtils.getSubject().getPrincipal();
+        SecurityUtils.getSubject().checkPermission("questionnair:read:" + questionnairId);
+        logger.debug("Fetching Questionnair Definition {} for user {}", questionnairId, subject.getFullName());
+        QuestionnairDTO questionnairDTO = questionnairFacade.findOne(questionnairId);
+        return Response.ok(questionnairDTO).build();
+    }
 
-	@GET
-	@Path("/{questionnairId}/page")
-	@ApiOperation(value = "Fetch the next, current or previous page for the given questionnair", notes = "More notes about this method", response = PageDTO.class)
-	@ApiResponses(value = {
-			@ApiResponse(code = 404, message = "Invalid invitation token supplied"),
-			@ApiResponse(code = 200, message = "Questionnairs available") })
-	public Response getPage(
+    @GET
+    @Path("/{questionnairId}/page")
+    @ApiOperation(value = "Fetch the next, current or previous page for the given questionnair", notes = "More notes about this method", response = PageDTO.class)
+    @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
+            @ApiResponse(code = 200, message = "Questionnairs available") })
+    public Response getPage(
 
-			@PathParam("questionnairId") @ApiParam(value = "Questionnair id") Integer questionnairId,
-			@ApiParam(name = "mode", value = "Refers how many questions are returned by page.", required = true, defaultValue = "GROUP_BY_GROUP", allowableValues = "QUESTION_BY_QUESTION,GROUP_BY_GROUP", allowMultiple = true) @QueryParam("mode") String modeStr,
-			@ApiParam(name = "action", value = "Action fired for the respondent", required = true, defaultValue = "ENTERING", allowableValues = "FORWARD,BACKWARD,ENTERING", allowMultiple = true) @QueryParam("action") String actionStr) {
-		SecurityUtils.getSubject().checkPermission(
-				"questionnair:read:" + questionnairId);
-		User subject = (User) SecurityUtils.getSubject().getPrincipal();
-		logger.debug("Fetching questionnairId {} page {} for {} user {}",
-				questionnairId, actionStr, subject.getFullName());
+            @PathParam("questionnairId")
+            @ApiParam(value = "Questionnair id")
+            Integer questionnairId,
+            @ApiParam(name = "mode", value = "Refers how many questions are returned by page.", required = true, defaultValue = "GROUP_BY_GROUP", allowableValues = "QUESTION_BY_QUESTION,GROUP_BY_GROUP", allowMultiple = true)
+            @QueryParam("mode")
+            String modeStr,
+            @ApiParam(name = "action", value = "Action fired for the respondent", required = true, defaultValue = "ENTERING", allowableValues = "FORWARD,BACKWARD,ENTERING", allowMultiple = true)
+            @QueryParam("action")
+            String actionStr) {
+        SecurityUtils.getSubject().checkPermission("questionnair:read:" + questionnairId);
+        User subject = (User) SecurityUtils.getSubject().getPrincipal();
+        logger.debug("Fetching questionnairId {} page {} for {} user {}", questionnairId, actionStr,
+                subject.getFullName());
 
-		RenderingMode mode = RenderingMode.fromString(modeStr);
-		BrowsingAction action = BrowsingAction.fromString(actionStr);
-		PageDTO page = questionnairFacade.resolvePage(questionnairId, mode,
-				action);
-		return Response.ok(page).build();
-	}
+        RenderingMode mode = RenderingMode.fromString(modeStr);
+        BrowsingAction action = BrowsingAction.fromString(actionStr);
+        PageDTO page = questionnairFacade.resolvePage(questionnairId, mode, action);
+        return Response.ok(page).build();
+    }
 
-	@POST
-	@Path("/{questionnairId}/answer")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Allow the respondent save answers")
-	@ApiResponses(value = {
-			@ApiResponse(code = 404, message = "Invalid invitation token supplied"),
-			@ApiResponse(code = 200, message = "Answer saved correctly") })
-	public Response saveAnswer(
-			@ApiParam(value = "Answer", required = true) Answer answer,
-			@PathParam("questionnairId") @ApiParam(value = "Questionnair id", required = true) Integer questionnairId,
-			@QueryParam("questionCode") @ApiParam(value = "Question Code", required = true) String questionCode) {
-		SecurityUtils.getSubject().checkPermission(
-				"questionnair:update:" + questionnairId);
+    @POST
+    @Path("/{questionnairId}/answer")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Allow the respondent save answers")
+    @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
+            @ApiResponse(code = 200, message = "Answer saved correctly") })
+    public Response saveAnswer(@ApiParam(value = "Answer", required = true)
+    Answer answer, @PathParam("questionnairId")
+    @ApiParam(value = "Questionnair id", required = true)
+    Integer questionnairId, @QueryParam("questionCode")
+    @ApiParam(value = "Question Code", required = true)
+    String questionCode) {
+        SecurityUtils.getSubject().checkPermission("questionnair:update:" + questionnairId);
 
-		User subject = (User) SecurityUtils.getSubject().getPrincipal();
-		logger.debug("User {} saving answers for questionnairId {}",
-				subject.getFullName(), questionnairId);
-		questionnairFacade.saveAnswer(questionnairId, questionCode, answer);
-		return Response.ok().build();
-	}
+        User subject = (User) SecurityUtils.getSubject().getPrincipal();
+        logger.debug("User {} saving answers for questionnairId {}", subject.getFullName(), questionnairId);
+        questionnairFacade.saveAnswer(questionnairId, questionCode, answer);
+        return Response.ok().build();
+    }
 }

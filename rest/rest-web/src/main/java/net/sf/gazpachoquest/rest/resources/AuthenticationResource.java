@@ -31,31 +31,30 @@ import com.wordnik.swagger.annotations.ApiParam;
 @Provider
 public class AuthenticationResource {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(AuthenticationResource.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationResource.class);
 
-	@Autowired
-	private AuthenticationManagerFactory authenticationManagerFactory;
+    @Autowired
+    private AuthenticationManagerFactory authenticationManagerFactory;
 
-	@GET
-	@ApiOperation(value = "Authentication for users", response = AbstractAccount.class)
-	public Response authenticate(
-			@QueryParam("username") @ApiParam(value = "User name") String username,
-			@QueryParam("password") @ApiParam(value = "User name") String password)
-			throws AccountNotFoundException {
-		logger.info("New authentication petition received");
-		AuthenticationManager authManager = null;
-		if (StringUtils.isBlank(username)) {
-			throw new AccountNotFoundException("Username is required");
-		}
-		if (RespondentAccount.USER_NAME.equals(username)) {
-			authManager = authenticationManagerFactory
-					.getObject(AccountType.RESPONDENT);
-		}else{
-			throw new AccountNotFoundException("Wrong credentials");
-		}
-		
-		Account account = authManager.authenticate(username, password);
-		return Response.ok(account).build();
-	}
+    @GET
+    @ApiOperation(value = "Authentication for users", response = AbstractAccount.class)
+    public Response authenticate(@QueryParam("username")
+    @ApiParam(value = "User name")
+    String username, @QueryParam("password")
+    @ApiParam(value = "User name")
+    String password) throws AccountNotFoundException {
+        logger.info("New authentication petition received");
+        AuthenticationManager authManager = null;
+        if (StringUtils.isBlank(username)) {
+            throw new AccountNotFoundException("Username is required");
+        }
+        if (RespondentAccount.USER_NAME.equals(username)) {
+            authManager = authenticationManagerFactory.getObject(AccountType.RESPONDENT);
+        } else {
+            throw new AccountNotFoundException("Wrong credentials");
+        }
+
+        Account account = authManager.authenticate(username, password);
+        return Response.ok(account).build();
+    }
 }

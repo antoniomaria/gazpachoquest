@@ -11,17 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DefaultExceptionHandler implements ExceptionMapper<Exception> {
-	private static final Logger logger = LoggerFactory
-			.getLogger(DefaultExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultExceptionHandler.class);
 
-	@Override
-	public Response toResponse(Exception exception) {
-		logger.error(exception.getMessage(), exception);
-		return Response
-				.status(Status.INTERNAL_SERVER_ERROR)
-				.type(MediaType.APPLICATION_JSON)
-				.entity(ErrorEntity.with().message(exception.getMessage())
-						.build()).build();
-	}
+    @Override
+    public Response toResponse(Exception exception) {
+        logger.error(exception.getMessage(), exception);
+        return Response.status(Status.INTERNAL_SERVER_ERROR).type(MediaType.APPLICATION_JSON)
+                .entity(ErrorEntity.with().message(exception.getMessage()).build()).build();
+    }
 
 }

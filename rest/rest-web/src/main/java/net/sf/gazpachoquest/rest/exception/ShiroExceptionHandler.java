@@ -15,26 +15,22 @@ import org.slf4j.LoggerFactory;
 
 public class ShiroExceptionHandler implements ExceptionMapper<ShiroException> {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(ShiroExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ShiroExceptionHandler.class);
 
-	@Override
-	public Response toResponse(ShiroException exception) {
-		logger.warn(exception.getMessage());
+    @Override
+    public Response toResponse(ShiroException exception) {
+        logger.warn(exception.getMessage());
 
-		Status status = Status.FORBIDDEN; // Invalid api key
-		if (exception instanceof AccountException) {
-			// API key missing
-			status = Status.BAD_REQUEST;
-		} else if (exception instanceof AuthorizationException) {
-			// Not enough permissions
-			status = Status.UNAUTHORIZED;
-		}
-		return Response
-				.status(status)
-				.type(MediaType.APPLICATION_JSON)
-				.entity(ErrorEntity.with().message(exception.getMessage())
-						.build()).build();
-	}
+        Status status = Status.FORBIDDEN; // Invalid api key
+        if (exception instanceof AccountException) {
+            // API key missing
+            status = Status.BAD_REQUEST;
+        } else if (exception instanceof AuthorizationException) {
+            // Not enough permissions
+            status = Status.UNAUTHORIZED;
+        }
+        return Response.status(status).type(MediaType.APPLICATION_JSON)
+                .entity(ErrorEntity.with().message(exception.getMessage()).build()).build();
+    }
 
 }
