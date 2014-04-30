@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.security.auth.login.AccountNotFoundException;
 
+import net.sf.gazpachoquest.domain.core.AnonymousInvitation;
 import net.sf.gazpachoquest.domain.core.PersonalInvitation;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.Research;
@@ -64,13 +65,15 @@ public class RespondentAuthenticationManagerImpl implements AuthenticationManage
                     .respondent(User.with().id(respondent.getId()).build())
                     .research(Research.with().id(research.getId()).build()).build();
             questionnairs = questionnairService.findByExample(questionnairExample, new SearchParameters());
-        }
+        } else if (invitation instanceof AnonymousInvitation) {
+            AnonymousInvitation anonymousInvitation = (AnonymousInvitation) invitation;
 
-        if (questionnairs.isEmpty()) {
             respondent = User.with().givenNames("anonymous").surname("anonymous").email("no-reply@gazpachoquest.net")
                     .build();
             respondent = userService.save(respondent);
-            Questionnair questionnair = Questionnair.with().research(research).respondent(respondent).build();
+            Questionnair questionnair = Questionnair.with().research(research)
+                    .questionnairDefinition(anonymousInvitation.getQuestionnairDefinition()).respondent(respondent)
+                    .build();
             questionnair = questionnairService.save(questionnair);
             questionnairs.add(questionnair);
             // Grant right to the anonymous questionnair
@@ -90,7 +93,6 @@ public class RespondentAuthenticationManagerImpl implements AuthenticationManage
         for (Questionnair questionnair : questionnairs) {
             account.grantQuestionnairId(questionnair.getId());
         }
-
         account.assingRole(RespondentAccount.DEFAULT_ROLE_NAME);
         return account;
     }

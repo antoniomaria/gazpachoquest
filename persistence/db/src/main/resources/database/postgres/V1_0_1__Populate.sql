@@ -145,8 +145,8 @@ INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VAL
 INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (109, 'P', 'ACTIVE', 'UCVZ45JZ3T', 102, 4);
 INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (113, 'P', 'ACTIVE', '76HHP9M9FQ', 102, 10);
 INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (117, 'P', 'ACTIVE', 'R7CHFY0YHQ', 102, 8);
-INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (120, 'A', 'ACTIVE', '6O6PDUQLKN', 119, NULL);
-INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (156, 'A', 'ACTIVE', 'P0C6Q2NN3H', 155, NULL);
+INSERT INTO invitation (id, type, status, token, research_id, respondent_id, questionnairdefinition_id) VALUES (120, 'A', 'ACTIVE', '6O6PDUQLKN', 119, NULL, 12);
+INSERT INTO invitation (id, type, status, token, research_id, respondent_id, questionnairdefinition_id) VALUES (156, 'A', 'ACTIVE', 'P0C6Q2NN3H', 155, NULL, 121);
 
 
 --

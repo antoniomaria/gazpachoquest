@@ -6,7 +6,6 @@ import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,9 +31,6 @@ public class JPARealmTest {
 
     @Autowired
     private JPARealm apiKeyRealm;
-
-    @Autowired
-    private SecurityManager securityManager;
 
     @Test
     public void loginTest() {

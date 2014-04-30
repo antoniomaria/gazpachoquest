@@ -6,8 +6,13 @@ import javax.security.auth.login.AccountNotFoundException;
 
 import net.sf.gazpachoquest.dto.auth.Account;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
+import net.sf.gazpachoquest.security.shiro.APIKeyToken;
+import net.sf.gazpachoquest.security.shiro.JPARealm;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.subject.Subject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +40,11 @@ public class RespondentAuthenticationManagerTest {
     @Qualifier("respondentAuthManager")
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private JPARealm apiKeyRealm;
+
     @Test
-    public void findByTest() throws AccountNotFoundException {
+    public void authenticateTest() throws AccountNotFoundException {
         Account account = authenticationManager.authenticate("respondent", "90POKHJE16");
         assertThat(account).isInstanceOf(RespondentAccount.class);
         RespondentAccount respondentAccount = (RespondentAccount) account;
@@ -49,5 +57,12 @@ public class RespondentAuthenticationManagerTest {
         respondentAccount = (RespondentAccount) account;
         assertThat(respondentAccount.getGivenNames()).isEqualTo("anonymous");
 
+        AuthenticationToken token = new APIKeyToken.Builder().apiKey(respondentAccount.getApiKey()).build();
+        Subject subject = SecurityUtils.getSubject();
+        subject.login(token);
+
+        boolean isPermitted = subject.isPermitted("questionnair:read:"
+                + respondentAccount.getGrantedQuestionnairIds().iterator().next());
+        assertThat(isPermitted);
     }
 }

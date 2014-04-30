@@ -162,10 +162,11 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
         } else {
             Assert.notEmpty(questionnairDefinitions, "questionnairDefinitions required");
             Assert.state(questionnairDefinitions.size() == 1,
-                    "Only one questionnairDefinitions supported for Open Access studies");
+                    "Only one questionnairDefinitions supported for Open Access researches");
             String token = tokenGenerator.generate();
 
-            AnonymousInvitation anonymousInvitation = AnonymousInvitation.with().research(research).token(token)
+            AnonymousInvitation anonymousInvitation = AnonymousInvitation.with().research(research)
+                    .questionnairDefinition(questionnairDefinitions.iterator().next()).token(token)
                     .status(InvitationStatus.ACTIVE).build();
             invitationRepository.save(anonymousInvitation);
         }

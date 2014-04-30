@@ -1,4 +1,4 @@
-CREATE TABLE invitation(id INTEGER NOT NULL, type VARCHAR(20), status VARCHAR(255) NOT NULL, token VARCHAR(255) NOT NULL, research_id INTEGER, respondent_id INTEGER, PRIMARY KEY (id));
+CREATE TABLE invitation(id INTEGER NOT NULL, type VARCHAR(20), status VARCHAR(255) NOT NULL, token VARCHAR(255) NOT NULL, research_id INTEGER, respondent_id INTEGER, questionnairdefinition_id integer, PRIMARY KEY (id));
 CREATE TABLE browsed_element (id INTEGER NOT NULL, type VARCHAR(31), created_date timestamp, last TINYINT(1) default 0, last_modified_date timestamp, CREATEDBY_ID INTEGER, LASTMODIFIEDBY_ID INTEGER, QUESTIONNAIR_ID INTEGER, QUESTION_ID INTEGER, QUESTIONGROUP_ID INTEGER, PRIMARY KEY (id));
 CREATE TABLE label (id INTEGER NOT NULL, created_date timestamp, language VARCHAR(255) NOT NULL, last_modified_date timestamp, TITLE VARCHAR(255) NOT NULL, CREATEDBY_ID INTEGER, LABELSET_ID INTEGER, LASTMODIFIEDBY_ID INTEGER, sort_order INTEGER, PRIMARY KEY (id));
 CREATE TABLE label_set (id INTEGER NOT NULL, language VARCHAR(255) NOT NULL, name VARCHAR(255), PRIMARY KEY (id));
@@ -25,6 +25,7 @@ CREATE TABLE user_role (user_id INTEGER NOT NULL, role_id INTEGER NOT NULL, PRIM
 CREATE TABLE group_role (role_id INTEGER NOT NULL, group_id INTEGER NOT NULL, PRIMARY KEY (role_id, group_id));
 
 ALTER TABLE invitation ADD CONSTRAINT FK_invitation_RESPONDENT_ID FOREIGN KEY (RESPONDENT_ID) REFERENCES users (id);
+ALTER TABLE invitation ADD CONSTRAINT FK_invitation_QUESTIONNAIRDEFINITION_ID FOREIGN KEY (questionnairdefinition_id) REFERENCES questionnair_definition (id);
 
 ALTER TABLE browsed_element ADD CONSTRAINT FK_browsed_element_LASTMODIFIEDBY_ID FOREIGN KEY (LASTMODIFIEDBY_ID) REFERENCES users (id);
 ALTER TABLE browsed_element ADD CONSTRAINT FK_browsed_element_CREATEDBY_ID FOREIGN KEY (CREATEDBY_ID) REFERENCES users (id);
