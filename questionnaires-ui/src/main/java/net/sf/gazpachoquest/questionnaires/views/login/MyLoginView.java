@@ -2,6 +2,7 @@ package net.sf.gazpachoquest.questionnaires.views.login;
 
 import javax.annotation.PostConstruct;
 
+import com.vaadin.cdi.CDIView;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -15,6 +16,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
 
+@CDIView(LoginView.NAME)
 public class MyLoginView extends CssLayout implements View {
 
     private HorizontalLayout viewLayout;
