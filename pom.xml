@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.gazpachoquest</groupId>
   <artifactId>gazpachoquest</artifactId>
@@ -58,7 +57,7 @@
     <module>jaas</module>
     <module>services</module>
     <module>questionnaires-backend</module>
-    <!-- Ommited temporarly <module>questionnaires-ui</module> -->
+    <module>questionnaires-ui</module>
     <module>rest</module>
     <module>tools</module>
   </modules>
@@ -530,44 +529,36 @@
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-        <version>${cxf.version}</version>  <!-- 
-        <exclusions>
+        <version>${cxf.version}</version>  <!--
+          <exclusions>
           <exclusion>
-            <artifactId>jaxb-impl</artifactId>
-            <groupId>com.sun.xml.bind</groupId>
+          <artifactId>jaxb-impl</artifactId>
+          <groupId>com.sun.xml.bind</groupId>
           </exclusion>
           <exclusion>
-            <artifactId>geronimo-javamail_1.4_spec</artifactId>
-            <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-javamail_1.4_spec</artifactId>
+          <groupId>org.apache.geronimo.specs</groupId>
           </exclusion>
-        
+
           <exclusion>
-            <artifactId>wsdl4j</artifactId>
-            <groupId>wsdl4j</groupId>
-          </exclusion> 
-          <exclusion>
-            <artifactId>woodstox-core-asl</artifactId>
-            <groupId>org.codehaus.woodstox</groupId>
+          <artifactId>wsdl4j</artifactId>
+          <groupId>wsdl4j</groupId>
           </exclusion>
           <exclusion>
-            <artifactId>xmlschema-core</artifactId>
-            <groupId>org.apache.ws.xmlschema</groupId>
+          <artifactId>woodstox-core-asl</artifactId>
+          <groupId>org.codehaus.woodstox</groupId>
           </exclusion>
-        </exclusions>  -->
+          <exclusion>
+          <artifactId>xmlschema-core</artifactId>
+          <groupId>org.apache.ws.xmlschema</groupId>
+          </exclusion>
+          </exclusions> -->
       </dependency>
 
     </dependencies>
 
 
   </dependencyManagement>
-  <profiles>
-    <profile>
-      <id>development</id>
-      <properties>
-        <rest.api.basepath>http://gazpacho.antoniomaria.cloudbees.net</rest.api.basepath>
-      </properties>
-    </profile>
-  </profiles>
   <build>
     <plugins>
       <plugin>
@@ -575,6 +566,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.1</version>
         <configuration>
+          <encoding>UTF-8</encoding>
           <source>1.7</source>
           <target>1.7</target>
           <!-- For generating the JPA metamodel -->
@@ -588,7 +580,6 @@
         <version>2.5</version>
         <configuration>
           <autoVersionSubmodules>true</autoVersionSubmodules>
-          <releaseProfiles>cloudbees</releaseProfiles>
         </configuration>
       </plugin>
 

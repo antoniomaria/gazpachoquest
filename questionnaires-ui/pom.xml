@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
     <artifactId>gazpachoquest</artifactId>
-    <version>0.5.1-SNAPSHOT</version>
+    <version>0.5.2-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-questionnaires-ui</artifactId>
   <packaging>war</packaging>
@@ -85,6 +84,12 @@
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.openejb</groupId>
+      <artifactId>tomee-embedded</artifactId>
+      <version>1.6.0</version>
+    </dependency>
+
     <!-- Arquillian vaadin -->
     <dependency>
       <groupId>org.jboss.arquillian.junit</groupId>
@@ -133,9 +138,9 @@
       <artifactId>vaadin-client-compiled</artifactId>
       <version>${vaadin.version}</version>
     </dependency>
-    <!-- Needed when using the widgetset optimizer (custom ConnectorBundleLoaderFactory). For widgetset compilation, vaadin-client-compiler 
+    <!-- Needed when using the widgetset optimizer (custom ConnectorBundleLoaderFactory). For widgetset compilation, vaadin-client-compiler
       is automatically added on the compilation classpath by vaadin-maven-plugin so normally there is no need for an explicit dependency. -->
-    <!-- <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client-compiler</artifactId> <version>${vaadin.version}</version> 
+    <!-- <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client-compiler</artifactId> <version>${vaadin.version}</version>
       <scope>provided</scope> </dependency> -->
     <dependency>
       <groupId>com.vaadin</groupId>
@@ -229,18 +234,17 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
+      
+      <!-- 
       <plugin>
         <groupId>com.vaadin</groupId>
         <artifactId>vaadin-maven-plugin</artifactId>
         <version>${vaadin.plugin.version}</version>
         <configuration>
           <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
-          <!-- <runTarget>mobilemail</runTarget> -->
-          <!-- We are doing "inplace" but into subdir VAADIN/widgetsets. This way compatible with Vaadin eclipse plugin. -->
           <webappDirectory>${basedir}/src/main/webapp/VAADIN/widgetsets</webappDirectory>
           <hostedWebapp>${basedir}/src/main/webapp/VAADIN/widgetsets</hostedWebapp>
           <noServer>true</noServer>
-          <!-- Remove draftCompile when project is ready -->
           <draftCompile>false</draftCompile>
           <compileReport>true</compileReport>
           <style>OBF</style>
@@ -260,11 +264,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-      </plugin>
+      </plugin>  -->
     </plugins>
 
     <pluginManagement>

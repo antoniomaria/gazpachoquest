@@ -13,6 +13,7 @@ import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
 import org.jboss.shrinkwrap.descriptor.api.beans10.BeansDescriptor;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -23,33 +24,28 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(Arquillian.class)
+@Ignore
 public class QuestionnairResourceTest {
 
-	@Inject
-	@GazpachoResource
-	private QuestionnairResource questionnairResource;
+    @Inject
+    @GazpachoResource
+    private QuestionnairResource questionnairResource;
 
-	@Deployment
-	public static Archive<?> createTestArchive() {
-		String beansDescriptor = Descriptors.create(BeansDescriptor.class)
-				.exportAsString();
-		JavaArchive archive = ShrinkWrap
-				.create(JavaArchive.class, "myarchive.jar")
-				.addClasses(QuestionnairResource.class, ResourceProducer.class,
-						GazpachoResource.class)
-				.addAsResource("resources/messages.properties")
-				.addAsManifestResource(new StringAsset(beansDescriptor),
-						"beans.xml");
-		return archive;
-	}
+    @Deployment
+    public static Archive<?> createTestArchive() {
+        String beansDescriptor = Descriptors.create(BeansDescriptor.class).exportAsString();
+        JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "myarchive.jar")
+                .addClasses(QuestionnairResource.class, ResourceProducer.class, GazpachoResource.class)
+                .addAsResource("resources/messages.properties")
+                .addAsManifestResource(new StringAsset(beansDescriptor), "beans.xml");
+        return archive;
+    }
 
-	@Test
-	public void listTest() {
-		Integer questionnairId = 58;
-		QuestionnairDTO questionnair = questionnairResource
-				.getDefinition(questionnairId);
-		System.out.println(questionnair.getId() + " "
-				+ questionnair.getLanguageSettings().getTitle());
+    @Test
+    public void listTest() {
+        Integer questionnairId = 58;
+        QuestionnairDTO questionnair = questionnairResource.getDefinition(questionnairId);
+        System.out.println(questionnair.getId() + " " + questionnair.getLanguageSettings().getTitle());
 
-	}
+    }
 }

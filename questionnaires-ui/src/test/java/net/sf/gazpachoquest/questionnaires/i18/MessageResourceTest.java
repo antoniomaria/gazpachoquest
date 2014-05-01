@@ -51,11 +51,10 @@ public class MessageResourceTest {
     public void getStringTest() {
         Locale locale = Locale.ENGLISH;
         String resource = messageResource.getString(locale, "login.language.select.label");
-        System.out.println("y de winner is: " + resource);
-        assertThat(resource).contains("select");
+        assertThat(resource).contains("Select your language");
         locale = new Locale("ES");
         resource = messageResource.getString(locale, "login.language.select.label");
-        assertThat(resource).contains("seleccione");
+        assertThat(resource).contains("Seleccione");
 
     }
 }
