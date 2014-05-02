@@ -12,10 +12,10 @@ package net.sf.gazpachoquest.questionnaires;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import javax.servlet.ServletException;
 
 import net.sf.gazpachoquest.questionnaires.views.QuestionnairView;
 import net.sf.gazpachoquest.questionnaires.views.login.LoginEvent;
+import net.sf.gazpachoquest.questionnaires.views.login.MyLoginView;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +57,7 @@ public class QuestionnairesUI extends UI {
         navigator.addProvider(viewProvider);
         navigator.setErrorProvider(new GazpachoErrorViewProvider());
 
-        navigator.navigateTo("login");
+        navigator.navigateTo(MyLoginView.NAME);
     }
 
     protected void onLogin(@Observes
@@ -65,8 +65,9 @@ public class QuestionnairesUI extends UI {
         try {
             JaasAccessControl.login(loginEvent.getUsername(), loginEvent.getPassword());
             navigator.navigateTo(QuestionnairView.NAME);
-        } catch (ServletException e) {
+        } catch (Exception e) {
             Notification.show("Error logging in", Type.ERROR_MESSAGE);
+            logger.error(e.getMessage(), e);
         }
     }
 

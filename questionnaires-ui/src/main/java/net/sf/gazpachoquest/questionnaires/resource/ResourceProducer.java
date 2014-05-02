@@ -29,34 +29,33 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 public class ResourceProducer {
 
-	private static Logger logger = LoggerFactory
-			.getLogger(ResourceProducer.class);
+    private static Logger logger = LoggerFactory.getLogger(ResourceProducer.class);
 
-	public static final String BASE_URI = "http://aurora:8080/gazpachoquest-rest-web/api";
+    // public static final String BASE_URI =
+    // "http://aurora:8080/gazpachoquest-rest-web/api";
 
-	@Produces
-	@GazpachoResource
-	@RequestScoped
-	public QuestionnairResource createQuestionnairResource(
-			HttpServletRequest request) {
-		RespondentAccount principal = (RespondentAccount) request
-				.getUserPrincipal();
-		String apiKey = principal.getApiKey();
+    public static final String BASE_URI = "http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/api";
 
-		logger.info("Getting QuestionnairResource using api key {}: ", apiKey);
-		QuestionnairResource resource = JAXRSClientFactory.create(BASE_URI,
-				QuestionnairResource.class,
-				Collections.singletonList(new JacksonJsonProvider()), null);
-		// proxies
-		WebClient.client(resource).header("api_key", apiKey);
+    @Produces
+    @GazpachoResource
+    @RequestScoped
+    public QuestionnairResource createQuestionnairResource(HttpServletRequest request) {
+        RespondentAccount principal = (RespondentAccount) request.getUserPrincipal();
+        String apiKey = principal.getApiKey();
 
-		return resource;
-	}
+        logger.info("Getting QuestionnairResource using api key {}: ", apiKey);
+        QuestionnairResource resource = JAXRSClientFactory.create(BASE_URI, QuestionnairResource.class,
+                Collections.singletonList(new JacksonJsonProvider()), null);
+        // proxies
+        WebClient.client(resource).header("Authorization", "GZQ " + apiKey);
+        return resource;
+    }
 
-	public void closeQuestionnairResource(
-			@Disposes @GazpachoResource QuestionnairResource client) {
-		logger.info("Closing QuestionnairResource ");
-		WebClient.client(client).reset();
-	}
+    public void closeQuestionnairResource(@Disposes
+    @GazpachoResource
+    QuestionnairResource client) {
+        logger.info("Closing QuestionnairResource ");
+        WebClient.client(client).reset();
+    }
 
 }

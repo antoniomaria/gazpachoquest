@@ -1,6 +1,7 @@
 package net.sf.gazpachoquest.questionnaires.views.login;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 import com.vaadin.cdi.CDIView;
 import com.vaadin.event.ShortcutAction.KeyCode;
@@ -8,7 +9,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.PasswordField;
@@ -17,7 +18,11 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
 
 @CDIView(LoginView.NAME)
-public class MyLoginView extends CssLayout implements View {
+public class MyLoginView extends CustomComponent implements View {
+
+    private static final long serialVersionUID = -5588579843187115669L;
+
+    public static final String NAME = "login";
 
     private HorizontalLayout viewLayout;
     private TextField username;
@@ -26,10 +31,12 @@ public class MyLoginView extends CssLayout implements View {
 
     @PostConstruct
     public void init() {
-        addStyleName("root");
         setSizeFull();
-        addComponent(createCompositionRoot());
+        setCompositionRoot(createCompositionRoot());
     }
+
+    @Inject
+    private javax.enterprise.event.Event<LoginEvent> loginEvent;
 
     protected HorizontalLayout createCompositionRoot() {
         VerticalLayout loginPanel = new VerticalLayout();
@@ -56,7 +63,7 @@ public class MyLoginView extends CssLayout implements View {
         login = new Button("Login");
         login.setClickShortcut(KeyCode.ENTER);
         login.addStyleName(Reindeer.BUTTON_DEFAULT);
-        login.addListener(createLoginButtonListener());
+        login.addClickListener(createLoginButtonListener());
         buttons.addComponent(login);
 
         viewLayout = new HorizontalLayout();
@@ -71,14 +78,13 @@ public class MyLoginView extends CssLayout implements View {
         return viewLayout;
     }
 
-    @SuppressWarnings("serial")
-    private Button.ClickListener createLoginButtonListener() {
+    protected Button.ClickListener createLoginButtonListener() {
         return new Button.ClickListener() {
+            private static final long serialVersionUID = 3424514570135131495L;
 
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                // getPresenter().attemptLogin((String) username.getValue(),
-                // (String) password.getValue());
+                loginEvent.fire(new LoginEvent(username.getValue(), password.getValue()));
             }
         };
     }
