@@ -38,9 +38,10 @@
       log("key: " + key);
       if(key && key.trim() != "") {
         log("added key " + key);
-        // var basicAuthToken = "Basic " + window.btoa("respondent:"+ key);
-        // window.authorizations.add("key", new ApiKeyAuthorization("Authorization", basicAuthToken, "header"));
-        window.authorizations.add("key", new ApiKeyAuthorization("api_key", key, "query"));
+        //var basicAuthToken = "Basic " + window.btoa("respondent:"+ key);
+        var gzqAuthToken = "GZQ " + key;
+        window.authorizations.add("key", new ApiKeyAuthorization("Authorization", gzqAuthToken, "header"));
+        //window.authorizations.add("key", new ApiKeyAuthorization("api_key", key, "query"));
       }
     })
     window.swaggerUi.load();

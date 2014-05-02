@@ -1,5 +1,7 @@
 package net.sf.gazpachoquest.rest.filter;
 
+import java.util.List;
+
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
@@ -7,8 +9,6 @@ import javax.ws.rs.core.UriInfo;
 
 import net.sf.gazpachoquest.security.shiro.APIKeyToken;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.cxf.jaxrs.ext.MessageContext;
 import org.apache.cxf.jaxrs.ext.RequestHandler;
 import org.apache.cxf.jaxrs.model.ClassResourceInfo;
 import org.apache.cxf.message.Message;
@@ -28,9 +28,6 @@ public class SecurityContextFilter implements RequestHandler {
     @Context
     private UriInfo uriInfo;
 
-    @Context
-    private MessageContext messageContext;
-
     @Override
     public Response handleRequest(Message message, ClassResourceInfo resourceClass) {
         String path = uriInfo.getPath();
@@ -48,12 +45,14 @@ public class SecurityContextFilter implements RequestHandler {
     }
 
     protected String resolveApiKey() {
-        String apiKey = messageContext.getHttpServletRequest().getParameter("api_key");
-        if (StringUtils.isNotBlank(apiKey)) {
-            return apiKey;
+        List<String> authValues = headers.getRequestHeader("Authorization");
+        if (authValues.size() == 0) {
+            return null;
         }
-        apiKey = !headers.getRequestHeader("api_key").isEmpty() ? headers.getRequestHeader("api_key").get(0) : null;
-        return apiKey;
+        String[] values = authValues.get(0).split(" ");
+        if (values.length != 2 || !"GZQ".equals(values[0])) {
+            return null;
+        }
+        return values[1];
     }
-
 }
