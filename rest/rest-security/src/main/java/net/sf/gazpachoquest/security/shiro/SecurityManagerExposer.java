@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class SecurityManagerExposer {
 
-	@Autowired
-	private SecurityManager securityManager;
+    @Autowired
+    private SecurityManager securityManager;
 
-	@PostConstruct
-	public void expose() {
+    @PostConstruct
+    public void expose() {
 
-		// Make the SecurityManager instance available to the entire application
-		// via static memory:
-		SecurityUtils.setSecurityManager(securityManager);
-	}
+        // Make the SecurityManager instance available to the entire application
+        // via static memory:
+        SecurityUtils.setSecurityManager(securityManager);
+    }
 }

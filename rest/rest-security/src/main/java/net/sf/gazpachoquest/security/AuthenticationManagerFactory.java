@@ -2,5 +2,5 @@ package net.sf.gazpachoquest.security;
 
 public interface AuthenticationManagerFactory {
 
-	AuthenticationManager getObject(AccountType type);
+    AuthenticationManager getObject(AccountType type);
 }

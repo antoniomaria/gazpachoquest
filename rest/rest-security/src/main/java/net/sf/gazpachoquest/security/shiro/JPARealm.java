@@ -28,75 +28,67 @@ import org.springframework.stereotype.Component;
 @Component
 public class JPARealm extends AuthorizingRealm {
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@Autowired
-	private RoleService roleService;
+    @Autowired
+    private RoleService roleService;
 
-	@Autowired
-	private PermissionService permissionService;
+    @Autowired
+    private PermissionService permissionService;
 
-	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(
-			AuthenticationToken token) throws AuthenticationException {
-		APIKeyToken upToken = (APIKeyToken) token;
-		String apiKey = upToken.getApiKey();
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+        APIKeyToken upToken = (APIKeyToken) token;
+        String apiKey = upToken.getApiKey();
 
-		// Null apikey is invalid
-		if (apiKey == null) {
-			throw new AccountException(
-					"API Key is required");
-		}
-		User example = new User.Builder().apiKey(apiKey).build();
-		User user = null;
-		try {
-			user = userService
-					.findOneByExample(example, new SearchParameters());
+        // Null apikey is invalid
+        if (apiKey == null) {
+            throw new AccountException("API Key is required");
+        }
+        User example = new User.Builder().apiKey(apiKey).build();
+        User user = null;
+        try {
+            user = userService.findOneByExample(example, new SearchParameters().caseSensitive());
 
-			if (user == null) {
-				throw new UnknownAccountException(
-						"No account found for apikey [" + apiKey + "]");
-			}
+            if (user == null) {
+                throw new UnknownAccountException("No account found for apikey [" + apiKey + "]");
+            }
 
-		} catch (PersistenceException e) {
-			final String message = "There was a SQL error while authenticating apikey ["
-					+ apiKey + "]";
-			// Rethrow any SQL errors as an authentication exception
-			throw new AuthenticationException(message, e);
-		}
+        } catch (PersistenceException e) {
+            final String message = "There was a SQL error while authenticating apikey [" + apiKey + "]";
+            // Rethrow any SQL errors as an authentication exception
+            throw new AuthenticationException(message, e);
+        }
 
-		return AuthenticationInfoImpl.with().apiKey(apiKey).principal(user)
-				.build();
-	}
+        return AuthenticationInfoImpl.with().apiKey(apiKey).principal(user).build();
+    }
 
-	@Override
-	public boolean supports(AuthenticationToken token) {
-		return token.getClass().isAssignableFrom(APIKeyToken.class);
-	}
+    @Override
+    public boolean supports(AuthenticationToken token) {
+        return token.getClass().isAssignableFrom(APIKeyToken.class);
+    }
 
-	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(
-			PrincipalCollection principals) {
-		// null usernames are invalid
-		if (principals == null) {
-			throw new AuthorizationException(
-					"PrincipalCollection method argument cannot be null.");
-		}
-		User user = (User) getAvailablePrincipal(principals);
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        // null usernames are invalid
+        if (principals == null) {
+            throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
+        }
+        User user = (User) getAvailablePrincipal(principals);
 
-		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
-		Set<Role> roles = userService.getRoles(user.getId());
-		for (Role role : roles) {
-			info.addRole(role.getName());
-		}
-		Set<Permission> permissions = userService.getPermissions(user.getId());
+        Set<Role> roles = userService.getRoles(user.getId());
+        for (Role role : roles) {
+            info.addRole(role.getName());
+        }
+        Set<Permission> permissions = userService.getPermissions(user.getId());
 
-		for (Permission permission : permissions) {
-			info.addStringPermission(permission.getLiteral());
-		}
-		return info;
-	}
+        for (Permission permission : permissions) {
+            info.addStringPermission(permission.getLiteral());
+        }
+        return info;
+    }
 
 }

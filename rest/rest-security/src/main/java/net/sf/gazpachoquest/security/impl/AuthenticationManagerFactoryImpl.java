@@ -20,7 +20,7 @@ public class AuthenticationManagerFactoryImpl implements AuthenticationManagerFa
 
     @Override
     public AuthenticationManager getObject(final AccountType type) {
-    	AuthenticationManager impl = getImplementations().get(type.toString());
+        AuthenticationManager impl = getImplementations().get(type.toString());
         if (impl == null) {
             throw new IllegalStateException("There is no implementation for type = " + type);
         }
