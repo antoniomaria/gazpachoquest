@@ -17,18 +17,23 @@ import net.sf.gazpachoquest.api.QuestionnairResource;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
-import net.sf.gazpachoquest.questionnaires.views.login.LoginView;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.vaadin.addon.responsive.Responsive;
 import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.VaadinServletService;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.Reindeer;
 
 @CDIView(QuestionnairView.NAME)
 @RolesAllowed(RespondentAccount.DEFAULT_ROLE_NAME)
@@ -38,7 +43,7 @@ public class QuestionnairView extends CustomComponent implements View {
 
     public static final String NAME = "questionnair";
 
-    private static Logger logger = LoggerFactory.getLogger(LoginView.class);
+    private static Logger logger = LoggerFactory.getLogger(QuestionnairView.class);
 
     @Inject
     @GazpachoResource
@@ -47,11 +52,12 @@ public class QuestionnairView extends CustomComponent implements View {
     @Override
     public void enter(ViewChangeEvent event) {
         logger.debug("Entering {} view ", QuestionnairView.NAME);
-        // explicitly log the view change - this could also be done with an
-        // interceptor or a decorator
-        // loggableEvent.fire(new LoggableEvent("Enter view [" +
-        // event.getViewName() + "]"));
         setSizeFull();
+        addStyleName(Reindeer.LAYOUT_BLUE);
+        VerticalLayout centralLayout = new VerticalLayout();
+        centralLayout.setMargin(true);
+        new Responsive(centralLayout);
+        
         RespondentAccount respondent = (RespondentAccount) VaadinServletService.getCurrentServletRequest()
                 .getUserPrincipal();
         Integer questionnairId = respondent.getGrantedQuestionnairIds().iterator().next();
@@ -62,12 +68,35 @@ public class QuestionnairView extends CustomComponent implements View {
         VerticalLayout mainLayout = new VerticalLayout();
         mainLayout.setSizeFull();
 
-        Label label = new Label("Welcome " + respondent.getFullName() + " to take the questionnair: "
-                + questionnair.getLanguageSettings().getTitle());
+        Label label = new Label(questionnair.getLanguageSettings().getTitle());
+        label.addStyleName(Reindeer.LABEL_H1);
         mainLayout.addComponent(label);
         // mainLayout.setExpandRatio(content, 1);
-
-        setCompositionRoot(mainLayout);
+        centralLayout.addComponent(mainLayout);
+        setCompositionRoot(centralLayout);
     }
 
+    private HorizontalLayout createHeader() {
+        final HorizontalLayout layout = new HorizontalLayout();
+        layout.setWidth("100%");
+        layout.setMargin(true);
+        layout.setSpacing(true);
+        final Label title = new Label("Activiti + Vaadin - A Match Made in Heaven");
+        title.addStyleName(Reindeer.LABEL_H1);
+        layout.addComponent(title);
+        layout.setExpandRatio(title, 1.0f);
+
+        Label currentUser = new Label();
+        currentUser.setSizeUndefined();
+        layout.addComponent(currentUser);
+        layout.setComponentAlignment(currentUser, Alignment.MIDDLE_RIGHT);
+
+        Button logout = new Button("Logout");
+        logout.addStyleName(Reindeer.BUTTON_SMALL);
+        // logout.addListener(createLogoutButtonListener());
+        layout.addComponent(logout);
+        layout.setComponentAlignment(logout, Alignment.MIDDLE_RIGHT);
+
+        return layout;
+    }
 }

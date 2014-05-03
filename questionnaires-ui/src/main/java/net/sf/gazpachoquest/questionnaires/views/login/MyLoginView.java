@@ -3,6 +3,8 @@ package net.sf.gazpachoquest.questionnaires.views.login;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import net.sf.gazpachoquest.dto.auth.RespondentAccount;
+
 import com.vaadin.cdi.CDIView;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.navigator.View;
@@ -17,7 +19,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
 
-@CDIView(LoginView.NAME)
+@CDIView(MyLoginView.NAME)
 public class MyLoginView extends CustomComponent implements View {
 
     private static final long serialVersionUID = -5588579843187115669L;
@@ -25,8 +27,7 @@ public class MyLoginView extends CustomComponent implements View {
     public static final String NAME = "login";
 
     private HorizontalLayout viewLayout;
-    private TextField username;
-    private PasswordField password;
+    private PasswordField invitation;
     private Button login;
 
     @PostConstruct
@@ -41,26 +42,24 @@ public class MyLoginView extends CustomComponent implements View {
     protected HorizontalLayout createCompositionRoot() {
         VerticalLayout loginPanel = new VerticalLayout();
         loginPanel.setSpacing(true);
-        loginPanel.setWidth("300px");
+        loginPanel.setWidth("400px");
 
-        Label header = new Label("Please login");
+        Label header = new Label("Enter your invitation to start the questionnair");
         header.addStyleName(Reindeer.LABEL_H1);
         loginPanel.addComponent(header);
 
-        username = new TextField("Username");
-        username.setWidth("100%");
-        loginPanel.addComponent(username);
-
-        password = new PasswordField("Password");
-        password.setWidth("100%");
-        loginPanel.addComponent(password);
+        invitation = new PasswordField("Invitation");
+        invitation.setWidth("100%");
+        invitation.focus();
+        invitation.setValue("YAS5ICHRBE");
+        loginPanel.addComponent(invitation);
 
         HorizontalLayout buttons = new HorizontalLayout();
         buttons.setSpacing(true);
         loginPanel.addComponent(buttons);
         loginPanel.setComponentAlignment(buttons, Alignment.MIDDLE_RIGHT);
 
-        login = new Button("Login");
+        login = new Button("Start");
         login.setClickShortcut(KeyCode.ENTER);
         login.addStyleName(Reindeer.BUTTON_DEFAULT);
         login.addClickListener(createLoginButtonListener());
@@ -73,8 +72,6 @@ public class MyLoginView extends CustomComponent implements View {
         viewLayout.addStyleName(Reindeer.LAYOUT_BLUE);
         setSizeFull();
 
-        username.focus();
-
         return viewLayout;
     }
 
@@ -84,7 +81,7 @@ public class MyLoginView extends CustomComponent implements View {
 
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                loginEvent.fire(new LoginEvent(username.getValue(), password.getValue()));
+                loginEvent.fire(new LoginEvent(RespondentAccount.USER_NAME, invitation.getValue()));
             }
         };
     }
@@ -96,9 +93,7 @@ public class MyLoginView extends CustomComponent implements View {
     }
 
     public void clearForm() {
-        username.setValue("");
-        password.setValue("");
-        username.focus();
+        invitation.setValue("");
     }
 
     @Override
