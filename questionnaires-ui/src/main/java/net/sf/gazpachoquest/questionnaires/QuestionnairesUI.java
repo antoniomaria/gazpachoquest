@@ -10,6 +10,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.questionnaires;
 
+import java.security.Principal;
+
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
@@ -32,6 +34,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
+
 @Theme("gazpacho")
 @Title("Gazpacho Questionnaires")
 @Widgetset("net.sf.gazpachoquest.questionnaires.AppWidgetSet")
@@ -60,7 +63,11 @@ public class QuestionnairesUI extends UI {
         navigator.addProvider(viewProvider);
         navigator.setErrorProvider(new GazpachoErrorViewProvider());
 
-        navigator.navigateTo(MyLoginView.NAME);
+        if (isUserSignedIn()) {
+            navigator.navigateTo(QuestionnairView.NAME);
+        } else {
+            navigator.navigateTo(MyLoginView.NAME);
+        }
     }
 
     protected void onLogin(@Observes
@@ -74,4 +81,21 @@ public class QuestionnairesUI extends UI {
         }
     }
 
+    public boolean isUserInRole(String role) {
+        return JaasAccessControl.getCurrentRequest().isUserInRole(role);
+    }
+
+    public String getPrincipalName() {
+        Principal principal = JaasAccessControl.getCurrentRequest().getUserPrincipal();
+        if (principal != null) {
+            return principal.getName();
+        }
+
+        return null;
+    }
+
+    public boolean isUserSignedIn() {
+        Principal principal = JaasAccessControl.getCurrentRequest().getUserPrincipal();
+        return principal != null;
+    }
 }
