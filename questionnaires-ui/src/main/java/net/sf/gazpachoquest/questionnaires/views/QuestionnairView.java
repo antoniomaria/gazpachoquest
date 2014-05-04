@@ -56,7 +56,7 @@ public class QuestionnairView extends CustomComponent implements View {
         addStyleName(Reindeer.LAYOUT_BLUE);
         VerticalLayout centralLayout = new VerticalLayout();
         centralLayout.setMargin(true);
-        new Responsive(centralLayout);
+      //  new Responsive(centralLayout);
         
         RespondentAccount respondent = (RespondentAccount) VaadinServletService.getCurrentServletRequest()
                 .getUserPrincipal();
@@ -69,8 +69,13 @@ public class QuestionnairView extends CustomComponent implements View {
         mainLayout.setSizeFull();
 
         Label label = new Label(questionnair.getLanguageSettings().getTitle());
-        label.addStyleName(Reindeer.LABEL_H1);
+        // label.addStyleName(Reindeer.LABEL_H1);
         mainLayout.addComponent(label);
+        
+        label.addStyleName("description");
+
+        // Add the responsive capabilities to the components
+        new Responsive(label);
         // mainLayout.setExpandRatio(content, 1);
         centralLayout.addComponent(mainLayout);
         setCompositionRoot(centralLayout);

@@ -4,8 +4,10 @@
   <!-- This file is automatically updated based on new dependencies by the
     goal "vaadin:update-widgetset". -->
 
-  <!-- Inherit DefaultWidgetSet -->
-  <inherits name="com.vaadin.DefaultWidgetSet" />
+  <!-- Inherit DefaultWidgetSet 
+  <inherits name="com.vaadin.DefaultWidgetSet" /> -->
+
+  <inherits name="com.vaadin.addon.responsive.ResponsiveWidgetSet" /> 
 
   <!-- Uncomment the following to compile the widgetset for one browser only.
     Multiple browsers can be specified as a comma separated list. The supported

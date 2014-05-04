@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
@@ -14,6 +15,7 @@
     <arquillian.version>1.0.0.Alpha1</arquillian.version>
     <version.shrinkwrap.resolvers>2.1.0-alpha-1</version.shrinkwrap.resolvers>
   </properties>
+  <!-- -->
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -56,6 +58,7 @@
   </dependencyManagement>
   <dependencies>
 
+
     <!-- Test scope -->
     <dependency>
       <groupId>junit</groupId>
@@ -77,19 +80,14 @@
     </dependency>
 
     <!-- Provided scope -->
-    <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>jsr311-api</artifactId>
-      <version>1.1.1</version>
-      <scope>provided</scope>
-    </dependency>
-
+    <!-- <dependency> <groupId>javax.ws.rs</groupId> <artifactId>jsr311-api</artifactId> <version>1.1.1</version> <scope>provided</scope> 
+      </dependency> <dependency> <groupId>org.apache.openejb</groupId> <artifactId>tomee-embedded</artifactId> <version>1.6.0</version> <scope>provided</scope> 
+      </dependency> -->
     <dependency>
       <groupId>org.apache.openejb</groupId>
-      <artifactId>tomee-embedded</artifactId>
-      <version>1.6.0</version>
+      <artifactId>javaee-api</artifactId>
+      <version>6.0-5</version>
     </dependency>
-
     <!-- Arquillian vaadin -->
     <dependency>
       <groupId>org.jboss.arquillian.junit</groupId>
@@ -138,17 +136,18 @@
       <artifactId>vaadin-client-compiled</artifactId>
       <version>${vaadin.version}</version>
     </dependency>
-    <!-- Needed when using the widgetset optimizer (custom ConnectorBundleLoaderFactory). For widgetset compilation, vaadin-client-compiler
+    <!-- Needed when using the widgetset optimizer (custom ConnectorBundleLoaderFactory). For widgetset compilation, vaadin-client-compiler 
       is automatically added on the compilation classpath by vaadin-maven-plugin so normally there is no need for an explicit dependency. -->
-    <!-- <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client-compiler</artifactId> <version>${vaadin.version}</version>
+    <!-- <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client-compiler</artifactId> <version>${vaadin.version}</version> 
       <scope>provided</scope> </dependency> -->
+    <!-- 
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-client</artifactId>
       <version>${vaadin.version}</version>
       <scope>provided</scope>
     </dependency>
-
+ -->
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-themes</artifactId>
@@ -190,6 +189,11 @@
       <version>1.1.0</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.vaadin.addon.responsive</groupId>
+      <artifactId>responsive</artifactId>
+      <version>1.0.0.alpha4</version>
+    </dependency>
     <!-- JAckson Mapper -->
     <dependency>
       <groupId>com.fasterxml.jackson.jaxrs</groupId>
@@ -214,17 +218,8 @@
       <!-- directory is cleaned properly -->
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>2.4.1</version>
-        <configuration>
-          <filesets>
-            <fileset>
-              <directory>src/main/webapp/VAADIN/widgetsets</directory>
-            </fileset>
-            <fileset>
-              <directory>src/main/webapp/VAADIN/gwt-unitCache</directory>
-            </fileset>
-          </filesets>
-        </configuration>
+        <version>2.4.1</version><!-- <configuration> <filesets> <fileset> <directory>src/main/webapp/VAADIN/widgetsets</directory> 
+          </fileset> <fileset> <directory>src/main/webapp/VAADIN/gwt-unitCache</directory> </fileset> </filesets> </configuration> -->
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -234,8 +229,8 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
-      
-      <!-- 
+
+
       <plugin>
         <groupId>com.vaadin</groupId>
         <artifactId>vaadin-maven-plugin</artifactId>
@@ -244,12 +239,13 @@
           <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
           <webappDirectory>${basedir}/src/main/webapp/VAADIN/widgetsets</webappDirectory>
           <hostedWebapp>${basedir}/src/main/webapp/VAADIN/widgetsets</hostedWebapp>
+          <persistentunitcachedir>${basedir}/target/tmp/gwt-unitCache</persistentunitcachedir>
           <noServer>true</noServer>
           <draftCompile>false</draftCompile>
           <compileReport>true</compileReport>
           <style>OBF</style>
           <strict>true</strict>
-          <runTarget>http://localhost:8080/</runTarget>
+          <runTarget>http://aurora:8080/</runTarget>
         </configuration>
         <executions>
           <execution>
@@ -264,7 +260,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>  -->
+      </plugin>
     </plugins>
 
     <pluginManagement>

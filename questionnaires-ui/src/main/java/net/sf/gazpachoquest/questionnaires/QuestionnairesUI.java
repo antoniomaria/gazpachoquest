@@ -20,7 +20,9 @@ import net.sf.gazpachoquest.questionnaires.views.login.MyLoginView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
+import com.vaadin.annotations.Widgetset;
 import com.vaadin.cdi.CDIUI;
 import com.vaadin.cdi.CDIViewProvider;
 import com.vaadin.cdi.access.JaasAccessControl;
@@ -30,8 +32,9 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
-
+@Theme("gazpacho")
 @Title("Gazpacho Questionnaires")
+@Widgetset("net.sf.gazpachoquest.questionnaires.AppWidgetSet")
 @CDIUI
 public class QuestionnairesUI extends UI {
 
