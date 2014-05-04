@@ -22,12 +22,16 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JPARealm extends AuthorizingRealm {
 
+    public static Logger logger = LoggerFactory.getLogger(JPARealm.class);
+    
     @Autowired
     private UserService userService;
 
@@ -54,7 +58,7 @@ public class JPARealm extends AuthorizingRealm {
             if (user == null) {
                 throw new UnknownAccountException("No account found for apikey [" + apiKey + "]");
             }
-
+            logger.info("Authentication successfully for user {}", user.getFullName());
         } catch (PersistenceException e) {
             final String message = "There was a SQL error while authenticating apikey [" + apiKey + "]";
             // Rethrow any SQL errors as an authentication exception
