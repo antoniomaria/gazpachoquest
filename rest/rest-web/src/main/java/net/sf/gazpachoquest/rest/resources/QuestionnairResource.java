@@ -20,6 +20,7 @@ import net.sf.gazpachoquest.types.BrowsingAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,9 +58,11 @@ public class QuestionnairResource {
     public Response getDefinition(@PathParam("questionnairId")
     @ApiParam(value = "Questionnair id")
     Integer questionnairId) {
-        User subject = (User) SecurityUtils.getSubject().getPrincipal();
-        SecurityUtils.getSubject().checkPermission("questionnair:read:" + questionnairId);
-        logger.debug("Fetching Questionnair Definition {} for user {}", questionnairId, subject.getFullName());
+        Subject subject = SecurityUtils.getSubject();
+        subject.getSession(false).touch();
+        User principal = (User) SecurityUtils.getSubject().getPrincipal();
+        subject.checkPermission("questionnair:read:" + questionnairId);
+        logger.debug("Fetching Questionnair Definition {} for user {}", questionnairId, principal.getFullName());
         QuestionnairDTO questionnairDTO = questionnairFacade.findOne(questionnairId);
         return Response.ok(questionnairDTO).build();
     }
@@ -80,10 +83,13 @@ public class QuestionnairResource {
             @ApiParam(name = "action", value = "Action fired for the respondent", required = true, defaultValue = "ENTERING", allowableValues = "FORWARD,BACKWARD,ENTERING", allowMultiple = true)
             @QueryParam("action")
             String actionStr) {
-        SecurityUtils.getSubject().checkPermission("questionnair:read:" + questionnairId);
-        User subject = (User) SecurityUtils.getSubject().getPrincipal();
+
+        Subject subject = SecurityUtils.getSubject();
+        subject.getSession(false).touch();
+        User principal = (User) SecurityUtils.getSubject().getPrincipal();
+        subject.checkPermission("questionnair:read:" + questionnairId);
         logger.debug("Fetching questionnairId {} page {} for {} user {}", questionnairId, actionStr,
-                subject.getFullName());
+                principal.getFullName());
 
         RenderingMode mode = RenderingMode.fromString(modeStr);
         BrowsingAction action = BrowsingAction.fromString(actionStr);
@@ -103,10 +109,12 @@ public class QuestionnairResource {
     Integer questionnairId, @QueryParam("questionCode")
     @ApiParam(value = "Question Code", required = true)
     String questionCode) {
-        SecurityUtils.getSubject().checkPermission("questionnair:update:" + questionnairId);
+        Subject subject = SecurityUtils.getSubject();
+        subject.getSession(false).touch();
+        User principal = (User) SecurityUtils.getSubject().getPrincipal();
+        subject.checkPermission("questionnair:update:" + questionnairId);
 
-        User subject = (User) SecurityUtils.getSubject().getPrincipal();
-        logger.debug("User {} saving answers for questionnairId {}", subject.getFullName(), questionnairId);
+        logger.debug("User {} saving answers for questionnairId {}", principal.getFullName(), questionnairId);
         questionnairFacade.saveAnswer(questionnairId, questionCode, answer);
         return Response.ok().build();
     }
