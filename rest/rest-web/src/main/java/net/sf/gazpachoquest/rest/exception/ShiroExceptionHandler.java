@@ -19,7 +19,7 @@ public class ShiroExceptionHandler implements ExceptionMapper<ShiroException> {
 
     @Override
     public Response toResponse(ShiroException exception) {
-        logger.warn(exception.getMessage());
+        logger.warn(exception.getMessage(), exception);
 
         Status status = Status.FORBIDDEN; // Invalid api key
         if (exception instanceof AccountException) {
