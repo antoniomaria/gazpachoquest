@@ -15,7 +15,6 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.PasswordField;
-import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
 
@@ -40,6 +39,58 @@ public class MyLoginView extends CustomComponent implements View {
     private javax.enterprise.event.Event<LoginEvent> loginEvent;
 
     protected HorizontalLayout createCompositionRoot() {
+        VerticalLayout loginPanel = new VerticalLayout();
+        loginPanel.setSpacing(true);
+        loginPanel.setWidth("400px");
+
+        HorizontalLayout labels = new HorizontalLayout();
+        labels.setWidth("100%");
+        labels.setMargin(true);
+        labels.addStyleName("labels");
+        loginPanel.addComponent(labels);
+
+        Label welcome = new Label("Welcome");
+        welcome.setSizeUndefined();
+        welcome.addStyleName(Reindeer.LABEL_H2);
+        labels.addComponent(welcome);
+        labels.setComponentAlignment(welcome, Alignment.MIDDLE_LEFT);
+
+        Label title = new Label("Gazpacho Quest");
+        title.setSizeUndefined();
+        title.addStyleName(Reindeer.LABEL_H1);
+        labels.addComponent(title);
+        labels.setComponentAlignment(title, Alignment.MIDDLE_RIGHT);
+
+        HorizontalLayout fields = new HorizontalLayout();
+
+        fields.setWidth("100%");
+        fields.setSpacing(true);
+        fields.setMargin(true);
+        fields.addStyleName("fields");
+
+        invitation = new PasswordField("Invitation");
+        invitation.setSizeUndefined();
+        // invitation.setWidth("100%");
+        invitation.focus();
+        invitation.setValue("YAS5ICHRBE");
+        fields.addComponent(invitation);
+
+        final Button signin = new Button("Sign In");
+        fields.addComponent(signin);
+        fields.setComponentAlignment(signin, Alignment.BOTTOM_LEFT);
+
+        loginPanel.addComponent(fields);
+
+        viewLayout = new HorizontalLayout();
+        viewLayout.addComponent(loginPanel);
+        viewLayout.setComponentAlignment(loginPanel, Alignment.MIDDLE_CENTER);
+        viewLayout.setSizeFull();
+        viewLayout.addStyleName(Reindeer.LAYOUT_BLUE);
+
+        return viewLayout;
+    }
+
+    protected HorizontalLayout createCompositionRootx() {
         VerticalLayout loginPanel = new VerticalLayout();
         loginPanel.setSpacing(true);
         loginPanel.setWidth("400px");
