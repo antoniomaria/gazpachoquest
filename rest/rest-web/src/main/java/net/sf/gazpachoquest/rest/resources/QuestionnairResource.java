@@ -59,7 +59,6 @@ public class QuestionnairResource {
     @ApiParam(value = "Questionnair id")
     Integer questionnairId) {
         Subject subject = SecurityUtils.getSubject();
-        subject.getSession(false).touch();
         User principal = (User) SecurityUtils.getSubject().getPrincipal();
         subject.checkPermission("questionnair:read:" + questionnairId);
         logger.debug("Fetching Questionnair Definition {} for user {}", questionnairId, principal.getFullName());
@@ -85,7 +84,6 @@ public class QuestionnairResource {
             String actionStr) {
 
         Subject subject = SecurityUtils.getSubject();
-        subject.getSession(false).touch();
         User principal = (User) SecurityUtils.getSubject().getPrincipal();
         subject.checkPermission("questionnair:read:" + questionnairId);
         logger.debug("Fetching questionnairId {} page {} for {} user {}", questionnairId, actionStr,
@@ -110,7 +108,6 @@ public class QuestionnairResource {
     @ApiParam(value = "Question Code", required = true)
     String questionCode) {
         Subject subject = SecurityUtils.getSubject();
-        subject.getSession(false).touch();
         User principal = (User) SecurityUtils.getSubject().getPrincipal();
         subject.checkPermission("questionnair:update:" + questionnairId);
 

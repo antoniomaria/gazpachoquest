@@ -10,7 +10,8 @@ import javax.ws.rs.core.Application;
 import net.sf.gazpachoquest.rest.exception.AccountNotFoundExceptionHandler;
 import net.sf.gazpachoquest.rest.exception.DefaultExceptionHandler;
 import net.sf.gazpachoquest.rest.exception.ShiroExceptionHandler;
-import net.sf.gazpachoquest.rest.filter.SecurityContextFilter;
+import net.sf.gazpachoquest.rest.filter.LoginShiroFilter;
+import net.sf.gazpachoquest.rest.filter.LogoutShiroFilter;
 import net.sf.gazpachoquest.rest.resources.AuthenticationResource;
 import net.sf.gazpachoquest.rest.resources.QuestionnairResource;
 
@@ -33,7 +34,8 @@ public class ApplicationConfig extends Application {
         classes.add(ResourceListingProvider.class);
         classes.add(ApiDeclarationProvider.class);
 
-        classes.add(SecurityContextFilter.class);
+        classes.add(LoginShiroFilter.class);
+        classes.add(LogoutShiroFilter.class);
 
         classes.add(ShiroExceptionHandler.class);
         classes.add(AccountNotFoundExceptionHandler.class);
@@ -47,11 +49,11 @@ public class ApplicationConfig extends Application {
     }
 
     public final String getResourcePackage() {
-        return this.resourcePackage;
+        return resourcePackage;
     }
 
     public final void setResourcePackage(final String ressourcePackage) {
-        this.resourcePackage = ressourcePackage;
+        resourcePackage = ressourcePackage;
     }
 
 }

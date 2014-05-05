@@ -20,8 +20,11 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
   <bean id="authenticationResource" class="net.sf.gazpachoquest.rest.resources.AuthenticationResource" autowire="byType" />
 
-  <!-- Shiro login -->
-  <bean id="securityContextFilter" class="net.sf.gazpachoquest.rest.filter.SecurityContextFilter"/>
+  <!-- Login filter -->
+  <bean id="loginShiroFilter" class="net.sf.gazpachoquest.rest.filter.LoginShiroFilter"/>
+  
+  <!-- Logout filter -->
+  <bean id="logoutShiroFilter" class="net.sf.gazpachoquest.rest.filter.LogoutShiroFilter"/>
   
   <!-- Swagger writers -->
   <bean id="resourceWriter" class="com.wordnik.swagger.jaxrs.listing.ResourceListingProvider" />
@@ -78,7 +81,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
       <!-- required for writing swagger classes -->
       <ref bean="resourceWriter" />
       <ref bean="apiWriter" />
-      <ref bean="securityContextFilter"/>
+      <ref bean="loginShiroFilter"/>
+      <ref bean="logoutShiroFilter"/>
       <!-- Exception handlers -->
       <ref bean="shiroExceptionHandler"/>
       <ref bean="accountNotFoundExceptionHandler"/>

@@ -18,9 +18,9 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SecurityContextFilter implements RequestHandler {
+public class LoginShiroFilter implements RequestHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(SecurityContextFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoginShiroFilter.class);
 
     @Context
     private HttpHeaders headers;
