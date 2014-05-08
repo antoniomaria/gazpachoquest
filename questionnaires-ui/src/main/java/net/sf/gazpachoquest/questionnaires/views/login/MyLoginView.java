@@ -11,6 +11,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -25,7 +26,6 @@ public class MyLoginView extends CustomComponent implements View {
 
     public static final String NAME = "login";
 
-    private HorizontalLayout viewLayout;
     private PasswordField invitation;
     private Button login;
 
@@ -38,10 +38,22 @@ public class MyLoginView extends CustomComponent implements View {
     @Inject
     private javax.enterprise.event.Event<LoginEvent> loginEvent;
 
-    protected HorizontalLayout createCompositionRoot() {
-        VerticalLayout loginPanel = new VerticalLayout();
-        loginPanel.setSpacing(true);
-        loginPanel.setWidth("400px");
+    protected CssLayout createCompositionRoot() {
+        CssLayout root = new CssLayout();
+        root.setSizeFull();
+        
+        VerticalLayout   loginLayout = new VerticalLayout();
+        loginLayout.setSizeFull();
+        loginLayout.addStyleName("login-layout");
+        root.addComponent(loginLayout);
+
+        final CssLayout loginPanel = new CssLayout();
+        loginPanel.addStyleName("login-panel");
+        loginLayout.addComponent(loginPanel);
+        
+        //VerticalLayout loginPanel = new VerticalLayout();
+       // loginPanel.setSpacing(true);
+        // loginPanel.setWidth("400px");
 
         HorizontalLayout labels = new HorizontalLayout();
         labels.setWidth("100%");
@@ -81,13 +93,9 @@ public class MyLoginView extends CustomComponent implements View {
 
         loginPanel.addComponent(fields);
 
-        viewLayout = new HorizontalLayout();
-        viewLayout.addComponent(loginPanel);
-        viewLayout.setComponentAlignment(loginPanel, Alignment.MIDDLE_CENTER);
-        viewLayout.setSizeFull();
-        viewLayout.addStyleName(Reindeer.LAYOUT_BLUE);
+      
 
-        return viewLayout;
+        return root;
     }
 
     protected HorizontalLayout createCompositionRootx() {
@@ -116,7 +124,7 @@ public class MyLoginView extends CustomComponent implements View {
         login.addClickListener(createLoginButtonListener());
         buttons.addComponent(login);
 
-        viewLayout = new HorizontalLayout();
+        HorizontalLayout viewLayout = new HorizontalLayout();
         viewLayout.addComponent(loginPanel);
         viewLayout.setComponentAlignment(loginPanel, Alignment.MIDDLE_CENTER);
         viewLayout.setSizeFull();

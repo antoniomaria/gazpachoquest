@@ -1,0 +1,37 @@
+@mixin gazpacho-login-view {
+  .login-panel { background: #444; padding: 10px; width: 400px; margin: 4% auto 0 auto; position: relative; }
+  
+  .login .h1 {
+
+    // These will auto-adjust according the the font-size
+    padding: 1em;
+    line-height: 1.5;
+    
+    &[width-range="0-100px"] {
+      font-size: 10px;
+    }
+    
+    &[width-range="101px-200px"] {
+      font-size: 12px;
+    }
+    
+    &[width-range="200px-350px"] {
+      font-size: 14px;
+    }
+    
+    &[width-range="351px-500px"] {
+      font-size: 18px;
+    }
+    
+    &[width-range="501px-700px"] {
+      font-size: 24px;
+    }
+    
+    &[width-range="701px-"] {
+      font-size: 30px;
+    }  
+  }
+  .login .v-label {
+  
+  }
+}
