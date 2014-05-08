@@ -1,0 +1,2 @@
+# Module net.sf.gazpachoquest.questionnaires.AppWidgetSet
+# RPC service class, partial path of RPC policy file
