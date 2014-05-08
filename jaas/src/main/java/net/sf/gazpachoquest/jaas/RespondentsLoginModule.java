@@ -30,9 +30,9 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
-public class RespondentLoginModule implements LoginModule {
+public class RespondentsLoginModule implements LoginModule {
 
-    private static Logger logger = LoggerFactory.getLogger(RespondentLoginModule.class);
+    private static Logger logger = LoggerFactory.getLogger(RespondentsLoginModule.class);
 
     // public static final String BASE_URI =
     // "http://aurora:8080/gazpachoquest-rest-web/api";

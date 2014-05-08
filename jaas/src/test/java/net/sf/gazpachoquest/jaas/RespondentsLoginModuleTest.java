@@ -18,13 +18,13 @@ import net.sf.gazpachoquest.jaas.mock.CallbackHandlerMock;
 import org.junit.Before;
 import org.junit.Test;
 
-public class GazpachoLoginModuleTest {
+public class RespondentsLoginModuleTest {
 
-    private RespondentLoginModule loginModule;
+    private RespondentsLoginModule loginModule;
 
     @Before
     public void setUp() {
-        loginModule = new RespondentLoginModule();
+        loginModule = new RespondentsLoginModule();
     }
 
     @Test(expected = LoginException.class)
@@ -32,7 +32,7 @@ public class GazpachoLoginModuleTest {
         AuthenticationResourceMock authenticationResourceMock = new AuthenticationResourceMock();
         Set<Principal> principals = new HashSet<Principal>();
         Subject subject = new Subject(true, principals, new HashSet<Principal>(), new HashSet<Principal>());
-        CallbackHandler callbackHandler = CallbackHandlerMock.with().username("myrespondent").password("YAS5ICHRBE")
+        CallbackHandler callbackHandler = CallbackHandlerMock.with().username("myrespondent").password("XYAS5ICHRBE")
                 .build();
         Map<String, String> sharedState = new HashMap<String, String>();
         Map<String, String> options = new HashMap<String, String>();
