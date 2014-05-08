@@ -129,8 +129,8 @@ public class AuthenticationResourceMock implements Client, AuthenticationResourc
     }
 
     @Override
-    public Account authenticate(String username, String password) {
-        if ("respondent".equals(username) && "YAS5ICHRBE".equals(password)) {
+    public Account authenticate(String invitation) {
+        if ("YAS5ICHRBE".equals(invitation)) {
             return RespondentAccount.with().givenNames("Jon").surname("Snow").build();
         }
         throw new ClientWebApplicationException("Account not found");

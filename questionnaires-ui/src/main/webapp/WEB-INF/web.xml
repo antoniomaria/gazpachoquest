@@ -56,7 +56,7 @@
 
   <login-config>
     <auth-method>BASIC</auth-method>
-    <realm-name>other</realm-name>
+    <realm-name>respondents</realm-name>
   </login-config>
 
   <security-role>

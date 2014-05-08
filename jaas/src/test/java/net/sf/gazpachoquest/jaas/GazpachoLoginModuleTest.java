@@ -20,11 +20,11 @@ import org.junit.Test;
 
 public class GazpachoLoginModuleTest {
 
-    private GazpachoLoginModule loginModule;
+    private RespondentLoginModule loginModule;
 
     @Before
     public void setUp() {
-        loginModule = new GazpachoLoginModule();
+        loginModule = new RespondentLoginModule();
     }
 
     @Test(expected = LoginException.class)

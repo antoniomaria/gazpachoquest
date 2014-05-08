@@ -30,11 +30,12 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
-public class GazpachoLoginModule implements LoginModule {
+public class RespondentLoginModule implements LoginModule {
 
-    private static Logger logger = LoggerFactory.getLogger(GazpachoLoginModule.class);
+    private static Logger logger = LoggerFactory.getLogger(RespondentLoginModule.class);
 
-    // public static final String BASE_URI = "http://aurora:8080/gazpachoquest-rest-web/api";
+    // public static final String BASE_URI =
+    // "http://aurora:8080/gazpachoquest-rest-web/api";
 
     public static final String BASE_URI = "http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/api";
 
@@ -70,10 +71,10 @@ public class GazpachoLoginModule implements LoginModule {
             String password = String.valueOf(((PasswordCallback) callbacks[1]).getPassword());
             logger.info("New username attempt for user: {}", username);
 
-            Account account = authenticationResource.authenticate(username, password);
+            Account account = authenticationResource.authenticate(password);
 
             logger.info("Access granted to user {}", account.getFullName());
-            this.userPrincipal = account;
+            userPrincipal = account;
             return true;
         } catch (ClientWebApplicationException e) {
             logger.error(e.getMessage(), e);

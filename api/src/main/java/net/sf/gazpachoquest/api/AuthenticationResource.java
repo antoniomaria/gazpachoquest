@@ -10,14 +10,12 @@ import javax.ws.rs.core.MediaType;
 
 import net.sf.gazpachoquest.dto.auth.Account;
 
-
 @Path("/auth")
 @Produces(MediaType.APPLICATION_JSON)
-public interface AuthenticationResource extends Serializable{
+public interface AuthenticationResource extends Serializable {
 
-	@GET
-	Account authenticate(@QueryParam("username") String username,
-			@QueryParam("password") String password);
-	
+    @GET
+    Account authenticate(@QueryParam("invitation")
+    String invitation);
 
 }

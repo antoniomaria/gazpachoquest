@@ -37,24 +37,19 @@ public class AuthenticationResource {
     private AuthenticationManagerFactory authenticationManagerFactory;
 
     @GET
-    @ApiOperation(value = "Authentication for users", response = AbstractAccount.class)
-    public Response authenticate(@QueryParam("username")
-    @ApiParam(value = "User name")
-    String username, @QueryParam("password")
-    @ApiParam(value = "User name")
-    String password) throws AccountNotFoundException {
-        logger.info("New authentication petition received");
-        AuthenticationManager authManager = null;
-        if (StringUtils.isBlank(username)) {
-            throw new AccountNotFoundException("Username is required");
-        }
-        if (RespondentAccount.USER_NAME.equals(username)) {
-            authManager = authenticationManagerFactory.getObject(AccountType.RESPONDENT);
-        } else {
-            throw new AccountNotFoundException("Wrong credentials");
+    @ApiOperation(value = "Authentication for respondents", response = AbstractAccount.class)
+    public Response authenticate(@QueryParam("invitation")
+    @ApiParam(value = "Invitation token")
+    String invitation) throws AccountNotFoundException {
+        logger.info("New respondent authentication petition received");
+
+        if (StringUtils.isBlank(invitation)) {
+            throw new AccountNotFoundException("Invitation token is required");
         }
 
-        Account account = authManager.authenticate(username, password);
+        AuthenticationManager authManager = authenticationManagerFactory.getObject(AccountType.RESPONDENT);
+
+        Account account = authManager.authenticate(RespondentAccount.USER_NAME, invitation);
         return Response.ok(account).build();
     }
 }
