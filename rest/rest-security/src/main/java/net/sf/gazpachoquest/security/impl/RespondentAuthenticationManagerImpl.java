@@ -88,7 +88,7 @@ public class RespondentAuthenticationManagerImpl implements AuthenticationManage
 
         RespondentAccount.Builder builder = new RespondentAccount.Builder();
         RespondentAccount account = builder.email(respondent.getEmail()).givenNames(respondent.getGivenNames())
-                .surname(respondent.getSurname()).apiKey(respondent.getApiKey()).build();
+                .surname(respondent.getSurname()).apiKey(respondent.getApiKey()).secret(respondent.getSecret()).build();
 
         for (Questionnair questionnair : questionnairs) {
             account.grantQuestionnairId(questionnair.getId());

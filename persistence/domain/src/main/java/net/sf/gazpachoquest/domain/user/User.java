@@ -34,8 +34,11 @@ public class User extends AbstractAuditable {
 
     private static final long serialVersionUID = 7209387649701141462L;
 
-    @Column
+    @Column(unique = true)
     private String username;
+
+    @Column
+    private String password;
 
     @Column(nullable = false)
     private String givenNames;
@@ -48,6 +51,9 @@ public class User extends AbstractAuditable {
 
     @Column(nullable = false, unique = true)
     private String apiKey;
+
+    @Column(nullable = false, unique = true)
+    private String secret;
 
     @Enumerated(EnumType.STRING)
     private Language preferedLanguage;
@@ -177,6 +183,22 @@ public class User extends AbstractAuditable {
         this.defaultRole = defaultRole;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
     @Transient
     public String getFullName() {
         return new StringBuilder().append(givenNames).append(" ").append(surname).toString();
@@ -194,7 +216,6 @@ public class User extends AbstractAuditable {
         private String apiKey;
         private Language preferedLanguage;
         private Gender gender;
-        private String acronym;
 
         public Builder givenNames(String givenNames) {
             this.givenNames = givenNames;
@@ -228,11 +249,6 @@ public class User extends AbstractAuditable {
 
         public Builder gender(Gender gender) {
             this.gender = gender;
-            return this;
-        }
-
-        public Builder acronym(String acronym) {
-            this.acronym = acronym;
             return this;
         }
 
