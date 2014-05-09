@@ -41,6 +41,7 @@
         }
         CustomAuthorization.prototype.apply = function(obj, authorizations) {
     	  obj.headers["custom-header"] = obj.url + ' ' + obj.method ;
+    	  obj.headers["Date"] = new Date().toUTCString();
     	};
     	return CustomAuthorization;
      })();
