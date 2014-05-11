@@ -5,6 +5,7 @@ import java.util.Collections;
 import net.sf.gazpachoquest.api.AuthenticationResource;
 import net.sf.gazpachoquest.api.QuestionnairResource;
 import net.sf.gazpachoquest.cxf.interceptor.HmacAuthInterceptor;
+import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.dto.auth.Account;
@@ -20,7 +21,6 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 public class ClientInterceptorTest {
     // public static final String BASE_URI = "http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/api";
     public static final String BASE_URI = "http://localhost:8080/gazpachoquest-rest-web/api";
-
 
     @Test
     public void saveAnswerTest() {
@@ -48,4 +48,24 @@ public class ClientInterceptorTest {
         ClientConfiguration config = WebClient.getConfig(client);
         Account account = authenticationResource.authenticate("YAS5ICHRBE");
     }
+    
+
+    @Test
+    public void getQuestionnairTest() {
+        QuestionnairResource questionnairResource = JAXRSClientFactory.create(BASE_URI, QuestionnairResource.class,
+                Collections.singletonList(new JacksonJsonProvider()), null);
+
+        Client client = WebClient.client(questionnairResource);
+        ClientConfiguration config = WebClient.getConfig(client);
+
+        String apiKey = "ES619O31DPD8DYJ";
+        String secret = "123434";
+        config.getOutInterceptors().add(new HmacAuthInterceptor(apiKey, secret));
+        
+        Integer questionnairId = 61;
+        QuestionnairDTO definition = questionnairResource.getDefinition(questionnairId );
+    
+    }
+
+
 }

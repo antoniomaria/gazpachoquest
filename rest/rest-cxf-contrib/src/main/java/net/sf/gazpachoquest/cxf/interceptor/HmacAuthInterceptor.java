@@ -1,4 +1,3 @@
-
 package net.sf.gazpachoquest.cxf.interceptor;
 
 import java.io.OutputStream;
@@ -45,8 +44,8 @@ public class HmacAuthInterceptor extends AbstractPhaseInterceptor<Message> {
         String date = DateFormatUtils.SMTP_DATETIME_FORMAT.format(new Date());
 
         String resource = requestUri.substring(basePath.length());
-        String stringToSign = new StringBuilder().append(method).append("\n\n\n").append(date).append("\n")
-                .append(resource).toString();
+        String stringToSign = new StringBuilder().append(method).append(" ").append(resource).append("\n").append(date)
+                .toString();
 
         addHeader(message, HttpHeaders.DATE, date);
 

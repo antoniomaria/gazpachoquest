@@ -31,12 +31,12 @@ public class LoginShiroFilterTest {
         UriInfo uriInfo = createMock(UriInfo.class);
 
         expect(message.get(Message.HTTP_REQUEST_METHOD)).andReturn("GET");
-
+//  String secret = "123434";
         expect(headers.getRequestHeader(HttpHeaders.AUTHORIZATION)).andReturn(
-                Arrays.asList("hmac 1234:HPcE6oKQgchCWKKm+ntPPQ4hEqE="));
-        expect(headers.getRequestHeader(HttpHeaders.DATE)).andReturn(Arrays.asList("Sun, 11 May 2014 10:11:07 +0200"));
+                Arrays.asList("hmac ES619O31DPD8DYJ:hMuWnkkKIJUKwjf9/jY9APwpBmc="));
+        expect(headers.getRequestHeader(HttpHeaders.DATE)).andReturn(Arrays.asList("Sun, 11 May 2014 14:19:43 +0200"));
 
-        expect(uriInfo.getPath()).andReturn("questionnairs/11/answer");
+        expect(uriInfo.getPath()).andReturn("/questionnairs/61");
 
         replay(message, resourceClass, uriInfo, headers);
 
