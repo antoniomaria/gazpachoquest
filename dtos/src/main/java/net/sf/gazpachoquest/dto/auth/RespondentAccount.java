@@ -12,16 +12,14 @@ import java.util.Set;
 
 public class RespondentAccount extends AbstractAccount {
 
+    public static final String USER_NAME = "respondent";
 
-	public static final String USER_NAME = "respondent";
-	
-	public static final String DEFAULT_ROLE_NAME = "respondent";
+    public static final String DEFAULT_ROLE_NAME = "respondent";
 
-	private static final long serialVersionUID = -4244027794423453379L;
+    private static final long serialVersionUID = -4244027794423453379L;
 
-	private Set<Integer> grantedQuestionnairIds;
-	
-	
+    private Set<Integer> grantedQuestionnairIds;
+
     public RespondentAccount() {
         super();
     }
@@ -40,19 +38,21 @@ public class RespondentAccount extends AbstractAccount {
     public void grantQuestionnairId(Integer id) {
         getGrantedQuestionnairIds().add(id);
     }
-    
-    public void assingRole(String role){
-    	getRoles().add(RoleAccount.with().name(role).build());
+
+    public void assingRole(String role) {
+        getRoles().add(RoleAccount.with().name(role).build());
     }
 
-    public static Builder with(){
-    	return new Builder();
+    public static Builder with() {
+        return new Builder();
     }
+
     public static class Builder {
         private String givenNames;
         private String surname;
         private String email;
         private String apiKey;
+        private String secret;
 
         public Builder givenNames(String givenNames) {
             this.givenNames = givenNames;
@@ -61,6 +61,11 @@ public class RespondentAccount extends AbstractAccount {
 
         public Builder surname(String surname) {
             this.surname = surname;
+            return this;
+        }
+
+        public Builder secret(String secret) {
+            this.secret = secret;
             return this;
         }
 
@@ -80,6 +85,7 @@ public class RespondentAccount extends AbstractAccount {
             accountDTO.surname = surname;
             accountDTO.email = email;
             accountDTO.apiKey = apiKey;
+            accountDTO.secret = secret;
             return accountDTO;
         }
     }

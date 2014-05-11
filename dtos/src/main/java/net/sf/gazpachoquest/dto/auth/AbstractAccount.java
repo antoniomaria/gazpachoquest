@@ -13,92 +13,103 @@ import java.util.Set;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public abstract class AbstractAccount implements Account {
 
-	private static final long serialVersionUID = -8204465435506099291L;
+    private static final long serialVersionUID = -8204465435506099291L;
 
-	protected String givenNames;
+    protected String givenNames;
 
-	protected String surname;
+    protected String surname;
 
-	protected String email;
+    protected String email;
 
-	protected String apiKey;
+    protected String apiKey;
 
-	protected Set<RoleAccount> roles;
+    protected String secret;
 
-	protected AbstractAccount() {
-		super();
-	}
+    protected Set<RoleAccount> roles;
 
-	@Override
-	public String getGivenNames() {
-		return givenNames;
-	}
+    protected AbstractAccount() {
+        super();
+    }
 
-	@Override
-	public void setGivenNames(String givenNames) {
-		this.givenNames = givenNames;
-	}
+    @Override
+    public String getGivenNames() {
+        return givenNames;
+    }
 
-	@Override
-	public String getSurname() {
-		return surname;
-	}
+    @Override
+    public void setGivenNames(String givenNames) {
+        this.givenNames = givenNames;
+    }
 
-	@Override
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
+    @Override
+    public String getSurname() {
+        return surname;
+    }
 
-	@Override
-	public String getEmail() {
-		return email;
-	}
+    @Override
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
-	@Override
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    @Override
+    public String getEmail() {
+        return email;
+    }
 
-	@Override
-	public String getApiKey() {
-		return apiKey;
-	}
+    @Override
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	@Override
-	public void setApiKey(String apiKey) {
-		this.apiKey = apiKey;
-	}
+    @Override
+    public String getApiKey() {
+        return apiKey;
+    }
 
-	@Override
-	public Set<RoleAccount> getRoles() {
-		if (roles == null) {
-			this.roles = new HashSet<>();
-		}
-		return roles;
-	}
+    @Override
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
 
-	@Override
-	public void setRoles(Set<RoleAccount> roles) {
-		this.roles = roles;
-	}
+    @Override
+    public Set<RoleAccount> getRoles() {
+        if (roles == null) {
+            roles = new HashSet<>();
+        }
+        return roles;
+    }
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
-	}
+    @Override
+    public void setRoles(Set<RoleAccount> roles) {
+        this.roles = roles;
+    }
 
-	@Override
-	@JsonIgnore
-	public String getName() {
-		return givenNames;
-	}
+    public String getSecret() {
+        return secret;
+    }
 
-	@JsonIgnore
-	public String getFullName() {
-		return new StringBuilder().append(givenNames).append(" ")
-				.append(surname).toString();
-	}
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
+
+    @Override
+    @JsonIgnore
+    public String getName() {
+        return givenNames;
+    }
+
+    @Override
+    @JsonIgnore
+    public String getFullName() {
+        return new StringBuilder().append(givenNames).append(" ").append(surname).toString();
+    }
 
 }

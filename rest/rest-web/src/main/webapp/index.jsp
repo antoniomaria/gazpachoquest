@@ -33,6 +33,20 @@
       docExpansion: "none"
     });
 
+    CustomAuthorization = (function() {
+      CustomAuthorization.prototype.name = null;
+
+        function CustomAuthorization(name) {
+          this.name = name;
+        }
+        CustomAuthorization.prototype.apply = function(obj, authorizations) {
+    	  obj.headers["custom-header"] = obj.url + ' ' + obj.method ;
+    	  obj.headers["Date"] = new Date().toUTCString();
+    	};
+    	return CustomAuthorization;
+     })();
+      
+      
     $('#input_apiKey').change(function() {
       var key = $('#input_apiKey')[0].value;
       log("key: " + key);
@@ -41,6 +55,7 @@
         //var basicAuthToken = "Basic " + window.btoa("respondent:"+ key);
         var gzqAuthToken = "GZQ " + key;
         window.authorizations.add("key", new ApiKeyAuthorization("Authorization", gzqAuthToken, "header"));
+        window.authorizations.add("my_authorization", new CustomAuthorization("my_authorization"));
         //window.authorizations.add("key", new ApiKeyAuthorization("api_key", key, "query"));
       }
     })

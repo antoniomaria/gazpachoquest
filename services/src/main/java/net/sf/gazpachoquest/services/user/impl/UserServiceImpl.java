@@ -20,7 +20,6 @@ import net.sf.gazpachoquest.repository.user.RoleRepository;
 import net.sf.gazpachoquest.repository.user.UserRepository;
 import net.sf.gazpachoquest.services.UserService;
 import net.sf.gazpachoquest.services.core.impl.AbstractPersistenceService;
-import net.sf.gazpachoquest.util.AcronymGenerator;
 import net.sf.gazpachoquest.util.RandomTokenGenerator;
 
 import org.apache.commons.lang3.StringUtils;
@@ -33,11 +32,10 @@ public class UserServiceImpl extends AbstractPersistenceService<User> implements
 
     private static final int API_KEY_LENGTH = 15;
 
-    @Autowired
-    private RandomTokenGenerator tokenGenerator;
+    private static final int SECRET_LENGTH = 32;
 
     @Autowired
-    private AcronymGenerator acronymGenerator;
+    private RandomTokenGenerator tokenGenerator;
 
     @Autowired
     private GroupRepository groupRepository;
@@ -55,11 +53,8 @@ public class UserServiceImpl extends AbstractPersistenceService<User> implements
     public User save(final User user) {
         User existing = null;
         if (user.isNew()) {
-            String apikey = user.getApiKey();
-            if (StringUtils.isBlank(apikey)) {
-                apikey = tokenGenerator.generate(API_KEY_LENGTH);
-                user.setApiKey(apikey);
-            }
+            user.setApiKey(tokenGenerator.generate(API_KEY_LENGTH));
+            user.setSecret(tokenGenerator.generate(SECRET_LENGTH));
             Role role = Role.with().name("User Role")
                     .description(String.format("Specific role for %s %s ", user.getGivenNames(), user.getSurname()))
                     .build();
@@ -74,6 +69,9 @@ public class UserServiceImpl extends AbstractPersistenceService<User> implements
             existing.setGivenNames(user.getGivenNames());
             existing.setSurname(user.getSurname());
 
+            if (StringUtils.isNotEmpty(user.getSecret())) {
+                user.setSecret(tokenGenerator.generate(SECRET_LENGTH));
+            }
             existing.setPreferedLanguage(user.getPreferedLanguage());
             existing.setGender(user.getGender());
         }

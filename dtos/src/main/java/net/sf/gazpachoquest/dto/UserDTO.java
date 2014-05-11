@@ -21,8 +21,6 @@ public class UserDTO extends AbstractAuditableDTO {
 
     private String surname;
 
-    private String apiKey;
-
     private Language preferedLanguage;
 
     private Gender gender;
@@ -55,14 +53,6 @@ public class UserDTO extends AbstractAuditableDTO {
 
     public void setSurname(final String surname) {
         this.surname = surname;
-    }
-
-    public String getApiKey() {
-        return apiKey;
-    }
-
-    public void setApiKey(String apiKey) {
-        this.apiKey = apiKey;
     }
 
     public Language getPreferedLanguage() {
@@ -142,7 +132,6 @@ public class UserDTO extends AbstractAuditableDTO {
             userDTO.email = email;
             userDTO.givenNames = givenNames;
             userDTO.surname = surname;
-            userDTO.apiKey = apiKey;
             userDTO.preferedLanguage = preferedLanguage;
             userDTO.gender = gender;
             userDTO.username = username;
