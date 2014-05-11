@@ -43,7 +43,7 @@ public class JPARealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        APIKeyToken upToken = (APIKeyToken) token;
+        HmacAuthToken upToken = (HmacAuthToken) token;
         String apiKey = upToken.getApiKey();
 
         // Null apikey is invalid
@@ -70,7 +70,7 @@ public class JPARealm extends AuthorizingRealm {
 
     @Override
     public boolean supports(AuthenticationToken token) {
-        return token.getClass().isAssignableFrom(APIKeyToken.class);
+        return token.getClass().isAssignableFrom(HmacAuthToken.class);
     }
 
     @Override

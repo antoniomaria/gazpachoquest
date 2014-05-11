@@ -6,7 +6,7 @@ import javax.security.auth.login.AccountNotFoundException;
 
 import net.sf.gazpachoquest.dto.auth.Account;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
-import net.sf.gazpachoquest.security.shiro.APIKeyToken;
+import net.sf.gazpachoquest.security.shiro.HmacAuthToken;
 import net.sf.gazpachoquest.security.shiro.JPARealm;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
@@ -57,7 +57,7 @@ public class RespondentAuthenticationManagerTest {
         respondentAccount = (RespondentAccount) account;
         assertThat(respondentAccount.getGivenNames()).isEqualTo("anonymous");
 
-        AuthenticationToken token = new APIKeyToken.Builder().apiKey(respondentAccount.getApiKey()).build();
+        AuthenticationToken token = new HmacAuthToken.Builder().apiKey(respondentAccount.getApiKey()).build();
         Subject subject = SecurityUtils.getSubject();
         subject.login(token);
 

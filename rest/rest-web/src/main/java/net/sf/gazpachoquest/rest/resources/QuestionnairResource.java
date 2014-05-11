@@ -9,7 +9,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.Provider;
 
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.PageDTO;
@@ -33,7 +32,6 @@ import com.wordnik.swagger.annotations.ApiResponses;
 
 @Path("/questionnairs")
 @Api(value = "questionnairs", description = "Questionnairs Interface")
-@Provider
 @Produces(MediaType.APPLICATION_JSON)
 // https://github.com/jurberg/rest-security/
 // http://www.thebuzzmedia.com/designing-a-secure-rest-api-without-oauth-authentication/

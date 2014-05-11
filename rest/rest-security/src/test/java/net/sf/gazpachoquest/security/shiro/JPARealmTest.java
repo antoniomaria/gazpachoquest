@@ -35,7 +35,7 @@ public class JPARealmTest {
     @Test
     public void loginTest() {
         Subject subject = SecurityUtils.getSubject();
-        AuthenticationToken token = new APIKeyToken.Builder().apiKey("PCN1SYW4X977UE7").build();
+        AuthenticationToken token = new HmacAuthToken.Builder().apiKey("PCN1SYW4X977UE7").build();
         subject.login(token);
 
         assertThat(subject.getPrincipal()).isInstanceOf(User.class);

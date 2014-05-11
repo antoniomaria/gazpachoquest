@@ -7,7 +7,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.Provider;
 
 import net.sf.gazpachoquest.dto.auth.AbstractAccount;
 import net.sf.gazpachoquest.dto.auth.Account;
@@ -28,7 +27,7 @@ import com.wordnik.swagger.annotations.ApiParam;
 @Path("/auth")
 @Api(value = "/auth", description = "Authentication Interface")
 @Produces(MediaType.APPLICATION_JSON)
-@Provider
+// @Provider
 public class AuthenticationResource {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationResource.class);

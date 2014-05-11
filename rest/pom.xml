@@ -12,6 +12,7 @@
   <modules>
     <module>rest-security</module>
     <module>rest-web</module>
+    <module>rest-cxf-contrib</module>
   </modules>
   <dependencyManagement>
     <dependencies>
