@@ -2,14 +2,19 @@ package net.sf.gazpachoquest.security;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
+import java.security.SignatureException;
+import java.util.Date;
+
 import javax.security.auth.login.AccountNotFoundException;
 
 import net.sf.gazpachoquest.dto.auth.Account;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.security.shiro.HmacAuthToken;
 import net.sf.gazpachoquest.security.shiro.JPARealm;
+import net.sf.gazpachoquest.security.support.HMACSignature;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
@@ -44,7 +49,7 @@ public class RespondentAuthenticationManagerTest {
     private JPARealm apiKeyRealm;
 
     @Test
-    public void authenticateTest() throws AccountNotFoundException {
+    public void authenticateTest() throws AccountNotFoundException, SignatureException {
         Account account = authenticationManager.authenticate("respondent", "90POKHJE16");
         assertThat(account).isInstanceOf(RespondentAccount.class);
         RespondentAccount respondentAccount = (RespondentAccount) account;
@@ -56,13 +61,26 @@ public class RespondentAuthenticationManagerTest {
         assertThat(account).isInstanceOf(RespondentAccount.class);
         respondentAccount = (RespondentAccount) account;
         assertThat(respondentAccount.getGivenNames()).isEqualTo("anonymous");
+        String secret = account.getSecret();
+        assertThat(secret).isNotNull();
 
-        AuthenticationToken token = new HmacAuthToken.Builder().apiKey(respondentAccount.getApiKey()).build();
+        int grantedQuestionnair = respondentAccount.getGrantedQuestionnairIds().iterator().next();
+        String date = DateFormatUtils.SMTP_DATETIME_FORMAT.format(new Date());
+        String resource = "/questionnairs/" + grantedQuestionnair;
+        String method = "GET";
+        String stringToSign = new StringBuilder().append(method).append(" ").append(resource).append("\n").append(date)
+                .toString();
+        String apiKey = respondentAccount.getApiKey();
+
+        String signature = HMACSignature.calculateRFC2104HMAC(stringToSign, secret);
+
+        AuthenticationToken token = new HmacAuthToken.Builder().apiKey(apiKey).signature(signature).dateUTC(date)
+                .message(stringToSign).build();
+
         Subject subject = SecurityUtils.getSubject();
         subject.login(token);
 
-        boolean isPermitted = subject.isPermitted("questionnair:read:"
-                + respondentAccount.getGrantedQuestionnairIds().iterator().next());
+        boolean isPermitted = subject.isPermitted("questionnair:read:" + grantedQuestionnair);
         assertThat(isPermitted);
     }
 }

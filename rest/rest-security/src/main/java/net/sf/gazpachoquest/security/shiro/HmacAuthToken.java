@@ -12,6 +12,8 @@ public class HmacAuthToken implements AuthenticationToken {
 
     private String message;
 
+    private String dateUTC;
+
     @Override
     public Object getPrincipal() {
         return apiKey;
@@ -46,10 +48,19 @@ public class HmacAuthToken implements AuthenticationToken {
         this.apiKey = apiKey;
     }
 
+    public String getDateUTC() {
+        return dateUTC;
+    }
+
+    public void setDateUTC(String dateUTC) {
+        this.dateUTC = dateUTC;
+    }
+
     public static class Builder {
         private String apiKey;
         private String signature;
         private String message;
+        private String dateUTC;
 
         public Builder apiKey(String apiKey) {
             this.apiKey = apiKey;
@@ -66,14 +77,18 @@ public class HmacAuthToken implements AuthenticationToken {
             return this;
         }
 
-        public HmacAuthToken build() {
-            return new HmacAuthToken(this);
+        public Builder dateUTC(String dateUTC) {
+            this.dateUTC = dateUTC;
+            return this;
         }
-    }
 
-    private HmacAuthToken(Builder builder) {
-        this.apiKey = builder.apiKey;
-        this.signature = builder.signature;
-        this.message = builder.message;
+        public HmacAuthToken build() {
+            HmacAuthToken hmacAuthToken = new HmacAuthToken();
+            hmacAuthToken.apiKey = apiKey;
+            hmacAuthToken.signature = signature;
+            hmacAuthToken.message = message;
+            hmacAuthToken.dateUTC = dateUTC;
+            return hmacAuthToken;
+        }
     }
 }

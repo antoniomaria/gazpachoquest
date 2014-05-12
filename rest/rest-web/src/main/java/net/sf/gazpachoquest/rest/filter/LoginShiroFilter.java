@@ -1,9 +1,7 @@
 package net.sf.gazpachoquest.rest.filter;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Set;
 
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
@@ -27,7 +25,7 @@ import org.slf4j.LoggerFactory;
 public class LoginShiroFilter implements RequestHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginShiroFilter.class);
-    
+
     @Context
     private HttpHeaders headers;
 
@@ -37,34 +35,6 @@ public class LoginShiroFilter implements RequestHandler {
     public Response handleRequest(Message message, ClassResourceInfo resourceClass) {
         String path = uriInfo.getPath();
 
-        Set<Class<?>> formats = message.getContentFormats();
-        message.getContent(InputStream.class);
-        for (Class<?> class1 : formats) {
-            System.out.println(class1);
-        }
-
-
-        DelegatingInputStream input = (DelegatingInputStream) message.getContent(DelegatingInputStream.class);
-        input.cacheInput();
-
-        String content = null;
-        if (input != null) {
-            try {
-                content = IOUtils.toString(input);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-            }
-        }
-        System.out.println("content: " + content);
-        /*-
-        MultivaluedMap<String, String> values = headers.getRequestHeaders();
-        if (values != null) {
-            Set<String> keys = values.keySet();
-            for (String string : keys) {
-                System.out.println(string + " " + values.get(string));
-            }
-        }*/
-
         logger.debug("New access to resource {}", path);
         if (path.startsWith("auth") || path.contains("api-docs")) {
             // Ignore the AuthenticationResource
@@ -72,21 +42,30 @@ public class LoginShiroFilter implements RequestHandler {
         }
 
         Subject subject = SecurityUtils.getSubject();
-        String apiKey = null;
-
         String method = (String) message.get(Message.HTTP_REQUEST_METHOD);
         String dateUTC = getRequestHeaderAsString(HttpHeaders.DATE);
         String authorizationHeader = getRequestHeaderAsString(HttpHeaders.AUTHORIZATION);
 
         String[] values = authorizationHeader.split(" ");
-        String authSchema = values[0];
         String apiKeyAndSignature[] = StringUtils.split(values[1], ":");
 
-        System.out.println("path: " + path);
-        System.out.println("dateUTC: " + dateUTC);
-        System.out.println("apikey and signature: " + apiKeyAndSignature);
-
-        AuthenticationToken token = new HmacAuthToken.Builder().apiKey(apiKey).build();
+        StringBuilder signedContent = new StringBuilder().append(method).append(" ").append(path).append("\n")
+                .append(dateUTC);
+        if ("POST".equals(method)) {
+            DelegatingInputStream input = message.getContent(DelegatingInputStream.class);
+            if (input != null) {
+                input.cacheInput();
+                try {
+                    signedContent.append("\n").append(IOUtils.toString(input));
+                } catch (IOException e) {
+                    throw new IllegalStateException("Errors when reading POST content", e);
+                }
+            }
+        }
+        String apiKey = apiKeyAndSignature[0];
+        String signature = apiKeyAndSignature[1];
+        AuthenticationToken token = new HmacAuthToken.Builder().apiKey(apiKey).message(signedContent.toString())
+                .signature(signature).dateUTC(dateUTC).build();
         subject.login(token); //
         return null;
     }

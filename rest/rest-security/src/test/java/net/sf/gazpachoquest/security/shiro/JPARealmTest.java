@@ -1,9 +1,15 @@
 package net.sf.gazpachoquest.security.shiro;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+
+import java.security.SignatureException;
+import java.util.Date;
+
 import net.sf.gazpachoquest.domain.user.User;
+import net.sf.gazpachoquest.security.support.HMACSignature;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
@@ -33,17 +39,27 @@ public class JPARealmTest {
     private JPARealm apiKeyRealm;
 
     @Test
-    public void loginTest() {
+    public void loginTest() throws SignatureException {
         Subject subject = SecurityUtils.getSubject();
-        AuthenticationToken token = new HmacAuthToken.Builder().apiKey("PCN1SYW4X977UE7").build();
+
+        String date = DateFormatUtils.SMTP_DATETIME_FORMAT.format(new Date());
+
+        String resource = "/questionnairs/58";
+        String method = "GET";
+        String stringToSign = new StringBuilder().append(method).append(" ").append(resource).append("\n").append(date)
+                .toString();
+        String apiKey = "B868UOHUTKUDWXM";
+        String secret = "IQO27YUZO8NJ7RADIK6SJ9BQZNYP4EMO";
+        String signature = HMACSignature.calculateRFC2104HMAC(stringToSign, secret);
+
+        AuthenticationToken token = new HmacAuthToken.Builder().apiKey(apiKey).signature(signature).dateUTC(date)
+                .message(stringToSign).build();
         subject.login(token);
 
         assertThat(subject.getPrincipal()).isInstanceOf(User.class);
-        assertThat(subject.getPrincipal()).isEqualTo(User.with().id(6).build());
+        assertThat(subject.getPrincipal()).isEqualTo(User.with().id(3).build());
 
-        boolean isRespondent = subject.hasRole("respondent");
-        System.out.println("is respondent ?" + isRespondent);
-        boolean isPermitted = subject.isPermitted("questionnair:read:73");
+        boolean isPermitted = subject.isPermitted("questionnair:read:58");
         assertThat(isPermitted).isTrue();
     }
 

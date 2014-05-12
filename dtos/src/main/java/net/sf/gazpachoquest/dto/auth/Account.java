@@ -11,31 +11,36 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "type")
 @JsonSubTypes({ @JsonSubTypes.Type(value = TextAnswer.class, name = "T"),
-		@JsonSubTypes.Type(value = RespondentAccount.class, name = "R"), })
+        @JsonSubTypes.Type(value = RespondentAccount.class, name = "R"), })
 public interface Account extends Principal, Serializable {
 
-	String getGivenNames();
+    String getGivenNames();
 
-	void setGivenNames(String givenNames);
+    void setGivenNames(String givenNames);
 
-	String getSurname();
+    String getSurname();
 
-	void setSurname(String surname);
+    void setSurname(String surname);
 
-	String getEmail();
+    String getEmail();
 
-	void setEmail(String email);
+    void setEmail(String email);
 
-	String getApiKey();
+    String getApiKey();
 
-	void setApiKey(String apiKey);
+    void setApiKey(String apiKey);
 
-	Set<RoleAccount> getRoles();
+    Set<RoleAccount> getRoles();
 
-	void setRoles(Set<RoleAccount> roles);
+    void setRoles(Set<RoleAccount> roles);
 
-	String getName();
+    @Override
+    String getName();
 
-	String getFullName();
+    String getFullName();
+
+    String getSecret();
+
+    void setSecret(String secret);
 
 }

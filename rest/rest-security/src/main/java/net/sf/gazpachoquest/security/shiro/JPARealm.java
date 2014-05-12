@@ -1,5 +1,8 @@
 package net.sf.gazpachoquest.security.shiro;
 
+import java.security.SignatureException;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.PersistenceException;
@@ -8,10 +11,13 @@ import net.sf.gazpachoquest.domain.user.Permission;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.security.support.HMACSignature;
 import net.sf.gazpachoquest.services.PermissionService;
 import net.sf.gazpachoquest.services.RoleService;
 import net.sf.gazpachoquest.services.UserService;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -22,6 +28,8 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.joda.time.DateTime;
+import org.joda.time.Interval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +39,7 @@ import org.springframework.stereotype.Component;
 public class JPARealm extends AuthorizingRealm {
 
     public static Logger logger = LoggerFactory.getLogger(JPARealm.class);
-    
+
     @Autowired
     private UserService userService;
 
@@ -52,19 +60,26 @@ public class JPARealm extends AuthorizingRealm {
         }
         User example = new User.Builder().apiKey(apiKey).build();
         User user = null;
+        String secret = null;
         try {
             user = userService.findOneByExample(example, new SearchParameters().caseSensitive());
-
             if (user == null) {
                 throw new UnknownAccountException("No account found for apikey [" + apiKey + "]");
             }
-            logger.info("Authentication successfully for user {}", user.getFullName());
+            secret = user.getSecret();
         } catch (PersistenceException e) {
             final String message = "There was a SQL error while authenticating apikey [" + apiKey + "]";
             // Rethrow any SQL errors as an authentication exception
             throw new AuthenticationException(message, e);
         }
+        String message = upToken.getMessage();
+        String expectedSignature = upToken.getSignature();
+        verifySignature(secret, message, expectedSignature);
 
+        String dateUTC = upToken.getDateUTC();
+        verifyDate(dateUTC);
+
+        logger.info("Authentication successfully for user {}", user.getFullName());
         return AuthenticationInfoImpl.with().apiKey(apiKey).principal(user).build();
     }
 
@@ -95,4 +110,36 @@ public class JPARealm extends AuthorizingRealm {
         return info;
     }
 
+    private void verifyDate(String dateUTC) {
+        if (StringUtils.isBlank(dateUTC)) {
+            throw new AuthenticationException("Date header is required");
+        }
+        Date date = null;
+        try {
+            date = DateFormatUtils.SMTP_DATETIME_FORMAT.parse(dateUTC);
+        } catch (ParseException e) {
+            throw new AuthenticationException("Date format invalid");
+        }
+
+        DateTime start = new DateTime().minusMinutes(5);
+        DateTime end = new DateTime().plusMinutes(5);
+        Interval interval = new Interval(start, end);
+        DateTime dateTime = new DateTime(date);
+
+        if (!interval.contains(dateTime)) {
+            throw new AuthenticationException("Date not valid. Too old or too far in future");
+        }
+    }
+
+    private void verifySignature(String secret, String message, String expectedSignature) {
+        try {
+            String signature = HMACSignature.calculateRFC2104HMAC(message, secret);
+
+            if (!signature.equals(expectedSignature)) {
+                throw new AuthenticationException("Message Signature invalid");
+            }
+        } catch (SignatureException e) {
+            throw new AuthenticationException("Errors verifing hmac signature", e);
+        }
+    }
 }
