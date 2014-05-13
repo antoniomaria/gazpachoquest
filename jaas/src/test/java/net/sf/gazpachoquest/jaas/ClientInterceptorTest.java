@@ -14,12 +14,15 @@ import org.apache.cxf.jaxrs.client.Client;
 import org.apache.cxf.jaxrs.client.ClientConfiguration;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.client.WebClient;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
+@Ignore
 public class ClientInterceptorTest {
-    // public static final String BASE_URI = "http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/api";
+    // public static final String BASE_URI =
+    // "http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/api";
     public static final String BASE_URI = "http://localhost:8080/gazpachoquest-rest-web/api";
 
     @Test
@@ -48,7 +51,6 @@ public class ClientInterceptorTest {
         ClientConfiguration config = WebClient.getConfig(client);
         Account account = authenticationResource.authenticate("YAS5ICHRBE");
     }
-    
 
     @Test
     public void getQuestionnairTest() {
@@ -61,11 +63,10 @@ public class ClientInterceptorTest {
         String apiKey = "ES619O31DPD8DYJ";
         String secret = "123434";
         config.getOutInterceptors().add(new HmacAuthInterceptor(apiKey, secret));
-        
-        Integer questionnairId = 61;
-        QuestionnairDTO definition = questionnairResource.getDefinition(questionnairId );
-    
-    }
 
+        Integer questionnairId = 61;
+        QuestionnairDTO definition = questionnairResource.getDefinition(questionnairId);
+
+    }
 
 }

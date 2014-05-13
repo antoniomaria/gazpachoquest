@@ -25,11 +25,11 @@ INSERT INTO role (id, description, name) VALUES (11, 'Specific role for Catelyn 
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO users (id, api_key, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (1, 'PKCC00D3YH83KEP', '2014-04-29 14:09:28.906', 'support@gazpacho.net', NULL, 'support', '2014-04-29 14:09:28.906', NULL, 'support', 'support', 1, 2, 1);
-INSERT INTO users (id, api_key, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (4, 'TKIETCJZ3V6NOSM', '2014-04-29 14:09:29.042', 'tyrion.lannister@kingslanding.net', 'MALE', 'Tyrion', '2014-04-29 14:09:29.042', 'EN', 'Lannister', NULL, 1, 5, 1);
-INSERT INTO users (id, api_key, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (6, 'FGFQM8T6YPVSW4Q', '2014-04-29 14:09:29.05', 'jon.snow@nightswatch.net', 'MALE', 'Jon', '2014-04-29 14:09:29.05', 'ES', 'Snow', NULL, 1, 7, 1);
-INSERT INTO users (id, api_key, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (8, 'WR7MZM016D4YXN5', '2014-04-29 14:09:29.058', 'arya.stark@winterfell.net', 'FEMALE', 'Arya', '2014-04-29 14:09:29.058', NULL, 'Stark', NULL, 1, 9, 1);
-INSERT INTO users (id, api_key, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (10, 'HC00N1926K0ZKAF', '2014-04-29 14:09:29.067', 'catelyn.stark@winterfell.net', 'FEMALE', 'Catelyn', '2014-04-29 14:09:29.067', 'FI', 'Stark', NULL, 1, 11, 1);
+INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (1, 'PKCC00D3YH83KEP', 'L0LTMJ1XAMEY13FT27MWZMQX1LWK8I1L', '2014-04-29 14:09:28.906', 'support@gazpacho.net', NULL, 'support', '2014-04-29 14:09:28.906', NULL, 'support', 'support', 1, 2, 1);
+INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (4, 'TKIETCJZ3V6NOSM', 'IQO27YUZO8NJ7RADIK6SJ9BQZNYP4EMO', '2014-04-29 14:09:29.042', 'tyrion.lannister@kingslanding.net', 'MALE', 'Tyrion', '2014-04-29 14:09:29.042', 'EN', 'Lannister', NULL, 1, 5, 1);
+INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (6, 'FGFQM8T6YPVSW4Q', '39JYOYPWYR46R38OAOTVRZJMEXNJ46HL', '2014-04-29 14:09:29.05', 'jon.snow@nightswatch.net', 'MALE', 'Jon', '2014-04-29 14:09:29.05', 'ES', 'Snow', NULL, 1, 7, 1);
+INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (8, 'WR7MZM016D4YXN5', 'ZBH1QL28VZEE00XHH7N4R16Q8ZRURU5P', '2014-04-29 14:09:29.058', 'arya.stark@winterfell.net', 'FEMALE', 'Arya', '2014-04-29 14:09:29.058', NULL, 'Stark', NULL, 1, 9, 1);
+INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (10, 'HC00N1926K0ZKAF', 'EQSV5ARQY1LLHKDLO8EF9RMBKV9T95K5', '2014-04-29 14:09:29.067', 'catelyn.stark@winterfell.net', 'FEMALE', 'Catelyn', '2014-04-29 14:09:29.067', 'FI', 'Stark', NULL, 1, 11, 1);
 
 
 --
@@ -211,10 +211,10 @@ INSERT INTO mail_message_template_translation (id, created_date, language, last_
 -- Data for Name: permission; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO permission (id, entity_id, numeral, scope, role_id) VALUES (104, 103, 3, 'Q', 7);
-INSERT INTO permission (id, entity_id, numeral, scope, role_id) VALUES (108, 107, 3, 'Q', 5);
-INSERT INTO permission (id, entity_id, numeral, scope, role_id) VALUES (112, 111, 3, 'Q', 11);
-INSERT INTO permission (id, entity_id, numeral, scope, role_id) VALUES (116, 115, 3, 'Q', 9);
+INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (104, 103, 3, 'Q', 7);
+INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (108, 107, 3, 'Q', 5);
+INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (112, 111, 3, 'Q', 11);
+INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (116, 115, 3, 'Q', 9);
 
 
 --

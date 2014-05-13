@@ -10,8 +10,6 @@
       </pattern>
     </encoder>
   </appender>
-<!-- -->
-<logger name="org.dbunit.operation.DeleteAllOperation" level="debug" /> 
 
   <logger name="org.eclipse.persistence.logging.sql" level="INFO" />
 

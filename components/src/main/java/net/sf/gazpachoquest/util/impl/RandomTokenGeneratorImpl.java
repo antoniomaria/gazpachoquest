@@ -11,7 +11,6 @@
 package net.sf.gazpachoquest.util.impl;
 
 import java.security.SecureRandom;
-import java.util.Random;
 
 import net.sf.gazpachoquest.util.RandomTokenGenerator;
 
@@ -22,30 +21,20 @@ public class RandomTokenGeneratorImpl implements RandomTokenGenerator {
 
     private final int DEFAULT_TOKEN_LENGTH = 10;
 
-    private final int DEFAULT_TOKEN_NUM_OF_CHARACTERS = 36;
+    private final char[] ALPHABET = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R',
+            'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+    private final int ALPHABET_LENGTH = ALPHABET.length;
 
     @Override
     public String generate(int length) {
-        StringBuffer id = new StringBuffer();
-
-        Random r = new SecureRandom();
-
-        int index = 0;
-        int x = 0;
-        while (x < length) {
-            index = r.nextInt(DEFAULT_TOKEN_NUM_OF_CHARACTERS);
-            if (index < 10) {
-                id.append((char) (48 + index)); // Numbers
-            } else if (10 <= index && index < 36) { // Capital letters 65 - 90
-                index = index - 10;
-                id.append((char) (65 + index));
-            } else {
-                index = index - 27;
-                id.append((char) (97 + index)); // small letters
-            }
-            x++;
+        StringBuilder token = new StringBuilder();
+        SecureRandom random = new SecureRandom();
+        for (int i = 0; i < length; i++) {
+            int pos = random.nextInt(ALPHABET_LENGTH);
+            token.append(ALPHABET[pos]);
         }
-        return id.toString();
+        return token.toString();
     }
 
     @Override

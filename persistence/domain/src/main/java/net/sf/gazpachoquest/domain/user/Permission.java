@@ -21,7 +21,7 @@ public class Permission extends AbstractPersistable {
     @Convert(converter = EntityTypeConverter.class)
     private EntityType scope;
 
-    private Integer numeral;
+    private Integer mask;
 
     private Integer entityId;
 
@@ -53,12 +53,12 @@ public class Permission extends AbstractPersistable {
         this.role = role;
     }
 
-    public Integer getNumeral() {
-        return numeral;
+    public Integer getMask() {
+        return mask;
     }
 
-    public void setNumeral(Integer numeral) {
-        this.numeral = numeral;
+    public void setMask(Integer mask) {
+        this.mask = mask;
     }
 
     public static Builder with() {
@@ -66,13 +66,13 @@ public class Permission extends AbstractPersistable {
     }
 
     public String getLiteral() {
-        return new StringBuilder().append(scope.getLabel()).append(":").append(Perm.getLiteral(numeral)).append(":")
+        return new StringBuilder().append(scope.getLabel()).append(":").append(Perm.getLiteral(mask)).append(":")
                 .append(entityId).toString();
     }
 
     public static class Builder {
         private Integer id;
-        private int numeral;
+        private int mask;
         private Integer entityId;
         private EntityType scope;
 
@@ -81,8 +81,8 @@ public class Permission extends AbstractPersistable {
             return this;
         }
 
-        public Builder numeral(int numeral) {
-            this.numeral = numeral;
+        public Builder mask(int mask) {
+            this.mask = mask;
             return this;
         }
 
@@ -97,8 +97,8 @@ public class Permission extends AbstractPersistable {
         }
 
         public Builder addPerm(Perm perm) {
-            if ((numeral & perm.getNumeral()) != perm.getNumeral()) {
-                numeral += perm.getNumeral();
+            if ((mask & perm.getMask()) != perm.getMask()) {
+                mask += perm.getMask();
             }
             return this;
 
@@ -107,7 +107,7 @@ public class Permission extends AbstractPersistable {
         public Permission build() {
             Permission permission = new Permission();
             permission.setId(id);
-            permission.numeral = numeral;
+            permission.mask = mask;
             permission.entityId = entityId;
             permission.scope = scope;
             return permission;

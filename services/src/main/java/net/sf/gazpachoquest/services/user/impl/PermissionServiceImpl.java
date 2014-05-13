@@ -36,7 +36,7 @@ public class PermissionServiceImpl extends
 			existing = repository.save(permission);
 		} else {
 			existing = repository.findOne(permission.getId());
-			existing.setNumeral(permission.getNumeral());
+			existing.setMask(permission.getMask());
 		}
 		return existing;
 	}

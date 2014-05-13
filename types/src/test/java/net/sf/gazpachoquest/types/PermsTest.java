@@ -9,8 +9,8 @@ public class PermsTest {
 	@Test
 	public void getLiteralTest() {
 		System.out.println("eho");
-		String literal = Perm.getLiteral(Perm.READ.getNumeral()
-				+ Perm.UPDATE.getNumeral() + Perm.DELETE.getNumeral());
+		String literal = Perm.getLiteral(Perm.READ.getMask()
+				+ Perm.UPDATE.getMask() + Perm.DELETE.getMask());
 		assertThat(literal).isEqualTo("read,update,delete");
 	}
 

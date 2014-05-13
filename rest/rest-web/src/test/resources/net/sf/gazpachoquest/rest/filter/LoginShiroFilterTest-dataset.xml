@@ -52,15 +52,15 @@
   <user_role role_id="11" user_id="6" />
   <group_role />
 
-  <permission id="60" entity_id="58" numeral="3" scope="Q" role_id="5" />
-  <permission id="65" entity_id="63" numeral="3" scope="Q" role_id="7" />
-  <permission id="70" entity_id="68" numeral="3" scope="Q" role_id="9" />
-  <permission id="75" entity_id="73" numeral="3" scope="Q" role_id="11" />
+  <permission id="60" entity_id="58" mask="3" scope="Q" role_id="5" />
+  <permission id="65" entity_id="63" mask="3" scope="Q" role_id="7" />
+  <permission id="70" entity_id="68" mask="3" scope="Q" role_id="9" />
+  <permission id="75" entity_id="73" mask="3" scope="Q" role_id="11" />
   
-  <permission id="116" entity_id="115" numeral="3" scope="Q" role_id="5" />
-  <permission id="120" entity_id="119" numeral="3" scope="Q" role_id="7" />
-  <permission id="124" entity_id="123" numeral="3" scope="Q" role_id="9" />
-  <permission id="128" entity_id="127" numeral="3" scope="Q" role_id="11" />
+  <permission id="116" entity_id="115" mask="3" scope="Q" role_id="5" />
+  <permission id="120" entity_id="119" mask="3" scope="Q" role_id="7" />
+  <permission id="124" entity_id="123" mask="3" scope="Q" role_id="9" />
+  <permission id="128" entity_id="127" mask="3" scope="Q" role_id="11" />
 
 
   <label_set />

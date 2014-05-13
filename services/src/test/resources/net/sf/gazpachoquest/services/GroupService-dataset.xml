@@ -8,21 +8,17 @@
   
   <role id="75" description="General role for group" name="Group Role" />
 
-  <users id="1" api_key="9BNONCVRNG4JPBQ" created_date="2014-04-19 10:35:10.713" email="support@gazpacho.net"
-    given_names="support" last_modified_date="2014-04-19 10:35:10.713" surname="support" username="support" createdby_id="1"
-    lastmodifiedby_id="1" defaultrole_id="1" />
-  <users id="3" api_key="B868UOHUTKUDWXM" created_date="2014-04-19 10:35:11.206" email="tyrion.lannister@kingslanding.net"
-    gender="MALE" given_names="Tyrion" last_modified_date="2014-04-19 10:35:11.206" prefered_language="EN" surname="Lannister"
-    createdby_id="1" lastmodifiedby_id="1" defaultrole_id="5"/>
-  <users id="4"  api_key="HLME1JSCHZMVBH3" created_date="2014-04-19 10:35:11.222" email="jon.snow@nightswatch.net"
-    gender="MALE" given_names="Jon" last_modified_date="2014-04-19 10:35:11.222" prefered_language="ES" surname="Snow"
-    createdby_id="1" lastmodifiedby_id="1" defaultrole_id="7"/>
-  <users id="5"  api_key="YRG6AEJX2VTKFGA" created_date="2014-04-19 10:35:11.244" email="arya.stark@winterfell.net"
-    gender="FEMALE" given_names="Arya" last_modified_date="2014-04-19 10:35:11.244" surname="Stark" createdby_id="1"
-    lastmodifiedby_id="1" defaultrole_id="9" />
-  <users id="6" api_key="PCN1SYW4X977UE7" created_date="2014-04-19 10:35:11.263" email="catelyn.stark@winterfell.net"
-    gender="FEMALE" given_names="Catelyn" last_modified_date="2014-04-19 10:35:11.263" prefered_language="FI" surname="Stark"
-    createdby_id="1" lastmodifiedby_id="1" defaultrole_id="11" />
+  <users id="1" api_key="9BNONCVRNG4JPBQ" secret="L0LTMJ1XAMEY13FT27MWZMQX1LWK8I1L" created_date="2014-04-19 10:35:10.713" email="support@gazpacho.net" given_names="support" last_modified_date="2014-04-19 10:35:10.713"
+    surname="support" username="support" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="1" />
+  <users id="3" api_key="B868UOHUTKUDWXM" secret="IQO27YUZO8NJ7RADIK6SJ9BQZNYP4EMO" created_date="2014-04-19 10:35:11.206" email="tyrion.lannister@kingslanding.net" gender="MALE" given_names="Tyrion"
+    last_modified_date="2014-04-19 10:35:11.206" prefered_language="EN" surname="Lannister" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="5" />
+  <users id="4" api_key="HLME1JSCHZMVBH3" secret="39JYOYPWYR46R38OAOTVRZJMEXNJ46HL" created_date="2014-04-19 10:35:11.222" email="jon.snow@nightswatch.net" gender="MALE" given_names="Jon"
+    last_modified_date="2014-04-19 10:35:11.222" prefered_language="ES" surname="Snow" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="7" />
+  <users id="5" api_key="YRG6AEJX2VTKFGA" secret="ZBH1QL28VZEE00XHH7N4R16Q8ZRURU5P" created_date="2014-04-19 10:35:11.244" email="arya.stark@winterfell.net" gender="FEMALE" given_names="Arya"
+    last_modified_date="2014-04-19 10:35:11.244" surname="Stark" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="9" />
+  <users id="6" api_key="PCN1SYW4X977UE7" secret="EQSV5ARQY1LLHKDLO8EF9RMBKV9T95K5" created_date="2014-04-19 10:35:11.263" email="catelyn.stark@winterfell.net" gender="FEMALE" given_names="Catelyn"
+    last_modified_date="2014-04-19 10:35:11.263" prefered_language="FI" surname="Stark" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="11" />
+  
     
   <research />
   <invitation />
@@ -53,12 +49,12 @@
 
   <group_role role_id="75" group_id="2" />
 
-  <permission id="60" entity_id="58" numeral="3" scope="Q" role_id="5" />
-  <permission id="65" entity_id="63" numeral="3" scope="Q" role_id="7" />
-  <permission id="70" entity_id="68" numeral="3" scope="Q" role_id="9" />
-  <permission id="75" entity_id="73" numeral="3" scope="Q" role_id="11" />
+  <permission id="60" entity_id="58" mask="3" scope="Q" role_id="5" />
+  <permission id="65" entity_id="63" mask="3" scope="Q" role_id="7" />
+  <permission id="70" entity_id="68" mask="3" scope="Q" role_id="9" />
+  <permission id="75" entity_id="73" mask="3" scope="Q" role_id="11" />
 
-  <permission id="76" entity_id="73" numeral="3" scope="Q" role_id="75" />
+  <permission id="76" entity_id="73" mask="3" scope="Q" role_id="75" />
 
 
   <label_set />

@@ -7,24 +7,24 @@ public enum Perm {
 
 	READ(1, "read"), UPDATE(2, "update"), DELETE(4, "delete");
 
-	private int numeral;
+	private int mask;
 	private String literal;
 
-	Perm(int numeral, String literal) {
-		this.numeral = numeral;
+	Perm(int mask, String literal) {
+		this.mask = mask;
 		this.literal = literal;
 	}
 
-	public int getNumeral() {
-		return numeral;
+	public int getMask() {
+		return mask;
 	}
 
-	public static String getLiteral(int numeral) {
+	public static String getLiteral(int mask) {
 		Perm values[] = Perm.values();
 		List<String> literals = new ArrayList<String>();
 		for (int idx = 0; idx < values.length; idx++) {
 			Perm value = values[idx];
-			if ((numeral & value.getNumeral()) == value.getNumeral()) {
+			if ((mask & value.getMask()) == value.getMask()) {
 				literals.add(value.literal);
 			}
 		}
@@ -39,7 +39,7 @@ public enum Perm {
 	}
 
 	public boolean imply(int numeral) {
-		return (this.numeral & numeral) == numeral;
+		return (this.mask & numeral) == numeral;
 	}
 
 }
