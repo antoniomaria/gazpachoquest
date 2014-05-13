@@ -324,6 +324,10 @@
 	background: #f5f5f5;
 }
 
+.gazpacho {
+	name: gazpacho-login-view args: []
+}
+
 .gazpacho .v-widget {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -7034,34 +7038,5 @@ body .gazpacho.v-app .v-app-loading {
 }
 
 .gazpacho .questionnaires .h1[width-range="701px-"] {
-	font-size: 30px;
-}
-
-.gazpacho .description {
-	padding: 1em;
-	line-height: 1.5;
-}
-
-.gazpacho .description[width-range="0-100px"] {
-	font-size: 10px;
-}
-
-.gazpacho .description[width-range="101px-200px"] {
-	font-size: 12px;
-}
-
-.gazpacho .description[width-range="200px-350px"] {
-	font-size: 14px;
-}
-
-.gazpacho .description[width-range="351px-500px"] {
-	font-size: 18px;
-}
-
-.gazpacho .description[width-range="501px-700px"] {
-	font-size: 24px;
-}
-
-.gazpacho .description[width-range="701px-"] {
 	font-size: 30px;
 }

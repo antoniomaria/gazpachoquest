@@ -17,6 +17,7 @@ import org.apache.cxf.jaxrs.ext.RequestHandler;
 import org.apache.cxf.jaxrs.model.ClassResourceInfo;
 import org.apache.cxf.message.Message;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -45,7 +46,10 @@ public class LoginShiroFilter implements RequestHandler {
         String method = (String) message.get(Message.HTTP_REQUEST_METHOD);
         String dateUTC = getRequestHeaderAsString(HttpHeaders.DATE);
         String authorizationHeader = getRequestHeaderAsString(HttpHeaders.AUTHORIZATION);
-
+        
+        if (authorizationHeader == null) {
+            throw new AccountException("Hmac-SHA1 Authorization token is required");
+        }
         String[] values = authorizationHeader.split(" ");
         String apiKeyAndSignature[] = StringUtils.split(values[1], ":");
 

@@ -73,12 +73,14 @@ public class JPARealm extends AuthorizingRealm {
             throw new AuthenticationException(message, e);
         }
         String message = upToken.getMessage();
+        String dateUTC = upToken.getDateUTC();
+
+        verifyDate(dateUTC);
+
         String expectedSignature = upToken.getSignature();
         verifySignature(secret, message, expectedSignature);
 
-        String dateUTC = upToken.getDateUTC();
-        verifyDate(dateUTC);
-
+        
         logger.info("Authentication successfully for user {}", user.getFullName());
         return AuthenticationInfoImpl.with().apiKey(apiKey).principal(user).build();
     }
