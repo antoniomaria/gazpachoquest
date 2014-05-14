@@ -53,15 +53,14 @@
         }
         CustomAuthorization.prototype.apply = function(obj, authorizations) {
           var now = new Date().toUTCString();
-          now = "Tue, 13 May 2014 20:10:38 +0200";
           var resource = obj.url.substring(obj.url.indexOf('api') + 3);
-          var stringToSign = obj.method + ' ' + resource + '\n' + now;
+          var stringToSign = obj.method + ' ' + resource;
           log("stringToSign " + stringToSign);
           var signature = CryptoJS.HmacSHA1(stringToSign, this.secret);
           var signatureBase64 = CryptoJS.enc.Base64.stringify(signature);
           log("signature " + signatureBase64);
-          var authToken = "hmac " + this.apiKey + ":" + signature;
-      	  // obj.headers["Date"] = "now";
+          var authToken = "hmac " + this.apiKey + ":" + signatureBase64;
+      	  // obj.headers["Date"] = "now"; // Date-Header can not be produce by XMLAjaxRequest 
           obj.headers["Authorization"] = authToken;
     	};
     	return CustomAuthorization;

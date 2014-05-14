@@ -46,15 +46,17 @@ public class LoginShiroFilter implements RequestHandler {
         String method = (String) message.get(Message.HTTP_REQUEST_METHOD);
         String dateUTC = getRequestHeaderAsString(HttpHeaders.DATE);
         String authorizationHeader = getRequestHeaderAsString(HttpHeaders.AUTHORIZATION);
-        
+
         if (authorizationHeader == null) {
             throw new AccountException("Hmac-SHA1 Authorization token is required");
         }
         String[] values = authorizationHeader.split(" ");
         String apiKeyAndSignature[] = StringUtils.split(values[1], ":");
 
-        StringBuilder signedContent = new StringBuilder().append(method).append(" ").append(path).append("\n")
-                .append(dateUTC);
+        StringBuilder signedContent = new StringBuilder().append(method).append(" /").append(path);
+        if (dateUTC != null) {
+            signedContent.append("\n").append(dateUTC);
+        }
         if ("POST".equals(method)) {
             DelegatingInputStream input = message.getContent(DelegatingInputStream.class);
             if (input != null) {

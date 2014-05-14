@@ -80,7 +80,6 @@ public class JPARealm extends AuthorizingRealm {
         String expectedSignature = upToken.getSignature();
         verifySignature(secret, message, expectedSignature);
 
-        
         logger.info("Authentication successfully for user {}", user.getFullName());
         return AuthenticationInfoImpl.with().apiKey(apiKey).principal(user).build();
     }
@@ -114,7 +113,8 @@ public class JPARealm extends AuthorizingRealm {
 
     private void verifyDate(String dateUTC) {
         if (StringUtils.isBlank(dateUTC)) {
-            throw new AuthenticationException("Date header is required");
+            logger.debug("Skiping date validation. No date header found in request");
+            return;
         }
         Date date = null;
         try {
@@ -135,6 +135,7 @@ public class JPARealm extends AuthorizingRealm {
 
     private void verifySignature(String secret, String message, String expectedSignature) {
         try {
+            logger.debug("Verifing message signature {}", message);
             String signature = HMACSignature.calculateRFC2104HMAC(message, secret);
 
             if (!signature.equals(expectedSignature)) {
