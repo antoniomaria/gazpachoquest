@@ -9,14 +9,14 @@ as an rest services.
 
 http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/
 
-Try this invitation keys in:
-http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/#!/auth/authenticate_get_0
+## Authentication Flow
 
-using username: respondent
+1. [Invitation Validation](http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/#!/auth/authenticate_get_0) 
+⋅⋅⋅ Try these invitations code.
+⋅⋅⋅Anonymous questionnairs: 6O6PDUQLKN, P0C6Q2NN3H
+⋅⋅⋅Personal questionnairs: YAS5ICHRBE, UCVZ45JZ3T, 76HHP9M9FQ, R7CHFY0YHQ
 
-* Anonymous questionnairs: 6O6PDUQLKN, P0C6Q2NN3H
-* Personal questionnairs: YAS5ICHRBE, UCVZ45JZ3T, 76HHP9M9FQ, R7CHFY0YHQ
-
+2. Then use apiKey and secret to fetch your [granted questionnair](http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/#!/questionnairs).
 
 ## Building and running demo
 
@@ -24,6 +24,6 @@ using username: respondent
     cd gazpachoquest
     mvn clean install
     cd rest/rest-web
-    mvn jetty:run
+    mvn cargo:run
 
 To see the demo, navigate to http://localhost:8080/gazpachoquest-rest-web

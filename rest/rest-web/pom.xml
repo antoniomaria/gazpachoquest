@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
@@ -330,6 +329,7 @@
 
   </dependencies>
   <build>
+    <finalName>gazpachoquest-rest-web</finalName>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -349,45 +349,6 @@
               </configuration>
             </execution>
           </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.cargo</groupId>
-          <artifactId>cargo-maven2-plugin</artifactId>
-          <version>1.4.8</version>
-          <configuration>
-            <container>
-              <containerId>tomcat6x</containerId>
-              <zipUrlInstaller>
-                <url>ftp://ftp.funet.fi/pub/mirrors/apache.org/tomcat/tomcat-6/v6.0.39/bin/apache-tomcat-6.0.39.zip</url>
-                <downloadDir>${project.build.directory}/downloads</downloadDir>
-                <extractDir>${project.build.directory}/extracts</extractDir>
-              </zipUrlInstaller>
-            </container>
-            <configuration>
-              <properties>
-                <cargo.servlet.port>8081</cargo.servlet.port>
-              </properties>
-            </configuration>
-          </configuration>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <configuration>
-            <source>1.6</source>
-            <target>1.6</target>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-eclipse-plugin</artifactId>
-          <configuration>
-            <projectNameTemplate>[artifactId]-[version]</projectNameTemplate>
-            <wtpmanifest>true</wtpmanifest>
-            <wtpapplicationxml>true</wtpapplicationxml>
-            <wtpversion>2.0</wtpversion>
-          </configuration>
         </plugin>
 
         <plugin>
