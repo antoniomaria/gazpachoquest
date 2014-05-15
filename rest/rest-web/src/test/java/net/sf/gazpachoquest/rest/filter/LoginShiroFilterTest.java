@@ -62,14 +62,13 @@ public class LoginShiroFilterTest {
         String apiKey = "B868UOHUTKUDWXM";
         String secret = "IQO27YUZO8NJ7RADIK6SJ9BQZNYP4EMO";
         String signature = HMACSignature.calculateRFC2104HMAC(stringToSign, secret);
-
         String authToken = generateAuth(apiKey, signature);
 
         expect(message.get(Message.HTTP_REQUEST_METHOD)).andReturn(method);
         expect(headers.getRequestHeader(HttpHeaders.AUTHORIZATION)).andReturn(Arrays.asList(authToken));
         expect(headers.getRequestHeader(HttpHeaders.DATE)).andReturn(Arrays.asList(date));
 
-        expect(uriInfo.getPath()).andReturn(resource);
+        expect(uriInfo.getPath()).andReturn(resource.substring(1));
 
         replay(message, resourceClass, uriInfo, headers);
 
