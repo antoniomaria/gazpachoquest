@@ -7,7 +7,7 @@
 }
 
 .v-vaadin-version:after {
-	content: "7.1.6";
+	content: "7.2.0.beta1";
 }
 
 .v-generated-body {
@@ -15,6 +15,10 @@
 	height: 100%;
 	border: 0;
 	margin: 0;
+	overflow: hidden;
+}
+
+.v-modal-window-open {
 	overflow: hidden;
 }
 
@@ -267,6 +271,14 @@
 	width: 100%;
 }
 
+.v-debugwindow-selector > span.value {
+	width: 100%;
+}
+
+.v-debugwindow-selector :hover {
+	background: rgba(255, 32, 32, 0.5);
+}
+
 .v-debugwindow-log {
 	font-family: monospace;
 }
@@ -306,6 +318,23 @@
 
 .v-debugwindow-network .v-debugwindow-row > span {
 	display: inline;
+}
+
+@font-face {
+	font-family: "FontAwesome";
+	src: url(../base/fonts/fontawesome-webfont.eot);
+	src: url(../base/fonts/fontawesome-webfont.eot?#iefix) format("embedded-opentype"), url(../base/fonts/fontawesome-webfont.woff) format("woff"), url(../base/fonts/fontawesome-webfont.ttf) format("truetype"), url(../base/fonts/fontawesome-webfont.svg) format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+.FontAwesome {
+	font-family: "FontAwesome";
+	font-style: normal;
+	font-weight: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	display: inline-block;
 }
 
 /** sprite: verticals; sprite-image: url(common/img/vertical-sprites.png); sprite-layout: vertical */
@@ -392,6 +421,14 @@
 .gazpacho .v-accordion-item-content {
 	position: absolute;
 	width: 100%;
+}
+
+.gazpacho .v-browserframe {
+	font-size: 0;
+}
+
+.gazpacho .v-browserframe > span {
+	font-size: 12px;
 }
 
 .gazpacho .v-button {
@@ -1315,6 +1352,10 @@ body .gazpacho.v-app .v-app-loading {
 	line-height: normal;
 }
 
+.v-ff .gazpacho .v-scrollable {
+	font-size: 12px;
+}
+
 .v-ios.v-webkit .gazpacho .v-scrollable {
 	-webkit-overflow-scrolling: touch;
 }
@@ -1550,10 +1591,6 @@ body .gazpacho.v-app .v-app-loading {
 	padding-right: 12px;
 }
 
-.gazpacho .v-customcomponent {
-	overflow: hidden;
-}
-
 .gazpacho .v-customlayout {
 	overflow: hidden;
 }
@@ -1625,7 +1662,7 @@ body .gazpacho.v-app .v-app-loading {
 	border: 1px solid #ddd;
 }
 
-.gazpacho .v-disabled .v-datefield-calendarpanel-day, .gazpacho .v-disabled .v-datefield-calendarpanel-day-today {
+.gazpacho .v-disabled .v-datefield-calendarpanel-day, .gazpacho .v-disabled .v-datefield-calendarpanel-day-today, .gazpacho .v-disabled.v-datefield-popupcalendar .v-datefield-button {
 	cursor: default;
 }
 
@@ -1737,7 +1774,7 @@ body .gazpacho.v-app .v-app-loading {
 	border: 1px solid #ddd;
 }
 
-.gazpacho .v-disabled .v-inline-datefield-calendarpanel-day, .gazpacho .v-disabled .v-inline-datefield-calendarpanel-day-today {
+.gazpacho .v-disabled .v-inline-datefield-calendarpanel-day, .gazpacho .v-disabled .v-inline-datefield-calendarpanel-day-today, .gazpacho .v-disabled.v-inline-datefield-popupcalendar .v-inline-datefield-button {
 	cursor: default;
 }
 
@@ -3127,6 +3164,14 @@ body .gazpacho.v-app .v-app-loading {
 
 .gazpacho .v-tabsheet-tabitem-selected .v-caption {
 	cursor: default;
+}
+
+.gazpacho .v-tabsheet-tabitem-focus .v-captiontext {
+	text-decoration: underline;
+}
+
+.gazpacho .v-tabsheet-tabitem-selected.v-tabsheet-tabitem-focus .v-captiontext {
+	text-decoration: inherit;
 }
 
 .gazpacho .v-tabsheet-content {
@@ -5068,7 +5113,7 @@ body .gazpacho.v-app .v-app-loading {
 	width: 6px;
 }
 
-.gazpacho .v-verticallayout-blue, .gazpacho .v-horizontallayout-blue, .gazpacho .v-orderedlayout-blue, .gazpacho .v-gridlayout-blue, .gazpacho .v-csslayout-blue, .gazpacho .v-formlayout-blue, .gazpacho .v-splitpanel-vertical-blue, .gazpacho .v-splitpanel-horizontal-blue {
+.gazpacho .v-verticallayout-blue, .gazpacho .v-horizontallayout-blue, .gazpacho .v-orderedlayout-blue, .gazpacho .v-gridlayout-blue, .gazpacho .v-csslayout-blue, .gazpacho .v-formlayout-blue, .gazpacho .v-absolutelayout-blue, .gazpacho .v-splitpanel-vertical-blue, .gazpacho .v-splitpanel-horizontal-blue {
 	background-color: #bcd3de;
 }
 
@@ -5076,7 +5121,7 @@ body .gazpacho.v-app .v-app-loading {
 	background-color: #bcd3de;
 }
 
-.gazpacho .v-verticallayout-white, .gazpacho .v-horizontallayout-white, .gazpacho .v-orderedlayout-white, .gazpacho .v-gridlayout-white, .gazpacho .v-csslayout-white, .gazpacho .v-formlayout-white, .gazpacho .v-splitpanel-vertical-white, .gazpacho .v-splitpanel-horizontal-white {
+.gazpacho .v-verticallayout-white, .gazpacho .v-horizontallayout-white, .gazpacho .v-orderedlayout-white, .gazpacho .v-gridlayout-white, .gazpacho .v-csslayout-white, .gazpacho .v-formlayout-white, .gazpacho .v-absolutelayout-white, .gazpacho .v-splitpanel-vertical-white, .gazpacho .v-splitpanel-horizontal-white {
 	background-color: #fff;
 	color: #222;
 }
@@ -5086,7 +5131,7 @@ body .gazpacho.v-app .v-app-loading {
 	color: #222;
 }
 
-.gazpacho .v-verticallayout-black, .gazpacho .v-horizontallayout-black, .gazpacho .v-orderedlayout-black, .gazpacho .v-gridlayout-black, .gazpacho .v-csslayout-black, .gazpacho .v-formlayout-black, .gazpacho .v-splitpanel-vertical-black, .gazpacho .v-splitpanel-horizontal-black {
+.gazpacho .v-verticallayout-black, .gazpacho .v-horizontallayout-black, .gazpacho .v-orderedlayout-black, .gazpacho .v-gridlayout-black, .gazpacho .v-csslayout-black, .gazpacho .v-formlayout-black, .gazpacho .v-absolutelayout-black, .gazpacho .v-splitpanel-vertical-black, .gazpacho .v-splitpanel-horizontal-black {
 	background: #1e2022 url(../reindeer/layouts/img/black-bg.png) repeat-x;
 }
 
@@ -6202,6 +6247,10 @@ body .gazpacho.v-app .v-app-loading {
 
 .v-sa .gazpacho .v-tabsheet-tabs .v-captiontext {
 	display: inline-block;
+}
+
+.v-sa .gazpacho .v-tabsheet-tabs .v-icon {
+	vertical-align: top;
 }
 
 .gazpacho .v-tabsheet-tabs .v-icon {

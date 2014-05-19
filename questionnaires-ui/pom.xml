@@ -14,6 +14,8 @@
   <properties>
     <arquillian.version>1.0.0.Alpha1</arquillian.version>
     <version.shrinkwrap.resolvers>2.1.0-alpha-1</version.shrinkwrap.resolvers>
+    <vaadin.version>7.2.0.beta1</vaadin.version>
+    <vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
   </properties>
   <!-- -->
   <dependencyManagement>
@@ -58,7 +60,6 @@
   </dependencyManagement>
   <dependencies>
 
-
     <!-- Test scope -->
     <dependency>
       <groupId>junit</groupId>
@@ -86,9 +87,6 @@
     </dependency>
 
     <!-- Provided scope -->
-    <!-- <dependency> <groupId>javax.ws.rs</groupId> <artifactId>jsr311-api</artifactId> <version>1.1.1</version> <scope>provided</scope> 
-      </dependency> <dependency> <groupId>org.apache.openejb</groupId> <artifactId>tomee-embedded</artifactId> <version>1.6.0</version> <scope>provided</scope> 
-      </dependency> -->
     <dependency>
       <groupId>org.apache.openejb</groupId>
       <artifactId>javaee-api</artifactId>
@@ -110,6 +108,18 @@
         <exclusion>
           <groupId>org.apache.tomcat</groupId>
           <artifactId>tomcat-dbcp</artifactId>
+        </exclusion>
+        <exclusion>
+          <artifactId>activemq-ra</artifactId>
+          <groupId>org.apache.activemq</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>activemq-broker</artifactId>
+          <groupId>org.apache.activemq</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>activemq-jdbc-store</artifactId>
+          <groupId>org.apache.activemq</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -176,7 +186,7 @@
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-cdi</artifactId>
-      <version>1.0.0.alpha1</version>
+      <version>1.0.0.alpha2</version>
       <exclusions>
         <exclusion>
           <artifactId>vaadin-server</artifactId>
@@ -265,7 +275,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin> -->
+      </plugin>  -->
     </plugins>
 
     <pluginManagement>
