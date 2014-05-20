@@ -146,6 +146,17 @@
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-server</artifactId>
       <version>${vaadin.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>vaadin-sass-compiler</artifactId>
+          <groupId>com.vaadin</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-sass-compiler</artifactId>
+      <version>0.9.4</version>
     </dependency>
     <dependency>
       <groupId>com.vaadin</groupId>
@@ -204,12 +215,12 @@
       <artifactId>history</artifactId>
       <version>1.1.0</version>
     </dependency>
-
+    <!-- 
     <dependency>
       <groupId>com.vaadin.addon.responsive</groupId>
       <artifactId>responsive</artifactId>
       <version>1.0.0.alpha4</version>
-    </dependency>
+    </dependency>  -->
     <!-- JAckson Mapper -->
     <dependency>
       <groupId>com.fasterxml.jackson.jaxrs</groupId>
@@ -268,9 +279,7 @@
             <goals>
               <goal>clean</goal>
               <goal>resources</goal>
-              <goal>update-theme</goal>
               <goal>update-widgetset</goal>
-              <goal>compile-theme</goal>
               <goal>compile</goal>
             </goals>
           </execution>
