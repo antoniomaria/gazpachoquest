@@ -7,6 +7,7 @@
 /* If somebody wants to extend the theme she will include this mixin. */
 
 @import "views/questionnaires.scss";
+@import "views/login.scss";
 
 @mixin gazpacho {
   /* Include all the styles from the reindeer theme */

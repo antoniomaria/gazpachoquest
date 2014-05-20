@@ -18,14 +18,13 @@ import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vaadin.addon.responsive.Responsive;
 import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinServletService;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -57,9 +56,9 @@ public class QuestionnairView extends CustomComponent implements View {
         addStyleName("questionnaires");
         VerticalLayout centralLayout = new VerticalLayout();
         centralLayout.setMargin(true);
-       // centralLayout.addStyleName("questionnaires");
-      //  new Responsive(centralLayout);
-        
+        // centralLayout.addStyleName("questionnaires");
+        // new Responsive(centralLayout);
+
         RespondentAccount respondent = (RespondentAccount) VaadinServletService.getCurrentServletRequest()
                 .getUserPrincipal();
         Integer questionnairId = respondent.getGrantedQuestionnairIds().iterator().next();
@@ -71,13 +70,14 @@ public class QuestionnairView extends CustomComponent implements View {
         mainLayout.setSizeFull();
 
         Label label = new Label(questionnair.getLanguageSettings().getTitle());
-         label.addStyleName(Reindeer.LABEL_H1);
+        label.addStyleName(Reindeer.LABEL_H1);
         mainLayout.addComponent(label);
-        
+
         // label.addStyleName("description");
 
         // Add the responsive capabilities to the components
-        new Responsive(label);
+        // new Responsive(label);
+        Responsive.makeResponsive(label);
         // mainLayout.setExpandRatio(content, 1);
         centralLayout.addComponent(mainLayout);
         setCompositionRoot(centralLayout);
