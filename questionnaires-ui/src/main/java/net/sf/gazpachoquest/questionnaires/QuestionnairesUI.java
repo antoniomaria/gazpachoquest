@@ -17,7 +17,7 @@ import javax.inject.Inject;
 
 import net.sf.gazpachoquest.questionnaires.views.QuestionnairView;
 import net.sf.gazpachoquest.questionnaires.views.login.LoginEvent;
-import net.sf.gazpachoquest.questionnaires.views.login.MyLoginView;
+import net.sf.gazpachoquest.questionnaires.views.login.LoginView;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,7 +66,7 @@ public class QuestionnairesUI extends UI {
         if (isUserSignedIn()) {
             navigator.navigateTo(QuestionnairView.NAME);
         } else {
-            navigator.navigateTo(MyLoginView.NAME);
+            navigator.navigateTo(LoginView.NAME);
         }
     }
 

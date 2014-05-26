@@ -15,18 +15,18 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
 
-@CDIView(MyLoginView.NAME)
-public class MyLoginView extends CustomComponent implements View {
+@CDIView(LoginView.NAME)
+public class LoginView extends CustomComponent implements View {
 
     private static final long serialVersionUID = -5588579843187115669L;
 
     public static final String NAME = "login";
 
-    private PasswordField invitation;
+    private TextField invitation;
     private Button login;
 
     @PostConstruct
@@ -41,8 +41,8 @@ public class MyLoginView extends CustomComponent implements View {
     protected CssLayout createCompositionRoot() {
         CssLayout root = new CssLayout();
         root.setSizeFull();
-        
-        VerticalLayout   loginLayout = new VerticalLayout();
+
+        VerticalLayout loginLayout = new VerticalLayout();
         loginLayout.setSizeFull();
         loginLayout.addStyleName("login-layout");
         root.addComponent(loginLayout);
@@ -50,10 +50,6 @@ public class MyLoginView extends CustomComponent implements View {
         final CssLayout loginPanel = new CssLayout();
         loginPanel.addStyleName("login-panel");
         loginLayout.addComponent(loginPanel);
-        
-        //VerticalLayout loginPanel = new VerticalLayout();
-       // loginPanel.setSpacing(true);
-        // loginPanel.setWidth("400px");
 
         HorizontalLayout labels = new HorizontalLayout();
         labels.setWidth("100%");
@@ -80,20 +76,18 @@ public class MyLoginView extends CustomComponent implements View {
         fields.setMargin(true);
         fields.addStyleName("fields");
 
-        invitation = new PasswordField("Invitation");
+        invitation = new TextField("Invitation");
         invitation.setSizeUndefined();
-        // invitation.setWidth("100%");
         invitation.focus();
         invitation.setValue("YAS5ICHRBE");
         fields.addComponent(invitation);
 
-        final Button signin = new Button("Sign In");
-        fields.addComponent(signin);
-        fields.setComponentAlignment(signin, Alignment.BOTTOM_LEFT);
+        login = new Button("Start");
+        login.addClickListener(createLoginButtonListener());
+        fields.addComponent(login);
+        fields.setComponentAlignment(login, Alignment.BOTTOM_LEFT);
 
         loginPanel.addComponent(fields);
-
-      
 
         return root;
     }
@@ -107,7 +101,7 @@ public class MyLoginView extends CustomComponent implements View {
         header.addStyleName(Reindeer.LABEL_H1);
         loginPanel.addComponent(header);
 
-        invitation = new PasswordField("Invitation");
+        invitation = new TextField("Invitation");
         invitation.setWidth("100%");
         invitation.focus();
         invitation.setValue("YAS5ICHRBE");
@@ -145,15 +139,7 @@ public class MyLoginView extends CustomComponent implements View {
         };
     }
 
-    // @Override
-    public void showLoginFailed() {
-        // viewLayout.getWindow().showNotification("Login failed. Please try again.",
-        // Notification.TYPE_HUMANIZED_MESSAGE);
-    }
 
-    public void clearForm() {
-        invitation.setValue("");
-    }
 
     @Override
     public void enter(ViewChangeEvent event) {

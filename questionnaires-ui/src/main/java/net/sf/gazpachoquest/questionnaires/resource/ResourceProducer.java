@@ -18,8 +18,11 @@ import javax.enterprise.inject.Produces;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;
+import net.sf.gazpachoquest.cxf.interceptor.HmacAuthInterceptor;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 
+import org.apache.cxf.jaxrs.client.Client;
+import org.apache.cxf.jaxrs.client.ClientConfiguration;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.slf4j.Logger;
@@ -42,12 +45,17 @@ public class ResourceProducer {
     public QuestionnairResource createQuestionnairResource(HttpServletRequest request) {
         RespondentAccount principal = (RespondentAccount) request.getUserPrincipal();
         String apiKey = principal.getApiKey();
+        String secret = principal.getSecret();
 
         logger.info("Getting QuestionnairResource using api key {}: ", apiKey);
         QuestionnairResource resource = JAXRSClientFactory.create(BASE_URI, QuestionnairResource.class,
                 Collections.singletonList(new JacksonJsonProvider()), null);
         // proxies
-        WebClient.client(resource).header("Authorization", "GZQ " + apiKey);
+        //WebClient.client(resource).header("Authorization", "GZQ " + apiKey);
+        
+        Client client = WebClient.client(resource);
+        ClientConfiguration config = WebClient.getConfig(client);
+        config.getOutInterceptors().add(new HmacAuthInterceptor(apiKey, secret));
         return resource;
     }
 
