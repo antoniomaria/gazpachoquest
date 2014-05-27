@@ -35,7 +35,6 @@ public class LoginShiroFilter implements RequestHandler {
     @Override
     public Response handleRequest(Message message, ClassResourceInfo resourceClass) {
         String path = uriInfo.getPath();
-
         logger.debug("New access to resource {}", path);
         if (path.startsWith("auth") || path.contains("api-docs")) {
             // Ignore the AuthenticationResource
@@ -43,6 +42,7 @@ public class LoginShiroFilter implements RequestHandler {
         }
 
         Subject subject = SecurityUtils.getSubject();
+        String query = (String) message.get(Message.QUERY_STRING);
         String method = (String) message.get(Message.HTTP_REQUEST_METHOD);
         String dateUTC = getRequestHeaderAsString(HttpHeaders.DATE);
         String authorizationHeader = getRequestHeaderAsString(HttpHeaders.AUTHORIZATION);
@@ -54,6 +54,10 @@ public class LoginShiroFilter implements RequestHandler {
         String apiKeyAndSignature[] = StringUtils.split(values[1], ":");
 
         StringBuilder signedContent = new StringBuilder().append(method).append(" /").append(path);
+        if (query != null) {
+            signedContent.append("?").append(query);
+        }
+        
         if (dateUTC != null) {
             signedContent.append("\n").append(dateUTC);
         }
