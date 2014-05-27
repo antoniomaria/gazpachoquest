@@ -20,9 +20,14 @@ import org.apache.cxf.jaxrs.impl.MetadataMap;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HmacAuthInterceptor extends AbstractPhaseInterceptor<Message> {
 
+
+    private static Logger logger = LoggerFactory.getLogger(HmacAuthInterceptor.class);
+    
     private static final String HMAC_SHA1_ALGORITHM = "HmacSHA1";
 
     private String apiKey;
@@ -46,7 +51,6 @@ public class HmacAuthInterceptor extends AbstractPhaseInterceptor<Message> {
         String resource = requestUri.substring(basePath.length());
         String stringToSign = new StringBuilder().append(method).append(" ").append(resource).append("\n").append(date)
                 .toString();
-
         addHeader(message, HttpHeaders.DATE, date);
 
         if (!"POST".equals(method)) {
@@ -72,6 +76,7 @@ public class HmacAuthInterceptor extends AbstractPhaseInterceptor<Message> {
     }
 
     public static String calculateSignature(String data, String key) {
+        logger.debug("Signing with algorithm {} the string: {} ", HMAC_SHA1_ALGORITHM, data );
         String result;
         try {
             // get an hmac_sha1 key from the raw key bytes
