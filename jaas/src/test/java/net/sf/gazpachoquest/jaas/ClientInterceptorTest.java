@@ -5,10 +5,13 @@ import java.util.Collections;
 import net.sf.gazpachoquest.api.AuthenticationResource;
 import net.sf.gazpachoquest.api.QuestionnairResource;
 import net.sf.gazpachoquest.cxf.interceptor.HmacAuthInterceptor;
+import net.sf.gazpachoquest.dto.PageDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.dto.auth.Account;
+import net.sf.gazpachoquest.types.BrowsingAction;
+import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.apache.cxf.jaxrs.client.Client;
 import org.apache.cxf.jaxrs.client.ClientConfiguration;
@@ -66,7 +69,23 @@ public class ClientInterceptorTest {
 
         Integer questionnairId = 61;
         QuestionnairDTO definition = questionnairResource.getDefinition(questionnairId);
-
     }
 
+    @Test
+    public void getPageTest() {
+        QuestionnairResource questionnairResource = JAXRSClientFactory.create(BASE_URI, QuestionnairResource.class,
+                Collections.singletonList(new JacksonJsonProvider()), null);
+
+        Client client = WebClient.client(questionnairResource);
+        ClientConfiguration config = WebClient.getConfig(client);
+
+        String apiKey = "FGFQM8T6YPVSW4Q";
+        String secret = "39JYOYPWYR46R38OAOTVRZJMEXNJ46HL";
+        config.getOutInterceptors().add(new HmacAuthInterceptor(apiKey, secret));
+
+        Integer questionnairId = 103;
+        PageDTO definition = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP,
+                BrowsingAction.ENTERING);
+
+    }
 }
