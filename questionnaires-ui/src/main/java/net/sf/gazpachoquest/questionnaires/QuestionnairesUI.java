@@ -22,6 +22,7 @@ import net.sf.gazpachoquest.questionnaires.views.login.LoginView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.cdi.CDIUI;
@@ -37,6 +38,7 @@ import com.vaadin.ui.UI;
 @Theme("gazpacho")
 @Title("Gazpacho Questionnaires")
 @CDIUI
+@PreserveOnRefresh
 public class QuestionnairesUI extends UI {
 
     private static final long serialVersionUID = 1265851857862002747L;
@@ -70,6 +72,11 @@ public class QuestionnairesUI extends UI {
 
     protected void onLogin(@Observes
     LoginEvent loginEvent) {
+        if (isUserSignedIn()) {
+            navigator.navigateTo(QuestionnairView.NAME);
+            return;
+        }
+
         try {
             JaasAccessControl.login(loginEvent.getUsername(), loginEvent.getPassword());
             navigator.navigateTo(QuestionnairView.NAME);

@@ -10,13 +10,20 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.questionnaires.views;
 
+import java.util.List;
+
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;
+import net.sf.gazpachoquest.dto.PageDTO;
+import net.sf.gazpachoquest.dto.QuestionDTO;
+import net.sf.gazpachoquest.dto.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
+import net.sf.gazpachoquest.types.BrowsingAction;
+import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,9 +70,14 @@ public class QuestionnairView extends CustomComponent implements View {
                 .getUserPrincipal();
         Integer questionnairId = respondent.getGrantedQuestionnairIds().iterator().next();
         logger.debug("Trying to fetch questionnair identified with id  = {} ", questionnairId);
-        QuestionnairDTO questionnair = questionnairResource.getDefinition(respondent.getGrantedQuestionnairIds()
-                .iterator().next());
+        QuestionnairDTO questionnair = questionnairResource.getDefinition(questionnairId);
+        
 
+        PageDTO page = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP, BrowsingAction.ENTERING);
+        
+        List<QuestionDTO> questions = page.getQuestions();
+        
+        
         VerticalLayout mainLayout = new VerticalLayout();
         mainLayout.setSizeFull();
 
@@ -73,6 +85,11 @@ public class QuestionnairView extends CustomComponent implements View {
         label.addStyleName(Reindeer.LABEL_H1);
         mainLayout.addComponent(label);
 
+        for (QuestionDTO question : questions) {
+            QuestionLanguageSettingsDTO languageSettings = question.getLanguageSettings();
+            Label questionTitle = new Label(languageSettings.getTitle());
+            mainLayout.addComponent(questionTitle);
+        }
         // Add the responsive capabilities to the components
         Responsive.makeResponsive(label);
         centralLayout.addComponent(mainLayout);
