@@ -73,12 +73,8 @@ public class QuestionnairView extends CustomComponent implements View {
         label.addStyleName(Reindeer.LABEL_H1);
         mainLayout.addComponent(label);
 
-        // label.addStyleName("description");
-
         // Add the responsive capabilities to the components
-        // new Responsive(label);
         Responsive.makeResponsive(label);
-        // mainLayout.setExpandRatio(content, 1);
         centralLayout.addComponent(mainLayout);
         setCompositionRoot(centralLayout);
     }

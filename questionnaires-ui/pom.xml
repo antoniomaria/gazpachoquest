@@ -215,12 +215,7 @@
       <artifactId>history</artifactId>
       <version>1.1.0</version>
     </dependency>
-    <!-- 
-    <dependency>
-      <groupId>com.vaadin.addon.responsive</groupId>
-      <artifactId>responsive</artifactId>
-      <version>1.0.0.alpha4</version>
-    </dependency>  -->
+
     <!-- JAckson Mapper -->
     <dependency>
       <groupId>com.fasterxml.jackson.jaxrs</groupId>

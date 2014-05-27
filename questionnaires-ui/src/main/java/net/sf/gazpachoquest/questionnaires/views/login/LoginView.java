@@ -41,6 +41,7 @@ public class LoginView extends CustomComponent implements View {
     protected CssLayout createCompositionRoot() {
         CssLayout root = new CssLayout();
         root.setSizeFull();
+        root.addStyleName(Reindeer.LAYOUT_BLUE);
 
         VerticalLayout loginLayout = new VerticalLayout();
         loginLayout.setSizeFull();
@@ -138,8 +139,6 @@ public class LoginView extends CustomComponent implements View {
             }
         };
     }
-
-
 
     @Override
     public void enter(ViewChangeEvent event) {

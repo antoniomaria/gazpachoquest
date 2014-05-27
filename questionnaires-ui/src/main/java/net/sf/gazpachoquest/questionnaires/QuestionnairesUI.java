@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
-import com.vaadin.annotations.Widgetset;
 import com.vaadin.cdi.CDIUI;
 import com.vaadin.cdi.CDIViewProvider;
 import com.vaadin.cdi.access.JaasAccessControl;
@@ -37,7 +36,6 @@ import com.vaadin.ui.UI;
 
 @Theme("gazpacho")
 @Title("Gazpacho Questionnaires")
-@Widgetset("net.sf.gazpachoquest.questionnaires.AppWidgetSet")
 @CDIUI
 public class QuestionnairesUI extends UI {
 
