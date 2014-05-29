@@ -21,8 +21,12 @@ import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
+import net.sf.gazpachoquest.questionnaires.renderer.question.Renderer;
+import net.sf.gazpachoquest.questionnaires.renderer.question.RendererFactory;
+import net.sf.gazpachoquest.questionnaires.renderer.question.Renderers;
 import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
 import net.sf.gazpachoquest.types.BrowsingAction;
+import net.sf.gazpachoquest.types.QuestionType;
 import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.slf4j.Logger;
@@ -35,9 +39,11 @@ import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinServletService;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
 
@@ -55,6 +61,9 @@ public class QuestionnairView extends CustomComponent implements View {
     @GazpachoResource
     private QuestionnairResource questionnairResource;
 
+	@Inject
+	private RendererFactory rendererFactory;
+	
     @Override
     public void enter(ViewChangeEvent event) {
         logger.debug("Entering {} view ", QuestionnairView.NAME);
@@ -88,8 +97,15 @@ public class QuestionnairView extends CustomComponent implements View {
         for (QuestionDTO question : questions) {
             QuestionLanguageSettingsDTO languageSettings = question.getLanguageSettings();
             Label questionTitle = new Label(languageSettings.getTitle());
-            mainLayout.addComponent(questionTitle);
+            //mainLayout.addComponent(questionTitle);
         }
+        
+        Renderer renderer = rendererFactory.createRenderer(questions.get(0).getType());
+        
+        Component panel = renderer.render(questions.get(0));
+        
+		mainLayout.addComponent(panel );
+        
         // Add the responsive capabilities to the components
         Responsive.makeResponsive(label);
         centralLayout.addComponent(mainLayout);
