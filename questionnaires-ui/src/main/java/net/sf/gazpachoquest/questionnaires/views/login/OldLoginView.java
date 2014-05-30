@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.Locale;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;
-import net.sf.gazpachoquest.questionnaires.resource.ResourceProducer;
 import net.sf.gazpachoquest.questionnaires.views.QuestionnairView;
 
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
@@ -22,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.VaadinService;
@@ -160,7 +158,7 @@ public class OldLoginView extends CustomComponent implements View, Button.ClickL
         String invitation = invitationTextField.getValue();
         WrappedSession session = VaadinService.getCurrentRequest().getWrappedSession();
 
-        QuestionnairResource proxy = JAXRSClientFactory.create(ResourceProducer.BASE_URI, QuestionnairResource.class,
+        QuestionnairResource proxy = JAXRSClientFactory.create("", QuestionnairResource.class,
                 Collections.singletonList(new JacksonJsonProvider()), "respondent", invitation, null);
 
         //
@@ -178,8 +176,8 @@ public class OldLoginView extends CustomComponent implements View, Button.ClickL
             getUI().getNavigator().navigateTo(QuestionnairView.NAME);
         } else {
             // Wrong password clear the password field and refocuses it
-            this.invitationTextField.setValue(null);
-            this.invitationTextField.focus();
+            invitationTextField.setValue(null);
+            invitationTextField.focus();
         }
     }
 }
