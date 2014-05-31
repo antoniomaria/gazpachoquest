@@ -36,6 +36,8 @@ public class RespondentsLoginModuleTest {
                 .build();
         Map<String, String> sharedState = new HashMap<String, String>();
         Map<String, String> options = new HashMap<String, String>();
+
+        options.put("gazpachoquest.rest.endpoint", "http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/api");
         loginModule.initialize(subject, callbackHandler, sharedState, options);
 
         loginModule.setAuthenticationResource(authenticationResourceMock);
@@ -50,6 +52,7 @@ public class RespondentsLoginModuleTest {
                 .build();
         Map<String, String> sharedState = new HashMap<String, String>();
         Map<String, String> options = new HashMap<String, String>();
+        options.put("gazpachoquest.rest.endpoint", "http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/api");
         loginModule.initialize(subject, callbackHandler, sharedState, options);
 
         AuthenticationResourceMock authenticationResourceMock = new AuthenticationResourceMock();
