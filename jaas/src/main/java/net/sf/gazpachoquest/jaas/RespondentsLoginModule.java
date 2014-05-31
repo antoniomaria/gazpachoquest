@@ -34,11 +34,6 @@ public class RespondentsLoginModule implements LoginModule {
 
     private static Logger logger = LoggerFactory.getLogger(RespondentsLoginModule.class);
 
-    // public static final String BASE_URI =
-    // "http://aurora:8080/gazpachoquest-rest-web/api";
-
-    public static final String BASE_URI = "http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/api";
-
     private CallbackHandler handler;
     private Subject subject;
     private Account userPrincipal;
@@ -47,10 +42,10 @@ public class RespondentsLoginModule implements LoginModule {
     @Override
     public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState,
             Map<String, ?> options) {
-
+    	String endpoint = (String) options.get("gazpachoquest.rest.endpoint");
         handler = callbackHandler;
         this.subject = subject;
-        authenticationResource = JAXRSClientFactory.create(BASE_URI, AuthenticationResource.class,
+        authenticationResource = JAXRSClientFactory.create(endpoint, AuthenticationResource.class,
                 Collections.singletonList(new JacksonJsonProvider()), null);
     }
 
