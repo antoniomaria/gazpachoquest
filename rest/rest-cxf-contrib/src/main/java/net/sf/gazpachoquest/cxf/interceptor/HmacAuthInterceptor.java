@@ -49,10 +49,20 @@ public class HmacAuthInterceptor extends AbstractPhaseInterceptor<Message> {
         String date = DateFormatUtils.SMTP_DATETIME_FORMAT.format(new Date());
 
         String resource = requestUri.substring(basePath.length());
+        if (!resource.startsWith("/")){ // In localhost the / is missing
+        	resource = "/" + resource;
+        }
+        
         String stringToSign = new StringBuilder().append(method).append(" ").append(resource).append("\n").append(date)
                 .toString();
         addHeader(message, HttpHeaders.DATE, date);
 
+        String signature = calculateSignature(stringToSign, secret);
+        String authToken = generateAuth(apiKey, signature);
+        addHeader(message, HttpHeaders.AUTHORIZATION, authToken);
+
+        
+        /*-
         if (!"POST".equals(method)) {
             String signature = calculateSignature(stringToSign, secret);
             String authToken = generateAuth(apiKey, signature);
@@ -62,8 +72,7 @@ public class HmacAuthInterceptor extends AbstractPhaseInterceptor<Message> {
             final CacheAndWriteOutputStream newOut = new CacheAndWriteOutputStream(os);
             message.setContent(OutputStream.class, newOut);
             newOut.registerCallback(new HmacAuthCallBack(message, stringToSign));
-        }
-
+        }*/
     }
 
     public String generateAuth(String apiKey, String signature) {

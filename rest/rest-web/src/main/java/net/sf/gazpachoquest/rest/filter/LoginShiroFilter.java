@@ -61,6 +61,7 @@ public class LoginShiroFilter implements RequestHandler {
         if (dateUTC != null) {
             signedContent.append("\n").append(dateUTC);
         }
+        /*-
         if ("POST".equals(method)) {
             DelegatingInputStream input = message.getContent(DelegatingInputStream.class);
             if (input != null) {
@@ -71,7 +72,7 @@ public class LoginShiroFilter implements RequestHandler {
                     throw new IllegalStateException("Errors when reading POST content", e);
                 }
             }
-        }
+        }*/
         String apiKey = apiKeyAndSignature[0];
         String signature = apiKeyAndSignature[1];
         AuthenticationToken token = new HmacAuthToken.Builder().apiKey(apiKey).message(signedContent.toString())
