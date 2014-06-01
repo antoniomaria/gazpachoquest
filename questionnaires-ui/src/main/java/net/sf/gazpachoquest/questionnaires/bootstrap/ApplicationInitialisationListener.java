@@ -2,11 +2,11 @@ package net.sf.gazpachoquest.questionnaires.bootstrap;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Properties;
 
+import javax.enterprise.event.Event;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.naming.InitialContext;
@@ -31,14 +31,11 @@ public class ApplicationInitialisationListener implements
 
 	private static final String GAZPACHO_QUEST_ENGINE_NAME = "gazpachoQuestEngineName";
 
-	private static boolean INITIALIZED;
-
 	private volatile static Properties configProperties;
 
+	@Inject
+	private Event<StartUpEvent> startUpEvent;
 
-    @Inject
-    private BeanManager beanManager;
-    
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		ServletContext servletContext = sce.getServletContext();
@@ -55,40 +52,19 @@ public class ApplicationInitialisationListener implements
 		configProperties = new Properties();
 		try {
 			configProperties.load(configurationSource);
-			INITIALIZED = true;
 		} catch (IOException | NullPointerException | IllegalArgumentException e) {
 			throw new IllegalStateException(
 					"Initilizatition Error. Couldn't load " + CONFIG_FILE_NAME);
 		}
+		startUpEvent.fire(StartUpEvent.with().properties(configProperties)
+				.build());
 
-		if (beanManager != null) {
-			beanManager.fireEvent(StartUpEvent.with()
-					.properties(configProperties).build());
-			logger.info("beanManager fired StartUp Event.");
-		} else {
-			logger.error("beanManager is null.  Cannot fire StartUp Event.");
-		}
 	}
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		configProperties = null;
 	}
-
-	/*-
-	 @InjectedConfiguration
-	 @Produces
-	 public String injectConfiguration(InjectionPoint ip, ServletContext servletContext)
-	 throws IllegalStateException {
-	 if (!INITIALIZED) {
-	 throw new IllegalStateException(
-	 "Initialization Error. Class not iniatilialized by a j2ee container");
-	 }
-	 InjectedConfiguration param = ip.getAnnotated().getAnnotation(
-	 InjectedConfiguration.class);
-	 String resourceKey = param.key().getKey();
-	 return configProperties.getProperty(resourceKey);
-	 }*/
 
 	private String resolveEngineName() {
 		String engineName = System.getProperty(GAZPACHO_QUEST_ENGINE_NAME);
