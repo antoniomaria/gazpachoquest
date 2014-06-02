@@ -33,10 +33,6 @@ import com.wordnik.swagger.annotations.ApiResponses;
 @Path("/questionnairs")
 @Api(value = "questionnairs", description = "Questionnairs Interface")
 @Produces(MediaType.APPLICATION_JSON)
-// https://github.com/jurberg/rest-security/
-// http://www.thebuzzmedia.com/designing-a-secure-rest-api-without-oauth-authentication/
-// http://gary-rowe.com/agilestack/2012/10/23/multibit-merchant-implementing-hmac-authentication-in-dropwizard/
-// http://www.thebuzzmedia.com/designing-a-secure-rest-api-without-oauth-authentication/
 public class QuestionnairResource {
 
     private static final Logger logger = LoggerFactory.getLogger(QuestionnairResource.class);

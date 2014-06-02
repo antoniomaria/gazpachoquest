@@ -10,19 +10,18 @@ import javax.enterprise.inject.spi.InjectionPoint;
 @ApplicationScoped
 public class ConfigurationFactory {
 
-	private Properties properties;
+    private Properties properties;
 
-	public void listen(@Observes StartUpEvent event) {
-		this.properties = event.getProperties();
-	}
+    public void listen(@Observes
+    StartUpEvent event) {
+        properties = event.getProperties();
+    }
 
-	@InjectedConfiguration
-	@Produces
-	public String injectConfiguration(InjectionPoint ip)
-			throws IllegalStateException {
-		InjectedConfiguration param = ip.getAnnotated().getAnnotation(
-				InjectedConfiguration.class);
-		String resourceKey = param.key().getKey();
-		return properties.getProperty(resourceKey);
-	}
+    @InjectedConfiguration
+    @Produces
+    public String injectConfiguration(InjectionPoint ip) throws IllegalStateException {
+        InjectedConfiguration param = ip.getAnnotated().getAnnotation(InjectedConfiguration.class);
+        String resourceKey = param.key().getKey();
+        return properties.getProperty(resourceKey);
+    }
 }

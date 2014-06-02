@@ -1,59 +1,45 @@
 package net.sf.gazpachoquest.questionnaires.components.question;
 
-import net.sf.gazpachoquest.api.QuestionnairResource;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.VerticalLayout;
 
-public abstract class AbstractQuestionComponent extends CustomComponent
-		implements QuestionComponent {
+public abstract class AbstractQuestionComponent extends CustomComponent implements QuestionComponent {
 
-	private static final long serialVersionUID = -2274020487486737492L;
+    private static final long serialVersionUID = -2274020487486737492L;
 
-	protected QuestionnairResource questionnairResource;
+    protected javax.enterprise.event.Event<SaveAnswerEvent> saveAnswerEvent;
 
-	protected VerticalLayout content;
-	
-	protected QuestionDTO questionDTO;
+    protected VerticalLayout content;
 
-	protected Integer questionnairId;
-	
-	protected AbstractQuestionComponent(QuestionnairResource questionnairResource, Integer questionnairId, QuestionDTO questionDTO) {
-		super();
-		this.content = new VerticalLayout();
-		this.questionnairResource = questionnairResource;
-		this.questionDTO = questionDTO;
-		this.questionnairId = questionnairId;
-		setSizeUndefined();
-		// The composition root MUST be set
-		setCompositionRoot(content);
-		
-	}
+    protected QuestionDTO questionDTO;
 
-	public QuestionnairResource getQuestionnairResource() {
-		return questionnairResource;
-	}
+    protected AbstractQuestionComponent() {
+        super();
+        content = new VerticalLayout();
+        setSizeUndefined();
+        // The composition root MUST be set
+        setCompositionRoot(content);
+    }
 
-	public void setQuestionnairResource(
-			QuestionnairResource questionnairResource) {
-		this.questionnairResource = questionnairResource;
-	}
+    public VerticalLayout getContent() {
+        return content;
+    }
 
-	public VerticalLayout getContent() {
-		return content;
-	}
+    public void setContent(VerticalLayout content) {
+        this.content = content;
+    }
 
-	public void setContent(VerticalLayout content) {
-		this.content = content;
-	}
+    public QuestionDTO getQuestionDTO() {
+        return questionDTO;
+    }
 
-	public QuestionDTO getQuestionDTO() {
-		return questionDTO;
-	}
+    @Override
+    public void setQuestionDTO(QuestionDTO questionDTO) {
+        this.questionDTO = questionDTO;
+    }
 
-	public void setQuestionDTO(QuestionDTO questionDTO) {
-		this.questionDTO = questionDTO;
-	}
+    protected abstract void init();
 
 }

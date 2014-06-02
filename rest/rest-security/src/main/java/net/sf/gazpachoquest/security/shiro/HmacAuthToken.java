@@ -56,6 +56,11 @@ public class HmacAuthToken implements AuthenticationToken {
         this.dateUTC = dateUTC;
     }
 
+    @Override
+    public String toString() {
+        return "HmacAuthToken [apiKey=" + apiKey + ", message=" + message + "]";
+    }
+
     public static class Builder {
         private String apiKey;
         private String signature;

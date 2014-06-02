@@ -3,7 +3,6 @@ package net.sf.gazpachoquest.questionnaires.resource;
 import javax.inject.Inject;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;
-import net.sf.gazpachoquest.dto.QuestionnairDTO;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -44,8 +43,10 @@ public class QuestionnairResourceTest {
     @Test
     public void listTest() {
         Integer questionnairId = 58;
-//        QuestionnairDTO questionnair = questionnairResource.getDefinition(questionnairId);
-  //      System.out.println(questionnair.getId() + " " + questionnair.getLanguageSettings().getTitle());
-System.out.println("fin");
+        // QuestionnairDTO questionnair =
+        // questionnairResource.getDefinition(questionnairId);
+        // System.out.println(questionnair.getId() + " " +
+        // questionnair.getLanguageSettings().getTitle());
+        System.out.println("fin");
     }
 }

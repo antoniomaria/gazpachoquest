@@ -27,7 +27,6 @@ import com.wordnik.swagger.annotations.ApiParam;
 @Path("/auth")
 @Api(value = "/auth", description = "Authentication Interface")
 @Produces(MediaType.APPLICATION_JSON)
-// @Provider
 public class AuthenticationResource {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationResource.class);

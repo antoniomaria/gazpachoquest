@@ -1,6 +1,5 @@
 package net.sf.gazpachoquest.rest.filter;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.ws.rs.core.Context;
@@ -11,8 +10,6 @@ import javax.ws.rs.core.UriInfo;
 import net.sf.gazpachoquest.security.shiro.HmacAuthToken;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.cxf.helpers.IOUtils;
-import org.apache.cxf.io.DelegatingInputStream;
 import org.apache.cxf.jaxrs.ext.RequestHandler;
 import org.apache.cxf.jaxrs.model.ClassResourceInfo;
 import org.apache.cxf.message.Message;
@@ -57,7 +54,7 @@ public class LoginShiroFilter implements RequestHandler {
         if (query != null) {
             signedContent.append("?").append(query);
         }
-        
+
         if (dateUTC != null) {
             signedContent.append("\n").append(dateUTC);
         }
