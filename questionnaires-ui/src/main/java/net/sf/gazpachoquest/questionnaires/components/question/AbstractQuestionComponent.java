@@ -1,14 +1,21 @@
 package net.sf.gazpachoquest.questionnaires.components.question;
 
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import net.sf.gazpachoquest.dto.QuestionDTO;
 
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.VerticalLayout;
 
+@Named
+@RequestScoped
 public abstract class AbstractQuestionComponent extends CustomComponent implements QuestionComponent {
 
     private static final long serialVersionUID = -2274020487486737492L;
 
+    @Inject
     protected javax.enterprise.event.Event<SaveAnswerEvent> saveAnswerEvent;
 
     protected VerticalLayout content;

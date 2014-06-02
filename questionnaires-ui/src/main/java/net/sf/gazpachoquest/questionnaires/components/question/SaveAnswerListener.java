@@ -1,5 +1,7 @@
 package net.sf.gazpachoquest.questionnaires.components.question;
 
+import java.io.Serializable;
+
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -15,7 +17,9 @@ import org.slf4j.LoggerFactory;
 import com.vaadin.server.VaadinServletService;
 
 @SessionScoped
-public class SaveAnswerListener {
+public class SaveAnswerListener implements Serializable {
+
+    private static final long serialVersionUID = 6967998525308434420L;
 
     private static Logger logger = LoggerFactory.getLogger(SaveAnswerListener.class);
 

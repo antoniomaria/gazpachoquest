@@ -36,16 +36,17 @@ public class QuestionFactory {
         switch (questionDTO.getType()) {
         case S:
             questionComponent = question.select(ShortFreeTextQuestion.class).get();
+            break;
         case F:
-            break;
+            throw new NotSupportedException("Question Type " + questionDTO.getType() + " not supported");
         case L:
-            break;
+            throw new NotSupportedException("Question Type " + questionDTO.getType() + " not supported");
         case M:
-            break;
+            throw new NotSupportedException("Question Type " + questionDTO.getType() + " not supported");
         case N:
-            break;
+            throw new NotSupportedException("Question Type " + questionDTO.getType() + " not supported");
         case T:
-            break;
+            throw new NotSupportedException("Question Type " + questionDTO.getType() + " not supported");
         default:
             throw new NotSupportedException("Question Type " + questionDTO.getType() + " not supported");
         }
