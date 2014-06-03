@@ -1,7 +1,6 @@
 package net.sf.gazpachoquest.questionnaires.components.question;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.resource.NotSupportedException;
@@ -16,7 +15,7 @@ import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@ApplicationScoped
+// @ApplicationScoped
 public class QuestionFactory {
 
     private static final Logger logger = LoggerFactory.getLogger(QuestionFactory.class);
