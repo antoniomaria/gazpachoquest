@@ -10,6 +10,9 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.questionnaires;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewDisplay;
 import com.vaadin.ui.ComponentContainer;
@@ -17,6 +20,8 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Panel;
 
 public class GazpachoViewDisplay extends Panel implements ViewDisplay {
+
+    private static Logger logger = LoggerFactory.getLogger(GazpachoViewDisplay.class);
 
     private static final long serialVersionUID = 6287152165941299841L;
 
@@ -26,6 +31,7 @@ public class GazpachoViewDisplay extends Panel implements ViewDisplay {
 
     @Override
     public void showView(View view) {
+        logger.debug("Displaying View " + view);
         if (view instanceof CustomComponent) {
             setContent((CustomComponent) view);
         } else if (view instanceof ComponentContainer) {

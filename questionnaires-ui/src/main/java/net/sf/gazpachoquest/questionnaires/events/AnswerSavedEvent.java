@@ -1,13 +1,13 @@
-package net.sf.gazpachoquest.questionnaires.components.question;
+package net.sf.gazpachoquest.questionnaires.events;
 
 import net.sf.gazpachoquest.dto.answers.Answer;
 
-public class SaveAnswerEvent {
+public class AnswerSavedEvent {
 
     private String questionCode;
     private Answer answer;
 
-    public SaveAnswerEvent() {
+    public AnswerSavedEvent() {
         super();
     }
 
@@ -45,11 +45,11 @@ public class SaveAnswerEvent {
             return this;
         }
 
-        public SaveAnswerEvent build() {
-            SaveAnswerEvent saveAnswerEvent = new SaveAnswerEvent();
-            saveAnswerEvent.questionCode = questionCode;
-            saveAnswerEvent.answer = answer;
-            return saveAnswerEvent;
+        public AnswerSavedEvent build() {
+            AnswerSavedEvent answerSavedEvent = new AnswerSavedEvent();
+            answerSavedEvent.questionCode = questionCode;
+            answerSavedEvent.answer = answer;
+            return answerSavedEvent;
         }
     }
 }

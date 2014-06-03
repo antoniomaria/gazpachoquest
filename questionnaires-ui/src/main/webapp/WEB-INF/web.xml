@@ -7,42 +7,12 @@
     <param-name>productionMode</param-name>
     <param-value>false</param-value>
   </context-param>
-<!-- 
-  <servlet>
-    <servlet-name>MyprojectUI</servlet-name>
-    <servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
-    <init-param>
-      <description>Vaadin UI class to use</description>
-      <param-name>UI</param-name>
-      <param-value>net.sf.gazpachoquest.questionnaires.QuestionnairesUI</param-value>
-    </init-param>
 
-    <init-param>
-      <param-name>uiprovider</param-name>
-      <param-value>com.vaadin.cdi.CDIUIProvider</param-value>
-    </init-param>
-
-    <init-param>
-      <param-name>viewprovider</param-name>
-      <param-value>com.vaadin.cdi.CDIViewProvider</param-value>
-    </init-param>
-
-    <init-param>
-      <param-name>widgetset</param-name>
-      <param-value>net.sf.gazpachoquest.questionnaires.AppWidgetSet</param-value>
-    </init-param>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>MyprojectUI</servlet-name>
-    <url-pattern>/*</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-    <servlet-name>MyprojectUI</servlet-name>
-    <url-pattern>/VAADIN/*</url-pattern>
-  </servlet-mapping>
- -->
+  <context-param>
+    <param-name>heartbeatInterval</param-name>
+    <param-value>300</param-value>
+  </context-param>
+  
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>gazpacho</web-resource-name>

@@ -1,11 +1,9 @@
 package net.sf.gazpachoquest.questionnaires.components.question.type;
 
-import javax.annotation.PostConstruct;
-
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.questionnaires.components.question.AbstractQuestionComponent;
-import net.sf.gazpachoquest.questionnaires.components.question.SaveAnswerEvent;
+import net.sf.gazpachoquest.questionnaires.events.AnswerSavedEvent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +20,6 @@ public class ShortFreeTextQuestion extends AbstractQuestionComponent implements 
     private static Logger logger = LoggerFactory.getLogger(ShortFreeTextQuestion.class);
 
     private TextField answerField;
-
-    @PostConstruct
-    public void afterInjection() {
-        logger.debug("{} instance have been created", ShortFreeTextQuestion.class.getSimpleName());
-    }
 
     public ShortFreeTextQuestion() {
         super();
@@ -53,7 +46,7 @@ public class ShortFreeTextQuestion extends AbstractQuestionComponent implements 
         logger.debug("Text Change Event fired in ShortFreeTextQuestion with text = {}", text);
         String questionCode = questionDTO.getCode();
         Answer answer = TextAnswer.fromValue(text);
-        saveAnswerEvent.fire(SaveAnswerEvent.with().questionCode(questionCode).answer(answer).build());
+        answerSavedEvent.fire(AnswerSavedEvent.with().questionCode(questionCode).answer(answer).build());
 
     }
 }

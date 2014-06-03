@@ -73,10 +73,10 @@ public class QuestionnairesUI extends UI {
     protected void onLogin(@Observes
     LoginEvent loginEvent) {
         if (isUserSignedIn()) {
+            logger.info("User {} already authenticated", getPrincipalName());
             navigator.navigateTo(QuestionnairView.NAME);
             return;
         }
-
         try {
             JaasAccessControl.login(loginEvent.getUsername(), loginEvent.getPassword());
             navigator.navigateTo(QuestionnairView.NAME);

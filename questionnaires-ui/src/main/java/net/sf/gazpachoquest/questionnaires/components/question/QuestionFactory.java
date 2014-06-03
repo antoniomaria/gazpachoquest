@@ -8,6 +8,8 @@ import javax.resource.NotSupportedException;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;
 import net.sf.gazpachoquest.dto.QuestionDTO;
+import net.sf.gazpachoquest.questionnaires.components.question.type.ListRadioQuestion;
+import net.sf.gazpachoquest.questionnaires.components.question.type.NumericQuestion;
 import net.sf.gazpachoquest.questionnaires.components.question.type.ShortFreeTextQuestion;
 import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
 
@@ -40,11 +42,13 @@ public class QuestionFactory {
         case F:
             throw new NotSupportedException("Question Type " + questionDTO.getType() + " not supported");
         case L:
-            throw new NotSupportedException("Question Type " + questionDTO.getType() + " not supported");
+            questionComponent = question.select(ListRadioQuestion.class).get();
+            break;
         case M:
             throw new NotSupportedException("Question Type " + questionDTO.getType() + " not supported");
         case N:
-            throw new NotSupportedException("Question Type " + questionDTO.getType() + " not supported");
+            questionComponent = question.select(NumericQuestion.class).get();
+            break;
         case T:
             throw new NotSupportedException("Question Type " + questionDTO.getType() + " not supported");
         default:
