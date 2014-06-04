@@ -1,5 +1,7 @@
 package net.sf.gazpachoquest.questionnaires.components.question.type;
 
+import javax.inject.Inject;
+
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.answers.NumericAnswer;
 import net.sf.gazpachoquest.questionnaires.components.question.AbstractQuestionComponent;
@@ -7,6 +9,8 @@ import net.sf.gazpachoquest.questionnaires.events.AnswerSavedEvent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vaadin.addon.cdiproperties.annotation.LabelProperties;
+import org.vaadin.addon.cdiproperties.annotation.TextFieldProperties;
 
 import com.vaadin.data.util.converter.Converter.ConversionException;
 import com.vaadin.data.util.converter.StringToIntegerConverter;
@@ -23,6 +27,12 @@ public class NumericQuestion extends AbstractQuestionComponent implements TextCh
 
     private static Logger logger = LoggerFactory.getLogger(NumericQuestion.class);
 
+    @Inject
+    @LabelProperties
+    private Label questionTitle;
+
+    @Inject
+    @TextFieldProperties(maxLength = 50, nullRepresentation = "", nullSettingAllowed = true, immediate = true)
     private TextField answerField;
 
     public NumericQuestion() {
@@ -31,17 +41,13 @@ public class NumericQuestion extends AbstractQuestionComponent implements TextCh
 
     @Override
     public void init() {
-        Label questionTitle = new Label(questionDTO.getLanguageSettings().getTitle());
+        questionTitle.setCaption(questionDTO.getLanguageSettings().getTitle());
         content.addComponent(questionTitle);
 
-        answerField = new TextField();
         answerField.addTextChangeListener(this);
         if (questionDTO.getAnswer() != null) {
             answerField.setValue(String.valueOf(((NumericAnswer) questionDTO.getAnswer()).getValue()));
         }
-        answerField.setMaxLength(50);
-        answerField.setNullSettingAllowed(true);
-        answerField.setNullRepresentation("");
         answerField.setConverter(new StringToIntegerConverter());
         answerField.addValidator(new IntegerRangeValidator("Only Integers allowed!", 0, null));
         content.addComponent(answerField);

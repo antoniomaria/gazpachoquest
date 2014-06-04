@@ -1,5 +1,7 @@
 package net.sf.gazpachoquest.questionnaires.components.question;
 
+import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
@@ -15,13 +17,14 @@ import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// @ApplicationScoped
-public class QuestionFactory {
+public class QuestionFactory implements Serializable {
+
+    private static final long serialVersionUID = -6134111942730296445L;
 
     private static final Logger logger = LoggerFactory.getLogger(QuestionFactory.class);
 
     @Inject
-    Instance<AbstractQuestionComponent> question;
+    private Instance<AbstractQuestionComponent> question;
 
     @GazpachoResource
     @Inject

@@ -12,10 +12,17 @@ package net.sf.gazpachoquest.questionnaires;
 
 import net.sf.gazpachoquest.questionnaires.views.ErrorView;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewProvider;
 
 public class GazpachoErrorViewProvider implements ViewProvider {
+
+    private static final long serialVersionUID = -816047369725821704L;
+
+    private static final Logger logger = LoggerFactory.getLogger(GazpachoErrorViewProvider.class);
 
     @Override
     public String getViewName(String viewAndParameters) {
@@ -24,6 +31,7 @@ public class GazpachoErrorViewProvider implements ViewProvider {
 
     @Override
     public View getView(String viewName) {
+        logger.info("View name '{}' not found. Redirecting to errorView", viewName);
         return new ErrorView();
     }
 

@@ -24,7 +24,7 @@ public class LoginView extends CustomComponent implements View {
 
     private static final long serialVersionUID = -5588579843187115669L;
 
-    public static final String NAME = "login";
+    public static final String NAME = "";
 
     private TextField invitation;
     private Button login;

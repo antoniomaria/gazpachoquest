@@ -1,10 +1,15 @@
 package net.sf.gazpachoquest.questionnaires.components.question.type;
 
+import javax.inject.Inject;
+
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.questionnaires.components.question.AbstractQuestionComponent;
 import net.sf.gazpachoquest.questionnaires.events.AnswerSavedEvent;
+
+import org.vaadin.addon.cdiproperties.annotation.LabelProperties;
+import org.vaadin.addon.cdiproperties.annotation.OptionGroupProperties;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -15,12 +20,20 @@ public class ListRadioQuestion extends AbstractQuestionComponent implements Valu
 
     private static final long serialVersionUID = -9223012579161288406L;
 
+    @Inject
+    @LabelProperties
+    private Label questionTitle;
+
+    @Inject
+    @OptionGroupProperties(immediate = true, nullSelectionAllowed = false)
+    private OptionGroup options;
+
     @Override
     protected void init() {
-        Label questionTitle = new Label(questionDTO.getLanguageSettings().getTitle());
+        questionTitle.setCaption(questionDTO.getLanguageSettings().getTitle());
         content.addComponent(questionTitle);
 
-        OptionGroup options = new OptionGroup("Choose one of the following answers");
+        options.setCaption("Choose one of the following answers");
 
         for (QuestionOptionDTO questionOptionDTO : questionDTO.getQuestionOptions()) {
             String optionCode = questionOptionDTO.getCode();
@@ -34,8 +47,6 @@ public class ListRadioQuestion extends AbstractQuestionComponent implements Valu
                 }
             }
         }
-        options.setImmediate(true);
-        options.setNullSelectionAllowed(false);
         options.addValueChangeListener(this);
 
         content.addComponent(options);
