@@ -29,6 +29,7 @@ import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vaadin.addon.cdiproperties.annotation.ButtonProperties;
 
 import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.View;
@@ -37,6 +38,8 @@ import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinServletService;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -45,87 +48,137 @@ import com.vaadin.ui.themes.Reindeer;
 
 @CDIView(QuestionnairView.NAME)
 @RolesAllowed(RespondentAccount.DEFAULT_ROLE_NAME)
-public class QuestionnairView extends CustomComponent implements View {
+public class QuestionnairView extends CustomComponent implements View,
+		ClickListener {
 
-    private static final long serialVersionUID = -4474306191162456568L;
+	private static final long serialVersionUID = -4474306191162456568L;
 
-    public static final String NAME = "questionnair";
+	public static final String NAME = "questionnair";
 
-    private static Logger logger = LoggerFactory.getLogger(QuestionnairView.class);
+	private static Logger logger = LoggerFactory
+			.getLogger(QuestionnairView.class);
 
-    @Inject
-    @GazpachoResource
-    private QuestionnairResource questionnairResource;
+	@Inject
+	@GazpachoResource
+	private QuestionnairResource questionnairResource;
 
-    @Inject
-    private QuestionFactory QuestionFactory;
+	@Inject
+	private QuestionFactory QuestionFactory;
 
-    @Override
-    public void enter(ViewChangeEvent event) {
-        logger.debug("Entering {} view ", QuestionnairView.NAME);
-        setSizeFull();
-        addStyleName(Reindeer.LAYOUT_BLUE);
-        addStyleName("questionnaires");
-        VerticalLayout centralLayout = new VerticalLayout();
-        centralLayout.setMargin(true);
-        // centralLayout.addStyleName("questionnaires");
-        // new Responsive(centralLayout);
+	private Integer questionnairId;
 
-        RespondentAccount respondent = (RespondentAccount) VaadinServletService.getCurrentServletRequest()
-                .getUserPrincipal();
-        Integer questionnairId = respondent.getGrantedQuestionnairIds().iterator().next();
-        logger.debug("Trying to fetch questionnair identified with id  = {} ", questionnairId);
-        QuestionnairDTO questionnair = questionnairResource.getDefinition(questionnairId);
+	private VerticalLayout questionsLayout;
 
-        PageDTO page = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP,
-                BrowsingAction.ENTERING);
+	@Inject
+	@ButtonProperties(caption = "Next")
+	private Button nextButton;
 
-        List<QuestionDTO> questions = page.getQuestions();
+	@Inject
+	@ButtonProperties(caption = "Previous")
+	private Button previousButton;
 
-        VerticalLayout mainLayout = new VerticalLayout();
-        mainLayout.setSizeFull();
+	public void update(PageDTO page) {
+		if (page.getQuestions().isEmpty())
+			return;
 
-        Label label = new Label(questionnair.getLanguageSettings().getTitle());
-        label.addStyleName(Reindeer.LABEL_H1);
-        mainLayout.addComponent(label);
+		questionsLayout.removeAllComponents();
 
-        for (QuestionDTO questionDTO : questions) {
-            QuestionComponent questionComponent;
-            try {
-                questionComponent = QuestionFactory.build(questionnairId, questionDTO);
-                mainLayout.addComponent(questionComponent);
-            } catch (NotSupportedException e) {
-                logger.warn(e.getMessage());
-            }
-        }
+		List<QuestionDTO> questions = page.getQuestions();
 
-        // Add the responsive capabilities to the components
-        Responsive.makeResponsive(label);
-        centralLayout.addComponent(mainLayout);
-        setCompositionRoot(centralLayout);
-    }
+		for (QuestionDTO questionDTO : questions) {
+			QuestionComponent questionComponent;
+			try {
+				questionComponent = QuestionFactory.build(questionnairId,
+						questionDTO);
+				questionsLayout.addComponent(questionComponent);
+			} catch (NotSupportedException e) {
+				logger.warn(e.getMessage());
+			}
+		}
+		nextButton.addClickListener(this);
+		previousButton.addClickListener(this);
 
-    private HorizontalLayout createHeader() {
-        final HorizontalLayout layout = new HorizontalLayout();
-        layout.setWidth("100%");
-        layout.setMargin(true);
-        layout.setSpacing(true);
-        final Label title = new Label("Activiti + Vaadin - A Match Made in Heaven");
-        title.addStyleName(Reindeer.LABEL_H1);
-        layout.addComponent(title);
-        layout.setExpandRatio(title, 1.0f);
+		HorizontalLayout buttonsLayout = new HorizontalLayout();
+		buttonsLayout.addComponents(previousButton, nextButton);
+		
+		questionsLayout.addComponent(buttonsLayout);
 
-        Label currentUser = new Label();
-        currentUser.setSizeUndefined();
-        layout.addComponent(currentUser);
-        layout.setComponentAlignment(currentUser, Alignment.MIDDLE_RIGHT);
+	}
 
-        Button logout = new Button("Logout");
-        logout.addStyleName(Reindeer.BUTTON_SMALL);
-        // logout.addListener(createLogoutButtonListener());
-        layout.addComponent(logout);
-        layout.setComponentAlignment(logout, Alignment.MIDDLE_RIGHT);
+	@Override
+	public void enter(ViewChangeEvent event) {
+		logger.debug("Entering {} view ", QuestionnairView.NAME);
+		setSizeFull();
+		addStyleName(Reindeer.LAYOUT_BLUE);
+		addStyleName("questionnaires");
+		VerticalLayout centralLayout = new VerticalLayout();
+		centralLayout.setMargin(true);
+		// centralLayout.addStyleName("questionnaires");
+		// new Responsive(centralLayout);
 
-        return layout;
-    }
+		RespondentAccount respondent = (RespondentAccount) VaadinServletService
+				.getCurrentServletRequest().getUserPrincipal();
+		questionnairId = respondent.getGrantedQuestionnairIds().iterator()
+				.next();
+		logger.debug("Trying to fetch questionnair identified with id  = {} ",
+				questionnairId);
+		QuestionnairDTO questionnair = questionnairResource
+				.getDefinition(questionnairId);
+
+		PageDTO page = questionnairResource.getPage(questionnairId,
+				RenderingMode.GROUP_BY_GROUP, BrowsingAction.ENTERING);
+		questionsLayout = new VerticalLayout();
+		update(page);
+
+		VerticalLayout mainLayout = new VerticalLayout();
+		mainLayout.setSizeFull();
+
+		Label label = new Label(questionnair.getLanguageSettings().getTitle());
+		label.addStyleName(Reindeer.LABEL_H1);
+		mainLayout.addComponent(label);
+		mainLayout.addComponent(questionsLayout);
+		// Add the responsive capabilities to the components
+		Responsive.makeResponsive(label);
+		centralLayout.addComponent(mainLayout);
+		setCompositionRoot(centralLayout);
+	}
+
+	private HorizontalLayout createHeader() {
+		final HorizontalLayout layout = new HorizontalLayout();
+		layout.setWidth("100%");
+		layout.setMargin(true);
+		layout.setSpacing(true);
+		final Label title = new Label(
+				"Activiti + Vaadin - A Match Made in Heaven");
+		title.addStyleName(Reindeer.LABEL_H1);
+		layout.addComponent(title);
+		layout.setExpandRatio(title, 1.0f);
+
+		Label currentUser = new Label();
+		currentUser.setSizeUndefined();
+		layout.addComponent(currentUser);
+		layout.setComponentAlignment(currentUser, Alignment.MIDDLE_RIGHT);
+
+		Button logout = new Button("Logout");
+		logout.addStyleName(Reindeer.BUTTON_SMALL);
+		// logout.addListener(createLogoutButtonListener());
+		layout.addComponent(logout);
+		layout.setComponentAlignment(logout, Alignment.MIDDLE_RIGHT);
+
+		return layout;
+	}
+
+	@Override
+	public void buttonClick(ClickEvent event) {
+		if (nextButton.equals(event.getButton())) {
+			PageDTO page = questionnairResource.getPage(questionnairId,
+					RenderingMode.GROUP_BY_GROUP, BrowsingAction.FORWARD);
+			update(page);
+		} else {
+			PageDTO page = questionnairResource.getPage(questionnairId,
+					RenderingMode.GROUP_BY_GROUP, BrowsingAction.BACKWARD);
+			update(page);
+		}
+
+	}
 }
