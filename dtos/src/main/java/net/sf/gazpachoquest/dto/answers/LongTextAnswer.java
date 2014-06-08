@@ -39,4 +39,10 @@ public class LongTextAnswer extends SimpleAnswer {
     public static LongTextAnswer fromValue(String value) {
         return new LongTextAnswer(value);
     }
+
+	@Override
+	public String toString() {
+		return "LongTextAnswer [value=" + value + "]";
+	}
+    
 }
