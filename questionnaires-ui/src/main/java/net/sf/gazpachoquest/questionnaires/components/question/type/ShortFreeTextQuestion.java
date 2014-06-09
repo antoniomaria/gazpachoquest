@@ -8,7 +8,7 @@ import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.questionnaires.components.question.AbstractQuestionComponent;
 import net.sf.gazpachoquest.questionnaires.events.AnswerSavedEvent;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vaadin.addon.cdiproperties.annotation.LabelProperties;
