@@ -20,6 +20,7 @@ import net.sf.gazpachoquest.dto.SubquestionDTO;
 import net.sf.gazpachoquest.dto.answers.AbstractAnswer;
 import net.sf.gazpachoquest.dto.answers.BooleanAnswer;
 import net.sf.gazpachoquest.dto.answers.MultipleAnswer;
+import net.sf.gazpachoquest.dto.answers.NoAnswer;
 import net.sf.gazpachoquest.dto.answers.NumericAnswer;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.dto.support.AbstractQuestionDTO;
@@ -66,13 +67,14 @@ public class AnswersPopulatorImpl implements AnswersPopulator {
             if (!type.hasMultipleAnswers()) {
                 if (QuestionType.S.equals(type) || QuestionType.L.equals(type)) {
                     Object value = answers.get(questionCode);
-                    answer = value != null ? TextAnswer.fromValue((String) value) : null;
+                    answer = value != null ? TextAnswer.fromValue((String) value) : NoAnswer.create();
                 } else if (QuestionType.N.equals(type)) {
                     Object value = answers.get(questionCode);
-                    answer = value != null ? NumericAnswer.fromValue((Integer) value) : null;
+                    answer = value != null ? NumericAnswer.fromValue((Integer) value) : NoAnswer.create();
                 } else if (QuestionType.T.equals(type)) {
                     Character[] value = (Character[]) answers.get(questionCode);
-                    answer = value != null ? new TextAnswer(new String(ArrayUtils.toPrimitive(value))) : null;
+                    answer = value != null ? new TextAnswer(new String(ArrayUtils.toPrimitive(value))) : NoAnswer
+                            .create();
                 } else {
                     throw new IllegalStateException(type + " not supported");
                 }
@@ -83,9 +85,6 @@ public class AnswersPopulatorImpl implements AnswersPopulator {
                     String optionCode = questionOptionDTO.getCode();
                     String answerCode = new StringBuilder(questionCode).append("_").append(optionCode).toString();
                     Object value = answers.get(answerCode);
-                    if (value == null) {
-                        continue;
-                    }
                     // Only checkbox are supported
                     if (type.getAnswerType().isAssignableFrom(Boolean.class)) {
                         ((MultipleAnswer) answer).addAnswer(BooleanAnswer.valueOf(optionCode, (Boolean) value));

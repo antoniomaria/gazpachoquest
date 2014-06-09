@@ -7,6 +7,8 @@ import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.dto.QuestionDTO;
+import net.sf.gazpachoquest.dto.answers.MultipleAnswer;
+import net.sf.gazpachoquest.dto.answers.NoAnswer;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.facades.QuestionnairDefinitionAccessorFacade;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
@@ -63,19 +65,27 @@ public class AnswersPopulatorTest {
     @Test
     public void populateTest() {
         Integer questionnairId = 71;
-        Integer firstQuestionId = 12;
+
         Questionnair questionnair = Questionnair.with().id(questionnairId).build();
         String answer = "Antonio Maria";
         String questionCode = "Q1";
         questionnairAnswersService.save(questionnair, questionCode, answer);
-        QuestionDTO question = questionnairDefinitionAccessorFacade.findOneQuestion(firstQuestionId);
-
+        QuestionDTO firstQuestion = questionnairDefinitionAccessorFacade.findOneQuestion(12);
+        QuestionDTO secondQuestion = questionnairDefinitionAccessorFacade.findOneQuestion(13);
+        QuestionDTO lastQuestion = questionnairDefinitionAccessorFacade.findOneQuestion(50);
         List<QuestionDTO> questions = new ArrayList<>();
-        questions.add(question);
+        questions.add(firstQuestion);
+        questions.add(secondQuestion);
+        questions.add(lastQuestion);
+
         answersPopulator.populate(questionnair, questions);
 
-        assertThat(question.getAnswer()).isExactlyInstanceOf(TextAnswer.class);
-        assertThat(((TextAnswer) question.getAnswer()).getValue()).isEqualTo("Antonio Maria");
+        assertThat(firstQuestion.getAnswer()).isExactlyInstanceOf(TextAnswer.class);
+        assertThat(((TextAnswer) firstQuestion.getAnswer()).getValue()).isEqualTo("Antonio Maria");
+
+        assertThat(secondQuestion.getAnswer()).isExactlyInstanceOf(NoAnswer.class);
+
+        assertThat(lastQuestion.getAnswer()).isExactlyInstanceOf(MultipleAnswer.class);
     }
 
     @After

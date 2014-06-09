@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = BooleanAnswer.class, name = "B"),
         @JsonSubTypes.Type(value = MultipleAnswer.class, name = "M"),
         @JsonSubTypes.Type(value = LongTextAnswer.class, name = "L"),
-        @JsonSubTypes.Type(value = BlankAnswer.class, name = "NULL")})
+        @JsonSubTypes.Type(value = NoAnswer.class, name = "NULL")})
 public abstract class AbstractAnswer implements Answer {
 
     private static final long serialVersionUID = -2678283968130774295L;
