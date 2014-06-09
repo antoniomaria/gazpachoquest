@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
+import net.sf.gazpachoquest.dto.answers.NoAnswer;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.questionnaires.components.question.AbstractQuestionComponent;
 import net.sf.gazpachoquest.questionnaires.events.AnswerSavedEvent;
@@ -35,6 +36,9 @@ public class ListRadioQuestion extends AbstractQuestionComponent implements Valu
 
         options.setCaption("Choose one of the following answers");
 
+        options.addItem("NULL");
+        options.setItemCaption("NULL", "Not selected");
+
         for (QuestionOptionDTO questionOptionDTO : questionDTO.getQuestionOptions()) {
             String optionCode = questionOptionDTO.getCode();
             String optionTitle = questionOptionDTO.getLanguageSettings().getTitle();
@@ -47,6 +51,9 @@ public class ListRadioQuestion extends AbstractQuestionComponent implements Valu
                 }
             }
         }
+        if (questionDTO.getAnswer() instanceof NoAnswer) {
+            options.setValue("NULL");
+        }
         options.addValueChangeListener(this);
 
         content.addComponent(options);
@@ -54,7 +61,13 @@ public class ListRadioQuestion extends AbstractQuestionComponent implements Valu
 
     @Override
     public void valueChange(ValueChangeEvent event) {
-        Answer answer = TextAnswer.fromValue((String) event.getProperty().getValue());
+        String option = (String) event.getProperty().getValue();
+        Answer answer = null;
+        if (option.equals("NULL")) {
+            answer = NoAnswer.create();
+        } else {
+            answer = TextAnswer.fromValue((String) event.getProperty().getValue());
+        }
         super.answerSavedEvent.fire(AnswerSavedEvent.with().questionCode(questionDTO.getCode()).answer(answer).build());
     }
 }
