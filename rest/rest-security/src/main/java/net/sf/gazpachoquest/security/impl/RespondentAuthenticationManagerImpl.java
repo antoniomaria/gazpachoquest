@@ -21,6 +21,7 @@ import net.sf.gazpachoquest.services.PermissionService;
 import net.sf.gazpachoquest.services.QuestionnairService;
 import net.sf.gazpachoquest.services.RoleService;
 import net.sf.gazpachoquest.services.UserService;
+import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.EntityType;
 import net.sf.gazpachoquest.types.Perm;
 
@@ -71,7 +72,7 @@ public class RespondentAuthenticationManagerImpl implements AuthenticationManage
             respondent = User.with().givenNames("anonymous").surname("anonymous").email("no-reply@gazpachoquest.net")
                     .build();
             respondent = userService.save(respondent);
-            Questionnair questionnair = Questionnair.with().research(research)
+            Questionnair questionnair = Questionnair.with().status(EntityStatus.CONFIRMED).research(research)
                     .questionnairDefinition(anonymousInvitation.getQuestionnairDefinition()).respondent(respondent)
                     .build();
             questionnair = questionnairService.save(questionnair);

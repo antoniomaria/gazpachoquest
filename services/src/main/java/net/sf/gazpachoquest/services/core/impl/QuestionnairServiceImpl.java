@@ -38,7 +38,9 @@ public class QuestionnairServiceImpl extends
 	public Questionnair save(final Questionnair questionnair) {
 		Questionnair existing = null;
 		if (questionnair.isNew()) {
-			questionnair.setStatus(EntityStatus.DRAFT);
+			if (questionnair.getStatus() == null) {
+				questionnair.setStatus(EntityStatus.DRAFT);
+			}
 			existing = repository.save(questionnair);
 		} else {
 			existing = repository.findOne(questionnair.getId());
