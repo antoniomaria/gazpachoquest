@@ -51,7 +51,7 @@ public class NumericQuestion extends AbstractQuestionComponent implements
 		content.addComponent(questionTitle);
 
 		answerField.addTextChangeListener(this);
-		if (questionDTO.getAnswer() != null) {
+		if (questionDTO.getAnswer() instanceof NumericAnswer) {
 			answerField.setValue(String.valueOf(((NumericAnswer) questionDTO
 					.getAnswer()).getValue()));
 		}
@@ -83,20 +83,22 @@ public class NumericQuestion extends AbstractQuestionComponent implements
 	public boolean isValid(TextField field, String newValue) {
 		boolean valid = true;
 
-		if (StringUtils.isBlank(newValue) && field.isRequired()) {
-			return false;
-		}
-
-		for (Validator v : field.getValidators()) {
-			try {
-				v.validate(newValue);
-			} catch (InvalidValueException e) {
+		if (StringUtils.isBlank(newValue)) {
+			if (field.isRequired()) {
 				valid = false;
-				logger.warn(e.getMessage());
-				answerField.setComponentError(new UserError(e.getMessage()));
+			}
+		} else {
+			for (Validator v : field.getValidators()) {
+				try {
+					v.validate(newValue);
+				} catch (InvalidValueException e) {
+					valid = false;
+					logger.warn(e.getMessage());
+					answerField
+							.setComponentError(new UserError(e.getMessage()));
+				}
 			}
 		}
-
 		if (valid) {
 			answerField.setComponentError(null);
 		}
