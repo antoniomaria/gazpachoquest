@@ -23,14 +23,7 @@
     <joda.time.version>2.3</joda.time.version>
     <commons.lang3.version>3.3.1</commons.lang3.version>
     <cxf.version>2.6.9</cxf.version>
-
-    <cargo.http.port>8080</cargo.http.port>
-    <cargo.tomcat.ajp.port>8009</cargo.tomcat.ajp.port>
-    <cargo.debug.port>4442</cargo.debug.port>
-    <cargo.jvmargs>-server -Xms96m -Xmx512m -Djava.awt.headless=true</cargo.jvmargs>
-    <cargo.jvmargs.debug>${cargo.jvmargs} -Xdebug
-      -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=${cargo.debug.port}
-    </cargo.jvmargs.debug>
+    <findbugs.plugin.version>2.5.4</findbugs.plugin.version>
   </properties>
 
 
@@ -151,6 +144,7 @@
         <artifactId>junit</artifactId>
         <version>4.11</version>
       </dependency>
+
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-test</artifactId>
@@ -179,6 +173,13 @@
         <version>1.0.1</version>
       </dependency>
 
+      <dependency>
+        <groupId>org.easytesting</groupId>
+        <artifactId>fest-assert-core</artifactId>
+        <version>2.0M10</version>
+        <scope>test</scope>
+      </dependency>
+
       <!-- JDBC drivers -->
       <dependency>
         <groupId>postgresql</groupId>
@@ -196,13 +197,6 @@
         <groupId>org.hsqldb</groupId>
         <artifactId>hsqldb</artifactId>
         <version>2.2.8</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.easytesting</groupId>
-        <artifactId>fest-assert-core</artifactId>
-        <version>2.0M10</version>
-        <scope>test</scope>
       </dependency>
 
       <!-- Logger logback -->
@@ -390,8 +384,8 @@
         <artifactId>hibernate-jpamodelgen</artifactId>
         <version>1.2.0.Final</version>
       </dependency>
-      <!-- Persistence providers -->
 
+      <!-- Persistence providers -->
       <dependency>
         <groupId>org.eclipse.persistence</groupId>
         <artifactId>eclipselink</artifactId>
@@ -543,10 +537,7 @@
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-        <version>${cxf.version}</version>  <!-- <exclusions> <exclusion> <artifactId>jaxb-impl</artifactId> <groupId>com.sun.xml.bind</groupId> </exclusion> <exclusion> <artifactId>geronimo-javamail_1.4_spec</artifactId> 
-          <groupId>org.apache.geronimo.specs</groupId> </exclusion> <exclusion> <artifactId>wsdl4j</artifactId> <groupId>wsdl4j</groupId> </exclusion> 
-          <exclusion> <artifactId>woodstox-core-asl</artifactId> <groupId>org.codehaus.woodstox</groupId> </exclusion> <exclusion> <artifactId>xmlschema-core</artifactId> 
-          <groupId>org.apache.ws.xmlschema</groupId> </exclusion> </exclusions> -->
+        <version>${cxf.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -573,7 +564,6 @@
           <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
@@ -589,34 +579,6 @@
         </executions>
       </plugin>
     </plugins>
-    <pluginManagement>
-      <plugins>
-      
-        <plugin>
-          <groupId>org.codehaus.cargo</groupId>
-          <artifactId>cargo-maven2-plugin</artifactId>
-          <version>1.2.0</version>
-          <configuration>
-            <configuration>
-              <properties>
-                <cargo.servlet.port>${cargo.http.port}</cargo.servlet.port>
-                <cargo.logging>medium</cargo.logging>
-                <cargo.jvmargs>${cargo.jvmargs}</cargo.jvmargs>
-              </properties>
-            </configuration>
-            <container>
-              <containerId>tomcat7x</containerId>
-              <type />
-              <zipUrlInstaller>
-                <url>http://www.eu.apache.org/dist/tomcat/tomcat-7/v7.0.53/bin/apache-tomcat-7.0.53.zip</url>
-              </zipUrlInstaller>
-              <systemProperties>
-              </systemProperties>
-            </container>
-          </configuration>
-        </plugin>
-      </plugins> 
-    </pluginManagement>
     <extensions>
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
@@ -624,31 +586,29 @@
         <version>1.0-beta-2</version>
       </extension>
     </extensions>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>findbugs-maven-plugin</artifactId>
+          <version>${findbugs.plugin.version}</version>
+          <configuration>
+            <effort>Max</effort>
+            <threshold>Low</threshold>
+            <xmlOutput>true</xmlOutput>
+            <failOnError>false</failOnError>
+            <findbugsXmlOutputDirectory>${project.build.directory}/findbugs</findbugsXmlOutputDirectory>
+          </configuration>
+          <executions>
+            <execution>
+              <phase>verify</phase>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
-  <profiles>
-    <profile>
-      <id>cargoDebug</id>
-      <activation>
-        <property>
-          <name>debug</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.cargo</groupId>
-            <artifactId>cargo-maven2-plugin</artifactId>
-            <configuration>
-              <configuration>
-                <properties>
-                  <cargo.jvmargs>${cargo.jvmargs.debug}</cargo.jvmargs>
-                </properties>
-              </configuration>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 </project>

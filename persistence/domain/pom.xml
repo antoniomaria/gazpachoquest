@@ -21,12 +21,12 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-types</artifactId>
     </dependency>
-    
+
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-jpa</artifactId>
     </dependency>
-	
+
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-jpamodelgen</artifactId>
@@ -172,4 +172,33 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <profiles>
+    <profile>
+      <id>findbugs</id>
+      <activation>
+        <property>
+          <name>findbugs</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>findbugs-maven-plugin</artifactId>
+            <version>${findbugs.plugin.version}</version>
+          </plugin>
+        </plugins>
+      </build>
+      <reporting>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>findbugs-maven-plugin</artifactId>
+            <version>${findbugs.plugin.version}</version>
+          </plugin>
+        </plugins>
+      </reporting>
+    </profile>
+  </profiles>
 </project>
