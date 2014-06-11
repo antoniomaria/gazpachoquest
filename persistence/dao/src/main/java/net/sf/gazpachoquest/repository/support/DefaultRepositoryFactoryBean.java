@@ -26,9 +26,10 @@ public class DefaultRepositoryFactoryBean<T extends JpaRepository<S, ID>, S, ID 
         JpaRepositoryFactoryBean<T, S, ID> {
 
     @Autowired
-    ByExampleSpecification byExampleSpecification;
+    private ByExampleSpecification byExampleSpecification;
+
     @Autowired
-    NamedQueryUtil namedQueryUtil;
+    private NamedQueryUtil namedQueryUtil;
 
     /**
      * Returns a {@link RepositoryFactorySupport}.

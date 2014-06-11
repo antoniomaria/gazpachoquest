@@ -12,8 +12,6 @@ package net.sf.gazpachoquest.repository.support;
 
 import static org.springframework.data.jpa.repository.utils.JpaClassUtils.isEntityManagerOfType;
 
-import java.io.Serializable;
-
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.spi.PersistenceProvider;
@@ -29,7 +27,7 @@ import org.springframework.data.jpa.repository.query.QueryExtractor;
  * 
  */
 
-public enum DefaultPersistenceProvider implements QueryExtractor, Serializable {
+public enum DefaultPersistenceProvider implements QueryExtractor {
 
     /**
      * EclipseLink persistence provider.

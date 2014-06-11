@@ -12,8 +12,8 @@ package net.sf.gazpachoquest.repository.dynamic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,8 +33,10 @@ import org.eclipse.persistence.descriptors.ClassDescriptor;
 import org.eclipse.persistence.dynamic.DynamicClassLoader;
 import org.eclipse.persistence.dynamic.DynamicEntity;
 import org.eclipse.persistence.dynamic.DynamicType;
+import org.eclipse.persistence.jpa.JpaHelper;
 import org.eclipse.persistence.jpa.dynamic.JPADynamicHelper;
 import org.eclipse.persistence.jpa.dynamic.JPADynamicTypeBuilder;
+import org.eclipse.persistence.sessions.Session;
 import org.eclipse.persistence.tools.schemaframework.SchemaManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,7 +67,11 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
     @Override
     @Transactional
     public void activeAllAnswers() {
-        DynamicClassLoader dcl = new DynamicClassLoader(Thread.currentThread().getContextClassLoader());
+        // DynamicClassLoader dcl = new
+        // DynamicClassLoader(Thread.currentThread().getContextClassLoader());
+        Session session = JpaHelper.getEntityManager(entityManager).getSession();
+        DynamicClassLoader dcl = DynamicClassLoader.lookup(session);
+
         List<QuestionnairDefinition> confirmedSurveys = questionnairDefinitionRepository.findByExample(
                 QuestionnairDefinition.with().status(EntityStatus.CONFIRMED).build(), new SearchParameters());
 
@@ -93,7 +99,11 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
     @Override
     public void collectAnswers(final QuestionnairDefinition questionnairDefinition) {
         Assert.notNull(questionnairDefinition.getId());
-        DynamicClassLoader dcl = new DynamicClassLoader(Thread.currentThread().getContextClassLoader());
+        Session session = JpaHelper.getEntityManager(entityManager).getSession();
+        // DynamicClassLoader dcl = new
+        // DynamicClassLoader(Thread.currentThread().getContextClassLoader());
+        DynamicClassLoader dcl = DynamicClassLoader.lookup(session);
+
         // Create JPA Dynamic Helper (with the entityManager above) and after
         // the types
         // have been created and add the types through the helper.
@@ -144,19 +154,17 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
         if (!questionnairAnswers.isNew()) {
             entity.set("id", questionnairAnswers.getId());
         }
-        Set<String> questionCodes = answers.keySet();
-        for (String questionCode : questionCodes) {
-            Object answer = answers.get(questionCode);
+        for (Map.Entry<String, Object> entry : answers.entrySet()) {
+            String questionCode = entry.getKey();
+            Object answer = entry.getValue();
             entity.set(questionCode, answer);
         }
         if (!questionnairAnswers.isNew()) {
-            entity = entityManager.merge(entity);
+            entityManager.merge(entity);
         } else {
             entityManager.persist(entity);
             questionnairAnswers.setId((Integer) entity.get("id"));
         }
-        // entityManager.flush();
-        // entityManager.clear();
         return questionnairAnswers;
     }
 
@@ -200,12 +208,12 @@ public class QuestionnairAnswersRepositoryImpl implements QuestionnairAnswersRep
                 List<QuestionOption> questionOptions = question.getQuestionOptions();
                 for (QuestionOption questionOption : questionOptions) {
                     String fieldName = new StringBuilder(baseFieldName).append("_").append(questionOption.getCode())
-                            .toString().toLowerCase();
+                            .toString().toLowerCase(Locale.ENGLISH);
                     builder.addDirectMapping(fieldName, questionType.getAnswerType(), fieldName);
                 }
             } else {
                 String fieldName = new StringBuilder().append(question.getCode().replace(".", "_")).toString()
-                        .toLowerCase();
+                        .toLowerCase(Locale.ENGLISH);
                 builder.addDirectMapping(fieldName, questionType.getAnswerType(), fieldName);
             }
         } else {

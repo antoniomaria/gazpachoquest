@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RandomTokenGeneratorImpl implements RandomTokenGenerator {
 
-    private final int DEFAULT_TOKEN_LENGTH = 10;
+    private static final int DEFAULT_TOKEN_LENGTH = 10;
 
     private final char[] ALPHABET = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R',
             'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7', '8', '9' };

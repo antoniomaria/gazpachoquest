@@ -27,7 +27,6 @@ import net.sf.gazpachoquest.qbe.ByExampleSpecification;
 import net.sf.gazpachoquest.qbe.NamedQueryUtil;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.query.QueryExtractor;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.data.jpa.repository.support.QueryDslJpaRepository;
@@ -38,8 +37,7 @@ import org.springframework.util.Assert;
 public class DefaultRepositoryFactory extends JpaRepositoryFactory {
 
     private final ByExampleSpecification byExampleSpecification;
-    private final EntityManager entityManager;
-    private final QueryExtractor extractor;
+
     private final NamedQueryUtil namedQueryUtil;
 
     public DefaultRepositoryFactory(final EntityManager entityManager,
@@ -48,10 +46,8 @@ public class DefaultRepositoryFactory extends JpaRepositoryFactory {
         Assert.notNull(entityManager);
         Assert.notNull(byExampleSpecification);
         Assert.notNull(namedQueryUtil);
-        this.entityManager = entityManager;
         this.byExampleSpecification = byExampleSpecification;
         this.namedQueryUtil = namedQueryUtil;
-        extractor = DefaultPersistenceProvider.fromEntityManager(entityManager);
     }
 
     @Override
