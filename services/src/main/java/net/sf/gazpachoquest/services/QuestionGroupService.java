@@ -23,7 +23,7 @@ public interface QuestionGroupService extends
 
     QuestionGroup findOneByPositionInQuestionnairDefinition(Integer questionnairDefinitionId, Integer position);
 
-    Integer findPositionInSurvey(Integer questionGroupId);
+    int positionInQuestionnairDefinition(Integer questionGroupId);
 
     long questionsCount(Integer questionGroupId);
 }

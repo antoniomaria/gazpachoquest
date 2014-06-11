@@ -124,7 +124,7 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
                 next = questionService.findOneByPositionInQuestionGroup(lastQuestionGroup.getId(), position + 1);
             } else {
                 Integer questionGroupPosition = questionGroupService
-                        .findPositionInQuestionnairDefinition(lastQuestionGroup.getId());
+                        .positionInQuestionnairDefinition(lastQuestionGroup.getId());
                 QuestionGroup nextQuestionGroup = questionGroupService.findOneByPositionInQuestionnairDefinition(
                         surveyId, questionGroupPosition + 1);
 

@@ -64,10 +64,10 @@ public class QuestionnairDefinitionServiceImpl
 
     @Override
     @Transactional(readOnly = true)
-    public long questionGroupsCount(final Integer surveyId) {
-        return questionGroupRepository
+    public int questionGroupsCount(final Integer questionnairDefinitionId) {
+        return (int) (long) questionGroupRepository
                 .countByExample(
-                        QuestionGroup.with().questionnairDefinition(QuestionnairDefinition.with().id(surveyId).build())
+                        QuestionGroup.with().questionnairDefinition(QuestionnairDefinition.with().id(questionnairDefinitionId).build())
                                 .build(), new SearchParameters());
     }
 

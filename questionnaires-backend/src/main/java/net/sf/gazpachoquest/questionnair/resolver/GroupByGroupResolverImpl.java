@@ -107,7 +107,7 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         QuestionGroup next = null;
 
         if (nextBrowsedElement == null) {
-            Integer position = questionGroupService.findPositionInQuestionnairDefinition(lastBrowsedElement
+            Integer position = questionGroupService.positionInQuestionnairDefinition(lastBrowsedElement
                     .getQuestionGroup().getId());
             next = questionGroupService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId,
                     position + 1);

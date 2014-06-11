@@ -21,11 +21,11 @@ public class ResolverSelectorImpl implements ResolverSelector {
 
     @Autowired
     @Qualifier("GroupByGroupResolver")
-    QuestionnairElementResolver groupByGroupResolver;
+    private QuestionnairElementResolver groupByGroupResolver;
 
     @Autowired
     @Qualifier("QuestionByQuestionResolver")
-    QuestionnairElementResolver questionByQuestionResolver;
+    private QuestionnairElementResolver questionByQuestionResolver;
 
     @Override
     public QuestionnairElementResolver selectBy(RenderingMode mode) {
@@ -38,7 +38,7 @@ public class ResolverSelectorImpl implements ResolverSelector {
             resolver = groupByGroupResolver;
             break;
         default:
-            break;
+            throw new IllegalArgumentException(String.format("Mode %s not supported", mode));
         }
         return resolver;
     }

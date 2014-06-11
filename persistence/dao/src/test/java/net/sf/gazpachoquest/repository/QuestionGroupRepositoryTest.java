@@ -44,7 +44,7 @@ public class QuestionGroupRepositoryTest {
     @Test
     public void findPositionInQuestionnairDefinitionTest() {
         int questionGroupId = 10;
-        Integer pos = questionGroupRepository.findPositionInQuestionnairDefinition(questionGroupId);
+        Integer pos = questionGroupRepository.positionInQuestionnairDefinition(questionGroupId);
         assertThat(pos).isEqualTo(1);
     }
 

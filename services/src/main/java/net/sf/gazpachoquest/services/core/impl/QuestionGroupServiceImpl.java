@@ -59,8 +59,8 @@ public class QuestionGroupServiceImpl extends
 
     @Override
     @Transactional(readOnly = true)
-    public Integer findPositionInSurvey(final Integer questionGroupId) {
-        return ((QuestionGroupRepository) repository).findPositionInQuestionnairDefinition(questionGroupId);
+    public int positionInQuestionnairDefinition(final Integer questionGroupId) {
+        return ((QuestionGroupRepository) repository).positionInQuestionnairDefinition(questionGroupId);
     }
 
     @Override

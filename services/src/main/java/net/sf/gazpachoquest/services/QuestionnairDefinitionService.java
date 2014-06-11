@@ -18,6 +18,6 @@ public interface QuestionnairDefinitionService extends LocalizedPersistenceServi
 
     QuestionnairDefinition confirm(QuestionnairDefinition questionnairDefinition);
 
-    long questionGroupsCount(Integer surveyId);
+    int questionGroupsCount(Integer questionnairDefinitionId);
 
 }

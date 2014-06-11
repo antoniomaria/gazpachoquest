@@ -97,7 +97,7 @@ public class QuestionnairDefinition extends
 
     public void addQuestionGroup(QuestionGroup questionGroup) {
         getQuestionGroups().add(questionGroup);
-        questionGroup.setSurvey(this);
+        questionGroup.setQuestionnairDefinition(this);
     }
 
     @Override

@@ -73,11 +73,11 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
         this.questions = questions;
     }
 
-    public QuestionnairDefinition getSurvey() {
+    public QuestionnairDefinition getQuestionnairDefinition() {
         return questionnairDefinition;
     }
 
-    public void setSurvey(QuestionnairDefinition questionnairDefinition) {
+    public void setQuestionnairDefinition(QuestionnairDefinition questionnairDefinition) {
         this.questionnairDefinition = questionnairDefinition;
     }
 

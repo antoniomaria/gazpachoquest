@@ -101,7 +101,6 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
         }
         if (questionnairElement instanceof QuestionGroup) {
             QuestionGroup questionGroup = (QuestionGroup) questionnairElement;
-
             for (Question question : questionGroup.getQuestions()) {
                 QuestionDTO questionDTO = mapper.map(question, QuestionDTO.class);
                 page.addQuestion(questionDTO);
