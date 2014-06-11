@@ -38,7 +38,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JPARealm extends AuthorizingRealm {
 
-    public static Logger logger = LoggerFactory.getLogger(JPARealm.class);
+    public final static Logger logger = LoggerFactory.getLogger(JPARealm.class);
 
     @Autowired
     private UserService userService;

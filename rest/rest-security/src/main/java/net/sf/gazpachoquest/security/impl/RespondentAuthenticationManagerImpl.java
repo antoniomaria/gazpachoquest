@@ -66,7 +66,7 @@ public class RespondentAuthenticationManagerImpl implements AuthenticationManage
                     .respondent(User.with().id(respondent.getId()).build())
                     .research(Research.with().id(research.getId()).build()).build();
             questionnairs = questionnairService.findByExample(questionnairExample, new SearchParameters());
-        } else if (invitation instanceof AnonymousInvitation) {
+        } else {
             AnonymousInvitation anonymousInvitation = (AnonymousInvitation) invitation;
 
             respondent = User.with().givenNames("anonymous").surname("anonymous").email("no-reply@gazpachoquest.net")

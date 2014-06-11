@@ -1,5 +1,8 @@
 package net.sf.gazpachoquest.security.support;
 
+import java.nio.charset.Charset;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
 
 import javax.crypto.Mac;
@@ -24,22 +27,22 @@ public class HMACSignature {
      *             when signature generation fails
      */
     public static String calculateRFC2104HMAC(String data, String key) throws java.security.SignatureException {
-        String result;
+        String result = null;
         try {
-
+            Charset utf8ChartSet = Charset.forName("UTF-8");
             // get an hmac_sha1 key from the raw key bytes
-            SecretKeySpec signingKey = new SecretKeySpec(key.getBytes(), HMAC_SHA1_ALGORITHM);
+            SecretKeySpec signingKey = new SecretKeySpec(key.getBytes(utf8ChartSet), HMAC_SHA1_ALGORITHM);
 
             // get an hmac_sha1 Mac instance and initialize with the signing key
             Mac mac = Mac.getInstance(HMAC_SHA1_ALGORITHM);
             mac.init(signingKey);
 
             // compute the hmac on input data bytes
-            byte[] rawHmac = mac.doFinal(data.getBytes());
+            byte[] rawHmac = mac.doFinal(data.getBytes(utf8ChartSet));
 
             // base64-encode the hmac
             result = Base64.encodeToString(rawHmac);
-        } catch (Exception e) {
+        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             throw new SignatureException("Failed to generate HMAC : " + e.getMessage());
         }
         return result;
