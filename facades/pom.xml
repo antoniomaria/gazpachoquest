@@ -9,7 +9,7 @@
   <packaging>jar</packaging>
   <name>gazpachoquest-facades</name>
   <url>http://maven.apache.org</url>
-  
+
   <dependencies>
 
     <!-- Test dependencies -->
@@ -64,6 +64,10 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-services</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>gazpachoquest-dtos</artifactId>
     </dependency>
 	<!-- Third parties -->
     <dependency>

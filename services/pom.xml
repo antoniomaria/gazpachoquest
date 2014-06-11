@@ -74,9 +74,5 @@
       <artifactId>gazpachoquest-components</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachoquest-dtos</artifactId>
-    </dependency>
   </dependencies>
 </project>
