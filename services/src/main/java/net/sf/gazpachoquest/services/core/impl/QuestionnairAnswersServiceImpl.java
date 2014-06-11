@@ -41,11 +41,11 @@ public class QuestionnairAnswersServiceImpl implements QuestionnairAnswersServic
     public void save(Questionnair questionnair, String questionCode, Object answer) {
         Assert.state(!questionnair.isNew(), "Persist the questionnair before saving answers");
         Questionnair fetched = questionnairRepository.findOne(questionnair.getId());
-        Assert.state(!fetched.isDraft(),
-        "Confirm the questionnair before saving answers");
+        Assert.state(!fetched.isDraft(), "Confirm the questionnair before saving answers");
 
         Integer questionnairDefinitionId = fetched.getQuestionnairDefinition().getId();
-        QuestionnairAnswers questionnairAnswers = repository.findByOne(questionnairDefinitionId, fetched.getAnswersId());
+        QuestionnairAnswers questionnairAnswers = repository
+                .findByOne(questionnairDefinitionId, fetched.getAnswersId());
         questionnairAnswers.setAnswer(questionCode, answer);
         questionnairAnswers = repository.save(questionnairDefinitionId, questionnairAnswers);
     }

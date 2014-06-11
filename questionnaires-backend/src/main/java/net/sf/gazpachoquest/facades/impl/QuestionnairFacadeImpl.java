@@ -22,6 +22,7 @@ import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
+import net.sf.gazpachoquest.dto.answers.BooleanAnswer;
 import net.sf.gazpachoquest.dto.answers.SimpleAnswer;
 import net.sf.gazpachoquest.facades.QuestionnairFacade;
 import net.sf.gazpachoquest.questionnair.resolver.QuestionnairElementResolver;
@@ -35,12 +36,16 @@ import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.dozer.Mapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class QuestionnairFacadeImpl implements QuestionnairFacade {
+
+    private static Logger logger = LoggerFactory.getLogger(QuestionnairFacadeImpl.class);
 
     @Autowired
     private ResolverSelector resolverSelector;
@@ -113,8 +118,14 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
     @Override
     public void saveAnswer(Integer questionnairId, String questionCode, Answer answer) {
         Questionnair questionnair = Questionnair.with().id(questionnairId).build();
-        if (answer instanceof SimpleAnswer) {
-            questionnairAnswersService.save(questionnair, questionCode, answer.getValue());
+        if (!(answer instanceof SimpleAnswer)) {
+            logger.warn("Answer {} not supported", answer);
+            return;
         }
+        String sufix = "";
+        if (answer instanceof BooleanAnswer) {
+            sufix = "_" + ((BooleanAnswer) answer).getOption();
+        }
+        questionnairAnswersService.save(questionnair, questionCode + sufix, answer.getValue());
     }
 }

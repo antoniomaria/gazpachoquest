@@ -48,7 +48,8 @@ public class QuestionFactory implements Serializable {
             questionComponent = question.select(ListRadioQuestion.class).get();
             break;
         case M:
-        	 questionComponent = question.select(CheckboxListQuestion.class).get();
+            questionComponent = question.select(CheckboxListQuestion.class).get();
+            break;
         case N:
             questionComponent = question.select(NumericQuestion.class).get();
             break;

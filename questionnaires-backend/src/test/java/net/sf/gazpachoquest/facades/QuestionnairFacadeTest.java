@@ -123,7 +123,7 @@ public class QuestionnairFacadeTest {
         assertThat(value).isEqualTo(answer.getValue());
 
         questionCode = "Q2";
-        answer = TextAnswer.fromValue("05");
+        answer = TextAnswer.fromValue("O5");
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
         value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
                 + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
@@ -141,41 +141,43 @@ public class QuestionnairFacadeTest {
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
 
         questionCode = "Q5";
-        answer = TextAnswer.fromValue("02");
+        answer = TextAnswer.fromValue("O2");
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
         value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
                 + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
         assertThat(value).isEqualTo(answer.getValue());
 
         questionCode = "Q6";
-        answer = TextAnswer.fromValue("02");
+        answer = TextAnswer.fromValue("O2");
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
         value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
                 + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
         assertThat(value).isEqualTo(answer.getValue());
 
         questionCode = "Q7_1";
-        answer = TextAnswer.fromValue("01");
+        answer = TextAnswer.fromValue("O1");
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
         value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
                 + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
         assertThat(value).isEqualTo(answer.getValue());
 
         questionCode = "Q7_2";
-        answer = TextAnswer.fromValue("01");
+        answer = TextAnswer.fromValue("O1");
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
 
         // Checkbox list
-        questionCode = "Q8_O1";
-        answer = BooleanAnswer.valueOf("01", Boolean.TRUE);
+        questionCode = "Q8";
+        answer = BooleanAnswer.valueOf("O1", Boolean.TRUE);
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
 
-        questionCode = "Q8_O2";
-        answer = BooleanAnswer.valueOf("02", Boolean.TRUE);
+        questionCode = "Q8";
+        String questionOption = "O2";
+        answer = BooleanAnswer.valueOf(questionOption, Boolean.TRUE);
         questionnairFacade.saveAnswer(questionnair.getId(), questionCode, answer);
 
-        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
-                + questionDefinitionId + " where id = ?", new Object[] { answersId }, Boolean.class);
+        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + "_" + questionOption
+                + " from questionnair_answers_" + questionDefinitionId + " where id = ?", new Object[] { answersId },
+                Boolean.class);
         assertThat(value).isEqualTo(answer.getValue());
 
     }
