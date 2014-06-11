@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.jpa.eclipselink;
 
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.Vector;
 
 import org.eclipse.persistence.config.SessionCustomizer;
@@ -35,7 +36,7 @@ public class CamelNamingStrategy implements SessionCustomizer {
                 buf.insert(i++, '_');
             }
         }
-        return buf.toString().toLowerCase();
+        return buf.toString().toLowerCase(Locale.ENGLISH);
     }
 
     @Override

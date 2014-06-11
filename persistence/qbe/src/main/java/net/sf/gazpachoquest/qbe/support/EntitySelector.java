@@ -35,8 +35,7 @@ import org.apache.commons.lang3.Validate;
  * a join we rely on the foreign key field,
  * not the association itself.
  */
-public class EntitySelector<E, T extends Persistable, TPK extends Serializable> implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class EntitySelector<E, T extends Persistable, TPK extends Serializable> {
 
     /**
      * Import statically this helper for smooth instanciation.

@@ -76,9 +76,7 @@ import org.joda.time.LocalDateTime;
  * @see PropertySelector
  * @see EntitySelector
  */
-public class SearchParameters implements Serializable {
-    static final private long serialVersionUID = 1L;
-
+public class SearchParameters {
     // cache
     private Boolean cacheable = true;
 

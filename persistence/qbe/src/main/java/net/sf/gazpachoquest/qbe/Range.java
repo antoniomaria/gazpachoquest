@@ -15,8 +15,6 @@
  */
 package net.sf.gazpachoquest.qbe;
 
-import java.io.Serializable;
-
 import javax.persistence.metamodel.SingularAttribute;
 
 import org.springframework.data.jpa.domain.Specification;
@@ -24,10 +22,9 @@ import org.springframework.data.jpa.domain.Specification;
 /**
  * Range support for {@link Comparable} types.
  */
-public class Range<E, D extends Comparable<? super D>> implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Range<E, D extends Comparable<? super D>> {
 
-    private SingularAttribute<E, D> field;
+    private final SingularAttribute<E, D> field;
     private D from;
     private Boolean includeNull;
     private D to;
@@ -43,7 +40,8 @@ public class Range<E, D extends Comparable<? super D>> implements Serializable {
     }
 
     /**
-     * Constructs a new {@link Range} with no boundaries and no restrictions on field's nullability.
+     * Constructs a new {@link Range} with no boundaries and no restrictions on
+     * field's nullability.
      * 
      * @param field
      *            the attribute of an existing entity.
@@ -58,9 +56,11 @@ public class Range<E, D extends Comparable<? super D>> implements Serializable {
      * @param field
      *            the property's name of an existing entity.
      * @param from
-     *            the lower boundary of this range. Null means no lower boundary.
+     *            the lower boundary of this range. Null means no lower
+     *            boundary.
      * @param to
-     *            the upper boundary of this range. Null means no upper boundary.
+     *            the upper boundary of this range. Null means no upper
+     *            boundary.
      */
     public Range(final SingularAttribute<E, D> field, final D from, final D to) {
         this.field = field;
@@ -74,9 +74,11 @@ public class Range<E, D extends Comparable<? super D>> implements Serializable {
      * @param field
      *            an entity's attribute
      * @param from
-     *            the lower boundary of this range. Null means no lower boundary.
+     *            the lower boundary of this range. Null means no lower
+     *            boundary.
      * @param to
-     *            the upper boundary of this range. Null means no upper boundary.
+     *            the upper boundary of this range. Null means no upper
+     *            boundary.
      * @param includeNull
      *            tells whether null should be filtered out or not.
      */

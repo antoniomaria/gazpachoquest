@@ -31,13 +31,8 @@ import org.joda.time.LocalDateTime;
 /**
  * Type safe {@link Range}s for commons types
  */
-@SuppressWarnings("serial")
 public class Ranges {
     public static class RangeBigDecimal<E> extends Range<E, BigDecimal> {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = -2514445437521158967L;
 
         public static <E> RangeBigDecimal<E> rangeBigDecimal(final SingularAttribute<E, BigDecimal> field) {
             return new RangeBigDecimal<E>(field);
@@ -58,10 +53,6 @@ public class Ranges {
     }
 
     public static class RangeBigInteger<E> extends Range<E, BigInteger> {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = -7630524534297371406L;
 
         public static <E> RangeBigInteger<E> rangeBigInteger(final SingularAttribute<E, BigInteger> field) {
             return new RangeBigInteger<E>(field);
@@ -82,11 +73,6 @@ public class Ranges {
     }
 
     public static class RangeDate<E> extends Range<E, Date> {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 3104655209777003551L;
-
         public static <T> RangeDate<T> after(final SingularAttribute<T, Date> field, final Date from) {
             RangeDate<T> rangeDate = new RangeDate<T>(field);
             rangeDate.setFrom(from);
@@ -117,10 +103,6 @@ public class Ranges {
     }
 
     public static class RangeDouble<E> extends Range<E, Double> {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = -862617977397980263L;
 
         public static <E> RangeDouble<E> rangeDouble(final SingularAttribute<E, Double> field) {
             return new RangeDouble<E>(field);
@@ -141,10 +123,6 @@ public class Ranges {
     }
 
     public static class RangeFloat<E> extends Range<E, Float> {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 7675935634948864546L;
 
         public static <E> RangeFloat<E> rangeFloat(final SingularAttribute<E, Float> field) {
             return new RangeFloat<E>(field);
@@ -165,10 +143,6 @@ public class Ranges {
     }
 
     public static class RangeInteger<E> extends Range<E, Integer> {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = 1327650962738983886L;
 
         public static <E> RangeInteger<E> rangeInteger(final SingularAttribute<E, Integer> field) {
             return new RangeInteger<E>(field);
@@ -189,10 +163,6 @@ public class Ranges {
     }
 
     public static class RangeLocalDate<E> extends Range<E, LocalDate> {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = -5691050974507935567L;
 
         public static <E> RangeLocalDate<E> after(final SingularAttribute<E, LocalDate> field, final LocalDate from) {
             RangeLocalDate<E> rangeLocalDate = new RangeLocalDate<E>(field);
@@ -225,10 +195,6 @@ public class Ranges {
     }
 
     public static class RangeLocalDateTime<E> extends Range<E, LocalDateTime> {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = -6086266611200028971L;
 
         public static <E> RangeLocalDateTime<E> after(final SingularAttribute<E, LocalDateTime> field,
                 final LocalDateTime from) {
@@ -264,10 +230,6 @@ public class Ranges {
     }
 
     public static class RangeLong<E> extends Range<E, Long> {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = -7171761513599473173L;
 
         public static <E> RangeLong<E> rangeLong(final SingularAttribute<E, Long> field) {
             return new RangeLong<E>(field);

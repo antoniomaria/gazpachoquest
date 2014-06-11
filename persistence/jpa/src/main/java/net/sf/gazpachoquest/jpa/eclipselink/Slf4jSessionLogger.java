@@ -129,7 +129,7 @@ public class Slf4jSessionLogger extends AbstractSessionLog {
             logger.error(message.toString());
             break;
         default:
-            break;
+            throw new IllegalStateException("Not supported" + logLevel);
         }
     }
 
@@ -151,7 +151,6 @@ public class Slf4jSessionLogger extends AbstractSessionLog {
         return shouldLog(level, "default");
     }
 
-    @SuppressWarnings("incomplete-switch")
     @Override
     public boolean shouldLog(final int level, final String category) {
         Logger logger = getLogger(category);
@@ -175,6 +174,8 @@ public class Slf4jSessionLogger extends AbstractSessionLog {
         case ERROR:
             resp = logger.isErrorEnabled();
             break;
+        default:
+            throw new IllegalStateException("Not supported" + logLevel);
         }
 
         return resp;

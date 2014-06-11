@@ -20,7 +20,9 @@ package net.sf.gazpachoquest.qbe;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Parameter;
@@ -124,8 +126,8 @@ public class NamedQueryUtil {
         String queryString = getQueryString(query);
 
         // append select count if needed
-        if (queryString != null && queryString.toLowerCase().startsWith("from")
-                && !queryString.toLowerCase().contains("count(")) {
+        if (queryString != null && queryString.toLowerCase(Locale.ENGLISH).startsWith("from")
+                && !queryString.toLowerCase(Locale.ENGLISH).contains("count(")) {
             query = recreateQuery(query, "select count(*) " + queryString);
         }
 
@@ -166,8 +168,11 @@ public class NamedQueryUtil {
     private Query recreateQuery(final Query current, final String newSqlString) {
         Query result = entityManager.createQuery(newSqlString);
         Map<String, Object> hints = current.getHints();
-        for (String hintName : hints.keySet()) {
-            result.setHint(hintName, hints.get(hintName));
+
+        for (Entry<String, Object> entry : hints.entrySet()) {
+            String hintName = entry.getKey();
+            Object hint = entry.getValue();
+            result.setHint(hintName, hint);
         }
         return result;
     }

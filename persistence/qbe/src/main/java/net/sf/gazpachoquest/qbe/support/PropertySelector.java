@@ -18,18 +18,17 @@
  */
 package net.sf.gazpachoquest.qbe.support;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.metamodel.SingularAttribute;
 
 /**
- * Used to construct OR predicate for a property value. In other words you can search all entities E having a given
+ * Used to construct OR predicate for a property value. In other words you can
+ * search all entities E having a given
  * property set to one of the selected values.
  */
-public class PropertySelector<E, F> implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class PropertySelector<E, F> {
 
     /**
      * {@link PropertySelector} builder

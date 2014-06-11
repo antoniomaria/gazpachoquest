@@ -24,6 +24,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.GeneratedValue;
@@ -94,7 +95,7 @@ public class JpaUtil {
             final CriteriaBuilder builder) {
         if (sp.isCaseInsensitive()) {
             path = builder.lower(path);
-            attrValue = ((String) attrValue).toLowerCase();
+            attrValue = ((String) attrValue).toLowerCase(Locale.ENGLISH);
         }
 
         switch (sp.getSearchMode()) {
