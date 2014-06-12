@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.dto.support;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.sf.gazpachoquest.dto.QuestionLanguageSettingsDTO;
@@ -33,7 +34,7 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
 
     protected QuestionLanguageSettingsDTO languageSettings;
 
-    protected List<QuestionOptionDTO> questionOptions;
+    protected final List<QuestionOptionDTO> questionOptions = new ArrayList<>();
 
     protected QuestionType type;
 
@@ -52,9 +53,7 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
     }
 
     public void addQuestionOption(final QuestionOptionDTO questionOption) {
-        if (!getQuestionOptions().contains(questionOption)) {
-            questionOptions.add(questionOption);
-        }
+        questionOptions.add(questionOption);
     }
 
     @Override
@@ -71,10 +70,7 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
     }
 
     public List<QuestionOptionDTO> getQuestionOptions() {
-        if (questionOptions == null) {
-            questionOptions = new ArrayList<>();
-        }
-        return questionOptions;
+        return Collections.unmodifiableList(questionOptions);
     }
 
     public QuestionType getType() {

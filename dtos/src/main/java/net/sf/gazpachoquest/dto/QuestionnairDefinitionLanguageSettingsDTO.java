@@ -17,6 +17,48 @@ import com.wordnik.swagger.annotations.ApiModel;
 @ApiModel(value = "QuestionnairDefinitionLanguageSettingsDTO", description = "Container for all text content inside the questionnair")
 public class QuestionnairDefinitionLanguageSettingsDTO implements LanguageSettingsDTO {
 
+    private static final long serialVersionUID = 3452734192681766764L;
+
+    private String description;
+
+    private String title;
+
+    private String welcomeText;
+
+    public QuestionnairDefinitionLanguageSettingsDTO() {
+        super();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getWelcomeText() {
+        return welcomeText;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
+    public void setWelcomeText(final String welcomeText) {
+        this.welcomeText = welcomeText;
+    }
+
+    @Override
+    public String toString() {
+        return "QuestionnairDefinitionLanguageSettingsDTO [title=" + title + ", description=" + description
+                + ", welcomeText=" + welcomeText + "]";
+    }
+
     public static interface Builder {
 
         QuestionnairDefinitionLanguageSettingsDTO build();
@@ -74,54 +116,12 @@ public class QuestionnairDefinitionLanguageSettingsDTO implements LanguageSettin
         }
     }
 
-    private static final long serialVersionUID = 3452734192681766764L;
-
     public static Builder surveyLanguageSettingsStart(final QuestionnairDefinitionDTO.Builder container) {
         return new QuestionnairDefinitionLanguageSettingsDTO.BuilderImpl(container);
     }
 
     public static Builder with() {
         return new BuilderImpl(null);
-    }
-
-    private String description;
-
-    private String title;
-
-    private String welcomeText;
-
-    public QuestionnairDefinitionLanguageSettingsDTO() {
-        super();
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getWelcomeText() {
-        return welcomeText;
-    }
-
-    public void setDescription(final String description) {
-        this.description = description;
-    }
-
-    public void setTitle(final String title) {
-        this.title = title;
-    }
-
-    public void setWelcomeText(final String welcomeText) {
-        this.welcomeText = welcomeText;
-    }
-
-    @Override
-    public String toString() {
-        return "QuestionnairDefinitionLanguageSettingsDTO [title=" + title + ", description=" + description
-                + ", welcomeText=" + welcomeText + "]";
     }
 
 }

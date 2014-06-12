@@ -1,10 +1,6 @@
 package net.sf.gazpachoquest.facades;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachoquest.dto.ResearchDTO;
 import net.sf.gazpachoquest.dto.UserDTO;
@@ -57,15 +53,11 @@ public class ResearchFacadeTest {
     @Test
     public void saveTest() {
         QuestionnairDefinitionDTO questionnairDefinition = QuestionnairDefinitionDTO.with().id(7).build();
-        Set<UserDTO> respondents = new HashSet<>();
         UserDTO respondent = respondentFacade.findOne(6);
-        respondents.add(respondent);
 
-        Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<QuestionnairDefinitionDTO>();
-        questionnairDefinitions.add(questionnairDefinition);
-
-        ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION).respondents(respondents)
-                .questionnairDefinitions(questionnairDefinitions).build();
+        ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION).build();
+        research.addRespondent(respondent);
+        research.addQuestionnairDefinition(questionnairDefinition);
         research = researchFacade.save(research);
         assertThat(research.isNew()).isFalse();
     }

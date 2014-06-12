@@ -8,6 +8,7 @@
 package net.sf.gazpachoquest.dto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
@@ -17,7 +18,7 @@ public class LabelSetDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = -7715245634090394574L;
 
-    private List<LabelDTO> labels;
+    private final List<LabelDTO> labels = new ArrayList<>();
 
     private Language language;
 
@@ -33,16 +34,11 @@ public class LabelSetDTO extends AbstractIdentifiableDTO {
     }
 
     public void addLabel(final LabelDTO label) {
-        if (!getLabels().contains(label)) {
-            labels.add(label);
-        }
+        labels.add(label);
     }
 
     public List<LabelDTO> getLabels() {
-        if (labels == null) {
-            labels = new ArrayList<>();
-        }
-        return labels;
+        return Collections.unmodifiableList(labels);
     }
 
     public Language getLanguage() {

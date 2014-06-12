@@ -82,20 +82,19 @@ public class DBPopulator {
         asignDefaultMailTemplate(questionnairDef);
         questionnairDefinitionEditorFacade.confirm(questionnairDef);
 
-        Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<>();
-        questionnairDefinitions.add(questionnairDef);
-
-        ResearchDTO research = ResearchDTO.with().questionnairDefinitions(questionnairDefinitions)
-                .type(ResearchAccessType.BY_INVITATION)
+        ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
                 .name("New private Questionnair " + questionnairDef.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).respondents(respondents)
-                .build();
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.addQuestionnairDefinition(questionnairDef);
+        for (UserDTO respondent : respondents) {
+            research.addRespondent(respondent);
+        }
         researchFacade.save(research);
 
-        research = ResearchDTO.with().questionnairDefinitions(questionnairDefinitions)
-                .type(ResearchAccessType.OPEN_ACCESS)
+        research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
                 .name("New open Questionnair " + questionnairDef.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.addQuestionnairDefinition(questionnairDef);
         researchFacade.save(research);
     }
 
@@ -106,20 +105,23 @@ public class DBPopulator {
         Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<>();
         questionnairDefinitions.add(questionnairDef);
 
-        ResearchDTO research = ResearchDTO.with().questionnairDefinitions(questionnairDefinitions)
-                .type(ResearchAccessType.BY_INVITATION)
+        ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
                 .name("New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31"))
-
-                .respondents(respondents).build();
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.addQuestionnairDefinition(questionnairDef);
+        for (UserDTO respondent : respondents) {
+            research.addRespondent(respondent);
+        }
         researchFacade.save(research);
 
-        research = ResearchDTO.with().questionnairDefinitions(questionnairDefinitions)
-                .type(ResearchAccessType.OPEN_ACCESS)
+        research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
                 .name("Anonymous New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31"))
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.addQuestionnairDefinition(questionnairDef);
+        for (UserDTO respondent : respondents) {
+            research.addRespondent(respondent);
+        }
 
-                .respondents(respondents).build();
         researchFacade.save(research);
 
         questionnairDef = fastFoodSurveyCreator.create();
@@ -130,12 +132,13 @@ public class DBPopulator {
 
         research = ResearchDTO
                 .with()
-                .questionnairDefinitions(questionnairDefinitions)
                 .type(ResearchAccessType.OPEN_ACCESS)
                 .name("New customer satisfation survey " + questionnairDef.getLanguageSettings().getTitle()
-                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31"))
-
-                .respondents(respondents).build();
+                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        for (UserDTO respondent : respondents) {
+            research.addRespondent(respondent);
+        }
+        research.addQuestionnairDefinition(questionnairDef);
         researchFacade.save(research);
 
     }

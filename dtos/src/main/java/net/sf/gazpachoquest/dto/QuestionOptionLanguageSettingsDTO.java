@@ -14,6 +14,26 @@ import net.sf.gazpachoquest.dto.support.LanguageSettingsDTO;
 
 public class QuestionOptionLanguageSettingsDTO implements LanguageSettingsDTO {
 
+    private static final long serialVersionUID = 8942148329254332833L;
+
+    private String title;
+
+    public QuestionOptionLanguageSettingsDTO() {
+        super();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
+    public static Builder with() {
+        return new BuilderImpl();
+    }
+
     public static interface Builder {
 
         QuestionOptionLanguageSettingsDTO build();
@@ -40,23 +60,4 @@ public class QuestionOptionLanguageSettingsDTO implements LanguageSettingsDTO {
         }
     }
 
-    private static final long serialVersionUID = 8942148329254332833L;
-
-    public static Builder with() {
-        return new BuilderImpl();
-    }
-
-    private String title;
-
-    public QuestionOptionLanguageSettingsDTO() {
-        super();
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(final String title) {
-        this.title = title;
-    }
 }

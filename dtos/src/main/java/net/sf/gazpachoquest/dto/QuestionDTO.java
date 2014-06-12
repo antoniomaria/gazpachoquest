@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.dto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.sf.gazpachoquest.dto.support.AbstractQuestionDTO;
@@ -21,38 +22,27 @@ import net.sf.gazpachoquest.types.QuestionType;
 public class QuestionDTO extends AbstractQuestionDTO {
     private static final long serialVersionUID = 2663159055152157679L;
 
-    private List<SubquestionDTO> subquestions;
+    private final List<SubquestionDTO> subquestions = new ArrayList<>();
 
     public QuestionDTO() {
         super();
     }
 
     public void addSubquestion(final SubquestionDTO subQuestion) {
-        if (!getSubquestions().contains(subQuestion)) {
-            subquestions.add(subQuestion);
-        }
+        subquestions.add(subQuestion);
     }
 
     public List<SubquestionDTO> getSubquestions() {
-        if (subquestions == null) {
-            subquestions = new ArrayList<SubquestionDTO>();
-        }
-        return subquestions;
+        return Collections.unmodifiableList(subquestions);
     }
 
     public static class BuilderImpl implements LanguageSettingsContainerBuilder<BuilderImpl> {
         private String code;
-        private List<QuestionOptionDTO> answers;
         private Integer id;
         private boolean required;
         private Language language;
         private QuestionLanguageSettingsDTO languageSettings;
         private QuestionType type;
-
-        public BuilderImpl answers(final List<QuestionOptionDTO> answers) {
-            this.answers = answers;
-            return this;
-        }
 
         public QuestionDTO build() {
             QuestionDTO questionDTO = new QuestionDTO();
@@ -61,7 +51,6 @@ public class QuestionDTO extends AbstractQuestionDTO {
             questionDTO.required = required;
             questionDTO.type = type;
             questionDTO.language = language;
-            questionDTO.questionOptions = answers;
             questionDTO.languageSettings = languageSettings;
             return questionDTO;
         }

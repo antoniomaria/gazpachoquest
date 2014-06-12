@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.dto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.sf.gazpachoquest.dto.support.AbstractAuditableDTO;
@@ -25,16 +26,14 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
 
     private QuestionGroupLanguageSettingsDTO languageSettings;
 
-    private List<QuestionDTO> questions;
+    private final List<QuestionDTO> questions = new ArrayList<>();
 
     public QuestionGroupDTO() {
         super();
     }
 
     public void addQuestion(final QuestionDTO question) {
-        if (!getQuestions().contains(question)) {
-            questions.add(question);
-        }
+        questions.add(question);
     }
 
     @Override
@@ -48,15 +47,12 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
     }
 
     public QuestionDTO getLastQuestionDTO() {
-        int count = getQuestions().size();
-        return count > 0 ? getQuestions().get(count - 1) : null;
+        int count = questions.size();
+        return count > 0 ? questions.get(count - 1) : null;
     }
 
     public List<QuestionDTO> getQuestions() {
-        if (questions == null) {
-            questions = new ArrayList<>();
-        }
-        return questions;
+        return Collections.unmodifiableList(questions);
     }
 
     @Override

@@ -18,21 +18,14 @@ public class RespondentAccount extends AbstractAccount {
 
     private static final long serialVersionUID = -4244027794423453379L;
 
-    private Set<Integer> grantedQuestionnairIds;
+    private final Set<Integer> grantedQuestionnairIds = new HashSet<>();
 
     public RespondentAccount() {
         super();
     }
 
     public Set<Integer> getGrantedQuestionnairIds() {
-        if (grantedQuestionnairIds == null) {
-            grantedQuestionnairIds = new HashSet<>();
-        }
         return grantedQuestionnairIds;
-    }
-
-    public void setGrantedQuestionnairIds(Set<Integer> grantedQuestionnairIds) {
-        this.grantedQuestionnairIds = grantedQuestionnairIds;
     }
 
     public void grantQuestionnairId(Integer id) {

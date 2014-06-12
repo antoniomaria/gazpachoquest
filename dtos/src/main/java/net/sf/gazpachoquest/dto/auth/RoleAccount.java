@@ -8,41 +8,40 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class RoleAccount implements Principal, Serializable {
 
-	private static final long serialVersionUID = 1780524780328722870L;
+    private static final long serialVersionUID = 1780524780328722870L;
 
-	private String name;
+    private String name;
 
-	public RoleAccount() {
-		super();
-	}
+    public RoleAccount() {
+        super();
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@Override
-	public String getName() {
-		return name;
-	}
+    @Override
+    public String getName() {
+        return name;
+    }
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
 
-	@Override
-	public boolean equals(Object other) {
-		if (other instanceof RoleAccount) {
-			return (new EqualsBuilder()).append(getName(),
-					((RoleAccount) other).getName()).isEquals();
-		} else {
-			return false;
-		}
-	}
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof RoleAccount) {
+            return (new EqualsBuilder()).append(getName(), ((RoleAccount) other).getName()).isEquals();
+        } else {
+            return false;
+        }
+    }
 
-	public static Builder with(){
-		return new Builder();
-	}
+    public static Builder with() {
+        return new Builder();
+    }
 
     public static class Builder {
         private String name;
@@ -51,12 +50,12 @@ public class RoleAccount implements Principal, Serializable {
             this.name = name;
             return this;
         }
-        
+
         public RoleAccount build() {
-        	RoleAccount roleAccount = new RoleAccount();
-        	roleAccount.name = name;
+            RoleAccount roleAccount = new RoleAccount();
+            roleAccount.name = name;
             return roleAccount;
         }
     }
-    
+
 }

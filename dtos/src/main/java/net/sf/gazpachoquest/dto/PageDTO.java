@@ -12,39 +12,35 @@ package net.sf.gazpachoquest.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PageDTO implements Serializable {
 
-	private static final long serialVersionUID = -4722536148236589317L;
+    private static final long serialVersionUID = -4722536148236589317L;
 
-	private List<QuestionDTO> questions;
-	
-	private PageMetadataDTO metadata;
-	
-	public PageDTO() {
-		super();
-		questions = new ArrayList<>();
-	}
+    private final List<QuestionDTO> questions = new ArrayList<>();
 
-	public void addQuestion(QuestionDTO question) {
-		questions.add(question);
-	}
+    private PageMetadataDTO metadata;
 
-	public List<QuestionDTO> getQuestions() {
-		return questions;
-	}
+    public PageDTO() {
+        super();
+    }
 
-	public void setQuestions(List<QuestionDTO> questions) {
-		this.questions = questions;
-	}
+    public void addQuestion(QuestionDTO question) {
+        questions.add(question);
+    }
 
-	public PageMetadataDTO getMetadata() {
-		return metadata;
-	}
+    public List<QuestionDTO> getQuestions() {
+        return Collections.unmodifiableList(questions);
+    }
 
-	public void setMetadata(PageMetadataDTO metadata) {
-		this.metadata = metadata;
-	}
+    public PageMetadataDTO getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(PageMetadataDTO metadata) {
+        this.metadata = metadata;
+    }
 
 }

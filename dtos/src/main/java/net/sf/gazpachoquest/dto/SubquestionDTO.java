@@ -10,8 +10,6 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto;
 
-import java.util.List;
-
 import net.sf.gazpachoquest.dto.support.AbstractQuestionDTO;
 import net.sf.gazpachoquest.dto.support.LanguageSettingsContainerBuilder;
 import net.sf.gazpachoquest.types.Language;
@@ -26,17 +24,11 @@ public class SubquestionDTO extends AbstractQuestionDTO {
 
     public static class BuilderImpl implements LanguageSettingsContainerBuilder<BuilderImpl> {
         private String code;
-        private List<QuestionOptionDTO> answers;
         private Integer id;
         private boolean required;
         private Language language;
         private QuestionLanguageSettingsDTO languageSettings;
         private QuestionType type;
-
-        public BuilderImpl answers(final List<QuestionOptionDTO> answers) {
-            this.answers = answers;
-            return this;
-        }
 
         public SubquestionDTO build() {
             SubquestionDTO questionDTO = new SubquestionDTO();
@@ -45,7 +37,6 @@ public class SubquestionDTO extends AbstractQuestionDTO {
             questionDTO.required = required;
             questionDTO.type = type;
             questionDTO.language = language;
-            questionDTO.questionOptions = answers;
             questionDTO.languageSettings = languageSettings;
             return questionDTO;
         }

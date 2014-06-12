@@ -1,56 +1,55 @@
 package net.sf.gazpachoquest.dto.error;
 
-
 public class ErrorEntity {
 
-	private String code;
+    private String code;
 
-	private String message;
+    private String message;
 
-	public ErrorEntity() {
-		super();
-	}
+    public ErrorEntity() {
+        super();
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public static Builder with() {
-		return new Builder();
-	}
+    public static Builder with() {
+        return new Builder();
+    }
 
-	public static class Builder {
-		private String code;
-		private String message;
+    public static class Builder {
+        private String code;
+        private String message;
 
-		public Builder code(String code) {
-			this.code = code;
-			return this;
-		}
+        public Builder code(String code) {
+            this.code = code;
+            return this;
+        }
 
-		public Builder message(String message) {
-			this.message = message;
-			return this;
-		}
+        public Builder message(String message) {
+            this.message = message;
+            return this;
+        }
 
-		public ErrorEntity build() {
-			ErrorEntity errorEntity = new ErrorEntity();
-			errorEntity.code = code;
-			errorEntity.message = message;
-			return errorEntity;
-		}
-	}
+        public ErrorEntity build() {
+            ErrorEntity errorEntity = new ErrorEntity();
+            errorEntity.code = code;
+            errorEntity.message = message;
+            return errorEntity;
+        }
+    }
 
 }

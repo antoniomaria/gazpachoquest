@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.dto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.sf.gazpachoquest.dto.support.AbstractAuditableDTO;
@@ -26,14 +27,14 @@ public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
 
     private QuestionnairDefinitionLanguageSettingsDTO languageSettings;
 
-    private List<QuestionGroupDTO> questionGroups;
+    private final List<QuestionGroupDTO> questionGroups = new ArrayList<>();
 
     public QuestionnairDefinitionDTO() {
         super();
     }
 
     public void addQuestionGroup(final QuestionGroupDTO questionGroup) {
-        getQuestionGroups().add(questionGroup);
+        questionGroups.add(questionGroup);
     }
 
     @Override
@@ -47,15 +48,12 @@ public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
     }
 
     public QuestionGroupDTO getLastQuestionGroupDTO() {
-        int count = getQuestionGroups().size();
+        int count = questionGroups.size();
         return count > 0 ? questionGroups.get(count - 1) : null;
     }
 
     public List<QuestionGroupDTO> getQuestionGroups() {
-        if (questionGroups == null) {
-            questionGroups = new ArrayList<>();
-        }
-        return questionGroups;
+        return Collections.unmodifiableList(questionGroups);
     }
 
     @Override
@@ -66,10 +64,6 @@ public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
     @Override
     public void setLanguageSettings(final QuestionnairDefinitionLanguageSettingsDTO languageSettings) {
         this.languageSettings = languageSettings;
-    }
-
-    public void setQuestionGroups(final List<QuestionGroupDTO> questionGroups) {
-        this.questionGroups = questionGroups;
     }
 
     public static Builder with() {

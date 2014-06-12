@@ -10,6 +10,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ public class QuestionnairDTO extends AbstractIdentifiableDTO {
     private Language language;
 
     @ApiModelProperty(value = "Others languages supported", required = false)
-    private Set<Language> supportedLanguages;
+    private final Set<Language> supportedLanguages = new HashSet<Language>();
 
     private QuestionnairDefinitionLanguageSettingsDTO languageSettings;
 
@@ -45,18 +46,11 @@ public class QuestionnairDTO extends AbstractIdentifiableDTO {
     }
 
     public Set<Language> getSupportedLanguages() {
-        if (supportedLanguages == null) {
-            this.supportedLanguages = new HashSet<>();
-        }
-        return supportedLanguages;
-    }
-
-    public void setSupportedLanguages(Set<Language> supportedLanguages) {
-        this.supportedLanguages = supportedLanguages;
+        return Collections.unmodifiableSet(supportedLanguages);
     }
 
     public void addSupportedLanguage(Language language) {
-        getSupportedLanguages().add(language);
+        supportedLanguages.add(language);
     }
 
     public QuestionnairDefinitionLanguageSettingsDTO getLanguageSettings() {
@@ -74,7 +68,6 @@ public class QuestionnairDTO extends AbstractIdentifiableDTO {
     public static class Builder {
         private Integer id;
         private Language language;
-        private Set<Language> supportedLanguages;
         private QuestionnairDefinitionLanguageSettingsDTO languageSettings;
 
         public Builder id(Integer id) {
@@ -87,11 +80,6 @@ public class QuestionnairDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
-        public Builder supportedLanguages(Set<Language> supportedLanguages) {
-            this.supportedLanguages = supportedLanguages;
-            return this;
-        }
-
         public Builder languageSettings(QuestionnairDefinitionLanguageSettingsDTO languageSettings) {
             this.languageSettings = languageSettings;
             return this;
@@ -101,7 +89,6 @@ public class QuestionnairDTO extends AbstractIdentifiableDTO {
             QuestionnairDTO questionnairDTO = new QuestionnairDTO();
             questionnairDTO.setId(id);
             questionnairDTO.language = language;
-            questionnairDTO.supportedLanguages = supportedLanguages;
             questionnairDTO.languageSettings = languageSettings;
             return questionnairDTO;
         }

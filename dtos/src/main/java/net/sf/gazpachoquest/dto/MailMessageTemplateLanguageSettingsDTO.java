@@ -15,6 +15,37 @@ import net.sf.gazpachoquest.dto.support.LanguageSettingsDTO;
 
 public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiableDTO implements LanguageSettingsDTO {
 
+    private static final long serialVersionUID = -4959980255392017094L;
+
+    private String body;
+
+    private String subject;
+
+    public MailMessageTemplateLanguageSettingsDTO() {
+        super();
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setBody(final String body) {
+        this.body = body;
+    }
+
+    public void setSubject(final String subject) {
+        this.subject = subject;
+    }
+
+    @Override
+    public String toString() {
+        return "MailMessageTemplateLanguageSettingsDTO [subject=" + subject + ", body=" + body + "]";
+    }
+
     public static interface Builder {
 
         Builder body(String body);
@@ -25,6 +56,14 @@ public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiable
 
         Builder subject(String subject);
 
+    }
+
+    public static Builder mailMessageTemplateLanguageSettingsStart(final MailMessageTemplateDTO.Builder container) {
+        return new MailMessageTemplateLanguageSettingsDTO.BuilderImpl(container);
+    }
+
+    public static Builder with() {
+        return new BuilderImpl(null);
     }
 
     public static class BuilderImpl implements Builder {
@@ -61,44 +100,4 @@ public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiable
             return this;
         }
     }
-
-    private static final long serialVersionUID = -4959980255392017094L;
-
-    public static Builder mailMessageTemplateLanguageSettingsStart(final MailMessageTemplateDTO.Builder container) {
-        return new MailMessageTemplateLanguageSettingsDTO.BuilderImpl(container);
-    }
-
-    public static Builder with() {
-        return new BuilderImpl(null);
-    }
-
-    private String body;
-
-    private String subject;
-
-    public MailMessageTemplateLanguageSettingsDTO() {
-        super();
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setBody(final String body) {
-        this.body = body;
-    }
-
-    public void setSubject(final String subject) {
-        this.subject = subject;
-    }
-
-    @Override
-    public String toString() {
-        return "MailMessageTemplateLanguageSettingsDTO [subject=" + subject + ", body=" + body + "]";
-    }
-
 }

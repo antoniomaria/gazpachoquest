@@ -7,6 +7,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,11 +24,11 @@ public class ResearchDTO extends AbstractIdentifiableDTO {
 
     private String name;
 
-    private Set<UserDTO> respondents;
+    private final Set<UserDTO> respondents = new HashSet<>();
 
     private DateTime startDate;
 
-    private Set<QuestionnairDefinitionDTO> questionnairDefinitions;
+    private final Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<>();
 
     private ResearchAccessType type;
 
@@ -43,11 +44,12 @@ public class ResearchDTO extends AbstractIdentifiableDTO {
         return name;
     }
 
+    public void addRespondent(UserDTO userDTO) {
+        respondents.add(userDTO);
+    }
+
     public Set<UserDTO> getRespondents() {
-        if (this.respondents == null) {
-            this.respondents = new HashSet<>();
-        }
-        return respondents;
+        return Collections.unmodifiableSet(respondents);
     }
 
     public DateTime getStartDate() {
@@ -66,10 +68,6 @@ public class ResearchDTO extends AbstractIdentifiableDTO {
         this.name = name;
     }
 
-    public void setRespondents(final Set<UserDTO> respondents) {
-        this.respondents = respondents;
-    }
-
     public void setStartDate(final DateTime startDate) {
         this.startDate = startDate;
     }
@@ -78,12 +76,12 @@ public class ResearchDTO extends AbstractIdentifiableDTO {
         this.type = type;
     }
 
-    public Set<QuestionnairDefinitionDTO> getQuestionnairDefinitions() {
-        return questionnairDefinitions;
+    public void addQuestionnairDefinition(QuestionnairDefinitionDTO questionnairDefinition) {
+        questionnairDefinitions.add(questionnairDefinition);
     }
 
-    public void setQuestionnairDefinitions(Set<QuestionnairDefinitionDTO> questionnairDefinition) {
-        this.questionnairDefinitions = questionnairDefinition;
+    public Set<QuestionnairDefinitionDTO> getQuestionnairDefinitions() {
+        return Collections.unmodifiableSet(questionnairDefinitions);
     }
 
     public static Builder with() {
@@ -93,9 +91,7 @@ public class ResearchDTO extends AbstractIdentifiableDTO {
     public static class Builder {
         private DateTime expirationDate;
         private String name;
-        private Set<UserDTO> respondents;
         private DateTime startDate;
-        private Set<QuestionnairDefinitionDTO> questionnairDefinitions;
         private ResearchAccessType type;
 
         public Builder expirationDate(DateTime expirationDate) {
@@ -108,18 +104,8 @@ public class ResearchDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
-        public Builder respondents(Set<UserDTO> respondents) {
-            this.respondents = respondents;
-            return this;
-        }
-
         public Builder startDate(DateTime startDate) {
             this.startDate = startDate;
-            return this;
-        }
-
-        public Builder questionnairDefinitions(Set<QuestionnairDefinitionDTO> questionnairDefinitions) {
-            this.questionnairDefinitions = questionnairDefinitions;
             return this;
         }
 
@@ -132,9 +118,7 @@ public class ResearchDTO extends AbstractIdentifiableDTO {
             ResearchDTO researchDTO = new ResearchDTO();
             researchDTO.expirationDate = expirationDate;
             researchDTO.name = name;
-            researchDTO.respondents = respondents;
             researchDTO.startDate = startDate;
-            researchDTO.questionnairDefinitions = questionnairDefinitions;
             researchDTO.type = type;
             return researchDTO;
         }
