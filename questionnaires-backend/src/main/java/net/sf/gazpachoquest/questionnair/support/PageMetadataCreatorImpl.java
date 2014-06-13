@@ -12,30 +12,28 @@ import org.springframework.stereotype.Component;
 @Component
 public class PageMetadataCreatorImpl implements PageMetadataCreator {
 
-	@Autowired
-	private QuestionGroupService questionGroupService;
+    @Autowired
+    private QuestionGroupService questionGroupService;
 
-	@Autowired
-	private QuestionnairDefinitionService questionnairDefinitionService;
+    @Autowired
+    private QuestionnairDefinitionService questionnairDefinitionService;
 
-	@Override
-	public PageMetadataDTO create(QuestionnairElement questionnairElement) {
-		int position = -1;
-		int count = -1;
-		PageMetadataDTO metadata = new PageMetadataDTO();
-		if (questionnairElement instanceof QuestionGroup) {
-			QuestionGroup questionGroup = (QuestionGroup) questionnairElement;
-			position = questionGroupService
-					.positionInQuestionnairDefinition(questionGroup.getId());
-			count = questionnairDefinitionService
-					.questionGroupsCount(questionGroup
-							.getQuestionnairDefinition().getId());
-		}else{
-			
-		}
-		metadata.setCount(count);
-		metadata.setPosition(position);
-		return null;
-	}
+    @Override
+    public PageMetadataDTO create(QuestionnairElement questionnairElement) {
+        int position = -1;
+        int count = -1;
+        PageMetadataDTO metadata = new PageMetadataDTO();
+        if (questionnairElement instanceof QuestionGroup) {
+            QuestionGroup questionGroup = (QuestionGroup) questionnairElement;
+            position = questionGroupService.positionInQuestionnairDefinition(questionGroup.getId());
+            count = questionnairDefinitionService
+                    .questionGroupsCount(questionGroup.getQuestionnairDefinition().getId());
+        } else {
+
+        }
+        metadata.setCount(count);
+        metadata.setNumber(position + 1);
+        return metadata;
+    }
 
 }

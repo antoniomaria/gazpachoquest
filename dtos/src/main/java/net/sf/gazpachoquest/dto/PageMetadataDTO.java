@@ -8,7 +8,7 @@ public class PageMetadataDTO implements Serializable {
 
     private int count;
 
-    private int position;
+    private int number;
 
     public PageMetadataDTO() {
         super();
@@ -22,17 +22,25 @@ public class PageMetadataDTO implements Serializable {
         this.count = count;
     }
 
-    public int getPosition() {
-        return position;
+    public int getNumber() {
+        return number;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
+    public void setNumber(int position) {
+        number = position;
+    }
+
+    public boolean isLast() {
+        return number == count;
+    }
+
+    public boolean isFirst() {
+        return number == 1;
     }
 
     @Override
     public String toString() {
-        return "PageMetadataDTO [count=" + count + ", position=" + position + "]";
+        return "PageMetadataDTO [count=" + count + ", number=" + number + "]";
     }
 
 }
