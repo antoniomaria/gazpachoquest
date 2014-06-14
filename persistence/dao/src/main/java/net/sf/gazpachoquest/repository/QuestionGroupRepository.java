@@ -25,10 +25,10 @@ public interface QuestionGroupRepository extends GenericRepository<QuestionGroup
 
     @Query("select qg from QuestionnairDefinition s join s.questionGroups qg where s.id = :questionnairDefinition and index(qg) = :position")
     QuestionGroup findOneByPositionInQuestionnairDefinition(@Param("questionnairDefinition")
-    int questionnairDefinitionId, @Param("position")
+    Integer questionnairDefinitionId, @Param("position")
     Integer position);
 
     @Query("select index(qg) from QuestionnairDefinition s join s.questionGroups qg where qg.id = :questionGroupId")
-    int positionInQuestionnairDefinition(@Param("questionGroupId")
+    Integer positionInQuestionnairDefinition(@Param("questionGroupId")
     Integer questionGroupId);
 }

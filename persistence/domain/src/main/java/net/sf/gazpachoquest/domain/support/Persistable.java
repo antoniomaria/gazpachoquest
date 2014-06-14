@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 public interface Persistable extends Serializable {
 
-    Long getId();
+	Integer getId();
 
     boolean isNew();
 }

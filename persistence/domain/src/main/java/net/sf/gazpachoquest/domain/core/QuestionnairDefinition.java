@@ -11,7 +11,9 @@
 package net.sf.gazpachoquest.domain.core;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -52,21 +54,21 @@ public class QuestionnairDefinition extends
     private Language language;
 
     @OneToMany(mappedBy = "questionnairDefinition", orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Questionnair> questionnairs;
+    private final Set<Questionnair> questionnairs = new HashSet<Questionnair>();
 
     @OneToMany(mappedBy = "questionnairDefinition", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
-    private Map<Language, QuestionnairDefinitionTranslation> translations;
+    private final Map<Language, QuestionnairDefinitionTranslation> translations = new HashMap<Language, QuestionnairDefinitionTranslation>();
 
     @OneToMany(mappedBy = "questionnairDefinition", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @OrderColumn(name = "order_in_questionnair")
-    private List<QuestionGroup> questionGroups;
+    private final List<QuestionGroup> questionGroups = new ArrayList<QuestionGroup>();
 
     @OneToMany(mappedBy = "questionnairDefinition", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "type", insertable = false, updatable = false)
-    private Map<MailMessageTemplateType, MailMessageTemplate> mailTemplates;
+    private final Map<MailMessageTemplateType, MailMessageTemplate> mailTemplates = new HashMap<MailMessageTemplateType, MailMessageTemplate>();
 
     public QuestionnairDefinition() {
         super();
@@ -74,29 +76,15 @@ public class QuestionnairDefinition extends
 
     @Override
     public Map<Language, QuestionnairDefinitionTranslation> getTranslations() {
-        if (translations == null) {
-            translations = new HashMap<>();
-        }
-        return translations;
-    }
-
-    public void setTranslations(Map<Language, QuestionnairDefinitionTranslation> translations) {
-        this.translations = translations;
+        return Collections.unmodifiableMap(translations);
     }
 
     public List<QuestionGroup> getQuestionGroups() {
-        if (questionGroups == null) {
-            questionGroups = new ArrayList<>();
-        }
-        return questionGroups;
-    }
-
-    public void setQuestionGroups(List<QuestionGroup> questionGroups) {
-        this.questionGroups = questionGroups;
+        return Collections.unmodifiableList(questionGroups);
     }
 
     public void addQuestionGroup(QuestionGroup questionGroup) {
-        getQuestionGroups().add(questionGroup);
+        questionGroups.add(questionGroup);
         questionGroup.setQuestionnairDefinition(this);
     }
 
@@ -129,19 +117,12 @@ public class QuestionnairDefinition extends
     }
 
     public Map<MailMessageTemplateType, MailMessageTemplate> getMailTemplates() {
-        if (mailTemplates == null) {
-            mailTemplates = new HashMap<>();
-        }
-        return mailTemplates;
-    }
-
-    public void setMailTemplates(Map<MailMessageTemplateType, MailMessageTemplate> mailTemplates) {
-        this.mailTemplates = mailTemplates;
+        return Collections.unmodifiableMap(mailTemplates);
     }
 
     public void addTranslation(Language language, QuestionnairDefinitionTranslation translation) {
         translation.setSurvey(this);
-        getTranslations().put(language, translation);
+        translations.put(language, translation);
     }
 
     public static Builder with() {

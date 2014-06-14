@@ -7,6 +7,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.domain.core;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -37,7 +38,7 @@ public class Questionnair extends AbstractAuditable {
     private EntityStatus status;
 
     @OneToMany(mappedBy = "questionnair", fetch = FetchType.LAZY)
-    private Set<BrowsedElement> browsedElements;
+    private final Set<BrowsedElement> browsedElements = new HashSet<BrowsedElement>();
 
     @Column(columnDefinition = "timestamp")
     @Convert(converter = DateTimeConverter.class)
@@ -69,10 +70,6 @@ public class Questionnair extends AbstractAuditable {
 
     public Research getResearch() {
         return research;
-    }
-
-    public void setBrowsedElements(final Set<BrowsedElement> browsedElements) {
-        this.browsedElements = browsedElements;
     }
 
     public void setSubmitDate(final DateTime submitDate) {
@@ -127,7 +124,6 @@ public class Questionnair extends AbstractAuditable {
     public static class Builder {
         private Integer id;
         private EntityStatus status;
-        private Set<BrowsedElement> browsedElements;
         private DateTime submitDate;
         private Research research;
         private QuestionnairDefinition questionnairDefinition;
@@ -144,10 +140,6 @@ public class Questionnair extends AbstractAuditable {
             return this;
         }
 
-        public Builder browsedElements(Set<BrowsedElement> browsedElements) {
-            this.browsedElements = browsedElements;
-            return this;
-        }
 
         public Builder submitDate(DateTime submitDate) {
             this.submitDate = submitDate;
@@ -178,7 +170,6 @@ public class Questionnair extends AbstractAuditable {
             Questionnair questionnair = new Questionnair();
             questionnair.setId(id);
             questionnair.status = status;
-            questionnair.browsedElements = browsedElements;
             questionnair.submitDate = submitDate;
             questionnair.research = research;
             questionnair.questionnairDefinition = questionnairDefinition;

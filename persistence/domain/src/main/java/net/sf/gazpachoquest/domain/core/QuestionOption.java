@@ -10,6 +10,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.domain.core;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +51,7 @@ public class QuestionOption extends AbstractLocalizable<QuestionOptionTranslatio
     @OneToMany(mappedBy = "questionOption", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
-    private Map<Language, QuestionOptionTranslation> translations;
+    private final Map<Language, QuestionOptionTranslation> translations = new HashMap<Language, QuestionOptionTranslation>();
 
     public QuestionOption() {
         super();
@@ -94,14 +95,7 @@ public class QuestionOption extends AbstractLocalizable<QuestionOptionTranslatio
 
     @Override
     public Map<Language, QuestionOptionTranslation> getTranslations() {
-        if (translations == null) {
-            translations = new HashMap<>();
-        }
-        return translations;
-    }
-
-    public void setTranslations(Map<Language, QuestionOptionTranslation> translations) {
-        this.translations = translations;
+        return Collections.unmodifiableMap(translations);
     }
 
     public static Builder with() {
@@ -114,7 +108,6 @@ public class QuestionOption extends AbstractLocalizable<QuestionOptionTranslatio
         private String code;
         private QuestionOptionLanguageSettings languageSettings;
         private Language language;
-        private Map<Language, QuestionOptionTranslation> translations;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -141,11 +134,6 @@ public class QuestionOption extends AbstractLocalizable<QuestionOptionTranslatio
             return this;
         }
 
-        public Builder translations(Map<Language, QuestionOptionTranslation> translations) {
-            this.translations = translations;
-            return this;
-        }
-
         public QuestionOption build() {
             QuestionOption questionOption = new QuestionOption();
             questionOption.setId(id);
@@ -153,7 +141,6 @@ public class QuestionOption extends AbstractLocalizable<QuestionOptionTranslatio
             questionOption.code = code;
             questionOption.languageSettings = languageSettings;
             questionOption.language = language;
-            questionOption.translations = translations;
             return questionOption;
         }
     }

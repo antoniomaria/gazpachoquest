@@ -11,6 +11,8 @@
 package net.sf.gazpachoquest.domain.core;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,25 +54,22 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
     @OneToMany(mappedBy = "questionGroup", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
-    private Map<Language, QuestionGroupTranslation> translations;
+    private final Map<Language, QuestionGroupTranslation> translations = new HashMap<Language, QuestionGroupTranslation>();
 
     @OneToMany(mappedBy = "questionGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OrderColumn(name = "order_in_questiongroup")
-    private List<Question> questions;
+    private final List<Question> questions = new ArrayList<Question>();
 
     public QuestionGroup() {
         super();
     }
 
-    public List<Question> getQuestions() {
-        if (questions == null) {
-            questions = new ArrayList<>();
-        }
-        return questions;
+    public Integer getQuestionnairDefinitionId() {
+        return questionnairDefinition.getId();
     }
 
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
+    public List<Question> getQuestions() {
+        return Collections.unmodifiableList(questions);
     }
 
     public QuestionnairDefinition getQuestionnairDefinition() {
@@ -103,18 +102,12 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
 
     @Override
     public Map<Language, QuestionGroupTranslation> getTranslations() {
-        return translations;
-    }
-
-    public void setTranslations(Map<Language, QuestionGroupTranslation> translations) {
-        this.translations = translations;
+        return Collections.unmodifiableMap(translations);
     }
 
     public void addQuestion(Question question) {
-        if (!getQuestions().contains(question)) {
-            getQuestions().add(question);
-            question.setQuestionGroup(this);
-        }
+        questions.add(question);
+        question.setQuestionGroup(this);
     }
 
     public static Builder with() {
@@ -126,8 +119,6 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
         private QuestionnairDefinition questionnairDefinition;
         private Language language;
         private QuestionGroupLanguageSettings languageSettings;
-        private Map<Language, QuestionGroupTranslation> translations;
-        private List<Question> questions;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -149,24 +140,12 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
             return this;
         }
 
-        public Builder translations(Map<Language, QuestionGroupTranslation> translations) {
-            this.translations = translations;
-            return this;
-        }
-
-        public Builder questions(List<Question> questions) {
-            this.questions = questions;
-            return this;
-        }
-
         public QuestionGroup build() {
             QuestionGroup questionGroup = new QuestionGroup();
             questionGroup.setId(id);
             questionGroup.questionnairDefinition = questionnairDefinition;
             questionGroup.language = language;
             questionGroup.languageSettings = languageSettings;
-            questionGroup.translations = translations;
-            questionGroup.questions = questions;
             return questionGroup;
         }
     }

@@ -7,6 +7,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.domain.user;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -62,15 +63,15 @@ public class User extends AbstractAuditable {
     private Gender gender;
 
     @OneToMany(mappedBy = "respondent", fetch = FetchType.LAZY)
-    private Set<Questionnair> questionnairs;
+    private final Set<Questionnair> questionnairs = new HashSet<Questionnair>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_group", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "group_id", referencedColumnName = "id") })
-    private Set<Group> groups;
+    private final Set<Group> groups = new HashSet<Group>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
-    private Set<Role> roles;
+    private final Set<Role> roles = new HashSet<Role>();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Role defaultRole;
@@ -88,33 +89,15 @@ public class User extends AbstractAuditable {
     }
 
     public Set<Questionnair> getQuestionnairs() {
-        return questionnairs;
-    }
-
-    public void setQuestionnairs(Set<Questionnair> questionnairs) {
-        this.questionnairs = questionnairs;
+        return Collections.unmodifiableSet(questionnairs);
     }
 
     public Set<Group> getGroups() {
-        if (groups == null) {
-            groups = new HashSet<>();
-        }
-        return groups;
-    }
-
-    public void setGroups(Set<Group> groups) {
-        this.groups = groups;
+        return Collections.unmodifiableSet(groups);
     }
 
     public Set<Role> getRoles() {
-        if (roles == null) {
-            roles = new HashSet<Role>();
-        }
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+        return Collections.unmodifiableSet(roles);
     }
 
     @Override
@@ -171,8 +154,12 @@ public class User extends AbstractAuditable {
     }
 
     public void assignToRole(Role role) {
-        getRoles().add(role);
-        role.getUsers().add(this);
+        roles.add(role);
+        role.addUser(this);
+    }
+    
+    public void addGroup(Group group){
+        groups.add(group);
     }
 
     public Role getDefaultRole() {

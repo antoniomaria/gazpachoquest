@@ -10,6 +10,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.domain.core;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,7 +58,7 @@ public class MailMessageTemplate extends
     @OneToMany(mappedBy = "mailMessageTemplate", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
-    private Map<Language, MailMessageTemplateTranslation> translations;
+    private final Map<Language, MailMessageTemplateTranslation> translations = new HashMap<Language, MailMessageTemplateTranslation>();
 
     public MailMessageTemplate() {
         super();
@@ -101,19 +102,11 @@ public class MailMessageTemplate extends
 
     @Override
     public Map<Language, MailMessageTemplateTranslation> getTranslations() {
-        if (translations == null) {
-            translations = new HashMap<Language, MailMessageTemplateTranslation>();
-        }
-
-        return translations;
-    }
-
-    public void setTranslations(Map<Language, MailMessageTemplateTranslation> translations) {
-        this.translations = translations;
+        return Collections.unmodifiableMap(translations);
     }
 
     public void addTranslation(Language language, MailMessageTemplateTranslation translation) {
-        getTranslations().put(language, translation);
+        translations.put(language, translation);
         translation.setMailMessageTemplate(this);
     }
 
@@ -145,7 +138,6 @@ public class MailMessageTemplate extends
         private String fromAddress;
         private String replyTo;
         private MailMessageTemplateLanguageSettings languageSettings;
-        private Map<Language, MailMessageTemplateTranslation> translations;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -182,18 +174,12 @@ public class MailMessageTemplate extends
             return this;
         }
 
-        public Builder translations(Map<Language, MailMessageTemplateTranslation> translations) {
-            this.translations = translations;
-            return this;
-        }
-
         public MailMessageTemplate build() {
             MailMessageTemplate mailMessageTemplate = new MailMessageTemplate();
             mailMessageTemplate.language = language;
             mailMessageTemplate.fromAddress = fromAddress;
             mailMessageTemplate.replyTo = replyTo;
             mailMessageTemplate.languageSettings = languageSettings;
-            mailMessageTemplate.translations = translations;
             mailMessageTemplate.type = type;
             mailMessageTemplate.questionnairDefinition = questionnairDefinition;
             mailMessageTemplate.setId(id);

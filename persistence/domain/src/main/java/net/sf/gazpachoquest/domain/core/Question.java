@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.domain.core;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,11 +55,11 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderColumn(name = "order_in_subquestions")
-    private List<Question> subquestions;
+    private final List<Question> subquestions = new ArrayList<Question>();
 
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderColumn(name = "order_in_question")
-    private List<QuestionOption> questionOptions;
+    private final List<QuestionOption> questionOptions = new ArrayList<QuestionOption>();
 
     private Boolean required;
 
@@ -76,7 +77,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
-    private Map<Language, QuestionTranslation> translations;
+    private final Map<Language, QuestionTranslation> translations = new HashMap<Language, QuestionTranslation>();
 
     public Question() {
         super();
@@ -99,14 +100,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     }
 
     public List<Question> getSubquestions() {
-        if (subquestions == null) {
-            subquestions = new ArrayList<>();
-        }
-        return subquestions;
-    }
-
-    public void setSubquestions(List<Question> subquestions) {
-        this.subquestions = subquestions;
+        return Collections.unmodifiableList(subquestions);
     }
 
     public Question getParent() {
@@ -121,19 +115,20 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         return questionGroup;
     }
 
+    public Integer getQuestionGroupId() {
+        return questionGroup.getId();
+    }
+
+    public Integer getQuestionnairDefinitionId() {
+        return questionGroup.getQuestionnairDefinitionId();
+    }
+
     public void setQuestionGroup(QuestionGroup questionGroup) {
         this.questionGroup = questionGroup;
     }
 
     public List<QuestionOption> getQuestionOptions() {
-        if (questionOptions == null) {
-            questionOptions = new ArrayList<>();
-        }
         return questionOptions;
-    }
-
-    public void setQuestionOptions(List<QuestionOption> questionOptions) {
-        this.questionOptions = questionOptions;
     }
 
     public void setRequired(Boolean isRequired) {
@@ -146,15 +141,9 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     @Override
     public Map<Language, QuestionTranslation> getTranslations() {
-        if (translations == null) {
-            translations = new HashMap<>();
-        }
-        return translations;
+        return Collections.unmodifiableMap(translations);
     }
 
-    public void setTranslations(Map<Language, QuestionTranslation> translations) {
-        this.translations = translations;
-    }
 
     @Override
     public Language getLanguage() {
@@ -168,20 +157,16 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     public void addQuestionOption(QuestionOption questionOption) {
         Assert.notNull(questionOption);
-        if (!getQuestionOptions().contains(questionOption)) {
-            questionOptions.add(questionOption);
-            questionOption.setQuestion(this);
-        }
+        questionOptions.add(questionOption);
+        questionOption.setQuestion(this);
 
     }
 
     public void addSubquestion(Question subquestion) {
         Assert.notNull(subquestion);
-        if (!getSubquestions().contains(subquestion)) {
-            subquestion.setLanguage(language);
-            subquestions.add(subquestion);
-            subquestion.setParent(this);
-        }
+        subquestion.setLanguage(language);
+        subquestions.add(subquestion);
+        subquestion.setParent(this);
     }
 
     @Override
@@ -211,13 +196,10 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         private String code;
         private Question parent;
         private QuestionGroup questionGroup;
-        private List<Question> subquestions;
-        private List<QuestionOption> questionOptions;
         private Boolean required;
         private QuestionType type;
         private Language language;
         private QuestionLanguageSettings languageSettings;
-        private Map<Language, QuestionTranslation> translations;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -236,16 +218,6 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
         public Builder questionGroup(QuestionGroup questionGroup) {
             this.questionGroup = questionGroup;
-            return this;
-        }
-
-        public Builder subquestions(List<Question> subquestions) {
-            this.subquestions = subquestions;
-            return this;
-        }
-
-        public Builder questionOptions(List<QuestionOption> questionOptions) {
-            this.questionOptions = questionOptions;
             return this;
         }
 
@@ -269,24 +241,16 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
             return this;
         }
 
-        public Builder translations(Map<Language, QuestionTranslation> translations) {
-            this.translations = translations;
-            return this;
-        }
-
         public Question build() {
             Question question = new Question();
             question.setId(id);
             question.code = code;
             question.parent = parent;
             question.questionGroup = questionGroup;
-            question.subquestions = subquestions;
-            question.questionOptions = questionOptions;
             question.required = required;
             question.type = type;
             question.language = language;
             question.languageSettings = languageSettings;
-            question.translations = translations;
             return question;
         }
     }

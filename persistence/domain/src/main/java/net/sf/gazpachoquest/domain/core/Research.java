@@ -10,6 +10,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.domain.core;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -45,7 +46,7 @@ public class Research extends AbstractAuditable {
     private DateTime expirationDate;
 
     @OneToMany(mappedBy = "research", fetch = FetchType.LAZY)
-    private Set<Questionnair> questionnairs;
+    private final Set<Questionnair> questionnairs = new HashSet<Questionnair>();
 
     public Research() {
         super();
@@ -79,10 +80,6 @@ public class Research extends AbstractAuditable {
         this.name = name;
     }
 
-    public void setQuestionnairs(Set<Questionnair> questionnairs) {
-        this.questionnairs = questionnairs;
-    }
-
     public void setStartDate(DateTime startDate) {
         this.startDate = startDate;
     }
@@ -101,7 +98,6 @@ public class Research extends AbstractAuditable {
         private ResearchAccessType type;
         private DateTime startDate;
         private DateTime expirationDate;
-        private Set<Questionnair> questionnairs;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -128,11 +124,6 @@ public class Research extends AbstractAuditable {
             return this;
         }
 
-        public Builder questionnairs(Set<Questionnair> questionnairs) {
-            this.questionnairs = questionnairs;
-            return this;
-        }
-
         public Research build() {
             Research research = new Research();
             research.setId(id);
@@ -140,7 +131,6 @@ public class Research extends AbstractAuditable {
             research.type = type;
             research.startDate = startDate;
             research.expirationDate = expirationDate;
-            research.questionnairs = questionnairs;
             return research;
         }
     }

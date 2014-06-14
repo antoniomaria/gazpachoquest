@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.domain.core;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -36,7 +37,7 @@ public class LabelSet extends AbstractPersistable {
 
     @OneToMany(mappedBy = "labelSet", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @OrderColumn(name = "sort_order")
-    private List<Label> labels;
+    private final List<Label> labels = new ArrayList<Label>();
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -55,19 +56,12 @@ public class LabelSet extends AbstractPersistable {
     }
 
     public List<Label> getLabels() {
-        if (labels == null) {
-            labels = new ArrayList<>();
-        }
-        return labels;
+        return Collections.unmodifiableList(labels);
     }
 
     public void addLabel(Label label) {
-        getLabels().add(label);
+        labels.add(label);
         label.setLabelSet(this);
-    }
-
-    public void setLabels(List<Label> labels) {
-        this.labels = labels;
     }
 
     public Language getLanguage() {
@@ -77,5 +71,4 @@ public class LabelSet extends AbstractPersistable {
     public void setLanguage(Language language) {
         this.language = language;
     }
-
 }

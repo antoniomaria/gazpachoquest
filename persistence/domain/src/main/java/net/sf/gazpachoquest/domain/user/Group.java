@@ -1,5 +1,7 @@
 package net.sf.gazpachoquest.domain.user;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -24,22 +26,18 @@ public class Group extends AbstractAuditable {
     private String description;
 
     @ManyToMany(mappedBy = "groups", fetch = FetchType.LAZY)
-    private Set<User> users;
+    private final Set<User> users = new HashSet<User>();
 
     @ManyToMany
     @JoinTable(name = "group_role", joinColumns = { @JoinColumn(name = "group_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
-    private Set<Role> roles;
+    private final Set<Role> roles = new HashSet<Role>();
 
     public Group() {
         super();
     }
 
     public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+        return Collections.unmodifiableSet(roles);
     }
 
     public String getName() {
@@ -51,11 +49,7 @@ public class Group extends AbstractAuditable {
     }
 
     public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
+        return Collections.unmodifiableSet(users);
     }
 
     public String getDescription() {
@@ -67,8 +61,8 @@ public class Group extends AbstractAuditable {
     }
 
     public void assignUser(User user) {
-        getUsers().add(user);
-        user.getGroups().add(this);
+        users.add(user);
+        user.addGroup(this);
     }
 
     public static Builder with() {
@@ -79,7 +73,6 @@ public class Group extends AbstractAuditable {
         private Integer id;
         private String name;
         private String description;
-        private Set<User> users;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -96,17 +89,11 @@ public class Group extends AbstractAuditable {
             return this;
         }
 
-        public Builder users(Set<User> users) {
-            this.users = users;
-            return this;
-        }
-
         public Group build() {
             Group group = new Group();
             group.setId(id);
             group.name = name;
             group.description = description;
-            group.users = users;
             return group;
         }
     }

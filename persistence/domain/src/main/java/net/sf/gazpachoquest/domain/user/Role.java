@@ -1,5 +1,6 @@
 package net.sf.gazpachoquest.domain.user;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,38 +21,24 @@ public class Role extends AbstractPersistable {
     private String description;
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    private Set<Permission> permissions;
+    private final Set<Permission> permissions = new HashSet<Permission>();
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private Set<User> users;
+    private final Set<User> users = new HashSet<User>();
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private Set<Group> groups;
+    private final Set<Group> groups = new HashSet<Group>();
 
     public Role() {
         super();
     }
 
     public Set<Group> getGroups() {
-        if (groups == null) {
-            groups = new HashSet<Group>();
-        }
-        return groups;
-    }
-
-    public void setGroups(Set<Group> groups) {
-        this.groups = groups;
+        return Collections.unmodifiableSet(groups);
     }
 
     public Set<User> getUsers() {
-        if (users == null) {
-            users = new HashSet<User>();
-        }
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
+        return Collections.unmodifiableSet(users);
     }
 
     public String getDescription() {
@@ -63,14 +50,7 @@ public class Role extends AbstractPersistable {
     }
 
     public Set<Permission> getPermissions() {
-        if (permissions == null) {
-            permissions = new HashSet<Permission>();
-        }
-        return permissions;
-    }
-
-    public void setPermissions(Set<Permission> permissions) {
-        this.permissions = permissions;
+        return Collections.unmodifiableSet(permissions);
     }
 
     public String getName() {
@@ -82,8 +62,12 @@ public class Role extends AbstractPersistable {
     }
 
     public void assignPermission(Permission permission) {
-        getPermissions().add(permission);
+        permissions.add(permission);
         permission.setRole(this);
+    }
+    
+    public void addUser(User user){
+        this.users.add(user);
     }
 
     public static Builder with() {
