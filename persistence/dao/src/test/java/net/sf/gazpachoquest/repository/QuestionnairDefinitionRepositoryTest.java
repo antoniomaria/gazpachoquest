@@ -2,6 +2,7 @@ package net.sf.gazpachoquest.repository;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
+import java.util.Arrays;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Question;
@@ -108,6 +109,16 @@ public class QuestionnairDefinitionRepositoryTest {
         questionnairDefinition = repository.save(questionnairDefinition);
         assertThat(questionnairDefinition.getLastModifiedBy()).isNotNull();
         assertThat(questionnairDefinition.getLastModifiedDate()).isNotNull();
+    }
+
+    @Test
+    public void questionCountTest() {
+        Integer questionnairDefinitionId = 7;
+        List<Object[]> result = repository.questionCount(questionnairDefinitionId);
+        
+        for (Object[] objects : result) {
+            System.out.println(Arrays.toString(objects));
+        }
     }
 
 }
