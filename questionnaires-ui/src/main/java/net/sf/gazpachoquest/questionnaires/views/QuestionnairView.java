@@ -48,137 +48,132 @@ import com.vaadin.ui.themes.Reindeer;
 
 @CDIView(QuestionnairView.NAME)
 @RolesAllowed(RespondentAccount.DEFAULT_ROLE_NAME)
-public class QuestionnairView extends CustomComponent implements View,
-		ClickListener {
+public class QuestionnairView extends CustomComponent implements View, ClickListener {
 
-	private static final long serialVersionUID = -4474306191162456568L;
+    private static final long serialVersionUID = -4474306191162456568L;
 
-	public static final String NAME = "questionnair";
+    public static final String NAME = "questionnair";
 
-	private static Logger logger = LoggerFactory
-			.getLogger(QuestionnairView.class);
+    private static Logger logger = LoggerFactory.getLogger(QuestionnairView.class);
 
-	@Inject
-	@GazpachoResource
-	private QuestionnairResource questionnairResource;
+    @Inject
+    @GazpachoResource
+    private QuestionnairResource questionnairResource;
 
-	@Inject
-	private QuestionFactory QuestionFactory;
+    @Inject
+    private QuestionFactory QuestionFactory;
 
-	private Integer questionnairId;
+    private Integer questionnairId;
 
-	private VerticalLayout questionsLayout;
+    private VerticalLayout questionsLayout;
 
-	@Inject
-	@ButtonProperties(caption = "Next")
-	private Button nextButton;
+    @Inject
+    @ButtonProperties(caption = "Next")
+    private Button nextButton;
 
-	@Inject
-	@ButtonProperties(caption = "Previous")
-	private Button previousButton;
+    @Inject
+    @ButtonProperties(caption = "Previous")
+    private Button previousButton;
 
-	public void update(PageDTO page) {
-		if (page.getQuestions().isEmpty())
-			return;
+    public void update(PageDTO page) {
+        questionsLayout.removeAllComponents();
 
-		questionsLayout.removeAllComponents();
+        List<QuestionDTO> questions = page.getQuestions();
 
-		List<QuestionDTO> questions = page.getQuestions();
+        for (QuestionDTO questionDTO : questions) {
+            QuestionComponent questionComponent;
+            try {
+                questionComponent = QuestionFactory.build(questionnairId, questionDTO);
+                questionsLayout.addComponent(questionComponent);
+            } catch (NotSupportedException e) {
+                logger.warn(e.getMessage());
+            }
+        }
 
-		for (QuestionDTO questionDTO : questions) {
-			QuestionComponent questionComponent;
-			try {
-				questionComponent = QuestionFactory.build(questionnairId,
-						questionDTO);
-				questionsLayout.addComponent(questionComponent);
-			} catch (NotSupportedException e) {
-				logger.warn(e.getMessage());
-			}
-		}
-		nextButton.addClickListener(this);
-		previousButton.addClickListener(this);
+        HorizontalLayout buttonsLayout = new HorizontalLayout();
 
-		HorizontalLayout buttonsLayout = new HorizontalLayout();
-		buttonsLayout.addComponents(previousButton, nextButton);
-		
-		questionsLayout.addComponent(buttonsLayout);
+        if (page.getMetadata().isNotFirst()) {
+            previousButton.addClickListener(this);
+            buttonsLayout.addComponent(previousButton);
+        }
 
-	}
+        if (page.getMetadata().isNotLast()) {
+            nextButton.addClickListener(this);
+            buttonsLayout.addComponent(nextButton);
+        }
+        questionsLayout.addComponent(buttonsLayout);
+    }
 
-	@Override
-	public void enter(ViewChangeEvent event) {
-		logger.debug("Entering {} view ", QuestionnairView.NAME);
-		setSizeFull();
-		addStyleName(Reindeer.LAYOUT_BLUE);
-		addStyleName("questionnaires");
-		VerticalLayout centralLayout = new VerticalLayout();
-		centralLayout.setMargin(true);
-		// centralLayout.addStyleName("questionnaires");
-		// new Responsive(centralLayout);
+    @Override
+    public void enter(ViewChangeEvent event) {
+        logger.debug("Entering {} view ", QuestionnairView.NAME);
+        setSizeFull();
+        addStyleName(Reindeer.LAYOUT_BLUE);
+        addStyleName("questionnaires");
+        VerticalLayout centralLayout = new VerticalLayout();
+        centralLayout.setMargin(true);
+        // centralLayout.addStyleName("questionnaires");
+        // new Responsive(centralLayout);
 
-		RespondentAccount respondent = (RespondentAccount) VaadinServletService
-				.getCurrentServletRequest().getUserPrincipal();
-		questionnairId = respondent.getGrantedQuestionnairIds().iterator()
-				.next();
-		logger.debug("Trying to fetch questionnair identified with id  = {} ",
-				questionnairId);
-		QuestionnairDTO questionnair = questionnairResource
-				.getDefinition(questionnairId);
+        RespondentAccount respondent = (RespondentAccount) VaadinServletService.getCurrentServletRequest()
+                .getUserPrincipal();
+        questionnairId = respondent.getGrantedQuestionnairIds().iterator().next();
+        logger.debug("Trying to fetch questionnair identified with id  = {} ", questionnairId);
+        QuestionnairDTO questionnair = questionnairResource.getDefinition(questionnairId);
 
-		PageDTO page = questionnairResource.getPage(questionnairId,
-				RenderingMode.GROUP_BY_GROUP, BrowsingAction.ENTERING);
-		questionsLayout = new VerticalLayout();
-		update(page);
+        PageDTO page = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP,
+                BrowsingAction.ENTERING);
+        questionsLayout = new VerticalLayout();
+        update(page);
 
-		VerticalLayout mainLayout = new VerticalLayout();
-		mainLayout.setSizeFull();
+        VerticalLayout mainLayout = new VerticalLayout();
+        mainLayout.setSizeFull();
 
-		Label label = new Label(questionnair.getLanguageSettings().getTitle());
-		label.addStyleName(Reindeer.LABEL_H1);
-		mainLayout.addComponent(label);
-		mainLayout.addComponent(questionsLayout);
-		// Add the responsive capabilities to the components
-		Responsive.makeResponsive(label);
-		centralLayout.addComponent(mainLayout);
-		setCompositionRoot(centralLayout);
-	}
+        Label label = new Label(questionnair.getLanguageSettings().getTitle());
+        label.addStyleName(Reindeer.LABEL_H1);
+        mainLayout.addComponent(label);
+        mainLayout.addComponent(questionsLayout);
+        // Add the responsive capabilities to the components
+        Responsive.makeResponsive(label);
+        centralLayout.addComponent(mainLayout);
+        setCompositionRoot(centralLayout);
+    }
 
-	private HorizontalLayout createHeader() {
-		final HorizontalLayout layout = new HorizontalLayout();
-		layout.setWidth("100%");
-		layout.setMargin(true);
-		layout.setSpacing(true);
-		final Label title = new Label(
-				"Activiti + Vaadin - A Match Made in Heaven");
-		title.addStyleName(Reindeer.LABEL_H1);
-		layout.addComponent(title);
-		layout.setExpandRatio(title, 1.0f);
+    private HorizontalLayout createHeader() {
+        final HorizontalLayout layout = new HorizontalLayout();
+        layout.setWidth("100%");
+        layout.setMargin(true);
+        layout.setSpacing(true);
+        final Label title = new Label("Activiti + Vaadin - A Match Made in Heaven");
+        title.addStyleName(Reindeer.LABEL_H1);
+        layout.addComponent(title);
+        layout.setExpandRatio(title, 1.0f);
 
-		Label currentUser = new Label();
-		currentUser.setSizeUndefined();
-		layout.addComponent(currentUser);
-		layout.setComponentAlignment(currentUser, Alignment.MIDDLE_RIGHT);
+        Label currentUser = new Label();
+        currentUser.setSizeUndefined();
+        layout.addComponent(currentUser);
+        layout.setComponentAlignment(currentUser, Alignment.MIDDLE_RIGHT);
 
-		Button logout = new Button("Logout");
-		logout.addStyleName(Reindeer.BUTTON_SMALL);
-		// logout.addListener(createLogoutButtonListener());
-		layout.addComponent(logout);
-		layout.setComponentAlignment(logout, Alignment.MIDDLE_RIGHT);
+        Button logout = new Button("Logout");
+        logout.addStyleName(Reindeer.BUTTON_SMALL);
+        // logout.addListener(createLogoutButtonListener());
+        layout.addComponent(logout);
+        layout.setComponentAlignment(logout, Alignment.MIDDLE_RIGHT);
 
-		return layout;
-	}
+        return layout;
+    }
 
-	@Override
-	public void buttonClick(ClickEvent event) {
-		if (nextButton.equals(event.getButton())) {
-			PageDTO page = questionnairResource.getPage(questionnairId,
-					RenderingMode.GROUP_BY_GROUP, BrowsingAction.FORWARD);
-			update(page);
-		} else {
-			PageDTO page = questionnairResource.getPage(questionnairId,
-					RenderingMode.GROUP_BY_GROUP, BrowsingAction.BACKWARD);
-			update(page);
-		}
+    @Override
+    public void buttonClick(ClickEvent event) {
+        if (nextButton.equals(event.getButton())) {
+            PageDTO page = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP,
+                    BrowsingAction.FORWARD);
+            update(page);
+        } else {
+            PageDTO page = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP,
+                    BrowsingAction.BACKWARD);
+            update(page);
+        }
 
-	}
+    }
 }

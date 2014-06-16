@@ -2,6 +2,8 @@ package net.sf.gazpachoquest.dto;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class PageMetadataDTO implements Serializable {
 
     private static final long serialVersionUID = -8181067033196617785L;
@@ -30,12 +32,24 @@ public class PageMetadataDTO implements Serializable {
         number = position;
     }
 
+    @JsonIgnore
     public boolean isLast() {
         return number == count;
     }
 
+    @JsonIgnore
+    public boolean isNotLast() {
+        return number != count;
+    }
+
+    @JsonIgnore
     public boolean isFirst() {
         return number == 1;
+    }
+
+    @JsonIgnore
+    public boolean isNotFirst() {
+        return number != 1;
     }
 
     @Override
