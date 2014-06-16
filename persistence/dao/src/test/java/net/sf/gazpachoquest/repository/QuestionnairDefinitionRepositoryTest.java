@@ -2,7 +2,6 @@ package net.sf.gazpachoquest.repository;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-import java.util.Arrays;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Question;
@@ -11,7 +10,6 @@ import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionGroupLanguageSettings;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
-import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
@@ -112,13 +110,20 @@ public class QuestionnairDefinitionRepositoryTest {
     }
 
     @Test
-    public void questionCountTest() {
+    public void questionsCountGroupByQuestionGroupsTest() {
         Integer questionnairDefinitionId = 7;
-        List<Object[]> result = repository.questionCount(questionnairDefinitionId);
-        
-        for (Object[] objects : result) {
-            System.out.println(Arrays.toString(objects));
-        }
+        List<Object[]> result = repository.questionsCountGroupByQuestionGroups(questionnairDefinitionId);
+        assertThat(result).hasSize(3);
+        assertThat(result.get(0)).isEqualTo(new Object[] { 11, 2L, 0 });
+        assertThat(result.get(1)).isEqualTo(new Object[] { 10, 3L, 1 });
+        assertThat(result.get(2)).isEqualTo(new Object[] { 9, 2L, 2 });
+    }
+
+    @Test
+    public void questionsCountTest() {
+        Integer questionnairDefinitionId = 7;
+        Integer count = repository.questionsCount(questionnairDefinitionId);
+        assertThat(count).isEqualTo(7);
     }
 
 }

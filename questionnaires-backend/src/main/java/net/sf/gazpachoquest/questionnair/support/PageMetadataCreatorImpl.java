@@ -1,5 +1,7 @@
 package net.sf.gazpachoquest.questionnair.support;
 
+import java.util.List;
+
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.support.QuestionnairElement;
@@ -35,18 +37,27 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
                     .questionGroupsCount(questionGroup.getQuestionnairDefinition().getId());
         } else if (questionnairElement instanceof Question) {
             Question question = (Question) questionnairElement;
-            
             QuestionGroup questionGroup = question.getQuestionGroup();
-            
+
             Integer questionnairDefinitionId = questionGroup.getQuestionnairDefinition().getId();
-            
+
+            count = questionnairDefinitionService.questionsCount(questionnairDefinitionId);
+
             Integer questionGroupId = question.getQuestionGroup().getId();
-            
-            Integer questionGroupCount = questionnairDefinitionService.questionGroupsCount(questionnairDefinitionId);
-            Integer posInQuestionnairDef = questionGroupService.positionInQuestionnairDefinition(questionGroupId);
-            
-            Integer posInGroup = questionService.findPositionInQuestionGroup(question.getId());
-            
+
+            Integer positionInQuestionGroup = questionService.findPositionInQuestionGroup(question.getId());
+
+            List<Object[]> counts = questionnairDefinitionService
+                    .questionsCountGroupByQuestionGroups(questionnairDefinitionId);
+            Integer positionInQuestionnairDefition = 0;
+            for (Object[] objects : counts) {
+                Integer groupId = (Integer) objects[0];
+                if (questionGroupId.equals(groupId)) {
+                    break;
+                }
+                positionInQuestionnairDefition += ((Long) objects[1]).intValue();
+            }
+            position = positionInQuestionnairDefition + positionInQuestionGroup;
         }
         metadata.setCount(count);
         metadata.setNumber(position + 1);

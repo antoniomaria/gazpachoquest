@@ -28,6 +28,7 @@ import net.sf.gazpachoquest.facades.QuestionnairFacade;
 import net.sf.gazpachoquest.questionnair.resolver.QuestionnairElementResolver;
 import net.sf.gazpachoquest.questionnair.resolver.ResolverSelector;
 import net.sf.gazpachoquest.questionnair.support.AnswersPopulator;
+import net.sf.gazpachoquest.questionnair.support.PageMetadataCreator;
 import net.sf.gazpachoquest.services.QuestionnairAnswersService;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
 import net.sf.gazpachoquest.services.QuestionnairService;
@@ -61,6 +62,9 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
 
     @Autowired
     private AnswersPopulator answersPopulator;
+
+    @Autowired
+    private PageMetadataCreator metadataCreator;
 
     @Autowired
     private Mapper mapper;
@@ -111,6 +115,7 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
             page.addQuestion(questionDTO);
         }
         answersPopulator.populate(questionnair, page.getQuestions());
+        page.setMetadata(metadataCreator.create(questionnairElement));
         return page;
     }
 

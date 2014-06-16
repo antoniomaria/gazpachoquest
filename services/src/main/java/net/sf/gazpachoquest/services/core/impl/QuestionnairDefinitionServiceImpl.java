@@ -10,6 +10,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.core.impl;
 
+import java.util.List;
+
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
@@ -65,10 +67,10 @@ public class QuestionnairDefinitionServiceImpl
     @Override
     @Transactional(readOnly = true)
     public int questionGroupsCount(final Integer questionnairDefinitionId) {
-        return (int) (long) questionGroupRepository
-                .countByExample(
-                        QuestionGroup.with().questionnairDefinition(QuestionnairDefinition.with().id(questionnairDefinitionId).build())
-                                .build(), new SearchParameters());
+        return (int) questionGroupRepository.countByExample(
+                QuestionGroup.with()
+                        .questionnairDefinition(QuestionnairDefinition.with().id(questionnairDefinitionId).build())
+                        .build(), new SearchParameters());
     }
 
     @Override
@@ -90,5 +92,17 @@ public class QuestionnairDefinitionServiceImpl
             }
         }
         return existing;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Integer questionsCount(final Integer questionnairDefinitionId) {
+        return ((QuestionnairDefinitionRepository) repository).questionsCount(questionnairDefinitionId);
+    }
+
+    @Override
+    public List<Object[]> questionsCountGroupByQuestionGroups(final Integer questionnairDefinitionId) {
+        return ((QuestionnairDefinitionRepository) repository)
+                .questionsCountGroupByQuestionGroups(questionnairDefinitionId);
     }
 }
