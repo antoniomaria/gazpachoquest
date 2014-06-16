@@ -70,6 +70,16 @@ public class QuestionnairDefinition extends
     @MapKeyColumn(name = "type", insertable = false, updatable = false)
     private final Map<MailMessageTemplateType, MailMessageTemplate> mailTemplates = new HashMap<MailMessageTemplateType, MailMessageTemplate>();
 
+    private Boolean showWelcome;
+
+    private Boolean showProgress;
+
+    private Boolean showGroupInfo;
+
+    private Boolean showNoAnswer;
+
+    private Boolean showQuestionCode;
+
     public QuestionnairDefinition() {
         super();
     }

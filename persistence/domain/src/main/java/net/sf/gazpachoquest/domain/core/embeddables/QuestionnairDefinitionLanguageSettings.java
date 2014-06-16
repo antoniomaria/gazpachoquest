@@ -34,6 +34,9 @@ public class QuestionnairDefinitionLanguageSettings implements LanguageSettings 
     @Lob
     private String welcomeText;
 
+    @Lob
+    private String endText;
+    
     public QuestionnairDefinitionLanguageSettings() {
         super();
     }
