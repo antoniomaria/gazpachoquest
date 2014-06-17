@@ -12,6 +12,7 @@ package net.sf.gazpachoquest.domain.core.embeddables;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Lob;
 
 import net.sf.gazpachoquest.domain.support.LanguageSettings;
 
@@ -22,6 +23,9 @@ public class QuestionGroupLanguageSettings implements LanguageSettings {
 
     @Column(nullable = false)
     private String title;
+
+    @Lob
+    private String description;
 
     public QuestionGroupLanguageSettings() {
         super();
@@ -34,4 +38,13 @@ public class QuestionGroupLanguageSettings implements LanguageSettings {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }

@@ -7,10 +7,12 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.domain.core;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -19,6 +21,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Transient;
 
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
@@ -37,8 +40,9 @@ public class Questionnair extends AbstractAuditable {
     @Column(nullable = false)
     private EntityStatus status;
 
-    @OneToMany(mappedBy = "questionnair", fetch = FetchType.LAZY)
-    private final Set<BrowsedElement> browsedElements = new HashSet<BrowsedElement>();
+    @OneToMany(mappedBy = "questionnair", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OrderColumn(name = "navigation_order")
+    private final List<BrowsedElement> browsedElements = new ArrayList<BrowsedElement>();
 
     @Column(columnDefinition = "timestamp")
     @Convert(converter = DateTimeConverter.class)
@@ -60,8 +64,12 @@ public class Questionnair extends AbstractAuditable {
         super();
     }
 
-    public Set<BrowsedElement> getBrowsedElements() {
-        return browsedElements;
+    public void addBrowsedElements(BrowsedElement browsedElement) {
+        browsedElements.add(browsedElement);
+    }
+
+    public List<BrowsedElement> getBrowsedElements() {
+        return Collections.unmodifiableList(browsedElements);
     }
 
     public DateTime getSubmitDate() {
@@ -139,7 +147,6 @@ public class Questionnair extends AbstractAuditable {
             this.status = status;
             return this;
         }
-
 
         public Builder submitDate(DateTime submitDate) {
             this.submitDate = submitDate;

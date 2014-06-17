@@ -70,15 +70,13 @@ public class QuestionnairDefinition extends
     @MapKeyColumn(name = "type", insertable = false, updatable = false)
     private final Map<MailMessageTemplateType, MailMessageTemplate> mailTemplates = new HashMap<MailMessageTemplateType, MailMessageTemplate>();
 
-    private Boolean showWelcome;
+    private Boolean welcomeVisible;
 
-    private Boolean showProgress;
+    private Boolean progressVisible;
 
-    private Boolean showGroupInfo;
+    private Boolean questionGroupInfoVisible;
 
-    private Boolean showNoAnswer;
-
-    private Boolean showQuestionCode;
+    private Boolean randomizationEnabled;
 
     public QuestionnairDefinition() {
         super();
@@ -135,6 +133,38 @@ public class QuestionnairDefinition extends
         translations.put(language, translation);
     }
 
+    public Boolean isWelcomeVisible() {
+        return welcomeVisible;
+    }
+
+    public void setWelcomeVisible(Boolean welcomeVisible) {
+        this.welcomeVisible = welcomeVisible;
+    }
+
+    public Boolean isProgressVisible() {
+        return progressVisible;
+    }
+
+    public void setProgressVisible(Boolean progressVisible) {
+        this.progressVisible = progressVisible;
+    }
+
+    public Boolean isQuestionGroupInfoVisible() {
+        return questionGroupInfoVisible;
+    }
+
+    public void setQuestionGroupInfoVisible(Boolean questionGroupInfoVisible) {
+        this.questionGroupInfoVisible = questionGroupInfoVisible;
+    }
+
+    public Boolean isRandomizationEnabled() {
+        return randomizationEnabled;
+    }
+
+    public void setRandomizationEnabled(Boolean randomizationEnabled) {
+        this.randomizationEnabled = randomizationEnabled;
+    }
+
     public static Builder with() {
         return new Builder();
     }
@@ -144,6 +174,10 @@ public class QuestionnairDefinition extends
         private EntityStatus status;
         private QuestionnairDefinitionLanguageSettings languageSettings;
         private Language language;
+        private Boolean welcomeVisible;
+        private Boolean progressVisible;
+        private Boolean questionGroupInfoVisible;
+        private Boolean randomizationEnabled;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -165,12 +199,36 @@ public class QuestionnairDefinition extends
             return this;
         }
 
+        public Builder welcomeVisible(Boolean welcomeVisible) {
+            this.welcomeVisible = welcomeVisible;
+            return this;
+        }
+
+        public Builder progressVisible(Boolean progressVisible) {
+            this.progressVisible = progressVisible;
+            return this;
+        }
+
+        public Builder randomizationEnabled(Boolean randomizationEnabled) {
+            this.randomizationEnabled = randomizationEnabled;
+            return this;
+        }
+
+        public Builder questionGroupInfoVisible(Boolean questionGroupInfoVisible) {
+            this.questionGroupInfoVisible = questionGroupInfoVisible;
+            return this;
+        }
+
         public QuestionnairDefinition build() {
             QuestionnairDefinition questionnairDefinition = new QuestionnairDefinition();
             questionnairDefinition.setId(id);
             questionnairDefinition.status = status;
             questionnairDefinition.languageSettings = languageSettings;
             questionnairDefinition.language = language;
+            questionnairDefinition.welcomeVisible = welcomeVisible;
+            questionnairDefinition.progressVisible = progressVisible;
+            questionnairDefinition.questionGroupInfoVisible = questionGroupInfoVisible;
+            questionnairDefinition.randomizationEnabled = randomizationEnabled;
             return questionnairDefinition;
         }
     }

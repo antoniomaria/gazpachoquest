@@ -23,6 +23,8 @@ public class QuestionLanguageSettings implements LanguageSettings {
     @Column(nullable = false)
     private String title;
 
+    private String help;
+
     public QuestionLanguageSettings() {
         super();
     }
@@ -34,4 +36,13 @@ public class QuestionLanguageSettings implements LanguageSettings {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String getHelp() {
+        return help;
+    }
+
+    public void setHelp(String help) {
+        this.help = help;
+    }
+
 }

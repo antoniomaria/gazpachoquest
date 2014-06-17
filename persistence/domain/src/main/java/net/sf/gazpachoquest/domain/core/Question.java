@@ -44,6 +44,10 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     private static final long serialVersionUID = -4372634574851905803L;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private QuestionType type;
+
     @Column(nullable = false)
     private String code;
 
@@ -63,9 +67,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     private Boolean required;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private QuestionType type;
+    private Boolean otherAllowed;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -139,11 +141,18 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         return required;
     }
 
+    public Boolean isOtherAllowed() {
+        return otherAllowed;
+    }
+
+    public void setOtherAllowed(Boolean otherAllowed) {
+        this.otherAllowed = otherAllowed;
+    }
+
     @Override
     public Map<Language, QuestionTranslation> getTranslations() {
         return Collections.unmodifiableMap(translations);
     }
-
 
     @Override
     public Language getLanguage() {
@@ -184,7 +193,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     public void addTranslation(Language language, QuestionTranslation translation) {
         translation.setQuestion(this);
-        getTranslations().put(language, translation);
+        translations.put(language, translation);
     }
 
     public static Builder with() {
@@ -197,6 +206,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         private Question parent;
         private QuestionGroup questionGroup;
         private Boolean required;
+        private Boolean otherAllowed;
         private QuestionType type;
         private Language language;
         private QuestionLanguageSettings languageSettings;
@@ -226,6 +236,11 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
             return this;
         }
 
+        public Builder otherAllowed(Boolean otherAllowed) {
+            this.otherAllowed = otherAllowed;
+            return this;
+        }
+
         public Builder type(QuestionType type) {
             this.type = type;
             return this;
@@ -248,6 +263,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
             question.parent = parent;
             question.questionGroup = questionGroup;
             question.required = required;
+            question.otherAllowed = otherAllowed;
             question.type = type;
             question.language = language;
             question.languageSettings = languageSettings;

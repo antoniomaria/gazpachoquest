@@ -60,6 +60,8 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
     @OrderColumn(name = "order_in_questiongroup")
     private final List<Question> questions = new ArrayList<Question>();
 
+    private Boolean randomizationEnabled;
+
     public QuestionGroup() {
         super();
     }
@@ -110,6 +112,14 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
         question.setQuestionGroup(this);
     }
 
+    public Boolean isRandomizationEnabled() {
+        return randomizationEnabled;
+    }
+
+    public void setRandomizationEnabled(Boolean randomizationEnabled) {
+        this.randomizationEnabled = randomizationEnabled;
+    }
+
     public static Builder with() {
         return new Builder();
     }
@@ -119,6 +129,7 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
         private QuestionnairDefinition questionnairDefinition;
         private Language language;
         private QuestionGroupLanguageSettings languageSettings;
+        private Boolean randomizationEnabled;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -135,6 +146,11 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
             return this;
         }
 
+        public Builder randomizationEnabled(Boolean randomizationEnabled) {
+            this.randomizationEnabled = randomizationEnabled;
+            return this;
+        }
+
         public Builder languageSettings(QuestionGroupLanguageSettings languageSettings) {
             this.languageSettings = languageSettings;
             return this;
@@ -146,6 +162,7 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
             questionGroup.questionnairDefinition = questionnairDefinition;
             questionGroup.language = language;
             questionGroup.languageSettings = languageSettings;
+            questionGroup.randomizationEnabled = randomizationEnabled;
             return questionGroup;
         }
     }
