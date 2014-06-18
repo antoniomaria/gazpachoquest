@@ -22,10 +22,10 @@ import javax.persistence.Table;
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
 
 @Entity
-@Table(name = "browsedelement")
+@Table(name = "breadcrumb")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
-public class BrowsedElement extends AbstractAuditable {
+public class Breadcrumb extends AbstractAuditable {
 
     private static final long serialVersionUID = 8807488300208839486L;
 
@@ -35,7 +35,7 @@ public class BrowsedElement extends AbstractAuditable {
     @Basic
     protected Boolean last;
 
-    public BrowsedElement() {
+    public Breadcrumb() {
         super();
     }
 
@@ -79,12 +79,12 @@ public class BrowsedElement extends AbstractAuditable {
             return this;
         }
 
-        public BrowsedElement build() {
-            BrowsedElement browsedElement = new BrowsedElement();
-            browsedElement.setId(id);
-            browsedElement.questionnair = questionnair;
-            browsedElement.last = last;
-            return browsedElement;
+        public Breadcrumb build() {
+            Breadcrumb breadcrumb = new Breadcrumb();
+            breadcrumb.setId(id);
+            breadcrumb.questionnair = questionnair;
+            breadcrumb.last = last;
+            return breadcrumb;
         }
     }
 }

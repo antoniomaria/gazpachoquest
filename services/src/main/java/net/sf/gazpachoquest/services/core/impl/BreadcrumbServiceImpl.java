@@ -10,9 +10,9 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.core.impl;
 
-import net.sf.gazpachoquest.domain.core.BrowsedElement;
-import net.sf.gazpachoquest.repository.BrowsedElementRepository;
-import net.sf.gazpachoquest.services.BrowsedElementService;
+import net.sf.gazpachoquest.domain.core.Breadcrumb;
+import net.sf.gazpachoquest.repository.BreadcrumbRepository;
+import net.sf.gazpachoquest.services.BreadcrumbService;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,41 +20,41 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class BrowsedElementServiceImpl extends AbstractPersistenceService<BrowsedElement> implements
-        BrowsedElementService {
+public class BreadcrumbServiceImpl extends AbstractPersistenceService<Breadcrumb> implements
+        BreadcrumbService {
 
     @Autowired
-    protected BrowsedElementServiceImpl(final BrowsedElementRepository repository) {
+    protected BreadcrumbServiceImpl(final BreadcrumbRepository repository) {
         super(repository);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public BrowsedElement findLast(final Integer respondentId) {
-        return ((BrowsedElementRepository) repository).findLast(respondentId);
+    public Breadcrumb findLast(final Integer respondentId) {
+        return ((BreadcrumbRepository) repository).findLast(respondentId);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public BrowsedElement findNext(final Integer respondentId, final DateTime lastAccess) {
-        return ((BrowsedElementRepository) repository).findNext(respondentId, lastAccess);
+    public Breadcrumb findNext(final Integer respondentId, final DateTime lastAccess) {
+        return ((BreadcrumbRepository) repository).findNext(respondentId, lastAccess);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public BrowsedElement findPrevious(final Integer respondentId, final DateTime lastAccess) {
-        return ((BrowsedElementRepository) repository).findPrevious(respondentId, lastAccess);
+    public Breadcrumb findPrevious(final Integer respondentId, final DateTime lastAccess) {
+        return ((BreadcrumbRepository) repository).findPrevious(respondentId, lastAccess);
     }
 
     @Override
     @Transactional(readOnly = false)
-    public BrowsedElement save(final BrowsedElement entity) {
-        BrowsedElement fetched = null;
+    public Breadcrumb save(final Breadcrumb entity) {
+        Breadcrumb fetched = null;
         if (entity.isNew()) {
             fetched = repository.save(entity);
         } else {
             fetched = repository.findOne(entity.getId());
-            // Others properties are ignored. BrowsedElement is an inmutable
+            // Others properties are ignored. Breadcrumb is an inmutable
             // object
             fetched.setLast(entity.isLast());
         }

@@ -10,29 +10,29 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.repository;
 
-import net.sf.gazpachoquest.domain.core.BrowsedElement;
+import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.repository.support.GenericRepository;
 
 import org.joda.time.DateTime;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface BrowsedElementRepository extends GenericRepository<BrowsedElement> {
-    @Query("select e from BrowsedElement e left join e.questionnair q where q.id = :questionnairId and e.last = true")
-    BrowsedElement findLast(@Param("questionnairId")
+public interface BreadcrumbRepository extends GenericRepository<Breadcrumb> {
+    @Query("select e from Breadcrumb e left join e.questionnair q where q.id = :questionnairId and e.last = true")
+    Breadcrumb findLast(@Param("questionnairId")
     Integer questionnairId);
 
-    @Query("select e from BrowsedElement e left join e.questionnair r where e.createdDate = "
-            + "(select min(e1.createdDate) from BrowsedElement e1 left join e1.questionnair r where r.id = :questionnairId and e1.createdDate > :actualDate ) "
+    @Query("select e from Breadcrumb e left join e.questionnair r where e.createdDate = "
+            + "(select min(e1.createdDate) from Breadcrumb e1 left join e1.questionnair r where r.id = :questionnairId and e1.createdDate > :actualDate ) "
             + " and r.id = :questionnairId")
-    BrowsedElement findNext(@Param("questionnairId")
+    Breadcrumb findNext(@Param("questionnairId")
     Integer questionnairId, @Param("actualDate")
     DateTime last);
 
-    @Query("select e from BrowsedElement e left join e.questionnair r where e.createdDate = "
-            + "(select max(e1.createdDate) from BrowsedElement e1 left join e1.questionnair r where r.id = :questionnairId and e1.createdDate < :actualDate ) "
+    @Query("select e from Breadcrumb e left join e.questionnair r where e.createdDate = "
+            + "(select max(e1.createdDate) from Breadcrumb e1 left join e1.questionnair r where r.id = :questionnairId and e1.createdDate < :actualDate ) "
             + " and r.id = :questionnairId")
-    BrowsedElement findPrevious(@Param("questionnairId")
+    Breadcrumb findPrevious(@Param("questionnairId")
     Integer respondentId, @Param("actualDate")
     DateTime last);
 }

@@ -42,7 +42,7 @@ public class Questionnair extends AbstractAuditable {
 
     @OneToMany(mappedBy = "questionnair", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @OrderColumn(name = "navigation_order")
-    private final List<BrowsedElement> browsedElements = new ArrayList<BrowsedElement>();
+    private final List<Breadcrumb> breadcrumbs = new ArrayList<Breadcrumb>();
 
     @Column(columnDefinition = "timestamp")
     @Convert(converter = DateTimeConverter.class)
@@ -64,12 +64,12 @@ public class Questionnair extends AbstractAuditable {
         super();
     }
 
-    public void addBrowsedElements(BrowsedElement browsedElement) {
-        browsedElements.add(browsedElement);
+    public void addBrowsedElements(Breadcrumb breadcrumb) {
+        breadcrumbs.add(breadcrumb);
     }
 
-    public List<BrowsedElement> getBrowsedElements() {
-        return Collections.unmodifiableList(browsedElements);
+    public List<Breadcrumb> getBrowsedElements() {
+        return Collections.unmodifiableList(breadcrumbs);
     }
 
     public DateTime getSubmitDate() {

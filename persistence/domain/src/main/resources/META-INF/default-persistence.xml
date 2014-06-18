@@ -7,9 +7,9 @@
 
     <persistence:class>net.sf.gazpachoquest.domain.core.AnonymousInvitation</persistence:class>
 
-    <persistence:class>net.sf.gazpachoquest.domain.core.BrowsedElement</persistence:class>
-    <persistence:class>net.sf.gazpachoquest.domain.core.BrowsedQuestion</persistence:class>
-    <persistence:class>net.sf.gazpachoquest.domain.core.BrowsedQuestionGroup</persistence:class>
+    <persistence:class>net.sf.gazpachoquest.domain.core.Breadcrumb</persistence:class>
+    <persistence:class>net.sf.gazpachoquest.domain.core.QuestionBreadcrumb</persistence:class>
+    <persistence:class>net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb</persistence:class>
 
     <persistence:class>net.sf.gazpachoquest.domain.core.Label</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.core.LabelSet</persistence:class>

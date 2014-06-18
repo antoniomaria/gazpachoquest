@@ -88,7 +88,7 @@
 
   <label_set />
   <label />
-  <browsed_element />
+  <breadcrumb />
   <sequence seq_name="questionnair_answers_7_seq" seq_count="50" />
   <sequence seq_name="SEQ_GEN" seq_count="150" />
 </dataset>

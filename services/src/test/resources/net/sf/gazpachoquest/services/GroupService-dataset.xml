@@ -59,7 +59,7 @@
 
   <label_set />
   <label />
-  <browsed_element />
+  <breadcrumb />
 
   <mail_message_template />
   <mail_message_template_translation />

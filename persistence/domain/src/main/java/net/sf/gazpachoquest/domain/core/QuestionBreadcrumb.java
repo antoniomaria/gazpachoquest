@@ -16,32 +16,37 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 @Entity
-@DiscriminatorValue("G")
-public class BrowsedQuestionGroup extends BrowsedElement {
+@DiscriminatorValue("Q")
+public class QuestionBreadcrumb extends Breadcrumb {
 
-    private static final long serialVersionUID = -1490244249723723725L;
+    private static final long serialVersionUID = 4401342736300174568L;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private QuestionGroup questionGroup;
+    private Question question;
 
-    public BrowsedQuestionGroup() {
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    private Breadcrumb parent;
+
+    public QuestionBreadcrumb() {
         super();
     }
 
-    public QuestionGroup getQuestionGroup() {
-        return questionGroup;
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setQuestionGroup(QuestionGroup questionGroup) {
-        this.questionGroup = questionGroup;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
-    public static BrowsedQuestionGroup.Builder with() {
-        return new BrowsedQuestionGroup.Builder();
+    public static Builder with() {
+        return new Builder();
     }
 
     public static class Builder {
-        private QuestionGroup questionGroup;
+        private Integer id;
+
+        private Question question;
 
         private Questionnair questionnair;
 
@@ -57,17 +62,23 @@ public class BrowsedQuestionGroup extends BrowsedElement {
             return this;
         }
 
-        public Builder questionGroup(QuestionGroup questionGroup) {
-            this.questionGroup = questionGroup;
+        public Builder id(Integer id) {
+            this.id = id;
             return this;
         }
 
-        public BrowsedQuestionGroup build() {
-            BrowsedQuestionGroup browsedQuestionGroup = new BrowsedQuestionGroup();
-            browsedQuestionGroup.setLast(last);
-            browsedQuestionGroup.questionGroup = questionGroup;
-            browsedQuestionGroup.questionnair = questionnair;
-            return browsedQuestionGroup;
+        public Builder question(Question question) {
+            this.question = question;
+            return this;
+        }
+
+        public QuestionBreadcrumb build() {
+            QuestionBreadcrumb questionBreadcrumb = new QuestionBreadcrumb();
+            questionBreadcrumb.question = question;
+            questionBreadcrumb.questionnair = questionnair;
+            questionBreadcrumb.last = last;
+            questionBreadcrumb.setId(id);
+            return questionBreadcrumb;
         }
     }
 }

@@ -10,16 +10,16 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services;
 
-import net.sf.gazpachoquest.domain.core.BrowsedElement;
+import net.sf.gazpachoquest.domain.core.Breadcrumb;
 
 import org.joda.time.DateTime;
 
-public interface BrowsedElementService extends PersistenceService<BrowsedElement> {
+public interface BreadcrumbService extends PersistenceService<Breadcrumb> {
 
-    BrowsedElement findLast(Integer respondentId);
+    Breadcrumb findLast(Integer respondentId);
 
-    BrowsedElement findNext(Integer respondentId, DateTime lastAccess);
+    Breadcrumb findNext(Integer respondentId, DateTime lastAccess);
 
-    BrowsedElement findPrevious(Integer respondentId, DateTime lastAccess);
+    Breadcrumb findPrevious(Integer respondentId, DateTime lastAccess);
 
 }
