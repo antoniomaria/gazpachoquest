@@ -10,6 +10,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.questionnair.resolver;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
@@ -55,16 +57,16 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         Breadcrumb breadcrumb = breadcrumbRepository.findLast(questionnairId);
         QuestionGroup questionGroup = null;
         QuestionGroupBreadcrumb lastBreadcrumb = null;
-        
+
         Boolean groupsRandomizationEnabled = questionnairDefinition.isRandomizationEnabled();
 
         if (breadcrumb == null) { // First time entering the
                                   // questionnairDefinition
-            questionGroup = findFirstQuestionGroup(questionnairDefinitionId);
-            lastBreadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup)
-                    .last(Boolean.TRUE).build();
-            questionnair.addBreadcrumb(lastBreadcrumb);
-            questionnairService.save(questionnair);
+            List<Breadcrumb> breadcrumbs = makeBreadcrumbs(questionnair);
+            for (Breadcrumb newBreadcrumb : breadcrumbs) {
+                questionnair.addBreadcrumb(newBreadcrumb);
+                questionnairService.save(questionnair);
+            }
             return questionGroup;
         } else {
             if (breadcrumb instanceof QuestionGroupBreadcrumb) {
@@ -97,6 +99,36 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
             }
         }
         return questionGroup;
+    }
+
+    private List<Breadcrumb> makeBreadcrumbs(Questionnair questionnair) {
+        List<Breadcrumb> breadcrumbs = new ArrayList<Breadcrumb>();
+        QuestionnairDefinition questionnairDefinition = questionnair.getQuestionnairDefinition();
+        Integer questionnairDefinitionId = questionnairDefinition.getId();
+        Boolean groupsRandomizationEnabled = questionnairDefinition.isRandomizationEnabled();
+
+        if (groupsRandomizationEnabled) {
+            List<QuestionGroup> questionGroups = questionGroupService.findByExample(
+                    QuestionGroup.with()
+                            .questionnairDefinition(QuestionnairDefinition.with().id(questionnairDefinitionId).build())
+                            .build(), new SearchParameters());
+            
+            Collections.shuffle(questionGroups);
+            for (QuestionGroup questionGroup : questionGroups) {
+                if (questionGroup.isRandomizationEnabled()){
+                    System.out.println("randomize questions");
+                }else{
+                    System.out.println("questions in order");
+                }
+            }
+        } else {
+            QuestionGroup questionGroup = findFirstQuestionGroup(questionnairDefinitionId);
+            QuestionGroupBreadcrumb lastBreadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair)
+                    .questionGroup(questionGroup).last(Boolean.TRUE).build();
+            breadcrumbs.add(lastBreadcrumb);
+        }
+
+        return breadcrumbs;
     }
 
     private QuestionGroup findFirstQuestionGroup(int questionnairDefinitionId) {
