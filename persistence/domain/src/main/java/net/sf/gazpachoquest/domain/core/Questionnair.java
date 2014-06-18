@@ -64,11 +64,11 @@ public class Questionnair extends AbstractAuditable {
         super();
     }
 
-    public void addBrowsedElements(Breadcrumb breadcrumb) {
+    public void addBreadcrumb(Breadcrumb breadcrumb) {
         breadcrumbs.add(breadcrumb);
     }
 
-    public List<Breadcrumb> getBrowsedElements() {
+    public List<Breadcrumb> getBreadcrumbs() {
         return Collections.unmodifiableList(breadcrumbs);
     }
 

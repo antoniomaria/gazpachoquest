@@ -55,15 +55,16 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         Breadcrumb breadcrumb = breadcrumbRepository.findLast(questionnairId);
         QuestionGroup questionGroup = null;
         QuestionGroupBreadcrumb lastBreadcrumb = null;
+        
+        Boolean groupsRandomizationEnabled = questionnairDefinition.isRandomizationEnabled();
 
         if (breadcrumb == null) { // First time entering the
                                   // questionnairDefinition
             questionGroup = findFirstQuestionGroup(questionnairDefinitionId);
             lastBreadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup)
                     .last(Boolean.TRUE).build();
-            breadcrumbRepository.save(lastBreadcrumb);
-            // questionnair.addBrowsedElements(lastBreadcrumb);
-            // questionnairService.save(questionnair);
+            questionnair.addBreadcrumb(lastBreadcrumb);
+            questionnairService.save(questionnair);
             return questionGroup;
         } else {
             if (breadcrumb instanceof QuestionGroupBreadcrumb) {
@@ -135,15 +136,15 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
     }
 
     private QuestionGroup findPreviousQuestionGroup(final int questionnairDefinitionId,
-            final Questionnair questionnair, final QuestionGroupBreadcrumb lastBrowsedElement) {
-        Breadcrumb previousBrowsedElement = breadcrumbRepository.findPrevious(questionnair.getId(),
-                lastBrowsedElement.getCreatedDate());
-        if (previousBrowsedElement == null) {
+            final Questionnair questionnair, final QuestionGroupBreadcrumb lastBreadcrumb) {
+        Breadcrumb previousBreadcrumb = breadcrumbRepository.findPrevious(questionnair.getId(),
+                lastBreadcrumb.getCreatedDate());
+        if (previousBreadcrumb == null) {
             return null;
         }
-        Assert.isInstanceOf(QuestionGroupBreadcrumb.class, previousBrowsedElement);
+        Assert.isInstanceOf(QuestionGroupBreadcrumb.class, previousBreadcrumb);
 
-        QuestionGroupBreadcrumb previousBrowsedQuestionGroup = (QuestionGroupBreadcrumb) previousBrowsedElement;
+        QuestionGroupBreadcrumb previousBrowsedQuestionGroup = (QuestionGroupBreadcrumb) previousBreadcrumb;
         previousBrowsedQuestionGroup.setLast(Boolean.TRUE);
         breadcrumbRepository.save(previousBrowsedQuestionGroup);
         return previousBrowsedQuestionGroup.getQuestionGroup();

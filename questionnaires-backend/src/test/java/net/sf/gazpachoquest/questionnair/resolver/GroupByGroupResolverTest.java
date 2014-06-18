@@ -42,6 +42,12 @@ public class GroupByGroupResolverTest {
     private QuestionnairElementResolver resolver;
 
     @Test
+    public void resolveForRandomTest() {
+        Integer questionnairId = 58;
+        Questionnair questionnair = questionnairRepository.findOne(questionnairId);
+        QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.ENTERING);
+    }
+    @Test
     public void resolveForTest() {
         Integer questionnairId = 58;
         Questionnair questionnair = questionnairRepository.findOne(questionnairId);

@@ -10,6 +10,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.core.impl;
 
+import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.repository.user.PermissionRepository;
@@ -21,31 +22,38 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class QuestionnairServiceImpl extends
-		AbstractPersistenceService<Questionnair> implements QuestionnairService {
+public class QuestionnairServiceImpl extends AbstractPersistenceService<Questionnair> implements QuestionnairService {
 
-	@Autowired
-	private PermissionRepository permissionRepository;
+    @Autowired
+    private PermissionRepository permissionRepository;
 
-	@Autowired
-	public QuestionnairServiceImpl(
-			final QuestionnairRepository questionnairRepository) {
-		super(questionnairRepository);
-	}
+    @Autowired
+    public QuestionnairServiceImpl(final QuestionnairRepository questionnairRepository) {
+        super(questionnairRepository);
+    }
 
-	@Override
-	@Transactional(readOnly = false)
-	public Questionnair save(final Questionnair questionnair) {
-		Questionnair existing = null;
-		if (questionnair.isNew()) {
-			if (questionnair.getStatus() == null) {
-				questionnair.setStatus(EntityStatus.DRAFT);
-			}
-			existing = repository.save(questionnair);
-		} else {
-			existing = repository.findOne(questionnair.getId());
-		}
-		return existing;
-	}
+    @Override
+    @Transactional(readOnly = false)
+    public Questionnair save(final Questionnair questionnair) {
+        Questionnair existing = null;
+        if (questionnair.isNew()) {
+            if (questionnair.getStatus() == null) {
+                questionnair.setStatus(EntityStatus.DRAFT);
+            }
+            existing = repository.save(questionnair);
+        } else {
+            existing = repository.findOne(questionnair.getId());
+            existing.setSubmitDate(questionnair.getSubmitDate());
+            existing.setStatus(questionnair.getStatus());
+            
+            for (Breadcrumb breadcrumb : questionnair.getBreadcrumbs()) {
+                if (!breadcrumb.isNew()) {
+                    continue;
+                }
+                existing.addBreadcrumb(breadcrumb);
+            }
+        }
+        return existing;
+    }
 
 }
