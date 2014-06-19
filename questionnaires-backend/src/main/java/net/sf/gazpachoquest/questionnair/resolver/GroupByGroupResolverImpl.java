@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
+import net.sf.gazpachoquest.domain.core.Question;
+import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnair;
@@ -22,6 +24,7 @@ import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.BreadcrumbRepository;
 import net.sf.gazpachoquest.repository.QuestionGroupRepository;
+import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnairService;
 import net.sf.gazpachoquest.types.BrowsingAction;
 
@@ -45,6 +48,9 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
     private QuestionGroupRepository questionGroupService;
 
     @Autowired
+    private QuestionService questionService;
+
+    @Autowired
     private QuestionnairService questionnairService;
 
     @Override
@@ -57,8 +63,6 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         Breadcrumb breadcrumb = breadcrumbRepository.findLast(questionnairId);
         QuestionGroup questionGroup = null;
         QuestionGroupBreadcrumb lastBreadcrumb = null;
-
-        Boolean groupsRandomizationEnabled = questionnairDefinition.isRandomizationEnabled();
 
         if (breadcrumb == null) { // First time entering the
                                   // questionnairDefinition
@@ -103,6 +107,7 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
 
     private List<Breadcrumb> makeBreadcrumbs(Questionnair questionnair) {
         List<Breadcrumb> breadcrumbs = new ArrayList<Breadcrumb>();
+        QuestionGroupBreadcrumb breadcrumb = null;
         QuestionnairDefinition questionnairDefinition = questionnair.getQuestionnairDefinition();
         Integer questionnairDefinitionId = questionnairDefinition.getId();
         Boolean groupsRandomizationEnabled = questionnairDefinition.isRandomizationEnabled();
@@ -112,14 +117,25 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
                     QuestionGroup.with()
                             .questionnairDefinition(QuestionnairDefinition.with().id(questionnairDefinitionId).build())
                             .build(), new SearchParameters());
-            
+
             Collections.shuffle(questionGroups);
+
             for (QuestionGroup questionGroup : questionGroups) {
-                if (questionGroup.isRandomizationEnabled()){
-                    System.out.println("randomize questions");
-                }else{
-                    System.out.println("questions in order");
+                if (questionGroup.isRandomizationEnabled()) {
+                    breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup)
+                            .build();
+                    List<Question> questions = questionService.findByExample(
+                            Question.with().questionGroup(QuestionGroup.with().id(questionGroup.getId()).build())
+                                    .build(), new SearchParameters());
+                    Collections.shuffle(questions);
+                    for (Question question : questions) {
+                        breadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).build());
+                    }
+                } else {
+                    breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup)
+                            .build();
                 }
+                breadcrumbs.add(breadcrumb);
             }
         } else {
             QuestionGroup questionGroup = findFirstQuestionGroup(questionnairDefinitionId);

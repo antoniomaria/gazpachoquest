@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.domain.core;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -44,6 +45,14 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
 
     public void setQuestionGroup(QuestionGroup questionGroup) {
         this.questionGroup = questionGroup;
+    }
+
+    public List<QuestionBreadcrumb> getBreadcrumbs() {
+        return Collections.unmodifiableList(breadcrumbs);
+    }
+
+    public void addBreadcrumb(QuestionBreadcrumb breadcrumb) {
+        breadcrumbs.add(breadcrumb);
     }
 
     public static QuestionGroupBreadcrumb.Builder with() {
