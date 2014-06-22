@@ -54,6 +54,10 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
     public void addBreadcrumb(QuestionBreadcrumb breadcrumb) {
         breadcrumbs.add(breadcrumb);
     }
+    
+    public Boolean hasBreadcrumbs(){
+        return !breadcrumbs.isEmpty();
+    }
 
     public static QuestionGroupBreadcrumb.Builder with() {
         return new QuestionGroupBreadcrumb.Builder();

@@ -10,6 +10,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.core.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import net.sf.gazpachoquest.domain.core.Question;
@@ -23,6 +25,8 @@ import net.sf.gazpachoquest.repository.i18.QuestionTranslationRepository;
 import net.sf.gazpachoquest.services.QuestionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -55,7 +59,12 @@ public class QuestionServiceImpl extends
     public Integer findPositionInQuestionGroup(final Integer questionId) {
         return ((QuestionRepository) repository).findPositionInQuestionGroup(questionId);
     }
-
+    
+    @Override
+    public List<Question> findByQuestionGroupId(Integer questionGroupId){
+        return ((QuestionRepository) repository).findByQuestionGroupId(questionGroupId);
+    }
+    
     @Override
     @Transactional(readOnly = false)
     public Question save(final Question question) {

@@ -10,6 +10,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services;
 
+import java.util.List;
+
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionTranslation;
@@ -20,5 +22,7 @@ public interface QuestionService extends
     Question findOneByPositionInQuestionGroup(Integer questionGroupId, Integer position);
 
     Integer findPositionInQuestionGroup(Integer questionId);
+
+    List<Question> findByQuestionGroupId(Integer questionGroupId);
 
 }

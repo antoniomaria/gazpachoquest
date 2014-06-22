@@ -1,6 +1,11 @@
 package net.sf.gazpachoquest.repository;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
 import net.sf.gazpachoquest.repository.BreadcrumbRepository;
@@ -28,7 +33,6 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("BreadcrumbRepository-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-@Ignore
 public class BreadcrumbRepositoryTest {
 
     @Autowired
@@ -42,6 +46,22 @@ public class BreadcrumbRepositoryTest {
         Integer questionnairId = 63;
         QuestionBreadcrumb questionBreadcrumb = (QuestionBreadcrumb) repository.findLast(questionnairId);
         assertThat(questionBreadcrumb).isEqualTo(QuestionBreadcrumb.with().id(115).build());
+    }
+
+    @Test
+    public void findByQuestionnairIdAndPosition() {
+        Integer questionnairId = 58;
+        Integer position = 1;
+        Breadcrumb next = repository.findByQuestionnairIdAndPosition(questionnairId, position);
+
+        System.out.println("de winner is: " + next);
+    }
+
+    @Test
+    public void findLastAndPositionTest() {
+        Integer questionnairId = 58;
+        List<Object[]> next = repository.findLastAndPosition(questionnairId);
+
     }
 
     @Test

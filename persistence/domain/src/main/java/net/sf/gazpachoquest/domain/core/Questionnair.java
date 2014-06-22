@@ -68,6 +68,10 @@ public class Questionnair extends AbstractAuditable {
         breadcrumbs.add(breadcrumb);
     }
 
+    public void setBreadcrumb(int pos, Breadcrumb breadcrumb) {
+        breadcrumbs.set(pos, breadcrumb);
+    }
+
     public List<Breadcrumb> getBreadcrumbs() {
         return Collections.unmodifiableList(breadcrumbs);
     }

@@ -15,6 +15,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,11 +28,12 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
+@ContextConfiguration(locations = { "classpath:/postgres-properties-loader-context.xml", "classpath:/jpa-context.xml", "classpath:/datasource-context.xml",
         "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnair-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+// @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("GroupByGroupResolver-dataset.xml")
 @DatabaseTearDown("GroupByGroupResolver-dataset.xml")
+@ActiveProfiles(profiles = { "standalone", "postgres" })
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class GroupByGroupResolverTest {
 
@@ -42,10 +45,11 @@ public class GroupByGroupResolverTest {
     private QuestionnairElementResolver resolver;
 
     @Test
+    @Rollback(value = false) 
     public void resolveForRandomTest() {
-        Integer questionnairId = 58;
+        Integer questionnairId = 103;
         Questionnair questionnair = questionnairRepository.findOne(questionnairId);
-        QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.ENTERING);
+        QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.FORWARD);
     }
     @Test
     public void resolveForTest() {

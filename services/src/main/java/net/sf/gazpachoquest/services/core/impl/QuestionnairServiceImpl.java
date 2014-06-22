@@ -48,6 +48,8 @@ public class QuestionnairServiceImpl extends AbstractPersistenceService<Question
             
             for (Breadcrumb breadcrumb : questionnair.getBreadcrumbs()) {
                 if (!breadcrumb.isNew()) {
+                    int pos = existing.getBreadcrumbs().indexOf(breadcrumb);
+                    existing.getBreadcrumbs().get(pos).setLast(breadcrumb.isLast());
                     continue;
                 }
                 existing.addBreadcrumb(breadcrumb);
