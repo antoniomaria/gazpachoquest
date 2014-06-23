@@ -93,10 +93,10 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         if (BrowsingAction.ENTERING.equals(action)) {
             nextBreadcrumb = lastBreadcrumb;
         } else {
-            if (BrowsingAction.FORWARD.equals(action)) {
+            if (BrowsingAction.NEXT.equals(action)) {
                 nextBreadcrumb = findNextBreadcrumb(questionnairDefinitionId, questionnair, lastBreadcrumb,
                         lastBreadcrumbPosition);
-            } else {// BACKWARD
+            } else {// PREVIOUS
                 nextBreadcrumb = findPreviousBreadcrumb(questionnairDefinitionId, questionnair, lastBreadcrumb,
                         lastBreadcrumbPosition);
             }
@@ -117,8 +117,8 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         QuestionGroup questionGroup = QuestionGroup.with().language(refered.getLanguage())
                 .languageSettings(refered.getLanguageSettings()).build();
 
-        for (Question question : refered.getQuestions()) {
-            questionGroup.addQuestion(question);
+        for (QuestionBreadcrumb questionBreadcrumb : breadcrumb.getBreadcrumbs()) {
+            questionGroup.addQuestion(questionBreadcrumb.getQuestion());
         }
         return questionGroup;
     }
@@ -144,7 +144,7 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
             Collections.shuffle(questionGroups);
             for (QuestionGroup questionGroup : questionGroups) {
                 breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup)
-                        .build();
+                        .last(Boolean.FALSE).build();
                 breadcrumbs.add(breadcrumb);
             }
         } else {
@@ -165,7 +165,8 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
             List<Question> questions = findQuestions(questionGroup);
 
             for (Question question : questions) {
-                questionGroupBreadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).build());
+                questionGroupBreadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).last(Boolean.FALSE)
+                        .build());
             }
         }
     }
@@ -204,6 +205,7 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
                     questionnairDefinitionId, position + 1);
             // The respondent has reached the last question group
             if (next == null) {
+                logger.warn("Page out of range. Returning last page");
                 return null;
             }
             nextBreadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(next).build();
@@ -219,6 +221,7 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
             final Questionnair questionnair, final QuestionGroupBreadcrumb lastBreadcrumb,
             final Integer lastBreadcrumbPosition) {
         if (lastBreadcrumbPosition == INITIAL_POSITION) {
+            logger.warn("Page out of range. First page is returned.");
             return null;
         }
         Breadcrumb breadcrumb = breadcrumbRepository.findByQuestionnairIdAndPosition(questionnair.getId(),

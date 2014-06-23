@@ -167,11 +167,11 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
     public void buttonClick(ClickEvent event) {
         if (nextButton.equals(event.getButton())) {
             PageDTO page = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP,
-                    BrowsingAction.FORWARD);
+                    BrowsingAction.NEXT);
             update(page);
         } else {
             PageDTO page = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP,
-                    BrowsingAction.BACKWARD);
+                    BrowsingAction.PREVIOUS);
             update(page);
         }
 

@@ -53,6 +53,7 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
 
     public void addBreadcrumb(QuestionBreadcrumb breadcrumb) {
         breadcrumbs.add(breadcrumb);
+        breadcrumb.setParent(this);
     }
     
     public Boolean hasBreadcrumbs(){

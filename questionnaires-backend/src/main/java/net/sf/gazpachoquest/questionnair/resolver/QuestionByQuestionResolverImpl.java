@@ -85,9 +85,9 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
         if (BrowsingAction.ENTERING.equals(action)) {
             question = lastBrowsedQuestion.getQuestion();
         } else {
-            if (BrowsingAction.FORWARD.equals(action)) {
+            if (BrowsingAction.NEXT.equals(action)) {
                 question = findNextQuestion(questionnairDefinitionId, questionnair, lastBrowsedQuestion);
-            } else {// BACKWARD
+            } else {// PREVIOUS
                 question = findPreviousQuestion(questionnairDefinitionId, questionnair, lastBrowsedQuestion);
             }
             if (question != null) {

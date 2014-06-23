@@ -49,7 +49,10 @@ public class GroupByGroupResolverTest {
     public void resolveForRandomTest() {
         Integer questionnairId = 103;
         Questionnair questionnair = questionnairRepository.findOne(questionnairId);
-        QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.FORWARD);
+        QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.ENTERING);
+        for (Question question : questionGroup.getQuestions()) {
+            System.out.println(question);
+        }
     }
     @Test
     public void resolveForTest() {
@@ -60,7 +63,7 @@ public class GroupByGroupResolverTest {
         List<Question> questions = questionGroup.getQuestions();
         assertThat(questions).containsExactly(Question.with().id(12).build(), Question.with().id(13).build(),
                 Question.with().id(29).build());
-        questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.FORWARD);
+        questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.NEXT);
 
         questions = questionGroup.getQuestions();
         assertThat(questions).containsExactly(Question.with().id(30).build(), Question.with().id(31).build(),

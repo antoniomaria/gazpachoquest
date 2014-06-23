@@ -39,6 +39,14 @@ public class QuestionBreadcrumb extends Breadcrumb {
         this.question = question;
     }
 
+    public Breadcrumb getParent() {
+        return parent;
+    }
+
+    public void setParent(Breadcrumb parent) {
+        this.parent = parent;
+    }
+
     public static Builder with() {
         return new Builder();
     }

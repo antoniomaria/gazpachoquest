@@ -44,27 +44,27 @@ public class QuestionByQuestionResolverTest {
         Question question = (Question) resolver.resolveFor(respondent, BrowsingAction.ENTERING);
         assertThat(question.getLanguageSettings().getTitle()).contains("What is your name?");
 
-        question = (Question) resolver.resolveFor(respondent, BrowsingAction.FORWARD);
+        question = (Question) resolver.resolveFor(respondent, BrowsingAction.NEXT);
         assertThat(question.getLanguageSettings().getTitle()).contains("What is your age group?");
 
-        question = (Question) resolver.resolveFor(respondent, BrowsingAction.FORWARD);
+        question = (Question) resolver.resolveFor(respondent, BrowsingAction.NEXT);
 
         assertThat(question.getLanguageSettings().getTitle()).contains("And for our records,");
-        question = (Question) resolver.resolveFor(respondent, BrowsingAction.FORWARD);
+        question = (Question) resolver.resolveFor(respondent, BrowsingAction.NEXT);
 
-        question = (Question) resolver.resolveFor(respondent, BrowsingAction.FORWARD);
+        question = (Question) resolver.resolveFor(respondent, BrowsingAction.NEXT);
 
-        question = (Question) resolver.resolveFor(respondent, BrowsingAction.FORWARD);
+        question = (Question) resolver.resolveFor(respondent, BrowsingAction.NEXT);
 
-        question = (Question) resolver.resolveFor(respondent, BrowsingAction.FORWARD);
+        question = (Question) resolver.resolveFor(respondent, BrowsingAction.NEXT);
 
         assertThat(question.getLanguageSettings().getTitle()).contains("Please have a good look");
 
-        question = (Question) resolver.resolveFor(respondent, BrowsingAction.BACKWARD);
+        question = (Question) resolver.resolveFor(respondent, BrowsingAction.PREVIOUS);
 
         assertThat(question.getLanguageSettings().getTitle()).contains("Which of these ads make");
 
-        question = (Question) resolver.resolveFor(respondent, BrowsingAction.BACKWARD);
+        question = (Question) resolver.resolveFor(respondent, BrowsingAction.PREVIOUS);
 
         assertThat(question.getLanguageSettings().getTitle()).contains("Given your extraord");
     }

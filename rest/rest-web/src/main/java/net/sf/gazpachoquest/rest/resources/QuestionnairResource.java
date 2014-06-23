@@ -73,7 +73,7 @@ public class QuestionnairResource {
             @ApiParam(name = "mode", value = "Refers how many questions are returned by page.", required = true, defaultValue = "GROUP_BY_GROUP", allowableValues = "QUESTION_BY_QUESTION,GROUP_BY_GROUP", allowMultiple = true)
             @QueryParam("mode")
             String modeStr,
-            @ApiParam(name = "action", value = "Action fired for the respondent", required = true, defaultValue = "ENTERING", allowableValues = "FORWARD,BACKWARD,ENTERING", allowMultiple = true)
+            @ApiParam(name = "action", value = "Action fired for the respondent", required = true, defaultValue = "ENTERING", allowableValues = "NEXT,PREVIOUS,ENTERING", allowMultiple = true)
             @QueryParam("action")
             String actionStr) {
 

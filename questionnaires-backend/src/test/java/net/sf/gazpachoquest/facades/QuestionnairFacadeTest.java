@@ -78,12 +78,12 @@ public class QuestionnairFacadeTest {
         assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(12).build(),
                 QuestionDTO.with().id(13).build(), QuestionDTO.with().id(29).build());
 
-        page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP, BrowsingAction.FORWARD);
+        page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP, BrowsingAction.NEXT);
 
         assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(30).build(),
                 QuestionDTO.with().id(31).build(), QuestionDTO.with().id(35).build());
 
-        page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP, BrowsingAction.BACKWARD);
+        page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP, BrowsingAction.PREVIOUS);
 
         assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(12).build(),
                 QuestionDTO.with().id(13).build(), QuestionDTO.with().id(29).build());

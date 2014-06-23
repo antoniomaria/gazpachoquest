@@ -11,7 +11,7 @@
 package net.sf.gazpachoquest.types;
 
 public enum BrowsingAction {
-    FORWARD("FORWARD"), BACKWARD("BACKWARD"), ENTERING("ENTERING");
+    NEXT("NEXT"), PREVIOUS("PREVIOUS"), ENTERING("ENTERING");
 
     private final String value;
 
