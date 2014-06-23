@@ -127,6 +127,11 @@
   <mapping type="one-way" map-id="toDTOwithQuestionGroups">
     <class-a>net.sf.gazpachoquest.domain.core.QuestionnairDefinition</class-a>
     <class-b>net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO</class-b>
+    <field>
+      <a>questionGroups</a>
+      <b set-method="addQuestionGroup" type="iterate">questionGroups</b>
+      <b-hint>net.sf.gazpachoquest.dto.QuestionGroupDTO</b-hint>
+    </field>
   </mapping>
 
 </mappings>

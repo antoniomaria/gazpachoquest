@@ -14,9 +14,9 @@
   <logger name="org.springframework.orm.jpa.JpaTransactionManager" level="INFO" />
 
 
-  <logger name="net.sf.gazpachoquest" level="DEBUG" />
+  <logger name="net.sf.gazpachoquest" level="info" />
 
-  <logger name="org.springframework.data.auditing" level="DEBUG" />
+  <logger name="org.springframework.data.auditing" level="info" />
 
 
 

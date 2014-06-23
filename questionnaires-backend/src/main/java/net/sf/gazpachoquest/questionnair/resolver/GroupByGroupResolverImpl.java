@@ -63,7 +63,6 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
 
         List<Object[]> result = breadcrumbRepository.findLastAndPosition(questionnairId);
         Breadcrumb breadcrumb = null;
-        QuestionGroup questionGroup = null;
         QuestionGroupBreadcrumb lastBreadcrumb = null;
 
         List<QuestionGroupBreadcrumb> breadcrumbs = null;
@@ -86,29 +85,40 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
 
                 breadcrumbs = makeBreadcrumbs(questionnair);
                 leaveBreakcrumbs(questionnair, breadcrumbs);
-                return questionGroup;
+                lastBreadcrumb = breadcrumbs.get(0);
             }
         }
+        QuestionGroupBreadcrumb nextBreadcrumb = null;
 
         if (BrowsingAction.ENTERING.equals(action)) {
-            questionGroup = lastBreadcrumb.getQuestionGroup();
+            nextBreadcrumb = lastBreadcrumb;
         } else {
-            QuestionGroupBreadcrumb nextBreadcrumb = null;
             if (BrowsingAction.FORWARD.equals(action)) {
                 nextBreadcrumb = findNextBreadcrumb(questionnairDefinitionId, questionnair, lastBreadcrumb,
                         lastBreadcrumbPosition);
             } else {// BACKWARD
-                questionGroup = findPreviousQuestionGroup(questionnairDefinitionId, questionnair, lastBreadcrumb);
+                nextBreadcrumb = findPreviousBreadcrumb(questionnairDefinitionId, questionnair, lastBreadcrumb,
+                        lastBreadcrumbPosition);
             }
             // Prevent that questiongroups are still in range.
             if (nextBreadcrumb != null) {
                 lastBreadcrumb.setLast(Boolean.FALSE);
                 nextBreadcrumb.setLast(Boolean.TRUE);
                 leaveBreakcrumbs(questionnair, Arrays.asList(lastBreadcrumb, nextBreadcrumb));
-                questionGroup = nextBreadcrumb.getQuestionGroup();
             } else {
-                questionGroup = lastBreadcrumb.getQuestionGroup();
+                nextBreadcrumb = lastBreadcrumb;
             }
+        }
+        return extractFrom(nextBreadcrumb);
+    }
+
+    private QuestionGroup extractFrom(QuestionGroupBreadcrumb breadcrumb) {
+        QuestionGroup refered = breadcrumb.getQuestionGroup();
+        QuestionGroup questionGroup = QuestionGroup.with().language(refered.getLanguage())
+                .languageSettings(refered.getLanguageSettings()).build();
+
+        for (Question question : refered.getQuestions()) {
+            questionGroup.addQuestion(question);
         }
         return questionGroup;
     }
@@ -126,7 +136,6 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         QuestionnairDefinition questionnairDefinition = questionnair.getQuestionnairDefinition();
         Integer questionnairDefinitionId = questionnairDefinition.getId();
         Boolean groupsRandomizationEnabled = questionnairDefinition.isRandomizationEnabled();
-        List<Question> questions = null;
         if (groupsRandomizationEnabled) {
             List<QuestionGroup> questionGroups = questionGroupService.findByExample(
                     QuestionGroup.with()
@@ -144,24 +153,34 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
             breadcrumbs.add(breadcrumb);
         }
 
+        populatedQuestionsBreadcrumbs(breadcrumbs);
+        breadcrumbs.get(0).setLast(Boolean.TRUE);
+        return breadcrumbs;
+    }
+
+    private void populatedQuestionsBreadcrumbs(List<QuestionGroupBreadcrumb> breadcrumbs) {
         for (QuestionGroupBreadcrumb questionGroupBreadcrumb : breadcrumbs) {
             QuestionGroup questionGroup = questionGroupBreadcrumb.getQuestionGroup();
 
-            if (questionGroupBreadcrumb.getQuestionGroup().isRandomizationEnabled()) {
-                questions = questionService.findByExample(
-                        Question.with().questionGroup(QuestionGroup.with().id(questionGroup.getId()).build()).build(),
-                        new SearchParameters());
-                Collections.shuffle(questions);
-            } else {
-                questions = questionService.findByQuestionGroupId(questionGroupBreadcrumb.getId());
-            }
+            List<Question> questions = findQuestions(questionGroup);
 
             for (Question question : questions) {
-                breadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).build());
+                questionGroupBreadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).build());
             }
         }
-        breadcrumbs.get(0).setLast(Boolean.TRUE);
-        return breadcrumbs;
+    }
+
+    private List<Question> findQuestions(QuestionGroup questionGroup) {
+        List<Question> questions;
+        if (questionGroup.isRandomizationEnabled()) {
+            questions = questionService.findByExample(
+                    Question.with().questionGroup(QuestionGroup.with().id(questionGroup.getId()).build()).build(),
+                    new SearchParameters());
+            Collections.shuffle(questions);
+        } else {
+            questions = questionService.findByQuestionGroupId(questionGroup.getId());
+        }
+        return questions;
     }
 
     private QuestionGroup findFirstQuestionGroup(int questionnairDefinitionId) {
@@ -173,75 +192,42 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
             final Questionnair questionnair, final QuestionGroupBreadcrumb lastBreadcrumb,
             final Integer lastBreadcrumbPosition) {
 
-        Breadcrumb nextBrowsedElement = breadcrumbRepository.findByQuestionnairIdAndPosition(questionnair.getId(),
+        Breadcrumb breadcrumb = breadcrumbRepository.findByQuestionnairIdAndPosition(questionnair.getId(),
                 lastBreadcrumbPosition + 1);
 
-        QuestionGroupBreadcrumb nextBrowsedQuestionGroup = null;
+        QuestionGroupBreadcrumb nextBreadcrumb = null;
 
-        if (nextBrowsedElement == null) {
+        if (breadcrumb == null) {
             Integer position = questionGroupService.positionInQuestionnairDefinition(lastBreadcrumb.getQuestionGroup()
                     .getId());
             QuestionGroup next = questionGroupService.findOneByPositionInQuestionnairDefinition(
                     questionnairDefinitionId, position + 1);
-            if (next == null) { // The respondent has reached the last question group
+            // The respondent has reached the last question group
+            if (next == null) {
                 return null;
             }
-            // Mark next element as last browsed.
-            nextBrowsedQuestionGroup = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(next)
-                    .build();
+            nextBreadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(next).build();
+            populatedQuestionsBreadcrumbs(Arrays.asList(nextBreadcrumb));
         } else {
-            Assert.isInstanceOf(QuestionGroupBreadcrumb.class, nextBrowsedElement);
-            nextBrowsedQuestionGroup = (QuestionGroupBreadcrumb) nextBrowsedElement;
-            // next = nextBrowsedQuestionGroup.getQuestionGroup();
-            // nextBrowsedQuestionGroup.setLast(Boolean.TRUE);
+            Assert.isInstanceOf(QuestionGroupBreadcrumb.class, breadcrumb);
+            nextBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
         }
-        // breadcrumbRepository.save(nextBrowsedQuestionGroup);
-        return nextBrowsedQuestionGroup;
+        return nextBreadcrumb;
     }
 
-    private QuestionGroup findNextQuestionGroup(final Integer questionnairDefinitionId,
-            final Questionnair questionnair, final QuestionGroupBreadcrumb lastBrowsedElement) {
-
-        Breadcrumb nextBrowsedElement = breadcrumbRepository.findNext(questionnair.getId(),
-                lastBrowsedElement.getCreatedDate());
-
-        QuestionGroupBreadcrumb nextBrowsedQuestionGroup = null;
-        QuestionGroup next = null;
-
-        if (nextBrowsedElement == null) {
-            Integer position = questionGroupService.positionInQuestionnairDefinition(lastBrowsedElement
-                    .getQuestionGroup().getId());
-            next = questionGroupService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId,
-                    position + 1);
-            if (next == null) { // The respondent has reached the last question
-                                // group
-                return next;
-            }
-            // Mark next element as last browsed.
-            nextBrowsedQuestionGroup = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(next)
-                    .last(Boolean.TRUE).build();
-        } else {
-            Assert.isInstanceOf(QuestionGroupBreadcrumb.class, nextBrowsedElement);
-            nextBrowsedQuestionGroup = (QuestionGroupBreadcrumb) nextBrowsedElement;
-            next = nextBrowsedQuestionGroup.getQuestionGroup();
-            nextBrowsedQuestionGroup.setLast(Boolean.TRUE);
-        }
-        breadcrumbRepository.save(nextBrowsedQuestionGroup);
-        return next;
-    }
-
-    private QuestionGroup findPreviousQuestionGroup(final int questionnairDefinitionId,
-            final Questionnair questionnair, final QuestionGroupBreadcrumb lastBreadcrumb) {
-        Breadcrumb previousBreadcrumb = breadcrumbRepository.findPrevious(questionnair.getId(),
-                lastBreadcrumb.getCreatedDate());
-        if (previousBreadcrumb == null) {
+    private QuestionGroupBreadcrumb findPreviousBreadcrumb(final Integer questionnairDefinitionId,
+            final Questionnair questionnair, final QuestionGroupBreadcrumb lastBreadcrumb,
+            final Integer lastBreadcrumbPosition) {
+        if (lastBreadcrumbPosition == INITIAL_POSITION) {
             return null;
         }
-        Assert.isInstanceOf(QuestionGroupBreadcrumb.class, previousBreadcrumb);
+        Breadcrumb breadcrumb = breadcrumbRepository.findByQuestionnairIdAndPosition(questionnair.getId(),
+                lastBreadcrumbPosition - 1);
 
-        QuestionGroupBreadcrumb previousBrowsedQuestionGroup = (QuestionGroupBreadcrumb) previousBreadcrumb;
-        previousBrowsedQuestionGroup.setLast(Boolean.TRUE);
-        breadcrumbRepository.save(previousBrowsedQuestionGroup);
-        return previousBrowsedQuestionGroup.getQuestionGroup();
+        Assert.isInstanceOf(QuestionGroupBreadcrumb.class, breadcrumb);
+
+        QuestionGroupBreadcrumb previousBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
+        return previousBreadcrumb;
     }
+
 }
