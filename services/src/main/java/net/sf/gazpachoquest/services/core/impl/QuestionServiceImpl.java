@@ -59,12 +59,12 @@ public class QuestionServiceImpl extends
     public Integer findPositionInQuestionGroup(final Integer questionId) {
         return ((QuestionRepository) repository).findPositionInQuestionGroup(questionId);
     }
-    
+
     @Override
-    public List<Question> findByQuestionGroupId(Integer questionGroupId){
+    public List<Question> findByQuestionGroupId(Integer questionGroupId) {
         return ((QuestionRepository) repository).findByQuestionGroupId(questionGroupId);
     }
-    
+
     @Override
     @Transactional(readOnly = false)
     public Question save(final Question question) {

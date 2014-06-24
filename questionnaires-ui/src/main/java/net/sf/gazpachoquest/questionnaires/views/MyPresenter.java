@@ -9,12 +9,12 @@ import org.vaadin.addon.cdimvp.AbstractMVPPresenter.ViewInterface;
 @ViewInterface(MyView.class)
 public class MyPresenter extends AbstractMVPPresenter<MyView> {
 
-	private static Logger logger = LoggerFactory.getLogger(MyPresenter.class);
+    private static Logger logger = LoggerFactory.getLogger(MyPresenter.class);
 
-	@Override
-	public void viewEntered() {
-		logger.debug("viewEntered");
+    @Override
+    public void viewEntered() {
+        logger.debug("viewEntered");
 
-	}
+    }
 
 }

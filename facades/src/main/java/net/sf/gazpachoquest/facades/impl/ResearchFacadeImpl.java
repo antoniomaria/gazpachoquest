@@ -54,7 +54,8 @@ public class ResearchFacadeImpl implements ResearchFacade {
 
         Set<QuestionnairDefinition> questionnairDefinitions = new HashSet<QuestionnairDefinition>();
         for (QuestionnairDefinitionDTO questionnairDefinitionDTO : research.getQuestionnairDefinitions()) {
-            QuestionnairDefinition questionnairDefinition = mapper.map(questionnairDefinitionDTO, QuestionnairDefinition.class);
+            QuestionnairDefinition questionnairDefinition = mapper.map(questionnairDefinitionDTO,
+                    QuestionnairDefinition.class);
             questionnairDefinitions.add(questionnairDefinition);
         }
         entity = researchService.save(entity, questionnairDefinitions, respondents);

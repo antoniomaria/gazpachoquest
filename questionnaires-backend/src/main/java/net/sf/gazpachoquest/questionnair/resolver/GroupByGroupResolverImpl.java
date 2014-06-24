@@ -26,8 +26,10 @@ import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.BreadcrumbRepository;
 import net.sf.gazpachoquest.repository.QuestionGroupRepository;
 import net.sf.gazpachoquest.services.QuestionService;
+import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
 import net.sf.gazpachoquest.services.QuestionnairService;
-import net.sf.gazpachoquest.types.BrowsingAction;
+import net.sf.gazpachoquest.types.NavigationAction;
+import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,8 +56,11 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
     @Autowired
     private QuestionnairService questionnairService;
 
+    @Autowired
+    private QuestionnairDefinitionService questionnairDefinitionService;
+
     @Override
-    public QuestionGroup resolveFor(final Questionnair questionnair, final BrowsingAction action) {
+    public QuestionGroup resolveFor(final Questionnair questionnair, final NavigationAction action) {
         QuestionnairDefinition questionnairDefinition = questionnair.getQuestionnairDefinition();
         int questionnairDefinitionId = questionnairDefinition.getId();
         int questionnairId = questionnair.getId();
@@ -90,10 +95,10 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         }
         QuestionGroupBreadcrumb nextBreadcrumb = null;
 
-        if (BrowsingAction.ENTERING.equals(action)) {
+        if (NavigationAction.ENTERING.equals(action)) {
             nextBreadcrumb = lastBreadcrumb;
         } else {
-            if (BrowsingAction.NEXT.equals(action)) {
+            if (NavigationAction.NEXT.equals(action)) {
                 nextBreadcrumb = findNextBreadcrumb(questionnairDefinitionId, questionnair, lastBreadcrumb,
                         lastBreadcrumbPosition);
             } else {// PREVIOUS
@@ -135,8 +140,8 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         QuestionGroupBreadcrumb breadcrumb = null;
         QuestionnairDefinition questionnairDefinition = questionnair.getQuestionnairDefinition();
         Integer questionnairDefinitionId = questionnairDefinition.getId();
-        Boolean groupsRandomizationEnabled = questionnairDefinition.isRandomizationEnabled();
-        if (groupsRandomizationEnabled) {
+        RandomizationStrategy randomizationStrategy = questionnairDefinition.getRandomizationStrategy();
+        if (RandomizationStrategy.GROUPS_RANDOMIZATION.equals(randomizationStrategy)) {
             List<QuestionGroup> questionGroups = questionGroupService.findByExample(
                     QuestionGroup.with()
                             .questionnairDefinition(QuestionnairDefinition.with().id(questionnairDefinitionId).build())
@@ -147,6 +152,19 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
                         .last(Boolean.FALSE).build();
                 breadcrumbs.add(breadcrumb);
             }
+        } else if (RandomizationStrategy.QUESTIONS_RANDOMIZATION.equals(randomizationStrategy)) {
+            List<Question> questions = questionnairDefinitionService.getQuestions(questionnairDefinitionId);
+            Collections.shuffle(questions);
+            Integer questionPerPage = questionnairDefinition.getQuestionsPerPage();
+            int pageIdx = 0;
+            for (Question question : questions) {
+                if (pageIdx % questionPerPage == 0) {
+                    breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE).build();
+                    breadcrumbs.add(breadcrumb);
+                }
+                pageIdx++;
+            }
+
         } else {
             QuestionGroup questionGroup = findFirstQuestionGroup(questionnairDefinitionId);
             breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup).build();

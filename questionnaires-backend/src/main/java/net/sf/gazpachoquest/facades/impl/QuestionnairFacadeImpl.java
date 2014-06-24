@@ -32,7 +32,7 @@ import net.sf.gazpachoquest.questionnair.support.PageMetadataCreator;
 import net.sf.gazpachoquest.services.QuestionnairAnswersService;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
 import net.sf.gazpachoquest.services.QuestionnairService;
-import net.sf.gazpachoquest.types.BrowsingAction;
+import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.RenderingMode;
 
@@ -95,7 +95,7 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
 
     @Transactional
     @Override
-    public PageDTO resolvePage(Integer questionnairId, RenderingMode mode, BrowsingAction action) {
+    public PageDTO resolvePage(Integer questionnairId, RenderingMode mode, NavigationAction action) {
         Questionnair questionnair = questionnairService.findOne(questionnairId);
         QuestionnairElementResolver resolver = resolverSelector.selectBy(mode);
         QuestionnairElement questionnairElement = resolver.resolveFor(questionnair, action);

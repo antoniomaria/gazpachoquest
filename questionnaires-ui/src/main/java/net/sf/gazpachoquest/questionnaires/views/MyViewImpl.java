@@ -17,34 +17,35 @@ import com.vaadin.ui.VerticalLayout;
 @CDIView("myview")
 @UIScopedStereotype
 public class MyViewImpl extends AbstractMVPView implements MyView, View {
-	
-	@Inject
-	@LabelProperties(caption = "Hello World!")
-	private Label label;
 
-	@PostConstruct
-	protected void initView() {
-		setSizeFull();
+    @Inject
+    @LabelProperties(caption = "Hello World!")
+    private Label label;
 
-		final VerticalLayout mainLayout = new VerticalLayout();
-		setCompositionRoot(mainLayout);
-		mainLayout.setSizeFull();
+    @PostConstruct
+    protected void initView() {
+        setSizeFull();
 
-		mainLayout.addComponent(label);
+        final VerticalLayout mainLayout = new VerticalLayout();
+        setCompositionRoot(mainLayout);
+        mainLayout.setSizeFull();
 
-	}
-	/*-
-	 setSizeFull();
+        mainLayout.addComponent(label);
 
-	 final VerticalLayout mainLayout = new VerticalLayout();
-	 setCompositionRoot(mainLayout);
-	 mainLayout.setSizeFull();
+    }
 
-	 mainLayout.addComponent(toolbar.get());*/
+    /*-
+     setSizeFull();
 
-	@Override
-	public void enter(ViewChangeEvent event) {
-		super.enter();
-	}
+     final VerticalLayout mainLayout = new VerticalLayout();
+     setCompositionRoot(mainLayout);
+     mainLayout.setSizeFull();
+
+     mainLayout.addComponent(toolbar.get());*/
+
+    @Override
+    public void enter(ViewChangeEvent event) {
+        super.enter();
+    }
 
 }

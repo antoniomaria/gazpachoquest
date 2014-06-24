@@ -20,6 +20,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -33,9 +34,11 @@ import javax.persistence.OrderColumn;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation;
 import net.sf.gazpachoquest.domain.support.AbstractLocalizable;
+import net.sf.gazpachoquest.jpa.converter.RandomizationStrategyConverter;
 import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
+import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 @Entity
 public class QuestionnairDefinition extends
@@ -76,7 +79,10 @@ public class QuestionnairDefinition extends
 
     private Boolean questionGroupInfoVisible;
 
-    private Boolean randomizationEnabled;
+    @Convert(converter = RandomizationStrategyConverter.class)
+    private RandomizationStrategy randomizationStrategy;
+
+    private Integer questionsPerPage;
 
     public QuestionnairDefinition() {
         super();
@@ -157,12 +163,20 @@ public class QuestionnairDefinition extends
         this.questionGroupInfoVisible = questionGroupInfoVisible;
     }
 
-    public Boolean isRandomizationEnabled() {
-        return randomizationEnabled;
+    public RandomizationStrategy getRandomizationStrategy() {
+        return randomizationStrategy;
     }
 
-    public void setRandomizationEnabled(Boolean randomizationEnabled) {
-        this.randomizationEnabled = randomizationEnabled;
+    public void setRandomizationStrategy(RandomizationStrategy randomizationStrategy) {
+        this.randomizationStrategy = randomizationStrategy;
+    }
+
+    public Integer getQuestionsPerPage() {
+        return questionsPerPage;
+    }
+
+    public void setQuestionsPerPage(Integer questionsPerPage) {
+        this.questionsPerPage = questionsPerPage;
     }
 
     public static Builder with() {
@@ -177,7 +191,8 @@ public class QuestionnairDefinition extends
         private Boolean welcomeVisible;
         private Boolean progressVisible;
         private Boolean questionGroupInfoVisible;
-        private Boolean randomizationEnabled;
+        private RandomizationStrategy randomizationStrategy = RandomizationStrategy.NONE;
+        private Integer questionsPerPage;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -186,6 +201,11 @@ public class QuestionnairDefinition extends
 
         public Builder status(EntityStatus status) {
             this.status = status;
+            return this;
+        }
+
+        public Builder questionsPerPage(Integer questionsPerPage) {
+            this.questionsPerPage = questionsPerPage;
             return this;
         }
 
@@ -209,8 +229,8 @@ public class QuestionnairDefinition extends
             return this;
         }
 
-        public Builder randomizationEnabled(Boolean randomizationEnabled) {
-            this.randomizationEnabled = randomizationEnabled;
+        public Builder randomizationStrategy(RandomizationStrategy randomizationStrategy) {
+            this.randomizationStrategy = randomizationStrategy;
             return this;
         }
 
@@ -228,7 +248,8 @@ public class QuestionnairDefinition extends
             questionnairDefinition.welcomeVisible = welcomeVisible;
             questionnairDefinition.progressVisible = progressVisible;
             questionnairDefinition.questionGroupInfoVisible = questionGroupInfoVisible;
-            questionnairDefinition.randomizationEnabled = randomizationEnabled;
+            questionnairDefinition.randomizationStrategy = randomizationStrategy;
+            questionnairDefinition.questionsPerPage = questionsPerPage;
             return questionnairDefinition;
         }
     }

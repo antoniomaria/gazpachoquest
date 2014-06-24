@@ -12,7 +12,6 @@
 
   <context:property-placeholder location="classpath:/database/postgres.properties" />
 
-
   <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
     <property name="driverClass" value="${jdbc.driver.class}" />
     <property name="jdbcUrl" value="${jdbc.url}" />

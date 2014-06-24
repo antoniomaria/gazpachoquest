@@ -13,7 +13,7 @@ import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachoquest.services.QuestionnairAnswersService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
-import net.sf.gazpachoquest.types.BrowsingAction;
+import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.junit.After;
@@ -73,17 +73,17 @@ public class QuestionnairFacadeTest {
     public void resolvePageTest() {
         Integer questionnairId = 70;
         PageDTO page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP,
-                BrowsingAction.ENTERING);
+                NavigationAction.ENTERING);
 
         assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(12).build(),
                 QuestionDTO.with().id(13).build(), QuestionDTO.with().id(29).build());
 
-        page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP, BrowsingAction.NEXT);
+        page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP, NavigationAction.NEXT);
 
         assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(30).build(),
                 QuestionDTO.with().id(31).build(), QuestionDTO.with().id(35).build());
 
-        page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP, BrowsingAction.PREVIOUS);
+        page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP, NavigationAction.PREVIOUS);
 
         assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(12).build(),
                 QuestionDTO.with().id(13).build(), QuestionDTO.with().id(29).build());
@@ -96,7 +96,7 @@ public class QuestionnairFacadeTest {
         String questionCode = "Q1";
         questionnairAnswersService.save(questionnair, questionCode, answer);
         PageDTO page = questionnairFacade.resolvePage(questionnair.getId(), RenderingMode.QUESTION_BY_QUESTION,
-                BrowsingAction.ENTERING);
+                NavigationAction.ENTERING);
 
         assertThat(page.getQuestions()).isNotEmpty();
         QuestionDTO questionDTO = page.getQuestions().get(0);

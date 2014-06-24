@@ -20,24 +20,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class PermissionServiceImpl extends
-		AbstractPersistenceService<Permission> implements PermissionService {
+public class PermissionServiceImpl extends AbstractPersistenceService<Permission> implements PermissionService {
 
-	@Autowired
-	public PermissionServiceImpl(final PermissionRepository repository) {
-		super(repository);
-	}
+    @Autowired
+    public PermissionServiceImpl(final PermissionRepository repository) {
+        super(repository);
+    }
 
-	@Override
-	@Transactional(readOnly = false)
-	public Permission save(final Permission permission) {
-		Permission existing = null;
-		if (permission.isNew()) {
-			existing = repository.save(permission);
-		} else {
-			existing = repository.findOne(permission.getId());
-			existing.setMask(permission.getMask());
-		}
-		return existing;
-	}
+    @Override
+    @Transactional(readOnly = false)
+    public Permission save(final Permission permission) {
+        Permission existing = null;
+        if (permission.isNew()) {
+            existing = repository.save(permission);
+        } else {
+            existing = repository.findOne(permission.getId());
+            existing.setMask(permission.getMask());
+        }
+        return existing;
+    }
 }

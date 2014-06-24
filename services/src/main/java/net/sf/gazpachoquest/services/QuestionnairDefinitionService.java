@@ -12,6 +12,7 @@ package net.sf.gazpachoquest.services;
 
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation;
@@ -40,5 +41,7 @@ public interface QuestionnairDefinitionService
      * @return
      */
     List<Object[]> questionsCountGroupByQuestionGroups(Integer questionnairDefinitionId);
+
+    List<Question> getQuestions(Integer questionnairDefinitionId);
 
 }

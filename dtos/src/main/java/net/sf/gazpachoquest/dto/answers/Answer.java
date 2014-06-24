@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = BooleanAnswer.class, name = "B"),
         @JsonSubTypes.Type(value = MultipleAnswer.class, name = "M"),
         @JsonSubTypes.Type(value = LongTextAnswer.class, name = "L"),
-        @JsonSubTypes.Type(value = NoAnswer.class, name = "NULL")})
+        @JsonSubTypes.Type(value = NoAnswer.class, name = "NULL") })
 public interface Answer extends Serializable {
     Object getValue();
 }

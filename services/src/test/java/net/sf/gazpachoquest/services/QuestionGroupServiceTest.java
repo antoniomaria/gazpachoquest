@@ -17,24 +17,21 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
-		"classpath:/datasource-test-context.xml",
-		"classpath:/services-context.xml", "classpath:/components-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-		DbUnitTestExecutionListener.class })
+@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
+        "classpath:/services-context.xml", "classpath:/components-context.xml" })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionGroupService-dataset.xml")
-
 @DatabaseTearDown("QuestionGroupService-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class QuestionGroupServiceTest {
 
-	@Autowired
-	private QuestionGroupService questionGroupService;
+    @Autowired
+    private QuestionGroupService questionGroupService;
 
-	@Test
-	public void questionsCountTest() {
-		Integer questionGroupId = 9;
-		long count = questionGroupService.questionsCount(questionGroupId);
-		assertThat(count).isEqualTo(3);
-	}
+    @Test
+    public void questionsCountTest() {
+        Integer questionGroupId = 9;
+        long count = questionGroupService.questionsCount(questionGroupId);
+        assertThat(count).isEqualTo(3);
+    }
 }

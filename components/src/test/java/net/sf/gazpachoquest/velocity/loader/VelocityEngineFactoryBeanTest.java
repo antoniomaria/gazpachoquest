@@ -23,8 +23,7 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
         "classpath:/components-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, 
-        DbUnitTestExecutionListener.class })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("VelocityEngineFactoryBean-dataset.xml")
 @DatabaseTearDown("VelocityEngineFactoryBean-dataset.xml")
 public class VelocityEngineFactoryBeanTest {

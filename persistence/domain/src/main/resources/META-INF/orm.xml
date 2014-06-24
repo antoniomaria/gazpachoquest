@@ -12,4 +12,5 @@
   </persistence-unit-metadata>
   <converter class="net.sf.gazpachoquest.jpa.converter.DateTimeConverter" />
   <converter class="net.sf.gazpachoquest.jpa.converter.EntityTypeConverter" />
+  <converter class="net.sf.gazpachoquest.jpa.converter.RandomizationStrategyConverter" />
 </entity-mappings>

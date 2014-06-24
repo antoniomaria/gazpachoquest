@@ -24,5 +24,5 @@ public interface UserService extends PersistenceService<User> {
 
     List<Group> getGroups(Integer userId);
 
-	Set<Role> getRoles(Integer id);
+    Set<Role> getRoles(Integer id);
 }

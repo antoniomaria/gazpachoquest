@@ -10,12 +10,12 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.types;
 
-public enum BrowsingAction {
+public enum NavigationAction {
     NEXT("NEXT"), PREVIOUS("PREVIOUS"), ENTERING("ENTERING");
 
     private final String value;
 
-    BrowsingAction(String value) {
+    NavigationAction(String value) {
         this.value = value;
     }
 
@@ -23,8 +23,8 @@ public enum BrowsingAction {
         return value;
     }
 
-    public static BrowsingAction fromString(String value) {
-        for (BrowsingAction c : BrowsingAction.values()) {
+    public static NavigationAction fromString(String value) {
+        for (NavigationAction c : NavigationAction.values()) {
             if (c.value.equals(value)) {
                 return c;
             }

@@ -55,8 +55,8 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
         breadcrumbs.add(breadcrumb);
         breadcrumb.setParent(this);
     }
-    
-    public Boolean hasBreadcrumbs(){
+
+    public Boolean hasBreadcrumbs() {
         return !breadcrumbs.isEmpty();
     }
 

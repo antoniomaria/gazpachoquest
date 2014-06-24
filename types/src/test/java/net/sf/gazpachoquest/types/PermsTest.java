@@ -6,12 +6,11 @@ import org.junit.Test;
 
 public class PermsTest {
 
-	@Test
-	public void getLiteralTest() {
-		System.out.println("eho");
-		String literal = Perm.getLiteral(Perm.READ.getMask()
-				+ Perm.UPDATE.getMask() + Perm.DELETE.getMask());
-		assertThat(literal).isEqualTo("read,update,delete");
-	}
+    @Test
+    public void getLiteralTest() {
+        System.out.println("eho");
+        String literal = Perm.getLiteral(Perm.READ.getMask() + Perm.UPDATE.getMask() + Perm.DELETE.getMask());
+        assertThat(literal).isEqualTo("read,update,delete");
+    }
 
 }

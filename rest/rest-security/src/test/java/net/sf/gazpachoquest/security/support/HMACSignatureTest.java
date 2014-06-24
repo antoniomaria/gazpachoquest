@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class HMACSignatureTest {
     @Test
-    public void calculateRFC2104HMACTest() throws SignatureException{
+    public void calculateRFC2104HMACTest() throws SignatureException {
         String date = "Tue, 13 May 2014 20:10:38 +0200";
 
         String resource = "/questionnairs/58";
@@ -20,9 +20,9 @@ public class HMACSignatureTest {
         String apiKey = "PKCC00D3YH83KEP";
         String secret = "L0LTMJ1XAMEY13FT27MWZMQX1LWK8I1L";
         String signature = HMACSignature.calculateRFC2104HMAC(stringToSign, secret);
-       assertThat(signature).isEqualTo("KddAO6eohOuFsko10gQ7cZjx/dI=");
+        assertThat(signature).isEqualTo("KddAO6eohOuFsko10gQ7cZjx/dI=");
         System.out.println(date);
         System.out.println(signature);
-        
+
     }
 }

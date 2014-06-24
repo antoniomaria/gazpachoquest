@@ -157,8 +157,8 @@ public class User extends AbstractAuditable {
         roles.add(role);
         role.addUser(this);
     }
-    
-    public void addGroup(Group group){
+
+    public void addGroup(Group group) {
         groups.add(group);
     }
 

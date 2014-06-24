@@ -23,7 +23,7 @@ import net.sf.gazpachoquest.repository.BreadcrumbRepository;
 import net.sf.gazpachoquest.repository.QuestionGroupRepository;
 import net.sf.gazpachoquest.repository.QuestionRepository;
 import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
-import net.sf.gazpachoquest.types.BrowsingAction;
+import net.sf.gazpachoquest.types.NavigationAction;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +50,7 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
     private QuestionnairDefinitionRepository surveyRepository;
 
     @Override
-    public Question resolveFor(final Questionnair questionnair, final BrowsingAction action) {
+    public Question resolveFor(final Questionnair questionnair, final NavigationAction action) {
         QuestionnairDefinition questionnairDefinition = questionnair.getQuestionnairDefinition();
         int questionnairDefinitionId = questionnairDefinition.getId();
         int questionnairId = questionnair.getId();
@@ -61,7 +61,7 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
         Question question = null;
 
         if (breadcrumb == null) { // First time entering the
-                                      // questionnairDefinition
+                                  // questionnairDefinition
             question = findFirstQuestion(questionnairDefinitionId);
             lastBrowsedQuestion = QuestionBreadcrumb.with().questionnair(questionnair).question(question)
                     .last(Boolean.TRUE).build();
@@ -71,8 +71,9 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
             if (breadcrumb instanceof QuestionBreadcrumb) {
                 lastBrowsedQuestion = (QuestionBreadcrumb) breadcrumb;
             } else {
-                List<Breadcrumb> breadcrumbs = browsedElementService.findByExample(Breadcrumb.withProps()
-                        .questionnair(Questionnair.with().id(questionnairId).build()).build(), new SearchParameters());
+                List<Breadcrumb> breadcrumbs = browsedElementService.findByExample(
+                        Breadcrumb.withProps().questionnair(Questionnair.with().id(questionnairId).build()).build(),
+                        new SearchParameters());
                 browsedElementService.deleteInBatch(breadcrumbs);
 
                 question = findFirstQuestion(questionnairDefinitionId);
@@ -82,10 +83,10 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
             }
         }
 
-        if (BrowsingAction.ENTERING.equals(action)) {
+        if (NavigationAction.ENTERING.equals(action)) {
             question = lastBrowsedQuestion.getQuestion();
         } else {
-            if (BrowsingAction.NEXT.equals(action)) {
+            if (NavigationAction.NEXT.equals(action)) {
                 question = findNextQuestion(questionnairDefinitionId, questionnair, lastBrowsedQuestion);
             } else {// PREVIOUS
                 question = findPreviousQuestion(questionnairDefinitionId, questionnair, lastBrowsedQuestion);
@@ -123,8 +124,8 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
             if (position < questionsCount - 1) { // Not last in group
                 next = questionService.findOneByPositionInQuestionGroup(lastQuestionGroup.getId(), position + 1);
             } else {
-                Integer questionGroupPosition = questionGroupService
-                        .positionInQuestionnairDefinition(lastQuestionGroup.getId());
+                Integer questionGroupPosition = questionGroupService.positionInQuestionnairDefinition(lastQuestionGroup
+                        .getId());
                 QuestionGroup nextQuestionGroup = questionGroupService.findOneByPositionInQuestionnairDefinition(
                         surveyId, questionGroupPosition + 1);
 

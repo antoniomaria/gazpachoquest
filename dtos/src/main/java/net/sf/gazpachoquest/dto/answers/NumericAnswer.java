@@ -38,9 +38,9 @@ public class NumericAnswer extends SimpleAnswer {
         return new NumericAnswer(value);
     }
 
-	@Override
-	public String toString() {
-		return "NumericAnswer [value=" + value + "]";
-	}
+    @Override
+    public String toString() {
+        return "NumericAnswer [value=" + value + "]";
+    }
 
 }

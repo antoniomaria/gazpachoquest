@@ -1,5 +1,5 @@
 package net.sf.gazpachoquest.types;
 
 public enum RoleScope {
-	USER, GROUP, GENERAL;
+    USER, GROUP, GENERAL;
 }

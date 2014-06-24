@@ -9,7 +9,7 @@ import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
-import net.sf.gazpachoquest.types.BrowsingAction;
+import net.sf.gazpachoquest.types.NavigationAction;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,9 +28,11 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/postgres-properties-loader-context.xml", "classpath:/jpa-context.xml", "classpath:/datasource-context.xml",
-        "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnair-context.xml" })
-// @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+@ContextConfiguration(locations = { "classpath:/postgres-properties-loader-context.xml", "classpath:/jpa-context.xml",
+        "classpath:/datasource-context.xml", "classpath:/services-context.xml", "classpath:/components-context.xml",
+        "classpath:/questionnair-context.xml" })
+// @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+// DbUnitTestExecutionListener.class })
 @DatabaseSetup("GroupByGroupResolver-dataset.xml")
 @DatabaseTearDown("GroupByGroupResolver-dataset.xml")
 @ActiveProfiles(profiles = { "standalone", "postgres" })
@@ -45,25 +47,26 @@ public class GroupByGroupResolverTest {
     private QuestionnairElementResolver resolver;
 
     @Test
-    @Rollback(value = false) 
+    @Rollback(value = false)
     public void resolveForRandomTest() {
         Integer questionnairId = 103;
         Questionnair questionnair = questionnairRepository.findOne(questionnairId);
-        QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.ENTERING);
+        QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, NavigationAction.ENTERING);
         for (Question question : questionGroup.getQuestions()) {
             System.out.println(question);
         }
     }
+
     @Test
     public void resolveForTest() {
         Integer questionnairId = 58;
         Questionnair questionnair = questionnairRepository.findOne(questionnairId);
-        QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.ENTERING);
+        QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, NavigationAction.ENTERING);
 
         List<Question> questions = questionGroup.getQuestions();
         assertThat(questions).containsExactly(Question.with().id(12).build(), Question.with().id(13).build(),
                 Question.with().id(29).build());
-        questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, BrowsingAction.NEXT);
+        questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, NavigationAction.NEXT);
 
         questions = questionGroup.getQuestions();
         assertThat(questions).containsExactly(Question.with().id(30).build(), Question.with().id(31).build(),

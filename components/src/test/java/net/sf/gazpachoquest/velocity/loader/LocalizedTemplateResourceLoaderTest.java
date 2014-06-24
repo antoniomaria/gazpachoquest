@@ -17,25 +17,23 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
-		"classpath:/datasource-test-context.xml",
-		"classpath:/components-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-		DbUnitTestExecutionListener.class })
+@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
+        "classpath:/components-context.xml" })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("LocalizedTemplateResourceLoader-dataset.xml")
 @DatabaseTearDown("LocalizedTemplateResourceLoader-dataset.xml")
 public class LocalizedTemplateResourceLoaderTest {
 
-	@Autowired
-	private LocalizedTemplateResourceLoader templateloader;
+    @Autowired
+    private LocalizedTemplateResourceLoader templateloader;
 
-	@Test
-	public void getResourceStreamTest() {
-		InputStream template = templateloader.getResourceStream("55");
-		assertThat(template).isNotNull();
+    @Test
+    public void getResourceStreamTest() {
+        InputStream template = templateloader.getResourceStream("55");
+        assertThat(template).isNotNull();
 
-		template = templateloader.getResourceStream("55/ES");
-		assertThat(template).isNotNull();
-	}
+        template = templateloader.getResourceStream("55/ES");
+        assertThat(template).isNotNull();
+    }
 
 }

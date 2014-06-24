@@ -65,8 +65,8 @@ public class Role extends AbstractPersistable {
         permissions.add(permission);
         permission.setRole(this);
     }
-    
-    public void addUser(User user){
+
+    public void addUser(User user) {
         this.users.add(user);
     }
 

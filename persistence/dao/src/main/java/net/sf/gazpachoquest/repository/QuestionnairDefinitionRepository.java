@@ -12,6 +12,7 @@ package net.sf.gazpachoquest.repository;
 
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.repository.support.GenericRepository;
 
@@ -39,6 +40,10 @@ public interface QuestionnairDefinitionRepository extends GenericRepository<Ques
 
     @Query("select count(q) from QuestionnairDefinition qd left join qd.questionGroups qg left join qg.questions q where qd.id = :questionnairDefinitionId")
     Integer questionsCount(@Param("questionnairDefinitionId")
+    Integer questionnairDefinitionId);
+
+    @Query("select q from QuestionnairDefinition qd left join qd.questionGroups qg left join qg.questions q where qd.id = :questionnairDefinitionId")
+    List<Question> getQuestions(@Param("questionnairDefinitionId")
     Integer questionnairDefinitionId);
 
 }

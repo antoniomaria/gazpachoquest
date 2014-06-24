@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.types;
 
 public enum ResearchAccessType {
-    OPEN_ACCESS, // Open Access. Allow anyone to take the questionnairDefinition.
+    OPEN_ACCESS, // Open Access. Allow anyone to take the
+                 // questionnairDefinition.
     BY_INVITATION // By PersonalInvitation Only.
 }

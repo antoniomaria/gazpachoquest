@@ -40,9 +40,9 @@ public class LongTextAnswer extends SimpleAnswer {
         return new LongTextAnswer(value);
     }
 
-	@Override
-	public String toString() {
-		return "LongTextAnswer [value=" + value + "]";
-	}
-    
+    @Override
+    public String toString() {
+        return "LongTextAnswer [value=" + value + "]";
+    }
+
 }

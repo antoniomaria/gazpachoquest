@@ -15,7 +15,7 @@ import net.sf.gazpachoquest.dto.PageDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.facades.QuestionnairFacade;
-import net.sf.gazpachoquest.types.BrowsingAction;
+import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.apache.shiro.SecurityUtils;
@@ -84,7 +84,7 @@ public class QuestionnairResource {
                 principal.getFullName());
 
         RenderingMode mode = RenderingMode.fromString(modeStr);
-        BrowsingAction action = BrowsingAction.fromString(actionStr);
+        NavigationAction action = NavigationAction.fromString(actionStr);
         PageDTO page = questionnairFacade.resolvePage(questionnairId, mode, action);
         return Response.ok(page).build();
     }

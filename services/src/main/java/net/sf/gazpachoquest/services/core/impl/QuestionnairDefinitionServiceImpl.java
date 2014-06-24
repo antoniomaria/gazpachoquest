@@ -12,6 +12,7 @@ package net.sf.gazpachoquest.services.core.impl;
 
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
@@ -104,5 +105,10 @@ public class QuestionnairDefinitionServiceImpl
     public List<Object[]> questionsCountGroupByQuestionGroups(final Integer questionnairDefinitionId) {
         return ((QuestionnairDefinitionRepository) repository)
                 .questionsCountGroupByQuestionGroups(questionnairDefinitionId);
+    }
+
+    @Override
+    public List<Question> getQuestions(final Integer questionnairDefinitionId) {
+        return ((QuestionnairDefinitionRepository) repository).getQuestions(questionnairDefinitionId);
     }
 }

@@ -24,7 +24,7 @@ import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.questionnaires.components.question.QuestionComponent;
 import net.sf.gazpachoquest.questionnaires.components.question.QuestionFactory;
 import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
-import net.sf.gazpachoquest.types.BrowsingAction;
+import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.slf4j.Logger;
@@ -122,7 +122,7 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
         QuestionnairDTO questionnair = questionnairResource.getDefinition(questionnairId);
 
         PageDTO page = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP,
-                BrowsingAction.ENTERING);
+                NavigationAction.ENTERING);
         questionsLayout = new VerticalLayout();
         update(page);
 
@@ -167,11 +167,11 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
     public void buttonClick(ClickEvent event) {
         if (nextButton.equals(event.getButton())) {
             PageDTO page = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP,
-                    BrowsingAction.NEXT);
+                    NavigationAction.NEXT);
             update(page);
         } else {
             PageDTO page = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP,
-                    BrowsingAction.PREVIOUS);
+                    NavigationAction.PREVIOUS);
             update(page);
         }
 

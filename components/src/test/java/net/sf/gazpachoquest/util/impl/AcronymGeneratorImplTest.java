@@ -8,19 +8,19 @@ import org.junit.Test;
 
 public class AcronymGeneratorImplTest {
 
-	private static AcronymGenerator acronymGenerator;
+    private static AcronymGenerator acronymGenerator;
 
-	@BeforeClass
-	public static void setUp() {
-		acronymGenerator = new AcronymGeneratorImpl();
-	}
+    @BeforeClass
+    public static void setUp() {
+        acronymGenerator = new AcronymGeneratorImpl();
+    }
 
-	@Test
-	public void generateTest() {
-		String givenNames = "Eva";
-		String surname = "Järvinen";
-		String acronym = acronymGenerator.generate(givenNames, surname);
-		assertThat(acronym).isEqualTo("EVAJÄRVI");
-	}
+    @Test
+    public void generateTest() {
+        String givenNames = "Eva";
+        String surname = "Järvinen";
+        String acronym = acronymGenerator.generate(givenNames, surname);
+        assertThat(acronym).isEqualTo("EVAJÄRVI");
+    }
 
 }

@@ -10,7 +10,7 @@ import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.dto.auth.Account;
-import net.sf.gazpachoquest.types.BrowsingAction;
+import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.apache.cxf.jaxrs.client.Client;
@@ -85,7 +85,7 @@ public class ClientInterceptorTest {
 
         Integer questionnairId = 103;
         PageDTO definition = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP,
-                BrowsingAction.ENTERING);
+                NavigationAction.ENTERING);
 
     }
 }

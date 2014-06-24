@@ -25,9 +25,8 @@ import org.slf4j.LoggerFactory;
 
 public class HmacAuthInterceptor extends AbstractPhaseInterceptor<Message> {
 
-
     private static Logger logger = LoggerFactory.getLogger(HmacAuthInterceptor.class);
-    
+
     private static final String HMAC_SHA1_ALGORITHM = "HmacSHA1";
 
     private String apiKey;
@@ -49,10 +48,10 @@ public class HmacAuthInterceptor extends AbstractPhaseInterceptor<Message> {
         String date = DateFormatUtils.SMTP_DATETIME_FORMAT.format(new Date());
 
         String resource = requestUri.substring(basePath.length());
-        if (!resource.startsWith("/")){ // In localhost the / is missing
-        	resource = "/" + resource;
+        if (!resource.startsWith("/")) { // In localhost the / is missing
+            resource = "/" + resource;
         }
-        
+
         String stringToSign = new StringBuilder().append(method).append(" ").append(resource).append("\n").append(date)
                 .toString();
         addHeader(message, HttpHeaders.DATE, date);
@@ -61,7 +60,6 @@ public class HmacAuthInterceptor extends AbstractPhaseInterceptor<Message> {
         String authToken = generateAuth(apiKey, signature);
         addHeader(message, HttpHeaders.AUTHORIZATION, authToken);
 
-        
         /*-
         if (!"POST".equals(method)) {
             String signature = calculateSignature(stringToSign, secret);
@@ -85,7 +83,7 @@ public class HmacAuthInterceptor extends AbstractPhaseInterceptor<Message> {
     }
 
     public static String calculateSignature(String data, String key) {
-        logger.debug("Signing with algorithm {} the string: {} ", HMAC_SHA1_ALGORITHM, data );
+        logger.debug("Signing with algorithm {} the string: {} ", HMAC_SHA1_ALGORITHM, data);
         String result;
         try {
             // get an hmac_sha1 key from the raw key bytes

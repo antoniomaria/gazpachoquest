@@ -11,5 +11,4 @@ import net.sf.gazpachoquest.domain.user.Permission;
 
 public interface PermissionService extends PersistenceService<Permission> {
 
-
 }

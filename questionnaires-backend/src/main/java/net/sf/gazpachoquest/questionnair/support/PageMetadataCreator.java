@@ -5,5 +5,5 @@ import net.sf.gazpachoquest.dto.PageMetadataDTO;
 
 public interface PageMetadataCreator {
 
-	PageMetadataDTO create(QuestionnairElement questionnairElement);
+    PageMetadataDTO create(QuestionnairElement questionnairElement);
 }

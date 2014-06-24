@@ -19,7 +19,8 @@
 package net.sf.gazpachoquest.qbe.support;
 
 /**
- * Static values to use in conjunction with {@link SearchParameters} object. It maps the kind of search you can do in
+ * Static values to use in conjunction with {@link SearchParameters} object. It
+ * maps the kind of search you can do in
  * SQL.
  */
 public enum SearchMode {

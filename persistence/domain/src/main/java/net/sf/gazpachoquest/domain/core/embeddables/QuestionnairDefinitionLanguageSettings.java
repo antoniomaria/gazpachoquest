@@ -36,7 +36,7 @@ public class QuestionnairDefinitionLanguageSettings implements LanguageSettings 
 
     @Lob
     private String endText;
-    
+
     public QuestionnairDefinitionLanguageSettings() {
         super();
     }

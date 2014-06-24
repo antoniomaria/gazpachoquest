@@ -21,27 +21,23 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
-		"classpath:/datasource-test-context.xml",
-		"classpath:/services-context.xml", "classpath:/components-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-		DbUnitTestExecutionListener.class })
+@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
+        "classpath:/services-context.xml", "classpath:/components-context.xml" })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("QuestionnairService-dataset.xml")
 @DatabaseTearDown("QuestionnairService-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class QuestionnairServiceTest {
 
-	@Autowired
-	private QuestionnairService questionnairService;
+    @Autowired
+    private QuestionnairService questionnairService;
 
-	@Test
-	public void findOneByExampleTest() {
-		User respondent = User.with().id(6).build();
-		Research research = Research.with().id(57).build();
-		Questionnair example = Questionnair.with().respondent(respondent)
-				.research(research).build();
-		Questionnair questionnair = questionnairService.findOneByExample(
-				example, new SearchParameters());
-		assertThat(questionnair).isEqualTo(Questionnair.with().id(58).build());
-	}
+    @Test
+    public void findOneByExampleTest() {
+        User respondent = User.with().id(6).build();
+        Research research = Research.with().id(57).build();
+        Questionnair example = Questionnair.with().respondent(respondent).research(research).build();
+        Questionnair questionnair = questionnairService.findOneByExample(example, new SearchParameters());
+        assertThat(questionnair).isEqualTo(Questionnair.with().id(58).build());
+    }
 }

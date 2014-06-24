@@ -57,7 +57,6 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
         this.type = type;
     }
 
-
     public static class Builder {
         private InvitationStatus status;
         private ResearchDTO research;
@@ -94,7 +93,6 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
             return this;
         }
     }
-
 
     public static Builder with() {
         return new Builder();

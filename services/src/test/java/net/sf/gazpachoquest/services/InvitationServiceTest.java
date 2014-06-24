@@ -20,42 +20,40 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml",
-		"classpath:/datasource-test-context.xml",
-		"classpath:/services-context.xml", "classpath:/components-context.xml" })
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-		DbUnitTestExecutionListener.class })
+@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
+        "classpath:/services-context.xml", "classpath:/components-context.xml" })
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("InvitationService-dataset.xml")
 @DatabaseTearDown("InvitationService-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class InvitationServiceTest {
 
-	@Autowired
-	private ResearchService researchService;
+    @Autowired
+    private ResearchService researchService;
 
-	@Autowired
-	private InvitationService invitationService;
+    @Autowired
+    private InvitationService invitationService;
 
-	@Test
-	public void findAllTest() {
-		assertThat(invitationService.findAll()).hasSize(5);
-	}
+    @Test
+    public void findAllTest() {
+        assertThat(invitationService.findAll()).hasSize(5);
+    }
 
-	@Test
-	public void saveTest() {
-		Research research = researchService.findOne(57);
-		Invitation invitation = Invitation.with().research(research)
-				.status(InvitationStatus.ACTIVE).token("1234").build();
-		Invitation saved = invitationService.save(invitation);
+    @Test
+    public void saveTest() {
+        Research research = researchService.findOne(57);
+        Invitation invitation = Invitation.with().research(research).status(InvitationStatus.ACTIVE).token("1234")
+                .build();
+        Invitation saved = invitationService.save(invitation);
 
-		Integer invitationId = saved.getId();
+        Integer invitationId = saved.getId();
 
-		Invitation existing = Invitation.with().id(invitationId)
-				.status(InvitationStatus.ACCEPTED).token("4321").build();
+        Invitation existing = Invitation.with().id(invitationId).status(InvitationStatus.ACCEPTED).token("4321")
+                .build();
 
-		Invitation updated = invitationService.save(existing);
+        Invitation updated = invitationService.save(existing);
 
-		assertThat(updated.getResearch()).isNotNull();
-	}
+        assertThat(updated.getResearch()).isNotNull();
+    }
 
 }

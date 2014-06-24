@@ -42,7 +42,7 @@ public class RespondentsLoginModule implements LoginModule {
     @Override
     public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState,
             Map<String, ?> options) {
-    	String endpoint = (String) options.get("gazpachoquest.rest.endpoint");
+        String endpoint = (String) options.get("gazpachoquest.rest.endpoint");
         handler = callbackHandler;
         this.subject = subject;
         authenticationResource = JAXRSClientFactory.create(endpoint, AuthenticationResource.class,

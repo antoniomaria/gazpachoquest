@@ -24,7 +24,7 @@ import javax.ws.rs.core.MediaType;
 import net.sf.gazpachoquest.dto.PageDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
-import net.sf.gazpachoquest.types.BrowsingAction;
+import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
 @Path("/questionnairs")
@@ -41,7 +41,7 @@ public interface QuestionnairResource extends Serializable {
 	@Path("/{questionnairId}/page")
 	PageDTO getPage(@PathParam("questionnairId") Integer questionnairId,
 			@QueryParam("mode") RenderingMode mode,
-			@QueryParam("action") BrowsingAction action);
+			@QueryParam("action") NavigationAction action);
 
 	@POST
 	@Path("/{questionnairId}/answer")
