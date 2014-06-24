@@ -7,6 +7,7 @@ import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.NavigationAction;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @DatabaseSetup("QuestionByQuestionResolver-dataset.xml")
 @DatabaseTearDown("QuestionByQuestionResolver-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
+@Ignore
 public class QuestionByQuestionResolverTest {
 
     @Autowired

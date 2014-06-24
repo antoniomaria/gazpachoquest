@@ -19,6 +19,7 @@ import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.QuestionGroup.Builder;
 import net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
@@ -119,8 +120,12 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
 
     private QuestionGroup extractFrom(QuestionGroupBreadcrumb breadcrumb) {
         QuestionGroup refered = breadcrumb.getQuestionGroup();
-        QuestionGroup questionGroup = QuestionGroup.with().language(refered.getLanguage())
-                .languageSettings(refered.getLanguageSettings()).build();
+        Builder questionGroupBuilder = QuestionGroup.with();
+        if (refered != null) { // Null only if RandomizationStrategy.QUESTIONS_RANDOMIZATION
+            questionGroupBuilder.id(refered.getId()).language(refered.getLanguage()).languageSettings(refered.getLanguageSettings())
+                    .build();
+        }
+        QuestionGroup questionGroup = questionGroupBuilder.build();
 
         for (QuestionBreadcrumb questionBreadcrumb : breadcrumb.getBreadcrumbs()) {
             questionGroup.addQuestion(questionBreadcrumb.getQuestion());
@@ -152,31 +157,32 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
                         .last(Boolean.FALSE).build();
                 breadcrumbs.add(breadcrumb);
             }
+            populateQuestionsBreadcrumbs(breadcrumbs);
         } else if (RandomizationStrategy.QUESTIONS_RANDOMIZATION.equals(randomizationStrategy)) {
             List<Question> questions = questionnairDefinitionService.getQuestions(questionnairDefinitionId);
             Collections.shuffle(questions);
             Integer questionPerPage = questionnairDefinition.getQuestionsPerPage();
-            int pageIdx = 0;
+            int questionIdx = 0;
             for (Question question : questions) {
-                if (pageIdx % questionPerPage == 0) {
+                if (questionIdx % questionPerPage == 0) {
                     breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE).build();
                     breadcrumbs.add(breadcrumb);
                 }
-                pageIdx++;
+                breadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).build());
+                questionIdx++;
             }
 
         } else {
             QuestionGroup questionGroup = findFirstQuestionGroup(questionnairDefinitionId);
             breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup).build();
             breadcrumbs.add(breadcrumb);
+            populateQuestionsBreadcrumbs(breadcrumbs);
         }
-
-        populatedQuestionsBreadcrumbs(breadcrumbs);
         breadcrumbs.get(0).setLast(Boolean.TRUE);
         return breadcrumbs;
     }
 
-    private void populatedQuestionsBreadcrumbs(List<QuestionGroupBreadcrumb> breadcrumbs) {
+    private void populateQuestionsBreadcrumbs(List<QuestionGroupBreadcrumb> breadcrumbs) {
         for (QuestionGroupBreadcrumb questionGroupBreadcrumb : breadcrumbs) {
             QuestionGroup questionGroup = questionGroupBreadcrumb.getQuestionGroup();
 
@@ -227,7 +233,7 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
                 return null;
             }
             nextBreadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(next).build();
-            populatedQuestionsBreadcrumbs(Arrays.asList(nextBreadcrumb));
+            populateQuestionsBreadcrumbs(Arrays.asList(nextBreadcrumb));
         } else {
             Assert.isInstanceOf(QuestionGroupBreadcrumb.class, breadcrumb);
             nextBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;

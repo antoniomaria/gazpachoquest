@@ -191,7 +191,7 @@ public class QuestionnairDefinition extends
         private Boolean welcomeVisible;
         private Boolean progressVisible;
         private Boolean questionGroupInfoVisible;
-        private RandomizationStrategy randomizationStrategy = RandomizationStrategy.NONE;
+        private RandomizationStrategy randomizationStrategy;
         private Integer questionsPerPage;
 
         public Builder id(Integer id) {
