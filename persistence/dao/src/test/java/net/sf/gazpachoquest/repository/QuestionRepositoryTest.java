@@ -51,7 +51,7 @@ public class QuestionRepositoryTest {
         // Question.class);
         TypedQuery<Question> query = em
                 .createQuery(
-                        "select q from Question q where q.id in (12,13,29,30,31,35,50)",
+                        "select q from Question q where q.id in (12,13,29,30,31,35,50,39)",
                         Question.class);
 
         // query.setHint(QueryHints.BATCH_TYPE, BatchFetchType.IN);
@@ -62,6 +62,10 @@ public class QuestionRepositoryTest {
             System.out.println(question);
             for (QuestionOption questionOption : question.getQuestionOptions()) {
                 System.out.println("\t" +questionOption.getLanguageSettings().getTitle());
+            }
+            for (Question subQuestion : question.getSubquestions()) {
+                System.out.println("\t\t" +subQuestion.getLanguageSettings().getTitle());
+                
             }
         }
     }
