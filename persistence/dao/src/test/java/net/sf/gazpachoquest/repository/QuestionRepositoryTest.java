@@ -2,6 +2,7 @@ package net.sf.gazpachoquest.repository;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -49,10 +50,8 @@ public class QuestionRepositoryTest {
         // TypedQuery<Question> query =
         // em.createQuery("select q from Question q join fetch q.questionOptions qg where q.id = 50 order by index(qg)",
         // Question.class);
-        TypedQuery<Question> query = em
-                .createQuery(
-                        "select q from Question q where q.id in (12,13,29,30,31,35,50,39)",
-                        Question.class);
+        TypedQuery<Question> query = em.createQuery("select q from Question q where q.id in (12,13,29,30,31,35,50,39)",
+                Question.class);
 
         // query.setHint(QueryHints.BATCH_TYPE, BatchFetchType.IN);
         query.setHint("eclipselink.batch", "q.questionOptions");
@@ -61,11 +60,11 @@ public class QuestionRepositoryTest {
         for (Question question : questions) {
             System.out.println(question);
             for (QuestionOption questionOption : question.getQuestionOptions()) {
-                System.out.println("\t" +questionOption.getLanguageSettings().getTitle());
+                System.out.println("\t" + questionOption.getLanguageSettings().getTitle());
             }
             for (Question subQuestion : question.getSubquestions()) {
-                System.out.println("\t\t" +subQuestion.getLanguageSettings().getTitle());
-                
+                System.out.println("\t\t" + subQuestion.getLanguageSettings().getTitle());
+
             }
         }
     }
@@ -76,6 +75,23 @@ public class QuestionRepositoryTest {
         int position = 2;
         Question question = repository.findOneByPositionInQuestionGroup(questionGroupId, position);
         assertThat(question).isEqualTo(Question.with().id(29).build());
+    }
+
+    @Test
+    public void findInListTest() {
+        List<Integer> questionIds = Arrays.asList(12,13,29,30,31,35,50,39);
+        List<Question> questions = repository.findInList(questionIds);
+        System.out.println("fin" + questions);
+        for (Question question : questions) {
+            System.out.println(question);
+            for (QuestionOption questionOption : question.getQuestionOptions()) {
+                System.out.println("\t" + questionOption.getLanguageSettings().getTitle());
+            }
+            for (Question subQuestion : question.getSubquestions()) {
+                System.out.println("\t\t" + subQuestion.getLanguageSettings().getTitle());
+
+            }
+        }
     }
 
     @Test
