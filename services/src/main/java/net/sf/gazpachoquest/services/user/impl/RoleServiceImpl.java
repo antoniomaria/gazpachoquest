@@ -7,8 +7,6 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.user.impl;
 
-import java.util.List;
-
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.repository.user.RoleRepository;
 import net.sf.gazpachoquest.services.RoleService;

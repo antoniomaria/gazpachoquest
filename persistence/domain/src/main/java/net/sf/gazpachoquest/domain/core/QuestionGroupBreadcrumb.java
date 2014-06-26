@@ -65,6 +65,8 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
     }
 
     public static class Builder {
+        private Integer id;
+        
         private QuestionGroup questionGroup;
 
         private Questionnair questionnair;
@@ -75,7 +77,13 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
             this.last = last;
             return this;
         }
+        
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
 
+        
         public Builder questionnair(Questionnair questionnair) {
             this.questionnair = questionnair;
             return this;
@@ -88,6 +96,7 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
 
         public QuestionGroupBreadcrumb build() {
             QuestionGroupBreadcrumb questionGroupBreadcrumb = new QuestionGroupBreadcrumb();
+            questionGroupBreadcrumb.setId(id);
             questionGroupBreadcrumb.setLast(last);
             questionGroupBreadcrumb.questionGroup = questionGroup;
             questionGroupBreadcrumb.questionnair = questionnair;

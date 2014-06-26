@@ -10,15 +10,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.questionnair.resolver;
 
-import java.util.List;
-
-import net.sf.gazpachoquest.domain.core.Breadcrumb;
-import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
-import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.domain.support.QuestionnairElement;
 import net.sf.gazpachoquest.repository.BreadcrumbRepository;
 import net.sf.gazpachoquest.repository.QuestionGroupRepository;
 import net.sf.gazpachoquest.repository.QuestionRepository;
@@ -29,7 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 @Component("QuestionByQuestionResolver")
 public class QuestionByQuestionResolverImpl implements QuestionnairElementResolver {
@@ -48,7 +40,7 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
 
     @Autowired
     private QuestionnairDefinitionRepository surveyRepository;
-
+    /*-
     @Override
     public Question resolveFor(final Questionnair questionnair, final NavigationAction action) {
         QuestionnairDefinition questionnairDefinition = questionnair.getQuestionnairDefinition();
@@ -166,5 +158,12 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
         previousBrowsedQuestion.setLast(Boolean.TRUE);
         browsedElementService.save(previousBrowsedQuestion);
         return previousBrowsedQuestion.getQuestion();
+    }
+    */
+
+    @Override
+    public QuestionnairElement resolveFor(Questionnair questionnair, NavigationAction action) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

@@ -18,6 +18,7 @@ import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +91,7 @@ public class QuestionnairFacadeTest {
     }
 
     @Test
+    @Ignore
     public void resolveFirstPageTest() {
         Questionnair questionnair = Questionnair.with().id(70).build();
         String answer = "Antonio Maria";

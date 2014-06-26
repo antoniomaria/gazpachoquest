@@ -2,17 +2,13 @@ package net.sf.gazpachoquest.repository;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
-import net.sf.gazpachoquest.repository.BreadcrumbRepository;
-import net.sf.gazpachoquest.repository.QuestionnairRepository;
+import net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,42 +38,19 @@ public class BreadcrumbRepositoryTest {
     private QuestionnairRepository questionnairRepository;
 
     @Test
-    public void findLastTest() {
-        Integer questionnairId = 63;
-        QuestionBreadcrumb questionBreadcrumb = (QuestionBreadcrumb) repository.findLast(questionnairId);
-        assertThat(questionBreadcrumb).isEqualTo(QuestionBreadcrumb.with().id(115).build());
-    }
-
-    @Test
     public void findByQuestionnairIdAndPosition() {
         Integer questionnairId = 58;
         Integer position = 1;
         Breadcrumb next = repository.findByQuestionnairIdAndPosition(questionnairId, position);
-
-        System.out.println("de winner is: " + next);
+        assertThat(next).isEqualTo(QuestionBreadcrumb.with().id(3).build());
     }
 
     @Test
     public void findLastAndPositionTest() {
         Integer questionnairId = 58;
         List<Object[]> next = repository.findLastAndPosition(questionnairId);
-
-    }
-
-    @Test
-    public void findNextTest() {
-        Integer questionnairId = 113;
-        QuestionBreadcrumb questionBreadcrumb = (QuestionBreadcrumb) repository.findLast(questionnairId);
-        Breadcrumb next = repository.findNext(questionnairId, questionBreadcrumb.getCreatedDate());
-        assertThat(next).isEqualTo(QuestionBreadcrumb.with().id(116).build());
-    }
-
-    @Test
-    public void findPreviousTest() {
-        Integer questionnairId = 113;
-        QuestionBreadcrumb questionBreadcrumb = (QuestionBreadcrumb) repository.findLast(questionnairId);
-        Breadcrumb previous = repository.findPrevious(questionnairId, questionBreadcrumb.getCreatedDate());
-        assertThat(previous).isEqualTo(QuestionBreadcrumb.with().id(114).build());
+        assertThat(next).hasSize(1);
+        assertThat(next.get(0)).isEqualTo(new Object[] { QuestionGroupBreadcrumb.with().id(3).build(), 1 });
     }
 
 }

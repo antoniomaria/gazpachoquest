@@ -36,8 +36,6 @@ import net.sf.gazpachoquest.domain.support.QuestionnairElement;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 
-import org.eclipse.persistence.annotations.BatchFetch;
-import org.eclipse.persistence.annotations.BatchFetchType;
 import org.springframework.util.Assert;
 
 @Entity
@@ -61,12 +59,10 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderColumn(name = "order_in_subquestions")
-    @BatchFetch(BatchFetchType.IN)
     private final List<Question> subquestions = new ArrayList<Question>();
 
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderColumn(name = "order_in_question")
-    @BatchFetch(BatchFetchType.IN)
     private final List<QuestionOption> questionOptions = new ArrayList<QuestionOption>();
 
     private Boolean required;

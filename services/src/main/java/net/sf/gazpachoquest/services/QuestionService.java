@@ -25,4 +25,6 @@ public interface QuestionService extends
 
     List<Question> findByQuestionGroupId(Integer questionGroupId);
 
+    List<Question> findInList(List<Integer> questionIds);
+
 }

@@ -10,16 +10,14 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services;
 
-import net.sf.gazpachoquest.domain.core.Breadcrumb;
+import java.util.List;
 
-import org.joda.time.DateTime;
+import net.sf.gazpachoquest.domain.core.Breadcrumb;
 
 public interface BreadcrumbService extends PersistenceService<Breadcrumb> {
 
-    Breadcrumb findLast(Integer respondentId);
+    List<Object[]> findLastAndPosition(Integer questionnairId);
 
-    Breadcrumb findNext(Integer respondentId, DateTime lastAccess);
-
-    Breadcrumb findPrevious(Integer respondentId, DateTime lastAccess);
+    Breadcrumb findByQuestionnairIdAndPosition(Integer questionnairId, Integer position);
 
 }

@@ -7,13 +7,10 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.user.impl;
 
-import java.util.List;
-
 import net.sf.gazpachoquest.domain.user.Permission;
 import net.sf.gazpachoquest.repository.user.PermissionRepository;
 import net.sf.gazpachoquest.services.PermissionService;
 import net.sf.gazpachoquest.services.core.impl.AbstractPersistenceService;
-import net.sf.gazpachoquest.types.Perm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

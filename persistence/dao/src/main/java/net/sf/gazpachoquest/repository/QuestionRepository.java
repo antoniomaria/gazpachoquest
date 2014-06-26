@@ -12,10 +12,13 @@ package net.sf.gazpachoquest.repository;
 
 import java.util.List;
 
+import javax.persistence.QueryHint;
+
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.repository.support.GenericRepository;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 
 public interface QuestionRepository extends GenericRepository<Question> {
@@ -26,8 +29,13 @@ public interface QuestionRepository extends GenericRepository<Question> {
     @Query("select q from QuestionnairDefinition s join s.questionGroups qg join fetch qg.questions q where s.id = :questionnairDefinition order by index(qg),index(q)")
     List<Question> findByQuestionnairId(@Param("questionnairDefinition")
     Integer questionnairDefinitionId);
-    
+
     @Query("select q from Question q where q.id in :questionIds")
+    @QueryHints(value = { @QueryHint(name = org.eclipse.persistence.config.QueryHints.BATCH_TYPE, value = "IN"),
+            @QueryHint(name = org.eclipse.persistence.config.QueryHints.BATCH, value = "q.questionOptions"),
+            @QueryHint(name = org.eclipse.persistence.config.QueryHints.BATCH, value = "q.subquestions")
+
+    }, forCounting = false)
     List<Question> findInList(@Param("questionIds")
     List<Integer> questionIds);
 

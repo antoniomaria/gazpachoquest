@@ -10,6 +10,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.facades.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import net.sf.gazpachoquest.domain.core.Question;
@@ -29,6 +31,7 @@ import net.sf.gazpachoquest.questionnair.resolver.QuestionnairElementResolver;
 import net.sf.gazpachoquest.questionnair.resolver.ResolverSelector;
 import net.sf.gazpachoquest.questionnair.support.AnswersPopulator;
 import net.sf.gazpachoquest.questionnair.support.PageMetadataCreator;
+import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnairAnswersService;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
 import net.sf.gazpachoquest.services.QuestionnairService;
@@ -53,6 +56,9 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
 
     @Autowired
     private QuestionnairService questionnairService;
+
+    @Autowired
+    private QuestionService questionService;
 
     @Autowired
     private QuestionnairDefinitionService questionnairDefinitionService;
@@ -103,17 +109,22 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
         if (questionnairElement == null) { // TODO Handle exception
             return page;
         }
+        List<Integer> questionIds = new ArrayList<Integer>();
         if (questionnairElement instanceof QuestionGroup) {
             QuestionGroup questionGroup = (QuestionGroup) questionnairElement;
             for (Question question : questionGroup.getQuestions()) {
-                QuestionDTO questionDTO = mapper.map(question, QuestionDTO.class);
-                page.addQuestion(questionDTO);
+                questionIds.add(question.getId());
             }
         } else {
             Question question = (Question) questionnairElement;
+            questionIds.add(question.getId());
+        }
+        List<Question> questions = questionService.findInList(questionIds);
+        for (Question question : questions) {
             QuestionDTO questionDTO = mapper.map(question, QuestionDTO.class);
             page.addQuestion(questionDTO);
         }
+
         answersPopulator.populate(questionnair, page.getQuestions());
         page.setMetadata(metadataCreator.create(questionnairElement));
         return page;

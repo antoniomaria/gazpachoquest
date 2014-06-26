@@ -102,6 +102,11 @@ public class QuestionnairAnswersRepositoryTest {
 
     @After
     public void tearDown() {
-        jdbcTemplate.update("delete from questionnair_answers_7 where id = ?", answersId);
+        try {
+            jdbcTemplate.update("delete from questionnair_answers_7 where id = ?", answersId);
+
+        } catch (Exception e) {
+
+        }
     }
 }

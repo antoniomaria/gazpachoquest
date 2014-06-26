@@ -10,11 +10,12 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.core.impl;
 
+import java.util.List;
+
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.repository.BreadcrumbRepository;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,21 +29,15 @@ public class BreadcrumbServiceImpl extends AbstractPersistenceService<Breadcrumb
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Breadcrumb findLast(final Integer respondentId) {
-        return ((BreadcrumbRepository) repository).findLast(respondentId);
+    @Transactional
+    public Breadcrumb findByQuestionnairIdAndPosition(Integer questionnairId, Integer position) {
+        return ((BreadcrumbRepository) repository).findByQuestionnairIdAndPosition(questionnairId, position);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Breadcrumb findNext(final Integer respondentId, final DateTime lastAccess) {
-        return ((BreadcrumbRepository) repository).findNext(respondentId, lastAccess);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Breadcrumb findPrevious(final Integer respondentId, final DateTime lastAccess) {
-        return ((BreadcrumbRepository) repository).findPrevious(respondentId, lastAccess);
+    @Transactional
+    public List<Object[]> findLastAndPosition(Integer questionnairId) {
+        return ((BreadcrumbRepository) repository).findLastAndPosition(questionnairId);
     }
 
     @Override

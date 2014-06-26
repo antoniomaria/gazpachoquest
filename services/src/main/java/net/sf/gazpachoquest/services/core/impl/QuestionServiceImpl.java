@@ -25,8 +25,6 @@ import net.sf.gazpachoquest.repository.i18.QuestionTranslationRepository;
 import net.sf.gazpachoquest.services.QuestionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -49,20 +47,26 @@ public class QuestionServiceImpl extends
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Question findOneByPositionInQuestionGroup(final Integer questionGroupId, final Integer position) {
         return ((QuestionRepository) repository).findOneByPositionInQuestionGroup(questionGroupId, position);
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Integer findPositionInQuestionGroup(final Integer questionId) {
         return ((QuestionRepository) repository).findPositionInQuestionGroup(questionId);
     }
 
     @Override
+    @Transactional
     public List<Question> findByQuestionGroupId(Integer questionGroupId) {
         return ((QuestionRepository) repository).findByQuestionGroupId(questionGroupId);
+    }
+    
+    @Override
+    public List<Question> findInList(List<Integer> questionIds) {
+        return ((QuestionRepository) repository).findInList(questionIds);
     }
 
     @Override

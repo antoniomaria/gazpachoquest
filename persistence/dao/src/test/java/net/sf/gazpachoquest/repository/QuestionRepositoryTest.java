@@ -5,18 +5,12 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionOption;
 import net.sf.gazpachoquest.qbe.support.SearchMode;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
-import org.eclipse.persistence.annotations.BatchFetchType;
-import org.eclipse.persistence.config.QueryHints;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,34 +35,6 @@ public class QuestionRepositoryTest {
     @Autowired
     private QuestionRepository repository;
 
-    @PersistenceContext
-    private EntityManager em;
-
-    @Test
-    public void batchTest() {
-        // http://vard-lokkur.blogspot.fi/2011/05/eclipselink-jpa-queries-optimization.html
-        // TypedQuery<Question> query =
-        // em.createQuery("select q from Question q join fetch q.questionOptions qg where q.id = 50 order by index(qg)",
-        // Question.class);
-        TypedQuery<Question> query = em.createQuery("select q from Question q where q.id in (12,13,29,30,31,35,50,39)",
-                Question.class);
-
-        // query.setHint(QueryHints.BATCH_TYPE, BatchFetchType.IN);
-        query.setHint("eclipselink.batch", "q.questionOptions");
-        // query.setHint("eclipselink.batch.type", "JOIN");
-        List<Question> questions = query.getResultList();
-        for (Question question : questions) {
-            System.out.println(question);
-            for (QuestionOption questionOption : question.getQuestionOptions()) {
-                System.out.println("\t" + questionOption.getLanguageSettings().getTitle());
-            }
-            for (Question subQuestion : question.getSubquestions()) {
-                System.out.println("\t\t" + subQuestion.getLanguageSettings().getTitle());
-
-            }
-        }
-    }
-
     @Test
     public void findOneByPositionInQuestionGroupTest() {
         int questionGroupId = 9;
@@ -79,19 +45,17 @@ public class QuestionRepositoryTest {
 
     @Test
     public void findInListTest() {
-        List<Integer> questionIds = Arrays.asList(12,13,29,30,31,35,50,39);
+        List<Integer> questionIds = Arrays.asList(12, 13, 29, 30, 31, 35, 50, 39);
         List<Question> questions = repository.findInList(questionIds);
-        System.out.println("fin" + questions);
+        
         for (Question question : questions) {
             System.out.println(question);
-            for (QuestionOption questionOption : question.getQuestionOptions()) {
-                System.out.println("\t" + questionOption.getLanguageSettings().getTitle());
-            }
-            for (Question subQuestion : question.getSubquestions()) {
-                System.out.println("\t\t" + subQuestion.getLanguageSettings().getTitle());
-
+            for (QuestionOption group : question.getQuestionOptions()) {
+                System.out.println("\t" + group);
+                
             }
         }
+        assertThat(questions).hasSameSizeAs(questionIds);
     }
 
     @Test
