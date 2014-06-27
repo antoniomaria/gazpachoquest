@@ -13,6 +13,7 @@ import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.NavigationAction;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,8 @@ public class GroupByGroupResolverTest {
 
     @Test
     public void resolveForNoRandomizationTest() {
+        jdbcTemplate.update("update questionnair_definition set randomization_strategy = ? where id = ?", "N", 7);
+
         Integer questionnairId = 58;
         Questionnair questionnair = questionnairRepository.findOne(questionnairId);
         QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, NavigationAction.ENTERING);
@@ -133,5 +136,10 @@ public class GroupByGroupResolverTest {
         assertThat(questionGroup.getId()).isNull();
         assertThat(questionGroup.getQuestions()).hasSize(questionsPerPpage);
 
+    }
+
+    @After
+    public void tearDown() {
+        jdbcTemplate.update("truncate table breadcrumb");
     }
 }

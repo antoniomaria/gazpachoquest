@@ -35,8 +35,8 @@ import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnairAnswersService;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
 import net.sf.gazpachoquest.services.QuestionnairService;
-import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.Language;
+import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.dozer.Mapper;
@@ -99,10 +99,10 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
         return questionnairDTO;
     }
 
-    @Transactional
+    // @Transactional
     @Override
     public PageDTO resolvePage(Integer questionnairId, RenderingMode mode, NavigationAction action) {
-        Questionnair questionnair = questionnairService.findOne(questionnairId);
+        Questionnair questionnair = Questionnair.with().id(questionnairId).build();
         QuestionnairElementResolver resolver = resolverSelector.selectBy(mode);
         QuestionnairElement questionnairElement = resolver.resolveFor(questionnair, action);
         PageDTO page = new PageDTO();

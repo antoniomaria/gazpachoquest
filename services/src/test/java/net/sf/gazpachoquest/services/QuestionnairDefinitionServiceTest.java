@@ -74,7 +74,11 @@ public class QuestionnairDefinitionServiceTest {
         QuestionnairDefinitionLanguageSettings newLanguageSettings = QuestionnairDefinitionLanguageSettings.with()
                 .title("My QuestionnairDefinition. Ver 1").description("My description").build();
         created.setLanguageSettings(newLanguageSettings);
-
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new IllegalStateException(e);
+        }
         QuestionnairDefinition updated = questionnairDefinitionService.save(created);
         assertThat(lastModifiedDate).isNotEqualTo(updated.getLastModifiedDate());
     }

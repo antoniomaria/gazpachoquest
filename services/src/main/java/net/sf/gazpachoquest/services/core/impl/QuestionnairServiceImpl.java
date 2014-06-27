@@ -43,19 +43,19 @@ public class QuestionnairServiceImpl extends AbstractPersistenceService<Question
             existing = repository.save(questionnair);
         } else {
             existing = repository.findOne(questionnair.getId());
-            existing.setSubmitDate(questionnair.getSubmitDate());
-            existing.setStatus(questionnair.getStatus());
-
+            if (questionnair.getStatus() != null) {
+                existing.setStatus(questionnair.getStatus());
+            }
             for (Breadcrumb breadcrumb : questionnair.getBreadcrumbs()) {
                 if (!breadcrumb.isNew()) {
                     int pos = existing.getBreadcrumbs().indexOf(breadcrumb);
                     existing.getBreadcrumbs().get(pos).setLast(breadcrumb.isLast());
                     continue;
                 }
-                existing.addBreadcrumb(breadcrumb);
+                existing.getBreadcrumbs().add(breadcrumb);
+                // existing.addBreadcrumb(breadcrumb);
             }
         }
         return existing;
     }
-
 }

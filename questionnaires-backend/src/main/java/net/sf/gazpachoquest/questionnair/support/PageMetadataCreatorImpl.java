@@ -32,6 +32,7 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
         PageMetadataDTO metadata = new PageMetadataDTO();
         if (questionnairElement instanceof QuestionGroup) {
             QuestionGroup questionGroup = (QuestionGroup) questionnairElement;
+            questionGroup = questionGroupService.findOne(questionGroup.getId());
             position = questionGroupService.positionInQuestionnairDefinition(questionGroup.getId());
             count = questionnairDefinitionService
                     .questionGroupsCount(questionGroup.getQuestionnairDefinition().getId());

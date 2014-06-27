@@ -8,7 +8,6 @@
 package net.sf.gazpachoquest.domain.core;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -73,7 +72,7 @@ public class Questionnair extends AbstractAuditable {
     }
 
     public List<Breadcrumb> getBreadcrumbs() {
-        return Collections.unmodifiableList(breadcrumbs);
+        return breadcrumbs;
     }
 
     public DateTime getSubmitDate() {
