@@ -19,11 +19,12 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AbstractIdentifiableDTO implements Identifiable {
 
     private static final long serialVersionUID = 2830103041683278252L;
 
+    @XmlTransient
     private Integer id;
 
     @Override
@@ -41,7 +42,6 @@ public abstract class AbstractIdentifiableDTO implements Identifiable {
     }
 
     @Override
-    @XmlTransient
     public Integer getId() {
         return id;
     }

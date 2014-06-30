@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlTransient;
+
 import net.sf.gazpachoquest.dto.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.answers.AbstractAnswer;
@@ -38,6 +40,7 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
 
     protected QuestionType type;
 
+    @XmlTransient
     protected Answer answer;
 
     protected AbstractQuestionDTO() {

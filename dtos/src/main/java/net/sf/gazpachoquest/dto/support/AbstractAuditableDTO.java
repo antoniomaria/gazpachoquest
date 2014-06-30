@@ -17,34 +17,34 @@ public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = -6660330858580421664L;
 
+    @XmlTransient
     private UserDTO createdBy;
 
+    @XmlTransient
     private DateTime createdDate;
 
+    @XmlTransient
     private UserDTO lastModifiedBy;
 
+    @XmlTransient
     private DateTime lastModifiedDate;
 
     protected AbstractAuditableDTO() {
         super();
     }
 
-    @XmlTransient
     public UserDTO getCreatedBy() {
         return createdBy;
     }
 
-    @XmlTransient
     public DateTime getCreatedDate() {
         return createdDate;
     }
 
-    @XmlTransient
     public UserDTO getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    @XmlTransient
     public DateTime getLastModifiedDate() {
         return lastModifiedDate;
     }
