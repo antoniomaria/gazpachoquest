@@ -14,10 +14,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import net.sf.gazpachoquest.dto.support.AbstractAuditableDTO;
 import net.sf.gazpachoquest.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachoquest.types.Language;
 
+@XmlRootElement(name = "questionnair_definition")
 public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
         IdentifiableLocalizable<QuestionnairDefinitionLanguageSettingsDTO> {
 

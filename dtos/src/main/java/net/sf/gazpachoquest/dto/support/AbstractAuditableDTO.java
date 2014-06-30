@@ -7,6 +7,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto.support;
 
+import javax.xml.bind.annotation.XmlTransient;
+
 import net.sf.gazpachoquest.dto.UserDTO;
 
 import org.joda.time.DateTime;
@@ -27,18 +29,22 @@ public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
         super();
     }
 
+    @XmlTransient
     public UserDTO getCreatedBy() {
         return createdBy;
     }
 
+    @XmlTransient
     public DateTime getCreatedDate() {
         return createdDate;
     }
 
+    @XmlTransient
     public UserDTO getLastModifiedBy() {
         return lastModifiedBy;
     }
 
+    @XmlTransient
     public DateTime getLastModifiedDate() {
         return lastModifiedDate;
     }
