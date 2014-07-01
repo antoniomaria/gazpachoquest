@@ -80,12 +80,15 @@ public class QuestionnairDefinition extends
     private final Map<MailMessageTemplateType, MailMessageTemplate> mailTemplates = new HashMap<MailMessageTemplateType, MailMessageTemplate>();
 
     @XmlTransient
+    @Column(nullable = false)
     private Boolean welcomeVisible;
 
     @XmlTransient
+    @Column(nullable = false)
     private Boolean progressVisible;
 
     @XmlTransient
+    @Column(nullable = false)
     private Boolean questionGroupInfoVisible;
 
     @Convert(converter = RandomizationStrategyConverter.class)

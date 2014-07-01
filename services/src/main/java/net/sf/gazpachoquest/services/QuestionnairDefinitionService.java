@@ -52,6 +52,6 @@ public interface QuestionnairDefinitionService
     void exportQuestionnairDefinition(Integer questionnairDefinitionId, OutputStream outputStream)
             throws XmlMappingException, IOException;
 
-    void importQuestionnairDefinition(InputStream inputStream) throws XmlMappingException, IOException;
+    QuestionnairDefinition importQuestionnairDefinition(InputStream inputStream) throws XmlMappingException, IOException;
 
 }

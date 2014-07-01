@@ -10,6 +10,9 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.facades.impl;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Set;
 
 import net.sf.gazpachoquest.domain.core.Question;
@@ -23,6 +26,7 @@ import net.sf.gazpachoquest.types.Language;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.oxm.XmlMappingException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -52,6 +56,18 @@ public class QuestionnairDefinitionAccessorFacadeImpl implements QuestionnairDef
     @Override
     public Set<Language> findQuestionnairDefinitionTranslations(final Integer questionnairDefinitionId) {
         return questionnairDefinitionService.translationsSupported(questionnairDefinitionId);
+    }
+
+    @Override
+    public void exportQuestionnairDefinition(Integer questionnairDefinitionId, OutputStream outputStream)
+            throws XmlMappingException, IOException {
+        questionnairDefinitionService.exportQuestionnairDefinition(questionnairDefinitionId, outputStream);
+    }
+
+    @Override
+    public QuestionnairDefinitionDTO importQuestionnairDefinition(InputStream inputStream) throws XmlMappingException, IOException {
+        QuestionnairDefinition questionnairDefinition = questionnairDefinitionService.importQuestionnairDefinition(inputStream);
+        return mapper.map(questionnairDefinition, QuestionnairDefinitionDTO.class);
     }
 
 }

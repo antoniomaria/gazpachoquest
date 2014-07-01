@@ -10,7 +10,12 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.facades;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Set;
+
+import org.springframework.oxm.XmlMappingException;
 
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
@@ -23,5 +28,11 @@ public interface QuestionnairDefinitionAccessorFacade {
     Set<Language> findQuestionnairDefinitionTranslations(Integer questionnairDefinitionId);
 
     QuestionDTO findOneQuestion(Integer questionId);
+
+    void exportQuestionnairDefinition(Integer questionnairDefinitionId, OutputStream outputStream)
+            throws XmlMappingException, IOException;
+
+    QuestionnairDefinitionDTO importQuestionnairDefinition(InputStream inputStream) throws XmlMappingException,
+            IOException;
 
 }

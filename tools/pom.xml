@@ -12,7 +12,8 @@
   <modules>
     <module>dbpopulator</module>    
 	<module>dbextractor</module>    
-	<module>ddlgenerator</module>
+	<module>ddlgenerator</module>	   
+	<module>importer</module>
   </modules>
 
 </project>

@@ -31,6 +31,7 @@ import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachoquest.repository.i18.QuestionnairDefinitionTranslationRepository;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
 import net.sf.gazpachoquest.types.EntityStatus;
+import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.Marshaller;
@@ -135,10 +136,14 @@ public class QuestionnairDefinitionServiceImpl
     }
 
     @Override
-    public void importQuestionnairDefinition(InputStream inputStream) throws XmlMappingException, IOException {
+    public QuestionnairDefinition importQuestionnairDefinition(InputStream inputStream) throws XmlMappingException,
+            IOException {
         QuestionnairDefinition questionnairDefinition = (QuestionnairDefinition) unmarshaller
                 .unmarshal(new StreamSource(inputStream));
         questionnairDefinition.setStatus(EntityStatus.CONFIRMED);
-        repository.save(questionnairDefinition);
+        questionnairDefinition.setProgressVisible(Boolean.TRUE);
+        questionnairDefinition.setQuestionGroupInfoVisible(Boolean.TRUE);
+        questionnairDefinition.setRandomizationStrategy(RandomizationStrategy.NONE);
+        return repository.save(questionnairDefinition);
     }
 }

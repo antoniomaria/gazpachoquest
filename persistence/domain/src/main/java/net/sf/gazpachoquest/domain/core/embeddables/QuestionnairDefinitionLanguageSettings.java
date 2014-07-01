@@ -32,6 +32,7 @@ public class QuestionnairDefinitionLanguageSettings implements LanguageSettings 
     private String description;
 
     @Lob
+    @Column(nullable = false)
     private String welcomeText;
 
     @Lob
