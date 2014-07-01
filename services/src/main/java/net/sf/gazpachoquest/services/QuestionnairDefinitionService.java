@@ -10,12 +10,17 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation;
+
+import org.springframework.oxm.XmlMappingException;
 
 public interface QuestionnairDefinitionService
         extends
@@ -43,5 +48,10 @@ public interface QuestionnairDefinitionService
     List<Object[]> questionsCountGroupByQuestionGroups(Integer questionnairDefinitionId);
 
     List<Question> getQuestions(Integer questionnairDefinitionId);
+
+    void exportQuestionnairDefinition(Integer questionnairDefinitionId, OutputStream outputStream)
+            throws XmlMappingException, IOException;
+
+    void importQuestionnairDefinition(InputStream inputStream) throws XmlMappingException, IOException;
 
 }

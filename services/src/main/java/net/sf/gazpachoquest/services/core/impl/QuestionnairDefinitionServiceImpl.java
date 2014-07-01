@@ -10,7 +10,13 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.core.impl;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
+
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
@@ -27,6 +33,9 @@ import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
 import net.sf.gazpachoquest.types.EntityStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.oxm.Marshaller;
+import org.springframework.oxm.Unmarshaller;
+import org.springframework.oxm.XmlMappingException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +44,12 @@ public class QuestionnairDefinitionServiceImpl
         extends
         AbstractLocalizedPersistenceService<QuestionnairDefinition, QuestionnairDefinitionTranslation, QuestionnairDefinitionLanguageSettings>
         implements QuestionnairDefinitionService {
+
+    @Autowired
+    private Marshaller marshaller;
+
+    @Autowired
+    private Unmarshaller unmarshaller;
 
     @Autowired
     private MailMessageRepository mailMessageRepository;
@@ -110,5 +125,20 @@ public class QuestionnairDefinitionServiceImpl
     @Override
     public List<Question> getQuestions(final Integer questionnairDefinitionId) {
         return ((QuestionnairDefinitionRepository) repository).getQuestions(questionnairDefinitionId);
+    }
+
+    @Override
+    public void exportQuestionnairDefinition(Integer questionnairDefinitionId, OutputStream outputStream)
+            throws XmlMappingException, IOException {
+        QuestionnairDefinition questionnairDefinition = repository.findOne(questionnairDefinitionId);
+        marshaller.marshal(questionnairDefinition, new StreamResult(outputStream));
+    }
+
+    @Override
+    public void importQuestionnairDefinition(InputStream inputStream) throws XmlMappingException, IOException {
+        QuestionnairDefinition questionnairDefinition = (QuestionnairDefinition) unmarshaller
+                .unmarshal(new StreamSource(inputStream));
+        questionnairDefinition.setStatus(EntityStatus.CONFIRMED);
+        repository.save(questionnairDefinition);
     }
 }

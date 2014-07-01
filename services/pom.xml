@@ -73,6 +73,12 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-components</artifactId>
     </dependency>
+    
+    <!-- Third parties -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-oxm</artifactId>
+    </dependency>
   </dependencies>
   <profiles>
     <profile>

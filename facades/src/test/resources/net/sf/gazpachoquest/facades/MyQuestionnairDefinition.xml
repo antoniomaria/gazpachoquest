@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<questionnair-definition>
+   <language-settings>
+      <description>&lt;p>This is a &lt;strong>&lt;em>sample questionnairDefinition&lt;/em>&lt;/strong> designed for testing GazpachoSurvey.&lt;/p></description>
+      <title>Sample QuestionnairDefinition</title>
+      <welcomeText>Thank you for taking the time to participate in this questionnairDefinition.</welcomeText>
+   </language-settings>
+   <language>EN</language>
+   <question-groups>
+      <language>EN</language>
+      <language-settings>
+         <title>QuestionGroup 1</title>
+      </language-settings>
+      <questions>
+         <type>S</type>
+         <code>Q1</code>
+         <required>true</required>
+         <language>EN</language>
+         <language-settings>
+            <title>What is your name?</title>
+         </language-settings>
+      </questions>
+      <questions>
+         <type>L</type>
+         <code>Q2</code>
+         <required>true</required>
+         <language>EN</language>
+         <language-settings>
+            <title>What is your age group?</title>
+         </language-settings>
+      </questions>
+      <questions>
+         <type>N</type>
+         <code>Q3</code>
+         <required>true</required>
+         <language>EN</language>
+         <language-settings>
+            <title>And for our records, specifically how old are you?</title>
+         </language-settings>
+      </questions>
+   </question-groups>
+   <question-groups>
+      <language>EN</language>
+      <language-settings>
+         <title>QuestionGroup 2</title>
+      </language-settings>
+      <questions>
+         <type>T</type>
+         <code>Q4</code>
+         <required>true</required>
+         <language>EN</language>
+         <language-settings>
+            <title>Please tell us a little about yourself. What was your first job, and did you enjoy it?</title>
+         </language-settings>
+      </questions>
+      <questions>
+         <type>L</type>
+         <code>Q5</code>
+         <required>true</required>
+         <language>EN</language>
+         <language-settings>
+            <title>Given your extraordinary age, how do you find using this questionnairDefinition tool?</title>
+         </language-settings>
+      </questions>
+      <questions>
+         <type>L</type>
+         <code>Q6</code>
+         <required>true</required>
+         <language>EN</language>
+         <language-settings>
+            <title>Which of these ads makes you want to find out more?</title>
+         </language-settings>
+      </questions>
+   </question-groups>
+   <question-groups>
+      <language>EN</language>
+      <language-settings>
+         <title>QuestionGroup 3</title>
+      </language-settings>
+      <questions>
+         <type>F</type>
+         <code>Q7</code>
+         <subquestions>
+            <type>L</type>
+            <code>Q7.1</code>
+            <required>false</required>
+            <language>EN</language>
+            <language-settings>
+               <title>This ad suggests the lawyer is on my side, not his own</title>
+            </language-settings>
+         </subquestions>
+         <subquestions>
+            <type>L</type>
+            <code>Q7.2</code>
+            <required>false</required>
+            <language>EN</language>
+            <language-settings>
+               <title>This ad suggests that the lawyer is interested in a life of frugal community service</title>
+            </language-settings>
+         </subquestions>
+         <subquestions>
+            <type>L</type>
+            <code>Q7.3</code>
+            <required>false</required>
+            <language>EN</language>
+            <language-settings>
+               <title>This ad would be enough to get me to hire this lawyer</title>
+            </language-settings>
+         </subquestions>
+         <subquestions>
+            <type>L</type>
+            <code>Q7.4</code>
+            <required>false</required>
+            <language>EN</language>
+            <language-settings>
+               <title>This ad gives me confidence in the lawyers experience</title>
+            </language-settings>
+         </subquestions>
+         <required>true</required>
+         <language>EN</language>
+         <language-settings>
+            <title>Please have a good look at this ad, and then complete the questions below.&lt;br />&lt;img src='http://www.aptigence.com.au/images/lawyer1.jpg' border='1'></title>
+         </language-settings>
+      </questions>
+      <questions>
+         <type>M</type>
+         <code>Q8</code>
+         <question-options>
+            <code>O1</code>
+            <language-settings>
+               <title>Vanilla</title>
+            </language-settings>
+            <language>EN</language>
+         </question-options>
+         <question-options>
+            <code>O2</code>
+            <language-settings>
+               <title>Chocolate</title>
+            </language-settings>
+            <language>EN</language>
+         </question-options>
+         <question-options>
+            <code>O3</code>
+            <language-settings>
+               <title>Strawberry</title>
+            </language-settings>
+            <language>EN</language>
+         </question-options>
+         <question-options>
+            <code>O4</code>
+            <language-settings>
+               <title>Pistachio</title>
+            </language-settings>
+            <language>EN</language>
+         </question-options>
+         <required>false</required>
+         <language>EN</language>
+         <language-settings>
+            <title>What flavors of ice cream do you like?. Choose all that apply.</title>
+         </language-settings>
+      </questions>
+   </question-groups>
+</questionnair-definition>

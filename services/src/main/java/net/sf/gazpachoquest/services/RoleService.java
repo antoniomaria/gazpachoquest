@@ -7,8 +7,6 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services;
 
-import java.util.List;
-
 import net.sf.gazpachoquest.domain.user.Role;
 
 public interface RoleService extends PersistenceService<Role> {

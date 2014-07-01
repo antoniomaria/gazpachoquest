@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.xml.bind.annotation.XmlTransient;
 
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
@@ -28,20 +29,24 @@ public abstract class AbstractAuditable extends AbstractPersistable {
 
     @ManyToOne(optional = false)
     @CreatedBy
+    @XmlTransient
     private User createdBy;
 
     @Column(columnDefinition = "timestamp")
     @Convert(converter = DateTimeConverter.class)
     @CreatedDate
+    @XmlTransient
     private DateTime createdDate;
 
     @ManyToOne(optional = true)
     @LastModifiedBy
+    @XmlTransient
     private User lastModifiedBy;
 
     @Column(columnDefinition = "timestamp")
     @Convert(converter = DateTimeConverter.class)
     @LastModifiedDate
+    @XmlTransient
     private DateTime lastModifiedDate;
 
     protected AbstractAuditable() {

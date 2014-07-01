@@ -7,8 +7,6 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto.support;
 
-import javax.xml.bind.annotation.XmlTransient;
-
 import net.sf.gazpachoquest.dto.UserDTO;
 
 import org.joda.time.DateTime;
@@ -17,16 +15,12 @@ public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = -6660330858580421664L;
 
-    @XmlTransient
     private UserDTO createdBy;
 
-    @XmlTransient
     private DateTime createdDate;
 
-    @XmlTransient
     private UserDTO lastModifiedBy;
 
-    @XmlTransient
     private DateTime lastModifiedDate;
 
     protected AbstractAuditableDTO() {

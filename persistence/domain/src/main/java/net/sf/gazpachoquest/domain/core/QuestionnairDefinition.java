@@ -30,6 +30,8 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation;
@@ -41,12 +43,14 @@ import net.sf.gazpachoquest.types.MailMessageTemplateType;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 @Entity
+@XmlRootElement()
 public class QuestionnairDefinition extends
         AbstractLocalizable<QuestionnairDefinitionTranslation, QuestionnairDefinitionLanguageSettings> {
 
     private static final long serialVersionUID = 2560468772707058412L;
 
     @Enumerated(EnumType.STRING)
+    @XmlTransient
     private EntityStatus status;
 
     @Embedded
@@ -57,6 +61,7 @@ public class QuestionnairDefinition extends
     private Language language;
 
     @OneToMany(mappedBy = "questionnairDefinition", orphanRemoval = true, fetch = FetchType.LAZY)
+    @XmlTransient
     private final Set<Questionnair> questionnairs = new HashSet<Questionnair>();
 
     @OneToMany(mappedBy = "questionnairDefinition", fetch = FetchType.LAZY)
@@ -71,17 +76,23 @@ public class QuestionnairDefinition extends
     @OneToMany(mappedBy = "questionnairDefinition", fetch = FetchType.LAZY)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "type", insertable = false, updatable = false)
+    @XmlTransient
     private final Map<MailMessageTemplateType, MailMessageTemplate> mailTemplates = new HashMap<MailMessageTemplateType, MailMessageTemplate>();
 
+    @XmlTransient
     private Boolean welcomeVisible;
 
+    @XmlTransient
     private Boolean progressVisible;
 
+    @XmlTransient
     private Boolean questionGroupInfoVisible;
 
     @Convert(converter = RandomizationStrategyConverter.class)
+    @XmlTransient
     private RandomizationStrategy randomizationStrategy;
 
+    @XmlTransient
     private Integer questionsPerPage;
 
     public QuestionnairDefinition() {

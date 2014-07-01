@@ -15,19 +15,4 @@
 
   <import resource="classpath:/dozer/dozer-context.xml" />
   <context:component-scan base-package="net.sf.gazpachoquest.facades.impl" />
-
-  <bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-    <property name="packagesToScan" value="net.sf.gazpachoquest.dto" />
-    
-    <property name="marshallerProperties">
-      <map>
-        <entry>
-          <key>
-            <util:constant static-field="javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT" />
-          </key>
-          <value type="java.lang.Boolean">true</value>
-        </entry>
-      </map>
-    </property>
-  </bean>
 </beans>

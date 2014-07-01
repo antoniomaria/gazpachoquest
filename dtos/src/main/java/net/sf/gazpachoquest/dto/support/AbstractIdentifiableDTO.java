@@ -10,21 +10,15 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto.support;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AbstractIdentifiableDTO implements Identifiable {
 
     private static final long serialVersionUID = 2830103041683278252L;
 
-    @XmlTransient
     private Integer id;
 
     @Override
