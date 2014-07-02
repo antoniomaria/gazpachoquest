@@ -47,8 +47,7 @@ public class QuestionnairDefinitionResource {
     @ApiParam(access = "internal")
     InputStream content) throws Exception {
         logger.info("New import QuestionnairDefinition petition received");
-        // return
-        // questionnairDefinitionAccessorFacade.importQuestionnairDefinition(content);
-        return QuestionnairDefinitionDTO.with().id(123).build();
+        return
+        questionnairDefinitionAccessorFacade.importQuestionnairDefinition(content);
     }
 }

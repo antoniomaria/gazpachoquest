@@ -46,11 +46,6 @@ public class ApplicationConfig extends Application {
         classes.add(ShiroExceptionHandler.class);
         classes.add(AccountNotFoundExceptionHandler.class);
         classes.add(DefaultExceptionHandler.class);
-
-        // Static initialization for swagger
-        ScannerFactory.setScanner(new DefaultJaxrsScanner());
-        ClassReaders.setReader(new DefaultJaxrsApiReader());
-        FilterFactory.setFilter(new InternalSwaggerFilter());
         return classes;
     }
 

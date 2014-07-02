@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Swagger UI</title>
+   <title>Swagger UI</title>
   <link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'/>
-  <link href='css/highlight.default.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
   <link href='css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='css/reset.css' media='print' rel='stylesheet' type='text/css'/>
+  <link href='css/screen.css' media='print' rel='stylesheet' type='text/css'/>
   <script type="text/javascript" src="lib/shred.bundle.js"></script>
   <script src='lib/jquery-1.8.0.min.js' type='text/javascript'></script>
   <script src='lib/jquery.slideto.min.js' type='text/javascript'></script>
@@ -16,6 +18,11 @@
   <script src='lib/swagger.js' type='text/javascript'></script>
   <script src='swagger-ui.js' type='text/javascript'></script>
   <script src='lib/highlight.7.3.pack.js' type='text/javascript'></script>
+
+  <!-- enabling this will enable oauth2 implicit scope support 
+  <script src='lib/swagger-oauth.js' type='text/javascript'></script>
+  -->
+  
   <script src="crypto-js/rollups/hmac-sha1.js"></script>
   <script src="crypto-js/components/core-min.js"></script>
   <script src="crypto-js/components/enc-utf16-min.js"></script>
@@ -60,7 +67,7 @@
           var signatureBase64 = CryptoJS.enc.Base64.stringify(signature);
           log("signature " + signatureBase64);
           var authToken = "hmac " + this.apiKey + ":" + signatureBase64;
-      	  // obj.headers["Date"] = "now"; // Date-Header can not be produce by XMLAjaxRequest 
+      	  // obj.headers["Date"] = "now"; // Date-Header can not be produced by XMLAjaxRequest 
           obj.headers["Authorization"] = authToken;
     	};
     	return CustomAuthorization;
@@ -96,17 +103,16 @@
   </script>
 </head>
 
-<body>
+<body class="swagger-section">
 <div id='header'>
   <div class="swagger-ui-wrap">
     <a id="logo" href="http://swagger.wordnik.com">swagger</a>
-
     <form id='api_selector'>
       <div class='input icon-btn'>
-        <img id="show-pet-store-icon" src="images/pet_store_api.png" title="Gazpacho Quest Apis">
+        <img id="show-pet-store-icon" src="images/pet_store_api.png" title="Show Swagger Petstore Example Apis">
       </div>
       <div class='input icon-btn'>
-        <img id="show-wordnik-dev-icon" src="images/wordnik_api.png" title="Gazpacho Quest Apis">
+        <img id="show-wordnik-dev-icon" src="images/wordnik_api.png" title="Show Wordnik Developer Apis">
       </div>
       <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
       <div class='input'><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text"/></div>
@@ -115,14 +121,7 @@
   </div>
 </div>
 
-<div id="message-bar" class="swagger-ui-wrap">
-  &nbsp;
-</div>
-
-<div id="swagger-ui-container" class="swagger-ui-wrap">
-
-</div>
-
+<div id="message-bar" class="swagger-ui-wrap">&nbsp;</div>
+<div id="swagger-ui-container" class="swagger-ui-wrap"></div>
 </body>
-
 </html>

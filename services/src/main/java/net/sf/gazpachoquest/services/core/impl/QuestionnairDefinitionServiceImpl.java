@@ -140,10 +140,27 @@ public class QuestionnairDefinitionServiceImpl
             IOException {
         QuestionnairDefinition questionnairDefinition = (QuestionnairDefinition) unmarshaller
                 .unmarshal(new StreamSource(inputStream));
+
         questionnairDefinition.setStatus(EntityStatus.CONFIRMED);
         questionnairDefinition.setProgressVisible(Boolean.TRUE);
+        questionnairDefinition.setWelcomeVisible(Boolean.TRUE);
         questionnairDefinition.setQuestionGroupInfoVisible(Boolean.TRUE);
         questionnairDefinition.setRandomizationStrategy(RandomizationStrategy.NONE);
+
+        List<QuestionGroup> questionGroups = questionnairDefinition.getQuestionGroups();
+        for (QuestionGroup questionGroup : questionGroups) {
+            questionGroup.setRandomizationEnabled(Boolean.FALSE);
+
+            List<Question> questions = questionGroup.getQuestions();
+            for (Question question : questions) {
+                question.setOtherAllowed(Boolean.FALSE);
+                List<Question> subquestions = question.getSubquestions();
+                for (Question subquestion : subquestions) {
+                    subquestion.setOtherAllowed(Boolean.FALSE);
+                }
+            }
+        }
+
         return repository.save(questionnairDefinition);
     }
 }
