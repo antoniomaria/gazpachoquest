@@ -34,6 +34,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
   <!-- JSON mapper -->
   <bean id="jsonProvider" class="com.wordnik.swagger.jaxrs.json.JacksonJsonProvider" />
+  <bean id="jsonConfiguration" class="net.sf.gazpachoquest.rest.support.JacksonConfigurator" />
 
   <!-- Swagger API listing resource -->
   <bean id="swaggerResourceJSON" class="com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON" />
@@ -73,7 +74,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
     </jaxrs:serviceBeans>
     <jaxrs:providers>
       <ref bean="jsonProvider" />
-
+	  <ref bean="jsonConfiguration"/>
       <!-- required for writing swagger classes -->
       <ref bean="resourceWriter" />
       <ref bean="apiWriter" />
