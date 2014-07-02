@@ -10,14 +10,20 @@ import javax.ws.rs.core.Application;
 import net.sf.gazpachoquest.rest.exception.AccountNotFoundExceptionHandler;
 import net.sf.gazpachoquest.rest.exception.DefaultExceptionHandler;
 import net.sf.gazpachoquest.rest.exception.ShiroExceptionHandler;
+import net.sf.gazpachoquest.rest.filter.InternalSwaggerFilter;
 import net.sf.gazpachoquest.rest.filter.LoginShiroFilter;
 import net.sf.gazpachoquest.rest.filter.LogoutShiroFilter;
 import net.sf.gazpachoquest.rest.resources.AuthenticationResource;
 import net.sf.gazpachoquest.rest.resources.QuestionnairResource;
 
+import com.wordnik.swagger.config.FilterFactory;
+import com.wordnik.swagger.config.ScannerFactory;
+import com.wordnik.swagger.jaxrs.config.DefaultJaxrsScanner;
 import com.wordnik.swagger.jaxrs.listing.ApiDeclarationProvider;
 import com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON;
 import com.wordnik.swagger.jaxrs.listing.ResourceListingProvider;
+import com.wordnik.swagger.jaxrs.reader.DefaultJaxrsApiReader;
+import com.wordnik.swagger.reader.ClassReaders;
 
 @ApplicationPath("/api")
 public class ApplicationConfig extends Application {
@@ -40,6 +46,11 @@ public class ApplicationConfig extends Application {
         classes.add(ShiroExceptionHandler.class);
         classes.add(AccountNotFoundExceptionHandler.class);
         classes.add(DefaultExceptionHandler.class);
+
+        // Static initialization for swagger
+        ScannerFactory.setScanner(new DefaultJaxrsScanner());
+        ClassReaders.setReader(new DefaultJaxrsApiReader());
+        FilterFactory.setFilter(new InternalSwaggerFilter());
         return classes;
     }
 

@@ -17,6 +17,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   -->
 
   <bean id="questionnairResource" class="net.sf.gazpachoquest.rest.resources.QuestionnairResource" autowire="byType" />
+  
+  <bean id="questionnairDefinitionResource" class="net.sf.gazpachoquest.rest.resources.QuestionnairDefinitionResource" autowire="byType" />
 
   <bean id="authenticationResource" class="net.sf.gazpachoquest.rest.resources.AuthenticationResource" autowire="byType" />
 
@@ -39,6 +41,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   <!-- Exception Handlers -->
   <bean id="shiroExceptionHandler" class="net.sf.gazpachoquest.rest.exception.ShiroExceptionHandler"/>
   <bean id="accountNotFoundExceptionHandler" class="net.sf.gazpachoquest.rest.exception.AccountNotFoundExceptionHandler" />
+  <bean id="webApplicationExceptionHandler" class="net.sf.gazpachoquest.rest.exception.WebApplicationExceptionHandler" />
   <bean id="defaultExceptionHandler" class="net.sf.gazpachoquest.rest.exception.DefaultExceptionHandler" />
   
   <cxf:bus>
@@ -51,28 +54,21 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   <bean id="swaggerConfig" class="com.wordnik.swagger.jaxrs.config.BeanConfig">
     <property name="resourcePackage" value="net.sf.gazpachoquest.rest.resources" />
     <property name="version" value="1.0.0" />
-    <!-- 
-    <property name="basePath" value="http://localhost:8080/gazpachoquest-rest-web/api" />
-    
-     -->
     <property name="basePath" value="${basePath}/api" />
-    
     <property name="title" value="GazpachoQuest REST Interface" />
     <property name="description" value="This is the endpoint to all gazpacho quest services" />
     <property name="contact" value="antoniomariasanchez@gmail.com" />
     <property name="license" value="Apache 2.0 License" />
     <property name="licenseUrl" value="http://www.apache.org/licenses/LICENSE-2.0.html" />
+    <property name="filterClass" value="net.sf.gazpachoquest.rest.filter.InternalSwaggerFilter"/>
     <property name="scan" value="true" />
   </bean>
 
-  <!-- https://github.com/pires/fabric8-cxf-shiro 
-  // http://howtodoinjava.com/2013/07/25/jax-rs-2-0-resteasy-3-0-2-final-security-tutorial/
-  
-  -->
   <jaxrs:server id="services" address="/">
     <jaxrs:serviceBeans>
       <ref bean="authenticationResource" />
       <ref bean="questionnairResource" />
+      <ref bean="questionnairDefinitionResource" />
       <ref bean="swaggerResourceJSON" />
     </jaxrs:serviceBeans>
     <jaxrs:providers>
@@ -86,6 +82,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
       <!-- Exception handlers -->
       <ref bean="shiroExceptionHandler"/>
       <ref bean="accountNotFoundExceptionHandler"/>
+      <ref bean="webApplicationExceptionHandler"/>
       <ref bean="defaultExceptionHandler"/>
     </jaxrs:providers>
   </jaxrs:server>

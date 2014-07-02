@@ -93,6 +93,7 @@ public class QuestionnairDefinition extends
 
     @Convert(converter = RandomizationStrategyConverter.class)
     @XmlTransient
+    @Column(nullable = false)
     private RandomizationStrategy randomizationStrategy;
 
     @XmlTransient

@@ -65,8 +65,10 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     @OrderColumn(name = "order_in_question")
     private final List<QuestionOption> questionOptions = new ArrayList<QuestionOption>();
 
+    @Column(nullable = false)
     private Boolean required;
 
+    @Column(nullable = false)
     private Boolean otherAllowed;
 
     @Enumerated(EnumType.STRING)

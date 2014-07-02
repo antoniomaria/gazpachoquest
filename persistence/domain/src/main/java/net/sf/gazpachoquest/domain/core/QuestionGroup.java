@@ -60,6 +60,7 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
     @OrderColumn(name = "order_in_questiongroup")
     private final List<Question> questions = new ArrayList<Question>();
 
+    @Column(nullable = false)
     private Boolean randomizationEnabled;
 
     public QuestionGroup() {
