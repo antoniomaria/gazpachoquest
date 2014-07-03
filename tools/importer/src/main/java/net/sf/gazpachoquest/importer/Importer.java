@@ -29,7 +29,7 @@ public class Importer {
     public void doImport() throws IOException {
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream("src/main/resources/examples/MyQuestionnairDefinition.xml");
+            fis = new FileInputStream("src/main/resources/examples/QuestionnairDefinition_12.xml");
             QuestionnairDefinitionDTO imported = questionnairDefinitionAccessorFacade.importQuestionnairDefinition(fis);
             logger.info("Questionnair Definition imported with id = {}", imported.getId());
         } catch (IOException e) {

@@ -26,7 +26,8 @@ public class SampleQuizCreator {
     public QuestionnairDefinitionDTO create() {
         QuestionnairDefinitionDTO questionnair = QuestionnairDefinitionDTO.with().language(Language.EN)
                 .welcomeVisible(true).progressVisible(true).randomizationStrategy(RandomizationStrategy.NONE)
-                .questionnairLanguageSettingsStart().title("European general knowledge quiz")
+                .questionGroupInfoVisible(true).questionnairLanguageSettingsStart()
+                .title("European general knowledge quiz")
                 .description("How much do you know about Europe? Answer to this questions and let's find out!")
                 .welcomeText("Thank you for taking the time to participate in this questionnair.")
                 .questionnairLanguageSettingsEnd().build();
@@ -43,8 +44,8 @@ public class SampleQuizCreator {
         questionnairDefinitionEditorFacade.saveQuestionnairTranslation(questionnairTranslation);
 
         // Page 1
-        QuestionGroupDTO questionGroup1 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
-                .title("European Capitals").pageLanguageSettingsEnd().build();
+        QuestionGroupDTO questionGroup1 = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false)
+                .pageLanguageSettingsStart().title("European Capitals").pageLanguageSettingsEnd().build();
 
         questionnair.addQuestionGroup(questionGroup1);
         questionnair = questionnairDefinitionEditorFacade.save(questionnair);
@@ -59,8 +60,8 @@ public class SampleQuizCreator {
         questionnairDefinitionEditorFacade.saveQuestionGroupTranslation(questionGroupTranslation);
 
         // Page 2
-        QuestionGroupDTO questionGroup2 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
-                .title("European Union").pageLanguageSettingsEnd().build();
+        QuestionGroupDTO questionGroup2 = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false)
+                .pageLanguageSettingsStart().title("European Union").pageLanguageSettingsEnd().build();
 
         questionnair.addQuestionGroup(questionGroup2);
         questionnair = questionnairDefinitionEditorFacade.save(questionnair);
@@ -74,8 +75,8 @@ public class SampleQuizCreator {
         questionnairDefinitionEditorFacade.saveQuestionGroupTranslation(questionGroupTranslation);
 
         // Page 3
-        QuestionGroupDTO questionGroup3 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
-                .title("European History").pageLanguageSettingsEnd().build();
+        QuestionGroupDTO questionGroup3 = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false)
+                .pageLanguageSettingsStart().title("European History").pageLanguageSettingsEnd().build();
 
         questionnair.addQuestionGroup(questionGroup3);
         questionnair = questionnairDefinitionEditorFacade.save(questionnair);

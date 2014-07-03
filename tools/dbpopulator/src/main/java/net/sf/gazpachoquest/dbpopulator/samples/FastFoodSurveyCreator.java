@@ -26,6 +26,7 @@ public class FastFoodSurveyCreator {
                 .welcomeVisible(true)
                 .progressVisible(true)
                 .randomizationStrategy(RandomizationStrategy.NONE)
+                .questionGroupInfoVisible(true)
                 .questionnairLanguageSettingsStart()
                 .title("Food Quality QuestionnairDefinition")
                 .description(
@@ -35,7 +36,7 @@ public class FastFoodSurveyCreator {
                 .questionnairLanguageSettingsEnd().build();
         survey = questionnairDefinitionEditorFacade.save(survey);
 
-        QuestionGroupDTO questionGroup = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
+        QuestionGroupDTO questionGroup = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false).pageLanguageSettingsStart()
                 .title("Fast Food QuestionnairDefinition - QuestionGroup").pageLanguageSettingsEnd().build();
 
         survey.addQuestionGroup(questionGroup);

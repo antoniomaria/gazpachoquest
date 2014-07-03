@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -48,7 +49,7 @@ public class QuestionOption extends AbstractLocalizable<QuestionOptionTranslatio
     @Enumerated(EnumType.STRING)
     private Language language;
 
-    @OneToMany(mappedBy = "questionOption", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "questionOption", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private final Map<Language, QuestionOptionTranslation> translations = new HashMap<Language, QuestionOptionTranslation>();

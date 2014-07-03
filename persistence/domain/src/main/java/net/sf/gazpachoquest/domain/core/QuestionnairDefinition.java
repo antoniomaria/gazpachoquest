@@ -64,7 +64,7 @@ public class QuestionnairDefinition extends
     @XmlTransient
     private final Set<Questionnair> questionnairs = new HashSet<Questionnair>();
 
-    @OneToMany(mappedBy = "questionnairDefinition", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "questionnairDefinition", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private final Map<Language, QuestionnairDefinitionTranslation> translations = new HashMap<Language, QuestionnairDefinitionTranslation>();
@@ -79,24 +79,19 @@ public class QuestionnairDefinition extends
     @XmlTransient
     private final Map<MailMessageTemplateType, MailMessageTemplate> mailTemplates = new HashMap<MailMessageTemplateType, MailMessageTemplate>();
 
-    @XmlTransient
     @Column(nullable = false)
     private Boolean welcomeVisible;
 
-    @XmlTransient
     @Column(nullable = false)
     private Boolean progressVisible;
 
-    @XmlTransient
     @Column(nullable = false)
     private Boolean questionGroupInfoVisible;
 
     @Convert(converter = RandomizationStrategyConverter.class)
-    @XmlTransient
     @Column(nullable = false)
     private RandomizationStrategy randomizationStrategy;
 
-    @XmlTransient
     private Integer questionsPerPage;
 
     public QuestionnairDefinition() {

@@ -141,7 +141,8 @@ public class QuestionnairDefinitionServiceImpl
         QuestionnairDefinition questionnairDefinition = (QuestionnairDefinition) unmarshaller
                 .unmarshal(new StreamSource(inputStream));
         questionnairDefinition.setStatus(EntityStatus.CONFIRMED);
-        defineDefaultValues(questionnairDefinition);
+        // I think not needed
+        // defineDefaultValues(questionnairDefinition);
         return repository.save(questionnairDefinition);
     }
 

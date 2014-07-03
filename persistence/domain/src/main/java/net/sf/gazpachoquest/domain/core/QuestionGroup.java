@@ -51,7 +51,7 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
     @Embedded
     private QuestionGroupLanguageSettings languageSettings;
 
-    @OneToMany(mappedBy = "questionGroup", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "questionGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private final Map<Language, QuestionGroupTranslation> translations = new HashMap<Language, QuestionGroupTranslation>();

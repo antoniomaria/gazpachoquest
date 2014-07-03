@@ -31,6 +31,7 @@ public class DemoSurveyCreator {
                 .welcomeVisible(true)
                 .progressVisible(true)
                 .randomizationStrategy(RandomizationStrategy.NONE)
+                .questionGroupInfoVisible(true)
                 .questionnairLanguageSettingsStart()
                 .title("Sample QuestionnairDefinition")
                 .description(
@@ -51,7 +52,7 @@ public class DemoSurveyCreator {
 
         // Page 1
         QuestionGroupDTO questionGroup1 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
-                .title("QuestionGroup 1").pageLanguageSettingsEnd().build();
+                .title("QuestionGroup 1").pageLanguageSettingsEnd().randomizationEnabled(false).build();
 
         survey.addQuestionGroup(questionGroup1);
         survey = questionnairDefinitionEditorFacade.save(survey);
@@ -66,7 +67,7 @@ public class DemoSurveyCreator {
 
         // Page 2
         QuestionGroupDTO questionGroup2 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
-                .title("QuestionGroup 2").pageLanguageSettingsEnd().build();
+                .title("QuestionGroup 2").pageLanguageSettingsEnd().randomizationEnabled(false).build();
 
         survey.addQuestionGroup(questionGroup2);
         survey = questionnairDefinitionEditorFacade.save(survey);
@@ -79,8 +80,8 @@ public class DemoSurveyCreator {
         questionnairDefinitionEditorFacade.saveQuestionGroupTranslation(questionGroupTranslation);
 
         // Page 3
-        QuestionGroupDTO questionGroup3 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
-                .title("QuestionGroup 3").pageLanguageSettingsEnd().build();
+        QuestionGroupDTO questionGroup3 = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false)
+                .pageLanguageSettingsStart().title("QuestionGroup 3").pageLanguageSettingsEnd().build();
 
         survey.addQuestionGroup(questionGroup3);
         survey = questionnairDefinitionEditorFacade.save(survey);

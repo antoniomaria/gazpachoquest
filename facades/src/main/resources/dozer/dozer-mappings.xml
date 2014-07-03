@@ -56,6 +56,10 @@
     <class-a>net.sf.gazpachoquest.dto.QuestionGroupDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.core.QuestionGroup</class-b>
     <field>
+      <a get-method="isRandomizationEnabled">randomizationEnabled</a>
+      <b>randomizationEnabled</b>
+    </field>
+    <field>
       <a>questions</a>
       <b set-method="addQuestion" type="iterate">questions</b>
       <b-hint>net.sf.gazpachoquest.domain.core.Question</b-hint>
