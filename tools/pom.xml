@@ -14,6 +14,7 @@
 	<module>dbextractor</module>    
 	<module>ddlgenerator</module>	   
 	<module>importer</module>
+	<module>exporter</module>
   </modules>
 
 </project>

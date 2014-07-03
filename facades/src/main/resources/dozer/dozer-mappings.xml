@@ -113,6 +113,18 @@
       <b set-method="addQuestionGroup" type="iterate">questionGroups</b>
       <b-hint>net.sf.gazpachoquest.domain.core.QuestionGroup</b-hint>
     </field>
+    <field>
+      <a get-method="isWelcomeVisible" is-accessible="true">welcomeVisible</a>
+      <b>welcomeVisible</b>
+    </field>
+    <field>
+      <a get-method="isProgressVisible" is-accessible="true">progressVisible</a>
+      <b>progressVisible</b>
+    </field>
+    <field>
+      <a get-method="isQuestionGroupInfoVisible" is-accessible="true">questionGroupInfoVisible</a>
+      <b>questionGroupInfoVisible</b>
+    </field>
   </mapping>
 
   <mapping type="one-way">
@@ -123,7 +135,7 @@
       <b>questionGroups</b>
     </field-exclude>
   </mapping>
-  
+
   <mapping type="one-way" map-id="toDTOwithQuestionGroups">
     <class-a>net.sf.gazpachoquest.domain.core.QuestionnairDefinition</class-a>
     <class-b>net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO</class-b>

@@ -40,6 +40,7 @@ public class QuestionDTO extends AbstractQuestionDTO {
         private String code;
         private Integer id;
         private boolean required;
+        private boolean otherAllowed;
         private Language language;
         private QuestionLanguageSettingsDTO languageSettings;
         private QuestionType type;
@@ -52,6 +53,7 @@ public class QuestionDTO extends AbstractQuestionDTO {
             questionDTO.type = type;
             questionDTO.language = language;
             questionDTO.languageSettings = languageSettings;
+            questionDTO.setOtherAllowed(otherAllowed);
             return questionDTO;
         }
 
@@ -62,6 +64,11 @@ public class QuestionDTO extends AbstractQuestionDTO {
 
         public BuilderImpl required(final boolean required) {
             this.required = required;
+            return this;
+        }
+
+        public BuilderImpl otherAllowed(final boolean otherAllowed) {
+            this.otherAllowed = otherAllowed;
             return this;
         }
 

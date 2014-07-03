@@ -13,6 +13,7 @@ import net.sf.gazpachoquest.dto.support.TranslationDTO;
 import net.sf.gazpachoquest.facades.QuestionnairDefinitionEditorFacade;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
+import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,6 +28,9 @@ public class DemoSurveyCreator {
         QuestionnairDefinitionDTO survey = QuestionnairDefinitionDTO
                 .with()
                 .language(Language.EN)
+                .welcomeVisible(true)
+                .progressVisible(true)
+                .randomizationStrategy(RandomizationStrategy.NONE)
                 .questionnairLanguageSettingsStart()
                 .title("Sample QuestionnairDefinition")
                 .description(

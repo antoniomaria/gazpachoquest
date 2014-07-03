@@ -28,6 +28,8 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
 
     private final List<QuestionDTO> questions = new ArrayList<>();
 
+    private Boolean randomizationEnabled;
+
     public QuestionGroupDTO() {
         super();
     }
@@ -65,11 +67,21 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
         this.languageSettings = languageSettings;
     }
 
+    public Boolean isRandomizationEnabled() {
+        return randomizationEnabled;
+    }
+
+    public void setRandomizationEnabled(Boolean randomizationEnabled) {
+        this.randomizationEnabled = randomizationEnabled;
+    }
+
     public static interface Builder {
 
         QuestionGroupDTO build();
 
         Builder language(Language language);
+
+        Builder randomizationEnabled(Boolean randomizationEnabled);
 
         Builder languageSettings(QuestionGroupLanguageSettingsDTO languageSettings);
 
@@ -79,6 +91,8 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
     public static class BuilderImpl implements Builder {
         private Language language;
 
+        private Boolean randomizationEnabled;
+
         private QuestionGroupLanguageSettingsDTO languageSettings;
 
         @Override
@@ -86,6 +100,7 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
             QuestionGroupDTO questionGroupDTO = new QuestionGroupDTO();
             questionGroupDTO.languageSettings = languageSettings;
             questionGroupDTO.language = language;
+            questionGroupDTO.randomizationEnabled = randomizationEnabled;
             return questionGroupDTO;
         }
 
@@ -104,6 +119,12 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
         @Override
         public QuestionGroupLanguageSettingsDTO.Builder pageLanguageSettingsStart() {
             return QuestionGroupLanguageSettingsDTO.pageLanguageSettingsStart(this);
+        }
+
+        @Override
+        public Builder randomizationEnabled(Boolean randomizationEnabled) {
+            this.randomizationEnabled = randomizationEnabled;
+            return this;
         }
     }
 

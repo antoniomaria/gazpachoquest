@@ -8,6 +8,7 @@ import net.sf.gazpachoquest.dto.SubquestionDTO;
 import net.sf.gazpachoquest.facades.QuestionnairDefinitionEditorFacade;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
+import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,9 @@ public class FastFoodSurveyCreator {
         QuestionnairDefinitionDTO survey = QuestionnairDefinitionDTO
                 .with()
                 .language(Language.EN)
+                .welcomeVisible(true)
+                .progressVisible(true)
+                .randomizationStrategy(RandomizationStrategy.NONE)
                 .questionnairLanguageSettingsStart()
                 .title("Food Quality QuestionnairDefinition")
                 .description(

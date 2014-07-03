@@ -140,8 +140,12 @@ public class QuestionnairDefinitionServiceImpl
             IOException {
         QuestionnairDefinition questionnairDefinition = (QuestionnairDefinition) unmarshaller
                 .unmarshal(new StreamSource(inputStream));
-
         questionnairDefinition.setStatus(EntityStatus.CONFIRMED);
+        defineDefaultValues(questionnairDefinition);
+        return repository.save(questionnairDefinition);
+    }
+
+    private void defineDefaultValues(QuestionnairDefinition questionnairDefinition) {
         questionnairDefinition.setProgressVisible(Boolean.TRUE);
         questionnairDefinition.setWelcomeVisible(Boolean.TRUE);
         questionnairDefinition.setQuestionGroupInfoVisible(Boolean.TRUE);
@@ -160,7 +164,5 @@ public class QuestionnairDefinitionServiceImpl
                 }
             }
         }
-
-        return repository.save(questionnairDefinition);
     }
 }

@@ -32,6 +32,8 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
 
     protected boolean required;
 
+    private boolean otherAllowed;
+
     protected Language language;
 
     protected QuestionLanguageSettingsDTO languageSettings;
@@ -86,6 +88,14 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
 
     public boolean isRequired() {
         return required;
+    }
+
+    public boolean isOtherAllowed() {
+        return otherAllowed;
+    }
+
+    public void setOtherAllowed(boolean otherAllowed) {
+        this.otherAllowed = otherAllowed;
     }
 
     @Override

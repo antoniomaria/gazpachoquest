@@ -32,9 +32,11 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   <bean id="resourceWriter" class="com.wordnik.swagger.jaxrs.listing.ResourceListingProvider" />
   <bean id="apiWriter" class="com.wordnik.swagger.jaxrs.listing.ApiDeclarationProvider" />
 
-  <!-- JSON mapper -->
+  <!-- JSON mapper 
   <bean id="jsonProvider" class="com.wordnik.swagger.jaxrs.json.JacksonJsonProvider" />
-  <bean id="jsonConfiguration" class="net.sf.gazpachoquest.rest.support.JacksonConfigurator" />
+  -->
+  <bean id="jsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+  <bean id="jsonContextResolver" class="net.sf.gazpachoquest.rest.support.JacksonContextResolver" />
 
   <!-- Swagger API listing resource -->
   <bean id="swaggerResourceJSON" class="com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON" />
@@ -74,7 +76,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
     </jaxrs:serviceBeans>
     <jaxrs:providers>
       <ref bean="jsonProvider" />
-	  <ref bean="jsonConfiguration"/>
+      <ref bean="jsonContextResolver" />
       <!-- required for writing swagger classes -->
       <ref bean="resourceWriter" />
       <ref bean="apiWriter" />
