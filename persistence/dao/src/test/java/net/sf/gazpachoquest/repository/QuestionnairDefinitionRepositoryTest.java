@@ -13,6 +13,7 @@ import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLangua
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
+import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,11 +51,13 @@ public class QuestionnairDefinitionRepositoryTest {
     public void saveWithQuestionGroups() {
         QuestionnairDefinitionLanguageSettings settings = QuestionnairDefinitionLanguageSettings.with()
                 .title("My QuestionnairDefinition example").description("My questionnairDefinition description")
-                .build();
+                .welcomeText("welcome").build();
         QuestionnairDefinition questionnairDefinition = QuestionnairDefinition.with().language(Language.ES)
-                .languageSettings(settings).build();
+                .languageSettings(settings).questionGroupInfoVisible(true).progressVisible(true).welcomeVisible(true)
+                .randomizationStrategy(RandomizationStrategy.NONE).build();
         QuestionGroup questionGroup = new QuestionGroup();
         questionGroup.setLanguage(Language.ES);
+        questionGroup.setRandomizationEnabled(false);
         QuestionGroupLanguageSettings groupSettings = new QuestionGroupLanguageSettings();
         groupSettings.setTitle("Group 1");
         questionGroup.setLanguageSettings(groupSettings);
@@ -71,7 +74,8 @@ public class QuestionnairDefinitionRepositoryTest {
         questionLanguageSettings.setTitle("Question 1");
 
         question.setLanguageSettings(questionLanguageSettings);
-
+        question.setOtherAllowed(false);
+        question.setRequired(false);
         questionGroup.addQuestion(question);
 
         question = new Question();
@@ -81,7 +85,8 @@ public class QuestionnairDefinitionRepositoryTest {
         questionLanguageSettings = new QuestionLanguageSettings();
         questionLanguageSettings.setTitle("Question 2");
         question.setLanguageSettings(questionLanguageSettings);
-
+        question.setOtherAllowed(false);
+        question.setRequired(false);
         questionGroup.addQuestion(question);
 
         questionnairDefinition = repository.save(questionnairDefinition);
@@ -94,15 +99,16 @@ public class QuestionnairDefinitionRepositoryTest {
     @Test
     public void saveTest() {
         QuestionnairDefinitionLanguageSettings languageSettings = QuestionnairDefinitionLanguageSettings.with()
-                .title("My QuestionnairDefinition").description("my description").build();
+                .title("My QuestionnairDefinition").description("my description").welcomeText("welcome").build();
         QuestionnairDefinition questionnairDefinition = QuestionnairDefinition.with().language(Language.EN)
-                .languageSettings(languageSettings).build();
+                .languageSettings(languageSettings).questionGroupInfoVisible(true).progressVisible(true)
+                .welcomeVisible(true).randomizationStrategy(RandomizationStrategy.NONE).build();
         questionnairDefinition = repository.save(questionnairDefinition);
         assertThat(questionnairDefinition.getCreatedDate()).isNotNull();
         assertThat(questionnairDefinition.getCreatedBy()).isNotNull();
 
         languageSettings = QuestionnairDefinitionLanguageSettings.with().description("my description")
-                .title("My QuestionnairDefinition. Version 1").build();
+                .title("My QuestionnairDefinition. Version 1").welcomeText("welcome").build();
         questionnairDefinition.setLanguageSettings(languageSettings);
         questionnairDefinition = repository.save(questionnairDefinition);
         assertThat(questionnairDefinition.getLastModifiedBy()).isNotNull();
@@ -116,14 +122,14 @@ public class QuestionnairDefinitionRepositoryTest {
         assertThat(result).hasSize(3);
         assertThat(result.get(0)).isEqualTo(new Object[] { 11, 2L, 0 });
         assertThat(result.get(1)).isEqualTo(new Object[] { 10, 3L, 1 });
-        assertThat(result.get(2)).isEqualTo(new Object[] { 9, 2L, 2 });
+        assertThat(result.get(2)).isEqualTo(new Object[] { 9, 3L, 2 });
     }
 
     @Test
     public void questionsCountTest() {
         Integer questionnairDefinitionId = 7;
         Integer count = repository.questionsCount(questionnairDefinitionId);
-        assertThat(count).isEqualTo(7);
+        assertThat(count).isEqualTo(8);
     }
 
 }
