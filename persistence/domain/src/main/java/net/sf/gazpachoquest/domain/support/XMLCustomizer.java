@@ -1,7 +1,6 @@
 package net.sf.gazpachoquest.domain.support;
 
-//See more at: http://www.eclipse.org/eclipselink/documentation/2.4/moxy/advanced_concepts002.htm#sthash.PEOGC0GE.dpuf
-// http://www.eclipse.org/eclipselink/documentation/2.4/moxy/advanced_concepts002.htm
+// See more at http://www.eclipse.org/eclipselink/documentation/2.4/moxy/advanced_concepts002.htm
 public class XMLCustomizer implements org.eclipse.persistence.oxm.XMLNameTransformer {
 
     // Use the unqualified class name as our root element name.

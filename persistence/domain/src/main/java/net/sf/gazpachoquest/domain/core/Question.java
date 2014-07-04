@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -196,6 +197,24 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     public void addTranslation(Language language, QuestionTranslation translation) {
         translation.setQuestion(this);
         translations.put(language, translation);
+    }
+
+    public void updateInverseRelationships() {
+        for (Entry<Language, QuestionTranslation> entry : translations.entrySet()) {
+            QuestionTranslation questionTranslation = entry.getValue();
+            questionTranslation.setQuestion(this);
+            questionTranslation.setLanguage(entry.getKey());
+        }
+
+        for (QuestionOption questionOption : questionOptions) {
+            questionOption.setQuestion(this);
+            questionOption.updateInverseRelationships();
+        }
+
+        for (Question subquestion : subquestions) {
+            subquestion.setParent(this);
+            subquestion.updateInverseRelationships();
+        }
     }
 
     public static Builder with() {

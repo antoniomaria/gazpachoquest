@@ -17,6 +17,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlTransient;
 
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionGroupLanguageSettings;
@@ -35,6 +36,7 @@ public class QuestionGroupTranslation extends AbstractPersistable implements Tra
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, insertable = true, updatable = true)
+    @XmlTransient
     private Language language;
 
     @Embedded

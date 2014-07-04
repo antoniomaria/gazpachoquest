@@ -17,6 +17,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlTransient;
 
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
@@ -36,6 +37,7 @@ public class QuestionnairDefinitionTranslation extends AbstractPersistable imple
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, insertable = true, updatable = true)
+    @XmlTransient
     private Language language;
 
     @Embedded
@@ -45,11 +47,11 @@ public class QuestionnairDefinitionTranslation extends AbstractPersistable imple
         super();
     }
 
-    public QuestionnairDefinition getSurvey() {
+    public QuestionnairDefinition getQuestionnairDefinition() {
         return questionnairDefinition;
     }
 
-    public void setSurvey(QuestionnairDefinition questionnairDefinition) {
+    public void setQuestionnairDefinition(QuestionnairDefinition questionnairDefinition) {
         this.questionnairDefinition = questionnairDefinition;
     }
 

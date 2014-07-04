@@ -13,7 +13,9 @@ package net.sf.gazpachoquest.domain.core;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -24,6 +26,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 
 import net.sf.gazpachoquest.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation;
@@ -39,6 +42,7 @@ public class MailMessageTemplate extends
 
     @Enumerated(EnumType.STRING)
     @Column(insertable = true, updatable = true, nullable = false)
+    @XmlTransient
     private MailMessageTemplateType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -55,7 +59,7 @@ public class MailMessageTemplate extends
     @Embedded
     private MailMessageTemplateLanguageSettings languageSettings;
 
-    @OneToMany(mappedBy = "mailMessageTemplate", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "mailMessageTemplate", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private final Map<Language, MailMessageTemplateTranslation> translations = new HashMap<Language, MailMessageTemplateTranslation>();
@@ -185,5 +189,14 @@ public class MailMessageTemplate extends
             mailMessageTemplate.setId(id);
             return mailMessageTemplate;
         }
+    }
+
+    public void updateInverseRelationships() {
+        for (Entry<Language, MailMessageTemplateTranslation> entry : translations.entrySet()) {
+            MailMessageTemplateTranslation mailMessageTemplateTranslation = entry.getValue();
+            mailMessageTemplateTranslation.setMailMessageTemplate(this);
+            mailMessageTemplateTranslation.setLanguage(entry.getKey());
+        }
+
     }
 }

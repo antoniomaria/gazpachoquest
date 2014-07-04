@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,6 +29,8 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionGroupLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionGroupTranslation;
@@ -36,12 +39,14 @@ import net.sf.gazpachoquest.domain.support.QuestionnairElement;
 import net.sf.gazpachoquest.types.Language;
 
 @Entity
+@XmlType(propOrder = { "language", "languageSettings", "questions", "translations", "randomizationEnabled" })
 public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation, QuestionGroupLanguageSettings>
         implements QuestionnairElement {
 
     private static final long serialVersionUID = 5849288763708940985L;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @XmlTransient
     private QuestionnairDefinition questionnairDefinition;
 
     @Enumerated(EnumType.STRING)
@@ -119,6 +124,18 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
 
     public void setRandomizationEnabled(Boolean randomizationEnabled) {
         this.randomizationEnabled = randomizationEnabled;
+    }
+
+    public void updateInverseRelationships() {
+        for (Entry<Language, QuestionGroupTranslation> entry : translations.entrySet()) {
+            QuestionGroupTranslation questionGroupTranslation = entry.getValue();
+            questionGroupTranslation.setQuestionGroup(this);
+            questionGroupTranslation.setLanguage(entry.getKey());
+        }
+        for (Question question : questions) {
+            question.setQuestionGroup(this);
+            question.updateInverseRelationships();
+        }
     }
 
     public static Builder with() {

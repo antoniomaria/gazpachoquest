@@ -13,6 +13,7 @@ package net.sf.gazpachoquest.domain.core;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -144,5 +145,14 @@ public class QuestionOption extends AbstractLocalizable<QuestionOptionTranslatio
             questionOption.language = language;
             return questionOption;
         }
+    }
+
+    public void updateInverseRelationships() {
+        for (Entry<Language, QuestionOptionTranslation> entry : translations.entrySet()) {
+            QuestionOptionTranslation questionTranslation = entry.getValue();
+            questionTranslation.setQuestionOption(this);
+            questionTranslation.setLanguage(entry.getKey());
+        }
+
     }
 }

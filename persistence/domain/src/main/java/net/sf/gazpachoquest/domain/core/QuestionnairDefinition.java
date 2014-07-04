@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -32,6 +33,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation;
@@ -43,7 +45,9 @@ import net.sf.gazpachoquest.types.MailMessageTemplateType;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 @Entity
-@XmlRootElement()
+@XmlRootElement
+@XmlType(propOrder = { "language", "languageSettings", "questionGroups", "mailTemplates", "translations",
+        "welcomeVisible", "progressVisible", "questionGroupInfoVisible", "randomizationStrategy", "questionsPerPage" })
 public class QuestionnairDefinition extends
         AbstractLocalizable<QuestionnairDefinitionTranslation, QuestionnairDefinitionLanguageSettings> {
 
@@ -73,10 +77,9 @@ public class QuestionnairDefinition extends
     @OrderColumn(name = "order_in_questionnair")
     private final List<QuestionGroup> questionGroups = new ArrayList<QuestionGroup>();
 
-    @OneToMany(mappedBy = "questionnairDefinition", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "questionnairDefinition", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "type", insertable = false, updatable = false)
-    @XmlTransient
     private final Map<MailMessageTemplateType, MailMessageTemplate> mailTemplates = new HashMap<MailMessageTemplateType, MailMessageTemplate>();
 
     @Column(nullable = false)
@@ -145,7 +148,7 @@ public class QuestionnairDefinition extends
     }
 
     public void addTranslation(Language language, QuestionnairDefinitionTranslation translation) {
-        translation.setSurvey(this);
+        translation.setQuestionnairDefinition(this);
         translations.put(language, translation);
     }
 
@@ -187,6 +190,27 @@ public class QuestionnairDefinition extends
 
     public void setQuestionsPerPage(Integer questionsPerPage) {
         this.questionsPerPage = questionsPerPage;
+    }
+
+    public void updateInverseRelationships() {
+        for (Entry<Language, QuestionnairDefinitionTranslation> entry : translations.entrySet()) {
+            QuestionnairDefinitionTranslation translation = entry.getValue();
+            translation.setQuestionnairDefinition(this);
+            translation.setLanguage(entry.getKey());
+        }
+
+        for (Entry<MailMessageTemplateType, MailMessageTemplate> entry : mailTemplates.entrySet()) {
+            MailMessageTemplate mailMessageTemplate = entry.getValue();
+            mailMessageTemplate.setType(entry.getKey());
+            mailMessageTemplate.setQuestionnairDefinition(this);
+            mailMessageTemplate.updateInverseRelationships();
+        }
+
+        for (QuestionGroup questionGroup : questionGroups) {
+            questionGroup.setQuestionnairDefinition(this);
+            questionGroup.updateInverseRelationships();
+        }
+
     }
 
     public static Builder with() {

@@ -1,40 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <questionnair-definition>
+   <language>EN</language>
    <language-settings>
       <description>How much do you know about Europe? Answer to this questions and let's find out!</description>
       <title>European general knowledge quiz</title>
       <welcomeText>Thank you for taking the time to participate in this questionnair.</welcomeText>
    </language-settings>
-   <language>EN</language>
-   <translations>
-      <entry>
-         <key>ES</key>
-         <value>
-            <language>ES</language>
-            <languageSettings>
-               <description>¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!</description>
-               <title>Test de conocimiento general sobre Europa</title>
-               <welcomeText>Gracias por participar en este cuestionario</welcomeText>
-            </languageSettings>
-         </value>
-      </entry>
-   </translations>
    <question-groups>
       <language>EN</language>
       <language-settings>
          <title>European Capitals</title>
       </language-settings>
-      <translations>
-         <entry>
-            <key>ES</key>
-            <value>
-               <language>ES</language>
-               <languageSettings>
-                  <title>Capitales Europeas</title>
-               </languageSettings>
-            </value>
-         </entry>
-      </translations>
       <questions>
          <type>S</type>
          <code>Q1</code>
@@ -48,7 +24,6 @@
             <entry>
                <key>ES</key>
                <value>
-                  <language>ES</language>
                   <languageSettings>
                      <title>¿Cuál es la capital de Malta?</title>
                   </languageSettings>
@@ -69,7 +44,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Noruega</title>
                      </languageSettings>
@@ -87,7 +61,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Suecia</title>
                      </languageSettings>
@@ -105,7 +78,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Dinamarca</title>
                      </languageSettings>
@@ -123,7 +95,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Islandia</title>
                      </languageSettings>
@@ -141,7 +112,6 @@
             <entry>
                <key>ES</key>
                <value>
-                  <language>ES</language>
                   <languageSettings>
                      <title>¿Qué pais tiene como capital Copenague?</title>
                   </languageSettings>
@@ -162,7 +132,6 @@
             <entry>
                <key>ES</key>
                <value>
-                  <language>ES</language>
                   <languageSettings>
                      <title>¿Cuantas capitales europeas fueron fundadas por los romanos?</title>
                   </languageSettings>
@@ -183,7 +152,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Westphalia</title>
                      </languageSettings>
@@ -201,7 +169,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Roma</title>
                      </languageSettings>
@@ -219,7 +186,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Bruselas</title>
                      </languageSettings>
@@ -237,7 +203,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Islandia</title>
                      </languageSettings>
@@ -255,7 +220,6 @@
             <entry>
                <key>ES</key>
                <value>
-                  <language>ES</language>
                   <languageSettings>
                      <title>¿Dónde fue firmado el trado de Comunidad Económica Europea, precedesor de Unión Europea?</title>
                   </languageSettings>
@@ -263,6 +227,16 @@
             </entry>
          </translations>
       </questions>
+      <translations>
+         <entry>
+            <key>ES</key>
+            <value>
+               <languageSettings>
+                  <title>Capitales Europeas</title>
+               </languageSettings>
+            </value>
+         </entry>
+      </translations>
       <randomization-enabled>false</randomization-enabled>
    </question-groups>
    <question-groups>
@@ -270,17 +244,6 @@
       <language-settings>
          <title>European Union</title>
       </language-settings>
-      <translations>
-         <entry>
-            <key>ES</key>
-            <value>
-               <language>ES</language>
-               <languageSettings>
-                  <title>Unión Europea</title>
-               </languageSettings>
-            </value>
-         </entry>
-      </translations>
       <questions>
          <type>S</type>
          <code>Q5</code>
@@ -294,7 +257,6 @@
             <entry>
                <key>ES</key>
                <value>
-                  <language>ES</language>
                   <languageSettings>
                      <title>¿Que significa UE?</title>
                   </languageSettings>
@@ -353,7 +315,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Noruega</title>
                      </languageSettings>
@@ -371,7 +332,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Polonia</title>
                      </languageSettings>
@@ -389,7 +349,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Macedonia</title>
                      </languageSettings>
@@ -407,7 +366,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Chipre</title>
                      </languageSettings>
@@ -425,7 +383,6 @@
             <entry>
                <key>ES</key>
                <value>
-                  <language>ES</language>
                   <languageSettings>
                      <title>¿Cuál de estos países europeos pertenecen a la zona euro?</title>
                   </languageSettings>
@@ -446,7 +403,6 @@
             <entry>
                <key>ES</key>
                <value>
-                  <language>ES</language>
                   <languageSettings>
                      <title>¿Cuantos marcos finlandeses necesitas para tener un euro?</title>
                   </languageSettings>
@@ -454,6 +410,16 @@
             </entry>
          </translations>
       </questions>
+      <translations>
+         <entry>
+            <key>ES</key>
+            <value>
+               <languageSettings>
+                  <title>Unión Europea</title>
+               </languageSettings>
+            </value>
+         </entry>
+      </translations>
       <randomization-enabled>false</randomization-enabled>
    </question-groups>
    <question-groups>
@@ -461,17 +427,6 @@
       <language-settings>
          <title>European History</title>
       </language-settings>
-      <translations>
-         <entry>
-            <key>ES</key>
-            <value>
-               <language>ES</language>
-               <languageSettings>
-                  <title>Sociedad</title>
-               </languageSettings>
-            </value>
-         </entry>
-      </translations>
       <questions>
          <type>L</type>
          <code>Q9</code>
@@ -485,7 +440,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Barcelona</title>
                      </languageSettings>
@@ -503,7 +457,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Lisboa</title>
                      </languageSettings>
@@ -521,7 +474,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Genova</title>
                      </languageSettings>
@@ -539,7 +491,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Roma</title>
                      </languageSettings>
@@ -557,7 +508,6 @@
             <entry>
                <key>ES</key>
                <value>
-                  <language>ES</language>
                   <languageSettings>
                      <title>¿Dónde nació Cristobal Colón?</title>
                   </languageSettings>
@@ -578,7 +528,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Imperio Portugues</title>
                      </languageSettings>
@@ -596,7 +545,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Imperio Británico</title>
                      </languageSettings>
@@ -614,7 +562,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Imperio Español</title>
                      </languageSettings>
@@ -632,7 +579,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Imperio Holandés</title>
                      </languageSettings>
@@ -650,7 +596,6 @@
             <entry>
                <key>ES</key>
                <value>
-                  <language>ES</language>
                   <languageSettings>
                      <title>¿Cuál fue el imperio más grande en el siglo XVI?</title>
                   </languageSettings>
@@ -671,7 +616,6 @@
             <entry>
                <key>ES</key>
                <value>
-                  <language>ES</language>
                   <languageSettings>
                      <title>¿Qué nacionalidad tenía el primer Europeo que llegó a Congo?</title>
                   </languageSettings>
@@ -692,7 +636,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Adolfo Hitler</title>
                      </languageSettings>
@@ -710,7 +653,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Napoleón</title>
                      </languageSettings>
@@ -728,7 +670,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Felipe II</title>
                      </languageSettings>
@@ -746,7 +687,6 @@
                <entry>
                   <key>ES</key>
                   <value>
-                     <language>ES</language>
                      <languageSettings>
                         <title>Julio Cesar</title>
                      </languageSettings>
@@ -764,7 +704,6 @@
             <entry>
                <key>ES</key>
                <value>
-                  <language>ES</language>
                   <languageSettings>
                      <title>¿Cual de estos hombres causó más bajas en Europa?</title>
                   </languageSettings>
@@ -772,8 +711,55 @@
             </entry>
          </translations>
       </questions>
+      <translations>
+         <entry>
+            <key>ES</key>
+            <value>
+               <languageSettings>
+                  <title>Sociedad</title>
+               </languageSettings>
+            </value>
+         </entry>
+      </translations>
       <randomization-enabled>false</randomization-enabled>
    </question-groups>
+   <mail-templates>
+      <entry>
+         <key>INVITATION</key>
+         <value>
+            <language>EN</language>
+            <from-address>support@gazpacho.net</from-address>
+            <reply-to>support@gazpacho.net</reply-to>
+            <language-settings>
+               <body>Dear Mr. $lastname, &lt;br> You have been invited to take this questionnair. &lt;br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.&lt;a href=&quot;$link&quot;>Click here&lt;/a> to take the questionnairDefinition</body>
+               <subject>Invitation to participate in a questionnair</subject>
+            </language-settings>
+            <translations>
+               <entry>
+                  <key>ES</key>
+                  <value>
+                     <languageSettings>
+                        <body>Estimado Sr. $lastname, &lt;br> Has sido invitado para participar en esta cuestionario &lt;br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario&lt;a href=&quot;$link&quot;>Click aqui&lt;/a> para empezar</body>
+                        <subject>Invitación para participar en un cuestionario</subject>
+                     </languageSettings>
+                  </value>
+               </entry>
+            </translations>
+         </value>
+      </entry>
+   </mail-templates>
+   <translations>
+      <entry>
+         <key>ES</key>
+         <value>
+            <languageSettings>
+               <description>¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!</description>
+               <title>Test de conocimiento general sobre Europa</title>
+               <welcomeText>Gracias por participar en este cuestionario</welcomeText>
+            </languageSettings>
+         </value>
+      </entry>
+   </translations>
    <welcome-visible>true</welcome-visible>
    <progress-visible>true</progress-visible>
    <question-group-info-visible>true</question-group-info-visible>
