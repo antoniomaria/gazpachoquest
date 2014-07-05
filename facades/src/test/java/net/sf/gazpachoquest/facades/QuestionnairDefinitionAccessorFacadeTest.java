@@ -2,8 +2,8 @@ package net.sf.gazpachoquest.facades;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
@@ -44,31 +44,22 @@ public class QuestionnairDefinitionAccessorFacadeTest {
     }
 
     @Test
-    public void exportTest() {
+    public void exportTest() throws XmlMappingException, IOException {
         Integer questionnairDefinition = 7;
-        try {
-            questionnairDefinitionAccessorFacade.exportQuestionnairDefinition(questionnairDefinition, System.out);
-        } catch (XmlMappingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            questionnairDefinitionAccessorFacade.exportQuestionnairDefinition(questionnairDefinition, baos);
+            assertThat(baos.toString()).contains("questionnair-definition");
     }
 
     @Test
-    public void importTest() throws FileNotFoundException {
+    public void importTest() throws XmlMappingException, IOException {
         FileInputStream fis = new FileInputStream(
-                "src/test/resources/net/sf/gazpachoquest/facades/MyQuestionnairDefinition.xml");
+                "src/test/resources/net/sf/gazpachoquest/facades/QuestionnairDefinition_12.xml");
         try {
-            questionnairDefinitionAccessorFacade.importQuestionnairDefinition(fis);
-        } catch (XmlMappingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            QuestionnairDefinitionDTO imported = questionnairDefinitionAccessorFacade.importQuestionnairDefinition(fis);
+            assertThat(imported.isNew()).isFalse();
+        } finally {
+            fis.close();
         }
     }
 

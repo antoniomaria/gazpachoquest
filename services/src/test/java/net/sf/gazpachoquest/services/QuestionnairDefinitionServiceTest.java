@@ -9,6 +9,7 @@ import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLangua
 import net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.Language;
+import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -64,15 +65,18 @@ public class QuestionnairDefinitionServiceTest {
     @Test
     public void saveTest() {
         QuestionnairDefinitionLanguageSettings languageSettings = QuestionnairDefinitionLanguageSettings.with()
-                .title("My QuestionnairDefinition").description("My description").build();
+                .title("My QuestionnairDefinition").description("My description").welcomeText("welcome").build();
+
         QuestionnairDefinition questionnairDefinition = QuestionnairDefinition.with().language(Language.EN)
-                .languageSettings(languageSettings).build();
+                .languageSettings(languageSettings).questionGroupInfoVisible(true).progressVisible(true)
+                .welcomeVisible(true).randomizationStrategy(RandomizationStrategy.NONE).build();
+
         questionnairDefinition = questionnairDefinitionService.save(questionnairDefinition);
         DateTime lastModifiedDate = questionnairDefinition.getLastModifiedDate();
 
         QuestionnairDefinition created = questionnairDefinitionService.findOne(questionnairDefinition.getId());
         QuestionnairDefinitionLanguageSettings newLanguageSettings = QuestionnairDefinitionLanguageSettings.with()
-                .title("My QuestionnairDefinition. Ver 1").description("My description").build();
+                .title("My QuestionnairDefinition. Ver 1").description("My description").welcomeText("my welcome").build();
         created.setLanguageSettings(newLanguageSettings);
         try {
             Thread.sleep(1000);
@@ -88,6 +92,7 @@ public class QuestionnairDefinitionServiceTest {
         QuestionnairDefinitionLanguageSettings languageSettings = new QuestionnairDefinitionLanguageSettings();
         languageSettings.setTitle("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
         languageSettings.setDescription("Donec pellentesque consequat orci.");
+        languageSettings.setWelcomeText("dolorem");
         int questionnairDefinitionId = 7;
         QuestionnairDefinitionTranslation translation = QuestionnairDefinitionTranslation.with()
                 .translatedEntityId(questionnairDefinitionId).language(Language.FR).languageSettings(languageSettings)

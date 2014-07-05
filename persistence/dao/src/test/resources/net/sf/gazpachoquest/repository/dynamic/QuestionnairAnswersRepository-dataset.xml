@@ -28,7 +28,8 @@
     createdby_id="1" lastmodifiedby_id="1" questionnairdefinition_id="7" order_in_questionnair="1" randomization_enabled="false"/>
   <question_group id="11" created_date="2014-04-19 10:35:11.62" language="EN" last_modified_date="2014-04-19 10:35:11.62" title="QuestionGroup 3"
     createdby_id="1" lastmodifiedby_id="1" questionnairdefinition_id="7" order_in_questionnair="2" randomization_enabled="false"/>
- 
+  <question_group_translation/>
+  
   <question id="12" code="Q1" created_date="2014-04-19 10:35:11.727" language="EN" last_modified_date="2014-04-19 10:35:11.727" required="true" type="S"
     title="What is your name?" createdby_id="1" lastmodifiedby_id="1" questiongroup_id="9" order_in_questiongroup="0" other_allowed="false"/>
   <question id="13" code="Q2" created_date="2014-04-19 10:35:11.928" language="EN" last_modified_date="2014-04-19 10:35:11.928" required="true" type="L"
@@ -69,6 +70,8 @@
   <question_option id="54" code="O4" created_date="2014-04-19 10:35:12.765" language="EN" last_modified_date="2014-04-19 10:35:12.765"
     title="Pistachio" createdby_id="1" lastmodifiedby_id="1" question_id="50" order_in_question="3" />
 
+  <question_option_translation />
+  
   <questionnair id="58" answers_id="5" created_date="2014-04-19 10:35:13.943" last_modified_date="2014-04-19 10:35:13.943" status="CONFIRMED"
     createdby_id="1" lastmodifiedby_id="1" questionnairdefinition_id="7" research_id="57" respondent_id="6" />
 
