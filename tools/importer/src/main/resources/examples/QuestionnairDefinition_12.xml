@@ -4,7 +4,7 @@
    <language-settings>
       <description>How much do you know about Europe? Answer to this questions and let's find out!</description>
       <title>European general knowledge quiz</title>
-      <welcomeText>Thank you for taking the time to participate in this questionnair.</welcomeText>
+      <welcome_text>Thank you for taking the time to participate in this questionnair.</welcome_text>
    </language-settings>
    <question-groups>
       <language>EN</language>
@@ -755,7 +755,7 @@
             <languageSettings>
                <description>¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!</description>
                <title>Test de conocimiento general sobre Europa</title>
-               <welcomeText>Gracias por participar en este cuestionario</welcomeText>
+               <welcome_text>Gracias por participar en este cuestionario</welcome_text>
             </languageSettings>
          </value>
       </entry>

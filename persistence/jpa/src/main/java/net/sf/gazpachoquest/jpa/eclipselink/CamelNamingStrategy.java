@@ -43,7 +43,6 @@ public class CamelNamingStrategy implements SessionCustomizer {
     public void customize(final Session session) throws SQLException {
         for (ClassDescriptor descriptor : session.getDescriptors().values()) {
             if (!descriptor.getTables().isEmpty()) {
-
                 // Take table name from @Table if exists
                 String tableName = null;
                 if (descriptor.getAlias().equalsIgnoreCase(descriptor.getTableName())) {
@@ -59,15 +58,21 @@ public class CamelNamingStrategy implements SessionCustomizer {
                     index.setTargetTable(tableName);
                 }
                 Vector<DatabaseMapping> mappings = descriptor.getMappings();
-                for (DatabaseMapping mapping : mappings) {
-                    DatabaseField field = mapping.getField();
-                    if (mapping.isDirectToFieldMapping() && !mapping.isPrimaryKeyMapping()) {
-                        String attributeName = mapping.getAttributeName();
+                addUnderscores(mappings);
+            } else if (descriptor.isAggregateDescriptor()) {
+                addUnderscores(descriptor.getMappings());
+            }
+        }
+    }
 
-                        String underScoredFieldName = addUnderscores(attributeName);
-                        field.setName(underScoredFieldName);
-                    }
-                }
+    private void addUnderscores(Vector<DatabaseMapping> mappings) {
+        for (DatabaseMapping mapping : mappings) {
+            DatabaseField field = mapping.getField();
+            if (mapping.isDirectToFieldMapping() && !mapping.isPrimaryKeyMapping()) {
+                String attributeName = mapping.getAttributeName();
+
+                String underScoredFieldName = addUnderscores(attributeName);
+                field.setName(underScoredFieldName);
             }
         }
     }

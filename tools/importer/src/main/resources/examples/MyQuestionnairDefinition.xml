@@ -3,7 +3,7 @@
    <language-settings>
       <description>&lt;p>This is a &lt;strong>&lt;em>sample questionnairDefinition&lt;/em>&lt;/strong> designed for testing GazpachoSurvey.&lt;/p></description>
       <title>Sample QuestionnairDefinition</title>
-      <welcomeText>Thank you for taking the time to participate in this questionnairDefinition.</welcomeText>
+      <welcome_text>Thank you for taking the time to participate in this questionnairDefinition.</welcome_text>
    </language-settings>
    <language>EN</language>
    <question-groups>
