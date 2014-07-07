@@ -11,5 +11,24 @@
 package net.sf.gazpachoquest.types;
 
 public enum InvitationStatus {
-    ACTIVE, ACCEPTED, RESUMED, EXPIRED, CANCELED
+    ACTIVE("A"), EXPIRED("E"), CANCELED("C");
+
+    private final String code;
+
+    InvitationStatus(String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public static InvitationStatus fromCode(String code) {
+        for (InvitationStatus status : InvitationStatus.values()) {
+            if (status.code.equals(code)) {
+                return status;
+            }
+        }
+        throw new IllegalArgumentException(code.toString());
+    }
 }

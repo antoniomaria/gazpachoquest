@@ -1,6 +1,8 @@
-package net.sf.gazpachoquest.services;
+package net.sf.gazpachoquest.repository;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachoquest.domain.core.AnonymousInvitation;
+import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.support.Invitation;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
@@ -20,40 +22,35 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
-        "classpath:/services-context.xml", "classpath:/components-context.xml" })
+@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("InvitationService-dataset.xml")
-@DatabaseTearDown("InvitationService-dataset.xml")
+@DatabaseSetup("InvitationRepository-dataset.xml")
+@DatabaseTearDown("InvitationRepository-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class InvitationServiceTest {
+public class InvitationRepositoryTest {
 
     @Autowired
-    private ResearchService researchService;
+    private ResearchRepository researchRepository;
 
     @Autowired
-    private InvitationService invitationService;
+    private QuestionnairDefinitionRepository questionnairDefinitionRepository;
+
+    @Autowired
+    private InvitationRepository invitationRepository;
 
     @Test
     public void findAllTest() {
-        assertThat(invitationService.findAll()).hasSize(5);
+        assertThat(invitationRepository.findAll()).hasSize(5);
     }
 
     @Test
     public void saveTest() {
-        Research research = researchService.findOne(57);
-        Invitation invitation = Invitation.with().research(research).status(InvitationStatus.ACTIVE).token("1234")
-                .build();
-        Invitation saved = invitationService.save(invitation);
+        Research research = researchRepository.findOne(57);
+        QuestionnairDefinition questionnairDefinition = questionnairDefinitionRepository.findOne(7);
 
-        Integer invitationId = saved.getId();
-
-        Invitation existing = Invitation.with().id(invitationId).status(InvitationStatus.CANCELED).token("4321")
-                .build();
-
-        Invitation updated = invitationService.save(existing);
-
-        assertThat(updated.getResearch()).isNotNull();
+        AnonymousInvitation invitation = AnonymousInvitation.with().research(research).status(InvitationStatus.ACTIVE)
+                .token("1234").questionnairDefinition(questionnairDefinition).build();
+        Invitation saved = invitationRepository.save(invitation);
+        assertThat(saved.isNew()).isFalse();
     }
-
 }
