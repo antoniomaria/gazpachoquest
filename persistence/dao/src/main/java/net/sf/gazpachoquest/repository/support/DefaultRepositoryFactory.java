@@ -26,10 +26,10 @@ import javax.persistence.EntityManager;
 import net.sf.gazpachoquest.qbe.ByExampleSpecification;
 import net.sf.gazpachoquest.qbe.NamedQueryUtil;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.data.jpa.repository.support.QueryDslJpaRepository;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.util.Assert;
@@ -62,8 +62,8 @@ public class DefaultRepositoryFactory extends JpaRepositoryFactory {
 
     @Override
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    protected <T, ID extends Serializable> JpaRepository<?, ?> getTargetRepository(final RepositoryMetadata metadata,
-            final EntityManager entityManager) {
+    protected <T, ID extends Serializable> SimpleJpaRepository<?, ?> getTargetRepository(
+            final RepositoryMetadata metadata, final EntityManager entityManager) {
 
         Class<?> repositoryInterface = metadata.getRepositoryInterface();
 
