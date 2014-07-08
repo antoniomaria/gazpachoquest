@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="questionnair-definition">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="language"/>
+        <xs:element name="language-settings">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="description"/>
+              <xs:element type="xs:string" name="title"/>
+              <xs:element type="xs:string" name="welcomeText"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="question-groups">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="question-group" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="language"/>
+                    <xs:element name="language-settings">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="title"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="questions">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="question" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="type"/>
+                                <xs:element type="xs:string" name="code"/>
+                                <xs:element type="xs:string" name="subquestions"/>
+                                <xs:element name="question-options">
+                                  <xs:complexType mixed="true">
+                                    <xs:choice maxOccurs="unbounded" minOccurs="0">
+                                      <xs:element name="question-option">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element type="xs:string" name="code"/>
+                                            <xs:element name="language-settings">
+                                              <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element type="xs:string" name="title"/>
+                                                </xs:sequence>
+                                              </xs:complexType>
+                                            </xs:element>
+                                            <xs:element type="xs:string" name="language"/>
+                                            <xs:element name="translations" minOccurs="0">
+                                              <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="entry">
+                                                    <xs:complexType>
+                                                      <xs:sequence>
+                                                        <xs:element type="xs:string" name="key"/>
+                                                        <xs:element name="value">
+                                                          <xs:complexType>
+                                                            <xs:sequence>
+                                                              <xs:element name="languageSettings">
+                                                                <xs:complexType>
+                                                                  <xs:sequence>
+                                                                    <xs:element type="xs:string" name="title"/>
+                                                                  </xs:sequence>
+                                                                </xs:complexType>
+                                                              </xs:element>
+                                                            </xs:sequence>
+                                                          </xs:complexType>
+                                                        </xs:element>
+                                                      </xs:sequence>
+                                                    </xs:complexType>
+                                                  </xs:element>
+                                                </xs:sequence>
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:choice>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element type="xs:string" name="required"/>
+                                <xs:element type="xs:string" name="other-allowed"/>
+                                <xs:element type="xs:string" name="language"/>
+                                <xs:element name="language-settings">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element type="xs:string" name="title"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="translations" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="entry">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element type="xs:string" name="key"/>
+                                            <xs:element name="value">
+                                              <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="languageSettings">
+                                                    <xs:complexType>
+                                                      <xs:sequence>
+                                                        <xs:element type="xs:string" name="title"/>
+                                                      </xs:sequence>
+                                                    </xs:complexType>
+                                                  </xs:element>
+                                                </xs:sequence>
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="translations">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="entry">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="key"/>
+                                <xs:element name="value">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="languageSettings">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element type="xs:string" name="title"/>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element type="xs:string" name="randomization-enabled"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="mail-templates">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="entry">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="key"/>
+                    <xs:element name="value">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="language"/>
+                          <xs:element type="xs:string" name="from-address"/>
+                          <xs:element type="xs:string" name="reply-to"/>
+                          <xs:element name="language-settings">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="body"/>
+                                <xs:element type="xs:string" name="subject"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="translations">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="entry">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element type="xs:string" name="key"/>
+                                      <xs:element name="value">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="languageSettings">
+                                              <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element type="xs:string" name="body"/>
+                                                  <xs:element type="xs:string" name="subject"/>
+                                                </xs:sequence>
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="translations">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="entry">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="key"/>
+                    <xs:element name="value">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="languageSettings">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="description"/>
+                                <xs:element type="xs:string" name="title"/>
+                                <xs:element type="xs:string" name="welcomeText"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="welcome-visible"/>
+        <xs:element type="xs:string" name="progress-visible"/>
+        <xs:element type="xs:string" name="question-group-info-visible"/>
+        <xs:element type="xs:string" name="randomization-strategy"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+
