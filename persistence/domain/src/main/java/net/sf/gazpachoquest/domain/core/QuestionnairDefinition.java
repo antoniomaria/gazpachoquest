@@ -31,6 +31,8 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
@@ -75,6 +77,8 @@ public class QuestionnairDefinition extends
 
     @OneToMany(mappedBy = "questionnairDefinition", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @OrderColumn(name = "order_in_questionnair")
+    @XmlElementWrapper(name="question-groups")
+    @XmlElement(name = "question-group")
     private final List<QuestionGroup> questionGroups = new ArrayList<QuestionGroup>();
 
     @OneToMany(mappedBy = "questionnairDefinition", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

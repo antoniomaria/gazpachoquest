@@ -29,6 +29,8 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
@@ -63,6 +65,8 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
 
     @OneToMany(mappedBy = "questionGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OrderColumn(name = "order_in_questiongroup")
+    @XmlElementWrapper(name="questions")
+    @XmlElement(name = "question")
     private final List<Question> questions = new ArrayList<Question>();
 
     @Column(nullable = false)

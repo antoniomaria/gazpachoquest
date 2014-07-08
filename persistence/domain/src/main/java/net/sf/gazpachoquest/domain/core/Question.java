@@ -29,6 +29,8 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionTranslation;
@@ -60,10 +62,14 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderColumn(name = "order_in_subquestions")
+    @XmlElementWrapper(name="subquestions")
+    @XmlElement(name = "subquestion")
     private final List<Question> subquestions = new ArrayList<Question>();
 
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderColumn(name = "order_in_question")
+    @XmlElementWrapper(name="question-options")
+    @XmlElement(name = "question-option")
     private final List<QuestionOption> questionOptions = new ArrayList<QuestionOption>();
 
     @Column(nullable = false)
