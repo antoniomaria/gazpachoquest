@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.domain.core.QuestionOption;
 import net.sf.gazpachoquest.qbe.support.SearchMode;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
@@ -47,14 +46,6 @@ public class QuestionRepositoryTest {
     public void findInListTest() {
         List<Integer> questionIds = Arrays.asList(12, 13, 29, 30, 31, 35, 50, 39);
         List<Question> questions = repository.findInList(questionIds);
-        
-        for (Question question : questions) {
-            System.out.println(question);
-            for (QuestionOption group : question.getQuestionOptions()) {
-                System.out.println("\t" + group);
-                
-            }
-        }
         assertThat(questions).hasSameSizeAs(questionIds);
     }
 

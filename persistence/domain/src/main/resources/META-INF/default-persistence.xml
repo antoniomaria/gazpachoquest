@@ -40,7 +40,7 @@
     <persistence:class>net.sf.gazpachoquest.domain.i18.QuestionOptionTranslation</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.i18.QuestionTranslation</persistence:class>
     <!-- Support -->
-    <persistence:class>net.sf.gazpachoquest.domain.support.AbstractInvitation</persistence:class>
+    <persistence:class>net.sf.gazpachoquest.domain.support.Invitation</persistence:class>
     <!--
       <persistence:properties>
       <persistence:property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />

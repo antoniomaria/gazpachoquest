@@ -106,11 +106,10 @@
           </execution>
         </executions>
       </plugin>
-
       <plugin>
-        <artifactId>eclipselink-staticweave-maven-plugin</artifactId>
-        <groupId>au.com.alderaan</groupId>
-        <version>1.0.4</version>
+        <groupId>de.empulse.eclipselink</groupId>
+        <artifactId>staticweave-maven-plugin</artifactId>
+        <version>1.0.0</version>
         <executions>
           <execution>
             <phase>process-classes</phase>
@@ -118,20 +117,20 @@
               <goal>weave</goal>
             </goals>
             <configuration>
-              <logLevel>ALL</logLevel>
               <persistenceXMLLocation>META-INF/default-persistence.xml</persistenceXMLLocation>
-              <includeProjectClasspath>true</includeProjectClasspath>
+              <logLevel>FINE</logLevel>
             </configuration>
           </execution>
         </executions>
         <dependencies>
           <dependency>
             <groupId>org.eclipse.persistence</groupId>
-            <artifactId>eclipselink</artifactId>
+            <artifactId>org.eclipse.persistence.jpa</artifactId>
             <version>${eclipselink.version}</version>
           </dependency>
         </dependencies>
       </plugin>
+
     </plugins>
     <pluginManagement>
       <plugins>
@@ -146,14 +145,10 @@
               <pluginExecutions>
                 <pluginExecution>
                   <pluginExecutionFilter>
-                    <groupId>
-                      au.com.alderaan
-                    </groupId>
-                    <artifactId>
-                      eclipselink-staticweave-maven-plugin
-                    </artifactId>
+                    <groupId>de.empulse.eclipselink</groupId>
+                    <artifactId>staticweave-maven-plugin</artifactId>
                     <versionRange>
-                      [1.0.4,)
+                      [1.0.0,)
                     </versionRange>
                     <goals>
                       <goal>weave</goal>
