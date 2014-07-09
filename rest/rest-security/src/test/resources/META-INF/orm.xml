@@ -11,6 +11,11 @@
     </persistence-unit-defaults>
   </persistence-unit-metadata>
   <converter class="net.sf.gazpachoquest.jpa.converter.DateTimeConverter" />
+  <converter class="net.sf.gazpachoquest.jpa.converter.EntityStatusConverter" />
   <converter class="net.sf.gazpachoquest.jpa.converter.EntityTypeConverter" />
-  <converter class="net.sf.gazpachoquest.jpa.converter.RandomizationStrategyConverter" />
+  <converter class="net.sf.gazpachoquest.jpa.converter.GenderTypeConverter" />
+  <converter class="net.sf.gazpachoquest.jpa.converter.InvitationStatusConverter" />
+  <converter class="net.sf.gazpachoquest.jpa.converter.MailMessageTemplateTypeConverter" />
+  <converter class="net.sf.gazpachoquest.jpa.converter.RandomizationStrategyTypeConverter" />
+  <converter class="net.sf.gazpachoquest.jpa.converter.ResearchAccessTypeConverter" />
 </entity-mappings>

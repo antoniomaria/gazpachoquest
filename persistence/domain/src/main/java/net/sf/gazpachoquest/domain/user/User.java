@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -26,6 +27,7 @@ import javax.persistence.Transient;
 
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
+import net.sf.gazpachoquest.jpa.converter.GenderTypeConverter;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
 
@@ -59,7 +61,7 @@ public class User extends AbstractAuditable {
     @Enumerated(EnumType.STRING)
     private Language preferedLanguage;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = GenderTypeConverter.class)
     private Gender gender;
 
     @OneToMany(mappedBy = "respondent", fetch = FetchType.LAZY)

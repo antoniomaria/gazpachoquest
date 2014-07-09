@@ -16,13 +16,12 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
 import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
+import net.sf.gazpachoquest.jpa.converter.ResearchAccessTypeConverter;
 import net.sf.gazpachoquest.types.ResearchAccessType;
 
 import org.joda.time.DateTime;
@@ -34,7 +33,7 @@ public class Research extends AbstractAuditable {
 
     private String name;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = ResearchAccessTypeConverter.class)
     private ResearchAccessType type;
 
     @Column(columnDefinition = "timestamp")

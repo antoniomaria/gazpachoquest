@@ -40,9 +40,9 @@ public class MailMessageTemplate extends
 
     private static final long serialVersionUID = 8115847063538607577L;
 
-    @Enumerated(EnumType.STRING)
     @Column(insertable = true, updatable = true, nullable = false)
     @XmlTransient
+    @Enumerated(EnumType.STRING)
     private MailMessageTemplateType type;
 
     @ManyToOne(fetch = FetchType.LAZY)

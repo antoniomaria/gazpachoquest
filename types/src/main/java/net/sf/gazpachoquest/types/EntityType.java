@@ -21,12 +21,12 @@ public enum EntityType {
     }
 
     public static EntityType fromCode(String code) {
-        switch (code) {
-        case "Q":
-            return QUESTIONNAIR;
-        default:
-            throw new IllegalArgumentException("Unknown" + code);
+        for (EntityType status : EntityType.values()) {
+            if (status.code.equals(code)) {
+                return status;
+            }
         }
+        throw new IllegalArgumentException("Type " + code.toString() + " not supported");
     }
 
 }

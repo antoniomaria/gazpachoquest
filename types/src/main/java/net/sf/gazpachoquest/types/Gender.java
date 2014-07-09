@@ -11,5 +11,24 @@
 package net.sf.gazpachoquest.types;
 
 public enum Gender {
-    MALE, FEMALE
+    MALE("M"), FEMALE("F");
+
+    private String code;
+
+    Gender(String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public static Gender fromCode(String code) {
+        for (Gender status : Gender.values()) {
+            if (status.code.equals(code)) {
+                return status;
+            }
+        }
+        throw new IllegalArgumentException("Status " + code.toString() + " not supported");
+    }
 }

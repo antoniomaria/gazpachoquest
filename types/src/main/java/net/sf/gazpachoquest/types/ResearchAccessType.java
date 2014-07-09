@@ -11,7 +11,26 @@
 package net.sf.gazpachoquest.types;
 
 public enum ResearchAccessType {
-    OPEN_ACCESS, // Open Access. Allow anyone to take the
-                 // questionnairDefinition.
-    BY_INVITATION // By PersonalInvitation Only.
+    OPEN_ACCESS("O"), // Open Access. Allow anyone to take the
+    // questionnairDefinition.
+    BY_INVITATION("P"); // By PersonalInvitation Only.
+
+    private String code;
+
+    ResearchAccessType(String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public static ResearchAccessType fromCode(String code) {
+        for (ResearchAccessType status : ResearchAccessType.values()) {
+            if (status.code.equals(code)) {
+                return status;
+            }
+        }
+        throw new IllegalArgumentException("Type " + code.toString() + " not supported");
+    }
 }

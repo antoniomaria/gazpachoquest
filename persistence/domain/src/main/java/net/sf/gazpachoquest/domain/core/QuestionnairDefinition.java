@@ -40,7 +40,8 @@ import javax.xml.bind.annotation.XmlType;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation;
 import net.sf.gazpachoquest.domain.support.AbstractLocalizable;
-import net.sf.gazpachoquest.jpa.converter.RandomizationStrategyConverter;
+import net.sf.gazpachoquest.jpa.converter.EntityStatusConverter;
+import net.sf.gazpachoquest.jpa.converter.RandomizationStrategyTypeConverter;
 import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
@@ -55,7 +56,7 @@ public class QuestionnairDefinition extends
 
     private static final long serialVersionUID = 2560468772707058412L;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = EntityStatusConverter.class)
     @XmlTransient
     private EntityStatus status;
 
@@ -77,7 +78,7 @@ public class QuestionnairDefinition extends
 
     @OneToMany(mappedBy = "questionnairDefinition", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @OrderColumn(name = "order_in_questionnair")
-    @XmlElementWrapper(name="question-groups")
+    @XmlElementWrapper(name = "question-groups")
     @XmlElement(name = "question-group")
     private final List<QuestionGroup> questionGroups = new ArrayList<QuestionGroup>();
 
@@ -95,7 +96,7 @@ public class QuestionnairDefinition extends
     @Column(nullable = false)
     private Boolean questionGroupInfoVisible;
 
-    @Convert(converter = RandomizationStrategyConverter.class)
+    @Convert(converter = RandomizationStrategyTypeConverter.class)
     @Column(nullable = false)
     private RandomizationStrategy randomizationStrategy;
 

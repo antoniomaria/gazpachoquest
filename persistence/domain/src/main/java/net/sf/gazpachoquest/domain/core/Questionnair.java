@@ -15,8 +15,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -26,6 +24,7 @@ import javax.persistence.Transient;
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
+import net.sf.gazpachoquest.jpa.converter.EntityStatusConverter;
 import net.sf.gazpachoquest.types.EntityStatus;
 
 import org.joda.time.DateTime;
@@ -35,8 +34,8 @@ public class Questionnair extends AbstractAuditable {
 
     private static final long serialVersionUID = -5466079670655149390L;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Convert(converter = EntityStatusConverter.class)
     private EntityStatus status;
 
     @OneToMany(mappedBy = "questionnair", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)

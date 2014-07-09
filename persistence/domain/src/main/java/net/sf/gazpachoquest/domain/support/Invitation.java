@@ -11,17 +11,17 @@
 package net.sf.gazpachoquest.domain.support;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
 import net.sf.gazpachoquest.domain.core.Research;
+import net.sf.gazpachoquest.jpa.converter.InvitationStatusConverter;
 import net.sf.gazpachoquest.types.InvitationStatus;
 
 @Entity
@@ -37,7 +37,7 @@ public class Invitation extends AbstractPersistable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     protected Research research;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = InvitationStatusConverter.class)
     @Column(nullable = false)
     protected InvitationStatus status;
 

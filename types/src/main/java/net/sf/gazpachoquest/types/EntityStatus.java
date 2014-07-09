@@ -11,5 +11,24 @@
 package net.sf.gazpachoquest.types;
 
 public enum EntityStatus {
-    DRAFT, CONFIRMED;
+    DRAFT("D"), CONFIRMED("C");
+    private String code;
+
+    EntityStatus(String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public static EntityStatus fromCode(String code) {
+        for (EntityStatus status : EntityStatus.values()) {
+            if (status.code.equals(code)) {
+                return status;
+            }
+        }
+        throw new IllegalArgumentException("Status " + code.toString() + " not supported");
+    }
+
 }

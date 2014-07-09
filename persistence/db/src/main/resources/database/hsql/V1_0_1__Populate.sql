@@ -26,10 +26,10 @@ INSERT INTO role (id, description, name) VALUES (11, 'Specific role for Catelyn 
 --
 
 INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (1, 'PKCC00D3YH83KEP', 'L0LTMJ1XAMEY13FT27MWZMQX1LWK8I1L', '2014-04-29 14:09:28.906', 'support@gazpacho.net', NULL, 'support', '2014-04-29 14:09:28.906', NULL, 'support', 'support', 1, 2, 1);
-INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (4, 'TKIETCJZ3V6NOSM', 'IQO27YUZO8NJ7RADIK6SJ9BQZNYP4EMO', '2014-04-29 14:09:29.042', 'tyrion.lannister@kingslanding.net', 'MALE', 'Tyrion', '2014-04-29 14:09:29.042', 'EN', 'Lannister', NULL, 1, 5, 1);
-INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (6, 'FGFQM8T6YPVSW4Q', '39JYOYPWYR46R38OAOTVRZJMEXNJ46HL', '2014-04-29 14:09:29.05', 'jon.snow@nightswatch.net', 'MALE', 'Jon', '2014-04-29 14:09:29.05', 'ES', 'Snow', NULL, 1, 7, 1);
-INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (8, 'WR7MZM016D4YXN5', 'ZBH1QL28VZEE00XHH7N4R16Q8ZRURU5P', '2014-04-29 14:09:29.058', 'arya.stark@winterfell.net', 'FEMALE', 'Arya', '2014-04-29 14:09:29.058', NULL, 'Stark', NULL, 1, 9, 1);
-INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (10, 'HC00N1926K0ZKAF', 'EQSV5ARQY1LLHKDLO8EF9RMBKV9T95K5', '2014-04-29 14:09:29.067', 'catelyn.stark@winterfell.net', 'FEMALE', 'Catelyn', '2014-04-29 14:09:29.067', 'FI', 'Stark', NULL, 1, 11, 1);
+INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (4, 'TKIETCJZ3V6NOSM', 'IQO27YUZO8NJ7RADIK6SJ9BQZNYP4EMO', '2014-04-29 14:09:29.042', 'tyrion.lannister@kingslanding.net', 'M', 'Tyrion', '2014-04-29 14:09:29.042', 'EN', 'Lannister', NULL, 1, 5, 1);
+INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (6, 'FGFQM8T6YPVSW4Q', '39JYOYPWYR46R38OAOTVRZJMEXNJ46HL', '2014-04-29 14:09:29.05', 'jon.snow@nightswatch.net', 'M', 'Jon', '2014-04-29 14:09:29.05', 'ES', 'Snow', NULL, 1, 7, 1);
+INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (8, 'WR7MZM016D4YXN5', 'ZBH1QL28VZEE00XHH7N4R16Q8ZRURU5P', '2014-04-29 14:09:29.058', 'arya.stark@winterfell.net', 'F', 'Arya', '2014-04-29 14:09:29.058', NULL, 'Stark', NULL, 1, 9, 1);
+INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, prefered_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (10, 'HC00N1926K0ZKAF', 'EQSV5ARQY1LLHKDLO8EF9RMBKV9T95K5', '2014-04-29 14:09:29.067', 'catelyn.stark@winterfell.net', 'F', 'Catelyn', '2014-04-29 14:09:29.067', 'FI', 'Stark', NULL, 1, 11, 1);
 
 
 --
@@ -38,8 +38,8 @@ INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names
 -- Data for Name: questionnair_definition; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO questionnair_definition (id, created_date, language, last_modified_date, status, description, title, welcometext, createdby_id, lastmodifiedby_id) VALUES (12, '2014-04-29 14:09:29.094', 'EN', '2014-04-29 14:09:29.094', 'CONFIRMED', 'How much do you know about Europe? Answer to this questions and let''s find out!', 'European general knowledge quiz', 'Thank you for taking the time to participate in this questionnair.', 1, 1);
-INSERT INTO questionnair_definition (id, created_date, language, last_modified_date, status, description, title, welcometext, createdby_id, lastmodifiedby_id) VALUES (121, '2014-04-29 14:09:30.128', 'EN', '2014-04-29 14:09:30.128', 'CONFIRMED', 'We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry.', 'Food Quality QuestionnairDefinition', 'Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:', 1, 1);
+INSERT INTO questionnair_definition (id, created_date, language, last_modified_date, status, description, title, welcometext, createdby_id, lastmodifiedby_id) VALUES (12, '2014-04-29 14:09:29.094', 'EN', '2014-04-29 14:09:29.094', 'C', 'How much do you know about Europe? Answer to this questions and let''s find out!', 'European general knowledge quiz', 'Thank you for taking the time to participate in this questionnair.', 1, 1);
+INSERT INTO questionnair_definition (id, created_date, language, last_modified_date, status, description, title, welcometext, createdby_id, lastmodifiedby_id) VALUES (121, '2014-04-29 14:09:30.128', 'EN', '2014-04-29 14:09:30.128', 'C', 'We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry.', 'Food Quality QuestionnairDefinition', 'Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:', 1, 1);
 
 
 --
@@ -93,9 +93,9 @@ INSERT INTO question (id, code, created_date, language, last_modified_date, requ
 -- Data for Name: research; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (102, '2014-04-29 14:09:29.979', '2014-04-29 14:09:29.966', '2014-04-29 14:09:29.979', 'New QuizEuropean general knowledge quiz started', '2014-04-29 14:09:29.966', 'BY_INVITATION', 1, 1);
-INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (119, '2014-04-29 14:09:30.114', '2014-04-29 14:09:30.108', '2014-04-29 14:09:30.114', 'Anonymous New QuizEuropean general knowledge quiz started', '2014-04-29 14:09:30.108', 'OPEN_ACCESS', 1, 1);
-INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (155, '2014-04-29 14:09:30.427', '2014-04-29 14:09:30.42', '2014-04-29 14:09:30.427', 'New customer satisfation survey Food Quality QuestionnairDefinition started', '2014-04-29 14:09:30.42', 'OPEN_ACCESS', 1, 1);
+INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (102, '2014-04-29 14:09:29.979', '2014-04-29 14:09:29.966', '2014-04-29 14:09:29.979', 'New QuizEuropean general knowledge quiz started', '2014-04-29 14:09:29.966', 'P', 1, 1);
+INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (119, '2014-04-29 14:09:30.114', '2014-04-29 14:09:30.108', '2014-04-29 14:09:30.114', 'Anonymous New QuizEuropean general knowledge quiz started', '2014-04-29 14:09:30.108', 'O', 1, 1);
+INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (155, '2014-04-29 14:09:30.427', '2014-04-29 14:09:30.42', '2014-04-29 14:09:30.427', 'New customer satisfation survey Food Quality QuestionnairDefinition started', '2014-04-29 14:09:30.42', 'O', 1, 1);
 
 
 --
@@ -104,10 +104,10 @@ INSERT INTO research (id, created_date, expiration_date, last_modified_date, nam
 -- Data for Name: questionnair; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (103, 1, '2014-04-29 14:09:30', '2014-04-29 14:09:30', 'CONFIRMED', NULL, 1, 1, 12, 102, 6);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (107, 2, '2014-04-29 14:09:30.055', '2014-04-29 14:09:30.055', 'CONFIRMED', NULL, 1, 1, 12, 102, 4);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (111, 3, '2014-04-29 14:09:30.071', '2014-04-29 14:09:30.071', 'CONFIRMED', NULL, 1, 1, 12, 102, 10);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (115, 4, '2014-04-29 14:09:30.087', '2014-04-29 14:09:30.087', 'CONFIRMED', NULL, 1, 1, 12, 102, 8);
+INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (103, 1, '2014-04-29 14:09:30', '2014-04-29 14:09:30', 'C', NULL, 1, 1, 12, 102, 6);
+INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (107, 2, '2014-04-29 14:09:30.055', '2014-04-29 14:09:30.055', 'C', NULL, 1, 1, 12, 102, 4);
+INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (111, 3, '2014-04-29 14:09:30.071', '2014-04-29 14:09:30.071', 'C', NULL, 1, 1, 12, 102, 10);
+INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (115, 4, '2014-04-29 14:09:30.087', '2014-04-29 14:09:30.087', 'C', NULL, 1, 1, 12, 102, 8);
 
 
 --
@@ -141,12 +141,12 @@ INSERT INTO groups (id, created_date, description, last_modified_date, name, cre
 -- Data for Name: invitation; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (105, 'P', 'ACTIVE', 'YAS5ICHRBE', 102, 6);
-INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (109, 'P', 'ACTIVE', 'UCVZ45JZ3T', 102, 4);
-INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (113, 'P', 'ACTIVE', '76HHP9M9FQ', 102, 10);
-INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (117, 'P', 'ACTIVE', 'R7CHFY0YHQ', 102, 8);
-INSERT INTO invitation (id, type, status, token, research_id, respondent_id, questionnairdefinition_id) VALUES (120, 'A', 'ACTIVE', '6O6PDUQLKN', 119, NULL, 12);
-INSERT INTO invitation (id, type, status, token, research_id, respondent_id, questionnairdefinition_id) VALUES (156, 'A', 'ACTIVE', 'P0C6Q2NN3H', 155, NULL, 121);
+INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (105, 'P', 'A', 'YAS5ICHRBE', 102, 6);
+INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (109, 'P', 'A', 'UCVZ45JZ3T', 102, 4);
+INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (113, 'P', 'A', '76HHP9M9FQ', 102, 10);
+INSERT INTO invitation (id, type, status, token, research_id, respondent_id) VALUES (117, 'P', 'A', 'R7CHFY0YHQ', 102, 8);
+INSERT INTO invitation (id, type, status, token, research_id, respondent_id, questionnairdefinition_id) VALUES (120, 'A', 'A', '6O6PDUQLKN', 119, NULL, 12);
+INSERT INTO invitation (id, type, status, token, research_id, respondent_id, questionnairdefinition_id) VALUES (156, 'A', 'A', 'P0C6Q2NN3H', 155, NULL, 121);
 
 
 --
