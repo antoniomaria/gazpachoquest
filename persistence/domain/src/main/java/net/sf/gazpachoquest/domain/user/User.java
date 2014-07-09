@@ -8,7 +8,9 @@
 package net.sf.gazpachoquest.domain.user;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -28,6 +30,7 @@ import javax.persistence.Transient;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
 import net.sf.gazpachoquest.jpa.converter.GenderTypeConverter;
+import net.sf.gazpachoquest.jpa.converter.MapToStringConverter;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
 
@@ -77,6 +80,10 @@ public class User extends AbstractAuditable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Role defaultRole;
+    
+    @Column(name = "attributes", columnDefinition = "hstore")
+    @Convert(converter = MapToStringConverter.class)
+    private Map<String, String> attributes = new HashMap<String, String>();
 
     public User() {
         super();
@@ -96,6 +103,14 @@ public class User extends AbstractAuditable {
 
     public Set<Group> getGroups() {
         return Collections.unmodifiableSet(groups);
+    }
+
+    public Map<String, String> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Map<String, String> attributes) {
+        this.attributes = attributes;
     }
 
     public Set<Role> getRoles() {

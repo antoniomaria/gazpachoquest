@@ -7,6 +7,9 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.sf.gazpachoquest.dto.support.AbstractAuditableDTO;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
@@ -26,6 +29,8 @@ public class UserDTO extends AbstractAuditableDTO {
     private Gender gender;
 
     private String username;
+
+    private Map<String, String> attributes = new HashMap<String, String>();
 
     public UserDTO() {
         super();
@@ -77,6 +82,14 @@ public class UserDTO extends AbstractAuditableDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Map<String, String> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttribute(String name, String value) {
+        this.attributes.put(name, value);
     }
 
     public static Builder with() {

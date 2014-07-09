@@ -200,6 +200,9 @@ public class DBPopulator {
     protected Set<UserDTO> addRespondents() {
         UserDTO tyrion = UserDTO.with().preferedLanguage(Language.EN).givenNames("Tyrion").surname("Lannister")
                 .email("tyrion.lannister@kingslanding.net").gender(Gender.MALE).build();
+        tyrion.setAttribute("age", "25");
+        tyrion.setAttribute("position", "Developer");
+        
         tyrion = userFacade.save(tyrion);
 
         UserDTO jon = UserDTO.with().preferedLanguage(Language.ES).givenNames("Jon").surname("Snow")
