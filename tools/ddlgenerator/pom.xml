@@ -10,17 +10,6 @@
   <name>gazpachoquest-ddlgenerator</name>
   <url>http://maven.apache.org</url>
   <dependencies>
-
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-    </dependency>
-  
     <!-- Project dependencies -->
     <dependency>
       <groupId>${project.groupId}</groupId>

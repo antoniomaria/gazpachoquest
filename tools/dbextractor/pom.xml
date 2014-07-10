@@ -59,17 +59,6 @@
       <artifactId>spring-test-dbunit</artifactId>
     </dependency>
     
-    <!-- Jdbc drivers -->
-    <dependency>
-      <groupId>postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-    </dependency>
-    
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>

@@ -58,19 +58,11 @@
       <groupId>com.github.springtestdbunit</groupId>
       <artifactId>spring-test-dbunit</artifactId>
     </dependency>
-    
-    <!-- Jdbc drivers -->
-    <dependency>
-      <groupId>postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-    </dependency>
 
     <dependency>
       <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-db</artifactId>
       <scope>provided</scope>
     </dependency>
-
-
   </dependencies>
 </project>

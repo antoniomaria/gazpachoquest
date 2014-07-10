@@ -12,7 +12,7 @@ import net.sf.gazpachoquest.jpa.converter.support.HstoreSupport;
 public class MapToStringConverter implements AttributeConverter<Map<String, String>, Object> {
 
     @Override
-    public String convertToDatabaseColumn(Map<String, String> attribute) {
+    public Object convertToDatabaseColumn(Map<String, String> attribute) {
         if (attribute == null || attribute.isEmpty()) {
             return "";
         }

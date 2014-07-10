@@ -18,16 +18,6 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-    </dependency>
-
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>

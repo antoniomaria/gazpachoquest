@@ -50,11 +50,6 @@
     </dependency>
 
     <!-- JDBC drivers -->
-    <dependency>
-      <groupId>postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-    </dependency>
-
     <!-- Used for demo purposes -->
     <dependency>
       <groupId>org.hsqldb</groupId>
