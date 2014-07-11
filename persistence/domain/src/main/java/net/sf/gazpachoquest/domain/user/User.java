@@ -34,6 +34,8 @@ import net.sf.gazpachoquest.jpa.converter.MapToStringConverter;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
 
+import org.eclipse.persistence.annotations.Converter;
+
 @Entity
 @Table(name = "users")
 public class User extends AbstractAuditable {
@@ -80,9 +82,10 @@ public class User extends AbstractAuditable {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Role defaultRole;
-    
-    @Column(name = "attributes", columnDefinition = "hstore")
-    @Convert(converter = MapToStringConverter.class)
+
+    @Column(name = "attributes")
+    @Converter(name = "map-to-string-converter", converterClass = MapToStringConverter.class)
+    @org.eclipse.persistence.annotations.Convert(value = "map-to-string-converter")
     private Map<String, String> attributes = new HashMap<String, String>();
 
     public User() {

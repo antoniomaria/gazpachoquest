@@ -28,17 +28,6 @@ public class CamelNamingStrategy implements SessionCustomizer {
         return loc < 0 ? qualifiedName : qualifiedName.substring(qualifiedName.lastIndexOf(".") + 1);
     }
 
-    protected static String addUnderscores(final String name) {
-        StringBuffer buf = new StringBuffer(name.replace('.', '_'));
-        for (int i = 1; i < buf.length() - 1; i++) {
-            if (Character.isLowerCase(buf.charAt(i - 1)) && Character.isUpperCase(buf.charAt(i))
-                    && Character.isLowerCase(buf.charAt(i + 1))) {
-                buf.insert(i++, '_');
-            }
-        }
-        return buf.toString().toLowerCase(Locale.ENGLISH);
-    }
-
     @Override
     public void customize(final Session session) throws SQLException {
         for (ClassDescriptor descriptor : session.getDescriptors().values()) {
@@ -50,31 +39,40 @@ public class CamelNamingStrategy implements SessionCustomizer {
                 } else {
                     tableName = descriptor.getTableName();
                 }
-
-                tableName = addUnderscores(tableName);
+                tableName = camelCaseToUnderscore(tableName);
                 descriptor.setTableName(tableName);
 
                 for (IndexDefinition index : descriptor.getTables().get(0).getIndexes()) {
                     index.setTargetTable(tableName);
                 }
                 Vector<DatabaseMapping> mappings = descriptor.getMappings();
-                addUnderscores(mappings);
+                camelCaseToUnderscore(mappings);
             } else if (descriptor.isAggregateDescriptor()) {
-                addUnderscores(descriptor.getMappings());
+                camelCaseToUnderscore(descriptor.getMappings());
             }
         }
     }
 
-    private void addUnderscores(Vector<DatabaseMapping> mappings) {
+    private void camelCaseToUnderscore(Vector<DatabaseMapping> mappings) {
         for (DatabaseMapping mapping : mappings) {
             DatabaseField field = mapping.getField();
             if (mapping.isDirectToFieldMapping() && !mapping.isPrimaryKeyMapping()) {
                 String attributeName = mapping.getAttributeName();
-
-                String underScoredFieldName = addUnderscores(attributeName);
+                String underScoredFieldName = camelCaseToUnderscore(attributeName);
                 field.setName(underScoredFieldName);
             }
         }
+    }
+
+    private String camelCaseToUnderscore(final String name) {
+        StringBuffer buf = new StringBuffer(name.replace('.', '_'));
+        for (int i = 1; i < buf.length() - 1; i++) {
+            if (Character.isLowerCase(buf.charAt(i - 1)) && Character.isUpperCase(buf.charAt(i))
+                    && Character.isLowerCase(buf.charAt(i + 1))) {
+                buf.insert(i++, '_');
+            }
+        }
+        return buf.toString().toLowerCase(Locale.ENGLISH);
     }
 
 }

@@ -20,6 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -61,7 +62,8 @@ public class ByExampleEnhancedSpecification {
                 for (SingularAttribute<? super T, ?> attr : mt.getSingularAttributes()) {
                     if (attr.getPersistentAttributeType() == MANY_TO_ONE
                             || attr.getPersistentAttributeType() == ONE_TO_ONE
-                            || attr.getPersistentAttributeType() == EMBEDDED) {
+                            || attr.getPersistentAttributeType() == EMBEDDED
+                            || attr.getJavaType().isAssignableFrom(Map.class)) {
                         continue;
                     }
                     Object attrValue = getValue(mtValue, attr);

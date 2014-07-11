@@ -1,3 +1,8 @@
+/*
+ * This file has been copied from the following location:
+ * https://github.com/phstudy/jpa-converter-sample/blob/master/src/main/java/net/backtothefront/HstoreHelper.java
+ * 
+ */
 package net.sf.gazpachoquest.jpa.converter.support;
 
 import java.util.HashMap;
