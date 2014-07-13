@@ -217,12 +217,24 @@ public class User extends AbstractAuditable {
 
     public static class Builder {
         private Integer id;
+        private String username;
+        private String password;
         private String givenNames;
         private String surname;
         private String email;
         private String apiKey;
         private Language preferedLanguage;
         private Gender gender;
+
+        public Builder username(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
 
         public Builder givenNames(String givenNames) {
             this.givenNames = givenNames;
@@ -262,6 +274,8 @@ public class User extends AbstractAuditable {
         public User build() {
             User user = new User();
             user.setId(id);
+            user.username = username;
+            user.password = password;
             user.givenNames = givenNames;
             user.surname = surname;
             user.email = email;

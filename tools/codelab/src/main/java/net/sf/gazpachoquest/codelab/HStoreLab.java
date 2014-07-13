@@ -13,6 +13,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import net.sf.gazpachoquest.codelab.randomuser.RandomUserCreator;
+import net.sf.gazpachoquest.codelab.randomuser.support.RandomUser;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.repository.user.UserRepository;
 import net.sf.gazpachoquest.services.UserService;
@@ -46,8 +48,11 @@ public class HStoreLab {
         user.setAttributes(attributes);
         // SELECT * FROM users wHERE attributes->'age'='25' and attributes->'position' IN ('Manager');
         // http://www.creapptives.com/post/14062057061/the-key-value-store-everyone-ignored-postgresql
-        userService.save(user);
-        logger.debug("the End!");
+        // userService.save(user);
+        RandomUser randomuser = RandomUserCreator.getRandomUser();
+        
+        logger.debug("the End!" + randomuser);
+        
         
      }
 

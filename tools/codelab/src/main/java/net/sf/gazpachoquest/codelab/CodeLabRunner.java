@@ -12,6 +12,8 @@ package net.sf.gazpachoquest.codelab;
 
 import java.io.IOException;
 
+import net.sf.gazpachoquest.codelab.massive.MassiveUserLoadLab;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -23,8 +25,10 @@ public class CodeLabRunner {
     public static void main(final String... args) throws IOException {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("codelab-datasource-context.xml",
                 "codelab-jpa-context.xml", "services-context.xml", "facades-context.xml", "components-context.xml");
-        HStoreLab codelab = ctx.getBean(HStoreLab.class);
+        logger.info("Hand on lab started");
+        MassiveUserLoadLab codelab = ctx.getBean(MassiveUserLoadLab.class);
         codelab.execute();
+        logger.info("Hand on lab ended");
         ctx.close();
     }
 }
