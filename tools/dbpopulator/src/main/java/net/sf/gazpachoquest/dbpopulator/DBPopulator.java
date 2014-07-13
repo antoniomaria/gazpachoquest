@@ -202,21 +202,27 @@ public class DBPopulator {
                 .email("tyrion.lannister@kingslanding.net").gender(Gender.MALE).build();
         tyrion.setAttribute("age", "25");
         tyrion.setAttribute("position", "Developer");
-        
         tyrion = userFacade.save(tyrion);
 
         UserDTO jon = UserDTO.with().preferedLanguage(Language.ES).givenNames("Jon").surname("Snow")
                 .email("jon.snow@nightswatch.net").gender(Gender.MALE).build();
+        jon.setAttribute("age", "25");
+        jon.setAttribute("position", "Manager");
         jon = userFacade.save(jon);
 
         UserDTO arya = UserDTO.with().givenNames("Arya").surname("Stark").email("arya.stark@winterfell.net")
                 .gender(Gender.FEMALE).build();
+        arya.setAttribute("age", "25");
+        arya.setAttribute("position", "Manager");
         arya = userFacade.save(arya);
 
         UserDTO catelyn = UserDTO.with().preferedLanguage(Language.FI).givenNames("Catelyn").surname("Stark")
                 .email("catelyn.stark@winterfell.net").gender(Gender.FEMALE).build();
+        catelyn.setAttribute("age", "21");
+        catelyn.setAttribute("position", "Manager");
         catelyn = userFacade.save(catelyn);
 
+        
         Set<UserDTO> respondents = new HashSet<>();
         respondents.add(tyrion);
         respondents.add(arya);

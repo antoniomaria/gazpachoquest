@@ -1,3 +1,4 @@
+CREATE EXTENSION IF NOT EXISTS hstore;
 CREATE TABLE invitation(id INTEGER NOT NULL, type VARCHAR(20), status VARCHAR(255) NOT NULL, token VARCHAR(255) NOT NULL, research_id integer, respondent_id integer, questionnairdefinition_id integer, PRIMARY KEY (id));
 CREATE TABLE breadcrumb (id INTEGER NOT NULL, type VARCHAR(31), created_date timestamp, last BOOLEAN default false, last_modified_date timestamp, CREATEDBY_ID INTEGER, LASTMODIFIEDBY_ID INTEGER, QUESTIONNAIR_ID INTEGER, PARENT_ID INTEGER, QUESTION_ID INTEGER, QUESTIONGROUP_ID INTEGER, order_in_breadcrumb_group INTEGER, navigation_order INTEGER, PRIMARY KEY (id));
 CREATE TABLE label (id INTEGER NOT NULL, created_date timestamp, language VARCHAR(255) NOT NULL, last_modified_date timestamp, TITLE VARCHAR(255) NOT NULL, CREATEDBY_ID INTEGER, LABELSET_ID INTEGER, LASTMODIFIEDBY_ID INTEGER, sort_order INTEGER, PRIMARY KEY (id));
