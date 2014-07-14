@@ -3,13 +3,12 @@ package net.sf.gazpachoquest.codelab.massive;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.gazpachoquest.codelab.HStoreLab;
 import net.sf.gazpachoquest.codelab.randomuser.RandomUserCreator;
 import net.sf.gazpachoquest.codelab.randomuser.support.RandomUser;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.services.UserService;
 import net.sf.gazpachoquest.types.Gender;
-import net.sf.gazpachoquest.types.RandomizationStrategy;
+import net.sf.gazpachoquest.util.RandomTokenGenerator;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
@@ -25,39 +24,51 @@ public class MassiveUserLoadLab {
     @Autowired
     private UserService userService;
 
-    private String positions[] = { "employee", "supervisor", "foreman", "manager", "vice president " };
+    private final String positions[] = { "employee", "supervisor", "foreman", "manager", "vice president " };
 
-    private String divisions[] = { "Helsinki", "Jyväskylä", "Roma", "Madrid", "London", "Berlin", "Barcelona", "Paris" };
+    private final String divisions[] = { "Helsinki", "Jyväskylä", "Roma", "Madrid", "London", "Berlin", "Barcelona",
+            "Paris", "Moscow" };
+
+    private final String companies[] = { "Basware", "Codenomicon", "Rovio Mobile", "Supercell", "Tieto", "Vaisala",
+            "Stockmann", "Verkkokauppa.com", "Fazer", "Metso" };
+
+    @Autowired
+    private RandomTokenGenerator tokenGenerator;
 
     public void execute() {
-        int userCount = 1000;
+        int userCount = 3050;
 
         for (int index = 0; index < userCount; index++) {
             RandomUser randomUser = RandomUserCreator.getRandomUser();
             Gender gender = Gender.fromCode(randomUser.getGender().substring(0, 1).toUpperCase());
             User user = User.with().givenNames(randomUser.getName().getFirst()).surname(randomUser.getName().getLast())
-                    .email(randomUser.getEmail()).gender(gender).username(randomUser.getUsername()+ "_" +RandomUtils.nextInt(0, 100))
+                    .email(randomUser.getEmail()).gender(gender)
+                    .username(randomUser.getUsername() + "_" + tokenGenerator.generate(5))
                     .password(randomUser.getPassword()).build();
             Map<String, String> attributes = new HashMap<String, String>();
-            attributes.put("phone", randomUser.getPhone());
             attributes.put("ssn", randomUser.getSSN());
             attributes.put("age", String.valueOf(RandomUtils.nextInt(18, 35)));
-            attributes.put("position", getPosition());
+            attributes.put("company", getCompany());
             attributes.put("division", getDivision());
+            attributes.put("position", getPosition());
             attributes.put("title", randomUser.getName().getTitle());
-
             user.setAttributes(attributes);
 
             user = userService.save(user);
             logger.info("User {} created with id {}", index, user.getId());
         }
-        
-        // SELECT * FROM users WHERE attributes @> '"division"=>"Helsinki","position"=>"manager","title"=>"mr"'::hstore
+
+        // SELECT * FROM users WHERE attributes @>
+        // '"division"=>"Helsinki","position"=>"manager","title"=>"mr"'::hstore
 
     }
 
     private String getDivision() {
         return divisions[RandomUtils.nextInt(0, divisions.length)];
+    }
+
+    private String getCompany() {
+        return companies[RandomUtils.nextInt(0, companies.length)];
     }
 
     private String getPosition() {
