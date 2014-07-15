@@ -32,10 +32,16 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
         PageMetadataDTO metadata = new PageMetadataDTO();
         if (questionnairElement instanceof QuestionGroup) {
             QuestionGroup questionGroup = (QuestionGroup) questionnairElement;
-            questionGroup = questionGroupService.findOne(questionGroup.getId());
-            position = questionGroupService.positionInQuestionnairDefinition(questionGroup.getId());
-            count = questionnairDefinitionService
-                    .questionGroupsCount(questionGroup.getQuestionnairDefinition().getId());
+            if (questionGroup.getId() == null) { // Question Randomization
+                                                 // enabled
+                position = 1;
+                count = 10;
+            } else {
+                questionGroup = questionGroupService.findOne(questionGroup.getId());
+                position = questionGroupService.positionInQuestionnairDefinition(questionGroup.getId());
+                count = questionnairDefinitionService.questionGroupsCount(questionGroup.getQuestionnairDefinition()
+                        .getId());
+            }
         } else if (questionnairElement instanceof Question) {
             Question question = (Question) questionnairElement;
             QuestionGroup questionGroup = question.getQuestionGroup();

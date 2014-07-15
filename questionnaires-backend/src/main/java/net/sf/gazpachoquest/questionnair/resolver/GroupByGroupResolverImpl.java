@@ -102,7 +102,12 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         if (NavigationAction.ENTERING.equals(action)) {
             nextBreadcrumb = lastBreadcrumb;
         } else {
-            Assert.isTrue(lastBreadcrumb.getQuestionGroup() != null);
+            if (!RandomizationStrategy.QUESTIONS_RANDOMIZATION
+                    .equals(questionnairDefinition.getRandomizationStrategy())) {
+                // QuestionGroup is not applicable when questions are
+                // randomized.
+                Assert.isTrue(lastBreadcrumb.getQuestionGroup() != null);
+            }
             if (NavigationAction.NEXT.equals(action)) {
                 nextBreadcrumb = findNextBreadcrumb(questionnairDefinitionId, questionnair, lastBreadcrumb,
                         lastBreadcrumbPosition);
