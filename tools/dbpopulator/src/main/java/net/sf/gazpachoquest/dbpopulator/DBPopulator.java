@@ -73,8 +73,8 @@ public class DBPopulator {
 
         Set<UserDTO> respondents = addRespondents();
 
-        // populateForJUnitTest(respondents);
-        populateForDemo(respondents);
+         populateForJUnitTest(respondents);
+        //populateForDemo(respondents);
     }
 
     public void populateForJUnitTest(Set<UserDTO> respondents) {
@@ -95,7 +95,7 @@ public class DBPopulator {
                 .name("New open Questionnair " + questionnairDef.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
         research.addQuestionnairDefinition(questionnairDef);
-        researchFacade.save(research);
+       // researchFacade.save(research);
     }
 
     public void populateForDemo(Set<UserDTO> respondents) {

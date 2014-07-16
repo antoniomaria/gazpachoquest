@@ -26,6 +26,11 @@
   </dependency>
 
   <dependency>
+   <groupId>${project.groupId}</groupId>
+   <artifactId>gazpachoquest-questionnaires-backend</artifactId>
+  </dependency>
+
+  <dependency>
    <groupId>com.google.code.gson</groupId>
    <artifactId>gson</artifactId>
    <version>2.2.4</version>

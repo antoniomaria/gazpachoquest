@@ -24,9 +24,9 @@ public class CodeLabRunner {
 
     public static void main(final String... args) throws IOException {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("codelab-datasource-context.xml",
-                "codelab-jpa-context.xml", "services-context.xml", "facades-context.xml", "components-context.xml");
+                "codelab-jpa-context.xml", "services-context.xml", "facades-context.xml", "questionnair-context.xml", "components-context.xml");
         logger.info("Hand on lab started");
-        MassiveUserLoadLab codelab = ctx.getBean(MassiveUserLoadLab.class);
+        JPALab codelab = ctx.getBean(JPALab.class);
         codelab.execute();
         logger.info("Hand on lab ended");
         ctx.close();
