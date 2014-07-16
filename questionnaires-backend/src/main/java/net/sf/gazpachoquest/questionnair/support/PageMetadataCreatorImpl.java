@@ -2,13 +2,16 @@ package net.sf.gazpachoquest.questionnair.support;
 
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
+import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
-import net.sf.gazpachoquest.domain.support.QuestionnairElement;
-import net.sf.gazpachoquest.dto.PageMetadataDTO;
+import net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb;
+import net.sf.gazpachoquest.services.BreadcrumbService;
 import net.sf.gazpachoquest.services.QuestionGroupService;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
+import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,25 +28,27 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
     @Autowired
     private QuestionnairDefinitionService questionnairDefinitionService;
 
+    @Autowired
+    private BreadcrumbService breadcrumbService;
+
     @Override
-    public PageMetadataDTO create(QuestionnairElement questionnairElement) {
+    public PageMetadataStructure create(RandomizationStrategy randomizationStrategy, Breadcrumb breadcrumb) {
         int position = -1;
         int count = -1;
-        PageMetadataDTO metadata = new PageMetadataDTO();
-        if (questionnairElement instanceof QuestionGroup) {
-            QuestionGroup questionGroup = (QuestionGroup) questionnairElement;
-            if (questionGroup.getId() == null) { // Question Randomization
-                                                 // enabled
-                position = 1;
-                count = 10;
-            } else {
+        if (breadcrumb instanceof QuestionGroupBreadcrumb) {
+            QuestionGroup questionGroup = ((QuestionGroupBreadcrumb) breadcrumb).getQuestionGroup();
+
+            if (RandomizationStrategy.NONE.equals(randomizationStrategy)) {
                 questionGroup = questionGroupService.findOne(questionGroup.getId());
                 position = questionGroupService.positionInQuestionnairDefinition(questionGroup.getId());
                 count = questionnairDefinitionService.questionGroupsCount(questionGroup.getQuestionnairDefinition()
                         .getId());
+            } else {
+                count = breadcrumbService.count(breadcrumb.getQuestionnair().getId());
+                position = (Integer) breadcrumbService.findLastAndPosition(breadcrumb.getQuestionnair().getId()).get(0)[1];
             }
-        } else if (questionnairElement instanceof Question) {
-            Question question = (Question) questionnairElement;
+        } else if (breadcrumb instanceof QuestionBreadcrumb) {
+            Question question = ((QuestionBreadcrumb) breadcrumb).getQuestion();
             QuestionGroup questionGroup = question.getQuestionGroup();
 
             Integer questionnairDefinitionId = questionGroup.getQuestionnairDefinition().getId();
@@ -66,9 +71,7 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
             }
             position = positionInQuestionnairDefition + positionInQuestionGroup;
         }
-        metadata.setCount(count);
-        metadata.setNumber(position + 1);
-        return metadata;
+        return PageMetadataStructure.with().count(count).number(position + 1).build();
     }
 
 }

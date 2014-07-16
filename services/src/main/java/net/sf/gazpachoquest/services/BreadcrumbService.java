@@ -20,4 +20,6 @@ public interface BreadcrumbService extends PersistenceService<Breadcrumb> {
 
     Breadcrumb findByQuestionnairIdAndPosition(Integer questionnairId, Integer position);
 
+    Integer count(Integer questionnairId);
+
 }

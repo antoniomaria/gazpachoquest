@@ -19,11 +19,13 @@ import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
-import net.sf.gazpachoquest.domain.core.QuestionGroup.Builder;
 import net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.support.QuestionnairElement;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.questionnair.support.PageMetadataCreator;
+import net.sf.gazpachoquest.questionnair.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 import net.sf.gazpachoquest.services.QuestionGroupService;
 import net.sf.gazpachoquest.services.QuestionService;
@@ -60,8 +62,11 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
     @Autowired
     private QuestionnairDefinitionService questionnairDefinitionService;
 
+    @Autowired
+    private PageMetadataCreator metadataCreator;
+
     @Override
-    public QuestionGroup resolveFor(final Questionnair questionnair, final NavigationAction action) {
+    public PageStructure resolveNextPage(final Questionnair questionnair, final NavigationAction action) {
         Questionnair fetchedQuestionnair = questionnairService.findOne(questionnair.getId());
         QuestionnairDefinition questionnairDefinition = fetchedQuestionnair.getQuestionnairDefinition();
         int questionnairDefinitionId = questionnairDefinition.getId();
@@ -124,23 +129,18 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
                 nextBreadcrumb = lastBreadcrumb;
             }
         }
-        return extractFrom(nextBreadcrumb);
+        // return extractFrom(nextBreadcrumb);
+        return null;
     }
 
-    private QuestionGroup extractFrom(QuestionGroupBreadcrumb breadcrumb) {
-        QuestionGroup refered = breadcrumb.getQuestionGroup();
-        Builder questionGroupBuilder = QuestionGroup.with();
-        if (refered != null) { // Null only if
-                               // RandomizationStrategy.QUESTIONS_RANDOMIZATION
-            questionGroupBuilder.id(refered.getId()).language(refered.getLanguage())
-                    .languageSettings(refered.getLanguageSettings()).build();
-        }
-        QuestionGroup questionGroup = questionGroupBuilder.build();
+    private PageStructure extractFrom(RandomizationStrategy randomizationStrategy, QuestionGroupBreadcrumb breadcrumb) {
+        PageStructure nextPage = new PageStructure();
+        // TODO add questiongroup info to page structure
 
         for (QuestionBreadcrumb questionBreadcrumb : breadcrumb.getBreadcrumbs()) {
-            questionGroup.addQuestion(questionBreadcrumb.getQuestion());
+            nextPage.addQuestionsId(questionBreadcrumb.getQuestion().getId());
         }
-        return questionGroup;
+        return nextPage;
     }
 
     private void leaveBreakcrumbs(final Questionnair questionnair, List<QuestionGroupBreadcrumb> breadcrumbs) {
@@ -265,6 +265,12 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
 
         QuestionGroupBreadcrumb previousBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
         return previousBreadcrumb;
+    }
+
+    @Override
+    public QuestionnairElement resolveFor(Questionnair questionnair, NavigationAction action) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

@@ -12,10 +12,13 @@ package net.sf.gazpachoquest.questionnair.resolver;
 
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.support.QuestionnairElement;
+import net.sf.gazpachoquest.questionnair.support.PageStructure;
 import net.sf.gazpachoquest.types.NavigationAction;
 
 public interface QuestionnairElementResolver {
 
     QuestionnairElement resolveFor(Questionnair questionnair, NavigationAction action);
+
+    PageStructure resolveNextPage(Questionnair questionnair, NavigationAction action);
 
 }

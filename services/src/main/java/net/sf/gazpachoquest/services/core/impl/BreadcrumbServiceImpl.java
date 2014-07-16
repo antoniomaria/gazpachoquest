@@ -54,4 +54,10 @@ public class BreadcrumbServiceImpl extends AbstractPersistenceService<Breadcrumb
         }
         return fetched;
     }
+
+    @Override
+    @Transactional
+    public Integer count(Integer questionnairId) {
+        return ((BreadcrumbRepository) repository).count(questionnairId);
+    }
 }

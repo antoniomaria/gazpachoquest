@@ -10,16 +10,14 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.facades.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
-import net.sf.gazpachoquest.domain.support.QuestionnairElement;
 import net.sf.gazpachoquest.dto.PageDTO;
+import net.sf.gazpachoquest.dto.PageMetadataDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionLanguageSettingsDTO;
@@ -31,6 +29,7 @@ import net.sf.gazpachoquest.questionnair.resolver.QuestionnairElementResolver;
 import net.sf.gazpachoquest.questionnair.resolver.ResolverSelector;
 import net.sf.gazpachoquest.questionnair.support.AnswersPopulator;
 import net.sf.gazpachoquest.questionnair.support.PageMetadataCreator;
+import net.sf.gazpachoquest.questionnair.support.PageStructure;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnairAnswersService;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
@@ -99,26 +98,17 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
         return questionnairDTO;
     }
 
-    // @Transactional
     @Override
     public PageDTO resolvePage(Integer questionnairId, RenderingMode mode, NavigationAction action) {
         Questionnair questionnair = Questionnair.with().id(questionnairId).build();
         QuestionnairElementResolver resolver = resolverSelector.selectBy(mode);
-        QuestionnairElement questionnairElement = resolver.resolveFor(questionnair, action);
+        PageStructure pageStructure = resolver.resolveNextPage(questionnair, action);
         PageDTO page = new PageDTO();
-        if (questionnairElement == null) { // TODO Handle exception
+        if (pageStructure == null) { // TODO Handle exception
             return page;
         }
-        List<Integer> questionIds = new ArrayList<Integer>();
-        if (questionnairElement instanceof QuestionGroup) {
-            QuestionGroup questionGroup = (QuestionGroup) questionnairElement;
-            for (Question question : questionGroup.getQuestions()) {
-                questionIds.add(question.getId());
-            }
-        } else {
-            Question question = (Question) questionnairElement;
-            questionIds.add(question.getId());
-        }
+        List<Integer> questionIds = pageStructure.getQuestionsId();
+
         List<Question> questions = questionService.findInList(questionIds);
         for (Question question : questions) {
             QuestionDTO questionDTO = mapper.map(question, QuestionDTO.class);
@@ -126,7 +116,7 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
         }
 
         answersPopulator.populate(questionnair, page.getQuestions());
-        page.setMetadata(metadataCreator.create(questionnairElement));
+        page.setMetadata(mapper.map(pageStructure, PageMetadataDTO.class));
         return page;
     }
 

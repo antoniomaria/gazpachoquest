@@ -1,9 +1,9 @@
 package net.sf.gazpachoquest.questionnair.support;
 
-import net.sf.gazpachoquest.domain.support.QuestionnairElement;
-import net.sf.gazpachoquest.dto.PageMetadataDTO;
+import net.sf.gazpachoquest.domain.core.Breadcrumb;
+import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 public interface PageMetadataCreator {
 
-    PageMetadataDTO create(QuestionnairElement questionnairElement);
+    PageMetadataStructure create(RandomizationStrategy randomizationStrategy, Breadcrumb breadcrumb);
 }

@@ -28,6 +28,10 @@ public interface BreadcrumbRepository extends GenericRepository<Breadcrumb> {
     Integer questionnairId, @Param("position")
     Integer position);
 
+    @Query("select count(b) from Breadcrumb b left join b.questionnair q where q.id = :questionnairId")
+    Integer count(@Param("questionnairId")
+    Integer questionnairId);
+
     /*-
     @Query("select e from Breadcrumb e left join e.questionnair r where e.createdDate = "
             + "(select max(e1.createdDate) from Breadcrumb e1 left join e1.questionnair r where r.id = :questionnairId and e1.createdDate < :actualDate ) "

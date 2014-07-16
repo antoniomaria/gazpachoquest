@@ -12,6 +12,7 @@ package net.sf.gazpachoquest.questionnair.resolver;
 
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.support.QuestionnairElement;
+import net.sf.gazpachoquest.questionnair.support.PageStructure;
 import net.sf.gazpachoquest.repository.BreadcrumbRepository;
 import net.sf.gazpachoquest.repository.QuestionGroupRepository;
 import net.sf.gazpachoquest.repository.QuestionRepository;
@@ -40,6 +41,7 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
 
     @Autowired
     private QuestionnairDefinitionRepository surveyRepository;
+
     /*-
     @Override
     public Question resolveFor(final Questionnair questionnair, final NavigationAction action) {
@@ -159,11 +161,18 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
         browsedElementService.save(previousBrowsedQuestion);
         return previousBrowsedQuestion.getQuestion();
     }
-    */
+     */
 
     @Override
     public QuestionnairElement resolveFor(Questionnair questionnair, NavigationAction action) {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public PageStructure resolveNextPage(Questionnair questionnair, NavigationAction action) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
