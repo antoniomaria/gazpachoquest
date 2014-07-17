@@ -31,7 +31,7 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
     @ManyToOne(fetch = FetchType.LAZY)
     private QuestionGroup questionGroup;
 
-    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderColumn(name = "order_in_breadcrumb_group")
     private final List<QuestionBreadcrumb> breadcrumbs = new ArrayList<QuestionBreadcrumb>();
 
@@ -66,7 +66,7 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
 
     public static class Builder {
         private Integer id;
-        
+
         private QuestionGroup questionGroup;
 
         private Questionnair questionnair;
@@ -77,13 +77,12 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
             this.last = last;
             return this;
         }
-        
+
         public Builder id(Integer id) {
             this.id = id;
             return this;
         }
 
-        
         public Builder questionnair(Questionnair questionnair) {
             this.questionnair = questionnair;
             return this;

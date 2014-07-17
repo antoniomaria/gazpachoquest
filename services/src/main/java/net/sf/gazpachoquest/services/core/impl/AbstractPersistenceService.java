@@ -58,4 +58,9 @@ public abstract class AbstractPersistenceService<T extends Persistable> implemen
     @Override
     public abstract T save(T entity);
 
+    @Override
+    public void deleteByExample(final T entity, final SearchParameters searchParameters) {
+        repository.deleteByExample(entity, searchParameters);
+    }
+
 }

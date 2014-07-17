@@ -91,11 +91,9 @@ public class GroupByGroupResolverImpl implements PageResolver {
             if (breadcrumb instanceof QuestionGroupBreadcrumb) {
                 lastBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
             } else {
-                List<Breadcrumb> oldBreadcrumbs = breadcrumbService.findByExample(
+                breadcrumbService.deleteByExample(
                         Breadcrumb.withProps().questionnair(Questionnair.with().id(questionnairId).build()).build(),
                         new SearchParameters());
-                // TODO remove old breadcrumbs
-                // breadcrumbService.deleteInBatch(oldBreadcrumbs);
 
                 breadcrumbs = makeBreadcrumbs(questionnairDefinition, questionnair);
                 leaveBreakcrumbs(questionnair, breadcrumbs);
@@ -132,7 +130,8 @@ public class GroupByGroupResolverImpl implements PageResolver {
         return createPageStructure(questionnairDefinition.getRandomizationStrategy(), nextBreadcrumb);
     }
 
-    private PageStructure createPageStructure(RandomizationStrategy randomizationStrategy, QuestionGroupBreadcrumb breadcrumb) {
+    private PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
+            QuestionGroupBreadcrumb breadcrumb) {
         PageStructure nextPage = new PageStructure();
         nextPage.setMetadata(metadataCreator.create(randomizationStrategy, breadcrumb));
 

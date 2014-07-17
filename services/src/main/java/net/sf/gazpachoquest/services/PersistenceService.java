@@ -29,4 +29,6 @@ public interface PersistenceService<T extends Persistable> {
     T findOneByExample(T example, SearchParameters searchParameters);
 
     T save(T entity);
+
+    void deleteByExample(T entity, SearchParameters searchParameters);
 }

@@ -39,4 +39,6 @@ public interface GenericRepository<T> extends JpaRepository<T, Integer>, JpaSpec
     T findOneByExample(T entity, SearchParameters sp);
 
     <S extends T> S saveWithFlush(S entity);
+
+    void deleteByExample(T entity, SearchParameters sp);
 }

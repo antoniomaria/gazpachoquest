@@ -127,6 +127,12 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
     }
 
     @Override
+    public void deleteByExample(final T entity, final SearchParameters sp) {
+        List<T> entities = this.findByExample(entity, sp);
+        super.delete(entities);
+    }
+
+    @Override
     public T findOneByExample(final T entity, final SearchParameters sp) {
         Assert.notNull(sp, "Search parameters required");
         Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, sp));
