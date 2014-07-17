@@ -15,7 +15,6 @@
   <converter class="net.sf.gazpachoquest.jpa.converter.EntityTypeConverter" />
   <converter class="net.sf.gazpachoquest.jpa.converter.GenderTypeConverter" />
   <converter class="net.sf.gazpachoquest.jpa.converter.InvitationStatusConverter" />
-  <converter class="net.sf.gazpachoquest.jpa.converter.MailMessageTemplateTypeConverter" />
   <converter class="net.sf.gazpachoquest.jpa.converter.RandomizationStrategyTypeConverter" />
   <converter class="net.sf.gazpachoquest.jpa.converter.ResearchAccessTypeConverter" />
 </entity-mappings>
