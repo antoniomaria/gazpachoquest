@@ -27,7 +27,8 @@
   <research id="57" created_date="2014-04-19 10:35:13.867" expiration_date="2014-04-19 10:35:13.812" last_modified_date="2014-04-19 10:35:13.867"
     name="New private Questionnair Sample QuestionnairDefinition started" start_date="2014-04-19 10:35:13.813" type="P"
     createdby_id="1" lastmodifiedby_id="1" />
-
+  <invitation />
+  
   <questionnair id="58" created_date="2014-04-19 10:35:13.943" last_modified_date="2014-04-19 10:35:13.943" status="C"
     createdby_id="1" lastmodifiedby_id="1" questionnairdefinition_id="7" research_id="57" respondent_id="6" />
   <questionnair id="63" created_date="2014-04-19 10:35:14.218" last_modified_date="2014-04-19 10:35:14.218" status="C"
