@@ -41,7 +41,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 @Component("GroupByGroupResolver")
-public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
+public class GroupByGroupResolverImpl implements PageResolver {
 
     private static final Integer INITIAL_POSITION = 0;
 
@@ -129,13 +129,12 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
                 nextBreadcrumb = lastBreadcrumb;
             }
         }
-        // return extractFrom(nextBreadcrumb);
-        return null;
+        return createPageStructure(questionnairDefinition.getRandomizationStrategy(), nextBreadcrumb);
     }
 
-    private PageStructure extractFrom(RandomizationStrategy randomizationStrategy, QuestionGroupBreadcrumb breadcrumb) {
+    private PageStructure createPageStructure(RandomizationStrategy randomizationStrategy, QuestionGroupBreadcrumb breadcrumb) {
         PageStructure nextPage = new PageStructure();
-        // TODO add questiongroup info to page structure
+        nextPage.setMetadata(metadataCreator.create(randomizationStrategy, breadcrumb));
 
         for (QuestionBreadcrumb questionBreadcrumb : breadcrumb.getBreadcrumbs()) {
             nextPage.addQuestionsId(questionBreadcrumb.getQuestion().getId());
@@ -267,7 +266,7 @@ public class GroupByGroupResolverImpl implements QuestionnairElementResolver {
         return previousBreadcrumb;
     }
 
-    @Override
+    // @Override
     public QuestionnairElement resolveFor(Questionnair questionnair, NavigationAction action) {
         // TODO Auto-generated method stub
         return null;

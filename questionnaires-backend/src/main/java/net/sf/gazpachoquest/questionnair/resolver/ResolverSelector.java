@@ -14,5 +14,5 @@ import net.sf.gazpachoquest.types.RenderingMode;
 
 public interface ResolverSelector {
 
-    QuestionnairElementResolver selectBy(RenderingMode mode);
+    PageResolver selectBy(RenderingMode mode);
 }

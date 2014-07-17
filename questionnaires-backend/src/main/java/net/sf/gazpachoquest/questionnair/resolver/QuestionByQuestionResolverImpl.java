@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component("QuestionByQuestionResolver")
-public class QuestionByQuestionResolverImpl implements QuestionnairElementResolver {
+public class QuestionByQuestionResolverImpl implements PageResolver {
     private static final Integer INITIAL_POSITION = 0;
 
     private static final Logger logger = LoggerFactory.getLogger(QuestionByQuestionResolverImpl.class);
@@ -163,7 +163,7 @@ public class QuestionByQuestionResolverImpl implements QuestionnairElementResolv
     }
      */
 
-    @Override
+    // @Override
     public QuestionnairElement resolveFor(Questionnair questionnair, NavigationAction action) {
         // TODO Auto-generated method stub
         return null;

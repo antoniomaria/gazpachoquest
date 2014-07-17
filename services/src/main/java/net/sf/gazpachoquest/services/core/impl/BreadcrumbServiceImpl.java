@@ -13,6 +13,8 @@ package net.sf.gazpachoquest.services.core.impl;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
+import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.BreadcrumbRepository;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 
@@ -57,7 +59,10 @@ public class BreadcrumbServiceImpl extends AbstractPersistenceService<Breadcrumb
 
     @Override
     @Transactional
-    public Integer count(Integer questionnairId) {
-        return ((BreadcrumbRepository) repository).count(questionnairId);
+    public Integer countByQuestionnair(Integer questionnairId) {
+        return (int) repository.countByExample(
+                Breadcrumb.withProps().questionnair(Questionnair.with().id(questionnairId).build()).build(),
+                new SearchParameters());
+        // return ((BreadcrumbRepository) repository).count(questionnairId);
     }
 }

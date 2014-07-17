@@ -25,10 +25,11 @@ import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.answers.BooleanAnswer;
 import net.sf.gazpachoquest.dto.answers.SimpleAnswer;
 import net.sf.gazpachoquest.facades.QuestionnairFacade;
-import net.sf.gazpachoquest.questionnair.resolver.QuestionnairElementResolver;
+import net.sf.gazpachoquest.questionnair.resolver.PageResolver;
 import net.sf.gazpachoquest.questionnair.resolver.ResolverSelector;
 import net.sf.gazpachoquest.questionnair.support.AnswersPopulator;
 import net.sf.gazpachoquest.questionnair.support.PageMetadataCreator;
+import net.sf.gazpachoquest.questionnair.support.PageMetadataStructure;
 import net.sf.gazpachoquest.questionnair.support.PageStructure;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnairAnswersService;
@@ -101,7 +102,7 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
     @Override
     public PageDTO resolvePage(Integer questionnairId, RenderingMode mode, NavigationAction action) {
         Questionnair questionnair = Questionnair.with().id(questionnairId).build();
-        QuestionnairElementResolver resolver = resolverSelector.selectBy(mode);
+        PageResolver resolver = resolverSelector.selectBy(mode);
         PageStructure pageStructure = resolver.resolveNextPage(questionnair, action);
         PageDTO page = new PageDTO();
         if (pageStructure == null) { // TODO Handle exception
@@ -116,7 +117,10 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
         }
 
         answersPopulator.populate(questionnair, page.getQuestions());
-        page.setMetadata(mapper.map(pageStructure, PageMetadataDTO.class));
+        PageMetadataStructure metadata = pageStructure.getMetadata();
+        logger.info("Returning page {} of {} for questionnairId = {}", metadata.getNumber(), metadata.getCount(),
+                questionnairId);
+        page.setMetadata(mapper.map(metadata, PageMetadataDTO.class));
         return page;
     }
 

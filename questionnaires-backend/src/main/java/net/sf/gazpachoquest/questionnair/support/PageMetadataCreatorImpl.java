@@ -44,7 +44,7 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
                 count = questionnairDefinitionService.questionGroupsCount(questionGroup.getQuestionnairDefinition()
                         .getId());
             } else {
-                count = breadcrumbService.count(breadcrumb.getQuestionnair().getId());
+                count = breadcrumbService.countByQuestionnair(breadcrumb.getQuestionnair().getId());
                 position = (Integer) breadcrumbService.findLastAndPosition(breadcrumb.getQuestionnair().getId()).get(0)[1];
             }
         } else if (breadcrumb instanceof QuestionBreadcrumb) {

@@ -1,19 +1,14 @@
 package net.sf.gazpachoquest.questionnair.support;
 
-import net.sf.gazpachoquest.domain.core.QuestionGroup;
-import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.questionnair.resolver.QuestionnairElementResolver;
-import net.sf.gazpachoquest.services.QuestionGroupService;
-import net.sf.gazpachoquest.services.QuestionService;
-import net.sf.gazpachoquest.services.QuestionnairService;
+import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachoquest.domain.core.Breadcrumb;
+import net.sf.gazpachoquest.services.BreadcrumbService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
-import net.sf.gazpachoquest.types.NavigationAction;
+import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -29,8 +24,6 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
         "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnair-context.xml",
         "classpath:/facades-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("PageMetadataCreatorTest-dataset.xml")
-@DatabaseTearDown("PageMetadataCreatorTest-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class PageMetadataCreatorTest {
 
@@ -38,63 +31,26 @@ public class PageMetadataCreatorTest {
     private PageMetadataCreator pageMetadataCreator;
 
     @Autowired
-    private QuestionGroupService questionGroupService;
+    private BreadcrumbService breadcrumbService;
 
-    @Autowired
-    private QuestionService questionService;
-
-    @Autowired
-    @Qualifier("GroupByGroupResolver")
-    private QuestionnairElementResolver resolver;
-
-    @Autowired
-    private QuestionnairService questionnairService;
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    /*-
+    @DatabaseSetup("PageMetadataCreatorTest-dataset.xml")
+    @DatabaseTearDown("PageMetadataCreatorTest-dataset.xml")
     @Test
     public void createForQuestionGroupNoRandomizationTest() {
-        QuestionnairElement questionnairElement = questionGroupService.findOne(9);
-        PageMetadataDTO metadata = pageMetadataCreator.create(questionnairElement);
-        assertThat(metadata.isFirst()).isTrue();
-
-        questionnairElement = questionGroupService.findOne(10);
-        metadata = pageMetadataCreator.create(questionnairElement);
-        assertThat(metadata.isLast()).isFalse();
-        assertThat(metadata.isFirst()).isFalse();
-
-        questionnairElement = questionGroupService.findOne(11);
-        metadata = pageMetadataCreator.create(questionnairElement);
-        assertThat(metadata.isLast()).isTrue();
+        Breadcrumb breadcrumb = breadcrumbService.findOne(201);
+        PageMetadataStructure metadata = pageMetadataCreator.create(RandomizationStrategy.NONE, breadcrumb);
+        assertThat(metadata.getCount()).isEqualTo(3);
+        assertThat(metadata.getNumber()).isEqualTo(3);
     }
-     */
+
     @Test
+    @DatabaseSetup("PageMetadataCreatorQuestionRandomizationStrategyTest-dataset.xml")
+    @DatabaseTearDown("PageMetadataCreatorQuestionRandomizationStrategyTest-dataset.xml")
     public void createRandomizationPerQuestionEnabledTest() {
-        jdbcTemplate.update(
-                "update questionnair_definition set randomization_strategy = ?, questions_per_page = ? where id = ?",
-                "Q", 1, 7);
-        Integer questionnairId = 71;
-        Questionnair questionnair = questionnairService.findOne(questionnairId);
-        QuestionGroup questionGroup = (QuestionGroup) resolver.resolveFor(questionnair, NavigationAction.ENTERING);
-        System.out.println("de winner is: " + questionGroup);
+        Breadcrumb breadcrumb = breadcrumbService.findOne(103);
+        PageMetadataStructure metadata = pageMetadataCreator.create(RandomizationStrategy.QUESTIONS_RANDOMIZATION,
+                breadcrumb);
+        assertThat(metadata.getCount()).isEqualTo(8);
+        assertThat(metadata.getNumber()).isEqualTo(2);
     }
-
-    /*-
-    @Test
-    public void createForQuestionTest() {
-        QuestionnairElement questionnairElement = questionService.findOne(12);
-        PageMetadataDTO metadata = pageMetadataCreator.create(questionnairElement);
-        assertThat(metadata.isFirst()).isTrue();
-
-        questionnairElement = questionService.findOne(30);
-        metadata = pageMetadataCreator.create(questionnairElement);
-        assertThat(metadata.isLast()).isFalse();
-        assertThat(metadata.isFirst()).isFalse();
-
-        questionnairElement = questionService.findOne(50);
-        metadata = pageMetadataCreator.create(questionnairElement);
-        assertThat(metadata.isLast()).isTrue();
-    }*/
 }

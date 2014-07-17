@@ -1,5 +1,6 @@
 package net.sf.gazpachoquest.questionnair.support;
 
+
 public class PageMetadataStructure {
 
     private int count;
@@ -24,6 +25,22 @@ public class PageMetadataStructure {
 
     public void setNumber(int position) {
         number = position;
+    }
+
+    public boolean isLast() {
+        return number == count;
+    }
+
+    public boolean isNotLast() {
+        return number != count;
+    }
+
+    public boolean isFirst() {
+        return number == 1;
+    }
+
+    public boolean isNotFirst() {
+        return number != 1;
     }
 
     @Override

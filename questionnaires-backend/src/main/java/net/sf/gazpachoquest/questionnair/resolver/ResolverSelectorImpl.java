@@ -21,15 +21,15 @@ public class ResolverSelectorImpl implements ResolverSelector {
 
     @Autowired
     @Qualifier("GroupByGroupResolver")
-    private QuestionnairElementResolver groupByGroupResolver;
+    private PageResolver groupByGroupResolver;
 
     @Autowired
     @Qualifier("QuestionByQuestionResolver")
-    private QuestionnairElementResolver questionByQuestionResolver;
+    private PageResolver questionByQuestionResolver;
 
     @Override
-    public QuestionnairElementResolver selectBy(RenderingMode mode) {
-        QuestionnairElementResolver resolver = null;
+    public PageResolver selectBy(RenderingMode mode) {
+        PageResolver resolver = null;
         switch (mode) {
         case QUESTION_BY_QUESTION:
             resolver = questionByQuestionResolver;

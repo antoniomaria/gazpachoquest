@@ -52,5 +52,4 @@ public class BreadcrumbRepositoryTest {
         assertThat(next).hasSize(1);
         assertThat(next.get(0)).isEqualTo(new Object[] { QuestionGroupBreadcrumb.with().id(3).build(), 1 });
     }
-
 }

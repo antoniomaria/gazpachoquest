@@ -83,7 +83,7 @@ public class User extends AbstractAuditable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Role defaultRole;
 
-    @Column(name = "attributes", columnDefinition="hstore")
+    @Column(name = "attributes")
     @Converter(name = "map-to-string-converter", converterClass = MapToStringConverter.class)
     @org.eclipse.persistence.annotations.Convert(value = "map-to-string-converter")
     private Map<String, String> attributes = new HashMap<String, String>();
