@@ -22,7 +22,6 @@ import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
-import net.sf.gazpachoquest.domain.support.QuestionnairElement;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.questionnair.support.PageMetadataCreator;
 import net.sf.gazpachoquest.questionnair.support.PageStructure;
@@ -264,11 +263,4 @@ public class GroupByGroupResolverImpl implements PageResolver {
         QuestionGroupBreadcrumb previousBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
         return previousBreadcrumb;
     }
-
-    // @Override
-    public QuestionnairElement resolveFor(Questionnair questionnair, NavigationAction action) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

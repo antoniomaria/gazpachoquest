@@ -48,28 +48,33 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
                 position = (Integer) breadcrumbService.findLastAndPosition(breadcrumb.getQuestionnair().getId()).get(0)[1];
             }
         } else if (breadcrumb instanceof QuestionBreadcrumb) {
-            Question question = ((QuestionBreadcrumb) breadcrumb).getQuestion();
-            QuestionGroup questionGroup = question.getQuestionGroup();
+            if (RandomizationStrategy.NONE.equals(randomizationStrategy)) {
+                Question question = ((QuestionBreadcrumb) breadcrumb).getQuestion();
+                QuestionGroup questionGroup = question.getQuestionGroup();
 
-            Integer questionnairDefinitionId = questionGroup.getQuestionnairDefinition().getId();
+                Integer questionnairDefinitionId = questionGroup.getQuestionnairDefinition().getId();
 
-            count = questionnairDefinitionService.questionsCount(questionnairDefinitionId);
+                count = questionnairDefinitionService.questionsCount(questionnairDefinitionId);
 
-            Integer questionGroupId = question.getQuestionGroup().getId();
+                Integer questionGroupId = question.getQuestionGroup().getId();
 
-            Integer positionInQuestionGroup = questionService.findPositionInQuestionGroup(question.getId());
+                Integer positionInQuestionGroup = questionService.findPositionInQuestionGroup(question.getId());
 
-            List<Object[]> counts = questionnairDefinitionService
-                    .questionsCountGroupByQuestionGroups(questionnairDefinitionId);
-            Integer positionInQuestionnairDefition = 0;
-            for (Object[] objects : counts) {
-                Integer groupId = (Integer) objects[0];
-                if (questionGroupId.equals(groupId)) {
-                    break;
+                List<Object[]> counts = questionnairDefinitionService
+                        .questionsCountGroupByQuestionGroups(questionnairDefinitionId);
+                Integer positionInQuestionnairDefition = 0;
+                for (Object[] objects : counts) {
+                    Integer groupId = (Integer) objects[0];
+                    if (questionGroupId.equals(groupId)) {
+                        break;
+                    }
+                    positionInQuestionnairDefition += ((Long) objects[1]).intValue();
                 }
-                positionInQuestionnairDefition += ((Long) objects[1]).intValue();
+                position = positionInQuestionnairDefition + positionInQuestionGroup;
+            } else {
+                count = breadcrumbService.countByQuestionnair(breadcrumb.getQuestionnair().getId());
+                position = (Integer) breadcrumbService.findLastAndPosition(breadcrumb.getQuestionnair().getId()).get(0)[1];
             }
-            position = positionInQuestionnairDefition + positionInQuestionGroup;
         }
         return PageMetadataStructure.with().count(count).number(position + 1).build();
     }

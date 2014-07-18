@@ -19,7 +19,7 @@ CREATE TABLE mail_message_template_translation (id INTEGER NOT NULL, created_dat
 CREATE TABLE question_group_translation (id INTEGER NOT NULL, language VARCHAR(255) NOT NULL, description LONGTEXT, title VARCHAR(255) NOT NULL, QUESTIONGROUP_ID INTEGER, PRIMARY KEY (id));
 CREATE TABLE questionnair_definition_translation (id INTEGER NOT NULL, language VARCHAR(255) NOT NULL, description LONGTEXT NOT NULL, end_text LONGTEXT, title VARCHAR(255) NOT NULL, welcome_text LONGTEXT NOT NULL, QUESTIONNAIRDEFINITION_ID INTEGER, PRIMARY KEY (id));
 CREATE TABLE question_option_translation (id INTEGER NOT NULL, language VARCHAR(255) NOT NULL, title VARCHAR(255) NOT NULL, QUESTIONOPTION_ID INTEGER, PRIMARY KEY (id));
-CREATE TABLE question_translation (id INTEGER NOT NULL, language VARCHAR(255) NOT NULL, help VARCHAR(255), title VARCHAR(255) NOT NULL, QUESTION_ID INTEGER, PRIMARY KEY (id));
+CREATE TABLE question_group_translation (id INTEGER NOT NULL, language VARCHAR(255) NOT NULL, description LONGTEXT, title VARCHAR(255) NOT NULL, QUESTIONGROUP_ID INTEGER, PRIMARY KEY (id));
 CREATE TABLE user_group (user_id INTEGER NOT NULL, group_id INTEGER NOT NULL, PRIMARY KEY (user_id, group_id));
 CREATE TABLE user_role (user_id INTEGER NOT NULL, role_id INTEGER NOT NULL, PRIMARY KEY (user_id, role_id));
 CREATE TABLE group_role (role_id INTEGER NOT NULL, group_id INTEGER NOT NULL, PRIMARY KEY (role_id, group_id));

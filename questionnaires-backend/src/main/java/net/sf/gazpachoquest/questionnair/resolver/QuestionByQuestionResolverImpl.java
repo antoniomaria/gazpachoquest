@@ -10,19 +10,33 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.questionnair.resolver;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import net.sf.gazpachoquest.domain.core.Breadcrumb;
+import net.sf.gazpachoquest.domain.core.Question;
+import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
+import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.domain.support.QuestionnairElement;
+import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.questionnair.support.PageMetadataCreator;
 import net.sf.gazpachoquest.questionnair.support.PageStructure;
-import net.sf.gazpachoquest.repository.BreadcrumbRepository;
-import net.sf.gazpachoquest.repository.QuestionGroupRepository;
-import net.sf.gazpachoquest.repository.QuestionRepository;
-import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
+import net.sf.gazpachoquest.services.BreadcrumbService;
+import net.sf.gazpachoquest.services.QuestionGroupService;
+import net.sf.gazpachoquest.services.QuestionService;
+import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
+import net.sf.gazpachoquest.services.QuestionnairService;
 import net.sf.gazpachoquest.types.NavigationAction;
+import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 @Component("QuestionByQuestionResolver")
 public class QuestionByQuestionResolverImpl implements PageResolver {
@@ -31,16 +45,207 @@ public class QuestionByQuestionResolverImpl implements PageResolver {
     private static final Logger logger = LoggerFactory.getLogger(QuestionByQuestionResolverImpl.class);
 
     @Autowired
-    private BreadcrumbRepository browsedElementService;
+    private BreadcrumbService breadcrumbService;
 
     @Autowired
-    private QuestionGroupRepository questionGroupService;
+    private QuestionGroupService questionGroupService;
 
     @Autowired
-    private QuestionRepository questionService;
+    private QuestionService questionService;
 
     @Autowired
-    private QuestionnairDefinitionRepository surveyRepository;
+    private QuestionnairService questionnairService;
+
+    @Autowired
+    private QuestionnairDefinitionService questionnairDefinitionService;
+
+    @Autowired
+    private PageMetadataCreator metadataCreator;
+
+    @Override
+    public PageStructure resolveNextPage(Questionnair questionnair, NavigationAction action) {
+        Questionnair fetchedQuestionnair = questionnairService.findOne(questionnair.getId());
+        QuestionnairDefinition questionnairDefinition = fetchedQuestionnair.getQuestionnairDefinition();
+        int questionnairDefinitionId = questionnairDefinition.getId();
+        int questionnairId = questionnair.getId();
+        logger.debug("Finding {} QuestionGroup for questionnair {}", action.toString(), questionnairId);
+
+        List<Object[]> result = breadcrumbService.findLastAndPosition(questionnairId);
+        Breadcrumb breadcrumb = null;
+        QuestionBreadcrumb lastBreadcrumb = null;
+
+        List<Breadcrumb> breadcrumbs = null;
+        Integer lastBreadcrumbPosition = null;
+
+        if (result.isEmpty()) { // First time entering the
+            // questionnairDefinition
+            breadcrumbs = makeBreadcrumbs(questionnairDefinition, questionnair);
+            leaveBreakcrumbs(questionnair, breadcrumbs);
+            lastBreadcrumb = (QuestionBreadcrumb) breadcrumbs.get(0);
+        } else {
+            Assert.isTrue(result.size() == 1, "Unexpected result. Only one last element allowed per questionnair");
+            lastBreadcrumbPosition = (Integer) result.get(0)[1];
+            breadcrumb = (Breadcrumb) result.get(0)[0];
+            if (breadcrumb instanceof QuestionBreadcrumb) {
+                lastBreadcrumb = (QuestionBreadcrumb) breadcrumb;
+            } else {
+                breadcrumbService.deleteByExample(
+                        Breadcrumb.withProps().questionnair(Questionnair.with().id(questionnairId).build()).build(),
+                        new SearchParameters());
+
+                breadcrumbs = makeBreadcrumbs(questionnairDefinition, questionnair);
+                leaveBreakcrumbs(questionnair, breadcrumbs);
+                lastBreadcrumb = (QuestionBreadcrumb) breadcrumbs.get(0);
+            }
+        }
+        Breadcrumb nextBreadcrumb = null;
+
+        if (NavigationAction.ENTERING.equals(action)) {
+            nextBreadcrumb = lastBreadcrumb;
+        } else {
+            if (NavigationAction.NEXT.equals(action)) {
+                nextBreadcrumb = findNextBreadcrumb(questionnairDefinitionId, questionnair, lastBreadcrumb,
+                        lastBreadcrumbPosition);
+            } else {// PREVIOUS
+                nextBreadcrumb = findPreviousBreadcrumb(questionnairDefinitionId, questionnair, lastBreadcrumb,
+                        lastBreadcrumbPosition);
+            }
+            // Prevent that questiongroups are still in range.
+            if (nextBreadcrumb != null) {
+                lastBreadcrumb.setLast(Boolean.FALSE);
+                nextBreadcrumb.setLast(Boolean.TRUE);
+                leaveBreakcrumbs(questionnair, Arrays.asList(lastBreadcrumb, nextBreadcrumb));
+            } else {
+                nextBreadcrumb = lastBreadcrumb;
+            }
+        }
+
+        return createPageStructure(questionnairDefinition.getRandomizationStrategy(), nextBreadcrumb);
+    }
+
+    private PageStructure createPageStructure(RandomizationStrategy randomizationStrategy, Breadcrumb breadcrumb) {
+        PageStructure nextPage = new PageStructure();
+        nextPage.setMetadata(metadataCreator.create(randomizationStrategy, breadcrumb));
+
+        nextPage.addQuestionsId(((QuestionBreadcrumb) breadcrumb).getQuestion().getId());
+        return nextPage;
+    }
+
+    private List<Breadcrumb> makeBreadcrumbs(QuestionnairDefinition questionnairDefinition, Questionnair questionnair) {
+        List<Breadcrumb> breadcrumbs = new ArrayList<Breadcrumb>();
+        QuestionBreadcrumb breadcrumb = null;
+        Integer questionnairDefinitionId = questionnairDefinition.getId();
+        RandomizationStrategy randomizationStrategy = questionnairDefinition.getRandomizationStrategy();
+        if (RandomizationStrategy.GROUPS_RANDOMIZATION.equals(randomizationStrategy)) {
+            List<QuestionGroup> questionGroups = questionGroupService.findByExample(
+                    QuestionGroup.with()
+                            .questionnairDefinition(QuestionnairDefinition.with().id(questionnairDefinitionId).build())
+                            .build(), new SearchParameters());
+            Collections.shuffle(questionGroups);
+            for (QuestionGroup questionGroup : questionGroups) {
+                List<Question> questions = findQuestions(questionGroup);
+                for (Question question : questions) {
+                    breadcrumb = QuestionBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE)
+                            .question(question).build();
+                    breadcrumbs.add(breadcrumb);
+                }
+            }
+        } else if (RandomizationStrategy.QUESTIONS_RANDOMIZATION.equals(randomizationStrategy)) {
+            List<Question> questions = questionnairDefinitionService.getQuestions(questionnairDefinitionId);
+            Collections.shuffle(questions);
+            for (Question question : questions) {
+                breadcrumb = QuestionBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE)
+                        .question(question).build();
+                breadcrumbs.add(breadcrumb);
+            }
+        } else {
+            Question question = findFirstQuestion(questionnairDefinitionId);
+            breadcrumb = QuestionBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE).question(question)
+                    .build();
+            breadcrumbs.add(breadcrumb);
+        }
+        breadcrumbs.get(0).setLast(Boolean.TRUE);
+        return breadcrumbs;
+    }
+
+    private Breadcrumb findNextBreadcrumb(final Integer questionnairDefinitionId, final Questionnair questionnair,
+            final QuestionBreadcrumb lastBreadcrumb, final Integer lastBreadcrumbPosition) {
+
+        Breadcrumb breadcrumb = breadcrumbService.findByQuestionnairIdAndPosition(questionnair.getId(),
+                lastBreadcrumbPosition + 1);
+
+        QuestionBreadcrumb nextBreadcrumb = null;
+
+        if (breadcrumb == null) {
+            QuestionGroup lastQuestionGroup = lastBreadcrumb.getQuestion().getQuestionGroup();
+
+            Integer position = questionService.findPositionInQuestionGroup(lastBreadcrumb.getQuestion().getId());
+            long questionsCount = questionGroupService.questionsCount(lastQuestionGroup.getId());
+            Question next = null;
+            if (position < questionsCount - 1) { // Not last in group
+                next = questionService.findOneByPositionInQuestionGroup(lastQuestionGroup.getId(), position + 1);
+            } else {
+                Integer questionGroupPosition = questionGroupService.positionInQuestionnairDefinition(lastQuestionGroup
+                        .getId());
+                QuestionGroup nextQuestionGroup = questionGroupService.findOneByPositionInQuestionnairDefinition(
+                        questionnairDefinitionId, questionGroupPosition + 1);
+
+                if (nextQuestionGroup == null) { // TODO handle exceptions
+                    return null;
+                }
+                next = questionService.findOneByPositionInQuestionGroup(nextQuestionGroup.getId(), INITIAL_POSITION);
+            }
+            // Mark next element as last browsed.
+            nextBreadcrumb = QuestionBreadcrumb.with().questionnair(questionnair).question(next).build();
+        } else {
+            Assert.isInstanceOf(QuestionBreadcrumb.class, breadcrumb);
+            nextBreadcrumb = (QuestionBreadcrumb) breadcrumb;
+        }
+
+        return nextBreadcrumb;
+    }
+
+    private Breadcrumb findPreviousBreadcrumb(final int questionnairDefinitionId, final Questionnair questionnair,
+            final QuestionBreadcrumb lastBreadcrumb, final Integer lastBreadcrumbPosition) {
+        if (lastBreadcrumbPosition == INITIAL_POSITION) {
+            logger.warn("Page out of range. First page is returned.");
+            return null;
+        }
+        Breadcrumb breadcrumb = breadcrumbService.findByQuestionnairIdAndPosition(questionnair.getId(),
+                lastBreadcrumbPosition - 1);
+
+        Assert.isInstanceOf(QuestionBreadcrumb.class, breadcrumb);
+
+        // QuestionBreadcrumb previousBreadcrumb = (QuestionGroupBreadcrumb)
+        // breadcrumb;
+        return breadcrumb;
+    }
+
+    private List<Question> findQuestions(QuestionGroup questionGroup) {
+        List<Question> questions;
+        if (questionGroup.isRandomizationEnabled()) {
+            questions = questionService.findByExample(
+                    Question.with().questionGroup(QuestionGroup.with().id(questionGroup.getId()).build()).build(),
+                    new SearchParameters());
+            Collections.shuffle(questions);
+        } else {
+            questions = questionService.findByQuestionGroupId(questionGroup.getId());
+        }
+        return questions;
+    }
+
+    private void leaveBreakcrumbs(final Questionnair questionnair, List<Breadcrumb> breadcrumbs) {
+        for (Breadcrumb newBreadcrumb : breadcrumbs) {
+            questionnair.addBreadcrumb(newBreadcrumb);
+        }
+        questionnairService.save(questionnair);
+    }
+
+    private Question findFirstQuestion(int questionnairDefinitionId) {
+        QuestionGroup initialGroup = questionGroupService.findOneByPositionInQuestionnairDefinition(
+                questionnairDefinitionId, INITIAL_POSITION);
+        return questionService.findOneByPositionInQuestionGroup(initialGroup.getId(), INITIAL_POSITION);
+    }
 
     /*-
     @Override
@@ -162,17 +367,5 @@ public class QuestionByQuestionResolverImpl implements PageResolver {
         return previousBrowsedQuestion.getQuestion();
     }
      */
-
-    // @Override
-    public QuestionnairElement resolveFor(Questionnair questionnair, NavigationAction action) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public PageStructure resolveNextPage(Questionnair questionnair, NavigationAction action) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
 }
