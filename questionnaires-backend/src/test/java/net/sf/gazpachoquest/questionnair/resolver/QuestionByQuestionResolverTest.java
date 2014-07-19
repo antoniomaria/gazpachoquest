@@ -1,12 +1,20 @@
 package net.sf.gazpachoquest.questionnair.resolver;
 
-import net.sf.gazpachoquest.repository.QuestionnairRepository;
-import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
+import static org.fest.assertions.api.Assertions.assertThat;
 
-import org.junit.Ignore;
+import java.util.List;
+
+import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.questionnair.support.PageStructure;
+import net.sf.gazpachoquest.services.QuestionnairService;
+import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
+import net.sf.gazpachoquest.types.NavigationAction;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,15 +32,57 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @DatabaseSetup("QuestionByQuestionResolver-dataset.xml")
 @DatabaseTearDown("QuestionByQuestionResolver-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-@Ignore
 public class QuestionByQuestionResolverTest {
 
     @Autowired
-    private QuestionnairRepository questionnairRepository;
+    private QuestionnairService questionnairService;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     @Qualifier("QuestionByQuestionResolver")
     private PageResolver resolver;
+
+    @Test
+    public void resolveForNoRandomizationTest() {
+        jdbcTemplate.update("update questionnair_definition set randomization_strategy = ? where id = ?", "N", 7);
+
+        Integer questionnairId = 58;
+        Questionnair questionnair = questionnairService.findOne(questionnairId);
+        PageStructure pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
+
+        List<Integer> questionIds = pageStructure.getQuestionsId();
+        assertThat(questionIds).containsExactly(13);
+
+        // Testing out of range
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
+        questionIds = pageStructure.getQuestionsId();
+        assertThat(questionIds).containsExactly(13);
+
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        questionIds = pageStructure.getQuestionsId();
+        assertThat(questionIds).containsExactly(12);
+
+
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        questionIds = pageStructure.getQuestionsId();
+        assertThat(questionIds).containsExactly(29);
+        
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        questionIds = pageStructure.getQuestionsId();
+        assertThat(questionIds).containsExactly(30);
+        
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        questionIds = pageStructure.getQuestionsId();
+        assertThat(questionIds).containsExactly(31);
+        
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        questionIds = pageStructure.getQuestionsId();
+        assertThat(questionIds).containsExactly(35);
+
+    }
+
     /*-
      @Test
      public void resolveForTest() {

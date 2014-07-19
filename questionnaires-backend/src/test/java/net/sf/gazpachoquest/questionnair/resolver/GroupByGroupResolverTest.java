@@ -7,6 +7,7 @@ import java.util.List;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.questionnair.support.PageStructure;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
+import net.sf.gazpachoquest.services.QuestionnairService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.NavigationAction;
 
@@ -36,7 +37,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 public class GroupByGroupResolverTest {
 
     @Autowired
-    private QuestionnairRepository questionnairRepository;
+    private QuestionnairService questionnairService;
 
     @Autowired
     @Qualifier("GroupByGroupResolver")
@@ -50,36 +51,36 @@ public class GroupByGroupResolverTest {
         jdbcTemplate.update("update questionnair_definition set randomization_strategy = ? where id = ?", "N", 7);
 
         Integer questionnairId = 58;
-        Questionnair questionnair = questionnairRepository.findOne(questionnairId);
-        PageStructure questionGroup = resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
+        Questionnair questionnair = questionnairService.findOne(questionnairId);
+        PageStructure pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
 
-        List<Integer> questionIds = questionGroup.getQuestionsId();
+        List<Integer> questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(13, 12, 29);
 
         // Testing out of range
-        questionGroup = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
-        questionIds = questionGroup.getQuestionsId();
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
+        questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(13, 12, 29);
 
-        questionGroup = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
-        questionIds = questionGroup.getQuestionsId();
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(30, 31, 35);
 
-        questionGroup = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
-        questionIds = questionGroup.getQuestionsId();
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(39, 50);
 
         // Testing out of range
-        questionGroup = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
-        questionIds = questionGroup.getQuestionsId();
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(39, 50);
 
-        questionGroup = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
-        questionIds = questionGroup.getQuestionsId();
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
+        questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(30, 31, 35);
 
-        questionGroup = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
-        questionIds = questionGroup.getQuestionsId();
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
+        questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(13, 12, 29);
 
     }
