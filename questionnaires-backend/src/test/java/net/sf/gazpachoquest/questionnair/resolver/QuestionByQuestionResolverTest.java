@@ -16,7 +16,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -31,8 +30,6 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
         "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnair-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("QuestionByQuestionResolver-dataset.xml")
-@DatabaseTearDown("QuestionByQuestionResolver-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class QuestionByQuestionResolverTest {
 
@@ -40,16 +37,13 @@ public class QuestionByQuestionResolverTest {
     private QuestionnairService questionnairService;
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    @Autowired
     @Qualifier("QuestionByQuestionResolver")
     private PageResolver resolver;
 
     @Test
+    @DatabaseSetup("QuestionnairDefinitionNoRandomizationEnabled-dataset.xml")
+    @DatabaseTearDown("QuestionnairDefinitionNoRandomizationEnabled-dataset.xml")
     public void resolveNextPageNoRandomizationTest() {
-        jdbcTemplate.update("update questionnair_definition set randomization_strategy = ? where id = ?", "N", 7);
-
         Integer questionnairId = 58;
         Questionnair questionnair = questionnairService.findOne(questionnairId);
         PageStructure pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
@@ -84,14 +78,11 @@ public class QuestionByQuestionResolverTest {
 
     }
 
+    @DatabaseSetup("QuestionnairDefinitionQuestionRandomizationEnabled-dataset.xml")
+    @DatabaseTearDown("QuestionnairDefinitionQuestionRandomizationEnabled-dataset.xml")
     @Test
     public void resolveNextPageQuestionRandomizationStrategyTest() {
         Integer questionsPerPage = 1;
-
-        jdbcTemplate.update(
-                "update questionnair_definition set randomization_strategy = ?, questions_per_page = ? where id = ?",
-                "Q", 7, questionsPerPage);
-
         List<Integer> visitedQuestionIds = new ArrayList<Integer>();
 
         List<Integer> allQuestionIds = Arrays.asList(13, 12, 29, 30, 31, 35, 39, 50);
@@ -101,35 +92,34 @@ public class QuestionByQuestionResolverTest {
         PageStructure pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
         Integer firstQuestionId = pageStructure.getQuestionsId().get(0);
-        
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
-        
+
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
-        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage); 
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
-        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage); 
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
-        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage); 
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
-        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage); 
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
-        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage); 
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
-        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage); 
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
@@ -138,22 +128,17 @@ public class QuestionByQuestionResolverTest {
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
 
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
 
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
 
-
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
 
-
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
-
-
-        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
-        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
-        
 
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);

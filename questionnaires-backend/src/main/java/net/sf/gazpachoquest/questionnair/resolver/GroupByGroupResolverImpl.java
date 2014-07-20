@@ -111,10 +111,10 @@ public class GroupByGroupResolverImpl implements PageResolver {
                 Assert.isTrue(lastBreadcrumb.getQuestionGroup() != null);
             }
             if (NavigationAction.NEXT.equals(action)) {
-                nextBreadcrumb = findNextBreadcrumb(questionnairDefinitionId, questionnair, lastBreadcrumb,
+                nextBreadcrumb = findNextBreadcrumb(questionnairDefinition, questionnair, lastBreadcrumb,
                         lastBreadcrumbPosition);
             } else {// PREVIOUS
-                nextBreadcrumb = findPreviousBreadcrumb(questionnairDefinitionId, questionnair, lastBreadcrumb,
+                nextBreadcrumb = findPreviousBreadcrumb(questionnairDefinition, questionnair, lastBreadcrumb,
                         lastBreadcrumbPosition);
             }
             // Prevent that questiongroups are still in range.
@@ -220,7 +220,7 @@ public class GroupByGroupResolverImpl implements PageResolver {
                 INITIAL_POSITION);
     }
 
-    private QuestionGroupBreadcrumb findNextBreadcrumb(final Integer questionnairDefinitionId,
+    private QuestionGroupBreadcrumb findNextBreadcrumb(final QuestionnairDefinition questionnairDefinition,
             final Questionnair questionnair, final QuestionGroupBreadcrumb lastBreadcrumb,
             final Integer lastBreadcrumbPosition) {
 
@@ -229,11 +229,12 @@ public class GroupByGroupResolverImpl implements PageResolver {
 
         QuestionGroupBreadcrumb nextBreadcrumb = null;
 
-        if (breadcrumb == null) {
+        // There is no real questionGroup when QuestionsRandomization is enabled
+        if (breadcrumb == null && !questionnairDefinition.getRandomizationStrategy().equals(RandomizationStrategy.QUESTIONS_RANDOMIZATION)) {
             Integer position = questionGroupService.positionInQuestionnairDefinition(lastBreadcrumb.getQuestionGroup()
                     .getId());
             QuestionGroup next = questionGroupService.findOneByPositionInQuestionnairDefinition(
-                    questionnairDefinitionId, position + 1);
+                    questionnairDefinition.getId(), position + 1);
             // The respondent has reached the last question group
             if (next == null) {
                 logger.warn("Page out of range. Returning last page");
@@ -242,13 +243,12 @@ public class GroupByGroupResolverImpl implements PageResolver {
             nextBreadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(next).build();
             populateQuestionsBreadcrumbs(Arrays.asList(nextBreadcrumb));
         } else {
-            Assert.isInstanceOf(QuestionGroupBreadcrumb.class, breadcrumb);
             nextBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
         }
         return nextBreadcrumb;
     }
 
-    private QuestionGroupBreadcrumb findPreviousBreadcrumb(final Integer questionnairDefinitionId,
+    private QuestionGroupBreadcrumb findPreviousBreadcrumb(final QuestionnairDefinition questionnairDefinition,
             final Questionnair questionnair, final QuestionGroupBreadcrumb lastBreadcrumb,
             final Integer lastBreadcrumbPosition) {
         if (lastBreadcrumbPosition == INITIAL_POSITION) {

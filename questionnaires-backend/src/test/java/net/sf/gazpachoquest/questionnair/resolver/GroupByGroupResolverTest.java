@@ -16,7 +16,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -31,8 +30,6 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
         "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnair-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("GroupByGroupResolver-dataset.xml")
-@DatabaseTearDown("GroupByGroupResolver-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class GroupByGroupResolverTest {
 
@@ -43,12 +40,10 @@ public class GroupByGroupResolverTest {
     @Qualifier("GroupByGroupResolver")
     private PageResolver resolver;
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
     @Test
+    @DatabaseSetup("QuestionnairDefinitionNoRandomizationEnabled-dataset.xml")
+    @DatabaseTearDown("QuestionnairDefinitionNoRandomizationEnabled-dataset.xml")
     public void resolveNextPageNoRandomizationTest() {
-        jdbcTemplate.update("update questionnair_definition set randomization_strategy = ? where id = ?", "N", 7);
 
         Integer questionnairId = 58;
         Questionnair questionnair = questionnairService.findOne(questionnairId);
@@ -85,12 +80,10 @@ public class GroupByGroupResolverTest {
     }
 
     @Test
+    @DatabaseSetup("QuestionnairDefinitionQuestionRandomizationEnabled-dataset.xml")
+    @DatabaseTearDown("QuestionnairDefinitionQuestionRandomizationEnabled-dataset.xml")
     public void resolveNextPageQuestionRandomizationStrategyTest() {
         Integer questionsPerPage = 3;
-
-        jdbcTemplate.update(
-                "update questionnair_definition set randomization_strategy = ?, questions_per_page = ? where id = ?",
-                "Q", 7, questionsPerPage);
 
         List<Integer> visitedQuestionIds = new ArrayList<Integer>();
 
@@ -130,9 +123,9 @@ public class GroupByGroupResolverTest {
     }
 
     @Test
+    @DatabaseSetup("QuestionnairDefinitionGroupRandomizationEnabled-dataset.xml")
+    @DatabaseTearDown("QuestionnairDefinitionGroupRandomizationEnabled-dataset.xml")
     public void resolveNextPageGroupsRandomizationTest() {
-        jdbcTemplate.update("update questionnair_definition set randomization_strategy = ? where id = ?", "G", 7);
-
         List<Integer> visitedQuestionIds = new ArrayList<Integer>();
 
         List<Integer> allQuestionIds = Arrays.asList(13, 12, 29, 30, 31, 35, 39, 50);
