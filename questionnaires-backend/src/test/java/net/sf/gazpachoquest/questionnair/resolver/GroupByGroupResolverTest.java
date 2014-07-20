@@ -2,16 +2,16 @@ package net.sf.gazpachoquest.questionnair.resolver;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.questionnair.support.PageStructure;
-import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.services.QuestionnairService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.NavigationAction;
 
-import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class GroupByGroupResolverTest {
     private JdbcTemplate jdbcTemplate;
 
     @Test
-    public void resolveForNoRandomizationTest() {
+    public void resolveNextPageNoRandomizationTest() {
         jdbcTemplate.update("update questionnair_definition set randomization_strategy = ? where id = ?", "N", 7);
 
         Integer questionnairId = 58;
@@ -82,63 +82,75 @@ public class GroupByGroupResolverTest {
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
         questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(13, 12, 29);
-
     }
 
-    /*
-     * @Test
-     * public void resolveForGroupsRandomizationTest() {
-     * jdbcTemplate.update(
-     * "update questionnair_definition set randomization_strategy = ? where id = ?"
-     * , "G", 7);
-     * 
-     * Integer questionnairId = 58;
-     * List<QuestionGroup> visitedQuestionGroups = new
-     * ArrayList<QuestionGroup>();
-     * List<QuestionGroup> allQuestionGroups =
-     * Arrays.asList(QuestionGroup.with().id(9).build(), QuestionGroup.with()
-     * .id(10).build(), QuestionGroup.with().id(11).build());
-     * 
-     * Questionnair questionnair =
-     * questionnairRepository.findOne(questionnairId);
-     * 
-     * QuestionGroup questionGroup = (QuestionGroup)
-     * resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
-     * assertThat(questionGroup.getQuestions()).isNotEmpty();
-     * visitedQuestionGroups.add(questionGroup);
-     * 
-     * questionGroup = (QuestionGroup) resolver.resolveNextPage(questionnair,
-     * NavigationAction.NEXT);
-     * assertThat(questionGroup.getQuestions()).isNotEmpty();
-     * visitedQuestionGroups.add(questionGroup);
-     * 
-     * questionGroup = (QuestionGroup) resolver.resolveNextPage(questionnair,
-     * NavigationAction.NEXT);
-     * assertThat(questionGroup.getQuestions()).isNotEmpty();
-     * visitedQuestionGroups.add(questionGroup);
-     * 
-     * assertThat(visitedQuestionGroups).containsAll(allQuestionGroups);
-     * }
-     */
-    /*-
     @Test
-    public void resolveForQuestionRandomizationTest() {
-    int questionsPerPpage = 4;
-    jdbcTemplate.update(
-    "update questionnair_definition set randomization_strategy = ?, questions_per_page = ? where id = ?",
-    "Q", questionsPerPpage, 7);
+    public void resolveNextPageQuestionRandomizationStrategyTest() {
+        Integer questionsPerPage = 3;
 
-    Integer questionnairId = 58;
-    Questionnair questionnair = questionnairRepository.findOne(questionnairId);
+        jdbcTemplate.update(
+                "update questionnair_definition set randomization_strategy = ?, questions_per_page = ? where id = ?",
+                "Q", 7, questionsPerPage);
 
-    QuestionGroup questionGroup = (QuestionGroup) resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
-    assertThat(questionGroup.getId()).isNull();
-    assertThat(questionGroup.getQuestions()).hasSize(questionsPerPpage);
+        List<Integer> visitedQuestionIds = new ArrayList<Integer>();
 
-    }*/
+        List<Integer> allQuestionIds = Arrays.asList(13, 12, 29, 30, 31, 35, 39, 50);
 
-    @After
-    public void tearDown() {
-        jdbcTemplate.update("truncate table breadcrumb");
+        Integer questionnairId = 58;
+        Questionnair questionnair = questionnairService.findOne(questionnairId);
+        PageStructure pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
+
+        // Testing out of range
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
+
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        assertThat(pageStructure.getQuestionsId()).hasSize(2); // There are not enough questions to fit a 3 question
+                                                               // size page.
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
+
+        // Testing out of range
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        assertThat(pageStructure.getQuestionsId()).hasSize(2);
+
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+
+        assertThat(visitedQuestionIds).containsAll(allQuestionIds);
     }
+
+    @Test
+    public void resolveNextPageGroupsRandomizationTest() {
+        jdbcTemplate.update("update questionnair_definition set randomization_strategy = ? where id = ?", "G", 7);
+
+        List<Integer> visitedQuestionIds = new ArrayList<Integer>();
+
+        List<Integer> allQuestionIds = Arrays.asList(13, 12, 29, 30, 31, 35, 39, 50);
+
+        Integer questionnairId = 58;
+        Questionnair questionnair = questionnairService.findOne(questionnairId);
+        PageStructure pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
+
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
+
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
+
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
+
+        assertThat(visitedQuestionIds).containsAll(allQuestionIds);
+
+    }
+
 }

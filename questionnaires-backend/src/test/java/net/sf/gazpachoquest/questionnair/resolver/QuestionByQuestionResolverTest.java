@@ -2,6 +2,8 @@ package net.sf.gazpachoquest.questionnair.resolver;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Questionnair;
@@ -45,7 +47,7 @@ public class QuestionByQuestionResolverTest {
     private PageResolver resolver;
 
     @Test
-    public void resolveForNoRandomizationTest() {
+    public void resolveNextPageNoRandomizationTest() {
         jdbcTemplate.update("update questionnair_definition set randomization_strategy = ? where id = ?", "N", 7);
 
         Integer questionnairId = 58;
@@ -64,55 +66,100 @@ public class QuestionByQuestionResolverTest {
         questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(12);
 
-
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
         questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(29);
-        
+
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
         questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(30);
-        
+
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
         questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(31);
-        
+
         pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
         questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(35);
 
     }
 
-    /*-
-     @Test
-     public void resolveForTest() {
-     Integer questionnairId = 58;
-     Questionnair respondent = questionnairRepository.findOne(questionnairId);
-     Question question = (Question) resolver.resolveFor(respondent, NavigationAction.ENTERING);
-     assertThat(question.getLanguageSettings().getTitle()).contains("What is your name?");
+    @Test
+    public void resolveNextPageQuestionRandomizationStrategyTest() {
+        Integer questionsPerPage = 1;
 
-     question = (Question) resolver.resolveFor(respondent, NavigationAction.NEXT);
-     assertThat(question.getLanguageSettings().getTitle()).contains("What is your age group?");
+        jdbcTemplate.update(
+                "update questionnair_definition set randomization_strategy = ?, questions_per_page = ? where id = ?",
+                "Q", 7, questionsPerPage);
 
-     question = (Question) resolver.resolveFor(respondent, NavigationAction.NEXT);
+        List<Integer> visitedQuestionIds = new ArrayList<Integer>();
 
-     assertThat(question.getLanguageSettings().getTitle()).contains("And for our records,");
-     question = (Question) resolver.resolveFor(respondent, NavigationAction.NEXT);
+        List<Integer> allQuestionIds = Arrays.asList(13, 12, 29, 30, 31, 35, 39, 50);
 
-     question = (Question) resolver.resolveFor(respondent, NavigationAction.NEXT);
+        Integer questionnairId = 58;
+        Questionnair questionnair = questionnairService.findOne(questionnairId);
+        PageStructure pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+        Integer firstQuestionId = pageStructure.getQuestionsId().get(0);
+        
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
-     question = (Question) resolver.resolveFor(respondent, NavigationAction.NEXT);
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
+        
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage); 
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
-     question = (Question) resolver.resolveFor(respondent, NavigationAction.NEXT);
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage); 
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
-     assertThat(question.getLanguageSettings().getTitle()).contains("Please have a good look");
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage); 
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
-     question = (Question) resolver.resolveFor(respondent, NavigationAction.PREVIOUS);
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage); 
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
-     assertThat(question.getLanguageSettings().getTitle()).contains("Which of these ads make");
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage); 
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
-     question = (Question) resolver.resolveFor(respondent, NavigationAction.PREVIOUS);
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.NEXT);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage); 
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
-     assertThat(question.getLanguageSettings().getTitle()).contains("Given your extraord");
-     }*/
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+
+
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+
+
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+
+
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+
+
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+        
+
+        pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.PREVIOUS);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+
+        assertThat(visitedQuestionIds).containsAll(allQuestionIds);
+        assertThat(pageStructure.getQuestionsId().get(0)).isEqualTo(firstQuestionId);
+    }
+
 }
