@@ -52,6 +52,13 @@ public class QuestionRepositoryTest {
     }
 
     @Test
+    public void findSubquestionInListTest() {
+        List<Integer> questionIds = Arrays.asList(12, 13, 29, 30, 31, 35, 50, 39);
+        List<Question> questions = repository.findInList(questionIds);
+        assertThat(questions).hasSameSizeAs(questionIds);
+    }
+
+    @Test
     public void findInListAndLanguageTest() {
         List<Integer> questionIds = Arrays.asList(12, 13, 29, 30, 31, 35, 50, 39);
         List<Object[]> questionsAndTranslations = repository.findInList(questionIds, Language.ES);
@@ -63,7 +70,6 @@ public class QuestionRepositoryTest {
                 assertThat(questionTranslation.getId()).isEqualTo(60);
             }
         }
-
     }
 
     @Test
