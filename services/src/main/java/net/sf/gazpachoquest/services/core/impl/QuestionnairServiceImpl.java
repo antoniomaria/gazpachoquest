@@ -12,7 +12,9 @@ package net.sf.gazpachoquest.services.core.impl;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.core.QuestionnairAnswers;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
+import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachoquest.repository.user.PermissionRepository;
 import net.sf.gazpachoquest.services.QuestionnairService;
 import net.sf.gazpachoquest.types.EntityStatus;
@@ -28,6 +30,9 @@ public class QuestionnairServiceImpl extends AbstractPersistenceService<Question
     private PermissionRepository permissionRepository;
 
     @Autowired
+    private QuestionnairAnswersRepository questionnairAnswersRepository;
+
+    @Autowired
     public QuestionnairServiceImpl(final QuestionnairRepository questionnairRepository) {
         super(questionnairRepository);
     }
@@ -39,6 +44,12 @@ public class QuestionnairServiceImpl extends AbstractPersistenceService<Question
         if (questionnair.isNew()) {
             if (questionnair.getStatus() == null) {
                 questionnair.setStatus(EntityStatus.DRAFT);
+            } else if (questionnair.getStatus().equals(EntityStatus.CONFIRMED)) {
+                // Create answers holder
+                QuestionnairAnswers questionnairAnswers = new QuestionnairAnswers();
+                questionnairAnswers = questionnairAnswersRepository.save(questionnair.getQuestionnairDefinition()
+                        .getId(), questionnairAnswers);
+                questionnair.setAnswersId(questionnairAnswers.getId());
             }
             existing = repository.save(questionnair);
         } else {

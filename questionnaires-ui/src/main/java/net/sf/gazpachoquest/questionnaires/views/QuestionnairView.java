@@ -34,8 +34,10 @@ import org.vaadin.addon.cdiproperties.annotation.ButtonProperties;
 import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.Page;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinServletService;
+import com.vaadin.server.WebBrowser;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -75,6 +77,8 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
     @ButtonProperties(caption = "Previous")
     private Button previousButton;
 
+    private RenderingMode renderingMode;
+
     public void update(PageDTO page) {
         questionsLayout.removeAllComponents();
 
@@ -110,6 +114,18 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
         setSizeFull();
         addStyleName(Reindeer.LAYOUT_BLUE);
         addStyleName("questionnaires");
+
+        WebBrowser webBrowser = Page.getCurrent().getWebBrowser();
+        Integer screenWidth = webBrowser.getScreenWidth();
+        Integer heightWidth = webBrowser.getScreenWidth();
+        logger.debug("Broswer screen settings  {} x {}", screenWidth, heightWidth);
+
+        if (heightWidth <= 480) {
+            renderingMode = RenderingMode.QUESTION_BY_QUESTION;
+        } else {
+            renderingMode = RenderingMode.GROUP_BY_GROUP;
+        }
+
         VerticalLayout centralLayout = new VerticalLayout();
         centralLayout.setMargin(true);
         // centralLayout.addStyleName("questionnaires");
@@ -121,8 +137,7 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
         logger.debug("Trying to fetch questionnair identified with id  = {} ", questionnairId);
         QuestionnairDTO questionnair = questionnairResource.getDefinition(questionnairId);
 
-        PageDTO page = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP,
-                NavigationAction.ENTERING);
+        PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, NavigationAction.ENTERING);
         questionsLayout = new VerticalLayout();
         update(page);
 
@@ -166,12 +181,10 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
     @Override
     public void buttonClick(ClickEvent event) {
         if (nextButton.equals(event.getButton())) {
-            PageDTO page = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP,
-                    NavigationAction.NEXT);
+            PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, NavigationAction.NEXT);
             update(page);
         } else {
-            PageDTO page = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP,
-                    NavigationAction.PREVIOUS);
+            PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, NavigationAction.PREVIOUS);
             update(page);
         }
 

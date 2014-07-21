@@ -24,13 +24,11 @@ import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.questionnair.support.PageMetadataCreator;
-import net.sf.gazpachoquest.questionnair.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 import net.sf.gazpachoquest.services.QuestionGroupService;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
 import net.sf.gazpachoquest.services.QuestionnairService;
-import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 import org.slf4j.Logger;
@@ -40,7 +38,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 @Component("GroupByGroupResolver")
-public class GroupByGroupResolverImpl implements PageResolver {
+public class GroupByGroupResolverImpl extends AbstractResolver<QuestionGroupBreadcrumb> implements PageResolver {
 
     private static final Integer INITIAL_POSITION = 0;
 
@@ -64,92 +62,131 @@ public class GroupByGroupResolverImpl implements PageResolver {
     @Autowired
     private PageMetadataCreator metadataCreator;
 
+    /*-
+     @Override
+     public PageStructure resolveNextPage(final Questionnair questionnair, final NavigationAction action) {
+     Questionnair fetchedQuestionnair = questionnairService.findOne(questionnair.getId());
+     QuestionnairDefinition questionnairDefinition = fetchedQuestionnair.getQuestionnairDefinition();
+     int questionnairId = questionnair.getId();
+     logger.debug("Finding {} QuestionGroup for questionnair {}", action.toString(), questionnairId);
+
+     List<Object[]> result = breadcrumbService.findLastAndPosition(questionnairId);
+     Breadcrumb breadcrumb = null;
+     Breadcrumb lastBreadcrumb = null;
+
+     List<Breadcrumb> breadcrumbs = null;
+     Integer lastBreadcrumbPosition = null;
+     if (result.isEmpty()) { // First time entering the
+     // questionnairDefinition
+     breadcrumbs = makeBreadcrumbs(questionnairDefinition, questionnair);
+     leaveBreakcrumbs(questionnair, breadcrumbs);
+     lastBreadcrumb = breadcrumbs.get(0);
+     } else {
+     Assert.isTrue(result.size() == 1, "Unexpected result. Only one last element allowed per questionnair");
+     lastBreadcrumbPosition = (Integer) result.get(0)[1];
+     breadcrumb = (Breadcrumb) result.get(0)[0];
+     if (breadcrumb instanceof QuestionGroupBreadcrumb) {
+     lastBreadcrumb = breadcrumb;
+     } else {
+     breadcrumbService.deleteByExample(
+     Breadcrumb.withProps().questionnair(Questionnair.with().id(questionnairId).build()).build(),
+     new SearchParameters());
+
+     breadcrumbs = makeBreadcrumbs(questionnairDefinition, questionnair);
+     leaveBreakcrumbs(questionnair, breadcrumbs);
+     lastBreadcrumb = breadcrumbs.get(0);
+     }
+     }
+     Breadcrumb nextBreadcrumb = null;
+
+     if (NavigationAction.ENTERING.equals(action)) {
+     nextBreadcrumb = lastBreadcrumb;
+     } else {
+     if (!RandomizationStrategy.QUESTIONS_RANDOMIZATION
+     .equals(questionnairDefinition.getRandomizationStrategy())) {
+     // QuestionGroup is not applicable when questions are
+     // randomized.
+     // Assert.isTrue(lastBreadcrumb.getQuestionGroup() != null);
+     }
+     if (NavigationAction.NEXT.equals(action)) {
+     nextBreadcrumb = findNextBreadcrumb(questionnairDefinition, questionnair, lastBreadcrumb,
+     lastBreadcrumbPosition);
+     } else {// PREVIOUS
+     nextBreadcrumb = findPreviousBreadcrumb(questionnairDefinition, questionnair, lastBreadcrumb,
+     lastBreadcrumbPosition);
+     }
+     // Prevent that questiongroups are still in range.
+     if (nextBreadcrumb != null) {
+     lastBreadcrumb.setLast(Boolean.FALSE);
+     nextBreadcrumb.setLast(Boolean.TRUE);
+     leaveBreakcrumbs(questionnair, Arrays.asList(lastBreadcrumb, nextBreadcrumb));
+     } else {
+     nextBreadcrumb = lastBreadcrumb;
+     }
+     }
+     return createPageStructure(questionnairDefinition.getRandomizationStrategy(), nextBreadcrumb);
+     }
+
+     @Override
+     private PageStructure createPageStructure(RandomizationStrategy randomizationStrategy, Breadcrumb breadcrumb) {
+     PageStructure nextPage = new PageStructure();
+     nextPage.setMetadata(metadataCreator.create(randomizationStrategy, breadcrumb));
+     QuestionGroupBreadcrumb questionGroupBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
+     for (QuestionBreadcrumb questionBreadcrumb : questionGroupBreadcrumb.getBreadcrumbs()) {
+     nextPage.addQuestionsId(questionBreadcrumb.getQuestion().getId());
+     }
+     return nextPage;
+     }
+
+     @Override
+     private void leaveBreakcrumbs(final Questionnair questionnair, List<Breadcrumb> breadcrumbs) {
+     for (Breadcrumb newBreadcrumb : breadcrumbs) {
+     questionnair.addBreadcrumb(newBreadcrumb);
+     }
+     questionnairService.save(questionnair);
+     }
+
+    
+
+
+     @Override
+     private List<Question> findQuestions(QuestionGroup questionGroup) {
+     List<Question> questions;
+     if (questionGroup.isRandomizationEnabled()) {
+     questions = questionService.findByExample(
+     Question.with().questionGroup(QuestionGroup.with().id(questionGroup.getId()).build()).build(),
+     new SearchParameters());
+     Collections.shuffle(questions);
+     } else {
+     questions = questionService.findByQuestionGroupId(questionGroup.getId());
+     }
+     return questions;
+     }
+     */
+    private QuestionGroup findFirstQuestionGroup(int questionnairDefinitionId) {
+        return questionGroupService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId,
+                INITIAL_POSITION);
+    }
+
+    private void populateQuestionsBreadcrumbs(List<Breadcrumb> breadcrumbs) {
+
+        for (Breadcrumb breadcrumb : breadcrumbs) {
+            QuestionGroupBreadcrumb questionGroupBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
+
+            QuestionGroup questionGroup = questionGroupBreadcrumb.getQuestionGroup();
+
+            List<Question> questions = findQuestions(questionGroup);
+
+            for (Question question : questions) {
+                questionGroupBreadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).last(Boolean.FALSE)
+                        .build());
+            }
+        }
+    }
+
     @Override
-    public PageStructure resolveNextPage(final Questionnair questionnair, final NavigationAction action) {
-        Questionnair fetchedQuestionnair = questionnairService.findOne(questionnair.getId());
-        QuestionnairDefinition questionnairDefinition = fetchedQuestionnair.getQuestionnairDefinition();
-        int questionnairDefinitionId = questionnairDefinition.getId();
-        int questionnairId = questionnair.getId();
-        logger.debug("Finding {} QuestionGroup for questionnair {}", action.toString(), questionnairId);
-
-        List<Object[]> result = breadcrumbService.findLastAndPosition(questionnairId);
-        Breadcrumb breadcrumb = null;
-        QuestionGroupBreadcrumb lastBreadcrumb = null;
-
-        List<QuestionGroupBreadcrumb> breadcrumbs = null;
-        Integer lastBreadcrumbPosition = null;
-        if (result.isEmpty()) { // First time entering the
-                                // questionnairDefinition
-            breadcrumbs = makeBreadcrumbs(questionnairDefinition, questionnair);
-            leaveBreakcrumbs(questionnair, breadcrumbs);
-            lastBreadcrumb = breadcrumbs.get(0);
-        } else {
-            Assert.isTrue(result.size() == 1, "Unexpected result. Only one last element allowed per questionnair");
-            lastBreadcrumbPosition = (Integer) result.get(0)[1];
-            breadcrumb = (Breadcrumb) result.get(0)[0];
-            if (breadcrumb instanceof QuestionGroupBreadcrumb) {
-                lastBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
-            } else {
-                breadcrumbService.deleteByExample(
-                        Breadcrumb.withProps().questionnair(Questionnair.with().id(questionnairId).build()).build(),
-                        new SearchParameters());
-
-                breadcrumbs = makeBreadcrumbs(questionnairDefinition, questionnair);
-                leaveBreakcrumbs(questionnair, breadcrumbs);
-                lastBreadcrumb = breadcrumbs.get(0);
-            }
-        }
-        QuestionGroupBreadcrumb nextBreadcrumb = null;
-
-        if (NavigationAction.ENTERING.equals(action)) {
-            nextBreadcrumb = lastBreadcrumb;
-        } else {
-            if (!RandomizationStrategy.QUESTIONS_RANDOMIZATION
-                    .equals(questionnairDefinition.getRandomizationStrategy())) {
-                // QuestionGroup is not applicable when questions are
-                // randomized.
-                Assert.isTrue(lastBreadcrumb.getQuestionGroup() != null);
-            }
-            if (NavigationAction.NEXT.equals(action)) {
-                nextBreadcrumb = findNextBreadcrumb(questionnairDefinition, questionnair, lastBreadcrumb,
-                        lastBreadcrumbPosition);
-            } else {// PREVIOUS
-                nextBreadcrumb = findPreviousBreadcrumb(questionnairDefinition, questionnair, lastBreadcrumb,
-                        lastBreadcrumbPosition);
-            }
-            // Prevent that questiongroups are still in range.
-            if (nextBreadcrumb != null) {
-                lastBreadcrumb.setLast(Boolean.FALSE);
-                nextBreadcrumb.setLast(Boolean.TRUE);
-                leaveBreakcrumbs(questionnair, Arrays.asList(lastBreadcrumb, nextBreadcrumb));
-            } else {
-                nextBreadcrumb = lastBreadcrumb;
-            }
-        }
-        return createPageStructure(questionnairDefinition.getRandomizationStrategy(), nextBreadcrumb);
-    }
-
-    private PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
-            QuestionGroupBreadcrumb breadcrumb) {
-        PageStructure nextPage = new PageStructure();
-        nextPage.setMetadata(metadataCreator.create(randomizationStrategy, breadcrumb));
-
-        for (QuestionBreadcrumb questionBreadcrumb : breadcrumb.getBreadcrumbs()) {
-            nextPage.addQuestionsId(questionBreadcrumb.getQuestion().getId());
-        }
-        return nextPage;
-    }
-
-    private void leaveBreakcrumbs(final Questionnair questionnair, List<QuestionGroupBreadcrumb> breadcrumbs) {
-        for (Breadcrumb newBreadcrumb : breadcrumbs) {
-            questionnair.addBreadcrumb(newBreadcrumb);
-        }
-        questionnairService.save(questionnair);
-    }
-
-    private List<QuestionGroupBreadcrumb> makeBreadcrumbs(QuestionnairDefinition questionnairDefinition,
-            Questionnair questionnair) {
-        List<QuestionGroupBreadcrumb> breadcrumbs = new ArrayList<QuestionGroupBreadcrumb>();
+    protected List<Breadcrumb> makeBreadcrumbs(QuestionnairDefinition questionnairDefinition, Questionnair questionnair) {
+        List<Breadcrumb> breadcrumbs = new ArrayList<>();
         QuestionGroupBreadcrumb breadcrumb = null;
         Integer questionnairDefinitionId = questionnairDefinition.getId();
         RandomizationStrategy randomizationStrategy = questionnairDefinition.getRandomizationStrategy();
@@ -189,50 +226,25 @@ public class GroupByGroupResolverImpl implements PageResolver {
         return breadcrumbs;
     }
 
-    private void populateQuestionsBreadcrumbs(List<QuestionGroupBreadcrumb> breadcrumbs) {
-        for (QuestionGroupBreadcrumb questionGroupBreadcrumb : breadcrumbs) {
-            QuestionGroup questionGroup = questionGroupBreadcrumb.getQuestionGroup();
-
-            List<Question> questions = findQuestions(questionGroup);
-
-            for (Question question : questions) {
-                questionGroupBreadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).last(Boolean.FALSE)
-                        .build());
-            }
-        }
-    }
-
-    private List<Question> findQuestions(QuestionGroup questionGroup) {
-        List<Question> questions;
-        if (questionGroup.isRandomizationEnabled()) {
-            questions = questionService.findByExample(
-                    Question.with().questionGroup(QuestionGroup.with().id(questionGroup.getId()).build()).build(),
-                    new SearchParameters());
-            Collections.shuffle(questions);
-        } else {
-            questions = questionService.findByQuestionGroupId(questionGroup.getId());
-        }
-        return questions;
-    }
-
-    private QuestionGroup findFirstQuestionGroup(int questionnairDefinitionId) {
-        return questionGroupService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId,
-                INITIAL_POSITION);
-    }
-
-    private QuestionGroupBreadcrumb findNextBreadcrumb(final QuestionnairDefinition questionnairDefinition,
-            final Questionnair questionnair, final QuestionGroupBreadcrumb lastBreadcrumb,
-            final Integer lastBreadcrumbPosition) {
+    @Override
+    protected Breadcrumb findNextBreadcrumb(final QuestionnairDefinition questionnairDefinition,
+            final Questionnair questionnair, final Breadcrumb lastBreadcrumb, final Integer lastBreadcrumbPosition) {
 
         Breadcrumb breadcrumb = breadcrumbService.findByQuestionnairIdAndPosition(questionnair.getId(),
                 lastBreadcrumbPosition + 1);
 
-        QuestionGroupBreadcrumb nextBreadcrumb = null;
+        Breadcrumb nextBreadcrumb = null;
 
         // There is no real questionGroup when QuestionsRandomization is enabled
-        if (breadcrumb == null && !questionnairDefinition.getRandomizationStrategy().equals(RandomizationStrategy.QUESTIONS_RANDOMIZATION)) {
-            Integer position = questionGroupService.positionInQuestionnairDefinition(lastBreadcrumb.getQuestionGroup()
-                    .getId());
+        if (breadcrumb == null
+                && !questionnairDefinition.getRandomizationStrategy().equals(
+                        RandomizationStrategy.QUESTIONS_RANDOMIZATION)) {
+
+            Assert.isInstanceOf(QuestionGroupBreadcrumb.class, lastBreadcrumb);
+
+            Integer position = questionGroupService
+                    .positionInQuestionnairDefinition(((QuestionGroupBreadcrumb) lastBreadcrumb).getQuestionGroup()
+                            .getId());
             QuestionGroup next = questionGroupService.findOneByPositionInQuestionnairDefinition(
                     questionnairDefinition.getId(), position + 1);
             // The respondent has reached the last question group
@@ -243,24 +255,19 @@ public class GroupByGroupResolverImpl implements PageResolver {
             nextBreadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(next).build();
             populateQuestionsBreadcrumbs(Arrays.asList(nextBreadcrumb));
         } else {
-            nextBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
+            nextBreadcrumb = breadcrumb;
         }
         return nextBreadcrumb;
     }
 
-    private QuestionGroupBreadcrumb findPreviousBreadcrumb(final QuestionnairDefinition questionnairDefinition,
-            final Questionnair questionnair, final QuestionGroupBreadcrumb lastBreadcrumb,
-            final Integer lastBreadcrumbPosition) {
+    @Override
+    protected Breadcrumb findPreviousBreadcrumb(final QuestionnairDefinition questionnairDefinition,
+            final Questionnair questionnair, final Breadcrumb lastBreadcrumb, final Integer lastBreadcrumbPosition) {
         if (lastBreadcrumbPosition == INITIAL_POSITION) {
             logger.warn("Page out of range. First page is returned.");
             return null;
         }
-        Breadcrumb breadcrumb = breadcrumbService.findByQuestionnairIdAndPosition(questionnair.getId(),
-                lastBreadcrumbPosition - 1);
 
-        Assert.isInstanceOf(QuestionGroupBreadcrumb.class, breadcrumb);
-
-        QuestionGroupBreadcrumb previousBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
-        return previousBreadcrumb;
+        return breadcrumbService.findByQuestionnairIdAndPosition(questionnair.getId(), lastBreadcrumbPosition - 1);
     }
 }

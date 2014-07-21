@@ -16,6 +16,7 @@ import javax.persistence.QueryHint;
 
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.repository.support.GenericRepository;
+import net.sf.gazpachoquest.types.Language;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
@@ -38,6 +39,11 @@ public interface QuestionRepository extends GenericRepository<Question> {
     }, forCounting = false)
     List<Question> findInList(@Param("questionIds")
     List<Integer> questionIds);
+
+    @Query("select q,qt from Question q left join q.translations qt where qt.language = :language and q.id in :questionIds")
+    List<Object[]> findInList(@Param("questionIds")
+    List<Integer> questionIds, @Param("language")
+    Language language);
 
     @Query("select q from QuestionGroup qg join qg.questions q where qg.id = :questionGroupId and index(q) = :position")
     Question findOneByPositionInQuestionGroup(@Param("questionGroupId")
