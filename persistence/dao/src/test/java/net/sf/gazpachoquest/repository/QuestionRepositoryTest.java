@@ -6,11 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.domain.i18.QuestionTranslation;
 import net.sf.gazpachoquest.qbe.support.SearchMode;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
-import net.sf.gazpachoquest.types.Language;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,27 +47,6 @@ public class QuestionRepositoryTest {
         List<Integer> questionIds = Arrays.asList(12, 13, 29, 30, 31, 35, 50, 39);
         List<Question> questions = repository.findInList(questionIds);
         assertThat(questions).hasSameSizeAs(questionIds);
-    }
-
-    @Test
-    public void findSubquestionInListTest() {
-        List<Integer> questionIds = Arrays.asList(12, 13, 29, 30, 31, 35, 50, 39);
-        List<Question> questions = repository.findInList(questionIds);
-        assertThat(questions).hasSameSizeAs(questionIds);
-    }
-
-    @Test
-    public void findInListAndLanguageTest() {
-        List<Integer> questionIds = Arrays.asList(12, 13, 29, 30, 31, 35, 50, 39);
-        List<Object[]> questionsAndTranslations = repository.findInList(questionIds, Language.ES);
-        assertThat(questionsAndTranslations).hasSameSizeAs(questionIds);
-        for (Object[] questionAndTranslation : questionsAndTranslations) {
-            Question question = (Question) questionAndTranslation[0];
-            QuestionTranslation questionTranslation = (QuestionTranslation) questionAndTranslation[1];
-            if (question.getId() == 12) {
-                assertThat(questionTranslation.getId()).isEqualTo(60);
-            }
-        }
     }
 
     @Test

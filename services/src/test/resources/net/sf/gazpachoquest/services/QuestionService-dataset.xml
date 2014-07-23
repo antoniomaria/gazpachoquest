@@ -50,7 +50,19 @@
   <question id="50" code="Q8" created_date="2014-04-19 10:35:12.748" language="EN" last_modified_date="2014-04-19 10:35:12.748" required="false" type="M"
     title="What flavors of ice cream do you like?. Choose all that apply." createdby_id="1" lastmodifiedby_id="1" questiongroup_id="11" order_in_questiongroup="1" other_allowed="false"/>
 
-  <question_translation/>
+  <question_translation id="60" question_id="12" language="ES" title="¿Cuál es tu nombre?"/>
+  <question_translation id="61" question_id="13" language="ES" title="¿A qué grupo de edad pertences?"/>
+  <question_translation id="62" question_id="29" language="ES" title="¿Qué edad tienes exactamente?"/>
+  <question_translation id="63" question_id="30" language="ES" title="Cuantanos un poco sobre ti. ¿Cuál fue tu primer trabajo?"/>
+  <question_translation id="64" question_id="31" language="ES" title="¿Cómo de fácil encuestras este software?"/>
+  <question_translation id="65" question_id="35" language="ES" title="¿Cual de estos anuncios es te reclama más?"/>
+  <question_translation id="66" question_id="39" language="ES" title="Mire este anuncio y despues completa las preguntas siguientes"/>
+  <question_translation id="67" question_id="46" language="ES" title="Este anuncio me sugiere que el abogado está de mi parte"/>
+  <question_translation id="68" question_id="47" language="ES" title="Este anuncio me sugiere que el abogado está interesado en una vida fugaz"/>
+  <question_translation id="69" question_id="48" language="ES" title="Este anuncio sería suficiente para contratar al abogado"/>
+  <question_translation id="70" question_id="49" language="ES" title="Este anuncio me hace confiar en la experiencia del abogado"/>
+  <question_translation id="71" question_id="50" language="ES" title="Qué sabor de helado prefieres?"/>
+  
   
   <question_option id="51" code="O1" created_date="2014-04-19 10:35:12.755" language="EN" last_modified_date="2014-04-19 10:35:12.755"
     title="Vanilla" createdby_id="1" lastmodifiedby_id="1" question_id="50" order_in_question="3" />
@@ -61,13 +73,14 @@
   <question_option id="54" code="O4" created_date="2014-04-19 10:35:12.765" language="EN" last_modified_date="2014-04-19 10:35:12.765"
     title="Pistachio" createdby_id="1" lastmodifiedby_id="1" question_id="50" order_in_question="1" />
   <question_option id="55" code="O1" created_date="2014-04-19 10:35:12.765" language="EN" last_modified_date="2014-04-19 10:35:12.765"
-    title="Caramel" createdby_id="1" lastmodifiedby_id="1" question_id="35" order_in_question="0" />
+    title="Caramel" createdby_id="1" lastmodifiedby_id="1" question_id="50" order_in_question="4" />
+    
+  <question_option_translation id="75" questionoption_id="51" language="ES" title="Vainilla"/>
+  <question_option_translation id="76" questionoption_id="52" language="ES" title="Chocolate" />
+  <question_option_translation id="77" questionoption_id="53" language="ES" title="Fresa" />
+  <question_option_translation id="78" questionoption_id="54" language="ES" title="Pistacho"/>
+  <question_option_translation id="79" questionoption_id="55" language="ES" title="Caramelo"/> 
 
-  <question_option_translation id="60" questionoption_id="51" language="ES" title="Vainilla"/>
-  <question_option_translation id="61" questionoption_id="52" language="ES" title="Chocolate"/>
-  <question_option_translation id="62" questionoption_id="53" language="ES" title="Fresa"/>
-  <question_option_translation id="64" questionoption_id="54" language="ES" title="Pistacho"/>
-  <question_option_translation id="65" questionoption_id="55" language="ES" title="Caramelo"/>
 
   <questionnair />
   <groups />

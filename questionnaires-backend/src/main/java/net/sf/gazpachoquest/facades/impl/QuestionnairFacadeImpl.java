@@ -100,7 +100,8 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
     }
 
     @Override
-    public PageDTO resolvePage(Integer questionnairId, RenderingMode mode, NavigationAction action) {
+    public PageDTO resolvePage(Integer questionnairId, RenderingMode mode, Language preferredLanguage,
+            NavigationAction action) {
         Questionnair questionnair = Questionnair.with().id(questionnairId).build();
         PageResolver resolver = resolverSelector.selectBy(mode);
         PageStructure pageStructure = resolver.resolveNextPage(questionnair, action);
@@ -110,7 +111,8 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
         }
         List<Integer> questionIds = pageStructure.getQuestionsId();
 
-        List<Question> questions = questionService.findInList(questionIds);
+        // List<Question> questions = questionService.findInList(questionIds);
+        List<Question> questions = questionService.findInList(questionIds, preferredLanguage);
         for (Question question : questions) {
             QuestionDTO questionDTO = mapper.map(question, QuestionDTO.class);
             page.addQuestion(questionDTO);

@@ -44,6 +44,8 @@
   <question_translation />
 
   <question_option />
+  <question_option_translation />
+  
   <groups />
   <user_group />
   <mail_message_template />

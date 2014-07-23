@@ -1,12 +1,12 @@
-package net.sf.gazpachoquest.repository;
+package net.sf.gazpachoquest.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionOption;
-import net.sf.gazpachoquest.domain.i18.QuestionOptionTranslation;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.Language;
 
@@ -24,28 +24,32 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml" })
+@ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
+        "classpath:/services-context.xml", "classpath:/components-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("QuestionOptionRepository-dataset.xml")
-@DatabaseTearDown("QuestionOptionRepository-dataset.xml")
+@DatabaseSetup("QuestionService-dataset.xml")
+@DatabaseTearDown("QuestionService-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class QuestionOptionRepositoryTest {
+public class QuestionServiceTest {
 
     @Autowired
-    private QuestionOptionRepository repository;
+    private QuestionService questionService;
 
     @Test
-    public void findInListAndLanguageTest() {
-        List<Integer> questionOptionIds = Arrays.asList(51, 52, 53, 54, 55);
-        List<Object[]> questionsAndTranslations = repository.findInList(questionOptionIds, Language.ES);
-        assertThat(questionsAndTranslations).hasSameSizeAs(questionOptionIds);
-        for (Object[] questionOptionAndTranslation : questionsAndTranslations) {
-            QuestionOption questionOption = (QuestionOption) questionOptionAndTranslation[0];
-            QuestionOptionTranslation questionOptionTranslation = (QuestionOptionTranslation) questionOptionAndTranslation[1];
-            if (questionOption.getId() == 51) {
-                assertThat(questionOptionTranslation.getId()).isEqualTo(60);
+    public void findInListByLanguageTest() {
+        List<Integer> questionIds = Arrays.asList(12, 39, 29, 30, 50);
+        Language preferedLanguage = Language.ES;
+        List<Question> questions = questionService.findInList(questionIds, preferedLanguage);
+
+        for (Question question : questions) {
+            assertThat(question.getLanguage()).isEqualTo(preferedLanguage);
+            for (QuestionOption questionOption : question.getQuestionOptions()) {
+                assertThat(questionOption.getLanguage()).isEqualTo(preferedLanguage);
+            }
+            for (Question subquestion : question.getSubquestions()) {
+                assertThat(subquestion.getLanguage()).isEqualTo(preferedLanguage);
             }
         }
-
+        assertThat(questions).hasSameSizeAs(questionIds);
     }
 }

@@ -35,4 +35,9 @@ public class QuestionOptionLanguageSettings implements LanguageSettings {
         this.title = title;
     }
 
+    @Override
+    public String toString() {
+        return "QuestionOptionLanguageSettings [title=" + title + "]";
+    }
+
 }

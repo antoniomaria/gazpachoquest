@@ -15,6 +15,7 @@ import net.sf.gazpachoquest.dto.PageDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.facades.QuestionnairFacade;
+import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
@@ -73,6 +74,9 @@ public class QuestionnairResource {
             @ApiParam(name = "mode", value = "Refers how many questions are returned by page.", required = true, defaultValue = "GROUP_BY_GROUP", allowableValues = "QUESTION_BY_QUESTION,GROUP_BY_GROUP", allowMultiple = true)
             @QueryParam("mode")
             String modeStr,
+            @ApiParam(name = "preferredLanguage", value = "Preferred Language for the page is availabe", required = true, defaultValue = "EN", allowableValues = "EN,ES", allowMultiple = true)
+            @QueryParam("preferredLanguage")
+            String preferredLanguageStr,
             @ApiParam(name = "action", value = "Action fired for the respondent", required = true, defaultValue = "ENTERING", allowableValues = "NEXT,PREVIOUS,ENTERING", allowMultiple = true)
             @QueryParam("action")
             String actionStr) {
@@ -85,7 +89,8 @@ public class QuestionnairResource {
 
         RenderingMode mode = RenderingMode.fromString(modeStr);
         NavigationAction action = NavigationAction.fromString(actionStr);
-        PageDTO page = questionnairFacade.resolvePage(questionnairId, mode, action);
+        Language preferredLanguage = Language.valueOf(preferredLanguageStr);
+        PageDTO page = questionnairFacade.resolvePage(questionnairId, mode, preferredLanguage, action);
         return Response.ok(page).build();
     }
 

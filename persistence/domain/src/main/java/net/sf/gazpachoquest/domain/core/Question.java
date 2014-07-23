@@ -39,6 +39,8 @@ import net.sf.gazpachoquest.domain.support.QuestionnairElement;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 @Entity
@@ -46,6 +48,8 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         QuestionnairElement {
 
     private static final long serialVersionUID = -4372634574851905803L;
+
+    private static final Logger logger = LoggerFactory.getLogger(Question.class);
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -62,13 +66,13 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderColumn(name = "order_in_subquestions")
-    @XmlElementWrapper(name="subquestions")
+    @XmlElementWrapper(name = "subquestions")
     @XmlElement(name = "subquestion")
     private final List<Question> subquestions = new ArrayList<Question>();
 
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderColumn(name = "order_in_question")
-    @XmlElementWrapper(name="question-options")
+    @XmlElementWrapper(name = "question-options")
     @XmlElement(name = "question-option")
     private final List<QuestionOption> questionOptions = new ArrayList<QuestionOption>();
 
@@ -223,6 +227,29 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         }
     }
 
+    public void translateTo(Language language) {
+        if (language.equals(this.language)) {
+            logger.debug("Question with id={} is already in {} language", getId(), language);
+            return;
+        }
+        QuestionTranslation translation = translations.get(language);
+        if (translation != null) {
+            languageSettings = translation.getLanguageSettings();
+            this.language = language;
+        } else {
+            logger.info("Question with id={} no available in {} language. Providing {} language", getId(), language,
+                    this.language);
+        }
+
+        for (Question subquestion : subquestions) {
+            subquestion.translateTo(language);
+        }
+        for (QuestionOption questionOption : questionOptions) {
+            questionOption.translateTo(language);
+        }
+
+    }
+
     public static Builder with() {
         return new Builder();
     }
@@ -297,4 +324,5 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
             return question;
         }
     }
+
 }

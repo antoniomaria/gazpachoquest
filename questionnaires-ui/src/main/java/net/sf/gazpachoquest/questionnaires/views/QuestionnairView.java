@@ -24,6 +24,7 @@ import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.questionnaires.components.question.QuestionComponent;
 import net.sf.gazpachoquest.questionnaires.components.question.QuestionFactory;
 import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
+import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
@@ -137,7 +138,8 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
         logger.debug("Trying to fetch questionnair identified with id  = {} ", questionnairId);
         QuestionnairDTO questionnair = questionnairResource.getDefinition(questionnairId);
 
-        PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, NavigationAction.ENTERING);
+        PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, Language.EN,
+                NavigationAction.ENTERING);
         questionsLayout = new VerticalLayout();
         update(page);
 
@@ -181,10 +183,12 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
     @Override
     public void buttonClick(ClickEvent event) {
         if (nextButton.equals(event.getButton())) {
-            PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, NavigationAction.NEXT);
+            PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, Language.EN,
+                    NavigationAction.NEXT);
             update(page);
         } else {
-            PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, NavigationAction.PREVIOUS);
+            PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, Language.EN,
+                    NavigationAction.PREVIOUS);
             update(page);
         }
 

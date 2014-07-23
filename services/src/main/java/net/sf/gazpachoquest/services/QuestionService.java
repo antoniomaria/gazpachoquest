@@ -15,6 +15,7 @@ import java.util.List;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionTranslation;
+import net.sf.gazpachoquest.types.Language;
 
 public interface QuestionService extends
         LocalizedPersistenceService<Question, QuestionTranslation, QuestionLanguageSettings> {
@@ -26,5 +27,7 @@ public interface QuestionService extends
     List<Question> findByQuestionGroupId(Integer questionGroupId);
 
     List<Question> findInList(List<Integer> questionIds);
+
+    List<Question> findInList(List<Integer> questionIds, Language language);
 
 }

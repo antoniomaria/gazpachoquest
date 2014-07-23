@@ -24,6 +24,7 @@ import javax.ws.rs.core.MediaType;
 import net.sf.gazpachoquest.dto.PageDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
+import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
@@ -32,20 +33,22 @@ import net.sf.gazpachoquest.types.RenderingMode;
 @Consumes(MediaType.APPLICATION_JSON)
 public interface QuestionnairResource extends Serializable {
 
-	@GET
-	@Path("/{questionnairId}")
-	public QuestionnairDTO getDefinition(
-			@PathParam("questionnairId") Integer questionnairId);
+    @GET
+    @Path("/{questionnairId}")
+    QuestionnairDTO getDefinition(@PathParam("questionnairId")
+    Integer questionnairId);
 
-	@GET
-	@Path("/{questionnairId}/page")
-	PageDTO getPage(@PathParam("questionnairId") Integer questionnairId,
-			@QueryParam("mode") RenderingMode mode,
-			@QueryParam("action") NavigationAction action);
+    @GET
+    @Path("/{questionnairId}/page")
+    PageDTO getPage(@PathParam("questionnairId")
+    Integer questionnairId, @QueryParam("mode")
+    RenderingMode mode, @QueryParam("preferredLanguage")
+    Language language, @QueryParam("action")
+    NavigationAction action);
 
-	@POST
-	@Path("/{questionnairId}/answer")
-	public void saveAnswer(Answer answer,
-			@PathParam("questionnairId") Integer questionnairId,
-			@QueryParam("questionCode") String questionCode);
+    @POST
+    @Path("/{questionnairId}/answer")
+    void saveAnswer(Answer answer, @PathParam("questionnairId")
+    Integer questionnairId, @QueryParam("questionCode")
+    String questionCode);
 }

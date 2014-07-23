@@ -22,11 +22,10 @@
   <question_group />
 
   <question />
-
   <question_translation />
 
   <question_option />
-
+  <question_option_translation />
 
   <questionnair id="58" created_date="2014-04-19 10:35:13.943" last_modified_date="2014-04-19 10:35:13.943" status="C" createdby_id="1"
     lastmodifiedby_id="1" questionnairdefinition_id="7" research_id="57" respondent_id="6" />

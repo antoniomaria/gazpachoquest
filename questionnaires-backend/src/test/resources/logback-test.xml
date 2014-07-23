@@ -15,7 +15,7 @@
 
   <logger name="org.springframework.orm.jpa.JpaTransactionManager" level="INFO" />
 
-  <logger name="net.sf.gazpachoquest" level="DEBUG" />
+  <logger name="net.sf.gazpachoquest" level="INFO" />
 
   <root level="ERROR">
     <appender-ref ref="STDOUT" />

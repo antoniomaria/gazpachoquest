@@ -44,6 +44,7 @@
   <question />
   <question_translation />
   <question_option />
+  <question_option_translation />
   <questionnair />
   <groups />
   <user_group />

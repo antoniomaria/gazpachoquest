@@ -45,4 +45,9 @@ public class QuestionLanguageSettings implements LanguageSettings {
         this.help = help;
     }
 
+    @Override
+    public String toString() {
+        return "QuestionLanguageSettings [title=" + title + ", help=" + help + "]";
+    }
+
 }

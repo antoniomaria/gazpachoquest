@@ -9,6 +9,7 @@ import javax.security.auth.login.AccountNotFoundException;
 
 import net.sf.gazpachoquest.dto.auth.Account;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
+import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachoquest.security.shiro.HmacAuthToken;
 import net.sf.gazpachoquest.security.shiro.JPARealm;
 import net.sf.gazpachoquest.security.support.HMACSignature;
@@ -18,6 +19,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,14 @@ public class RespondentAuthenticationManagerTest {
 
     @Autowired
     private JPARealm apiKeyRealm;
+
+    @Autowired
+    private QuestionnairAnswersRepository repository;
+
+    @Before
+    public void setUp() {
+        repository.activeAllAnswers();
+    }
 
     @Test
     public void authenticateTest() throws AccountNotFoundException, SignatureException {

@@ -50,12 +50,11 @@
     type="L" title="This ad gives me confidence in the lawyers experience" createdby_id="1" lastmodifiedby_id="1" parent_id="39" order_in_subquestions="3" other_allowed="false"/>
   <question id="50" code="Q8" created_date="2014-04-19 10:35:12.748" language="EN" last_modified_date="2014-04-19 10:35:12.748" required="false" type="M"
     title="What flavors of ice cream do you like?. Choose all that apply." createdby_id="1" lastmodifiedby_id="1" questiongroup_id="11" order_in_questiongroup="1" other_allowed="false"/>
-  
-
   <question_translation />
 
-
   <question_option />
+  <question_option_translation />
+  
   <questionnair />
   <groups />
   <user_group />

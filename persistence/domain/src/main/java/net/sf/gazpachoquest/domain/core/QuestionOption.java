@@ -155,4 +155,13 @@ public class QuestionOption extends AbstractLocalizable<QuestionOptionTranslatio
         }
 
     }
+
+    public void translateTo(Language language) {
+        QuestionOptionTranslation translation = translations.get(language);
+        if (translation != null) {
+            languageSettings = translation.getLanguageSettings();
+            this.language = language;
+        }
+
+    }
 }

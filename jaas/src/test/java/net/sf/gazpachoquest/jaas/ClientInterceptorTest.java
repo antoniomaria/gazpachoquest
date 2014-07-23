@@ -10,6 +10,7 @@ import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.dto.auth.Account;
+import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
@@ -84,7 +85,7 @@ public class ClientInterceptorTest {
         config.getOutInterceptors().add(new HmacAuthInterceptor(apiKey, secret));
 
         Integer questionnairId = 103;
-        PageDTO definition = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP,
+        PageDTO definition = questionnairResource.getPage(questionnairId, RenderingMode.GROUP_BY_GROUP, Language.EN,
                 NavigationAction.ENTERING);
 
     }
