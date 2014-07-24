@@ -80,6 +80,8 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
 
     private RenderingMode renderingMode;
 
+    private Language preferredLanguage;
+
     public void update(PageDTO page) {
         questionsLayout.removeAllComponents();
 
@@ -119,6 +121,7 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
         WebBrowser webBrowser = Page.getCurrent().getWebBrowser();
         Integer screenWidth = webBrowser.getScreenWidth();
         Integer heightWidth = webBrowser.getScreenWidth();
+
         logger.debug("Broswer screen settings  {} x {}", screenWidth, heightWidth);
 
         if (heightWidth <= 480) {
@@ -134,11 +137,16 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
 
         RespondentAccount respondent = (RespondentAccount) VaadinServletService.getCurrentServletRequest()
                 .getUserPrincipal();
+        if (respondent.hasPreferredLanguage()) {
+            preferredLanguage = respondent.getPreferredLanguage();
+        } else {
+            preferredLanguage = Language.fromLocale(webBrowser.getLocale());
+        }
         questionnairId = respondent.getGrantedQuestionnairIds().iterator().next();
         logger.debug("Trying to fetch questionnair identified with id  = {} ", questionnairId);
         QuestionnairDTO questionnair = questionnairResource.getDefinition(questionnairId);
 
-        PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, Language.EN,
+        PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, preferredLanguage,
                 NavigationAction.ENTERING);
         questionsLayout = new VerticalLayout();
         update(page);
@@ -183,11 +191,11 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
     @Override
     public void buttonClick(ClickEvent event) {
         if (nextButton.equals(event.getButton())) {
-            PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, Language.EN,
+            PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, preferredLanguage,
                     NavigationAction.NEXT);
             update(page);
         } else {
-            PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, Language.EN,
+            PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, preferredLanguage,
                     NavigationAction.PREVIOUS);
             update(page);
         }

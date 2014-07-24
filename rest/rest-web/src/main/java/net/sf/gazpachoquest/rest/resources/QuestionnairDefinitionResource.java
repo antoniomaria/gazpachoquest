@@ -1,10 +1,13 @@
 package net.sf.gazpachoquest.rest.resources;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -12,10 +15,12 @@ import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachoquest.facades.QuestionnairDefinitionAccessorFacade;
 
+import org.apache.cxf.io.CachedOutputStream;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.oxm.XmlMappingException;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiImplicitParam;
@@ -27,7 +32,6 @@ import com.wordnik.swagger.annotations.ApiResponses;
 
 @Path("/questionnair-definitions")
 @Api(value = "questionnair-definitions", description = "Questionnair Definition Interface")
-@Produces(MediaType.APPLICATION_JSON)
 public class QuestionnairDefinitionResource {
 
     private static final Logger logger = LoggerFactory.getLogger(QuestionnairDefinitionResource.class);
@@ -50,5 +54,22 @@ public class QuestionnairDefinitionResource {
         QuestionnairDefinitionDTO imported = questionnairDefinitionAccessorFacade.importQuestionnairDefinition(content);
         logger.info("QuestionnairDefinition imported with id = {}", imported.getId());
         return imported;
+    }
+
+    @GET
+    @Path("/{questionnairDefinitionId}/export")
+    @ApiOperation(value = "Export given questionnair definition into xml", notes = "More notes about this method", consumes = "application/xml", produces = "application/xml")
+    @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
+            @ApiResponse(code = 200, message = "Questionnairs available") })
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_XML)
+    public InputStream exportQuestionnairDefinition(@PathParam("questionnairDefinitionId")
+    @ApiParam(value = "Questionnair DefinitionId id")
+    Integer questionnairDefinitionId) throws XmlMappingException, IOException {
+        logger.info("New exporting petition received for  QuestionnairDefinitionId {}", questionnairDefinitionId);
+        CachedOutputStream outputStream = new CachedOutputStream();
+        questionnairDefinitionAccessorFacade.exportQuestionnairDefinition(questionnairDefinitionId, outputStream);
+        logger.info("QuestionnairDefinition with id = {} exported succesfully", questionnairDefinitionId);
+        return outputStream.getInputStream();
     }
 }

@@ -182,12 +182,12 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
         model.put("gender", respondent.getGender());
         model.put("link", "http://localhost:8080/questionaires-ui/token=" + surveyLinkToken);
 
-        Language preferedLanguage = respondent.getPreferedLanguage();
+        Language preferredLanguage = respondent.getPreferredLanguage();
 
         StringBuilder templateLocation = new StringBuilder().append(mailMessageTemplate.getId());
-        if (preferedLanguage != null) {
+        if (preferredLanguage != null) {
             templateLocation.append("/");
-            templateLocation.append(preferedLanguage);
+            templateLocation.append(preferredLanguage);
         }
         VelocityEngine velocityEngine = velocityFactory.getObject();
 
@@ -195,9 +195,9 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
                 model);
 
         MailMessageTemplateLanguageSettings languageSettings = mailMessageTemplate.getLanguageSettings();
-        if (preferedLanguage != null && !preferedLanguage.equals(mailMessageTemplate.getLanguage())) {
+        if (preferredLanguage != null && !preferredLanguage.equals(mailMessageTemplate.getLanguage())) {
             MailMessageTemplateTranslation preferedTranslation = mailMessageTemplate.getTranslations().get(
-                    preferedLanguage);
+                    preferredLanguage);
             if (preferedTranslation != null) {
                 languageSettings = preferedTranslation.getLanguageSettings();
             }

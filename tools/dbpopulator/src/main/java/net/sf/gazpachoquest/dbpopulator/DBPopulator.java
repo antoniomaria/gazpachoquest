@@ -73,8 +73,8 @@ public class DBPopulator {
 
         Set<UserDTO> respondents = addRespondents();
 
-         populateForJUnitTest(respondents);
-        //populateForDemo(respondents);
+        populateForJUnitTest(respondents);
+        // populateForDemo(respondents);
     }
 
     public void populateForJUnitTest(Set<UserDTO> respondents) {
@@ -95,7 +95,7 @@ public class DBPopulator {
                 .name("New open Questionnair " + questionnairDef.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
         research.addQuestionnairDefinition(questionnairDef);
-       // researchFacade.save(research);
+        // researchFacade.save(research);
     }
 
     public void populateForDemo(Set<UserDTO> respondents) {
@@ -198,13 +198,13 @@ public class DBPopulator {
     }
 
     protected Set<UserDTO> addRespondents() {
-        UserDTO tyrion = UserDTO.with().preferedLanguage(Language.EN).givenNames("Tyrion").surname("Lannister")
+        UserDTO tyrion = UserDTO.with().preferredLanguage(Language.EN).givenNames("Tyrion").surname("Lannister")
                 .email("tyrion.lannister@kingslanding.net").gender(Gender.MALE).build();
         tyrion.setAttribute("age", "25");
         tyrion.setAttribute("position", "Developer");
         tyrion = userFacade.save(tyrion);
 
-        UserDTO jon = UserDTO.with().preferedLanguage(Language.ES).givenNames("Jon").surname("Snow")
+        UserDTO jon = UserDTO.with().preferredLanguage(Language.ES).givenNames("Jon").surname("Snow")
                 .email("jon.snow@nightswatch.net").gender(Gender.MALE).build();
         jon.setAttribute("age", "25");
         jon.setAttribute("position", "Manager");
@@ -216,13 +216,12 @@ public class DBPopulator {
         arya.setAttribute("position", "Manager");
         arya = userFacade.save(arya);
 
-        UserDTO catelyn = UserDTO.with().preferedLanguage(Language.FI).givenNames("Catelyn").surname("Stark")
+        UserDTO catelyn = UserDTO.with().preferredLanguage(Language.FI).givenNames("Catelyn").surname("Stark")
                 .email("catelyn.stark@winterfell.net").gender(Gender.FEMALE).build();
         catelyn.setAttribute("age", "21");
         catelyn.setAttribute("position", "Manager");
         catelyn = userFacade.save(catelyn);
 
-        
         Set<UserDTO> respondents = new HashSet<>();
         respondents.add(tyrion);
         respondents.add(arya);

@@ -10,6 +10,17 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.types;
 
+import java.util.Locale;
+
 public enum Language {
     EN, ES, FI, FR;
+
+    public static Language fromLocale(Locale locale) {
+        for (Language language : Language.values()) {
+            if (language.name().equalsIgnoreCase(locale.getLanguage())) {
+                return language;
+            }
+        }
+        return null;
+    }
 }

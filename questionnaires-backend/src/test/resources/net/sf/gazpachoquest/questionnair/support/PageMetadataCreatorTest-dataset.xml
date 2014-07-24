@@ -4,7 +4,7 @@
   <role id="7" description="Specific role for Jon Snow " name="User Role"/>
   
   <users id="1" api_key="8HCVT8YVBEJ52K7" created_date="2014-07-16 20:39:54.726" email="support@gazpacho.net" given_names="support" last_modified_date="2014-07-16 20:39:54.726" secret="A2GBYTNPP97UNM82W4V5S47YG3Q2HZAL" surname="support" username="support" createdby_id="1" defaultrole_id="2" lastmodifiedby_id="1"/>
-  <users id="6" api_key="4LJYDJEHBP6JNB6" created_date="2014-07-16 20:39:54.987" email="jon.snow@nightswatch.net" gender="M" given_names="Jon" last_modified_date="2014-07-16 20:39:54.987" prefered_language="ES" secret="AZKLQ37RLJZFFG7PRY9RG7XHUCA265X6" surname="Snow" createdby_id="1" defaultrole_id="7" lastmodifiedby_id="1"/>
+  <users id="6" api_key="4LJYDJEHBP6JNB6" created_date="2014-07-16 20:39:54.987" email="jon.snow@nightswatch.net" gender="M" given_names="Jon" last_modified_date="2014-07-16 20:39:54.987" preferred_language="ES" secret="AZKLQ37RLJZFFG7PRY9RG7XHUCA265X6" surname="Snow" createdby_id="1" defaultrole_id="7" lastmodifiedby_id="1"/>
   
   <research id="63" created_date="2014-07-16 20:39:56.185" expiration_date="2014-07-16 20:39:56.157" last_modified_date="2014-07-16 20:39:56.185" name="New private Questionnair Sample QuestionnairDefinition started" start_date="2014-07-16 20:39:56.157" type="P" createdby_id="1" lastmodifiedby_id="1"/>
   

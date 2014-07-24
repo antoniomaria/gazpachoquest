@@ -82,15 +82,22 @@ public class QuestionServiceImpl extends
     @Transactional(readOnly = false)
     public List<Question> findInList(List<Integer> questionIds, Language language) {
         List<Question> questions = ((QuestionRepository) repository).findInList(questionIds);
+        if (questionIds.isEmpty()) {
+            return questions;
+        }
+
+        Question sampleQuestion = questions.iterator().next();
+        // It's assumed that all the question are in the same language
+        boolean isPreferedLanguage = sampleQuestion.getLanguage().equals(language) || language == null;
+
         CopyGroup group = new CopyGroup();
-        group.addAttribute("translations");
+
         group.addAttribute("questionOptions");
         group.addAttribute("languageSettings");
         group.addAttribute("language");
         group.addAttribute("type");
         group.addAttribute("code");
 
-        group.addAttribute("subquestions.translations");
         group.addAttribute("subquestions.subquestions");
         group.addAttribute("subquestions.questionOptions");
         group.addAttribute("subquestions.language");
@@ -98,10 +105,16 @@ public class QuestionServiceImpl extends
         group.addAttribute("subquestions.code");
         group.addAttribute("subquestions.languageSettings");
 
-        group.addAttribute("questionOptions.translations");
         group.addAttribute("questionOptions.languageSettings");
         group.addAttribute("questionOptions.language");
         group.addAttribute("questionOptions.code");
+        // Only load translation is question language is different from prefered
+        // language
+        if (!isPreferedLanguage) {
+            group.addAttribute("translations");
+            group.addAttribute("subquestions.translations");
+            group.addAttribute("questionOptions.translations");
+        }
 
         List<Question> detatchedQuestions = new ArrayList<>();
         for (Question question : questions) {

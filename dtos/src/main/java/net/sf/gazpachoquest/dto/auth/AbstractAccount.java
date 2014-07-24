@@ -10,6 +10,8 @@ package net.sf.gazpachoquest.dto.auth;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.sf.gazpachoquest.types.Language;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,6 +31,8 @@ public abstract class AbstractAccount implements Account {
     protected String secret;
 
     protected Set<RoleAccount> roles;
+
+    protected Language preferredLanguage;
 
     protected AbstractAccount() {
         super();
@@ -87,10 +91,12 @@ public abstract class AbstractAccount implements Account {
         this.roles = roles;
     }
 
+    @Override
     public String getSecret() {
         return secret;
     }
 
+    @Override
     public void setSecret(String secret) {
         this.secret = secret;
     }
@@ -104,6 +110,19 @@ public abstract class AbstractAccount implements Account {
     @JsonIgnore
     public String getName() {
         return givenNames;
+    }
+
+    @JsonIgnore
+    public boolean hasPreferredLanguage() {
+        return preferredLanguage != null;
+    }
+
+    public Language getPreferredLanguage() {
+        return preferredLanguage;
+    }
+
+    public void setPreferredLanguage(Language preferedLanguage) {
+        preferredLanguage = preferedLanguage;
     }
 
     @Override

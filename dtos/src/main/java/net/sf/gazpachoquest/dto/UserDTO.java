@@ -24,13 +24,15 @@ public class UserDTO extends AbstractAuditableDTO {
 
     private String surname;
 
-    private Language preferedLanguage;
+    private Language preferredLanguage;
 
     private Gender gender;
 
     private String username;
 
-    private Map<String, String> attributes = new HashMap<String, String>();
+    private String apiKey;
+
+    private final Map<String, String> attributes = new HashMap<String, String>();
 
     public UserDTO() {
         super();
@@ -60,12 +62,12 @@ public class UserDTO extends AbstractAuditableDTO {
         this.surname = surname;
     }
 
-    public Language getPreferedLanguage() {
-        return preferedLanguage;
+    public Language getPreferredLanguage() {
+        return preferredLanguage;
     }
 
-    public void setPreferedLanguage(Language preferedLanguage) {
-        this.preferedLanguage = preferedLanguage;
+    public void setPreferredLanguage(Language preferredLanguage) {
+        this.preferredLanguage = preferredLanguage;
     }
 
     public Gender getGender() {
@@ -89,7 +91,15 @@ public class UserDTO extends AbstractAuditableDTO {
     }
 
     public void setAttribute(String name, String value) {
-        this.attributes.put(name, value);
+        attributes.put(name, value);
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public static Builder with() {
@@ -101,7 +111,7 @@ public class UserDTO extends AbstractAuditableDTO {
         private String givenNames;
         private String surname;
         private String apiKey;
-        private Language preferedLanguage;
+        private Language preferredLanguage;
         private Gender gender;
         private String username;
 
@@ -125,8 +135,8 @@ public class UserDTO extends AbstractAuditableDTO {
             return this;
         }
 
-        public Builder preferedLanguage(Language preferedLanguage) {
-            this.preferedLanguage = preferedLanguage;
+        public Builder preferredLanguage(Language preferredLanguage) {
+            this.preferredLanguage = preferredLanguage;
             return this;
         }
 
@@ -145,9 +155,10 @@ public class UserDTO extends AbstractAuditableDTO {
             userDTO.email = email;
             userDTO.givenNames = givenNames;
             userDTO.surname = surname;
-            userDTO.preferedLanguage = preferedLanguage;
+            userDTO.preferredLanguage = preferredLanguage;
             userDTO.gender = gender;
             userDTO.username = username;
+            userDTO.apiKey = apiKey;
             return userDTO;
         }
     }

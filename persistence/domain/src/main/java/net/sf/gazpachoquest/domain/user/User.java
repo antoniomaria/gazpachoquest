@@ -64,7 +64,7 @@ public class User extends AbstractAuditable {
     private String secret;
 
     @Enumerated(EnumType.STRING)
-    private Language preferedLanguage;
+    private Language preferredLanguage;
 
     @Convert(converter = GenderTypeConverter.class)
     private Gender gender;
@@ -157,12 +157,12 @@ public class User extends AbstractAuditable {
         this.email = email;
     }
 
-    public Language getPreferedLanguage() {
-        return preferedLanguage;
+    public Language getPreferredLanguage() {
+        return preferredLanguage;
     }
 
-    public void setPreferedLanguage(Language preferedLanguage) {
-        this.preferedLanguage = preferedLanguage;
+    public void setPreferredLanguage(Language preferedLanguage) {
+        preferredLanguage = preferedLanguage;
     }
 
     public Gender getGender() {
@@ -223,7 +223,7 @@ public class User extends AbstractAuditable {
         private String surname;
         private String email;
         private String apiKey;
-        private Language preferedLanguage;
+        private Language preferredLanguage;
         private Gender gender;
 
         public Builder username(String username) {
@@ -261,8 +261,8 @@ public class User extends AbstractAuditable {
             return this;
         }
 
-        public Builder preferedLanguage(Language preferedLanguage) {
-            this.preferedLanguage = preferedLanguage;
+        public Builder preferredLanguage(Language preferredLanguage) {
+            this.preferredLanguage = preferredLanguage;
             return this;
         }
 
@@ -280,7 +280,7 @@ public class User extends AbstractAuditable {
             user.surname = surname;
             user.email = email;
             user.apiKey = apiKey;
-            user.preferedLanguage = preferedLanguage;
+            user.preferredLanguage = preferredLanguage;
             user.gender = gender;
             return user;
         }

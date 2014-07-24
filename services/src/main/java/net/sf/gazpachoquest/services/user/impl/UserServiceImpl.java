@@ -72,7 +72,7 @@ public class UserServiceImpl extends AbstractPersistenceService<User> implements
             if (StringUtils.isNotEmpty(user.getSecret())) {
                 user.setSecret(tokenGenerator.generate(SECRET_LENGTH));
             }
-            existing.setPreferedLanguage(user.getPreferedLanguage());
+            existing.setPreferredLanguage(user.getPreferredLanguage());
             existing.setGender(user.getGender());
         }
         return existing;

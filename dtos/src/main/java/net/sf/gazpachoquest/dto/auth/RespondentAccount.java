@@ -10,6 +10,8 @@ package net.sf.gazpachoquest.dto.auth;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.sf.gazpachoquest.types.Language;
+
 public class RespondentAccount extends AbstractAccount {
 
     public static final String USER_NAME = "respondent";
@@ -46,6 +48,7 @@ public class RespondentAccount extends AbstractAccount {
         private String email;
         private String apiKey;
         private String secret;
+        private Language preferedLanguage;
 
         public Builder givenNames(String givenNames) {
             this.givenNames = givenNames;
@@ -72,6 +75,11 @@ public class RespondentAccount extends AbstractAccount {
             return this;
         }
 
+        public Builder preferedLanguage(Language preferedLanguage) {
+            this.preferedLanguage = preferedLanguage;
+            return this;
+        }
+
         public RespondentAccount build() {
             RespondentAccount accountDTO = new RespondentAccount();
             accountDTO.givenNames = givenNames;
@@ -79,6 +87,7 @@ public class RespondentAccount extends AbstractAccount {
             accountDTO.email = email;
             accountDTO.apiKey = apiKey;
             accountDTO.secret = secret;
+            accountDTO.preferredLanguage = preferedLanguage;
             return accountDTO;
         }
     }
