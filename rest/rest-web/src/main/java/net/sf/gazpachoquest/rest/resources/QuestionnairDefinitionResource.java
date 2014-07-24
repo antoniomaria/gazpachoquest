@@ -58,10 +58,10 @@ public class QuestionnairDefinitionResource {
 
     @GET
     @Path("/{questionnairDefinitionId}/export")
-    @ApiOperation(value = "Export given questionnair definition into xml", notes = "More notes about this method", consumes = "application/xml", produces = "application/xml")
+    @ApiOperation(value = "Export given questionnair definition into xml", notes = "More notes about this method", consumes = "*", produces = "application/xml")
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
             @ApiResponse(code = 200, message = "Questionnairs available") })
-    @Consumes(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
     @Produces(MediaType.APPLICATION_XML)
     public InputStream exportQuestionnairDefinition(@PathParam("questionnairDefinitionId")
     @ApiParam(value = "Questionnair DefinitionId id")
