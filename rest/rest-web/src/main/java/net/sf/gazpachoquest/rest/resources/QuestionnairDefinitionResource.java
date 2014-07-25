@@ -58,15 +58,16 @@ public class QuestionnairDefinitionResource {
 
     @GET
     @Path("/{questionnairDefinitionId}/export")
-    @ApiOperation(value = "Export given questionnair definition into xml", notes = "More notes about this method", consumes = "*", produces = "application/xml")
-    @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
-            @ApiResponse(code = 200, message = "Questionnairs available") })
-    @Consumes(MediaType.MEDIA_TYPE_WILDCARD)
+    @ApiOperation(value = "Export given questionnair definition into xml", response = QuestionnairDefinitionDTO.class, produces = "application/xml")
+    @ApiResponses(value = { @ApiResponse(code = 404, message = "Not enough access rights"),
+            @ApiResponse(code = 200, message = "Questionnair Definition available") })
+    @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
     public InputStream exportQuestionnairDefinition(@PathParam("questionnairDefinitionId")
     @ApiParam(value = "Questionnair DefinitionId id")
     Integer questionnairDefinitionId) throws XmlMappingException, IOException {
         logger.info("New exporting petition received for  QuestionnairDefinitionId {}", questionnairDefinitionId);
+
         CachedOutputStream outputStream = new CachedOutputStream();
         questionnairDefinitionAccessorFacade.exportQuestionnairDefinition(questionnairDefinitionId, outputStream);
         logger.info("QuestionnairDefinition with id = {} exported succesfully", questionnairDefinitionId);
