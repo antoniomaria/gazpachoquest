@@ -23,4 +23,16 @@ public enum Language {
         }
         return null;
     }
+
+    public static Language fromString(String languageStr) {
+        if (languageStr == null) {
+            return null;
+        }
+        for (Language c : Language.values()) {
+            if (c.name().compareToIgnoreCase(languageStr) == 0) {
+                return c;
+            }
+        }
+        return null;
+    }
 }

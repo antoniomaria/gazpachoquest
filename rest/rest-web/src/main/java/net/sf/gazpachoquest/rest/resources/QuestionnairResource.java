@@ -89,7 +89,7 @@ public class QuestionnairResource {
 
         RenderingMode mode = RenderingMode.fromString(modeStr);
         NavigationAction action = NavigationAction.fromString(actionStr);
-        Language preferredLanguage = Language.valueOf(preferredLanguageStr);
+        Language preferredLanguage = Language.fromString(preferredLanguageStr);
         PageDTO page = questionnairFacade.resolvePage(questionnairId, mode, preferredLanguage, action);
         return Response.ok(page).build();
     }

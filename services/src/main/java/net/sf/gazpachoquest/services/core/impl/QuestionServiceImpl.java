@@ -88,7 +88,7 @@ public class QuestionServiceImpl extends
 
         Question sampleQuestion = questions.iterator().next();
         // It's assumed that all the question are in the same language
-        boolean isPreferedLanguage = sampleQuestion.getLanguage().equals(language) || language == null;
+        boolean isPreferredLanguage = language == null || sampleQuestion.getLanguage().equals(language);
 
         CopyGroup group = new CopyGroup();
 
@@ -108,9 +108,10 @@ public class QuestionServiceImpl extends
         group.addAttribute("questionOptions.languageSettings");
         group.addAttribute("questionOptions.language");
         group.addAttribute("questionOptions.code");
-        // Only load translation is question language is different from prefered
+        // Only load translations is question language is different from
+        // preferred
         // language
-        if (!isPreferedLanguage) {
+        if (!isPreferredLanguage) {
             group.addAttribute("translations");
             group.addAttribute("subquestions.translations");
             group.addAttribute("questionOptions.translations");
@@ -119,7 +120,9 @@ public class QuestionServiceImpl extends
         List<Question> detatchedQuestions = new ArrayList<>();
         for (Question question : questions) {
             Question detatchedQuestion = (Question) entityManager.unwrap(JpaEntityManager.class).copy(question, group);
-            detatchedQuestion.translateTo(language);
+            if (!isPreferredLanguage) {
+                detatchedQuestion.translateTo(language);
+            }
             detatchedQuestions.add(detatchedQuestion);
         }
         return detatchedQuestions;
