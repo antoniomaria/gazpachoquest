@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PageDTO implements Serializable {
+public class QuestionnairPageDTO implements Serializable {
 
     private static final long serialVersionUID = -4722536148236589317L;
 
@@ -23,7 +23,7 @@ public class PageDTO implements Serializable {
 
     private PageMetadataDTO metadata;
 
-    public PageDTO() {
+    public QuestionnairPageDTO() {
         super();
     }
 

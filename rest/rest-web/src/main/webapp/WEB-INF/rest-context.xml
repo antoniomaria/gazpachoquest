@@ -22,6 +22,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
 
   <bean id="authenticationResource" class="net.sf.gazpachoquest.rest.resources.AuthenticationResource" autowire="byType" />
 
+  <bean id="userResource" class="net.sf.gazpachoquest.rest.resources.UserResource" autowire="byType" />
+
   <!-- Login filter -->
   <bean id="loginShiroFilter" class="net.sf.gazpachoquest.rest.filter.LoginShiroFilter"/>
   
@@ -72,6 +74,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
       <ref bean="authenticationResource" />
       <ref bean="questionnairResource" />
       <ref bean="questionnairDefinitionResource" />
+      <ref bean="userResource" />
       <ref bean="swaggerResourceJSON" />
     </jaxrs:serviceBeans>
     <jaxrs:providers>

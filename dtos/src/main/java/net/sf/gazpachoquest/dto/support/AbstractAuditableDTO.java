@@ -7,7 +7,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto.support;
 
-import net.sf.gazpachoquest.dto.UserDTO;
+import net.sf.gazpachoquest.dto.AuditorDTO;
 
 import org.joda.time.DateTime;
 
@@ -15,11 +15,11 @@ public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
 
     private static final long serialVersionUID = -6660330858580421664L;
 
-    private UserDTO createdBy;
+    private AuditorDTO createdBy;
 
     private DateTime createdDate;
 
-    private UserDTO lastModifiedBy;
+    private AuditorDTO lastModifiedBy;
 
     private DateTime lastModifiedDate;
 
@@ -27,7 +27,7 @@ public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
         super();
     }
 
-    public UserDTO getCreatedBy() {
+    public AuditorDTO getCreatedBy() {
         return createdBy;
     }
 
@@ -35,7 +35,7 @@ public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
         return createdDate;
     }
 
-    public UserDTO getLastModifiedBy() {
+    public AuditorDTO getLastModifiedBy() {
         return lastModifiedBy;
     }
 
@@ -43,7 +43,7 @@ public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
         return lastModifiedDate;
     }
 
-    public void setCreatedBy(final UserDTO createdBy) {
+    public void setCreatedBy(final AuditorDTO createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -51,7 +51,7 @@ public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
         this.createdDate = createdDate;
     }
 
-    public void setLastModifiedBy(final UserDTO lastModifiedBy) {
+    public void setLastModifiedBy(final AuditorDTO lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 

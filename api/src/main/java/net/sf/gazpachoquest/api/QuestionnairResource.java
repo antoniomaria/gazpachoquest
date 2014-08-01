@@ -21,7 +21,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import net.sf.gazpachoquest.dto.PageDTO;
+import net.sf.gazpachoquest.dto.QuestionnairPageDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.types.Language;
@@ -40,7 +40,7 @@ public interface QuestionnairResource extends Serializable {
 
     @GET
     @Path("/{questionnairId}/page")
-    PageDTO getPage(@PathParam("questionnairId")
+    QuestionnairPageDTO getPage(@PathParam("questionnairId")
     Integer questionnairId, @QueryParam("mode")
     RenderingMode mode, @QueryParam("preferredLanguage")
     Language language, @QueryParam("action")

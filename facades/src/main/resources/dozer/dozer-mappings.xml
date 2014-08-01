@@ -51,6 +51,29 @@
     </field>
   </mapping>
   
+   <!-- User Mappings -->
+  <mapping type="one-way">
+    <class-a>net.sf.gazpachoquest.dto.UserDTO</class-a>
+    <class-b>net.sf.gazpachoquest.domain.user.User</class-b>
+  </mapping>
+
+  <mapping type="one-way">
+    <class-a>net.sf.gazpachoquest.domain.user.User</class-a>
+    <class-b>net.sf.gazpachoquest.dto.UserDTO</class-b>
+    
+    <field>
+      <a>lastModifiedBy</a>
+      <b>lastModifiedBy</b>
+      <b-hint>net.sf.gazpachoquest.dto.AuditorDTO</b-hint>
+    </field>
+
+    <field>
+      <a>createdBy</a>
+      <b>createdBy</b>
+      <b-hint>net.sf.gazpachoquest.dto.AuditorDTO</b-hint>
+    </field>
+  </mapping>
+  
   <!-- QuestionGroup Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.QuestionGroupDTO</class-a>

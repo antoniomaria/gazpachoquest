@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import net.sf.gazpachoquest.domain.user.User;
-import net.sf.gazpachoquest.dto.PageDTO;
+import net.sf.gazpachoquest.dto.QuestionnairPageDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.facades.QuestionnairFacade;
@@ -63,7 +63,7 @@ public class QuestionnairResource {
 
     @GET
     @Path("/{questionnairId}/page")
-    @ApiOperation(value = "Fetch the next, current or previous page for the given questionnair", notes = "More notes about this method", response = PageDTO.class)
+    @ApiOperation(value = "Fetch the next, current or previous page for the given questionnair", notes = "More notes about this method", response = QuestionnairPageDTO.class)
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
             @ApiResponse(code = 200, message = "Questionnairs available") })
     public Response getPage(
@@ -90,7 +90,7 @@ public class QuestionnairResource {
         RenderingMode mode = RenderingMode.fromString(modeStr);
         NavigationAction action = NavigationAction.fromString(actionStr);
         Language preferredLanguage = Language.fromString(preferredLanguageStr);
-        PageDTO page = questionnairFacade.resolvePage(questionnairId, mode, preferredLanguage, action);
+        QuestionnairPageDTO page = questionnairFacade.resolvePage(questionnairId, mode, preferredLanguage, action);
         return Response.ok(page).build();
     }
 

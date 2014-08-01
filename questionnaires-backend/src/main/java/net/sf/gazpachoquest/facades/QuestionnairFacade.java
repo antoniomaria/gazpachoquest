@@ -10,7 +10,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.facades;
 
-import net.sf.gazpachoquest.dto.PageDTO;
+import net.sf.gazpachoquest.dto.QuestionnairPageDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.types.Language;
@@ -21,7 +21,7 @@ public interface QuestionnairFacade {
 
     QuestionnairDTO findOne(Integer questionnairId);
 
-    PageDTO resolvePage(Integer questionnairId, RenderingMode mode, Language preferredLanguage, NavigationAction action);
+    QuestionnairPageDTO resolvePage(Integer questionnairId, RenderingMode mode, Language preferredLanguage, NavigationAction action);
 
     void saveAnswer(Integer questionnairId, String questionCode, Answer answer);
 

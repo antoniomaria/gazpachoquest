@@ -33,7 +33,8 @@ public class LoginShiroFilter implements RequestHandler {
     public Response handleRequest(Message message, ClassResourceInfo resourceClass) {
         String path = uriInfo.getPath();
         logger.debug("New access to resource {}", path);
-        if (path.startsWith("auth") || path.contains("api-docs") || path.contains("import") || path.contains("export")) {
+        if (path.startsWith("auth") || path.contains("api-docs") || path.contains("import") || path.contains("export")
+                || path.contains("users")) {
             // Ignore the AuthenticationResource
             return null;
         }

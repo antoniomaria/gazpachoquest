@@ -15,6 +15,8 @@ import java.util.List;
 import net.sf.gazpachoquest.domain.support.Persistable;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 
+import org.springframework.data.domain.Page;
+
 public interface PersistenceService<T extends Persistable> {
     long count();
 
@@ -31,4 +33,6 @@ public interface PersistenceService<T extends Persistable> {
     T save(T entity);
 
     void deleteByExample(T entity, SearchParameters searchParameters);
+
+    Page<T> findPaginated(Integer pageNumber, Integer size);
 }

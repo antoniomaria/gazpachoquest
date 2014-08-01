@@ -16,7 +16,7 @@ import java.util.Set;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
-import net.sf.gazpachoquest.dto.PageDTO;
+import net.sf.gazpachoquest.dto.QuestionnairPageDTO;
 import net.sf.gazpachoquest.dto.PageMetadataDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
@@ -100,12 +100,12 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
     }
 
     @Override
-    public PageDTO resolvePage(Integer questionnairId, RenderingMode mode, Language preferredLanguage,
+    public QuestionnairPageDTO resolvePage(Integer questionnairId, RenderingMode mode, Language preferredLanguage,
             NavigationAction action) {
         Questionnair questionnair = Questionnair.with().id(questionnairId).build();
         PageResolver resolver = resolverSelector.selectBy(mode);
         PageStructure pageStructure = resolver.resolveNextPage(questionnair, action);
-        PageDTO page = new PageDTO();
+        QuestionnairPageDTO page = new QuestionnairPageDTO();
         if (pageStructure == null) { // TODO Handle exception
             return page;
         }

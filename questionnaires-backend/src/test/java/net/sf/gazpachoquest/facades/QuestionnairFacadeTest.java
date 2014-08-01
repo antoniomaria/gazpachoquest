@@ -2,7 +2,7 @@ package net.sf.gazpachoquest.facades;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.dto.PageDTO;
+import net.sf.gazpachoquest.dto.QuestionnairPageDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
@@ -74,7 +74,7 @@ public class QuestionnairFacadeTest {
     @Test
     public void resolvePageTest() {
         Integer questionnairId = 70;
-        PageDTO page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP, Language.EN,
+        QuestionnairPageDTO page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP, Language.EN,
                 NavigationAction.ENTERING);
 
         assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(12).build(),
@@ -100,7 +100,7 @@ public class QuestionnairFacadeTest {
         String answer = "Antonio Maria";
         String questionCode = "Q1";
         questionnairAnswersService.save(questionnair, questionCode, answer);
-        PageDTO page = questionnairFacade.resolvePage(questionnair.getId(), RenderingMode.QUESTION_BY_QUESTION,
+        QuestionnairPageDTO page = questionnairFacade.resolvePage(questionnair.getId(), RenderingMode.QUESTION_BY_QUESTION,
                 Language.EN, NavigationAction.ENTERING);
 
         assertThat(page.getQuestions()).isNotEmpty();

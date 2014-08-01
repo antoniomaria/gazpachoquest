@@ -7,7 +7,10 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.facades;
 
+import java.util.List;
+
 import net.sf.gazpachoquest.dto.UserDTO;
+import net.sf.gazpachoquest.dto.support.PageDTO;
 
 public interface UserFacade {
 
@@ -16,5 +19,9 @@ public interface UserFacade {
     UserDTO findOne(Integer id);
 
     UserDTO save(UserDTO user);
+
+    List<UserDTO> findAll();
+
+    PageDTO<UserDTO> findPaginated(Integer pageNumber, Integer size);
 
 }

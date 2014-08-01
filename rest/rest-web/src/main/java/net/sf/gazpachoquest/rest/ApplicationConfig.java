@@ -14,6 +14,7 @@ import net.sf.gazpachoquest.rest.filter.LoginShiroFilter;
 import net.sf.gazpachoquest.rest.filter.LogoutShiroFilter;
 import net.sf.gazpachoquest.rest.resources.AuthenticationResource;
 import net.sf.gazpachoquest.rest.resources.QuestionnairResource;
+import net.sf.gazpachoquest.rest.resources.UserResource;
 import net.sf.gazpachoquest.rest.support.JacksonContextResolver;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
@@ -32,6 +33,8 @@ public class ApplicationConfig extends Application {
         Set<Class<?>> classes = new HashSet<Class<?>>();
         classes.add(QuestionnairResource.class);
         classes.add(AuthenticationResource.class);
+        classes.add(UserResource.class);
+
         classes.add(ApiListingResourceJSON.class);
         classes.add(ResourceListingProvider.class);
         classes.add(ApiDeclarationProvider.class);

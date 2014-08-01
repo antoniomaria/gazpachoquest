@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import javax.resource.NotSupportedException;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;
-import net.sf.gazpachoquest.dto.PageDTO;
+import net.sf.gazpachoquest.dto.QuestionnairPageDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
@@ -83,7 +83,7 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
 
     private Language preferredLanguage;
 
-    public void update(PageDTO page) {
+    public void update(QuestionnairPageDTO page) {
         questionsLayout.removeAllComponents();
 
         List<QuestionDTO> questions = page.getQuestions();
@@ -144,7 +144,7 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
         logger.debug("Trying to fetch questionnair identified with id  = {} ", questionnairId);
         QuestionnairDTO questionnair = questionnairResource.getDefinition(questionnairId);
 
-        PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, preferredLanguage,
+        QuestionnairPageDTO page = questionnairResource.getPage(questionnairId, renderingMode, preferredLanguage,
                 NavigationAction.ENTERING);
         questionsLayout = new VerticalLayout();
         update(page);
@@ -196,11 +196,11 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
     @Override
     public void buttonClick(ClickEvent event) {
         if (nextButton.equals(event.getButton())) {
-            PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, preferredLanguage,
+            QuestionnairPageDTO page = questionnairResource.getPage(questionnairId, renderingMode, preferredLanguage,
                     NavigationAction.NEXT);
             update(page);
         } else {
-            PageDTO page = questionnairResource.getPage(questionnairId, renderingMode, preferredLanguage,
+            QuestionnairPageDTO page = questionnairResource.getPage(questionnairId, renderingMode, preferredLanguage,
                     NavigationAction.PREVIOUS);
             update(page);
         }
