@@ -14,10 +14,9 @@
   <properties>
     <arquillian.version>1.0.0.Alpha1</arquillian.version>
     <version.shrinkwrap.resolvers>2.1.0-alpha-1</version.shrinkwrap.resolvers>
-    <vaadin.version>7.2.0.beta1</vaadin.version>
+    <vaadin.version>7.3.0.beta1</vaadin.version>
     <vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
   </properties>
-  <!-- -->
   <dependencyManagement>
     <dependencies>
       <dependency>

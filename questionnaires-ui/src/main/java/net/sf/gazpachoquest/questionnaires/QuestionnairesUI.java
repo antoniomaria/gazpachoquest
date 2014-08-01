@@ -35,7 +35,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
 
-@Theme("gazpacho")
+@Theme("valo")
 @Title("Gazpacho Questionnaires")
 @CDIUI
 @PreserveOnRefresh

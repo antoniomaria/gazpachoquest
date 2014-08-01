@@ -46,6 +46,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
 
@@ -114,7 +115,6 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
     @Override
     public void enter(ViewChangeEvent event) {
         logger.debug("Entering {} view ", QuestionnairView.NAME);
-        setSizeFull();
         addStyleName(Reindeer.LAYOUT_BLUE);
         addStyleName("questionnaires");
 
@@ -130,8 +130,6 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
             renderingMode = RenderingMode.GROUP_BY_GROUP;
         }
 
-        VerticalLayout centralLayout = new VerticalLayout();
-        centralLayout.setMargin(true);
         // centralLayout.addStyleName("questionnaires");
         // new Responsive(centralLayout);
 
@@ -151,17 +149,24 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
         questionsLayout = new VerticalLayout();
         update(page);
 
+        Label questionnairTitle = new Label(questionnair.getLanguageSettings().getTitle());
+        questionnairTitle.addStyleName(Reindeer.LABEL_H1);
+
         VerticalLayout mainLayout = new VerticalLayout();
         mainLayout.setSizeFull();
-
-        Label label = new Label(questionnair.getLanguageSettings().getTitle());
-        label.addStyleName(Reindeer.LABEL_H1);
-        mainLayout.addComponent(label);
+        mainLayout.setMargin(true);
+        mainLayout.addComponent(questionnairTitle);
         mainLayout.addComponent(questionsLayout);
         // Add the responsive capabilities to the components
-        Responsive.makeResponsive(label);
-        centralLayout.addComponent(mainLayout);
+
+        Panel centralLayout = new Panel();
+        centralLayout.setContent(mainLayout);
+        centralLayout.setSizeFull();
+        centralLayout.getContent().setSizeUndefined();
+
+        Responsive.makeResponsive(questionnairTitle);
         setCompositionRoot(centralLayout);
+        setSizeFull();
     }
 
     private HorizontalLayout createHeader() {
