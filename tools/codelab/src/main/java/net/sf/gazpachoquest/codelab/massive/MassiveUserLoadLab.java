@@ -5,9 +5,14 @@ import java.util.Map;
 
 import net.sf.gazpachoquest.codelab.randomuser.RandomUserCreator;
 import net.sf.gazpachoquest.codelab.randomuser.support.RandomUser;
+import net.sf.gazpachoquest.domain.user.Permission;
+import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
+import net.sf.gazpachoquest.services.PermissionService;
 import net.sf.gazpachoquest.services.UserService;
+import net.sf.gazpachoquest.types.EntityType;
 import net.sf.gazpachoquest.types.Gender;
+import net.sf.gazpachoquest.types.Perm;
 import net.sf.gazpachoquest.util.RandomTokenGenerator;
 
 import org.apache.commons.lang.math.RandomUtils;
@@ -24,6 +29,9 @@ public class MassiveUserLoadLab {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PermissionService permissionService;
+
     private final String positions[] = { "employee", "supervisor", "foreman", "manager", "vice president " };
 
     private final String divisions[] = { "Helsinki", "Jyväskylä", "Roma", "Madrid", "London", "Berlin", "Barcelona",
@@ -36,7 +44,7 @@ public class MassiveUserLoadLab {
     private RandomTokenGenerator tokenGenerator;
 
     public void execute() {
-        int userCount = 3050;
+        int userCount = 10;
 
         for (int index = 0; index < userCount; index++) {
             RandomUser randomUser = RandomUserCreator.getRandomUser();
@@ -45,6 +53,7 @@ public class MassiveUserLoadLab {
                     .email(randomUser.getEmail()).gender(gender)
                     .username(randomUser.getUsername() + "_" + tokenGenerator.generate(5))
                     .password(randomUser.getPassword()).build();
+
             Map<String, String> attributes = new HashMap<String, String>();
             attributes.put("ssn", randomUser.getSSN());
             attributes.put("age", String.valueOf(RandomUtils.nextInt(18) + 20));
@@ -56,6 +65,11 @@ public class MassiveUserLoadLab {
 
             user = userService.save(user);
             logger.info("User {} created with id {}", index, user.getId());
+            Permission entity = Permission.with().entityId(user.getId()).scope(EntityType.USER).addPerm(Perm.READ)
+                    .build();
+            entity.setRole(Role.with().id(2).build());
+
+            permissionService.save(entity);
         }
 
         // SELECT * FROM users WHERE attributes @>
