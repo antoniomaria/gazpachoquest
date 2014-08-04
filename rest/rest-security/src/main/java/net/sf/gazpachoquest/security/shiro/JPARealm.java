@@ -2,7 +2,9 @@ package net.sf.gazpachoquest.security.shiro;
 
 import java.security.SignatureException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.PersistenceException;
@@ -17,7 +19,6 @@ import net.sf.gazpachoquest.services.RoleService;
 import net.sf.gazpachoquest.services.UserService;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -118,7 +119,11 @@ public class JPARealm extends AuthorizingRealm {
         }
         Date date = null;
         try {
-            date = DateFormatUtils.SMTP_DATETIME_FORMAT.parse(dateUTC);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+            date = sdf.parse(dateUTC);
+            // TODO waiting for common-lang-3.3.1
+            // DateFormatUtils.SMTP_DATETIME_FORMAT.parse(dateUTC);
         } catch (ParseException e) {
             throw new AuthenticationException("Date format invalid");
         }

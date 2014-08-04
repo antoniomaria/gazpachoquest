@@ -2,10 +2,7 @@ package net.sf.gazpachoquest.repository.dynamic;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-import java.sql.Types;
 import java.util.Map;
-
-import javax.sql.DataSource;
 
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.QuestionnairAnswers;
@@ -25,7 +22,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.jdbc.JdbcTestUtils;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -52,7 +48,7 @@ public class QuestionnairAnswersRepositoryTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    private int answersId = 5;
+    private final int answersId = 5;
 
     @Before
     public void setUp() {

@@ -72,8 +72,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   <jaxrs:server id="services" address="/">
     <jaxrs:serviceBeans>
       <ref bean="authenticationResource" />
-      <ref bean="questionnairResource" />
       <ref bean="questionnairDefinitionResource" />
+      <ref bean="questionnairResource" />
       <ref bean="userResource" />
       <ref bean="swaggerResourceJSON" />
     </jaxrs:serviceBeans>

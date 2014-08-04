@@ -14,22 +14,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import net.sf.gazpachoquest.domain.core.MailMessageTemplate;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
-import net.sf.gazpachoquest.domain.core.QuestionOption;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
-import net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation;
-import net.sf.gazpachoquest.domain.i18.QuestionGroupTranslation;
-import net.sf.gazpachoquest.domain.i18.QuestionOptionTranslation;
-import net.sf.gazpachoquest.domain.i18.QuestionTranslation;
 import net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.MailMessageRepository;
@@ -39,8 +31,6 @@ import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachoquest.repository.i18.QuestionnairDefinitionTranslationRepository;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
 import net.sf.gazpachoquest.types.EntityStatus;
-import net.sf.gazpachoquest.types.Language;
-import net.sf.gazpachoquest.types.MailMessageTemplateType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.Marshaller;
@@ -154,71 +144,4 @@ public class QuestionnairDefinitionServiceImpl
         return repository.save(questionnairDefinition);
     }
 
-    private void defineInverseRelationship(QuestionnairDefinition questionnairDefinition) {
-        Map<Language, QuestionnairDefinitionTranslation> questionnairDefinitionTranslations = questionnairDefinition
-                .getTranslations();
-        for (Entry<Language, QuestionnairDefinitionTranslation> entry : questionnairDefinitionTranslations.entrySet()) {
-            QuestionnairDefinitionTranslation translation = entry.getValue();
-            translation.setQuestionnairDefinition(questionnairDefinition);
-            translation.setLanguage(entry.getKey());
-        }
-
-        Map<MailMessageTemplateType, MailMessageTemplate> mailTemplates = questionnairDefinition.getMailTemplates();
-        for (Entry<MailMessageTemplateType, MailMessageTemplate> entry : mailTemplates.entrySet()) {
-            MailMessageTemplate mailMessageTemplate = entry.getValue();
-            mailMessageTemplate.setQuestionnairDefinition(questionnairDefinition);
-
-            for (Entry<Language, MailMessageTemplateTranslation> translationEntry : mailMessageTemplate
-                    .getTranslations().entrySet()) {
-                MailMessageTemplateTranslation mailMessageTemplateTranslation = translationEntry.getValue();
-                mailMessageTemplateTranslation.setMailMessageTemplate(mailMessageTemplate);
-                mailMessageTemplateTranslation.setLanguage(translationEntry.getKey());
-            }
-        }
-        List<QuestionGroup> questionGroups = questionnairDefinition.getQuestionGroups();
-        for (QuestionGroup questionGroup : questionGroups) {
-            questionGroup.setQuestionnairDefinition(questionnairDefinition);
-
-            for (Entry<Language, QuestionGroupTranslation> questionGroupTranslationEntry : questionGroup
-                    .getTranslations().entrySet()) {
-                QuestionGroupTranslation questionGroupTranslation = questionGroupTranslationEntry.getValue();
-                questionGroupTranslation.setQuestionGroup(questionGroup);
-                questionGroupTranslation.setLanguage(questionGroupTranslationEntry.getKey());
-            }
-
-            List<Question> questions = questionGroup.getQuestions();
-            for (Question question : questions) {
-                question.setQuestionGroup(questionGroup);
-
-                for (Entry<Language, QuestionTranslation> entry : question.getTranslations().entrySet()) {
-                    QuestionTranslation questionTranslation = entry.getValue();
-                    questionTranslation.setQuestion(question);
-                    questionTranslation.setLanguage(entry.getKey());
-                }
-
-                List<Question> subquestions = question.getSubquestions();
-                for (Question subquestion : subquestions) {
-                    subquestion.setParent(question);
-
-                    for (Entry<Language, QuestionTranslation> entry : subquestion.getTranslations().entrySet()) {
-                        QuestionTranslation questionTranslation = entry.getValue();
-                        questionTranslation.setQuestion(subquestion);
-                        questionTranslation.setLanguage(entry.getKey());
-                    }
-                }
-
-                List<QuestionOption> questionOptions = question.getQuestionOptions();
-                for (QuestionOption questionOption : questionOptions) {
-                    questionOption.setQuestion(question);
-
-                    for (Entry<Language, QuestionOptionTranslation> entry : questionOption.getTranslations().entrySet()) {
-                        QuestionOptionTranslation questionTranslation = entry.getValue();
-                        questionTranslation.setQuestionOption(questionOption);
-                        questionTranslation.setLanguage(entry.getKey());
-                    }
-
-                }
-            }
-        }
-    }
 }

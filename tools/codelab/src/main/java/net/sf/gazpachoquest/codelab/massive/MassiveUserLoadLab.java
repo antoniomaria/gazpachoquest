@@ -10,7 +10,7 @@ import net.sf.gazpachoquest.services.UserService;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.util.RandomTokenGenerator;
 
-import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class MassiveUserLoadLab {
                     .password(randomUser.getPassword()).build();
             Map<String, String> attributes = new HashMap<String, String>();
             attributes.put("ssn", randomUser.getSSN());
-            attributes.put("age", String.valueOf(RandomUtils.nextInt(18, 35)));
+            attributes.put("age", String.valueOf(RandomUtils.nextInt(18) + 20));
             attributes.put("company", getCompany());
             attributes.put("division", getDivision());
             attributes.put("position", getPosition());
@@ -64,15 +64,15 @@ public class MassiveUserLoadLab {
     }
 
     private String getDivision() {
-        return divisions[RandomUtils.nextInt(0, divisions.length)];
+        return divisions[RandomUtils.nextInt(divisions.length)];
     }
 
     private String getCompany() {
-        return companies[RandomUtils.nextInt(0, companies.length)];
+        return companies[RandomUtils.nextInt(companies.length)];
     }
 
     private String getPosition() {
-        float random = RandomUtils.nextFloat(0, 10);
+        float random = RandomUtils.nextFloat() * 10;
         if (random < 7) {
             return positions[0];
         } else if (random > 7 && random < 8) {

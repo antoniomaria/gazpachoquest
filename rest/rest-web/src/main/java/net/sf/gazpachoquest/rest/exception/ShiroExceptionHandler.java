@@ -28,6 +28,8 @@ public class ShiroExceptionHandler implements ExceptionMapper<ShiroException> {
         } else if (exception instanceof AuthorizationException) {
             // Not enough permissions
             status = Status.UNAUTHORIZED;
+        } else {
+            logger.error(exception.getMessage(), exception);
         }
         return Response.status(status).type(MediaType.APPLICATION_JSON)
                 .entity(ErrorEntity.with().message(exception.getMessage()).build()).build();

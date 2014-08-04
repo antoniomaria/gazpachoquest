@@ -13,7 +13,6 @@ package net.sf.gazpachoquest.services.core.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -40,10 +39,10 @@ public class QuestionServiceImpl extends
         AbstractLocalizedPersistenceService<Question, QuestionTranslation, QuestionLanguageSettings> implements
         QuestionService {
 
-    @Resource
+    @Autowired
     private QuestionGroupRepository questionGroupRepository;
 
-    @Resource
+    @Autowired
     private QuestionnairDefinitionRepository questionnairDefinitionRepository;
 
     @PersistenceContext
