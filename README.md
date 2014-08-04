@@ -2,10 +2,8 @@
 
 This is an application that is meant to be a answers collector tool for general purposes.
 It provides a easy way to generate all kind of questionnaires with differents question types.
-This application is in current development and still lacks of a front-end. The backend is exposed
-as an rest services.
 
-## Online demo
+## Rest Backend - Online demo
 
 http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/
 
@@ -23,10 +21,8 @@ http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/
     git clone https://github.com/antoniomaria/gazpachoquest.git
     cd gazpachoquest
     mvn clean install
-    cd cargo
-    mvn cargo:start
-    mvn cargo:deploy
-    mvn cargo:stop
+    cd launcher
+    mvn tomee:run
         
 To see the demo, navigate to
- http://localhost:8080/gazpachoquest-rest-web
+ [http://localhost:8080](http://localhost:8080)

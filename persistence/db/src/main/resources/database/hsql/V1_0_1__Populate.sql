@@ -38,8 +38,8 @@ INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names
 -- Data for Name: questionnair_definition; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO questionnair_definition (id, created_date, language, last_modified_date, status, description, title, welcometext, createdby_id, lastmodifiedby_id) VALUES (12, '2014-04-29 14:09:29.094', 'EN', '2014-04-29 14:09:29.094', 'C', 'How much do you know about Europe? Answer to this questions and let''s find out!', 'European general knowledge quiz', 'Thank you for taking the time to participate in this questionnair.', 1, 1);
-INSERT INTO questionnair_definition (id, created_date, language, last_modified_date, status, description, title, welcometext, createdby_id, lastmodifiedby_id) VALUES (121, '2014-04-29 14:09:30.128', 'EN', '2014-04-29 14:09:30.128', 'C', 'We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry.', 'Food Quality QuestionnairDefinition', 'Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:', 1, 1);
+INSERT INTO questionnair_definition (id, created_date, language, last_modified_date, status, description, title, welcome_text, createdby_id, lastmodifiedby_id) VALUES (12, '2014-04-29 14:09:29.094', 'EN', '2014-04-29 14:09:29.094', 'C', 'How much do you know about Europe? Answer to this questions and let''s find out!', 'European general knowledge quiz', 'Thank you for taking the time to participate in this questionnair.', 1, 1);
+INSERT INTO questionnair_definition (id, created_date, language, last_modified_date, status, description, title, welcome_text, createdby_id, lastmodifiedby_id) VALUES (121, '2014-04-29 14:09:30.128', 'EN', '2014-04-29 14:09:30.128', 'C', 'We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry.', 'Food Quality QuestionnairDefinition', 'Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:', 1, 1);
 
 
 --
@@ -363,7 +363,7 @@ INSERT INTO questionnair_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2
 -- Data for Name: questionnair_definition_translation; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO questionnair_definition_translation (id, language, description, title, welcometext, questionnairdefinition_id) VALUES (13, 'ES', '¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!', 'Test de conocimiento general sobre Europa', 'Gracias por participar en este cuestionario', 12);
+INSERT INTO questionnair_definition_translation (id, language, description, title, welcome_text, questionnairdefinition_id) VALUES (13, 'ES', '¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!', 'Test de conocimiento general sobre Europa', 'Gracias por participar en este cuestionario', 12);
 
 
 --
