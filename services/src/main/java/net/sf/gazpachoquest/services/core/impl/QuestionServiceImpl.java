@@ -11,7 +11,10 @@
 package net.sf.gazpachoquest.services.core.impl;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -124,7 +127,26 @@ public class QuestionServiceImpl extends
             }
             detatchedQuestions.add(detatchedQuestion);
         }
-        return detatchedQuestions;
+        return sortQuestions(detatchedQuestions, questionIds);
+    }
+
+    private List<Question> sortQuestions(List<Question> questions, List<Integer> questionIds) {
+        // TODO evaluate guava Ordering.explicit(idList)
+        Map<Integer, Question> map = new LinkedHashMap<>();
+        List<Question> sortedQuestions = new ArrayList<>();
+
+        for (Integer id : questionIds) {
+            map.put(id, Question.with().build());
+        }
+
+        for (Question question : questions) {
+            map.put(question.getId(), question);
+        }
+
+        for (Entry<Integer, Question> entry : map.entrySet()) {
+            sortedQuestions.add(entry.getValue());
+        }
+        return sortedQuestions;
     }
 
     @Override

@@ -1,10 +1,13 @@
 package net.sf.gazpachoquest.facades;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+
+import java.util.List;
+
 import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.dto.QuestionnairPageDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
+import net.sf.gazpachoquest.dto.QuestionnairPageDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.answers.BooleanAnswer;
 import net.sf.gazpachoquest.dto.answers.LongTextAnswer;
@@ -72,10 +75,21 @@ public class QuestionnairFacadeTest {
     }
 
     @Test
+    public void resolvePageXXTest() {
+        Integer questionnairId = 70;
+        QuestionnairPageDTO page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP,
+                Language.EN, NavigationAction.ENTERING);
+        List<QuestionDTO> questions = page.getQuestions();
+        for (QuestionDTO questionDTO : questions) {
+            System.out.println(questionDTO);
+        }
+    }
+
+    @Test
     public void resolvePageTest() {
         Integer questionnairId = 70;
-        QuestionnairPageDTO page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP, Language.EN,
-                NavigationAction.ENTERING);
+        QuestionnairPageDTO page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP,
+                Language.EN, NavigationAction.ENTERING);
 
         assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(12).build(),
                 QuestionDTO.with().id(13).build(), QuestionDTO.with().id(29).build());
@@ -100,8 +114,8 @@ public class QuestionnairFacadeTest {
         String answer = "Antonio Maria";
         String questionCode = "Q1";
         questionnairAnswersService.save(questionnair, questionCode, answer);
-        QuestionnairPageDTO page = questionnairFacade.resolvePage(questionnair.getId(), RenderingMode.QUESTION_BY_QUESTION,
-                Language.EN, NavigationAction.ENTERING);
+        QuestionnairPageDTO page = questionnairFacade.resolvePage(questionnair.getId(),
+                RenderingMode.QUESTION_BY_QUESTION, Language.EN, NavigationAction.ENTERING);
 
         assertThat(page.getQuestions()).isNotEmpty();
         QuestionDTO questionDTO = page.getQuestions().get(0);

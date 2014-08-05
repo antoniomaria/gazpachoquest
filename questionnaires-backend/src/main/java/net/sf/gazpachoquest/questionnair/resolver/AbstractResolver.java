@@ -1,8 +1,8 @@
 package net.sf.gazpachoquest.questionnair.resolver;
 
 import java.lang.reflect.ParameterizedType;
+import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
@@ -154,10 +154,21 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
             questions = questionService.findByExample(
                     Question.with().questionGroup(QuestionGroup.with().id(questionGroup.getId()).build()).build(),
                     new SearchParameters());
-            Collections.shuffle(questions);
+            shuffle(questions);
         } else {
             questions = questionService.findByQuestionGroupId(questionGroup.getId());
         }
         return questions;
+    }
+
+    private void shuffle(List<Question> questions) {
+        SecureRandom random = new SecureRandom();
+        for (int i = 0; i < questions.size(); i++) {
+            int position = i + random.nextInt(questions.size() - i);
+            Question temp = questions.get(i);
+            Question other = questions.get(position);
+            questions.set(i, other);
+            questions.set(position, temp);
+        }
     }
 }
