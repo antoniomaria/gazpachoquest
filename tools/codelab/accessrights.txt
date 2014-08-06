@@ -1,0 +1,20 @@
+select e.* from users u join user_role ur on u.id=ur.user_id join role r on ur.role_id=r.id join permission p on r.id=p.role_id join users e on p.entity_id = e.id where u.id = 1 and p.scope='U'
+
+// Groups per userId
+select g.id from users u join user_group ug on u.id = ug.user_id join groups g on ug.group_id=g.id where u.id=1
+
+// Roles per group
+select r.* from role r join group_role gr on gr.role_id = r.id join groups g on gr.group_id = g.id
+
+// User Roles per user
+select r.* from role r join user_role ur on ur.role_id = r.id join users u on ur.user_id = u.id where u.id = 1
+
+// Group Roles per user
+select r.* from role r join group_role gr on gr.role_id = r.id join groups g on gr.group_id = g.id where g.id in (select g.id from users u join user_group ug on u.id = ug.user_id join groups g on ug.group_id=g.id where u.id=1)
+
+// granted Permissions to a given user
+select p.entity_id from (select r.* from role r join user_role ur on ur.role_id = r.id join users u on ur.user_id = u.id where u.id = 1 union (select r.* from role r join group_role gr on gr.role_id = r.id join groups g on gr.group_id = g.id where g.id in (select g.id from users u join user_group ug on u.id = ug.user_id join groups g on ug.group_id=g.id where u.id=1))) as r join permission p on p.role_id = r.id group by p.entity_id
+
+// Entities granted using Aggregate Functions 
+select p.entity_id, bit_or(p.mask) as mask from (select r.* from role r join user_role ur on ur.role_id = r.id join users u on ur.user_id = u.id where u.id = 1 union (select r.* from role r join group_role gr on gr.role_id = r.id join groups g on gr.group_id = g.id where g.id in (select g.id from users u join user_group ug on u.id = ug.user_id join groups g on ug.group_id=g.id where u.id=1))) as r join permission p on p.role_id = r.id group by p.entity_id
+
