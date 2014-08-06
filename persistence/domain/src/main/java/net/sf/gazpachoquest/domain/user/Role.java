@@ -67,7 +67,11 @@ public class Role extends AbstractPersistable {
     }
 
     public void addUser(User user) {
-        this.users.add(user);
+        users.add(user);
+    }
+
+    public void addGroup(Group group) {
+        groups.add(group);
     }
 
     public static Builder with() {

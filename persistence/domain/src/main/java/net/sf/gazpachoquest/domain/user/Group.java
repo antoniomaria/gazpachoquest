@@ -65,6 +65,11 @@ public class Group extends AbstractAuditable {
         user.addGroup(this);
     }
 
+    public void assignToRole(Role role) {
+        roles.add(role);
+        role.addGroup(this);
+    }
+
     public static Builder with() {
         return new Builder();
     }
