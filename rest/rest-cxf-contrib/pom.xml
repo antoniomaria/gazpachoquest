@@ -4,7 +4,7 @@
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
     <artifactId>gazpachoquest-rest</artifactId>
-    <version>0.5.3-SNAPSHOT</version>
+    <version>0.5.3</version>
   </parent>
   <artifactId>gazpachoquest-rest-cxf-contrib</artifactId>
   <packaging>jar</packaging>
