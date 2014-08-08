@@ -4,7 +4,7 @@
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
     <artifactId>gazpacho-persistence</artifactId>
-    <version>0.5.3</version>
+    <version>0.5.4-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-jpa</artifactId>
   <name>gazpachoquest-jpa</name>

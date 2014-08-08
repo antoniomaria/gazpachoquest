@@ -4,7 +4,7 @@
   <groupId>net.sf.gazpachoquest</groupId>
   <artifactId>gazpachoquest</artifactId>
   <packaging>pom</packaging>
-  <version>0.5.4-SNAPSHOT</version>
+  <version>0.5.3</version>
   <name>Application for collecting answers through questionnaires</name>
 
   <properties>
