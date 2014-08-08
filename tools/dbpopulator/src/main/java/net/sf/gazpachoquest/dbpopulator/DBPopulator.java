@@ -18,6 +18,7 @@ import net.sf.gazpachoquest.dto.LabelDTO;
 import net.sf.gazpachoquest.dto.LabelSetDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.QuestionGroupDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
 import net.sf.gazpachoquest.dto.ResearchDTO;
 import net.sf.gazpachoquest.dto.UserDTO;
@@ -30,6 +31,7 @@ import net.sf.gazpachoquest.facades.UserFacade;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
+import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.ResearchAccessType;
 
 import org.joda.time.DateTime;
@@ -73,8 +75,9 @@ public class DBPopulator {
 
         Set<UserDTO> respondents = addRespondents();
 
-        populateForJUnitTest(respondents);
+        // populateForJUnitTest(respondents);
         // populateForDemo(respondents);
+        populateForFullDemo(respondents);
     }
 
     public void populateForJUnitTest(Set<UserDTO> respondents) {
@@ -96,6 +99,137 @@ public class DBPopulator {
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
         research.addQuestionnairDefinition(questionnairDef);
         // researchFacade.save(research);
+    }
+
+    public void populateForFullDemo(Set<UserDTO> respondents) {
+        // No Randomization enabled
+        QuestionnairDefinitionDTO questionnairDef = sampleQuizCreator.create();
+        asignDefaultMailTemplate(questionnairDef);
+        questionnairDefinitionEditorFacade.confirm(questionnairDef);
+        Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<>();
+        questionnairDefinitions.add(questionnairDef);
+
+        ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
+                .name("New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.addQuestionnairDefinition(questionnairDef);
+        for (UserDTO respondent : respondents) {
+            research.addRespondent(respondent);
+        }
+        researchFacade.save(research);
+
+        research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
+                .name("Anonymous New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.addQuestionnairDefinition(questionnairDef);
+        for (UserDTO respondent : respondents) {
+            research.addRespondent(respondent);
+        }
+        researchFacade.save(research);
+
+        // Question Randomization Enabled
+        questionnairDef = sampleQuizCreator.create();
+        questionnairDef.setQuestionsPerPage(1);
+        questionnairDef.setRandomizationStrategy(RandomizationStrategy.QUESTIONS_RANDOMIZATION);
+        questionnairDef = questionnairDefinitionEditorFacade.save(questionnairDef);
+
+        asignDefaultMailTemplate(questionnairDef);
+        questionnairDefinitionEditorFacade.confirm(questionnairDef);
+        questionnairDefinitions = new HashSet<>();
+        questionnairDefinitions.add(questionnairDef);
+
+        research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
+                .name("New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.addQuestionnairDefinition(questionnairDef);
+        for (UserDTO respondent : respondents) {
+            research.addRespondent(respondent);
+        }
+        researchFacade.save(research);
+
+        research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
+                .name("Anonymous New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.addQuestionnairDefinition(questionnairDef);
+        for (UserDTO respondent : respondents) {
+            research.addRespondent(respondent);
+        }
+        researchFacade.save(research);
+
+        // Groups Randomization Enabled
+        questionnairDef = sampleQuizCreator.create();
+        questionnairDef.setRandomizationStrategy(RandomizationStrategy.GROUPS_RANDOMIZATION);
+        questionnairDef = questionnairDefinitionEditorFacade.save(questionnairDef);
+
+        asignDefaultMailTemplate(questionnairDef);
+        questionnairDefinitionEditorFacade.confirm(questionnairDef);
+        questionnairDefinitions = new HashSet<>();
+        questionnairDefinitions.add(questionnairDef);
+
+        research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
+                .name("New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.addQuestionnairDefinition(questionnairDef);
+        for (UserDTO respondent : respondents) {
+            research.addRespondent(respondent);
+        }
+        researchFacade.save(research);
+
+        research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
+                .name("Anonymous New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.addQuestionnairDefinition(questionnairDef);
+        for (UserDTO respondent : respondents) {
+            research.addRespondent(respondent);
+        }
+        researchFacade.save(research);
+
+        // First Group Randomization Enabled
+        questionnairDef = sampleQuizCreator.create();
+        QuestionGroupDTO firstQuestionGroup = questionnairDef.getQuestionGroups().get(0);
+        firstQuestionGroup.setRandomizationEnabled(true);
+        questionnairDefinitionEditorFacade.save(firstQuestionGroup);
+
+        asignDefaultMailTemplate(questionnairDef);
+        questionnairDefinitionEditorFacade.confirm(questionnairDef);
+        questionnairDefinitions = new HashSet<>();
+        questionnairDefinitions.add(questionnairDef);
+
+        research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
+                .name("New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.addQuestionnairDefinition(questionnairDef);
+        for (UserDTO respondent : respondents) {
+            research.addRespondent(respondent);
+        }
+        researchFacade.save(research);
+
+        research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
+                .name("Anonymous New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.addQuestionnairDefinition(questionnairDef);
+        for (UserDTO respondent : respondents) {
+            research.addRespondent(respondent);
+        }
+        researchFacade.save(research);
+
+        questionnairDef = fastFoodSurveyCreator.create();
+        asignDefaultMailTemplate(questionnairDef);
+        questionnairDefinitionEditorFacade.confirm(questionnairDef);
+        questionnairDefinitions = new HashSet<>();
+        questionnairDefinitions.add(questionnairDef);
+
+        research = ResearchDTO
+                .with()
+                .type(ResearchAccessType.OPEN_ACCESS)
+                .name("New customer satisfation survey " + questionnairDef.getLanguageSettings().getTitle()
+                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        for (UserDTO respondent : respondents) {
+            research.addRespondent(respondent);
+        }
+        research.addQuestionnairDefinition(questionnairDef);
+        researchFacade.save(research);
+
     }
 
     public void populateForDemo(Set<UserDTO> respondents) {
@@ -198,28 +332,28 @@ public class DBPopulator {
     }
 
     protected Set<UserDTO> addRespondents() {
-        UserDTO tyrion = UserDTO.with().preferredLanguage(Language.EN).givenNames("Tyrion").surname("Lannister")
+        UserDTO tyrion = UserDTO.with().givenNames("Tyrion").surname("Lannister")
                 .email("tyrion.lannister@kingslanding.net").gender(Gender.MALE).build();
-        tyrion.setAttribute("age", "25");
-        tyrion.setAttribute("position", "Developer");
+        // tyrion.setAttribute("age", "25");
+        // tyrion.setAttribute("position", "Developer");
         tyrion = userFacade.save(tyrion);
 
         UserDTO jon = UserDTO.with().preferredLanguage(Language.ES).givenNames("Jon").surname("Snow")
                 .email("jon.snow@nightswatch.net").gender(Gender.MALE).build();
-        jon.setAttribute("age", "25");
-        jon.setAttribute("position", "Manager");
+        // jon.setAttribute("age", "25");
+        // jon.setAttribute("position", "Manager");
         jon = userFacade.save(jon);
 
-        UserDTO arya = UserDTO.with().givenNames("Arya").surname("Stark").email("arya.stark@winterfell.net")
-                .gender(Gender.FEMALE).build();
-        arya.setAttribute("age", "25");
-        arya.setAttribute("position", "Manager");
+        UserDTO arya = UserDTO.with().preferredLanguage(Language.EN).givenNames("Arya").surname("Stark")
+                .email("arya.stark@winterfell.net").gender(Gender.FEMALE).build();
+        // arya.setAttribute("age", "25");
+        // arya.setAttribute("position", "Manager");
         arya = userFacade.save(arya);
 
         UserDTO catelyn = UserDTO.with().preferredLanguage(Language.FI).givenNames("Catelyn").surname("Stark")
                 .email("catelyn.stark@winterfell.net").gender(Gender.FEMALE).build();
-        catelyn.setAttribute("age", "21");
-        catelyn.setAttribute("position", "Manager");
+        // catelyn.setAttribute("age", "21");
+        // catelyn.setAttribute("position", "Manager");
         catelyn = userFacade.save(catelyn);
 
         Set<UserDTO> respondents = new HashSet<>();

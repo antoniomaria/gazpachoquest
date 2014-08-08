@@ -24,14 +24,14 @@ public class SampleQuizCreator {
     private QuestionnairDefinitionEditorFacade questionnairDefinitionEditorFacade;
 
     public QuestionnairDefinitionDTO create() {
-        QuestionnairDefinitionDTO questionnair = QuestionnairDefinitionDTO.with().language(Language.EN)
+        QuestionnairDefinitionDTO questionnairDefinition = QuestionnairDefinitionDTO.with().language(Language.EN)
                 .welcomeVisible(true).progressVisible(true).randomizationStrategy(RandomizationStrategy.NONE)
                 .questionGroupInfoVisible(true).questionnairLanguageSettingsStart()
                 .title("European general knowledge quiz")
                 .description("How much do you know about Europe? Answer to this questions and let's find out!")
                 .welcomeText("Thank you for taking the time to participate in this questionnair.")
                 .questionnairLanguageSettingsEnd().build();
-        questionnair = questionnairDefinitionEditorFacade.save(questionnair);
+        questionnairDefinition = questionnairDefinitionEditorFacade.save(questionnairDefinition);
 
         TranslationDTO<QuestionnairDefinitionDTO, QuestionnairDefinitionLanguageSettingsDTO> questionnairTranslation = new TranslationDTO<>();
         questionnairTranslation.setLanguage(Language.ES);
@@ -39,7 +39,7 @@ public class SampleQuizCreator {
                 .title("Test de conocimiento general sobre Europa")
                 .description("¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!")
                 .welcomeText("Gracias por participar en este cuestionario").build());
-        questionnairTranslation.setTranslatedEntity(questionnair);
+        questionnairTranslation.setTranslatedEntity(questionnairDefinition);
 
         questionnairDefinitionEditorFacade.saveQuestionnairTranslation(questionnairTranslation);
 
@@ -47,10 +47,10 @@ public class SampleQuizCreator {
         QuestionGroupDTO questionGroup1 = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false)
                 .pageLanguageSettingsStart().title("European Capitals").pageLanguageSettingsEnd().build();
 
-        questionnair.addQuestionGroup(questionGroup1);
-        questionnair = questionnairDefinitionEditorFacade.save(questionnair);
+        questionnairDefinition.addQuestionGroup(questionGroup1);
+        questionnairDefinition = questionnairDefinitionEditorFacade.save(questionnairDefinition);
 
-        questionGroup1 = questionnair.getLastQuestionGroupDTO();
+        questionGroup1 = questionnairDefinition.getLastQuestionGroupDTO();
 
         TranslationDTO<QuestionGroupDTO, QuestionGroupLanguageSettingsDTO> questionGroupTranslation = new TranslationDTO<>();
         questionGroupTranslation.setLanguage(Language.ES);
@@ -63,9 +63,9 @@ public class SampleQuizCreator {
         QuestionGroupDTO questionGroup2 = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false)
                 .pageLanguageSettingsStart().title("European Union").pageLanguageSettingsEnd().build();
 
-        questionnair.addQuestionGroup(questionGroup2);
-        questionnair = questionnairDefinitionEditorFacade.save(questionnair);
-        questionGroup2 = questionnair.getLastQuestionGroupDTO();
+        questionnairDefinition.addQuestionGroup(questionGroup2);
+        questionnairDefinition = questionnairDefinitionEditorFacade.save(questionnairDefinition);
+        questionGroup2 = questionnairDefinition.getLastQuestionGroupDTO();
 
         questionGroupTranslation = new TranslationDTO<>();
         questionGroupTranslation.setLanguage(Language.ES);
@@ -78,9 +78,9 @@ public class SampleQuizCreator {
         QuestionGroupDTO questionGroup3 = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false)
                 .pageLanguageSettingsStart().title("European History").pageLanguageSettingsEnd().build();
 
-        questionnair.addQuestionGroup(questionGroup3);
-        questionnair = questionnairDefinitionEditorFacade.save(questionnair);
-        questionGroup3 = questionnair.getLastQuestionGroupDTO();
+        questionnairDefinition.addQuestionGroup(questionGroup3);
+        questionnairDefinition = questionnairDefinitionEditorFacade.save(questionnairDefinition);
+        questionGroup3 = questionnairDefinition.getLastQuestionGroupDTO();
 
         questionGroupTranslation = new TranslationDTO<>();
         questionGroupTranslation.setLanguage(Language.ES);
@@ -245,7 +245,7 @@ public class SampleQuizCreator {
 
         questionGroup2.addQuestion(question);
         questionGroup2 = questionnairDefinitionEditorFacade.save(questionGroup2);
-        question = questionGroup1.getLastQuestionDTO();
+        question = questionGroup2.getLastQuestionDTO();
 
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
@@ -510,7 +510,7 @@ public class SampleQuizCreator {
         questionOptionTranslation.setTranslatedEntity(question.getQuestionOptions().get(3));
         questionnairDefinitionEditorFacade.saveQuestionOptionTranslation(questionOptionTranslation);
 
-        return questionnair;
+        return questionnairDefinition;
     }
 
 }

@@ -78,6 +78,8 @@ public class QuestionGroupServiceImpl extends
                 "QuestionGroup must be already persisted. Try by adding to QuestionnairDefinition first.");
 
         QuestionGroup existing = repository.findOne(questionGroup.getId());
+        existing.setLanguageSettings(questionGroup.getLanguageSettings());
+        existing.setRandomizationEnabled(questionGroup.isRandomizationEnabled());
 
         for (Question question : questionGroup.getQuestions()) {
             if (!question.isNew()) {

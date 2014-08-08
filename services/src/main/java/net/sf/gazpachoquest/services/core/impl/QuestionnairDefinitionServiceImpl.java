@@ -99,6 +99,7 @@ public class QuestionnairDefinitionServiceImpl
         } else {
             existing = repository.findOne(questionnairDefinition.getId());
             existing.setLanguage(questionnairDefinition.getLanguage());
+            existing.setRandomizationStrategy(questionnairDefinition.getRandomizationStrategy());
             existing.setLanguageSettings(questionnairDefinition.getLanguageSettings());
             for (QuestionGroup questionGroup : questionnairDefinition.getQuestionGroups()) {
                 if (!questionGroup.isNew()) {
