@@ -4,7 +4,7 @@
  <parent>
   <groupId>net.sf.gazpachoquest</groupId>
   <artifactId>gazpachoquest-tools</artifactId>
-  <version>0.5.4-SNAPSHOT</version>
+  <version>0.5.4</version>
  </parent>
  <artifactId>gazpachoquest-codelab</artifactId>
  <packaging>jar</packaging>
