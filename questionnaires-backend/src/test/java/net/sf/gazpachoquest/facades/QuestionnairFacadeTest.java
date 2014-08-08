@@ -1,9 +1,6 @@
 package net.sf.gazpachoquest.facades;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-
-import java.util.List;
-
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
@@ -72,17 +69,6 @@ public class QuestionnairFacadeTest {
         Integer questionnairId = 70;
         QuestionnairDTO questionnair = questionnairFacade.findOne(questionnairId);
         assertThat(questionnair).isNotNull();
-    }
-
-    @Test
-    public void resolvePageXXTest() {
-        Integer questionnairId = 70;
-        QuestionnairPageDTO page = questionnairFacade.resolvePage(questionnairId, RenderingMode.GROUP_BY_GROUP,
-                Language.EN, NavigationAction.ENTERING);
-        List<QuestionDTO> questions = page.getQuestions();
-        for (QuestionDTO questionDTO : questions) {
-            System.out.println(questionDTO);
-        }
     }
 
     @Test
