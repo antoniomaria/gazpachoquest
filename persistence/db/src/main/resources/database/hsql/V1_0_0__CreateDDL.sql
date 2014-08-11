@@ -84,13 +84,10 @@ ALTER TABLE group_role ADD CONSTRAINT FK_group_role_role_id FOREIGN KEY (role_id
 CREATE TABLE sequence (seq_name VARCHAR(50) NOT NULL, seq_count DECIMAL(38), PRIMARY KEY (seq_name));
 
 -- Dynamic tables
--- CREATE TABLE questionnair_answers_7(id INTEGER NOT NULL, q1 VARCHAR(255), q2 VARCHAR(255), q3 integer, q4 text, q5 VARCHAR(255), q6 VARCHAR(255), q7_1 VARCHAR(255), q7_2 VARCHAR(255), q7_3 VARCHAR(255), q7_4 VARCHAR(255), q8_o1 BOOLEAN, q8_o2 BOOLEAN, q8_o3 BOOLEAN, q8_o4 BOOLEAN, PRIMARY KEY (id));
+CREATE TABLE questionnair_answers_12(id integer NOT NULL, q1 VARCHAR(255), q10 VARCHAR(255), q11 VARCHAR(255),q12 VARCHAR(255), q2 VARCHAR(255),  q3 integer, q4_o1 boolean,  q4_o2 boolean, q4_o3 boolean, q4_o4 boolean, q5 VARCHAR(255), q6 VARCHAR(255), q7_o1 boolean, q7_o2 boolean, q7_o3 boolean, q7_o4 boolean, q8 integer, q9 VARCHAR(255),PRIMARY KEY (id));
+CREATE TABLE questionnair_answers_121(id integer NOT NULL, q1 VARCHAR(255), q10 VARCHAR(255), q11 VARCHAR(255),q12 VARCHAR(255), q2 VARCHAR(255), q3 integer, q4_o1 boolean, q4_o2 boolean, q4_o3 boolean, q4_o4 boolean, q5 VARCHAR(255), q6 VARCHAR(255), q7_o1 boolean,q7_o2 boolean, q7_o3 boolean, q7_o4 boolean, q8 integer, q9 VARCHAR(255), PRIMARY KEY (id));
+CREATE TABLE questionnair_answers_230(id integer NOT NULL, q1 VARCHAR(255), q10 VARCHAR(255), q11 VARCHAR(255),q12 VARCHAR(255), q2 VARCHAR(255), q3 integer, q4_o1 boolean, q4_o2 boolean, q4_o3 boolean, q4_o4 boolean, q5 VARCHAR(255), q6 VARCHAR(255), q7_o1 boolean,q7_o2 boolean, q7_o3 boolean, q7_o4 boolean, q8 integer, q9 VARCHAR(255), PRIMARY KEY (id));
+CREATE TABLE questionnair_answers_339(id integer NOT NULL, q1 VARCHAR(255), q10 VARCHAR(255), q11 VARCHAR(255),q12 VARCHAR(255), q2 VARCHAR(255), q3 integer, q4_o1 boolean, q4_o2 boolean, q4_o3 boolean, q4_o4 boolean, q5 VARCHAR(255), q6 VARCHAR(255), q7_o1 boolean,q7_o2 boolean, q7_o3 boolean, q7_o4 boolean, q8 integer, q9 VARCHAR(255), PRIMARY KEY (id));
 
--- CREATE TABLE questionnair_answers_80 (id INTEGER NOT NULL, q1_1 VARCHAR(255), q1_2 VARCHAR(255), q1_3 VARCHAR(255), q1_4 VARCHAR(255), q2_1 VARCHAR(255), q2_2 VARCHAR(255), q2_3 VARCHAR(255), q2_4 VARCHAR(255), q2_5 VARCHAR(255), q2_6 VARCHAR(255), q3 VARCHAR(255), PRIMARY KEY (id));
-
--- Dynamic tables
-
-CREATE TABLE questionnair_answers_121 (id INTEGER NOT NULL, q1_1 VARCHAR(255), q1_2 VARCHAR(255), q1_3 VARCHAR(255),  q1_4 VARCHAR(255), q2_1 VARCHAR(255),q2_2 VARCHAR(255), q2_3 VARCHAR(255), q2_4 VARCHAR(255), q2_5 VARCHAR(255), q2_6 VARCHAR(255), q3 VARCHAR(255), PRIMARY KEY (id));
-
-CREATE TABLE questionnair_answers_12 ( id INTEGER NOT NULL, q1 VARCHAR(255), q10 VARCHAR(255), q11 VARCHAR(255), q12 VARCHAR(255), q2 VARCHAR(255), q3 INTEGER, q4_o1 BOOLEAN, q4_o2 BOOLEAN, q4_o3 BOOLEAN,q4_o4 BOOLEAN, q5 VARCHAR(255), q6 VARCHAR(255), q7_o1 BOOLEAN,q7_o2 BOOLEAN,q7_o3 BOOLEAN,  q7_o4 BOOLEAN,q8 INTEGER, q9 VARCHAR(255), PRIMARY KEY (id));
+CREATE TABLE questionnair_answers_448(id INTEGER NOT NULL, q1_1 VARCHAR(255), q1_2 VARCHAR(255), q1_3 VARCHAR(255),  q1_4 VARCHAR(255), q2_1 VARCHAR(255),q2_2 VARCHAR(255), q2_3 VARCHAR(255), q2_4 VARCHAR(255), q2_5 VARCHAR(255), q2_6 VARCHAR(255), q3 VARCHAR(255), PRIMARY KEY (id));
 
