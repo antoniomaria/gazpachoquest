@@ -133,11 +133,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <dependency>
-      <groupId>com.mchange</groupId>
-      <artifactId>c3p0</artifactId>
-    </dependency>
-
     <!-- Google flyway -->
     <dependency>
       <groupId>com.googlecode.flyway</groupId>
