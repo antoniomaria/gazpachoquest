@@ -22,6 +22,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 
+import net.sf.gazpachoquest.types.RenderingMode;
+
 @Entity
 @DiscriminatorValue("G")
 public class QuestionGroupBreadcrumb extends Breadcrumb {
@@ -73,6 +75,8 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
 
         private Boolean last;
 
+        private RenderingMode type;
+
         public Builder last(Boolean last) {
             this.last = last;
             return this;
@@ -80,6 +84,11 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
 
         public Builder id(Integer id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder type(RenderingMode type) {
+            this.type = type;
             return this;
         }
 
@@ -97,6 +106,7 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
             QuestionGroupBreadcrumb questionGroupBreadcrumb = new QuestionGroupBreadcrumb();
             questionGroupBreadcrumb.setId(id);
             questionGroupBreadcrumb.setLast(last);
+            questionGroupBreadcrumb.setType(type);
             questionGroupBreadcrumb.questionGroup = questionGroup;
             questionGroupBreadcrumb.questionnair = questionnair;
             return questionGroupBreadcrumb;

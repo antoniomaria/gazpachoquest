@@ -18,6 +18,8 @@ import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.QuestionGroup.Builder;
+import net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
@@ -29,6 +31,7 @@ import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
 import net.sf.gazpachoquest.services.QuestionnairService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
+import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,10 +40,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 @Component("QuestionByQuestionResolver")
-public class QuestionByQuestionResolverImpl extends AbstractResolver<QuestionBreadcrumb> implements PageResolver {
+public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcrumb> implements PageResolver {
+
     private static final Integer INITIAL_POSITION = 0;
 
-    private static final Logger logger = LoggerFactory.getLogger(QuestionByQuestionResolverImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(QuestionByQuestionResolver.class);
 
     @Autowired
     private BreadcrumbService breadcrumbService;
@@ -60,13 +64,8 @@ public class QuestionByQuestionResolverImpl extends AbstractResolver<QuestionBre
     @Autowired
     private PageMetadataCreator metadataCreator;
 
-    @Override
-    protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy, Breadcrumb breadcrumb) {
-        PageStructure nextPage = new PageStructure();
-        nextPage.setMetadata(metadataCreator.create(randomizationStrategy, breadcrumb));
-
-        nextPage.addQuestionsId(((QuestionBreadcrumb) breadcrumb).getQuestion().getId());
-        return nextPage;
+    public QuestionByQuestionResolver(RenderingMode type) {
+        super(RenderingMode.QUESTION_BY_QUESTION);
     }
 
     @Override
@@ -85,7 +84,7 @@ public class QuestionByQuestionResolverImpl extends AbstractResolver<QuestionBre
                 List<Question> questions = findQuestions(questionGroup);
                 for (Question question : questions) {
                     breadcrumb = QuestionBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE)
-                            .question(question).build();
+                            .question(question).type(RenderingMode.QUESTION_BY_QUESTION).build();
                     breadcrumbs.add(breadcrumb);
                 }
             }
@@ -94,13 +93,13 @@ public class QuestionByQuestionResolverImpl extends AbstractResolver<QuestionBre
             Collections.shuffle(questions);
             for (Question question : questions) {
                 breadcrumb = QuestionBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE)
-                        .question(question).build();
+                        .question(question).type(RenderingMode.QUESTION_BY_QUESTION).build();
                 breadcrumbs.add(breadcrumb);
             }
         } else {
             Question question = findFirstQuestion(questionnairDefinitionId);
-            breadcrumb = QuestionBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE).question(question)
-                    .build();
+            breadcrumb = QuestionBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE)
+                    .type(RenderingMode.QUESTION_BY_QUESTION).question(question).build();
             breadcrumbs.add(breadcrumb);
         }
         breadcrumbs.get(0).setLast(Boolean.TRUE);
@@ -139,7 +138,8 @@ public class QuestionByQuestionResolverImpl extends AbstractResolver<QuestionBre
                 next = questionService.findOneByPositionInQuestionGroup(nextQuestionGroup.getId(), INITIAL_POSITION);
             }
             // Mark next element as last browsed.
-            nextBreadcrumb = QuestionBreadcrumb.with().questionnair(questionnair).question(next).build();
+            nextBreadcrumb = QuestionBreadcrumb.with().questionnair(questionnair).question(next)
+                    .type(RenderingMode.QUESTION_BY_QUESTION).build();
         } else {
             Assert.isInstanceOf(QuestionBreadcrumb.class, breadcrumb);
             nextBreadcrumb = (QuestionBreadcrumb) breadcrumb;
@@ -187,6 +187,26 @@ public class QuestionByQuestionResolverImpl extends AbstractResolver<QuestionBre
         QuestionGroup initialGroup = questionGroupService.findOneByPositionInQuestionnairDefinition(
                 questionnairDefinitionId, INITIAL_POSITION);
         return questionService.findOneByPositionInQuestionGroup(initialGroup.getId(), INITIAL_POSITION);
+    }
+
+    @Override
+    protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
+            List<Breadcrumb> breadcrumbs) {
+        PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs);
+
+        Breadcrumb active = breadcrumbs.get(0);
+
+        QuestionGroupBreadcrumb questionGroupBreadcrumb = (QuestionGroupBreadcrumb) active;
+        Builder builder = QuestionGroup.with();
+        if (!randomizationStrategy.equals(RandomizationStrategy.QUESTIONS_RANDOMIZATION)) {
+            builder.id(questionGroupBreadcrumb.getQuestionGroup().getId());
+        }
+        QuestionGroup questionGroup = builder.build();
+        for (QuestionBreadcrumb questionBreadcrumb : questionGroupBreadcrumb.getBreadcrumbs()) {
+            questionGroup.addQuestion(Question.with().id(questionBreadcrumb.getQuestion().getId()).build());
+        }
+        nextPage.addQuestionGroup(questionGroup);
+        return nextPage;
     }
 
 }

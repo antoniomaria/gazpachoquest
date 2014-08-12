@@ -12,7 +12,7 @@ package net.sf.gazpachoquest.types;
 
 public enum RenderingMode {
 
-    QUESTION_BY_QUESTION("QUESTION_BY_QUESTION"), GROUP_BY_GROUP("GROUP_BY_GROUP");
+    QUESTION_BY_QUESTION("QUESTION_BY_QUESTION"), GROUP_BY_GROUP("GROUP_BY_GROUP"), ALL_IN_ONE("ALL_IN_ONE");
 
     private final String value;
 

@@ -19,17 +19,17 @@ import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.QuestionGroup.Builder;
 import net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
-import net.sf.gazpachoquest.questionnair.support.PageMetadataCreator;
+import net.sf.gazpachoquest.questionnair.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 import net.sf.gazpachoquest.services.QuestionGroupService;
-import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
-import net.sf.gazpachoquest.services.QuestionnairService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
+import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,11 +38,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 @Component("GroupByGroupResolver")
-public class GroupByGroupResolverImpl extends AbstractResolver<QuestionGroupBreadcrumb> implements PageResolver {
+public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcrumb> implements PageResolver {
 
     private static final Integer INITIAL_POSITION = 0;
 
-    private static final Logger logger = LoggerFactory.getLogger(GroupByGroupResolverImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(GroupByGroupResolver.class);
 
     @Autowired
     private BreadcrumbService breadcrumbService;
@@ -51,36 +51,10 @@ public class GroupByGroupResolverImpl extends AbstractResolver<QuestionGroupBrea
     private QuestionGroupService questionGroupService;
 
     @Autowired
-    private QuestionService questionService;
-
-    @Autowired
-    private QuestionnairService questionnairService;
-
-    @Autowired
     private QuestionnairDefinitionService questionnairDefinitionService;
 
-    @Autowired
-    private PageMetadataCreator metadataCreator;
-
-    private QuestionGroup findFirstQuestionGroup(int questionnairDefinitionId) {
-        return questionGroupService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId,
-                INITIAL_POSITION);
-    }
-
-    private void populateQuestionsBreadcrumbs(List<Breadcrumb> breadcrumbs) {
-
-        for (Breadcrumb breadcrumb : breadcrumbs) {
-            QuestionGroupBreadcrumb questionGroupBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
-
-            QuestionGroup questionGroup = questionGroupBreadcrumb.getQuestionGroup();
-
-            List<Question> questions = findQuestions(questionGroup);
-
-            for (Question question : questions) {
-                questionGroupBreadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).last(Boolean.FALSE)
-                        .build());
-            }
-        }
+    protected GroupByGroupResolver(RenderingMode type) {
+        super(RenderingMode.GROUP_BY_GROUP);
     }
 
     @Override
@@ -97,7 +71,7 @@ public class GroupByGroupResolverImpl extends AbstractResolver<QuestionGroupBrea
             Collections.shuffle(questionGroups);
             for (QuestionGroup questionGroup : questionGroups) {
                 breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup)
-                        .last(Boolean.FALSE).build();
+                        .last(Boolean.FALSE).type(RenderingMode.GROUP_BY_GROUP).build();
                 breadcrumbs.add(breadcrumb);
             }
             populateQuestionsBreadcrumbs(breadcrumbs);
@@ -108,7 +82,8 @@ public class GroupByGroupResolverImpl extends AbstractResolver<QuestionGroupBrea
             int questionIdx = 0;
             for (Question question : questions) {
                 if (questionIdx % questionPerPage == 0) {
-                    breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE).build();
+                    breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE)
+                            .type(RenderingMode.GROUP_BY_GROUP).build();
                     breadcrumbs.add(breadcrumb);
                 }
                 breadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).build());
@@ -117,7 +92,8 @@ public class GroupByGroupResolverImpl extends AbstractResolver<QuestionGroupBrea
 
         } else {
             QuestionGroup questionGroup = findFirstQuestionGroup(questionnairDefinitionId);
-            breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup).build();
+            breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup)
+                    .type(RenderingMode.GROUP_BY_GROUP).build();
             breadcrumbs.add(breadcrumb);
             populateQuestionsBreadcrumbs(breadcrumbs);
         }
@@ -151,7 +127,8 @@ public class GroupByGroupResolverImpl extends AbstractResolver<QuestionGroupBrea
                 logger.warn("Page out of range. Returning last page");
                 return null;
             }
-            nextBreadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(next).build();
+            nextBreadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(next)
+                    .type(RenderingMode.GROUP_BY_GROUP).build();
             populateQuestionsBreadcrumbs(Arrays.asList(nextBreadcrumb));
         } else {
             nextBreadcrumb = breadcrumb;
@@ -168,5 +145,29 @@ public class GroupByGroupResolverImpl extends AbstractResolver<QuestionGroupBrea
         }
 
         return breadcrumbService.findByQuestionnairIdAndPosition(questionnair.getId(), lastBreadcrumbPosition - 1);
+    }
+
+    private QuestionGroup findFirstQuestionGroup(int questionnairDefinitionId) {
+        return questionGroupService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId,
+                INITIAL_POSITION);
+    }
+
+    @Override
+    protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
+            List<Breadcrumb> breadcrumbs) {
+        PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs);
+        Breadcrumb active = breadcrumbs.get(0);
+
+        QuestionGroupBreadcrumb questionGroupBreadcrumb = (QuestionGroupBreadcrumb) active;
+        Builder builder = QuestionGroup.with();
+        if (!randomizationStrategy.equals(RandomizationStrategy.QUESTIONS_RANDOMIZATION)) {
+            builder.id(questionGroupBreadcrumb.getQuestionGroup().getId());
+        }
+        QuestionGroup questionGroup = builder.build();
+        for (QuestionBreadcrumb questionBreadcrumb : questionGroupBreadcrumb.getBreadcrumbs()) {
+            questionGroup.addQuestion(Question.with().id(questionBreadcrumb.getQuestion().getId()).build());
+        }
+        nextPage.addQuestionGroup(questionGroup);
+        return nextPage;
     }
 }
