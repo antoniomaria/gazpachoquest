@@ -75,7 +75,7 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
 
         private Boolean last;
 
-        private RenderingMode type;
+        private RenderingMode renderingMode;
 
         public Builder last(Boolean last) {
             this.last = last;
@@ -87,8 +87,8 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
             return this;
         }
 
-        public Builder type(RenderingMode type) {
-            this.type = type;
+        public Builder renderingMode(RenderingMode renderingMode) {
+            this.renderingMode = renderingMode;
             return this;
         }
 
@@ -106,7 +106,7 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
             QuestionGroupBreadcrumb questionGroupBreadcrumb = new QuestionGroupBreadcrumb();
             questionGroupBreadcrumb.setId(id);
             questionGroupBreadcrumb.setLast(last);
-            questionGroupBreadcrumb.setType(type);
+            questionGroupBreadcrumb.setRenderingMode(renderingMode);
             questionGroupBreadcrumb.questionGroup = questionGroup;
             questionGroupBreadcrumb.questionnair = questionnair;
             return questionGroupBreadcrumb;

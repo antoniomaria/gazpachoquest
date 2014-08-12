@@ -90,7 +90,7 @@ public class QuestionnairAnswers implements Persistable {
 
     @Override
     public String toString() {
-        return String.format("Entity of type %s with id: %s", this.getClass().getName(), getId());
+        return String.format("Entity of renderingMode %s with id: %s", this.getClass().getName(), getId());
     }
 
     public static Builder with() {

@@ -53,7 +53,7 @@ public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcru
     @Autowired
     private QuestionnairDefinitionService questionnairDefinitionService;
 
-    protected GroupByGroupResolver(RenderingMode type) {
+    protected GroupByGroupResolver() {
         super(RenderingMode.GROUP_BY_GROUP);
     }
 
@@ -71,7 +71,7 @@ public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcru
             Collections.shuffle(questionGroups);
             for (QuestionGroup questionGroup : questionGroups) {
                 breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup)
-                        .last(Boolean.FALSE).type(RenderingMode.GROUP_BY_GROUP).build();
+                        .last(Boolean.FALSE).renderingMode(RenderingMode.GROUP_BY_GROUP).build();
                 breadcrumbs.add(breadcrumb);
             }
             populateQuestionsBreadcrumbs(breadcrumbs);
@@ -83,7 +83,7 @@ public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcru
             for (Question question : questions) {
                 if (questionIdx % questionPerPage == 0) {
                     breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE)
-                            .type(RenderingMode.GROUP_BY_GROUP).build();
+                            .renderingMode(RenderingMode.GROUP_BY_GROUP).build();
                     breadcrumbs.add(breadcrumb);
                 }
                 breadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).build());
@@ -93,7 +93,7 @@ public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcru
         } else {
             QuestionGroup questionGroup = findFirstQuestionGroup(questionnairDefinitionId);
             breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup)
-                    .type(RenderingMode.GROUP_BY_GROUP).build();
+                    .renderingMode(RenderingMode.GROUP_BY_GROUP).build();
             breadcrumbs.add(breadcrumb);
             populateQuestionsBreadcrumbs(breadcrumbs);
         }
@@ -128,7 +128,7 @@ public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcru
                 return null;
             }
             nextBreadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(next)
-                    .type(RenderingMode.GROUP_BY_GROUP).build();
+                    .renderingMode(RenderingMode.GROUP_BY_GROUP).build();
             populateQuestionsBreadcrumbs(Arrays.asList(nextBreadcrumb));
         } else {
             nextBreadcrumb = breadcrumb;

@@ -84,7 +84,7 @@ public class QuestionnairDefinition extends
 
     @OneToMany(mappedBy = "questionnairDefinition", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapKeyEnumerated(EnumType.STRING)
-    @MapKeyColumn(name = "type", insertable = false, updatable = false)
+    @MapKeyColumn(name = "renderingMode", insertable = false, updatable = false)
     private final Map<MailMessageTemplateType, MailMessageTemplate> mailTemplates = new HashMap<MailMessageTemplateType, MailMessageTemplate>();
 
     @Column(nullable = false)

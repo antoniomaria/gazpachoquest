@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 @Component("AllInOneResolver")
 public class AllInOneResolver extends AbstractResolver<QuestionGroupBreadcrumb> implements PageResolver {
 
-    public AllInOneResolver(RenderingMode type) {
+    public AllInOneResolver() {
         super(RenderingMode.ALL_IN_ONE);
     }
 
@@ -53,14 +53,14 @@ public class AllInOneResolver extends AbstractResolver<QuestionGroupBreadcrumb> 
             Collections.shuffle(questionGroups);
             for (QuestionGroup questionGroup : questionGroups) {
                 breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup)
-                        .last(Boolean.TRUE).type(RenderingMode.ALL_IN_ONE).build();
+                        .last(Boolean.TRUE).renderingMode(RenderingMode.ALL_IN_ONE).build();
                 breadcrumbs.add(breadcrumb);
             }
             populateQuestionsBreadcrumbs(breadcrumbs);
         } else if (RandomizationStrategy.QUESTIONS_RANDOMIZATION.equals(randomizationStrategy)) {
             // Container questionGroup
             breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).last(Boolean.TRUE)
-                    .type(RenderingMode.ALL_IN_ONE).build();
+                    .renderingMode(RenderingMode.ALL_IN_ONE).build();
 
             List<Question> questions = questionnairDefinitionService.getQuestions(questionnairDefinitionId);
             Collections.shuffle(questions);
@@ -75,7 +75,7 @@ public class AllInOneResolver extends AbstractResolver<QuestionGroupBreadcrumb> 
                             .build(), new SearchParameters());
             for (QuestionGroup questionGroup : questionGroups) {
                 breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup)
-                        .last(Boolean.TRUE).type(RenderingMode.ALL_IN_ONE).build();
+                        .last(Boolean.TRUE).renderingMode(RenderingMode.ALL_IN_ONE).build();
                 breadcrumbs.add(breadcrumb);
             }
             populateQuestionsBreadcrumbs(breadcrumbs);

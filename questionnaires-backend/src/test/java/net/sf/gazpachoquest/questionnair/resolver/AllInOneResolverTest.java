@@ -73,6 +73,36 @@ public class AllInOneResolverTest {
     }
 
     @Test
+    @DatabaseSetup("QuestionnairDefinitionNoRandomizationEnabledDirty-dataset.xml")
+    @DatabaseTearDown("QuestionnairDefinitionNoRandomizationEnabledDirty-dataset.xml")
+    public void resolveNextPageNoRandomizationEnabledDirty() {
+        Integer questionnairId = 58;
+        Questionnair questionnair = questionnairService.findOne(questionnairId);
+        PageStructure pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
+        List<QuestionGroup> questionGroups = pageStructure.getQuestionGroups();
+
+        assertThat(questionGroups).hasSize(3);
+
+        QuestionGroup firstGroup = questionGroups.get(0);
+        assertThat(firstGroup.getId()).isEqualTo(9);
+        assertThat(firstGroup.getQuestions()).isEqualTo(
+                Arrays.asList(Question.with().id(13).build(), Question.with().id(12).build(), Question.with().id(29)
+                        .build()));
+
+        QuestionGroup secondGroup = questionGroups.get(1);
+        assertThat(secondGroup.getId()).isEqualTo(10);
+        assertThat(secondGroup.getQuestions()).isEqualTo(
+                Arrays.asList(Question.with().id(30).build(), Question.with().id(31).build(), Question.with().id(35)
+                        .build()));
+
+        QuestionGroup thirdGroup = questionGroups.get(2);
+        assertThat(thirdGroup.getId()).isEqualTo(11);
+
+        assertThat(thirdGroup.getQuestions()).isEqualTo(
+                Arrays.asList(Question.with().id(39).build(), Question.with().id(50).build()));
+    }
+
+    @Test
     @DatabaseSetup("QuestionnairDefinitionGroupRandomizationEnabled-dataset.xml")
     @DatabaseTearDown("QuestionnairDefinitionGroupRandomizationEnabled-dataset.xml")
     public void resolveNextPageGroupsRandomizationTest() {

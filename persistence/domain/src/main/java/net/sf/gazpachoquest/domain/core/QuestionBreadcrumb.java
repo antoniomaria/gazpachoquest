@@ -62,7 +62,7 @@ public class QuestionBreadcrumb extends Breadcrumb {
 
         private Boolean last;
 
-        private RenderingMode type;
+        private RenderingMode renderingMode;
 
         public Builder last(Boolean last) {
             this.last = last;
@@ -84,8 +84,8 @@ public class QuestionBreadcrumb extends Breadcrumb {
             return this;
         }
 
-        public Builder type(RenderingMode type) {
-            this.type = type;
+        public Builder renderingMode(RenderingMode renderingMode) {
+            this.renderingMode = renderingMode;
             return this;
         }
 
@@ -95,7 +95,7 @@ public class QuestionBreadcrumb extends Breadcrumb {
             questionBreadcrumb.questionnair = questionnair;
             questionBreadcrumb.last = last;
             questionBreadcrumb.setId(id);
-            questionBreadcrumb.setType(type);
+            questionBreadcrumb.setRenderingMode(renderingMode);
             return questionBreadcrumb;
         }
     }

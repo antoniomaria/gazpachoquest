@@ -26,7 +26,7 @@ import net.sf.gazpachoquest.types.InvitationStatus;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING, length = 20)
+@DiscriminatorColumn(name = "renderingMode", discriminatorType = DiscriminatorType.STRING, length = 20)
 public class Invitation extends AbstractPersistable {
 
     private static final long serialVersionUID = -9203813369476903640L;

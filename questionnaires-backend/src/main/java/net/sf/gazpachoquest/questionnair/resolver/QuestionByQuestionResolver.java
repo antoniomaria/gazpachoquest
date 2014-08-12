@@ -64,7 +64,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
     @Autowired
     private PageMetadataCreator metadataCreator;
 
-    public QuestionByQuestionResolver(RenderingMode type) {
+    public QuestionByQuestionResolver() {
         super(RenderingMode.QUESTION_BY_QUESTION);
     }
 
@@ -84,7 +84,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
                 List<Question> questions = findQuestions(questionGroup);
                 for (Question question : questions) {
                     breadcrumb = QuestionBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE)
-                            .question(question).type(RenderingMode.QUESTION_BY_QUESTION).build();
+                            .question(question).renderingMode(RenderingMode.QUESTION_BY_QUESTION).build();
                     breadcrumbs.add(breadcrumb);
                 }
             }
@@ -93,13 +93,13 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
             Collections.shuffle(questions);
             for (Question question : questions) {
                 breadcrumb = QuestionBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE)
-                        .question(question).type(RenderingMode.QUESTION_BY_QUESTION).build();
+                        .question(question).renderingMode(RenderingMode.QUESTION_BY_QUESTION).build();
                 breadcrumbs.add(breadcrumb);
             }
         } else {
             Question question = findFirstQuestion(questionnairDefinitionId);
             breadcrumb = QuestionBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE)
-                    .type(RenderingMode.QUESTION_BY_QUESTION).question(question).build();
+                    .renderingMode(RenderingMode.QUESTION_BY_QUESTION).question(question).build();
             breadcrumbs.add(breadcrumb);
         }
         breadcrumbs.get(0).setLast(Boolean.TRUE);
@@ -139,7 +139,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
             }
             // Mark next element as last browsed.
             nextBreadcrumb = QuestionBreadcrumb.with().questionnair(questionnair).question(next)
-                    .type(RenderingMode.QUESTION_BY_QUESTION).build();
+                    .renderingMode(RenderingMode.QUESTION_BY_QUESTION).build();
         } else {
             Assert.isInstanceOf(QuestionBreadcrumb.class, breadcrumb);
             nextBreadcrumb = (QuestionBreadcrumb) breadcrumb;

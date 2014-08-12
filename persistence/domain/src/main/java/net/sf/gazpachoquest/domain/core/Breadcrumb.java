@@ -36,7 +36,7 @@ public class Breadcrumb extends AbstractAuditable {
     protected Questionnair questionnair;
 
     @Enumerated(EnumType.STRING)
-    protected RenderingMode type;
+    protected RenderingMode renderingMode;
 
     @Basic
     protected Boolean last;
@@ -65,12 +65,12 @@ public class Breadcrumb extends AbstractAuditable {
         return new BuilderImpl();
     }
 
-    public RenderingMode getType() {
-        return type;
+    public RenderingMode getRenderingMode() {
+        return renderingMode;
     }
 
-    public void setType(RenderingMode type) {
-        this.type = type;
+    public void setRenderingMode(RenderingMode renderingMode) {
+        this.renderingMode = renderingMode;
     }
 
     public static class BuilderImpl {

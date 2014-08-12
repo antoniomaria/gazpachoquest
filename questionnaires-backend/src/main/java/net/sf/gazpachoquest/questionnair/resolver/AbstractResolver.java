@@ -90,7 +90,7 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
             // At least one breadcrumb
             lastBreadcrumbPosition = (Integer) result.get(0)[1];
             breadcrumb = (Breadcrumb) result.get(0)[0];
-            if (!breadcrumb.getType().equals(type)) {
+            if (!breadcrumb.getRenderingMode().equals(type)) {
                 breadcrumbService.deleteByExample(
                         Breadcrumb.withProps().questionnair(Questionnair.with().id(questionnairId).build()).build(),
                         new SearchParameters());
