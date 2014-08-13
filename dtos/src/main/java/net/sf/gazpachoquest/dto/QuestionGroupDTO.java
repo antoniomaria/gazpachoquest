@@ -18,6 +18,8 @@ import net.sf.gazpachoquest.dto.support.AbstractAuditableDTO;
 import net.sf.gazpachoquest.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachoquest.types.Language;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class QuestionGroupDTO extends AbstractAuditableDTO implements
         IdentifiableLocalizable<QuestionGroupLanguageSettingsDTO> {
     private static final long serialVersionUID = 4668205160387380803L;
@@ -48,6 +50,7 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
         return languageSettings;
     }
 
+    @JsonIgnore
     public QuestionDTO getLastQuestionDTO() {
         int count = questions.size();
         return count > 0 ? questions.get(count - 1) : null;

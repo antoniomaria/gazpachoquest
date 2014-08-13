@@ -27,6 +27,10 @@ public class ResolverSelectorImpl implements ResolverSelector {
     @Qualifier("QuestionByQuestionResolver")
     private PageResolver questionByQuestionResolver;
 
+    @Autowired
+    @Qualifier("AllInOneResolver")
+    private PageResolver allInOneResolver;
+
     @Override
     public PageResolver selectBy(RenderingMode mode) {
         PageResolver resolver = null;
@@ -36,6 +40,9 @@ public class ResolverSelectorImpl implements ResolverSelector {
             break;
         case GROUP_BY_GROUP:
             resolver = groupByGroupResolver;
+            break;
+        case ALL_IN_ONE:
+            resolver = allInOneResolver;
             break;
         default:
             throw new IllegalArgumentException(String.format("Mode %s not supported", mode));
