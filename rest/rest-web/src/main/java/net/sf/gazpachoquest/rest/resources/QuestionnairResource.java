@@ -84,8 +84,7 @@ public class QuestionnairResource {
         Subject subject = SecurityUtils.getSubject();
         User principal = (User) SecurityUtils.getSubject().getPrincipal();
         subject.checkPermission("questionnair:read:" + questionnairId);
-        logger.debug("Fetching questionnairId {} page {} for {} user {}", questionnairId, actionStr,
-                principal.getFullName());
+        logger.info("Fetching questionnair {} for {} user {}", questionnairId, principal.getFullName());
 
         RenderingMode mode = RenderingMode.fromString(modeStr);
         NavigationAction action = NavigationAction.fromString(actionStr);

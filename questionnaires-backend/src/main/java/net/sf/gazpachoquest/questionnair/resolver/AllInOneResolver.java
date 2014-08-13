@@ -40,8 +40,9 @@ public class AllInOneResolver extends AbstractResolver<QuestionGroupBreadcrumb> 
     private QuestionnairDefinitionService questionnairDefinitionService;
 
     @Override
-    protected List<Breadcrumb> makeBreadcrumbs(QuestionnairDefinition questionnairDefinition, Questionnair questionnair) {
-        List<Breadcrumb> breadcrumbs = new ArrayList<>();
+    protected List<QuestionGroupBreadcrumb> makeBreadcrumbs(QuestionnairDefinition questionnairDefinition,
+            Questionnair questionnair) {
+        List<QuestionGroupBreadcrumb> breadcrumbs = new ArrayList<>();
         QuestionGroupBreadcrumb breadcrumb = null;
         Integer questionnairDefinitionId = questionnairDefinition.getId();
         RandomizationStrategy randomizationStrategy = questionnairDefinition.getRandomizationStrategy();
@@ -84,23 +85,21 @@ public class AllInOneResolver extends AbstractResolver<QuestionGroupBreadcrumb> 
     }
 
     @Override
-    protected Breadcrumb findPreviousBreadcrumb(QuestionnairDefinition questionnairDefinition,
-            Questionnair questionnair, Breadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
+    protected QuestionGroupBreadcrumb findPreviousBreadcrumb(QuestionnairDefinition questionnairDefinition,
+            Questionnair questionnair, QuestionGroupBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
         return null;
     }
 
     @Override
-    protected Breadcrumb findNextBreadcrumb(QuestionnairDefinition questionnairDefinition, Questionnair questionnair,
-            Breadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
+    protected QuestionGroupBreadcrumb findNextBreadcrumb(QuestionnairDefinition questionnairDefinition,
+            Questionnair questionnair, QuestionGroupBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
         return null;
     }
 
     @Override
     protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
-            List<Breadcrumb> breadcrumbs) {
-        // PageStructure nextPage =
-        // super.createPageStructure(randomizationStrategy, breadcrumbs);
-        PageStructure nextPage = new PageStructure();
+            List<QuestionGroupBreadcrumb> breadcrumbs) {
+        PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs);
 
         for (Breadcrumb breadcrumb : breadcrumbs) {
             QuestionGroupBreadcrumb questionGroupBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;

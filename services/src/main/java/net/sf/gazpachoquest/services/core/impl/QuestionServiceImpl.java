@@ -81,7 +81,7 @@ public class QuestionServiceImpl extends
     }
 
     @Override
-    @Transactional(readOnly = false)
+    @Transactional
     public List<Question> findInList(List<Integer> questionIds, Language language) {
         List<Question> questions = ((QuestionRepository) repository).findInList(questionIds);
         if (questionIds.isEmpty()) {

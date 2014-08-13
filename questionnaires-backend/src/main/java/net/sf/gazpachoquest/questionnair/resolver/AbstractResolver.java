@@ -56,6 +56,7 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
         this.type = type;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public PageStructure resolveNextPage(final Questionnair questionnair, final NavigationAction action) {
         Questionnair fetchedQuestionnair = questionnairService.findOne(questionnair.getId());
@@ -64,10 +65,10 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
         logger.debug("Finding {} page for questionnair {}", action.toString(), questionnairId);
 
         List<Object[]> result = breadcrumbService.findLastAndPosition(questionnairId);
-        Breadcrumb breadcrumb = null;
-        List<Breadcrumb> lastBreadcrumbs = new ArrayList<Breadcrumb>();
+        T breadcrumb = null;
+        List<T> lastBreadcrumbs = new ArrayList<>();
 
-        List<Breadcrumb> breadcrumbs = null;
+        List<T> breadcrumbs = null;
         Integer lastBreadcrumbPosition = null;
         if (result.isEmpty()) { // First time entering the
                                 // questionnairDefinition
@@ -77,7 +78,7 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
         } else {
             // At least one breadcrumb
             lastBreadcrumbPosition = (Integer) result.get(0)[1];
-            breadcrumb = (Breadcrumb) result.get(0)[0];
+            breadcrumb = (T) result.get(0)[0];
             if (!breadcrumb.getRenderingMode().equals(type)) {
                 // Clean dirties
                 breadcrumbService.deleteByExample(
@@ -91,7 +92,7 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
                     lastBreadcrumbs.add(breadcrumb);
                 } else {
                     for (Object[] row : result) {
-                        breadcrumb = (Breadcrumb) row[0];
+                        breadcrumb = (T) row[0];
                         lastBreadcrumbs.add(breadcrumb);
                     }
                 }
@@ -99,11 +100,11 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
             }
 
         }
-        List<Breadcrumb> nextBreadcrumbs = new ArrayList<>();
+        List<T> nextBreadcrumbs = new ArrayList<>();
         if (NavigationAction.ENTERING.equals(action)) {
             nextBreadcrumbs = lastBreadcrumbs;
         } else {
-            Breadcrumb nextBreadcrumb;
+            T nextBreadcrumb;
             if (NavigationAction.NEXT.equals(action)) {
                 nextBreadcrumb = findNextBreadcrumb(questionnairDefinition, questionnair, lastBreadcrumbs.get(0),
                         lastBreadcrumbPosition);
@@ -124,26 +125,15 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
         return createPageStructure(questionnairDefinition.getRandomizationStrategy(), nextBreadcrumbs);
     }
 
-    private void populateLastBreadcrumbs(List<Breadcrumb> lastBreadcrumbs, List<Breadcrumb> breadcrumbs) {
-        for (Breadcrumb breadcrumb : breadcrumbs) {
-            if (!breadcrumb.isLast()) {
-                break;
-            }
-            lastBreadcrumbs.add(breadcrumb);
-        }
-    }
+    protected abstract T findPreviousBreadcrumb(QuestionnairDefinition questionnairDefinition,
+            Questionnair questionnair, T lastBreadcrumb, Integer lastBreadcrumbPosition);
 
-    protected abstract Breadcrumb findPreviousBreadcrumb(QuestionnairDefinition questionnairDefinition,
-            Questionnair questionnair, Breadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition);
+    protected abstract T findNextBreadcrumb(QuestionnairDefinition questionnairDefinition, Questionnair questionnair,
+            T lastBreadcrumb, Integer lastBreadcrumbPosition);
 
-    protected abstract Breadcrumb findNextBreadcrumb(QuestionnairDefinition questionnairDefinition,
-            Questionnair questionnair, Breadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition);
+    protected abstract List<T> makeBreadcrumbs(QuestionnairDefinition questionnairDefinition, Questionnair questionnair);
 
-    protected abstract List<Breadcrumb> makeBreadcrumbs(QuestionnairDefinition questionnairDefinition,
-            Questionnair questionnair);
-
-    protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
-            List<Breadcrumb> breadcrumbs) {
+    protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy, List<T> breadcrumbs) {
         PageStructure nextPage = new PageStructure();
         if (!breadcrumbs.isEmpty()) {
             nextPage.setMetadata(metadataCreator.create(randomizationStrategy, type, breadcrumbs.get(0)));
@@ -151,8 +141,8 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
         return nextPage;
     }
 
-    protected void leaveBreakcrumbs(final Questionnair questionnair, List<Breadcrumb> breadcrumbs) {
-        for (Breadcrumb newBreadcrumb : breadcrumbs) {
+    protected void leaveBreakcrumbs(final Questionnair questionnair, List<T> breadcrumbs) {
+        for (T newBreadcrumb : breadcrumbs) {
             questionnair.addBreadcrumb(newBreadcrumb);
         }
         questionnairService.save(questionnair);
@@ -171,7 +161,7 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
         return questions;
     }
 
-    protected void populateQuestionsBreadcrumbs(List<Breadcrumb> breadcrumbs) {
+    protected void populateQuestionsBreadcrumbs(List<T> breadcrumbs) {
         for (Breadcrumb breadcrumb : breadcrumbs) {
             QuestionGroupBreadcrumb questionGroupBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
 
@@ -183,6 +173,15 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
                 questionGroupBreadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).last(Boolean.FALSE)
                         .build());
             }
+        }
+    }
+
+    private void populateLastBreadcrumbs(List<T> lastBreadcrumbs, List<T> breadcrumbs) {
+        for (T breadcrumb : breadcrumbs) {
+            if (!breadcrumb.isLast()) {
+                break;
+            }
+            lastBreadcrumbs.add(breadcrumb);
         }
     }
 

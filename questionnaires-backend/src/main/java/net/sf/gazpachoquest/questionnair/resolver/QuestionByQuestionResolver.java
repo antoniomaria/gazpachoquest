@@ -68,8 +68,9 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
     }
 
     @Override
-    protected List<Breadcrumb> makeBreadcrumbs(QuestionnairDefinition questionnairDefinition, Questionnair questionnair) {
-        List<Breadcrumb> breadcrumbs = new ArrayList<Breadcrumb>();
+    protected List<QuestionBreadcrumb> makeBreadcrumbs(QuestionnairDefinition questionnairDefinition,
+            Questionnair questionnair) {
+        List<QuestionBreadcrumb> breadcrumbs = new ArrayList<>();
         QuestionBreadcrumb breadcrumb = null;
         Integer questionnairDefinitionId = questionnairDefinition.getId();
         RandomizationStrategy randomizationStrategy = questionnairDefinition.getRandomizationStrategy();
@@ -106,8 +107,8 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
     }
 
     @Override
-    protected Breadcrumb findNextBreadcrumb(QuestionnairDefinition questionnairDefinition, Questionnair questionnair,
-            Breadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
+    protected QuestionBreadcrumb findNextBreadcrumb(QuestionnairDefinition questionnairDefinition,
+            Questionnair questionnair, QuestionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
 
         Breadcrumb breadcrumb = breadcrumbService.findByQuestionnairIdAndPosition(questionnair.getId(),
                 lastBreadcrumbPosition + 1);
@@ -117,10 +118,9 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
         if (breadcrumb == null) {
             Assert.isInstanceOf(QuestionBreadcrumb.class, lastBreadcrumb);
 
-            QuestionGroup lastQuestionGroup = ((QuestionBreadcrumb) lastBreadcrumb).getQuestion().getQuestionGroup();
+            QuestionGroup lastQuestionGroup = lastBreadcrumb.getQuestion().getQuestionGroup();
 
-            Integer position = questionService.findPositionInQuestionGroup(((QuestionBreadcrumb) lastBreadcrumb)
-                    .getQuestion().getId());
+            Integer position = questionService.findPositionInQuestionGroup(lastBreadcrumb.getQuestion().getId());
             long questionsCount = questionGroupService.questionsCount(lastQuestionGroup.getId());
             Question next = null;
             if (position < questionsCount - 1) { // Not last in group
@@ -148,8 +148,8 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
     }
 
     @Override
-    protected Breadcrumb findPreviousBreadcrumb(QuestionnairDefinition questionnairDefinition,
-            Questionnair questionnair, Breadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
+    protected QuestionBreadcrumb findPreviousBreadcrumb(QuestionnairDefinition questionnairDefinition,
+            Questionnair questionnair, QuestionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
         if (lastBreadcrumbPosition == INITIAL_POSITION) {
             logger.warn("Page out of range. First page is returned.");
             return null;
@@ -157,7 +157,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
         Breadcrumb breadcrumb = breadcrumbService.findByQuestionnairIdAndPosition(questionnair.getId(),
                 lastBreadcrumbPosition - 1);
         Assert.isInstanceOf(QuestionBreadcrumb.class, breadcrumb);
-        return breadcrumb;
+        return (QuestionBreadcrumb) breadcrumb;
     }
 
     @Override
@@ -174,14 +174,6 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
         return questions;
     }
 
-    @Override
-    protected void leaveBreakcrumbs(final Questionnair questionnair, List<Breadcrumb> breadcrumbs) {
-        for (Breadcrumb newBreadcrumb : breadcrumbs) {
-            questionnair.addBreadcrumb(newBreadcrumb);
-        }
-        questionnairService.save(questionnair);
-    }
-
     private Question findFirstQuestion(int questionnairDefinitionId) {
         QuestionGroup initialGroup = questionGroupService.findOneByPositionInQuestionnairDefinition(
                 questionnairDefinitionId, INITIAL_POSITION);
@@ -190,7 +182,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
 
     @Override
     protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
-            List<Breadcrumb> breadcrumbs) {
+            List<QuestionBreadcrumb> breadcrumbs) {
         PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs);
 
         Breadcrumb active = breadcrumbs.get(0);

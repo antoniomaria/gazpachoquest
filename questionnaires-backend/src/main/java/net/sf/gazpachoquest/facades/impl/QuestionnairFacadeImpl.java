@@ -34,6 +34,7 @@ import net.sf.gazpachoquest.questionnair.support.AnswersPopulator;
 import net.sf.gazpachoquest.questionnair.support.PageMetadataCreator;
 import net.sf.gazpachoquest.questionnair.support.PageMetadataStructure;
 import net.sf.gazpachoquest.questionnair.support.PageStructure;
+import net.sf.gazpachoquest.services.QuestionGroupService;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnairAnswersService;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
@@ -62,6 +63,9 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
 
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private QuestionGroupService questionGroupService;
 
     @Autowired
     private QuestionnairDefinitionService questionnairDefinitionService;
@@ -107,6 +111,9 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
             NavigationAction action) {
         Questionnair questionnair = Questionnair.with().id(questionnairId).build();
         PageResolver resolver = resolverSelector.selectBy(mode);
+        logger.info("Requesting page {} for questionnairId = {} in language {}", action.toString(), questionnairId,
+                preferredLanguage);
+
         PageStructure pageStructure = resolver.resolveNextPage(questionnair, action);
         QuestionnairPageDTO page = new QuestionnairPageDTO();
         if (pageStructure == null) { // TODO Handle exception
@@ -117,7 +124,11 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
         for (QuestionGroup questionGroup : questionGroups) {
             List<Integer> questionIds = questionGroup.getQuestionsId();
             List<Question> questions = questionService.findInList(questionIds, preferredLanguage);
-            QuestionGroupDTO questionGroupDTO = mapper.map(questionGroup, QuestionGroupDTO.class);
+            QuestionGroup localizedQuestionGroup = QuestionGroup.with().build();
+            if (pageStructure.isQuestionGroupInfoAvailable()) {
+                localizedQuestionGroup = questionGroupService.findOne(questionGroup.getId(), preferredLanguage);
+            }
+            QuestionGroupDTO questionGroupDTO = mapper.map(localizedQuestionGroup, QuestionGroupDTO.class);
             page.addQuestionGroup(questionGroupDTO);
             for (Question question : questions) {
                 QuestionDTO questionDTO = mapper.map(question, QuestionDTO.class);
@@ -125,7 +136,6 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
                 allVisibleQuestions.add(questionDTO);
             }
         }
-
         answersPopulator.populate(questionnair, allVisibleQuestions);
         PageMetadataStructure metadata = pageStructure.getMetadata();
         logger.info("Returning page {} of {} for questionnairId = {}", metadata.getNumber(), metadata.getCount(),

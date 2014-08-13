@@ -58,8 +58,9 @@ public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcru
     }
 
     @Override
-    protected List<Breadcrumb> makeBreadcrumbs(QuestionnairDefinition questionnairDefinition, Questionnair questionnair) {
-        List<Breadcrumb> breadcrumbs = new ArrayList<>();
+    protected List<QuestionGroupBreadcrumb> makeBreadcrumbs(QuestionnairDefinition questionnairDefinition,
+            Questionnair questionnair) {
+        List<QuestionGroupBreadcrumb> breadcrumbs = new ArrayList<>();
         QuestionGroupBreadcrumb breadcrumb = null;
         Integer questionnairDefinitionId = questionnairDefinition.getId();
         RandomizationStrategy randomizationStrategy = questionnairDefinition.getRandomizationStrategy();
@@ -102,13 +103,14 @@ public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcru
     }
 
     @Override
-    protected Breadcrumb findNextBreadcrumb(final QuestionnairDefinition questionnairDefinition,
-            final Questionnair questionnair, final Breadcrumb lastBreadcrumb, final Integer lastBreadcrumbPosition) {
+    protected QuestionGroupBreadcrumb findNextBreadcrumb(final QuestionnairDefinition questionnairDefinition,
+            final Questionnair questionnair, final QuestionGroupBreadcrumb lastBreadcrumb,
+            final Integer lastBreadcrumbPosition) {
 
-        Breadcrumb breadcrumb = breadcrumbService.findByQuestionnairIdAndPosition(questionnair.getId(),
-                lastBreadcrumbPosition + 1);
+        QuestionGroupBreadcrumb breadcrumb = (QuestionGroupBreadcrumb) breadcrumbService
+                .findByQuestionnairIdAndPosition(questionnair.getId(), lastBreadcrumbPosition + 1);
 
-        Breadcrumb nextBreadcrumb = null;
+        QuestionGroupBreadcrumb nextBreadcrumb = null;
 
         // There is no real questionGroup when QuestionsRandomization is enabled
         if (breadcrumb == null
@@ -117,9 +119,8 @@ public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcru
 
             Assert.isInstanceOf(QuestionGroupBreadcrumb.class, lastBreadcrumb);
 
-            Integer position = questionGroupService
-                    .positionInQuestionnairDefinition(((QuestionGroupBreadcrumb) lastBreadcrumb).getQuestionGroup()
-                            .getId());
+            Integer position = questionGroupService.positionInQuestionnairDefinition(lastBreadcrumb.getQuestionGroup()
+                    .getId());
             QuestionGroup next = questionGroupService.findOneByPositionInQuestionnairDefinition(
                     questionnairDefinition.getId(), position + 1);
             // The respondent has reached the last question group
@@ -137,14 +138,16 @@ public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcru
     }
 
     @Override
-    protected Breadcrumb findPreviousBreadcrumb(final QuestionnairDefinition questionnairDefinition,
-            final Questionnair questionnair, final Breadcrumb lastBreadcrumb, final Integer lastBreadcrumbPosition) {
+    protected QuestionGroupBreadcrumb findPreviousBreadcrumb(final QuestionnairDefinition questionnairDefinition,
+            final Questionnair questionnair, final QuestionGroupBreadcrumb lastBreadcrumb,
+            final Integer lastBreadcrumbPosition) {
         if (lastBreadcrumbPosition == INITIAL_POSITION) {
             logger.warn("Page out of range. First page is returned.");
             return null;
         }
 
-        return breadcrumbService.findByQuestionnairIdAndPosition(questionnair.getId(), lastBreadcrumbPosition - 1);
+        return (QuestionGroupBreadcrumb) breadcrumbService.findByQuestionnairIdAndPosition(questionnair.getId(),
+                lastBreadcrumbPosition - 1);
     }
 
     private QuestionGroup findFirstQuestionGroup(int questionnairDefinitionId) {
@@ -154,7 +157,7 @@ public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcru
 
     @Override
     protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
-            List<Breadcrumb> breadcrumbs) {
+            List<QuestionGroupBreadcrumb> breadcrumbs) {
         PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs);
         Breadcrumb active = breadcrumbs.get(0);
 

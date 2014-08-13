@@ -12,6 +12,8 @@ public class PageStructure {
 
     private final List<QuestionGroup> questionGroups = new ArrayList<>();
 
+    private boolean questionGroupInfoAvailable;
+
     public PageStructure() {
         super();
     }
@@ -26,6 +28,9 @@ public class PageStructure {
     }
 
     public void addQuestionGroup(QuestionGroup questionGroup) {
+        if (!questionGroup.isNew()) {
+            questionGroupInfoAvailable = true;
+        }
         questionGroups.add(questionGroup);
     }
 
@@ -41,4 +46,7 @@ public class PageStructure {
         return Collections.unmodifiableList(questionGroups);
     }
 
+    public boolean isQuestionGroupInfoAvailable() {
+        return questionGroupInfoAvailable;
+    }
 }
