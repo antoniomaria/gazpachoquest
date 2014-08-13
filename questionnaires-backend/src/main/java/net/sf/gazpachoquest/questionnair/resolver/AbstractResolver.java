@@ -1,6 +1,5 @@
 package net.sf.gazpachoquest.questionnair.resolver;
 
-import java.lang.reflect.ParameterizedType;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,14 +50,9 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
     @Autowired
     private PageMetadataCreator metadataCreator;
 
-    private final Class<T> breadcrumbClazz;
-
     protected final RenderingMode type;
 
-    @SuppressWarnings("unchecked")
     protected AbstractResolver(RenderingMode type) {
-        this.breadcrumbClazz = ((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass())
-                .getActualTypeArguments()[0]);
         this.type = type;
     }
 
@@ -105,34 +99,29 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
             }
 
         }
-        List<Breadcrumb> nextBreadcrumbs = null;
+        List<Breadcrumb> nextBreadcrumbs = new ArrayList<>();
         if (NavigationAction.ENTERING.equals(action)) {
             nextBreadcrumbs = lastBreadcrumbs;
         } else {
-            if (lastBreadcrumbs.size() == 1) {
-                nextBreadcrumbs = new ArrayList<>();
-                
-                Breadcrumb nextBreadcrumb;
-                if (NavigationAction.NEXT.equals(action)) {
-                    nextBreadcrumb = findNextBreadcrumb(questionnairDefinition, questionnair, lastBreadcrumbs.get(0),
-                            lastBreadcrumbPosition);
-                } else {// PREVIOUS
-                    nextBreadcrumb = findPreviousBreadcrumb(questionnairDefinition, questionnair,
-                            lastBreadcrumbs.get(0), lastBreadcrumbPosition);
-                }
-                // Prevent that questiongroups are still in range.
-                if (nextBreadcrumb != null) {
-                    lastBreadcrumbs.get(0).setLast(Boolean.FALSE);
-                    nextBreadcrumb.setLast(Boolean.TRUE);
-                    leaveBreakcrumbs(questionnair, Arrays.asList(lastBreadcrumbs.get(0), nextBreadcrumb));
-                } else {
-                    nextBreadcrumb = lastBreadcrumbs.get(0);
-                }
-                nextBreadcrumbs.add(nextBreadcrumb);
+            Breadcrumb nextBreadcrumb;
+            if (NavigationAction.NEXT.equals(action)) {
+                nextBreadcrumb = findNextBreadcrumb(questionnairDefinition, questionnair, lastBreadcrumbs.get(0),
+                        lastBreadcrumbPosition);
+            } else {// PREVIOUS
+                nextBreadcrumb = findPreviousBreadcrumb(questionnairDefinition, questionnair, lastBreadcrumbs.get(0),
+                        lastBreadcrumbPosition);
             }
+            // Prevent that questiongroups are still in range.
+            if (nextBreadcrumb != null) {
+                lastBreadcrumbs.get(0).setLast(Boolean.FALSE);
+                nextBreadcrumb.setLast(Boolean.TRUE);
+                leaveBreakcrumbs(questionnair, Arrays.asList(lastBreadcrumbs.get(0), nextBreadcrumb));
+            } else {
+                nextBreadcrumb = lastBreadcrumbs.get(0);
+            }
+            nextBreadcrumbs.add(nextBreadcrumb);
         }
-        return nextBreadcrumbs != null ? createPageStructure(questionnairDefinition.getRandomizationStrategy(),
-                nextBreadcrumbs) : null;
+        return createPageStructure(questionnairDefinition.getRandomizationStrategy(), nextBreadcrumbs);
     }
 
     private void populateLastBreadcrumbs(List<Breadcrumb> lastBreadcrumbs, List<Breadcrumb> breadcrumbs) {
@@ -156,75 +145,11 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
     protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
             List<Breadcrumb> breadcrumbs) {
         PageStructure nextPage = new PageStructure();
-        nextPage.setMetadata(metadataCreator.create(randomizationStrategy, breadcrumbs.get(0)));
+        if (!breadcrumbs.isEmpty()) {
+            nextPage.setMetadata(metadataCreator.create(randomizationStrategy, type, breadcrumbs.get(0)));
+        }
         return nextPage;
     }
-
-    /*-
-    protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
-        List<Breadcrumb> breadcrumbs) {
-    PageStructure nextPage = new PageStructure();
-    // GroupsByGroups
-    Breadcrumb active = breadcrumbs.get(0);
-    if (breadcrumbs.size() > 0) {
-        for (Breadcrumb breadcrumb : breadcrumbs) {
-            QuestionGroupBreadcrumb questionGroupBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
-
-            Builder builder = QuestionGroup.with();
-            if (!randomizationStrategy.equals(RandomizationStrategy.QUESTIONS_RANDOMIZATION)) {
-                builder.id(questionGroupBreadcrumb.getQuestionGroup().getId());
-            }
-            QuestionGroup questionGroup = builder.build();
-            for (QuestionBreadcrumb questionBreadcrumb : questionGroupBreadcrumb.getBreadcrumbs()) {
-                questionGroup.addQuestion(Question.with().id(questionBreadcrumb.getQuestion().getId()).build());
-            }
-            nextPage.addQuestionGroup(questionGroup);
-        }
-    } else {
-        if (active instanceof QuestionGroupBreadcrumb) {
-            QuestionGroupBreadcrumb questionGroupBreadcrumb = (QuestionGroupBreadcrumb) active;
-            Builder builder = QuestionGroup.with();
-            if (!randomizationStrategy.equals(RandomizationStrategy.QUESTIONS_RANDOMIZATION)) {
-                builder.id(questionGroupBreadcrumb.getQuestionGroup().getId());
-            }
-            QuestionGroup questionGroup = builder.build();
-            for (QuestionBreadcrumb questionBreadcrumb : questionGroupBreadcrumb.getBreadcrumbs()) {
-                questionGroup.addQuestion(Question.with().id(questionBreadcrumb.getQuestion().getId()).build());
-            }
-            nextPage.addQuestionGroup(questionGroup);
-        } else if (active instanceof QuestionBreadcrumb) {
-            QuestionBreadcrumb questionBreadcrumb = (QuestionBreadcrumb) active;
-
-            Builder builder = QuestionGroup.with();
-            // if
-            // (!randomizationStrategy.equals(RandomizationStrategy.QUESTIONS_RANDOMIZATION))
-            // {
-            builder.id(questionBreadcrumb.getQuestion().getQuestionGroup().getId());
-            // }
-            QuestionGroup questionGroup = builder.build();
-            questionGroup.addQuestion(Question.with().id(questionBreadcrumb.getQuestion().getId()).build());
-            nextPage.addQuestionGroup(questionGroup);
-        }
-
-    }
-
-    if (breadcrumbs.size() == 1) {
-        nextPage.setMetadata(metadataCreator.create(randomizationStrategy, breadcrumbs.get(0)));
-    }
-
-    for (Breadcrumb breadcrumb : breadcrumbs) {
-        if (breadcrumb instanceof QuestionGroupBreadcrumb) {
-            QuestionGroupBreadcrumb questionGroupBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
-            for (QuestionBreadcrumb questionBreadcrumb : questionGroupBreadcrumb.getBreadcrumbs()) {
-                nextPage.addQuestionsId(questionBreadcrumb.getQuestion().getId());
-            }
-        } else {
-            QuestionBreadcrumb questionBreadcrumb = (QuestionBreadcrumb) breadcrumb;
-            nextPage.addQuestionsId(questionBreadcrumb.getQuestion().getId());
-        }
-    }
-    return nextPage;
-    }*/
 
     protected void leaveBreakcrumbs(final Questionnair questionnair, List<Breadcrumb> breadcrumbs) {
         for (Breadcrumb newBreadcrumb : breadcrumbs) {

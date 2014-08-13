@@ -19,7 +19,7 @@ public class QuestionnairPageDTO implements Serializable {
 
     private static final long serialVersionUID = -4722536148236589317L;
 
-    private final List<QuestionDTO> questions = new ArrayList<>();
+    private final List<QuestionGroupDTO> questionGroups = new ArrayList<>();
 
     private PageMetadataDTO metadata;
 
@@ -27,12 +27,12 @@ public class QuestionnairPageDTO implements Serializable {
         super();
     }
 
-    public void addQuestion(QuestionDTO question) {
-        questions.add(question);
+    public void addQuestionGroup(QuestionGroupDTO questionGroup) {
+        questionGroups.add(questionGroup);
     }
 
-    public List<QuestionDTO> getQuestions() {
-        return Collections.unmodifiableList(questions);
+    public List<QuestionGroupDTO> getQuestionGroups() {
+        return Collections.unmodifiableList(questionGroups);
     }
 
     public PageMetadataDTO getMetadata() {
@@ -41,6 +41,15 @@ public class QuestionnairPageDTO implements Serializable {
 
     public void setMetadata(PageMetadataDTO metadata) {
         this.metadata = metadata;
+    }
+
+    public List<QuestionDTO> getQuestions() {
+        List<QuestionDTO> allQuestions = new ArrayList<>();
+        for (QuestionGroupDTO questionGroup : questionGroups) {
+            List<QuestionDTO> questions = questionGroup.getQuestions();
+            allQuestions.addAll(questions);
+        }
+        return allQuestions;
     }
 
 }

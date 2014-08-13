@@ -33,7 +33,7 @@ public class QuestionnairAnswers implements Persistable {
 
     public Map<String, Object> getAnswers() {
         if (answers == null) {
-            this.answers = new TreeMap<String, Object>(String.CASE_INSENSITIVE_ORDER);
+            answers = new TreeMap<String, Object>(String.CASE_INSENSITIVE_ORDER);
         }
         return answers;
     }
@@ -44,7 +44,7 @@ public class QuestionnairAnswers implements Persistable {
 
     public void setAnswer(String code, Object answer) {
         Assert.notNull(code);
-        this.getAnswers().put(code.toLowerCase(), answer);
+        getAnswers().put(code.toLowerCase(), answer);
     }
 
     public Object getAnswer(String code) {
@@ -90,7 +90,7 @@ public class QuestionnairAnswers implements Persistable {
 
     @Override
     public String toString() {
-        return String.format("Entity of renderingMode %s with id: %s", this.getClass().getName(), getId());
+        return String.format("Entity of type %s with id: %s", this.getClass().getName(), getId());
     }
 
     public static Builder with() {
@@ -109,7 +109,7 @@ public class QuestionnairAnswers implements Persistable {
         public Builder answer(String code, Object answer) {
             Assert.notNull(code);
             if (answer == null) {
-                this.answers = new HashMap<String, Object>();
+                answers = new HashMap<String, Object>();
             }
             answers.put(code.toLowerCase(), answer);
             return this;

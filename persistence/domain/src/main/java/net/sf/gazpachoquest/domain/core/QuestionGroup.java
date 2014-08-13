@@ -65,7 +65,7 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
 
     @OneToMany(mappedBy = "questionGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OrderColumn(name = "order_in_questiongroup")
-    @XmlElementWrapper(name="questions")
+    @XmlElementWrapper(name = "questions")
     @XmlElement(name = "question")
     private final List<Question> questions = new ArrayList<Question>();
 
@@ -82,6 +82,14 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
 
     public List<Question> getQuestions() {
         return Collections.unmodifiableList(questions);
+    }
+
+    public List<Integer> getQuestionsId() {
+        List<Integer> questionsId = new ArrayList<>();
+        for (Question question : questions) {
+            questionsId.add(question.getId());
+        }
+        return Collections.unmodifiableList(questionsId);
     }
 
     public QuestionnairDefinition getQuestionnairDefinition() {
@@ -188,4 +196,5 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
             return questionGroup;
         }
     }
+
 }

@@ -10,14 +10,17 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.facades.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import net.sf.gazpachoquest.domain.core.Question;
+import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.dto.PageMetadataDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
+import net.sf.gazpachoquest.dto.QuestionGroupDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDefinitionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionnairPageDTO;
@@ -109,15 +112,21 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
         if (pageStructure == null) { // TODO Handle exception
             return page;
         }
-        List<Integer> questionIds = pageStructure.getQuestionsId();
-
-        List<Question> questions = questionService.findInList(questionIds, preferredLanguage);
-        for (Question question : questions) {
-            QuestionDTO questionDTO = mapper.map(question, QuestionDTO.class);
-            page.addQuestion(questionDTO);
+        List<QuestionGroup> questionGroups = pageStructure.getQuestionGroups();
+        List<QuestionDTO> allVisibleQuestions = new ArrayList<>();
+        for (QuestionGroup questionGroup : questionGroups) {
+            List<Integer> questionIds = questionGroup.getQuestionsId();
+            List<Question> questions = questionService.findInList(questionIds, preferredLanguage);
+            QuestionGroupDTO questionGroupDTO = mapper.map(questionGroup, QuestionGroupDTO.class);
+            page.addQuestionGroup(questionGroupDTO);
+            for (Question question : questions) {
+                QuestionDTO questionDTO = mapper.map(question, QuestionDTO.class);
+                questionGroupDTO.addQuestion(questionDTO);
+                allVisibleQuestions.add(questionDTO);
+            }
         }
 
-        answersPopulator.populate(questionnair, page.getQuestions());
+        answersPopulator.populate(questionnair, allVisibleQuestions);
         PageMetadataStructure metadata = pageStructure.getMetadata();
         logger.info("Returning page {} of {} for questionnairId = {}", metadata.getNumber(), metadata.getCount(),
                 questionnairId);

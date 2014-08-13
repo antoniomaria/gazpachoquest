@@ -2,11 +2,10 @@ package net.sf.gazpachoquest.questionnair.support;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
-import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
+import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +39,8 @@ public class PageMetadataCreatorTest {
     @Test
     public void createForQuestionGroupNoRandomizationTest() {
         Breadcrumb breadcrumb = breadcrumbService.findOne(201);
-        PageMetadataStructure metadata = pageMetadataCreator.create(RandomizationStrategy.NONE, breadcrumb);
+        PageMetadataStructure metadata = pageMetadataCreator.create(RandomizationStrategy.NONE,
+                RenderingMode.GROUP_BY_GROUP, breadcrumb);
         assertThat(metadata.getCount()).isEqualTo(3);
         assertThat(metadata.getNumber()).isEqualTo(3);
     }
@@ -49,14 +49,11 @@ public class PageMetadataCreatorTest {
     @DatabaseSetup("PageMetadataCreatorQuestionRandomizationStrategyTest-dataset.xml")
     @DatabaseTearDown("PageMetadataCreatorQuestionRandomizationStrategyTest-dataset.xml")
     public void createRandomizationPerQuestionEnabledTest() {
-        /*-
         Breadcrumb breadcrumb = breadcrumbService.findOne(103);
         PageMetadataStructure metadata = pageMetadataCreator.create(RandomizationStrategy.QUESTIONS_RANDOMIZATION,
-                breadcrumb);
+                RenderingMode.GROUP_BY_GROUP, breadcrumb);
         assertThat(metadata.getCount()).isEqualTo(8);
-        assertThat(metadata.getNumber()).isEqualTo(2);*/
-        breadcrumbService.deleteByExample(Breadcrumb.withProps().questionnair(Questionnair.with().id(64).build())
-                .build(), new SearchParameters());
+        assertThat(metadata.getNumber()).isEqualTo(2);
     }
 
 }

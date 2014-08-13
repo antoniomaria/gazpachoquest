@@ -10,8 +10,6 @@ public class PageStructure {
 
     private PageMetadataStructure metadata;
 
-    private final List<Integer> questionsId = new ArrayList<>();
-
     private final List<QuestionGroup> questionGroups = new ArrayList<>();
 
     public PageStructure() {
@@ -19,11 +17,12 @@ public class PageStructure {
     }
 
     public List<Integer> getQuestionsId() {
-        return Collections.unmodifiableList(questionsId);
-    }
-
-    public void addQuestionsId(Integer questionId) {
-        questionsId.add(questionId);
+        List<Integer> allQuestionsId = new ArrayList<>();
+        for (QuestionGroup questionGroup : questionGroups) {
+            List<Integer> questionIds = questionGroup.getQuestionsId();
+            allQuestionsId.addAll(questionIds);
+        }
+        return Collections.unmodifiableList(allQuestionsId);
     }
 
     public void addQuestionGroup(QuestionGroup questionGroup) {

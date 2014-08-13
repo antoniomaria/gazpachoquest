@@ -19,7 +19,6 @@ import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.QuestionGroup.Builder;
-import net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
@@ -196,15 +195,14 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
 
         Breadcrumb active = breadcrumbs.get(0);
 
-        QuestionGroupBreadcrumb questionGroupBreadcrumb = (QuestionGroupBreadcrumb) active;
+        QuestionBreadcrumb questionBreadcrumb = (QuestionBreadcrumb) active;
         Builder builder = QuestionGroup.with();
         if (!randomizationStrategy.equals(RandomizationStrategy.QUESTIONS_RANDOMIZATION)) {
-            builder.id(questionGroupBreadcrumb.getQuestionGroup().getId());
+            builder.id(questionBreadcrumb.getQuestion().getQuestionGroupId());
         }
         QuestionGroup questionGroup = builder.build();
-        for (QuestionBreadcrumb questionBreadcrumb : questionGroupBreadcrumb.getBreadcrumbs()) {
-            questionGroup.addQuestion(Question.with().id(questionBreadcrumb.getQuestion().getId()).build());
-        }
+        questionGroup.addQuestion(Question.with().id(questionBreadcrumb.getQuestion().getId()).build());
+
         nextPage.addQuestionGroup(questionGroup);
         return nextPage;
     }

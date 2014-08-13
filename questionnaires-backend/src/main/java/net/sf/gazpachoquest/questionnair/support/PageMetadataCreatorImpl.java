@@ -12,6 +12,7 @@ import net.sf.gazpachoquest.services.QuestionGroupService;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
+import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,9 +33,13 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
     private BreadcrumbService breadcrumbService;
 
     @Override
-    public PageMetadataStructure create(RandomizationStrategy randomizationStrategy, Breadcrumb breadcrumb) {
+    public PageMetadataStructure create(RandomizationStrategy randomizationStrategy, RenderingMode type,
+            Breadcrumb breadcrumb) {
         int position = -1;
         int count = -1;
+        if (type.equals(RenderingMode.ALL_IN_ONE)) {
+            return PageMetadataStructure.with().count(1).number(1).build();
+        }
         if (breadcrumb instanceof QuestionGroupBreadcrumb) {
             QuestionGroup questionGroup = ((QuestionGroupBreadcrumb) breadcrumb).getQuestionGroup();
 

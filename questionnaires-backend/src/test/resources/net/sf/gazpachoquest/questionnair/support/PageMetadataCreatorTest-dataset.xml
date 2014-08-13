@@ -64,7 +64,7 @@
   <breadcrumb id="152" type="Q" created_date="2014-07-17 10:52:15.233" last="false" last_modified_date="2014-07-17 10:52:15.233" createdby_id="1" lastmodifiedby_id="1" parent_id="151" question_id="34" order_in_breadcrumb_group="0"/>
   <breadcrumb id="153" type="Q" created_date="2014-07-17 10:52:15.236" last="false" last_modified_date="2014-07-17 10:52:15.236" createdby_id="1" lastmodifiedby_id="1" parent_id="151" question_id="36" order_in_breadcrumb_group="1"/>
   <breadcrumb id="154" type="Q" created_date="2014-07-17 10:52:15.237" last="false" last_modified_date="2014-07-17 10:52:15.237" createdby_id="1" lastmodifiedby_id="1" parent_id="151" question_id="41" order_in_breadcrumb_group="2"/>
-  <breadcrumb id="201" type="G" created_date="2014-07-17 10:55:44.82" last="true" last_modified_date="2014-07-17 10:55:44.82" createdby_id="1" lastmodifiedby_id="1" questionnair_id="64" questiongroup_id="18" navigation_order="2"/>
+  <breadcrumb id="201" type="G" rendering_mode="GROUP_BY_GROUP" created_date="2014-07-17 10:55:44.82" last="true" last_modified_date="2014-07-17 10:55:44.82" createdby_id="1" lastmodifiedby_id="1" questionnair_id="64" questiongroup_id="18" navigation_order="2"/>
   <breadcrumb id="202" type="Q" created_date="2014-07-17 10:55:44.83" last="false" last_modified_date="2014-07-17 10:55:44.83" createdby_id="1" lastmodifiedby_id="1" parent_id="201" question_id="45" order_in_breadcrumb_group="0"/>
   <breadcrumb id="203" type="Q" created_date="2014-07-17 10:55:44.832" last="false" last_modified_date="2014-07-17 10:55:44.832" createdby_id="1" lastmodifiedby_id="1" parent_id="201" question_id="56" order_in_breadcrumb_group="1"/>
   
