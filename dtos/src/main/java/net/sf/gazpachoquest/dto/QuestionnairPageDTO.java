@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class QuestionnairPageDTO implements Serializable {
 
     private static final long serialVersionUID = -4722536148236589317L;
@@ -43,6 +45,7 @@ public class QuestionnairPageDTO implements Serializable {
         this.metadata = metadata;
     }
 
+    @JsonIgnore
     public List<QuestionDTO> getQuestions() {
         List<QuestionDTO> allQuestions = new ArrayList<>();
         for (QuestionGroupDTO questionGroup : questionGroups) {

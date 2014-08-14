@@ -18,6 +18,7 @@ import net.sf.gazpachoquest.dto.support.AbstractAuditableDTO;
 import net.sf.gazpachoquest.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
+import net.sf.gazpachoquest.types.RenderingMode;
 
 public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
         IdentifiableLocalizable<QuestionnairDefinitionLanguageSettingsDTO> {
@@ -39,6 +40,8 @@ public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
     private RandomizationStrategy randomizationStrategy;
 
     private Integer questionsPerPage;
+
+    private RenderingMode renderingMode;
 
     public QuestionnairDefinitionDTO() {
         super();
@@ -117,6 +120,14 @@ public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
         this.questionsPerPage = questionsPerPage;
     }
 
+    public RenderingMode getRenderingMode() {
+        return renderingMode;
+    }
+
+    public void setRenderingMode(RenderingMode renderingMode) {
+        this.renderingMode = renderingMode;
+    }
+
     public static Builder with() {
         return new BuilderImpl();
     }
@@ -137,6 +148,8 @@ public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
         Builder randomizationStrategy(RandomizationStrategy randomizationStrategy);
 
         Builder questionsPerPage(Integer questionsPerPage);
+
+        Builder renderingMode(RenderingMode renderingMode);
 
         Builder languageSettings(QuestionnairDefinitionLanguageSettingsDTO languageSettings);
 
@@ -160,6 +173,8 @@ public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
 
         private Integer questionsPerPage;
 
+        private RenderingMode renderingMode;
+
         @Override
         public QuestionnairDefinitionDTO build() {
             QuestionnairDefinitionDTO questionnairDefinitionDTO = new QuestionnairDefinitionDTO();
@@ -172,7 +187,7 @@ public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
             questionnairDefinitionDTO.questionGroupInfoVisible = questionGroupInfoVisible;
             questionnairDefinitionDTO.randomizationStrategy = randomizationStrategy;
             questionnairDefinitionDTO.questionsPerPage = questionsPerPage;
-
+            questionnairDefinitionDTO.renderingMode = renderingMode;
             return questionnairDefinitionDTO;
         }
 
@@ -226,6 +241,12 @@ public class QuestionnairDefinitionDTO extends AbstractAuditableDTO implements
         @Override
         public Builder questionsPerPage(Integer questionsPerPage) {
             this.questionsPerPage = questionsPerPage;
+            return this;
+        }
+
+        @Override
+        public Builder renderingMode(RenderingMode renderingMode) {
+            this.renderingMode = renderingMode;
             return this;
         }
     }

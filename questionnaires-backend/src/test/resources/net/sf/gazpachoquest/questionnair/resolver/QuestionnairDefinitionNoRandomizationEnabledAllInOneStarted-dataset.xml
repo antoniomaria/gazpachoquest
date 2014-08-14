@@ -86,19 +86,19 @@
   <label_set />
   <label />
   
-  <breadcrumb id="1" questionnair_id="58" type="G" last="true" rendering_mode="ALL_IN_ONE" questiongroup_id="9" navigation_order="0"/>
+  <breadcrumb id="1" questionnair_id="58" type="G" last="true" rendering_mode="AIO" questiongroup_id="9" navigation_order="0"/>
   <breadcrumb id="2" parent_id="1" type="Q" question_id="13" order_in_breadcrumb_group="0"/>
   <breadcrumb id="3" parent_id="1" type="Q" question_id="12" order_in_breadcrumb_group="0"/>
   <breadcrumb id="4" parent_id="1" type="Q" question_id="29" order_in_breadcrumb_group="0"/>
   
   
-  <breadcrumb id="5" questionnair_id="58" type="G" last="true" rendering_mode="ALL_IN_ONE" questiongroup_id="10" navigation_order="1"/>
+  <breadcrumb id="5" questionnair_id="58" type="G" last="true" rendering_mode="AIO" questiongroup_id="10" navigation_order="1"/>
   <breadcrumb id="6" parent_id="5" type="Q" question_id="30" order_in_breadcrumb_group="0"/>
   <breadcrumb id="7" parent_id="5" type="Q" question_id="31" order_in_breadcrumb_group="1"/>
   <breadcrumb id="8" parent_id="5" type="Q" question_id="35" order_in_breadcrumb_group="2"/>
   
   
-  <breadcrumb id="9" questionnair_id="58" type="G" last="true" rendering_mode="ALL_IN_ONE" questiongroup_id="11" navigation_order="2"/>
+  <breadcrumb id="9" questionnair_id="58" type="G" last="true" rendering_mode="AIO" questiongroup_id="11" navigation_order="2"/>
   <breadcrumb id="10" parent_id="9" type="Q" question_id="39" order_in_breadcrumb_group="0"/>
   <breadcrumb id="11" parent_id="9" type="Q" question_id="50" order_in_breadcrumb_group="1"/>
  

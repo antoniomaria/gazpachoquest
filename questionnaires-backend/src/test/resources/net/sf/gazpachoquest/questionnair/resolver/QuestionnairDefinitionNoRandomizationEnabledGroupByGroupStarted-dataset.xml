@@ -86,9 +86,9 @@
   <label_set />
   <label />
   
-  <breadcrumb id="7" questionnair_id="58" type="G" last="false" rendering_mode="GROUP_BY_GROUP" questiongroup_id="11" navigation_order="2"/>
-  <breadcrumb id="3" questionnair_id="58" type="G" last="false" rendering_mode="GROUP_BY_GROUP" questiongroup_id="9" navigation_order="0"/>
-  <breadcrumb id="5" questionnair_id="58" type="G" last="true" rendering_mode="GROUP_BY_GROUP" questiongroup_id="10" navigation_order="1"/>
+  <breadcrumb id="7" questionnair_id="58" type="G" last="false" rendering_mode="GBG" questiongroup_id="11" navigation_order="2"/>
+  <breadcrumb id="3" questionnair_id="58" type="G" last="false" rendering_mode="GBG" questiongroup_id="9" navigation_order="0"/>
+  <breadcrumb id="5" questionnair_id="58" type="G" last="true" rendering_mode="GBG" questiongroup_id="10" navigation_order="1"/>
   
   <sequence seq_name="questionnair_answers_7_seq" seq_count="50" />
   <sequence seq_name="SEQ_GEN" seq_count="150" />

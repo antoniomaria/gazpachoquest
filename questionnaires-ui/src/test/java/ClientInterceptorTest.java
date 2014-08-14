@@ -1,4 +1,4 @@
-package net.sf.gazpachoquest.jaas;
+
 
 import java.util.Collections;
 

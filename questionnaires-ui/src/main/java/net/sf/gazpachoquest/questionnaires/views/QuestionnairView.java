@@ -146,6 +146,9 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
 
         QuestionnairPageDTO page = questionnairResource.getPage(questionnairId, renderingMode, preferredLanguage,
                 NavigationAction.ENTERING);
+
+        logger.debug("Displaying page {}/{} with {} questions", page.getMetadata().getNumber(), page.getMetadata()
+                .getNumber(), page.getQuestions().size());
         questionsLayout = new VerticalLayout();
         update(page);
 

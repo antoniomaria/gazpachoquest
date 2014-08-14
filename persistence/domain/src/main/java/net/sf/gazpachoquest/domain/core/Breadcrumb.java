@@ -11,6 +11,8 @@
 package net.sf.gazpachoquest.domain.core;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,6 +24,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
+import net.sf.gazpachoquest.jpa.converter.RenderingModeConverter;
 import net.sf.gazpachoquest.types.RenderingMode;
 
 @Entity
@@ -36,6 +39,7 @@ public class Breadcrumb extends AbstractAuditable {
     protected Questionnair questionnair;
 
     @Enumerated(EnumType.STRING)
+    @Convert(converter = RenderingModeConverter.class)
     protected RenderingMode renderingMode;
 
     @Basic

@@ -42,15 +42,17 @@ import net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation;
 import net.sf.gazpachoquest.domain.support.AbstractLocalizable;
 import net.sf.gazpachoquest.jpa.converter.EntityStatusConverter;
 import net.sf.gazpachoquest.jpa.converter.RandomizationStrategyTypeConverter;
+import net.sf.gazpachoquest.jpa.converter.RenderingModeConverter;
 import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
+import net.sf.gazpachoquest.types.RenderingMode;
 
 @Entity
 @XmlRootElement
 @XmlType(propOrder = { "language", "languageSettings", "questionGroups", "mailTemplates", "translations",
-        "welcomeVisible", "progressVisible", "questionGroupInfoVisible", "randomizationStrategy", "questionsPerPage" })
+        "welcomeVisible", "progressVisible", "questionGroupInfoVisible", "randomizationStrategy", "questionsPerPage", "renderingMode" })
 public class QuestionnairDefinition extends
         AbstractLocalizable<QuestionnairDefinitionTranslation, QuestionnairDefinitionLanguageSettings> {
 
@@ -101,6 +103,10 @@ public class QuestionnairDefinition extends
     private RandomizationStrategy randomizationStrategy;
 
     private Integer questionsPerPage;
+
+    @Convert(converter = RenderingModeConverter.class)
+    @Column(nullable = false)
+    private RenderingMode renderingMode;
 
     public QuestionnairDefinition() {
         super();
@@ -215,7 +221,14 @@ public class QuestionnairDefinition extends
             questionGroup.setQuestionnairDefinition(this);
             questionGroup.updateInverseRelationships();
         }
+    }
 
+    public RenderingMode getRenderingMode() {
+        return renderingMode;
+    }
+
+    public void setRenderingMode(RenderingMode renderingMode) {
+        this.renderingMode = renderingMode;
     }
 
     public static Builder with() {

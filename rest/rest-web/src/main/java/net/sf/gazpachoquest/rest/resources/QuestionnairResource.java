@@ -86,7 +86,7 @@ public class QuestionnairResource {
         subject.checkPermission("questionnair:read:" + questionnairId);
         logger.info("Fetching questionnair {} for {} user {}", questionnairId, principal.getFullName());
 
-        RenderingMode mode = RenderingMode.fromString(modeStr);
+        RenderingMode mode = RenderingMode.fromValue(modeStr);
         NavigationAction action = NavigationAction.fromString(actionStr);
         Language preferredLanguage = Language.fromString(preferredLanguageStr);
         QuestionnairPageDTO page = questionnairFacade.resolvePage(questionnairId, mode, preferredLanguage, action);

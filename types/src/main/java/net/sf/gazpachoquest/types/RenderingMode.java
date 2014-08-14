@@ -12,24 +12,33 @@ package net.sf.gazpachoquest.types;
 
 public enum RenderingMode {
 
-    QUESTION_BY_QUESTION("QUESTION_BY_QUESTION"), GROUP_BY_GROUP("GROUP_BY_GROUP"), ALL_IN_ONE("ALL_IN_ONE");
+    QUESTION_BY_QUESTION("QBQ"), GROUP_BY_GROUP("GBG"), ALL_IN_ONE("AIO");
 
-    private final String value;
+    private final String code;
 
-    RenderingMode(String v) {
-        value = v;
+    RenderingMode(String code) {
+        this.code = code;
     }
 
-    public String value() {
-        return value;
+    public String getCode() {
+        return code;
     }
 
-    public static RenderingMode fromString(String value) {
-        for (RenderingMode c : RenderingMode.values()) {
-            if (c.value.equals(value)) {
-                return c;
+    public static RenderingMode fromCode(String code) {
+        for (RenderingMode renderingMode : RenderingMode.values()) {
+            if (renderingMode.getCode().equals(code)) {
+                return renderingMode;
             }
         }
-        throw new IllegalArgumentException(value.toString());
+        throw new IllegalArgumentException(String.format("RenderingMode code %s not supported", code));
+    }
+
+    public static RenderingMode fromValue(String value) {
+        for (RenderingMode renderingMode : RenderingMode.values()) {
+            if (renderingMode.toString().equals(value)) {
+                return renderingMode;
+            }
+        }
+        throw new IllegalArgumentException(String.format("RenderingMode value %s not supported", value));
     }
 }
