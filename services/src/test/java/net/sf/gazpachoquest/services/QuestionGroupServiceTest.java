@@ -1,7 +1,9 @@
 package net.sf.gazpachoquest.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
+import net.sf.gazpachoquest.types.Language;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,5 +35,14 @@ public class QuestionGroupServiceTest {
         Integer questionGroupId = 9;
         long count = questionGroupService.questionsCount(questionGroupId);
         assertThat(count).isEqualTo(3);
+    }
+
+    @Test
+    public void findOneTest() {
+        Integer questionGroupId = 9;
+        Language language = Language.ES;
+        QuestionGroup questionGroup = questionGroupService.findOne(questionGroupId, language);
+        assertThat(questionGroup.getQuestionsId()).isEmpty();
+        assertThat(questionGroup.getLanguageSettings().getTitle()).isEqualTo("QuestionGroup 1 Spanish Version");
     }
 }
