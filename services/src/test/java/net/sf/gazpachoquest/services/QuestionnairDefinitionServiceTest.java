@@ -10,6 +10,7 @@ import net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
+import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -69,14 +70,16 @@ public class QuestionnairDefinitionServiceTest {
 
         QuestionnairDefinition questionnairDefinition = QuestionnairDefinition.with().language(Language.EN)
                 .languageSettings(languageSettings).questionGroupInfoVisible(true).progressVisible(true)
-                .welcomeVisible(true).randomizationStrategy(RandomizationStrategy.NONE).build();
+                .welcomeVisible(true).randomizationStrategy(RandomizationStrategy.NONE)
+                .renderingMode(RenderingMode.GROUP_BY_GROUP).build();
 
         questionnairDefinition = questionnairDefinitionService.save(questionnairDefinition);
         DateTime lastModifiedDate = questionnairDefinition.getLastModifiedDate();
 
         QuestionnairDefinition created = questionnairDefinitionService.findOne(questionnairDefinition.getId());
         QuestionnairDefinitionLanguageSettings newLanguageSettings = QuestionnairDefinitionLanguageSettings.with()
-                .title("My QuestionnairDefinition. Ver 1").description("My description").welcomeText("my welcome").build();
+                .title("My QuestionnairDefinition. Ver 1").description("My description").welcomeText("my welcome")
+                .build();
         created.setLanguageSettings(newLanguageSettings);
         try {
             Thread.sleep(1000);

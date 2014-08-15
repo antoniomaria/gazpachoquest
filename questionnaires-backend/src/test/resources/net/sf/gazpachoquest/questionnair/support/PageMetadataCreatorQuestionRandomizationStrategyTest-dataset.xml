@@ -10,7 +10,7 @@
   
   <invitation id="66" type="P" status="A" token="ALGB6SCJKW" research_id="63" respondent_id="6"/>
   
-  <questionnair_definition id="12" created_date="2014-07-16 20:39:55.074" language="EN" last_modified_date="2014-07-16 20:39:55.074" progress_visible="true" question_group_info_visible="true" questions_per_page="1" randomization_strategy="Q" status="C" welcome_visible="true" description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample questionnairDefinition&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;" title="Sample QuestionnairDefinition" welcome_text="Thank you for taking the time to participate in this questionnairDefinition." createdby_id="1" lastmodifiedby_id="1"/>
+  <questionnair_definition id="12" created_date="2014-07-16 20:39:55.074" language="EN" last_modified_date="2014-07-16 20:39:55.074" progress_visible="true" question_group_info_visible="true" questions_per_page="1" randomization_strategy="Q" status="C" welcome_visible="true" description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample questionnairDefinition&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;" title="Sample QuestionnairDefinition" welcome_text="Thank you for taking the time to participate in this questionnairDefinition." createdby_id="1" lastmodifiedby_id="1" rendering_mode="GBG"/>
   <questionnair_definition_translation />
   
   <question_group id="14" created_date="2014-07-16 20:39:55.133" language="EN" last_modified_date="2014-07-16 20:39:55.133" randomization_enabled="false" title="QuestionGroup 1" createdby_id="1" lastmodifiedby_id="1" questionnairdefinition_id="12" order_in_questionnair="0"/>
@@ -58,7 +58,7 @@
   
   <breadcrumb id="101" type="G" created_date="2014-07-16 21:02:37.64" last="false" last_modified_date="2014-07-16 21:02:37.64" createdby_id="1" lastmodifiedby_id="1" questionnair_id="64" navigation_order="0"/>
   <breadcrumb id="102" type="Q" created_date="2014-07-16 21:02:37.664" last_modified_date="2014-07-16 21:02:37.664" createdby_id="1" lastmodifiedby_id="1" parent_id="101" question_id="32" order_in_breadcrumb_group="0"/>
-  <breadcrumb id="103" type="G" rendering_mode="GROUP_BY_GROUP" created_date="2014-07-16 21:02:37.666" last="true" last_modified_date="2014-07-16 21:02:37.666" createdby_id="1" lastmodifiedby_id="1" questionnair_id="64" navigation_order="1"/>
+  <breadcrumb id="103" type="G" rendering_mode="GBG" created_date="2014-07-16 21:02:37.666" last="true" last_modified_date="2014-07-16 21:02:37.666" createdby_id="1" lastmodifiedby_id="1" questionnair_id="64" navigation_order="1"/>
   <breadcrumb id="104" type="Q" created_date="2014-07-16 21:02:37.667" last_modified_date="2014-07-16 21:02:37.667" createdby_id="1" lastmodifiedby_id="1" parent_id="103" question_id="56" order_in_breadcrumb_group="0"/>
   <breadcrumb id="105" type="G" created_date="2014-07-16 21:02:37.668" last="false" last_modified_date="2014-07-16 21:02:37.668" createdby_id="1" lastmodifiedby_id="1" questionnair_id="64" navigation_order="2"/>
   <breadcrumb id="106" type="Q" created_date="2014-07-16 21:02:37.67" last_modified_date="2014-07-16 21:02:37.67" createdby_id="1" lastmodifiedby_id="1" parent_id="105" question_id="45" order_in_breadcrumb_group="0"/>

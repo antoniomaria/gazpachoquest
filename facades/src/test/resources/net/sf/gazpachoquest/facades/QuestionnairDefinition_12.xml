@@ -803,4 +803,5 @@
    <progress-visible>true</progress-visible>
    <question-group-info-visible>true</question-group-info-visible>
    <randomization-strategy>NONE</randomization-strategy>
+   <rendering-mode>GROUP_BY_GROUP</rendering-mode>
 </questionnair-definition>

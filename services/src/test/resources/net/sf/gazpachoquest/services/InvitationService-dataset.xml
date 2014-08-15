@@ -33,6 +33,8 @@
   <questionnair_definition />
   <questionnair_definition_translation/>
   <question_group />
+  <question_group_translation />
+  
   <question />
   <question_translation />
   <question_option />

@@ -19,6 +19,7 @@ import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -71,7 +72,7 @@ public class QuestionnairResource {
             @PathParam("questionnairId")
             @ApiParam(value = "Questionnair id")
             Integer questionnairId,
-            @ApiParam(name = "mode", value = "Refers how many questions are returned by page.", required = true, defaultValue = "GROUP_BY_GROUP", allowableValues = "QUESTION_BY_QUESTION,GROUP_BY_GROUP,ALL_IN_ONE", allowMultiple = true)
+            @ApiParam(name = "mode", value = "Refers how many questions are returned by page.", required = false, defaultValue = "GROUP_BY_GROUP", allowableValues = "QUESTION_BY_QUESTION,GROUP_BY_GROUP,ALL_IN_ONE", allowMultiple = true)
             @QueryParam("mode")
             String modeStr,
             @ApiParam(name = "preferredLanguage", value = "Preferred Language for the page is availabe", required = true, defaultValue = "EN", allowableValues = "EN,ES,FI", allowMultiple = true)
@@ -85,8 +86,7 @@ public class QuestionnairResource {
         User principal = (User) SecurityUtils.getSubject().getPrincipal();
         subject.checkPermission("questionnair:read:" + questionnairId);
         logger.info("Fetching questionnair {} for {} user {}", questionnairId, principal.getFullName());
-
-        RenderingMode mode = RenderingMode.fromValue(modeStr);
+        RenderingMode mode = StringUtils.isNotBlank(modeStr) ? RenderingMode.fromValue(modeStr) : null;
         NavigationAction action = NavigationAction.fromString(actionStr);
         Language preferredLanguage = Language.fromString(preferredLanguageStr);
         QuestionnairPageDTO page = questionnairFacade.resolvePage(questionnairId, mode, preferredLanguage, action);

@@ -5,8 +5,8 @@ import java.util.Collections;
 import net.sf.gazpachoquest.api.AuthenticationResource;
 import net.sf.gazpachoquest.api.QuestionnairResource;
 import net.sf.gazpachoquest.cxf.interceptor.HmacAuthInterceptor;
-import net.sf.gazpachoquest.dto.QuestionnairPageDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
+import net.sf.gazpachoquest.dto.QuestionnairPageDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.dto.auth.Account;
@@ -23,6 +23,7 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
+@Ignore
 public class ClientInterceptorTest {
     // public static final String BASE_URI =
     // "http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/api";
@@ -84,10 +85,10 @@ public class ClientInterceptorTest {
         config.getOutInterceptors().add(new HmacAuthInterceptor(apiKey, secret));
 
         Integer questionnairId = 103;
-        QuestionnairPageDTO definition = questionnairResource.getPage(questionnairId, RenderingMode.ALL_IN_ONE, Language.EN,
-                NavigationAction.ENTERING);
-        
-        //System.out.println(definition.getQuestionGroups().get(0).getQuestions());
-System.out.println(definition.getQuestions());
+        QuestionnairPageDTO definition = questionnairResource.getPage(questionnairId, RenderingMode.ALL_IN_ONE,
+                Language.EN, NavigationAction.ENTERING);
+
+        // System.out.println(definition.getQuestionGroups().get(0).getQuestions());
+        System.out.println(definition.getQuestions());
     }
 }

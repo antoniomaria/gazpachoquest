@@ -14,6 +14,7 @@ import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
+import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,7 +55,7 @@ public class QuestionnairDefinitionRepositoryTest {
                 .welcomeText("welcome").build();
         QuestionnairDefinition questionnairDefinition = QuestionnairDefinition.with().language(Language.ES)
                 .languageSettings(settings).questionGroupInfoVisible(true).progressVisible(true).welcomeVisible(true)
-                .randomizationStrategy(RandomizationStrategy.NONE).build();
+                .randomizationStrategy(RandomizationStrategy.NONE).renderingMode(RenderingMode.GROUP_BY_GROUP).build();
         QuestionGroup questionGroup = new QuestionGroup();
         questionGroup.setLanguage(Language.ES);
         questionGroup.setRandomizationEnabled(false);
@@ -102,7 +103,8 @@ public class QuestionnairDefinitionRepositoryTest {
                 .title("My QuestionnairDefinition").description("my description").welcomeText("welcome").build();
         QuestionnairDefinition questionnairDefinition = QuestionnairDefinition.with().language(Language.EN)
                 .languageSettings(languageSettings).questionGroupInfoVisible(true).progressVisible(true)
-                .welcomeVisible(true).randomizationStrategy(RandomizationStrategy.NONE).build();
+                .welcomeVisible(true).randomizationStrategy(RandomizationStrategy.NONE)
+                .renderingMode(RenderingMode.GROUP_BY_GROUP).build();
         questionnairDefinition = repository.save(questionnairDefinition);
         assertThat(questionnairDefinition.getCreatedDate()).isNotNull();
         assertThat(questionnairDefinition.getCreatedBy()).isNotNull();

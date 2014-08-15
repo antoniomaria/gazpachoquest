@@ -52,7 +52,8 @@ import net.sf.gazpachoquest.types.RenderingMode;
 @Entity
 @XmlRootElement
 @XmlType(propOrder = { "language", "languageSettings", "questionGroups", "mailTemplates", "translations",
-        "welcomeVisible", "progressVisible", "questionGroupInfoVisible", "randomizationStrategy", "questionsPerPage", "renderingMode" })
+        "welcomeVisible", "progressVisible", "questionGroupInfoVisible", "randomizationStrategy", "questionsPerPage",
+        "renderingMode" })
 public class QuestionnairDefinition extends
         AbstractLocalizable<QuestionnairDefinitionTranslation, QuestionnairDefinitionLanguageSettings> {
 
@@ -245,6 +246,7 @@ public class QuestionnairDefinition extends
         private Boolean questionGroupInfoVisible;
         private RandomizationStrategy randomizationStrategy;
         private Integer questionsPerPage;
+        private RenderingMode renderingMode;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -291,6 +293,11 @@ public class QuestionnairDefinition extends
             return this;
         }
 
+        public Builder renderingMode(RenderingMode renderingMode) {
+            this.renderingMode = renderingMode;
+            return this;
+        }
+
         public QuestionnairDefinition build() {
             QuestionnairDefinition questionnairDefinition = new QuestionnairDefinition();
             questionnairDefinition.setId(id);
@@ -302,6 +309,7 @@ public class QuestionnairDefinition extends
             questionnairDefinition.questionGroupInfoVisible = questionGroupInfoVisible;
             questionnairDefinition.randomizationStrategy = randomizationStrategy;
             questionnairDefinition.questionsPerPage = questionsPerPage;
+            questionnairDefinition.renderingMode = renderingMode;
             return questionnairDefinition;
         }
     }

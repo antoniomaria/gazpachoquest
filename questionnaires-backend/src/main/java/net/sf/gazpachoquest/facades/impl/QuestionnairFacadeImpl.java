@@ -89,30 +89,35 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
     @Transactional(readOnly = true)
     @Override
     public QuestionnairDTO findOne(Integer questionnairId) {
-        QuestionnairDTO questionnairDTO = new QuestionnairDTO();
-
         Questionnair questionnair = questionnairService.findOne(questionnairId);
         QuestionnairDefinition definition = questionnair.getQuestionnairDefinition();
+        QuestionnairDefinitionLanguageSettingsDTO languageSettings = mapper.map(definition.getLanguageSettings(),
+                QuestionnairDefinitionLanguageSettingsDTO.class);
+
         Set<Language> translations = questionnairDefinitionService.translationsSupported(definition.getId());
+
+        QuestionnairDTO questionnairDTO = QuestionnairDTO.with().language(definition.getLanguage())
+                .languageSettings(languageSettings).id(questionnairId).progressVisible(definition.isProgressVisible())
+                .questionGroupInfoVisible(definition.isQuestionGroupInfoVisible())
+                .welcomeVisible(definition.isWelcomeVisible()).build();
         for (Language language : translations) {
             questionnairDTO.addSupportedLanguage(language);
         }
         questionnairDTO.addSupportedLanguage(definition.getLanguage());
-        questionnairDTO.setLanguage(definition.getLanguage());
-        QuestionnairDefinitionLanguageSettingsDTO languageSettings = mapper.map(definition.getLanguageSettings(),
-                QuestionnairDefinitionLanguageSettingsDTO.class);
-        questionnairDTO.setLanguageSettings(languageSettings);
-        questionnairDTO.setId(questionnairId);
+
         return questionnairDTO;
     }
 
     @Override
     public QuestionnairPageDTO resolvePage(Integer questionnairId, RenderingMode mode, Language preferredLanguage,
             NavigationAction action) {
-        Questionnair questionnair = Questionnair.with().id(questionnairId).build();
+        Questionnair questionnair = questionnairService.findOne(questionnairId);
+        if (mode == null) {
+            mode = questionnair.getQuestionnairDefinition().getRenderingMode();
+        }
         PageResolver resolver = resolverSelector.selectBy(mode);
-        logger.info("Requesting page {} for questionnairId = {} in language {}", action.toString(), questionnairId,
-                preferredLanguage);
+        logger.info("Requesting page {} for questionnairId = {} in language {} using renderingMode = {}",
+                action.toString(), questionnairId, preferredLanguage, mode);
 
         PageStructure pageStructure = resolver.resolveNextPage(questionnair, action);
         QuestionnairPageDTO page = new QuestionnairPageDTO();
@@ -138,9 +143,11 @@ public class QuestionnairFacadeImpl implements QuestionnairFacade {
         }
         answersPopulator.populate(questionnair, allVisibleQuestions);
         PageMetadataStructure metadata = pageStructure.getMetadata();
+        page.setMetadata(mapper.map(metadata, PageMetadataDTO.class));
+        page.setQuestionGroupInfoAvailable(pageStructure.isQuestionGroupInfoAvailable());
+
         logger.info("Returning page {} of {} for questionnairId = {}", metadata.getNumber(), metadata.getCount(),
                 questionnairId);
-        page.setMetadata(mapper.map(metadata, PageMetadataDTO.class));
         return page;
     }
 

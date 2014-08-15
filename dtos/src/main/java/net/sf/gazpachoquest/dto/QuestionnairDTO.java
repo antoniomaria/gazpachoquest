@@ -33,6 +33,12 @@ public class QuestionnairDTO extends AbstractIdentifiableDTO {
 
     private QuestionnairDefinitionLanguageSettingsDTO languageSettings;
 
+    private Boolean welcomeVisible;
+
+    private Boolean progressVisible;
+
+    private Boolean questionGroupInfoVisible;
+
     public QuestionnairDTO() {
         super();
     }
@@ -61,6 +67,30 @@ public class QuestionnairDTO extends AbstractIdentifiableDTO {
         this.languageSettings = languageSettings;
     }
 
+    public Boolean isWelcomeVisible() {
+        return welcomeVisible;
+    }
+
+    public void setWelcomeVisible(Boolean welcomeVisible) {
+        this.welcomeVisible = welcomeVisible;
+    }
+
+    public Boolean isProgressVisible() {
+        return progressVisible;
+    }
+
+    public void setProgressVisible(Boolean progressVisible) {
+        this.progressVisible = progressVisible;
+    }
+
+    public Boolean isQuestionGroupInfoVisible() {
+        return questionGroupInfoVisible;
+    }
+
+    public void setQuestionGroupInfoVisible(Boolean questionGroupInfoVisible) {
+        this.questionGroupInfoVisible = questionGroupInfoVisible;
+    }
+
     public static Builder with() {
         return new Builder();
     }
@@ -69,6 +99,9 @@ public class QuestionnairDTO extends AbstractIdentifiableDTO {
         private Integer id;
         private Language language;
         private QuestionnairDefinitionLanguageSettingsDTO languageSettings;
+        private Boolean welcomeVisible;
+        private Boolean progressVisible;
+        private Boolean questionGroupInfoVisible;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -77,6 +110,21 @@ public class QuestionnairDTO extends AbstractIdentifiableDTO {
 
         public Builder language(Language language) {
             this.language = language;
+            return this;
+        }
+
+        public Builder welcomeVisible(Boolean welcomeVisible) {
+            this.welcomeVisible = welcomeVisible;
+            return this;
+        }
+
+        public Builder progressVisible(Boolean progressVisible) {
+            this.progressVisible = progressVisible;
+            return this;
+        }
+
+        public Builder questionGroupInfoVisible(Boolean questionGroupInfoVisible) {
+            this.questionGroupInfoVisible = questionGroupInfoVisible;
             return this;
         }
 
@@ -90,6 +138,9 @@ public class QuestionnairDTO extends AbstractIdentifiableDTO {
             questionnairDTO.setId(id);
             questionnairDTO.language = language;
             questionnairDTO.languageSettings = languageSettings;
+            questionnairDTO.welcomeVisible = welcomeVisible;
+            questionnairDTO.progressVisible = progressVisible;
+            questionnairDTO.questionGroupInfoVisible = questionGroupInfoVisible;
             return questionnairDTO;
         }
     }

@@ -17,9 +17,10 @@ import javax.inject.Inject;
 import javax.resource.NotSupportedException;
 
 import net.sf.gazpachoquest.api.QuestionnairResource;
-import net.sf.gazpachoquest.dto.QuestionnairPageDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
+import net.sf.gazpachoquest.dto.QuestionGroupDTO;
 import net.sf.gazpachoquest.dto.QuestionnairDTO;
+import net.sf.gazpachoquest.dto.QuestionnairPageDTO;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.questionnaires.components.question.QuestionComponent;
 import net.sf.gazpachoquest.questionnaires.components.question.QuestionFactory;
@@ -83,19 +84,30 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
 
     private Language preferredLanguage;
 
+    private Boolean questionGroupInfoVisible;
+
     public void update(QuestionnairPageDTO page) {
         questionsLayout.removeAllComponents();
 
-        List<QuestionDTO> questions = page.getQuestions();
+        List<QuestionGroupDTO> questionGroups = page.getQuestionGroups();
 
-        for (QuestionDTO questionDTO : questions) {
-            QuestionComponent questionComponent;
-            try {
-                questionComponent = QuestionFactory.build(questionnairId, questionDTO);
-                questionsLayout.addComponent(questionComponent);
-            } catch (NotSupportedException e) {
-                logger.warn(e.getMessage());
+        for (QuestionGroupDTO questionGroupDTO : questionGroups) {
+            if (questionGroupInfoVisible && page.isQuestionGroupInfoAvailable()) {
+                final Label questionGroupTile = new Label(questionGroupDTO.getLanguageSettings().getTitle());
+                questionGroupTile.addStyleName(Reindeer.LABEL_H2);
+                questionsLayout.addComponent(questionGroupTile);
             }
+            List<QuestionDTO> questions = questionGroupDTO.getQuestions();
+            for (QuestionDTO questionDTO : questions) {
+                QuestionComponent questionComponent;
+                try {
+                    questionComponent = QuestionFactory.build(questionnairId, questionDTO);
+                    questionsLayout.addComponent(questionComponent);
+                } catch (NotSupportedException e) {
+                    logger.warn(e.getMessage());
+                }
+            }
+
         }
 
         HorizontalLayout buttonsLayout = new HorizontalLayout();
@@ -126,8 +138,6 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
 
         if (heightWidth <= 480) {
             renderingMode = RenderingMode.QUESTION_BY_QUESTION;
-        } else {
-            renderingMode = RenderingMode.GROUP_BY_GROUP;
         }
 
         // centralLayout.addStyleName("questionnaires");
@@ -143,12 +153,12 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
         questionnairId = respondent.getGrantedQuestionnairIds().iterator().next();
         logger.debug("Trying to fetch questionnair identified with id  = {} ", questionnairId);
         QuestionnairDTO questionnair = questionnairResource.getDefinition(questionnairId);
-
+        questionGroupInfoVisible = questionnair.isQuestionGroupInfoVisible();
         QuestionnairPageDTO page = questionnairResource.getPage(questionnairId, renderingMode, preferredLanguage,
                 NavigationAction.ENTERING);
 
         logger.debug("Displaying page {}/{} with {} questions", page.getMetadata().getNumber(), page.getMetadata()
-                .getNumber(), page.getQuestions().size());
+                .getCount(), page.getQuestions().size());
         questionsLayout = new VerticalLayout();
         update(page);
 

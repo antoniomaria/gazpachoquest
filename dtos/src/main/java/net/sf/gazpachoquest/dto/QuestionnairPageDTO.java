@@ -25,6 +25,8 @@ public class QuestionnairPageDTO implements Serializable {
 
     private PageMetadataDTO metadata;
 
+    private boolean questionGroupInfoAvailable;
+
     public QuestionnairPageDTO() {
         super();
     }
@@ -53,6 +55,14 @@ public class QuestionnairPageDTO implements Serializable {
             allQuestions.addAll(questions);
         }
         return allQuestions;
+    }
+
+    public boolean isQuestionGroupInfoAvailable() {
+        return questionGroupInfoAvailable;
+    }
+
+    public void setQuestionGroupInfoAvailable(boolean questionGroupInfoAvailable) {
+        this.questionGroupInfoAvailable = questionGroupInfoAvailable;
     }
 
 }
