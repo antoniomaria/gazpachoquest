@@ -28,7 +28,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.domain.support.AbstractAuditable;
+import net.sf.gazpachoquest.domain.permission.UserPermission;
+import net.sf.gazpachoquest.domain.support.AbstractSecurizable;
 import net.sf.gazpachoquest.jpa.converter.GenderTypeConverter;
 import net.sf.gazpachoquest.jpa.converter.MapToStringConverter;
 import net.sf.gazpachoquest.types.Gender;
@@ -38,7 +39,7 @@ import org.eclipse.persistence.annotations.Converter;
 
 @Entity
 @Table(name = "users")
-public class User extends AbstractAuditable {
+public class User extends AbstractSecurizable<UserPermission> {
 
     private static final long serialVersionUID = 7209387649701141462L;
 

@@ -25,7 +25,7 @@ public class CodeLabRunner {
                 "codelab-jpa-context.xml", "services-context.xml", "facades-context.xml", "questionnair-context.xml",
                 "components-context.xml");
         logger.info("Hand on lab started");
-        AccessRightLab codelab = ctx.getBean(AccessRightLab.class);
+        AccessRight2Lab codelab = ctx.getBean(AccessRight2Lab.class);
         codelab.execute();
         logger.info("Hand on lab ended");
         ctx.close();

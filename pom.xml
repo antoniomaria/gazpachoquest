@@ -24,6 +24,7 @@
     <commons.lang3.version>3.1</commons.lang3.version>
     <cxf.version>2.6.14</cxf.version>
     <findbugs.plugin.version>2.5.4</findbugs.plugin.version>
+    <shiro.version>1.2.3</shiro.version>
   </properties>
 
 
@@ -55,7 +56,7 @@
     <module>dtos</module>
     <module>facades</module>
     <module>jaas</module>
-	<module>launcher</module>
+    <module>launcher</module>
     <module>services</module>
     <module>questionnaires-backend</module>
     <module>questionnaires-ui</module>
@@ -556,6 +557,13 @@
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-frontend-jaxrs</artifactId>
         <version>${cxf.version}</version>
+      </dependency>
+      
+       <!-- Shiro security -->
+      <dependency>
+        <groupId>org.apache.shiro</groupId>
+        <artifactId>shiro-core</artifactId>
+        <version>${shiro.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

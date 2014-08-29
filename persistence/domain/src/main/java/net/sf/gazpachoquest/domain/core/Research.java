@@ -19,7 +19,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
-import net.sf.gazpachoquest.domain.support.AbstractAuditable;
+import net.sf.gazpachoquest.domain.permission.ResearchPermission;
+import net.sf.gazpachoquest.domain.support.AbstractSecurizable;
 import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
 import net.sf.gazpachoquest.jpa.converter.ResearchAccessTypeConverter;
 import net.sf.gazpachoquest.types.ResearchAccessType;
@@ -27,7 +28,7 @@ import net.sf.gazpachoquest.types.ResearchAccessType;
 import org.joda.time.DateTime;
 
 @Entity
-public class Research extends AbstractAuditable {
+public class Research extends AbstractSecurizable<ResearchPermission> {
 
     private static final long serialVersionUID = -5917291757324504802L;
 

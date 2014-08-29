@@ -68,6 +68,12 @@
       <artifactId>logback-classic</artifactId>
       <scope>provided</scope>
     </dependency>
+    
+    <!-- Shiro security -->
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-core</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

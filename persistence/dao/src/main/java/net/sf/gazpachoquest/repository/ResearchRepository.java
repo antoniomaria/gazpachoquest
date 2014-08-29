@@ -24,4 +24,9 @@ public interface ResearchRepository extends GenericRepository<Research> {
     List<Research> findByQuestionnairDefinition(@Param("questionnairDefinitionId")
     Integer questionnairDefinitionId);
 
+    @Query("select distinct r from ResearchPermission p join p.target r where p.user.id = :userId and mod(p.mask / :bitMask, 2) = 1")
+    List<Research> findByAllAvailableFor(@Param("userId")
+    Integer userId, @Param("bitMask")
+    int bitMask);
+
 }

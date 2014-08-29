@@ -13,6 +13,7 @@ import net.sf.gazpachoquest.facades.QuestionnairDefinitionEditorFacade;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
+import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,7 +31,7 @@ public class SampleQuizCreator {
                 .title("European general knowledge quiz")
                 .description("How much do you know about Europe? Answer to this questions and let's find out!")
                 .welcomeText("Thank you for taking the time to participate in this questionnair.")
-                .questionnairLanguageSettingsEnd().build();
+                .questionnairLanguageSettingsEnd().renderingMode(RenderingMode.GROUP_BY_GROUP).build();
         questionnairDefinition = questionnairDefinitionEditorFacade.save(questionnairDefinition);
 
         TranslationDTO<QuestionnairDefinitionDTO, QuestionnairDefinitionLanguageSettingsDTO> questionnairTranslation = new TranslationDTO<>();

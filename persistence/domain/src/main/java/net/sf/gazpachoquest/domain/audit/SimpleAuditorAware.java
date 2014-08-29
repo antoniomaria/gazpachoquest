@@ -9,15 +9,19 @@ package net.sf.gazpachoquest.domain.audit;
 
 import net.sf.gazpachoquest.domain.user.User;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.data.domain.AuditorAware;
 
 public class SimpleAuditorAware implements AuditorAware<User> {
 
     @Override
     public User getCurrentAuditor() {
-        Integer userId = 1;
-        User auditor = new User();
-        auditor.setId(userId);
+        Subject subject = SecurityUtils.getSubject();
+        User auditor = User.with().id(1).build();
+        if (subject != null) {
+            auditor = ((User) subject.getPrincipal());
+        }
         return auditor;
     }
 }

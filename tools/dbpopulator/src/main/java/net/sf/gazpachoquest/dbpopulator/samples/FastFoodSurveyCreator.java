@@ -9,6 +9,7 @@ import net.sf.gazpachoquest.facades.QuestionnairDefinitionEditorFacade;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
+import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,7 @@ public class FastFoodSurveyCreator {
                 .welcomeVisible(true)
                 .progressVisible(true)
                 .randomizationStrategy(RandomizationStrategy.NONE)
+                .renderingMode(RenderingMode.GROUP_BY_GROUP)
                 .questionGroupInfoVisible(true)
                 .questionnairLanguageSettingsStart()
                 .title("Food Quality QuestionnairDefinition")
@@ -36,8 +38,9 @@ public class FastFoodSurveyCreator {
                 .questionnairLanguageSettingsEnd().build();
         survey = questionnairDefinitionEditorFacade.save(survey);
 
-        QuestionGroupDTO questionGroup = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false).pageLanguageSettingsStart()
-                .title("Fast Food QuestionnairDefinition - QuestionGroup").pageLanguageSettingsEnd().build();
+        QuestionGroupDTO questionGroup = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false)
+                .pageLanguageSettingsStart().title("Fast Food QuestionnairDefinition - QuestionGroup")
+                .pageLanguageSettingsEnd().build();
 
         survey.addQuestionGroup(questionGroup);
         survey = questionnairDefinitionEditorFacade.save(survey);

@@ -18,3 +18,4 @@ select p.entity_id from (select r.* from role r join user_role ur on ur.role_id 
 // Entities granted using Aggregate Functions 
 select p.entity_id, bit_or(p.mask) as mask from (select r.* from role r join user_role ur on ur.role_id = r.id join users u on ur.user_id = u.id where u.id = 1 union (select r.* from role r join group_role gr on gr.role_id = r.id join groups g on gr.group_id = g.id where g.id in (select g.id from users u join user_group ug on u.id = ug.user_id join groups g on ug.group_id=g.id where u.id=1))) as r join permission p on p.role_id = r.id group by p.entity_id
 
+select distinct r.* from research_permission p join research r on p.target_id = r.id where p.mask > 0

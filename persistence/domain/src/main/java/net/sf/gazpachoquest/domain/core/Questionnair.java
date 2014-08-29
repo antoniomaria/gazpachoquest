@@ -21,7 +21,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Transient;
 
-import net.sf.gazpachoquest.domain.support.AbstractAuditable;
+import net.sf.gazpachoquest.domain.permission.QuestionnairPermission;
+import net.sf.gazpachoquest.domain.support.AbstractSecurizable;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
 import net.sf.gazpachoquest.jpa.converter.EntityStatusConverter;
@@ -30,7 +31,7 @@ import net.sf.gazpachoquest.types.EntityStatus;
 import org.joda.time.DateTime;
 
 @Entity
-public class Questionnair extends AbstractAuditable {
+public class Questionnair extends AbstractSecurizable<QuestionnairPermission> {
 
     private static final long serialVersionUID = -5466079670655149390L;
 

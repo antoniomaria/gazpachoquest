@@ -14,6 +14,7 @@ import net.sf.gazpachoquest.facades.QuestionnairDefinitionEditorFacade;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
+import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,7 @@ public class DemoSurveyCreator {
                 .welcomeVisible(true)
                 .progressVisible(true)
                 .randomizationStrategy(RandomizationStrategy.NONE)
+                .renderingMode(RenderingMode.GROUP_BY_GROUP)
                 .questionGroupInfoVisible(true)
                 .questionnairLanguageSettingsStart()
                 .title("Sample QuestionnairDefinition")

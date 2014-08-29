@@ -11,7 +11,6 @@
 package net.sf.gazpachoquest.domain.core;
 
 import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
