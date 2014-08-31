@@ -11,18 +11,12 @@
 package net.sf.gazpachoquest.services;
 
 import java.util.List;
-import java.util.Set;
 
 import net.sf.gazpachoquest.domain.user.Group;
-import net.sf.gazpachoquest.domain.user.Permission;
-import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 
 public interface UserService extends PersistenceService<User> {
 
-    Set<Permission> getPermissions(Integer userId);
-
     List<Group> getGroups(Integer userId);
 
-    Set<Role> getRoles(Integer id);
 }

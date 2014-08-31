@@ -21,9 +21,8 @@ import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation;
+import net.sf.gazpachoquest.domain.permission.QuestionnairPermission;
 import net.sf.gazpachoquest.domain.user.Group;
-import net.sf.gazpachoquest.domain.user.Permission;
-import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.InvitationRepository;
@@ -32,13 +31,12 @@ import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.repository.ResearchRepository;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
+import net.sf.gazpachoquest.repository.permission.QuestionnairPermissionRepository;
+import net.sf.gazpachoquest.repository.permission.ResearchPermissionRepository;
 import net.sf.gazpachoquest.repository.user.GroupRepository;
-import net.sf.gazpachoquest.repository.user.PermissionRepository;
-import net.sf.gazpachoquest.repository.user.RoleRepository;
 import net.sf.gazpachoquest.repository.user.UserRepository;
 import net.sf.gazpachoquest.services.ResearchService;
 import net.sf.gazpachoquest.types.EntityStatus;
-import net.sf.gazpachoquest.types.EntityType;
 import net.sf.gazpachoquest.types.InvitationStatus;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
@@ -83,13 +81,13 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
     private VelocityEngineFactoryBean velocityFactory;
 
     @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private PermissionRepository permissionRepository;
+    private ResearchPermissionRepository researchPermissionRepository;
 
     @Autowired
     private QuestionnairAnswersRepository questionnairAnswersRepository;
+
+    @Autowired
+    private QuestionnairPermissionRepository questionnairPermissionRepository;
 
     @Autowired
     public ResearchServiceImpl(final ResearchRepository repository) {
@@ -139,13 +137,9 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
 
                     respondent = userRepository.findOne(respondent.getId());
 
-                    Role personalRole = respondent.getDefaultRole();
-
-                    Permission permission = Permission.with().addPerm(Perm.READ).addPerm(Perm.UPDATE)
-                            .scope(EntityType.QUESTIONNAIR).entityId(questionnair.getId()).build();
-
-                    permissionRepository.save(permission);
-                    personalRole.assignPermission(permission);
+                    QuestionnairPermission permission = QuestionnairPermission.with().addPerm(Perm.READ)
+                            .addPerm(Perm.UPDATE).user(respondent).target(questionnair).build();
+                    questionnairPermissionRepository.save(permission);
 
                     PersonalInvitation personalInvitation = PersonalInvitation.with().research(research).token(token)
                             .status(InvitationStatus.ACTIVE).respondent(respondent).build();

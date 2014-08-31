@@ -3,7 +3,9 @@ package net.sf.gazpachoquest.domain.permission;
 import javax.persistence.Entity;
 
 import net.sf.gazpachoquest.domain.core.Research;
+import net.sf.gazpachoquest.domain.permission.QuestionnairDefinitionPermission.Builder;
 import net.sf.gazpachoquest.domain.user.Group;
+import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.types.Perm;
 
@@ -16,8 +18,8 @@ public class ResearchPermission extends AbstractPermission<Research> {
         super();
     }
 
-    public ResearchPermission(User user, Group group, Integer mask, Research target) {
-        super(user, group, mask, target);
+    public ResearchPermission(User user, Role role, Integer mask, Research target) {
+        super(user, role, mask, target);
     }
 
     public static Builder with() {
@@ -26,7 +28,7 @@ public class ResearchPermission extends AbstractPermission<Research> {
 
     public static class Builder {
         private User user;
-        private Group group;
+        private Role role;
         private int mask;
         private Research target;
 
@@ -35,8 +37,8 @@ public class ResearchPermission extends AbstractPermission<Research> {
             return this;
         }
 
-        public Builder group(Group group) {
-            this.group = group;
+        public Builder role(Role role) {
+            this.role = role;
             return this;
         }
 
@@ -59,7 +61,7 @@ public class ResearchPermission extends AbstractPermission<Research> {
         }
 
         public ResearchPermission build() {
-            return new ResearchPermission(user, group, mask, target);
+            return new ResearchPermission(user, role, mask, target);
         }
     }
 

@@ -9,18 +9,18 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import net.sf.gazpachoquest.domain.support.IPermission;
+import net.sf.gazpachoquest.domain.support.Permission;
 import net.sf.gazpachoquest.domain.support.Securizable;
 import net.sf.gazpachoquest.domain.user.Group;
 import net.sf.gazpachoquest.types.Perm;
 
 import org.springframework.data.jpa.domain.Specification;
 
-public class PermissionSpecification<T extends Securizable<?>, P extends IPermission<T>> {
+public class PermissionSpecification<T extends Securizable<?>, P extends Permission<T>> {
 
     private final static Integer READ_ONLY = Perm.READ.getMask();
 
-    public Specification<T> canRead(final Integer userId, final Integer... groupsIds) {
+    public Specification<T> canRead(final Integer userId, final Integer... roleIds) {
 
         return new Specification<T>() {
             @Override
@@ -37,9 +37,9 @@ public class PermissionSpecification<T extends Securizable<?>, P extends IPermis
 
                 Predicate predicate = null;
 
-                if (groupsIds.length > 0) {
-                    Path<Group> group = permission.get("group");
-                    Predicate inGroups = group.in((Object[]) groupsIds);
+                if (roleIds.length > 0) {
+                    Path<Group> group = permission.get("role");
+                    Predicate inGroups = group.in((Object[]) roleIds);
                     predicate = cb.and(cb.or(inGroups, matchUserId), canRead);
                 } else {
                     predicate = cb.and(matchUserId, canRead);

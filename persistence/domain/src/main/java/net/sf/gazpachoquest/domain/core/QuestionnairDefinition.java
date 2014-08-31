@@ -39,7 +39,8 @@ import javax.xml.bind.annotation.XmlType;
 
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation;
-import net.sf.gazpachoquest.domain.support.AbstractLocalizable;
+import net.sf.gazpachoquest.domain.permission.QuestionnairDefinitionPermission;
+import net.sf.gazpachoquest.domain.support.AbstractSecurizableLocalizable;
 import net.sf.gazpachoquest.jpa.converter.EntityStatusConverter;
 import net.sf.gazpachoquest.jpa.converter.RandomizationStrategyTypeConverter;
 import net.sf.gazpachoquest.jpa.converter.RenderingModeConverter;
@@ -54,8 +55,9 @@ import net.sf.gazpachoquest.types.RenderingMode;
 @XmlType(propOrder = { "language", "languageSettings", "questionGroups", "mailTemplates", "translations",
         "welcomeVisible", "progressVisible", "questionGroupInfoVisible", "randomizationStrategy", "questionsPerPage",
         "renderingMode" })
-public class QuestionnairDefinition extends
-        AbstractLocalizable<QuestionnairDefinitionTranslation, QuestionnairDefinitionLanguageSettings> {
+public class QuestionnairDefinition
+        extends
+        AbstractSecurizableLocalizable<QuestionnairDefinitionPermission, QuestionnairDefinitionTranslation, QuestionnairDefinitionLanguageSettings> {
 
     private static final long serialVersionUID = 2560468772707058412L;
 

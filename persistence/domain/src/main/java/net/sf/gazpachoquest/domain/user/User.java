@@ -22,7 +22,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -81,9 +80,6 @@ public class User extends AbstractSecurizable<UserPermission> {
     @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
     private final Set<Role> roles = new HashSet<Role>();
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Role defaultRole;
-
     @Column(name = "attributes")
     @Converter(name = "map-to-string-converter", converterClass = MapToStringConverter.class)
     @org.eclipse.persistence.annotations.Convert(value = "map-to-string-converter")
@@ -109,16 +105,16 @@ public class User extends AbstractSecurizable<UserPermission> {
         return Collections.unmodifiableSet(groups);
     }
 
+    public Set<Role> getRoles() {
+        return Collections.unmodifiableSet(roles);
+    }
+
     public Map<String, String> getAttributes() {
         return attributes;
     }
 
     public void setAttributes(Map<String, String> attributes) {
         this.attributes = attributes;
-    }
-
-    public Set<Role> getRoles() {
-        return Collections.unmodifiableSet(roles);
     }
 
     @Override
@@ -174,21 +170,13 @@ public class User extends AbstractSecurizable<UserPermission> {
         this.gender = gender;
     }
 
-    public void assignToRole(Role role) {
-        roles.add(role);
-        role.addUser(this);
-    }
-
     public void addGroup(Group group) {
         groups.add(group);
     }
 
-    public Role getDefaultRole() {
-        return defaultRole;
-    }
 
-    public void setDefaultRole(Role defaultRole) {
-        this.defaultRole = defaultRole;
+    protected void addRole(Role role) {
+        roles.add(role);
     }
 
     public String getPassword() {

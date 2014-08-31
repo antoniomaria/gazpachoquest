@@ -9,20 +9,17 @@ import net.sf.gazpachoquest.domain.core.AnonymousInvitation;
 import net.sf.gazpachoquest.domain.core.PersonalInvitation;
 import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.Research;
+import net.sf.gazpachoquest.domain.permission.QuestionnairPermission;
 import net.sf.gazpachoquest.domain.support.Invitation;
-import net.sf.gazpachoquest.domain.user.Permission;
-import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.repository.permission.QuestionnairPermissionRepository;
 import net.sf.gazpachoquest.security.AuthenticationManager;
 import net.sf.gazpachoquest.services.InvitationService;
-import net.sf.gazpachoquest.services.PermissionService;
 import net.sf.gazpachoquest.services.QuestionnairService;
-import net.sf.gazpachoquest.services.RoleService;
 import net.sf.gazpachoquest.services.UserService;
 import net.sf.gazpachoquest.types.EntityStatus;
-import net.sf.gazpachoquest.types.EntityType;
 import net.sf.gazpachoquest.types.Perm;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +39,7 @@ public class RespondentAuthenticationManagerImpl implements AuthenticationManage
     private QuestionnairService questionnairService;
 
     @Autowired
-    private PermissionService permissionService;
-
-    @Autowired
-    private RoleService roleService;
+    private QuestionnairPermissionRepository questionnairPermissionRepository;
 
     @Override
     @Transactional
@@ -78,13 +72,9 @@ public class RespondentAuthenticationManagerImpl implements AuthenticationManage
             questionnair = questionnairService.save(questionnair);
             questionnairs.add(questionnair);
             // Grant right to the anonymous questionnair
-            Role personalRole = respondent.getDefaultRole();
-            Permission permission = Permission.with().addPerm(Perm.READ).addPerm(Perm.UPDATE)
-                    .scope(EntityType.QUESTIONNAIR).entityId(questionnair.getId()).build();
-            permissionService.save(permission);
-
-            personalRole.assignPermission(permission);
-            roleService.save(personalRole);
+            QuestionnairPermission permission = QuestionnairPermission.with().addPerm(Perm.READ).addPerm(Perm.UPDATE)
+                    .user(respondent).target(questionnair).build();
+            questionnairPermissionRepository.save(permission);
         }
 
         RespondentAccount.Builder builder = new RespondentAccount.Builder();

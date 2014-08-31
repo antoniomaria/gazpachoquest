@@ -18,10 +18,6 @@ public class SimpleAuditorAware implements AuditorAware<User> {
     @Override
     public User getCurrentAuditor() {
         Subject subject = SecurityUtils.getSubject();
-        User auditor = User.with().id(1).build();
-        if (subject != null) {
-            auditor = ((User) subject.getPrincipal());
-        }
-        return auditor;
+        return (User) subject.getPrincipal();
     }
 }

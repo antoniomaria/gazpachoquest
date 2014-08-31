@@ -5,13 +5,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
-import net.sf.gazpachoquest.domain.support.IPermission;
+import net.sf.gazpachoquest.domain.support.Permission;
 import net.sf.gazpachoquest.domain.support.Securizable;
 import net.sf.gazpachoquest.domain.user.Group;
+import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 
 @MappedSuperclass
-public class AbstractPermission<T extends Securizable<?>> extends AbstractPersistable implements IPermission<T> {
+public class AbstractPermission<T extends Securizable<?>> extends AbstractPersistable implements Permission<T> {
 
     private static final long serialVersionUID = 6599066653542691509L;
 
@@ -19,7 +20,7 @@ public class AbstractPermission<T extends Securizable<?>> extends AbstractPersis
     protected User user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    protected Group group;
+    protected Role role;
 
     protected Integer mask;
 
@@ -29,10 +30,10 @@ public class AbstractPermission<T extends Securizable<?>> extends AbstractPersis
         super();
     }
 
-    public AbstractPermission(User user, Group group, Integer mask, T target) {
+    public AbstractPermission(User user, Role role, Integer mask, T target) {
         super();
         this.user = user;
-        this.group = group;
+        this.role = role;
         this.mask = mask;
         this.target = target;
     }
@@ -56,12 +57,12 @@ public class AbstractPermission<T extends Securizable<?>> extends AbstractPersis
     }
 
     @Override
-    public Group getGroup() {
-        return group;
+    public Role getRole() {
+        return role;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override

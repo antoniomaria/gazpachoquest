@@ -1,13 +1,19 @@
 package net.sf.gazpachoquest.services;
 
+import static org.easymock.EasyMock.createNiceMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.Map;
 
 import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
+import net.sf.gazpachoquest.test.shiro.support.AbstractShiroTest;
 
+import org.apache.shiro.subject.Subject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +37,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @DatabaseSetup("QuestionnairAnswersService-dataset.xml")
 @DatabaseTearDown("QuestionnairAnswersService-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class QuestionnairAnswersServiceTest {
+public class QuestionnairAnswersServiceTest extends AbstractShiroTest {
 
     @Autowired
     private QuestionnairAnswersRepository questionnairAnswersRepository;
@@ -68,9 +74,19 @@ public class QuestionnairAnswersServiceTest {
 
     }
 
-    @After
-    public void tearDown() {
-        jdbcTemplate.update("delete from questionnair_answers_7 where id = ?", answersId);
+    @Before
+    public void setUpSubject() {
+        Subject subjectUnderTest = createNiceMock(Subject.class);
+        User support = User.with().id(1).build();
+        expect(subjectUnderTest.getPrincipal()).andReturn(support).anyTimes();
+        replay(subjectUnderTest);
+        // 2. Bind the subject to the current thread:
+        setSubject(subjectUnderTest);
     }
 
+    @After
+    public void tearDownSubject() {
+        // 3. Unbind the subject from the current thread:
+        clearSubject();
+    }
 }

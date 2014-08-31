@@ -15,7 +15,6 @@ import net.sf.gazpachoquest.domain.core.Questionnair;
 import net.sf.gazpachoquest.domain.core.QuestionnairAnswers;
 import net.sf.gazpachoquest.repository.QuestionnairRepository;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
-import net.sf.gazpachoquest.repository.user.PermissionRepository;
 import net.sf.gazpachoquest.services.QuestionnairService;
 import net.sf.gazpachoquest.types.EntityStatus;
 
@@ -25,9 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class QuestionnairServiceImpl extends AbstractPersistenceService<Questionnair> implements QuestionnairService {
-
-    @Autowired
-    private PermissionRepository permissionRepository;
 
     @Autowired
     private QuestionnairAnswersRepository questionnairAnswersRepository;

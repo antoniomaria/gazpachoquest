@@ -2,13 +2,13 @@ package net.sf.gazpachoquest.domain.permission;
 
 import javax.persistence.Entity;
 
-import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.domain.user.Group;
+import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.types.Perm;
 
 @Entity
-public class QuestionnairDefinitionPermission extends AbstractPermission<Questionnair> {
+public class QuestionnairDefinitionPermission extends AbstractPermission<QuestionnairDefinition> {
 
     private static final long serialVersionUID = 8330893603469347818L;
 
@@ -16,8 +16,8 @@ public class QuestionnairDefinitionPermission extends AbstractPermission<Questio
         super();
     }
 
-    public QuestionnairDefinitionPermission(User user, Group group, Integer mask, Questionnair target) {
-        super(user, group, mask, target);
+    public QuestionnairDefinitionPermission(User user, Role role, Integer mask, QuestionnairDefinition target) {
+        super(user, role, mask, target);
     }
 
     public static Builder with() {
@@ -26,17 +26,17 @@ public class QuestionnairDefinitionPermission extends AbstractPermission<Questio
 
     public static class Builder {
         private User user;
-        private Group group;
+        private Role role;
         private int mask;
-        private Questionnair target;
+        private QuestionnairDefinition target;
 
         public Builder user(User user) {
             this.user = user;
             return this;
         }
 
-        public Builder group(Group group) {
-            this.group = group;
+        public Builder role(Role role) {
+            this.role = role;
             return this;
         }
 
@@ -45,7 +45,7 @@ public class QuestionnairDefinitionPermission extends AbstractPermission<Questio
             return this;
         }
 
-        public Builder target(Questionnair target) {
+        public Builder target(QuestionnairDefinition target) {
             this.target = target;
             return this;
         }
@@ -59,7 +59,7 @@ public class QuestionnairDefinitionPermission extends AbstractPermission<Questio
         }
 
         public QuestionnairDefinitionPermission build() {
-            return new QuestionnairDefinitionPermission(user, group, mask, target);
+            return new QuestionnairDefinitionPermission(user, role, mask, target);
         }
     }
 

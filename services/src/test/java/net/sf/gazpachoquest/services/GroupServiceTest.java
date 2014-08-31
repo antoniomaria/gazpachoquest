@@ -4,8 +4,6 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.List;
 
-import net.sf.gazpachoquest.domain.user.Permission;
-import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
@@ -39,20 +37,6 @@ public class GroupServiceTest {
         Integer groupId = 2;
         List<User> users = groupService.getUsersInGroup(groupId);
         assertThat(users).hasSize(4);
-    }
-
-    @Test
-    public void getRolesTest() {
-        Integer groupId = 2;
-        List<Role> roles = groupService.getRoles(groupId);
-        assertThat(roles).hasSize(1);
-    }
-
-    @Test
-    public void getPermissionsTest() {
-        Integer groupId = 2;
-        List<Permission> permissions = groupService.getPermissions(groupId);
-        assertThat(permissions).hasSize(1);
     }
 
     @Test

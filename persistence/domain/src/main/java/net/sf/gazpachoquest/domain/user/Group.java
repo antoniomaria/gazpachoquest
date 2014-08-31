@@ -4,12 +4,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -29,16 +26,8 @@ public class Group extends AbstractAuditable {
     @ManyToMany(mappedBy = "groups", fetch = FetchType.LAZY)
     private final Set<User> users = new HashSet<User>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "group_role", joinColumns = { @JoinColumn(name = "group_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
-    private final Set<Role> roles = new HashSet<Role>();
-
     public Group() {
         super();
-    }
-
-    public Set<Role> getRoles() {
-        return Collections.unmodifiableSet(roles);
     }
 
     public String getName() {
@@ -64,11 +53,6 @@ public class Group extends AbstractAuditable {
     public void assignUser(User user) {
         users.add(user);
         user.addGroup(this);
-    }
-
-    public void assignToRole(Role role) {
-        roles.add(role);
-        role.addGroup(this);
     }
 
     public static Builder with() {

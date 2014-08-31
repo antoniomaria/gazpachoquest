@@ -1,5 +1,8 @@
 package net.sf.gazpachoquest.repository;
 
+import static org.easymock.EasyMock.createNiceMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.List;
@@ -10,12 +13,17 @@ import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionGroupLanguageSettings;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnairDefinitionLanguageSettings;
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
+import net.sf.gazpachoquest.test.shiro.support.AbstractShiroTest;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
+import org.apache.shiro.subject.Subject;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +43,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @DatabaseSetup("QuestionnairDefinitionRepository-dataset.xml")
 @DatabaseTearDown("QuestionnairDefinitionRepository-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class QuestionnairDefinitionRepositoryTest {
+public class QuestionnairDefinitionRepositoryTest extends AbstractShiroTest {
 
     @Autowired
     private QuestionnairDefinitionRepository repository;
@@ -132,6 +140,22 @@ public class QuestionnairDefinitionRepositoryTest {
         Integer questionnairDefinitionId = 7;
         Integer count = repository.questionsCount(questionnairDefinitionId);
         assertThat(count).isEqualTo(8);
+    }
+
+    @Before
+    public void setUpSubject() {
+        Subject subjectUnderTest = createNiceMock(Subject.class);
+        User support = User.with().id(1).build();
+        expect(subjectUnderTest.getPrincipal()).andReturn(support).anyTimes();
+        replay(subjectUnderTest);
+        // 2. Bind the subject to the current thread:
+        setSubject(subjectUnderTest);
+    }
+
+    @After
+    public void tearDownSubject() {
+        // 3. Unbind the subject from the current thread:
+        clearSubject();
     }
 
 }
