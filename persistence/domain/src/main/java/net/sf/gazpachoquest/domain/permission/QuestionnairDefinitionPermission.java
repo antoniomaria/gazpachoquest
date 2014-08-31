@@ -16,8 +16,8 @@ public class QuestionnairDefinitionPermission extends AbstractPermission<Questio
         super();
     }
 
-    public QuestionnairDefinitionPermission(User user, Role role, Integer mask, QuestionnairDefinition target) {
-        super(user, role, mask, target);
+    public QuestionnairDefinitionPermission(Integer id, User user, Role role, Integer mask, QuestionnairDefinition target) {
+        super(id, user, role, mask, target);
     }
 
     public static Builder with() {
@@ -25,11 +25,18 @@ public class QuestionnairDefinitionPermission extends AbstractPermission<Questio
     }
 
     public static class Builder {
+        private Integer id;
         private User user;
         private Role role;
         private int mask;
         private QuestionnairDefinition target;
 
+        public Builder id(Integer id) {
+            this.id= id;
+            return this;
+        }
+
+        
         public Builder user(User user) {
             this.user = user;
             return this;
@@ -59,7 +66,7 @@ public class QuestionnairDefinitionPermission extends AbstractPermission<Questio
         }
 
         public QuestionnairDefinitionPermission build() {
-            return new QuestionnairDefinitionPermission(user, role, mask, target);
+            return new QuestionnairDefinitionPermission(id, user, role, mask, target);
         }
     }
 

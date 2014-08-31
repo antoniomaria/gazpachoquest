@@ -7,7 +7,6 @@ import javax.persistence.MappedSuperclass;
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
 import net.sf.gazpachoquest.domain.support.Permission;
 import net.sf.gazpachoquest.domain.support.Securizable;
-import net.sf.gazpachoquest.domain.user.Group;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 
@@ -30,8 +29,9 @@ public class AbstractPermission<T extends Securizable<?>> extends AbstractPersis
         super();
     }
 
-    public AbstractPermission(User user, Role role, Integer mask, T target) {
+    public AbstractPermission(Integer id, User user, Role role, Integer mask, T target) {
         super();
+        super.setId(id);
         this.user = user;
         this.role = role;
         this.mask = mask;

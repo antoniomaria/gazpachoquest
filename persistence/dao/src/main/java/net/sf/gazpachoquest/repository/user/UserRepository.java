@@ -12,7 +12,8 @@ package net.sf.gazpachoquest.repository.user;
 
 import java.util.List;
 
-import net.sf.gazpachoquest.domain.support.Permission;
+import net.sf.gazpachoquest.domain.permission.QuestionnairDefinitionPermission;
+import net.sf.gazpachoquest.domain.permission.QuestionnairPermission;
 import net.sf.gazpachoquest.domain.user.Group;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
@@ -31,9 +32,20 @@ public interface UserRepository extends GenericRepository<User> {
     List<Role> getRoles(@Param("userId")
     Integer userId);
 
-    @Query("select p from QuestionnairDefinitionPermission p where p.user.id = :userId  union "
-            + "select rp from ResearchPermission rp where rp.user.id = :userId")
-    List<Permission<?>> getPermissions(@Param("userId")
+    @Query("select qdp from QuestionnairDefinitionPermission qdp where qdp.user.id = :userId ")
+    List<QuestionnairDefinitionPermission> getQuestionnairDefinitionPermissions(@Param("userId")
+    Integer userId);
+
+    @Query("select qp from QuestionnairPermission qp where qp.user.id = :userId ")
+    List<QuestionnairPermission> getQuestionnairPermissions(@Param("userId")
+    Integer userId);
+
+    @Query("select rp from ResearchPermission rp where rp.user.id = :userId")
+    List<QuestionnairPermission> getResearchPermissions(@Param("userId")
+    Integer userId);
+
+    @Query("select up from UserPermission up where up.user.id = :userId")
+    List<QuestionnairPermission> getUserPermissions(@Param("userId")
     Integer userId);
 
 }

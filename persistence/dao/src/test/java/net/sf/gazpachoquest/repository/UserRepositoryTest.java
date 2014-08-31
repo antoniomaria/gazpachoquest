@@ -1,8 +1,10 @@
 package net.sf.gazpachoquest.repository;
 
-import java.util.ArrayList;
+import static org.fest.assertions.api.Assertions.assertThat;
+
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.permission.QuestionnairDefinitionPermission;
 import net.sf.gazpachoquest.domain.support.Permission;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.repository.user.UserRepository;
@@ -21,8 +23,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
-import static org.fest.assertions.api.Assertions.assertThat;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
@@ -40,11 +40,11 @@ public class UserRepositoryTest {
         List<Role> roles = repository.getRoles(userId);
         assertThat(roles).contains(Role.with().id(1).build());
     }
+
     @Test
-    public void getPermissionsTest() {
+    public void getQuestionnairDefinitionPermissionsTest() {
         Integer userId = 1;
-        List<Permission<?>> roles = repository.getPermissions(userId);
-    System.out.println(roles);
-        System.out.println("fin");
+        List<QuestionnairDefinitionPermission> permissions = repository.getQuestionnairDefinitionPermissions(userId);
+        assertThat(permissions).contains(QuestionnairDefinitionPermission.with().id(5).build());
     }
 }

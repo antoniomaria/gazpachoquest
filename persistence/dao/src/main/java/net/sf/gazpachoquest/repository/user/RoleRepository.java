@@ -7,13 +7,22 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.repository.user;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import net.sf.gazpachoquest.domain.support.Permission;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.repository.support.GenericRepository;
 
 public interface RoleRepository extends GenericRepository<Role> {
 
-    // @Query("select r from Role r left join r.users u where u.id = :userId")
-    // List<Role> findByUser(@Param("userId")
-    // Integer userId);
+    @Query("select qdp from QuestionnairDefinitionPermission qdp where qdp.role.id = :roleId union "
+            + "select qp from QuestionnairPermission qp where qp.role.id = :roleId union "
+            + "select rp from ResearchPermission rp where rp.role.id = :roleId union "
+            + "select up from UserPermission up where up.role.id = :roleId")
+    List<Permission<?>> getPermissions(@Param("roleId")
+    Integer roleId);
 
 }

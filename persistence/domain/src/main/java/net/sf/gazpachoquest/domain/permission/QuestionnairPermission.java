@@ -3,8 +3,6 @@ package net.sf.gazpachoquest.domain.permission;
 import javax.persistence.Entity;
 
 import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.domain.permission.QuestionnairDefinitionPermission.Builder;
-import net.sf.gazpachoquest.domain.user.Group;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.types.Perm;
@@ -18,8 +16,8 @@ public class QuestionnairPermission extends AbstractPermission<Questionnair> {
         super();
     }
 
-    public QuestionnairPermission(User user, Role role, Integer mask, Questionnair target) {
-        super(user, role, mask, target);
+    public QuestionnairPermission(Integer id, User user, Role role, Integer mask, Questionnair target) {
+        super(id, user, role, mask, target);
     }
 
     public static Builder with() {
@@ -27,10 +25,16 @@ public class QuestionnairPermission extends AbstractPermission<Questionnair> {
     }
 
     public static class Builder {
+        private Integer id;
         private User user;
         private Role role;
         private int mask;
         private Questionnair target;
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
 
         public Builder user(User user) {
             this.user = user;
@@ -61,7 +65,7 @@ public class QuestionnairPermission extends AbstractPermission<Questionnair> {
         }
 
         public QuestionnairPermission build() {
-            return new QuestionnairPermission(user, role, mask, target);
+            return new QuestionnairPermission(id, user, role, mask, target);
         }
     }
 

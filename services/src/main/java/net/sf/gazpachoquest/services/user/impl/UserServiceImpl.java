@@ -7,8 +7,10 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.user.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.support.Permission;
 import net.sf.gazpachoquest.domain.user.Group;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.repository.user.GroupRepository;
@@ -67,6 +69,16 @@ public class UserServiceImpl extends AbstractPersistenceService<User> implements
     @Transactional(readOnly = true)
     public List<Group> getGroups(Integer userId) {
         return ((UserRepository) repository).getGroups(userId);
+    }
+
+    public List<Permission<?>> getPermissions(Integer userId) {
+        List<Permission<?>> permissions = new ArrayList<Permission<?>>();
+        permissions.addAll(((UserRepository) repository).getQuestionnairPermissions(userId));
+        permissions.addAll(((UserRepository) repository).getQuestionnairDefinitionPermissions(userId));
+        permissions.addAll(((UserRepository) repository).getResearchPermissions(userId));
+        permissions.addAll(((UserRepository) repository).getUserPermissions(userId));
+        
+        return permissions;
     }
 
 }
