@@ -5,16 +5,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.persistence.PersistenceException;
 
+import net.sf.gazpachoquest.domain.support.Permission;
+import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.security.support.HMACSignature;
 import net.sf.gazpachoquest.services.UserService;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -23,10 +25,8 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.cache.Cache;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.Subject;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.slf4j.Logger;
@@ -90,20 +90,16 @@ public class JPARealm extends AuthorizingRealm {
         }
         User user = (User) getAvailablePrincipal(principals);
 
-        Subject subject = SecurityUtils.getSubject();
-        Cache<Object, AuthenticationInfo> cache = getAuthenticationCache();
- 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        /*-
         Set<Role> roles = userService.getRoles(user.getId());
         for (Role role : roles) {
             info.addRole(role.getName());
         }
-        Set<Permission> permissions = userService.getPermissions(user.getId());
+        Set<Permission<?>> permissions = userService.getPermissions(user.getId());
 
-        for (Permission permission : permissions) {
+        for (Permission<?> permission : permissions) {
             info.addStringPermission(permission.getLiteral());
-        }*/
+        }
         return info;
     }
 

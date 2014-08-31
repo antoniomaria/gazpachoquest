@@ -2,7 +2,8 @@ package net.sf.gazpachoquest.types;
 
 public enum EntityType {
 
-    QUESTIONNAIR("Q", "questionnair"), USER("U", "user");
+    QUESTIONNAIR("Q", "questionnair"), QUESTONNAIR_DEFINITION("QD", "QuestionnairDefinition"), RESEARCH("R", "research"), USER(
+            "U", "user");
 
     private String code;
     private String label;

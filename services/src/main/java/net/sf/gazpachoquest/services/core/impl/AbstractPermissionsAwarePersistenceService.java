@@ -1,6 +1,7 @@
 package net.sf.gazpachoquest.services.core.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import net.sf.gazpachoquest.domain.support.Permission;
 import net.sf.gazpachoquest.domain.support.Securizable;
@@ -36,10 +37,12 @@ public abstract class AbstractPermissionsAwarePersistenceService<S extends Secur
         throw new UnsupportedOperationException("Method not supported in this implementation");
     }
 
-    private Integer[] toRoleIds(List<Role> roles) {
+    private Integer[] toRoleIds(Set<Role> roles) {
         Integer[] roleIds = new Integer[roles.size()];
-        for (int i = 0; i < roleIds.length; i++) {
-            roleIds[i] = roles.get(i).getId();
+        int i = 0;
+        for (Role role : roles) {
+            roleIds[i++] = role.getId();
+
         }
         return roleIds;
     }

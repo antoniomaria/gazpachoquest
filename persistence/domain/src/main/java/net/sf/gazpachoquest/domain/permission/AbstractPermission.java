@@ -1,14 +1,18 @@
 package net.sf.gazpachoquest.domain.permission;
 
+import java.lang.reflect.ParameterizedType;
+
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
 import net.sf.gazpachoquest.domain.support.Permission;
 import net.sf.gazpachoquest.domain.support.Securizable;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
+import net.sf.gazpachoquest.types.Perm;
 
 @MappedSuperclass
 public class AbstractPermission<T extends Securizable<?>> extends AbstractPersistable implements Permission<T> {
@@ -72,5 +76,15 @@ public class AbstractPermission<T extends Securizable<?>> extends AbstractPersis
 
     public void setTarget(T target) {
         this.target = target;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Transient
+    @Override
+    public String getLiteral() {
+        ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+        Class<T> targetClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
+        return new StringBuilder().append(targetClass.getSimpleName().toLowerCase()).append(":")
+                .append(Perm.getLiteral(mask)).append(":").append(this.target.getId()).toString();
     }
 }

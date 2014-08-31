@@ -11,4 +11,6 @@ public interface Permission<T extends Persistable> extends Persistable {
     Role getRole();
 
     public T getTarget();
+
+    String getLiteral();
 }

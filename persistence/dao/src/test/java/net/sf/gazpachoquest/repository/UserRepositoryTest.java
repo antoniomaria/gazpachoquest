@@ -3,9 +3,9 @@ package net.sf.gazpachoquest.repository;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.Set;
 
 import net.sf.gazpachoquest.domain.permission.QuestionnairDefinitionPermission;
-import net.sf.gazpachoquest.domain.support.Permission;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.repository.user.UserRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
@@ -37,7 +37,7 @@ public class UserRepositoryTest {
     @Test
     public void getRolesTest() {
         Integer userId = 1;
-        List<Role> roles = repository.getRoles(userId);
+        Set<Role> roles = repository.getRoles(userId);
         assertThat(roles).contains(Role.with().id(1).build());
     }
 
