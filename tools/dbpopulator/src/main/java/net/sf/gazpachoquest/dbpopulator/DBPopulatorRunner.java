@@ -10,6 +10,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dbpopulator;
 
+import net.sf.gazpachoquest.dbpopulator.support.ShiroLogin;
+
 import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +28,10 @@ public class DBPopulatorRunner {
         StopWatch stopWatch = new StopWatch();
         logger.info("Populating database");
         stopWatch.start();
+        ShiroLogin.login();
         populator.populate();
         stopWatch.stop();
+        ShiroLogin.logout();
         logger.info("Database populated in {} {}", stopWatch.getTime(), "ms");
 
         ctx.close();

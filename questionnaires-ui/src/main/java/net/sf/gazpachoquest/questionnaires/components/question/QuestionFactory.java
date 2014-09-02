@@ -7,7 +7,7 @@ import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.resource.NotSupportedException;
 
-import net.sf.gazpachoquest.api.QuestionnairResource;
+import net.sf.gazpachoquest.api.QuestionnaireResource;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.questionnaires.components.question.type.CheckboxListQuestion;
 import net.sf.gazpachoquest.questionnaires.components.question.type.ListRadioQuestion;
@@ -29,14 +29,14 @@ public class QuestionFactory implements Serializable {
 
     @GazpachoResource
     @Inject
-    private QuestionnairResource questionnairResource;
+    private QuestionnaireResource questionnaireResource;
 
     @PostConstruct
     public void init() {
         logger.debug("Question Factory instance created");
     }
 
-    public QuestionComponent build(Integer questionnairId, QuestionDTO questionDTO) throws NotSupportedException {
+    public QuestionComponent build(Integer questionnaireId, QuestionDTO questionDTO) throws NotSupportedException {
         AbstractQuestionComponent questionComponent = null;
         switch (questionDTO.getType()) {
         case S:

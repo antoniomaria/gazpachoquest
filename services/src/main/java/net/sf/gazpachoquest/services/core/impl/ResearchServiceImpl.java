@@ -15,23 +15,24 @@ import net.sf.gazpachoquest.domain.core.AnonymousInvitation;
 import net.sf.gazpachoquest.domain.core.MailMessage;
 import net.sf.gazpachoquest.domain.core.MailMessageTemplate;
 import net.sf.gazpachoquest.domain.core.PersonalInvitation;
-import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.domain.core.QuestionnairAnswers;
-import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.core.Questionnaire;
+import net.sf.gazpachoquest.domain.core.QuestionnaireAnswers;
+import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation;
-import net.sf.gazpachoquest.domain.permission.QuestionnairPermission;
+import net.sf.gazpachoquest.domain.permission.QuestionnairePermission;
+import net.sf.gazpachoquest.domain.permission.ResearchPermission;
 import net.sf.gazpachoquest.domain.user.Group;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.InvitationRepository;
 import net.sf.gazpachoquest.repository.MailMessageRepository;
-import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
-import net.sf.gazpachoquest.repository.QuestionnairRepository;
+import net.sf.gazpachoquest.repository.QuestionnaireDefinitionRepository;
+import net.sf.gazpachoquest.repository.QuestionnaireRepository;
 import net.sf.gazpachoquest.repository.ResearchRepository;
-import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
-import net.sf.gazpachoquest.repository.permission.QuestionnairPermissionRepository;
+import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
+import net.sf.gazpachoquest.repository.permission.QuestionnairePermissionRepository;
 import net.sf.gazpachoquest.repository.permission.ResearchPermissionRepository;
 import net.sf.gazpachoquest.repository.user.GroupRepository;
 import net.sf.gazpachoquest.repository.user.UserRepository;
@@ -69,10 +70,10 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
     private GroupRepository groupRepository;
 
     @Autowired
-    private QuestionnairDefinitionRepository questionnairDefinitionRepository;
+    private QuestionnaireDefinitionRepository questionnaireDefinitionRepository;
 
     @Autowired
-    private QuestionnairRepository questionnairRepository;
+    private QuestionnaireRepository questionnaireRepository;
 
     @Autowired
     private RandomTokenGenerator tokenGenerator;
@@ -84,10 +85,10 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
     private ResearchPermissionRepository researchPermissionRepository;
 
     @Autowired
-    private QuestionnairAnswersRepository questionnairAnswersRepository;
+    private QuestionnaireAnswersRepository questionnaireAnswersRepository;
 
     @Autowired
-    private QuestionnairPermissionRepository questionnairPermissionRepository;
+    private QuestionnairePermissionRepository questionnairePermissionRepository;
 
     @Autowired
     public ResearchServiceImpl(final ResearchRepository repository) {
@@ -110,36 +111,36 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
 
     @Override
     @Transactional(readOnly = false)
-    public Research save(Research research, Set<QuestionnairDefinition> questionnairDefinitions, Set<User> respondents) {
+    public Research save(Research research, Set<QuestionnaireDefinition> questionnaireDefinitions, Set<User> respondents) {
         research = this.save(research);
         if (ResearchAccessType.BY_INVITATION.equals(research.getType())) {
-            for (QuestionnairDefinition questionnairDefinition : questionnairDefinitions) {
+            for (QuestionnaireDefinition questionnaireDefinition : questionnaireDefinitions) {
 
-                questionnairDefinition = questionnairDefinitionRepository.findOne(questionnairDefinition.getId());
+                questionnaireDefinition = questionnaireDefinitionRepository.findOne(questionnaireDefinition.getId());
 
-                Map<MailMessageTemplateType, MailMessageTemplate> templates = questionnairDefinition.getMailTemplates();
+                Map<MailMessageTemplateType, MailMessageTemplate> templates = questionnaireDefinition.getMailTemplates();
                 MailMessageTemplate invitationTemplate = templates.get(MailMessageTemplateType.INVITATION);
 
                 Group example = Group.with().name("Respondents").build();
                 Group respondentsGroup = groupRepository.findOneByExample(example, new SearchParameters());
                 for (User respondent : respondents) {
                     Assert.state(!respondent.isNew(), "Persist all respondents before starting a research.");
-                    Questionnair questionnair = Questionnair.with().status(EntityStatus.CONFIRMED).research(research)
-                            .questionnairDefinition(questionnairDefinition).respondent(respondent).build();
-                    questionnair = questionnairRepository.save(questionnair);
+                    Questionnaire questionnaire = Questionnaire.with().status(EntityStatus.CONFIRMED).research(research)
+                            .questionnaireDefinition(questionnaireDefinition).respondent(respondent).build();
+                    questionnaire = questionnaireRepository.save(questionnaire);
                     // Create answers holder
-                    QuestionnairAnswers questionnairAnswers = new QuestionnairAnswers();
-                    questionnairAnswers = questionnairAnswersRepository.save(questionnair.getQuestionnairDefinition()
-                            .getId(), questionnairAnswers);
-                    questionnair.setAnswersId(questionnairAnswers.getId());
+                    QuestionnaireAnswers questionnaireAnswers = new QuestionnaireAnswers();
+                    questionnaireAnswers = questionnaireAnswersRepository.save(questionnaire.getQuestionnairDefinition()
+                            .getId(), questionnaireAnswers);
+                    questionnaire.setAnswersId(questionnaireAnswers.getId());
 
                     String token = tokenGenerator.generate();
 
                     respondent = userRepository.findOne(respondent.getId());
-
-                    QuestionnairPermission permission = QuestionnairPermission.with().addPerm(Perm.READ)
-                            .addPerm(Perm.UPDATE).user(respondent).target(questionnair).build();
-                    questionnairPermissionRepository.save(permission);
+                    // Grant permissions over questionnaire to respondent
+                    QuestionnairePermission permission = QuestionnairePermission.with().addPerm(Perm.READ)
+                            .addPerm(Perm.UPDATE).user(respondent).target(questionnaire).build();
+                    questionnairePermissionRepository.save(permission);
 
                     PersonalInvitation personalInvitation = PersonalInvitation.with().research(research).token(token)
                             .status(InvitationStatus.ACTIVE).respondent(respondent).build();
@@ -154,16 +155,19 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
                 }
             }
         } else {
-            Assert.notEmpty(questionnairDefinitions, "questionnairDefinitions required");
-            Assert.state(questionnairDefinitions.size() == 1,
+            Assert.notEmpty(questionnaireDefinitions, "questionnairDefinitions required");
+            Assert.state(questionnaireDefinitions.size() == 1,
                     "Only one questionnairDefinitions supported for Open Access researches");
             String token = tokenGenerator.generate();
 
             AnonymousInvitation anonymousInvitation = AnonymousInvitation.with().research(research)
-                    .questionnairDefinition(questionnairDefinitions.iterator().next()).token(token)
+                    .questionnaireDefinition(questionnaireDefinitions.iterator().next()).token(token)
                     .status(InvitationStatus.ACTIVE).build();
             invitationRepository.save(anonymousInvitation);
         }
+        ResearchPermission permission = ResearchPermission.with().addPerm(Perm.READ).addPerm(Perm.UPDATE)
+                .addPerm(Perm.DELETE).user(getAuthenticatedUser()).target(research).build();
+        researchPermissionRepository.save(permission);
         return research;
     }
 

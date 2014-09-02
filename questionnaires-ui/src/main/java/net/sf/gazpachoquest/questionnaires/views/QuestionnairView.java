@@ -16,11 +16,11 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.resource.NotSupportedException;
 
-import net.sf.gazpachoquest.api.QuestionnairResource;
+import net.sf.gazpachoquest.api.QuestionnaireResource;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionGroupDTO;
-import net.sf.gazpachoquest.dto.QuestionnairDTO;
-import net.sf.gazpachoquest.dto.QuestionnairPageDTO;
+import net.sf.gazpachoquest.dto.QuestionnaireDTO;
+import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.questionnaires.components.question.QuestionComponent;
 import net.sf.gazpachoquest.questionnaires.components.question.QuestionFactory;
@@ -63,12 +63,12 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
 
     @Inject
     @GazpachoResource
-    private QuestionnairResource questionnairResource;
+    private QuestionnaireResource questionnaireResource;
 
     @Inject
     private QuestionFactory QuestionFactory;
 
-    private Integer questionnairId;
+    private Integer questionnaireId;
 
     private VerticalLayout questionsLayout;
 
@@ -86,7 +86,7 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
 
     private Boolean questionGroupInfoVisible;
 
-    public void update(QuestionnairPageDTO page) {
+    public void update(QuestionnairePageDTO page) {
         questionsLayout.removeAllComponents();
 
         List<QuestionGroupDTO> questionGroups = page.getQuestionGroups();
@@ -101,7 +101,7 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
             for (QuestionDTO questionDTO : questions) {
                 QuestionComponent questionComponent;
                 try {
-                    questionComponent = QuestionFactory.build(questionnairId, questionDTO);
+                    questionComponent = QuestionFactory.build(questionnaireId, questionDTO);
                     questionsLayout.addComponent(questionComponent);
                 } catch (NotSupportedException e) {
                     logger.warn(e.getMessage());
@@ -150,11 +150,11 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
         } else {
             preferredLanguage = Language.fromLocale(webBrowser.getLocale());
         }
-        questionnairId = respondent.getGrantedQuestionnairIds().iterator().next();
-        logger.debug("Trying to fetch questionnair identified with id  = {} ", questionnairId);
-        QuestionnairDTO questionnair = questionnairResource.getDefinition(questionnairId);
+        questionnaireId = respondent.getGrantedquestionnaireIds().iterator().next();
+        logger.debug("Trying to fetch questionnair identified with id  = {} ", questionnaireId);
+        QuestionnaireDTO questionnair = questionnaireResource.getDefinition(questionnaireId);
         questionGroupInfoVisible = questionnair.isQuestionGroupInfoVisible();
-        QuestionnairPageDTO page = questionnairResource.getPage(questionnairId, renderingMode, preferredLanguage,
+        QuestionnairePageDTO page = questionnaireResource.getPage(questionnaireId, renderingMode, preferredLanguage,
                 NavigationAction.ENTERING);
 
         logger.debug("Displaying page {}/{} with {} questions", page.getMetadata().getNumber(), page.getMetadata()
@@ -209,11 +209,11 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
     @Override
     public void buttonClick(ClickEvent event) {
         if (nextButton.equals(event.getButton())) {
-            QuestionnairPageDTO page = questionnairResource.getPage(questionnairId, renderingMode, preferredLanguage,
+            QuestionnairePageDTO page = questionnaireResource.getPage(questionnaireId, renderingMode, preferredLanguage,
                     NavigationAction.NEXT);
             update(page);
         } else {
-            QuestionnairPageDTO page = questionnairResource.getPage(questionnairId, renderingMode, preferredLanguage,
+            QuestionnairePageDTO page = questionnaireResource.getPage(questionnaireId, renderingMode, preferredLanguage,
                     NavigationAction.PREVIOUS);
             update(page);
         }

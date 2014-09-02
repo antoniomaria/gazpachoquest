@@ -5,7 +5,7 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachoquest.domain.core.AnonymousInvitation;
-import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.support.Invitation;
 import net.sf.gazpachoquest.domain.user.User;
@@ -41,7 +41,7 @@ public class InvitationRepositoryTest extends AbstractShiroTest {
     private ResearchRepository researchRepository;
 
     @Autowired
-    private QuestionnairDefinitionRepository questionnairDefinitionRepository;
+    private QuestionnaireDefinitionRepository questionnaireDefinitionRepository;
 
     @Autowired
     private InvitationRepository invitationRepository;
@@ -54,10 +54,10 @@ public class InvitationRepositoryTest extends AbstractShiroTest {
     @Test
     public void saveTest() {
         Research research = researchRepository.findOne(57);
-        QuestionnairDefinition questionnairDefinition = questionnairDefinitionRepository.findOne(7);
+        QuestionnaireDefinition questionnaireDefinition = questionnaireDefinitionRepository.findOne(7);
 
         AnonymousInvitation invitation = AnonymousInvitation.with().research(research).status(InvitationStatus.ACTIVE)
-                .token("1234").questionnairDefinition(questionnairDefinition).build();
+                .token("1234").questionnaireDefinition(questionnaireDefinition).build();
         Invitation saved = invitationRepository.save(invitation);
         assertThat(saved.isNew()).isFalse();
     }

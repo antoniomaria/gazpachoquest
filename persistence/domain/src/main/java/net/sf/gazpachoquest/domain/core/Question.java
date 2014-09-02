@@ -35,7 +35,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionTranslation;
 import net.sf.gazpachoquest.domain.support.AbstractLocalizable;
-import net.sf.gazpachoquest.domain.support.QuestionnairElement;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 
@@ -44,8 +43,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 @Entity
-public class Question extends AbstractLocalizable<QuestionTranslation, QuestionLanguageSettings> implements
-        QuestionnairElement {
+public class Question extends AbstractLocalizable<QuestionTranslation, QuestionLanguageSettings> {
 
     private static final long serialVersionUID = -4372634574851905803L;
 

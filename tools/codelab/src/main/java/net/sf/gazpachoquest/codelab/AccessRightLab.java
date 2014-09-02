@@ -9,16 +9,12 @@ import javax.persistence.Query;
 import net.sf.gazpachoquest.codelab.randomuser.RandomUserCreator;
 import net.sf.gazpachoquest.codelab.randomuser.support.RandomUser;
 import net.sf.gazpachoquest.domain.user.Group;
-import net.sf.gazpachoquest.domain.user.Permission;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.services.GroupService;
-import net.sf.gazpachoquest.services.PermissionService;
 import net.sf.gazpachoquest.services.RoleService;
 import net.sf.gazpachoquest.services.UserService;
-import net.sf.gazpachoquest.types.EntityType;
 import net.sf.gazpachoquest.types.Gender;
-import net.sf.gazpachoquest.types.Perm;
 import net.sf.gazpachoquest.util.RandomTokenGenerator;
 
 import org.slf4j.Logger;
@@ -40,8 +36,8 @@ public class AccessRightLab {
     @Autowired
     private RoleService roleService;
 
-    @Autowired
-    private PermissionService permissionService;
+    // @Autowired
+    // private PermissionService permissionService;
 
     @Autowired
     private RandomTokenGenerator tokenGenerator;
@@ -97,7 +93,7 @@ public class AccessRightLab {
         Group administrators = Group.with().name("Administrators").build();
         Role administratorsRole = Role.with().name("Administrators role")
                 .description("Specific role for administrators group").build();
-        administrators.assignToRole(administratorsRole);
+        // administrators.assignToRole(administratorsRole);
 
         administrators = groupService.save(administrators);
 
@@ -114,6 +110,7 @@ public class AccessRightLab {
             user = userService.save(user);
 
             if (index < userCount - 1) {
+                /*-
                 if (index % 2 == 0) {
                     Permission individualPermission = Permission.with().entityId(user.getId()).scope(EntityType.USER)
                             .addPerm(Perm.UPDATE).addPerm(Perm.READ).addPerm(Perm.DELETE).build();
@@ -126,18 +123,18 @@ public class AccessRightLab {
                     groupPermission.setRole(administratorsRole);
 
                     permissionService.save(groupPermission);
-                }
-            } else {
-                Permission individualPermission = Permission.with().entityId(user.getId()).scope(EntityType.USER)
+                }*/
+            } else {/*-
+                    Permission individualPermission = Permission.with().entityId(user.getId()).scope(EntityType.USER)
                         .addPerm(Perm.UPDATE).addPerm(Perm.READ).addPerm(Perm.DELETE).build();
-                individualPermission.setRole(supportRole);
+                    individualPermission.setRole(supportRole);
 
-                permissionService.save(individualPermission);
-                Permission groupPermission = Permission.with().entityId(user.getId()).scope(EntityType.USER)
+                    permissionService.save(individualPermission);
+                    Permission groupPermission = Permission.with().entityId(user.getId()).scope(EntityType.USER)
                         .addPerm(Perm.READ).build();
-                groupPermission.setRole(administratorsRole);
+                    groupPermission.setRole(administratorsRole);
 
-                permissionService.save(groupPermission);
+                    permissionService.save(groupPermission);*/
             }
 
         }

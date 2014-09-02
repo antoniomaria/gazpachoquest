@@ -7,20 +7,20 @@
   <research />
   <invitation />
 
-  <questionnair_definition />
-  <questionnair_definition_translation />
+  <questionnaire_definition />
+  <questionnaire_definition_translation />
   <question_group />
   <question_group_translation />
   <question />
   <question_translation />
   <question_option />
   <question_option_translation />
-  <questionnair />
+  <questionnaire />
   <groups />
   <user_group />
   <mail_message_template />
   <mail_message_template_translation />
-  <questionnair_definition_translation />
+  <questionnaire_definition_translation />
   <user_role />
   <group_role />
 

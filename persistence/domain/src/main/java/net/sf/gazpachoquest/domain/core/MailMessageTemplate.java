@@ -46,7 +46,7 @@ public class MailMessageTemplate extends
     private MailMessageTemplateType type;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private QuestionnairDefinition questionnairDefinition;
+    private QuestionnaireDefinition questionnaireDefinition;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -122,12 +122,12 @@ public class MailMessageTemplate extends
         this.type = type;
     }
 
-    public QuestionnairDefinition getQuestionnairDefinition() {
-        return questionnairDefinition;
+    public QuestionnaireDefinition getQuestionnairDefinition() {
+        return questionnaireDefinition;
     }
 
-    public void setQuestionnairDefinition(QuestionnairDefinition questionnairDefinition) {
-        this.questionnairDefinition = questionnairDefinition;
+    public void setQuestionnairDefinition(QuestionnaireDefinition questionnaireDefinition) {
+        this.questionnaireDefinition = questionnaireDefinition;
     }
 
     public static Builder with() {
@@ -136,7 +136,7 @@ public class MailMessageTemplate extends
 
     public static class Builder {
         private Integer id;
-        private QuestionnairDefinition questionnairDefinition;
+        private QuestionnaireDefinition questionnaireDefinition;
         private MailMessageTemplateType type;
         private Language language;
         private String fromAddress;
@@ -153,8 +153,8 @@ public class MailMessageTemplate extends
             return this;
         }
 
-        public Builder questionnairDefinition(QuestionnairDefinition questionnairDefinition) {
-            this.questionnairDefinition = questionnairDefinition;
+        public Builder questionnaireDefinition(QuestionnaireDefinition questionnaireDefinition) {
+            this.questionnaireDefinition = questionnaireDefinition;
             return this;
         }
 
@@ -185,7 +185,7 @@ public class MailMessageTemplate extends
             mailMessageTemplate.replyTo = replyTo;
             mailMessageTemplate.languageSettings = languageSettings;
             mailMessageTemplate.type = type;
-            mailMessageTemplate.questionnairDefinition = questionnairDefinition;
+            mailMessageTemplate.questionnaireDefinition = questionnaireDefinition;
             mailMessageTemplate.setId(id);
             return mailMessageTemplate;
         }

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <role id="1" description="Specific role for support support " name="User Role" />
+  <role id="11" description="Specific role for Catelyn Stark " name="User Role" />
+
+  <users id="1" api_key="9BNONCVRNG4JPBQ" secret="L0LTMJ1XAMEY13FT27MWZMQX1LWK8I1L" created_date="2014-04-19 10:35:10.713" email="support@gazpacho.net" given_names="support" last_modified_date="2014-04-19 10:35:10.713"
+    surname="support" username="support" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="1" />
+    
+  <users id="6" api_key="PCN1SYW4X977UE7" secret="EQSV5ARQY1LLHKDLO8EF9RMBKV9T95K5" created_date="2014-04-19 10:35:11.263" email="catelyn.stark@winterfell.net" gender="F" given_names="Catelyn"
+    last_modified_date="2014-04-19 10:35:11.263" preferred_language="FI" surname="Stark" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="11" />
+
+  <research id="57" created_date="2014-04-19 10:35:13.867" expiration_date="2014-04-19 10:35:13.812" last_modified_date="2014-04-19 10:35:13.867"
+    name="New private questionnaire Sample questionnaireDefinition started" start_date="2014-04-19 10:35:13.813" type="P" createdby_id="1"
+    lastmodifiedby_id="1" />
+  <invitation />
+
+  <questionnaire_definition id="7" created_date="2014-04-19 10:35:11.358" language="EN" last_modified_date="2014-04-19 10:35:11.358"
+    status="C" description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample questionnaireDefinition&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;"
+    title="Sample questionnaireDefinition" welcome_text="Thank you for taking the time to participate in this questionnaireDefinition." createdby_id="1"
+    lastmodifiedby_id="1" randomization_strategy="N" welcome_visible="true" progress_visible="true" question_group_info_visible="true" rendering_mode="GBG"/>
+  <questionnaire_definition_translation />
+  
+  <question_group id="9" created_date="2014-04-19 10:35:11.517" language="EN" last_modified_date="2014-04-19 10:35:11.517" title="QuestionGroup 1"
+    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="7" order_in_questionnaire="0" randomization_enabled="true"/>
+  <question_group id="10" created_date="2014-04-19 10:35:11.566" language="EN" last_modified_date="2014-04-19 10:35:11.566" title="QuestionGroup 2"
+    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="7" order_in_questionnaire="1" randomization_enabled="false"/>
+  <question_group id="11" created_date="2014-04-19 10:35:11.62" language="EN" last_modified_date="2014-04-19 10:35:11.62" title="QuestionGroup 3"
+    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="7" order_in_questionnaire="2" randomization_enabled="false"/>
+  <question_group_translation />
+
+  <question id="12" code="Q1" created_date="2014-04-19 10:35:11.727" language="EN" last_modified_date="2014-04-19 10:35:11.727" required="true" type="S"
+    title="What is your name?" createdby_id="1" lastmodifiedby_id="1" questiongroup_id="9" order_in_questiongroup="0" other_allowed="false"/>
+  <question id="13" code="Q2" created_date="2014-04-19 10:35:11.928" language="EN" last_modified_date="2014-04-19 10:35:11.928" required="true" type="L"
+    title="What is your age group?" createdby_id="1" lastmodifiedby_id="1" questiongroup_id="9" order_in_questiongroup="1" other_allowed="false"/>
+  <question id="29" code="Q3" created_date="2014-04-19 10:35:12.198" language="EN" last_modified_date="2014-04-19 10:35:12.198" required="true" type="N"
+    title="And for our records, specifically how old are you?" createdby_id="1" lastmodifiedby_id="1" questiongroup_id="9" order_in_questiongroup="2" other_allowed="false"/>
+  <question id="30" code="Q4" created_date="2014-04-19 10:35:12.283" language="EN" last_modified_date="2014-04-19 10:35:12.283" required="true" type="T"
+    title="Please tell us a little about yourself. What was your first job, and did you enjoy it?" createdby_id="1" lastmodifiedby_id="1" questiongroup_id="10"
+    order_in_questiongroup="0" other_allowed="false"/>
+  <question id="31" code="Q5" created_date="2014-04-19 10:35:12.327" language="EN" last_modified_date="2014-04-19 10:35:12.327" required="true" type="L"
+    title="Given your extraordinary age, how do you find using this questionnaireDefinition tool?" createdby_id="1" lastmodifiedby_id="1" questiongroup_id="10"
+    order_in_questiongroup="1" other_allowed="false"/>
+  <question id="35" code="Q6" created_date="2014-04-19 10:35:12.447" language="EN" last_modified_date="2014-04-19 10:35:12.447" required="true" type="L"
+    title="Which of these ads makes you want to find out more?" createdby_id="1" lastmodifiedby_id="1" questiongroup_id="10" order_in_questiongroup="2" other_allowed="false"/>
+  <question id="39" code="Q7" created_date="2014-04-19 10:35:12.595" language="EN" last_modified_date="2014-04-19 10:35:12.595" required="true" type="F"
+    title="Please have a good look at this ad, and then complete the questions below.&lt;br /&gt;&lt;img src=&apos;http://www.aptigence.com.au/images/lawyer1.jpg&apos; border=&apos;1&apos;&gt;"
+    createdby_id="1" lastmodifiedby_id="1" questiongroup_id="11" order_in_questiongroup="0" other_allowed="false"/>
+  <question id="46" code="Q7.1" created_date="2014-04-19 10:35:12.615" language="EN" last_modified_date="2014-04-19 10:35:12.615" required="false"
+    type="L" title="This ad suggests the lawyer is on my side, not his own" createdby_id="1" lastmodifiedby_id="1" parent_id="39" order_in_subquestions="0" other_allowed="false"/>
+  <question id="47" code="Q7.2" created_date="2014-04-19 10:35:12.618" language="EN" last_modified_date="2014-04-19 10:35:12.618" required="false"
+    type="L" title="This ad suggests that the lawyer is interested in a life of frugal community service" createdby_id="1" lastmodifiedby_id="1" parent_id="39"
+    order_in_subquestions="1" other_allowed="false"/>
+  <question id="48" code="Q7.3" created_date="2014-04-19 10:35:12.622" language="EN" last_modified_date="2014-04-19 10:35:12.622" required="false"
+    type="L" title="This ad would be enough to get me to hire this lawyer" createdby_id="1" lastmodifiedby_id="1" parent_id="39" order_in_subquestions="2" other_allowed="false"/>
+  <question id="49" code="Q7.4" created_date="2014-04-19 10:35:12.626" language="EN" last_modified_date="2014-04-19 10:35:12.626" required="false"
+    type="L" title="This ad gives me confidence in the lawyers experience" createdby_id="1" lastmodifiedby_id="1" parent_id="39" order_in_subquestions="3" other_allowed="false"/>
+  <question id="50" code="Q8" created_date="2014-04-19 10:35:12.748" language="EN" last_modified_date="2014-04-19 10:35:12.748" required="false" type="M"
+    title="What flavors of ice cream do you like?. Choose all that apply." createdby_id="1" lastmodifiedby_id="1" questiongroup_id="11" order_in_questiongroup="1" other_allowed="false"/>
+
+  <question_translation />
+
+  <question_option id="51" code="O1" created_date="2014-04-19 10:35:12.755" language="EN" last_modified_date="2014-04-19 10:35:12.755" title="Vanilla"
+    createdby_id="1" lastmodifiedby_id="1" question_id="50" order_in_question="0" />
+  <question_option id="52" code="O2" created_date="2014-04-19 10:35:12.758" language="EN" last_modified_date="2014-04-19 10:35:12.758" title="Chocolate"
+    createdby_id="1" lastmodifiedby_id="1" question_id="50" order_in_question="1" />
+  <question_option id="53" code="O3" created_date="2014-04-19 10:35:12.762" language="EN" last_modified_date="2014-04-19 10:35:12.762" title="Strawberry"
+    createdby_id="1" lastmodifiedby_id="1" question_id="50" order_in_question="2" />
+  <question_option id="54" code="O4" created_date="2014-04-19 10:35:12.765" language="EN" last_modified_date="2014-04-19 10:35:12.765" title="Pistachio"
+    createdby_id="1" lastmodifiedby_id="1" question_id="50" order_in_question="3" />
+  <question_option_translation />
+  
+  <questionnaire id="58" answers_id="5" created_date="2014-04-19 10:35:13.943" last_modified_date="2014-04-19 10:35:13.943" status="C"
+    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="7" research_id="57" respondent_id="6" />
+
+  <groups />
+  <user_group />
+  <mail_message_template />
+  <mail_message_template_translation />
+  <questionnaire_definition_translation />
+  <user_role />
+  <group_role />
+  <permission />
+
+
+  <label_set />
+  <label />
+  <breadcrumb />
+  <sequence seq_name="questionnaire_answers_7_seq" seq_count="50" />
+  <sequence seq_name="SEQ_GEN" seq_count="150" />
+</dataset>

@@ -5,7 +5,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.gazpachoquest.domain.permission.QuestionnairDefinitionPermission;
+import net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.repository.user.UserRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
@@ -44,7 +44,7 @@ public class UserRepositoryTest {
     @Test
     public void getQuestionnairDefinitionPermissionsTest() {
         Integer userId = 1;
-        List<QuestionnairDefinitionPermission> permissions = repository.getQuestionnairDefinitionPermissions(userId);
-        assertThat(permissions).contains(QuestionnairDefinitionPermission.with().id(5).build());
+        List<QuestionnaireDefinitionPermission> permissions = repository.getQuestionnairDefinitionPermissions(userId);
+        assertThat(permissions).contains(QuestionnaireDefinitionPermission.with().id(5).build());
     }
 }

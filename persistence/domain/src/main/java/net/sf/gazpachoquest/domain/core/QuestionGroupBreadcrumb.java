@@ -71,7 +71,7 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
 
         private QuestionGroup questionGroup;
 
-        private Questionnair questionnair;
+        private Questionnaire questionnaire;
 
         private Boolean last;
 
@@ -92,8 +92,8 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
             return this;
         }
 
-        public Builder questionnair(Questionnair questionnair) {
-            this.questionnair = questionnair;
+        public Builder questionnaire(Questionnaire questionnaire) {
+            this.questionnaire = questionnaire;
             return this;
         }
 
@@ -108,7 +108,7 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
             questionGroupBreadcrumb.setLast(last);
             questionGroupBreadcrumb.setRenderingMode(renderingMode);
             questionGroupBreadcrumb.questionGroup = questionGroup;
-            questionGroupBreadcrumb.questionnair = questionnair;
+            questionGroupBreadcrumb.questionnaire = questionnaire;
             return questionGroupBreadcrumb;
         }
     }

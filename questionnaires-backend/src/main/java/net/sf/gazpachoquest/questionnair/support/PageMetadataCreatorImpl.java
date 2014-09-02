@@ -10,7 +10,7 @@ import net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 import net.sf.gazpachoquest.services.QuestionGroupService;
 import net.sf.gazpachoquest.services.QuestionService;
-import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
+import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
@@ -27,7 +27,7 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
     private QuestionService questionService;
 
     @Autowired
-    private QuestionnairDefinitionService questionnairDefinitionService;
+    private QuestionnaireDefinitionService questionnaireDefinitionService;
 
     @Autowired
     private BreadcrumbService breadcrumbService;
@@ -46,7 +46,7 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
             if (RandomizationStrategy.NONE.equals(randomizationStrategy)) {
                 questionGroup = questionGroupService.findOne(questionGroup.getId());
                 position = questionGroupService.positionInQuestionnairDefinition(questionGroup.getId());
-                count = questionnairDefinitionService.questionGroupsCount(questionGroup.getQuestionnairDefinition()
+                count = questionnaireDefinitionService.questionGroupsCount(questionGroup.getQuestionnairDefinition()
                         .getId());
             } else {
                 count = breadcrumbService.countByQuestionnair(breadcrumb.getQuestionnair().getId());
@@ -59,13 +59,13 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
 
                 Integer questionnairDefinitionId = questionGroup.getQuestionnairDefinition().getId();
 
-                count = questionnairDefinitionService.questionsCount(questionnairDefinitionId);
+                count = questionnaireDefinitionService.questionsCount(questionnairDefinitionId);
 
                 Integer questionGroupId = question.getQuestionGroup().getId();
 
                 Integer positionInQuestionGroup = questionService.findPositionInQuestionGroup(question.getId());
 
-                List<Object[]> counts = questionnairDefinitionService
+                List<Object[]> counts = questionnaireDefinitionService
                         .questionsCountGroupByQuestionGroups(questionnairDefinitionId);
                 Integer positionInQuestionnairDefition = 0;
                 for (Object[] objects : counts) {

@@ -7,8 +7,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.permission.impl;
 
-import net.sf.gazpachoquest.domain.permission.QuestionnairDefinitionPermission;
-import net.sf.gazpachoquest.repository.permission.QuestionnairDefinitionPermissionRepository;
+import net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission;
+import net.sf.gazpachoquest.repository.permission.QuestionnaireDefinitionPermissionRepository;
 import net.sf.gazpachoquest.services.core.impl.AbstractPersistenceService;
 import net.sf.gazpachoquest.services.permission.QuestionnairDefinitionPermissionService;
 
@@ -18,17 +18,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class QuestionnairDefinitionPermissionServiceImpl extends
-        AbstractPersistenceService<QuestionnairDefinitionPermission> implements QuestionnairDefinitionPermissionService {
+        AbstractPersistenceService<QuestionnaireDefinitionPermission> implements QuestionnairDefinitionPermissionService {
 
     @Autowired
-    public QuestionnairDefinitionPermissionServiceImpl(final QuestionnairDefinitionPermissionRepository repository) {
+    public QuestionnairDefinitionPermissionServiceImpl(final QuestionnaireDefinitionPermissionRepository repository) {
         super(repository);
     }
 
     @Override
     @Transactional(readOnly = false)
-    public QuestionnairDefinitionPermission save(final QuestionnairDefinitionPermission permission) {
-        QuestionnairDefinitionPermission existing = null;
+    public QuestionnaireDefinitionPermission save(final QuestionnaireDefinitionPermission permission) {
+        QuestionnaireDefinitionPermission existing = null;
         if (permission.isNew()) {
             existing = repository.save(permission);
         } else {

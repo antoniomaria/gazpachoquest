@@ -13,7 +13,7 @@ package net.sf.gazpachoquest.questionnair.support;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.SubquestionDTO;
@@ -24,7 +24,7 @@ import net.sf.gazpachoquest.dto.answers.NoAnswer;
 import net.sf.gazpachoquest.dto.answers.NumericAnswer;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.dto.support.AbstractQuestionDTO;
-import net.sf.gazpachoquest.services.QuestionnairAnswersService;
+import net.sf.gazpachoquest.services.QuestionnaireAnswersService;
 import net.sf.gazpachoquest.types.QuestionType;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -36,7 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AnswersPopulatorImpl implements AnswersPopulator {
 
     @Autowired
-    private QuestionnairAnswersService questionnairAnswersService;
+    private QuestionnaireAnswersService questionnaireAnswersService;
 
     public AnswersPopulatorImpl() {
         super();
@@ -44,8 +44,8 @@ public class AnswersPopulatorImpl implements AnswersPopulator {
 
     @Override
     @Transactional(readOnly = true)
-    public void populate(Questionnair questionnair, List<QuestionDTO> questions) {
-        Map<String, Object> answers = questionnairAnswersService.findByQuestionnair(questionnair);
+    public void populate(Questionnaire questionnaire, List<QuestionDTO> questions) {
+        Map<String, Object> answers = questionnaireAnswersService.findByQuestionnaire(questionnaire);
         if (answers == null) {
             return;
         }

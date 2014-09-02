@@ -66,7 +66,7 @@ public class QuestionRepositoryTest {
     @Test
     public void findQuestionsByQuestionnairDefinitionId() {
         Integer questionnairDefinitionId = 7;
-        List<Question> questions = repository.findByQuestionnairId(questionnairDefinitionId);
+        List<Question> questions = repository.findByQuestionnaireId(questionnairDefinitionId);
         assertThat(questions).containsExactly(Question.with().id(12).build(), Question.with().id(13).build(),
                 Question.with().id(29).build(), Question.with().id(30).build(), Question.with().id(31).build(),
                 Question.with().id(35).build(), Question.with().id(39).build(), Question.with().id(50).build());

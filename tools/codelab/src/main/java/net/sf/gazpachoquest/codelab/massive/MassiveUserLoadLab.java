@@ -5,14 +5,9 @@ import java.util.Map;
 
 import net.sf.gazpachoquest.codelab.randomuser.RandomUserCreator;
 import net.sf.gazpachoquest.codelab.randomuser.support.RandomUser;
-import net.sf.gazpachoquest.domain.user.Permission;
-import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
-import net.sf.gazpachoquest.services.PermissionService;
 import net.sf.gazpachoquest.services.UserService;
-import net.sf.gazpachoquest.types.EntityType;
 import net.sf.gazpachoquest.types.Gender;
-import net.sf.gazpachoquest.types.Perm;
 import net.sf.gazpachoquest.util.RandomTokenGenerator;
 
 import org.apache.commons.lang.math.RandomUtils;
@@ -29,8 +24,8 @@ public class MassiveUserLoadLab {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private PermissionService permissionService;
+    // @Autowired
+    // private PermissionService permissionService;
 
     private final String positions[] = { "employee", "supervisor", "foreman", "manager", "vice president " };
 
@@ -65,11 +60,12 @@ public class MassiveUserLoadLab {
 
             user = userService.save(user);
             logger.info("User {} created with id {}", index, user.getId());
+            /*-
             Permission entity = Permission.with().entityId(user.getId()).scope(EntityType.USER).addPerm(Perm.READ)
                     .build();
             entity.setRole(Role.with().id(2).build());
 
-            permissionService.save(entity);
+            permissionService.save(entity);*/
         }
 
         // SELECT * FROM users WHERE attributes @>

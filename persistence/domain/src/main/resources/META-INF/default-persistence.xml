@@ -20,8 +20,8 @@
     <persistence:class>net.sf.gazpachoquest.domain.core.PersonalInvitation</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.core.Question</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.core.QuestionGroup</persistence:class>
-    <persistence:class>net.sf.gazpachoquest.domain.core.Questionnair</persistence:class>
-    <persistence:class>net.sf.gazpachoquest.domain.core.QuestionnairDefinition</persistence:class>
+    <persistence:class>net.sf.gazpachoquest.domain.core.Questionnaire</persistence:class>
+    <persistence:class>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.core.QuestionOption</persistence:class>
 
     <persistence:class>net.sf.gazpachoquest.domain.core.Research</persistence:class>
@@ -35,15 +35,15 @@
     <persistence:class>net.sf.gazpachoquest.domain.i18.LabelTranslation</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.i18.QuestionGroupTranslation</persistence:class>
-    <persistence:class>net.sf.gazpachoquest.domain.i18.QuestionnairDefinitionTranslation</persistence:class>
+    <persistence:class>net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.i18.QuestionOptionTranslation</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.i18.QuestionTranslation</persistence:class>
     <!-- Support -->
     <persistence:class>net.sf.gazpachoquest.domain.support.Invitation</persistence:class>
     
     <!-- Permission -->
-    <persistence:class>net.sf.gazpachoquest.domain.permission.QuestionnairDefinitionPermission</persistence:class>
-    <persistence:class>net.sf.gazpachoquest.domain.permission.QuestionnairPermission</persistence:class>
+    <persistence:class>net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission</persistence:class>
+    <persistence:class>net.sf.gazpachoquest.domain.permission.QuestionnairePermission</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.permission.ResearchPermission</persistence:class>
     <persistence:class>net.sf.gazpachoquest.domain.permission.UserPermission</persistence:class>
     <!--

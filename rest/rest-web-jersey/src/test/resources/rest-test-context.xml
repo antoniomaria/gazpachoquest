@@ -10,5 +10,5 @@
 
   <context:component-scan base-package="net.sf.gazpachoquest.rest" />
 
-  <bean class="net.sf.gazpachoquest.rest.resources.runtime.QuestionnairResource" scope="request"></bean>
+  <bean class="net.sf.gazpachoquest.rest.resources.runtime.questionnaireResource" scope="request"></bean>
 </beans>

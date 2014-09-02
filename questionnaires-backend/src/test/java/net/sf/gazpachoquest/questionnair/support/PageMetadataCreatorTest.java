@@ -22,7 +22,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
-        "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnair-context.xml",
+        "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnaire-context.xml",
         "classpath:/facades-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)

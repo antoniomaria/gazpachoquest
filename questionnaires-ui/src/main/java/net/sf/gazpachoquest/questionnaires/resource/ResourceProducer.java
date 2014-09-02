@@ -20,7 +20,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import net.sf.gazpachoquest.api.QuestionnairResource;
+import net.sf.gazpachoquest.api.QuestionnaireResource;
 import net.sf.gazpachoquest.cxf.interceptor.HmacAuthInterceptor;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.questionnaires.bootstrap.ConfigurationKey;
@@ -57,13 +57,13 @@ public class ResourceProducer {
     @Produces
     @GazpachoResource
     @RequestScoped
-    public QuestionnairResource createQuestionnairResource(HttpServletRequest request) {
+    public QuestionnaireResource createQuestionnairResource(HttpServletRequest request) {
         RespondentAccount principal = (RespondentAccount) request.getUserPrincipal();
         String apiKey = principal.getApiKey();
         String secret = principal.getSecret();
 
-        logger.info("Getting QuestionnairResource using api key {}: ", apiKey);
-        QuestionnairResource resource = JAXRSClientFactory.create(BASE_URI, QuestionnairResource.class,
+        logger.info("Getting QuestionnaireResource using api key {}: ", apiKey);
+        QuestionnaireResource resource = JAXRSClientFactory.create(BASE_URI, QuestionnaireResource.class,
                 Collections.singletonList(new JacksonJsonProvider()), null);
         // proxies
         // WebClient.client(resource).header("Authorization", "GZQ " + apiKey);
@@ -76,8 +76,8 @@ public class ResourceProducer {
 
     public void closeQuestionnairResource(@Disposes
     @GazpachoResource
-    QuestionnairResource client) {
-        logger.info("Closing QuestionnairResource ");
+    QuestionnaireResource client) {
+        logger.info("Closing QuestionnaireResource ");
         WebClient.client(client).reset();
     }
 

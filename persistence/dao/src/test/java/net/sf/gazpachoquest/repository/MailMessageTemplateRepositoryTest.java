@@ -5,7 +5,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.MailMessageTemplate;
-import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
@@ -36,7 +36,7 @@ public class MailMessageTemplateRepositoryTest {
     @Test
     public void findByExampleTest() {
         MailMessageTemplate example = new MailMessageTemplate();
-        example.setQuestionnairDefinition(QuestionnairDefinition.with().id(7).build());
+        example.setQuestionnairDefinition(QuestionnaireDefinition.with().id(7).build());
 
         List<MailMessageTemplate> results = mailMessageTemplateRepository
                 .findByExample(example, new SearchParameters());

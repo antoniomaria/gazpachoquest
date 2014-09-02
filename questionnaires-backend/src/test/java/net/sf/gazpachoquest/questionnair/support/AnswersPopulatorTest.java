@@ -5,14 +5,14 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.answers.MultipleAnswer;
 import net.sf.gazpachoquest.dto.answers.NoAnswer;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
-import net.sf.gazpachoquest.facades.QuestionnairDefinitionAccessorFacade;
-import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
-import net.sf.gazpachoquest.services.QuestionnairAnswersService;
+import net.sf.gazpachoquest.facades.QuestionnaireDefinitionAccessorFacade;
+import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
+import net.sf.gazpachoquest.services.QuestionnaireAnswersService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.After;
@@ -33,7 +33,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
-        "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnair-context.xml",
+        "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnaire-context.xml",
         "classpath:/facades-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("AnswersPopulatorTest-dataset.xml")
@@ -45,13 +45,13 @@ public class AnswersPopulatorTest {
     private AnswersPopulator answersPopulator;
 
     @Autowired
-    private QuestionnairAnswersRepository repository;
+    private QuestionnaireAnswersRepository repository;
 
     @Autowired
-    private QuestionnairAnswersService questionnairAnswersService;
+    private QuestionnaireAnswersService questionnaireAnswersService;
 
     @Autowired
-    private QuestionnairDefinitionAccessorFacade questionnairDefinitionAccessorFacade;
+    private QuestionnaireDefinitionAccessorFacade questionnaireDefinitionAccessorFacade;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -64,21 +64,21 @@ public class AnswersPopulatorTest {
 
     @Test
     public void populateTest() {
-        Integer questionnairId = 71;
+        Integer questionnaireId = 71;
 
-        Questionnair questionnair = Questionnair.with().id(questionnairId).build();
+        Questionnaire questionnaire = Questionnaire.with().id(questionnaireId).build();
         String answer = "Antonio Maria";
         String questionCode = "Q1";
-        questionnairAnswersService.save(questionnair, questionCode, answer);
-        QuestionDTO firstQuestion = questionnairDefinitionAccessorFacade.findOneQuestion(12);
-        QuestionDTO secondQuestion = questionnairDefinitionAccessorFacade.findOneQuestion(13);
-        QuestionDTO lastQuestion = questionnairDefinitionAccessorFacade.findOneQuestion(50);
+        questionnaireAnswersService.save(questionnaire, questionCode, answer);
+        QuestionDTO firstQuestion = questionnaireDefinitionAccessorFacade.findOneQuestion(12);
+        QuestionDTO secondQuestion = questionnaireDefinitionAccessorFacade.findOneQuestion(13);
+        QuestionDTO lastQuestion = questionnaireDefinitionAccessorFacade.findOneQuestion(50);
         List<QuestionDTO> questions = new ArrayList<>();
         questions.add(firstQuestion);
         questions.add(secondQuestion);
         questions.add(lastQuestion);
 
-        answersPopulator.populate(questionnair, questions);
+        answersPopulator.populate(questionnaire, questions);
 
         assertThat(firstQuestion.getAnswer()).isExactlyInstanceOf(TextAnswer.class);
         assertThat(((TextAnswer) firstQuestion.getAnswer()).getValue()).isEqualTo("Antonio Maria");

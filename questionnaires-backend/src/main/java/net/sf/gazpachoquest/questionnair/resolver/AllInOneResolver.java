@@ -10,13 +10,13 @@ import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.QuestionGroup.Builder;
 import net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb;
-import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.core.Questionnaire;
+import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.questionnair.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 import net.sf.gazpachoquest.services.QuestionGroupService;
-import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
+import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
@@ -37,33 +37,33 @@ public class AllInOneResolver extends AbstractResolver<QuestionGroupBreadcrumb> 
     private QuestionGroupService questionGroupService;
 
     @Autowired
-    private QuestionnairDefinitionService questionnairDefinitionService;
+    private QuestionnaireDefinitionService questionnaireDefinitionService;
 
     @Override
-    protected List<QuestionGroupBreadcrumb> makeBreadcrumbs(QuestionnairDefinition questionnairDefinition,
-            Questionnair questionnair) {
+    protected List<QuestionGroupBreadcrumb> makeBreadcrumbs(QuestionnaireDefinition questionnaireDefinition,
+            Questionnaire questionnaire) {
         List<QuestionGroupBreadcrumb> breadcrumbs = new ArrayList<>();
         QuestionGroupBreadcrumb breadcrumb = null;
-        Integer questionnairDefinitionId = questionnairDefinition.getId();
-        RandomizationStrategy randomizationStrategy = questionnairDefinition.getRandomizationStrategy();
+        Integer questionnairDefinitionId = questionnaireDefinition.getId();
+        RandomizationStrategy randomizationStrategy = questionnaireDefinition.getRandomizationStrategy();
         if (RandomizationStrategy.GROUPS_RANDOMIZATION.equals(randomizationStrategy)) {
             List<QuestionGroup> questionGroups = questionGroupService.findByExample(
                     QuestionGroup.with()
-                            .questionnairDefinition(QuestionnairDefinition.with().id(questionnairDefinitionId).build())
+                            .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnairDefinitionId).build())
                             .build(), new SearchParameters());
             Collections.shuffle(questionGroups);
             for (QuestionGroup questionGroup : questionGroups) {
-                breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup)
+                breadcrumb = QuestionGroupBreadcrumb.with().questionnaire(questionnaire).questionGroup(questionGroup)
                         .last(Boolean.TRUE).renderingMode(RenderingMode.ALL_IN_ONE).build();
                 breadcrumbs.add(breadcrumb);
             }
             populateQuestionsBreadcrumbs(breadcrumbs);
         } else if (RandomizationStrategy.QUESTIONS_RANDOMIZATION.equals(randomizationStrategy)) {
             // Container questionGroup
-            breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).last(Boolean.TRUE)
+            breadcrumb = QuestionGroupBreadcrumb.with().questionnaire(questionnaire).last(Boolean.TRUE)
                     .renderingMode(RenderingMode.ALL_IN_ONE).build();
 
-            List<Question> questions = questionnairDefinitionService.getQuestions(questionnairDefinitionId);
+            List<Question> questions = questionnaireDefinitionService.getQuestions(questionnairDefinitionId);
             Collections.shuffle(questions);
             for (Question question : questions) {
                 breadcrumb.addBreadcrumb((QuestionBreadcrumb.with().question(question).last(Boolean.TRUE).build()));
@@ -72,10 +72,10 @@ public class AllInOneResolver extends AbstractResolver<QuestionGroupBreadcrumb> 
         } else {
             List<QuestionGroup> questionGroups = questionGroupService.findByExample(
                     QuestionGroup.with()
-                            .questionnairDefinition(QuestionnairDefinition.with().id(questionnairDefinitionId).build())
+                            .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnairDefinitionId).build())
                             .build(), new SearchParameters());
             for (QuestionGroup questionGroup : questionGroups) {
-                breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup)
+                breadcrumb = QuestionGroupBreadcrumb.with().questionnaire(questionnaire).questionGroup(questionGroup)
                         .last(Boolean.TRUE).renderingMode(RenderingMode.ALL_IN_ONE).build();
                 breadcrumbs.add(breadcrumb);
             }
@@ -85,14 +85,14 @@ public class AllInOneResolver extends AbstractResolver<QuestionGroupBreadcrumb> 
     }
 
     @Override
-    protected QuestionGroupBreadcrumb findPreviousBreadcrumb(QuestionnairDefinition questionnairDefinition,
-            Questionnair questionnair, QuestionGroupBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
+    protected QuestionGroupBreadcrumb findPreviousBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
+            Questionnaire questionnaire, QuestionGroupBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
         return null;
     }
 
     @Override
-    protected QuestionGroupBreadcrumb findNextBreadcrumb(QuestionnairDefinition questionnairDefinition,
-            Questionnair questionnair, QuestionGroupBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
+    protected QuestionGroupBreadcrumb findNextBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
+            Questionnaire questionnaire, QuestionGroupBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
         return null;
     }
 

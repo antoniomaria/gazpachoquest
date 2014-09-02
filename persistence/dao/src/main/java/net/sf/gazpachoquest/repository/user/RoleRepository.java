@@ -18,8 +18,8 @@ import net.sf.gazpachoquest.repository.support.GenericRepository;
 
 public interface RoleRepository extends GenericRepository<Role> {
 
-    @Query("select qdp from QuestionnairDefinitionPermission qdp where qdp.role.id = :roleId union "
-            + "select qp from QuestionnairPermission qp where qp.role.id = :roleId union "
+    @Query("select qdp from QuestionnaireDefinitionPermission qdp where qdp.role.id = :roleId union "
+            + "select qp from QuestionnairePermission qp where qp.role.id = :roleId union "
             + "select rp from ResearchPermission rp where rp.role.id = :roleId union "
             + "select up from UserPermission up where up.role.id = :roleId")
     List<Permission<?>> getPermissions(@Param("roleId")

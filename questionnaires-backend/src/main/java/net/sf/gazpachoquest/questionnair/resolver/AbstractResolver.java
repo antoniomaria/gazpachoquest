@@ -10,16 +10,16 @@ import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb;
-import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.core.Questionnaire;
+import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.questionnair.support.PageMetadataCreator;
 import net.sf.gazpachoquest.questionnair.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 import net.sf.gazpachoquest.services.QuestionGroupService;
 import net.sf.gazpachoquest.services.QuestionService;
-import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
-import net.sf.gazpachoquest.services.QuestionnairService;
+import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
+import net.sf.gazpachoquest.services.QuestionnaireService;
 import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
@@ -42,10 +42,10 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
     private QuestionService questionService;
 
     @Autowired
-    private QuestionnairService questionnairService;
+    private QuestionnaireService questionnaireService;
 
     @Autowired
-    private QuestionnairDefinitionService questionnairDefinitionService;
+    private QuestionnaireDefinitionService questionnaireDefinitionService;
 
     @Autowired
     private PageMetadataCreator metadataCreator;
@@ -58,22 +58,22 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
 
     @SuppressWarnings("unchecked")
     @Override
-    public PageStructure resolveNextPage(final Questionnair questionnair, final NavigationAction action) {
-        Questionnair fetchedQuestionnair = questionnairService.findOne(questionnair.getId());
-        QuestionnairDefinition questionnairDefinition = fetchedQuestionnair.getQuestionnairDefinition();
-        int questionnairId = questionnair.getId();
-        logger.debug("Finding {} page for questionnair {}", action.toString(), questionnairId);
+    public PageStructure resolveNextPage(final Questionnaire questionnaire, final NavigationAction action) {
+        Questionnaire fetchedQuestionnair = questionnaireService.findOne(questionnaire.getId());
+        QuestionnaireDefinition questionnaireDefinition = fetchedQuestionnair.getQuestionnairDefinition();
+        int questionnaireId = questionnaire.getId();
+        logger.debug("Finding {} page for questionnaire {}", action.toString(), questionnaireId);
 
-        List<Object[]> result = breadcrumbService.findLastAndPosition(questionnairId);
+        List<Object[]> result = breadcrumbService.findLastAndPosition(questionnaireId);
         T breadcrumb = null;
         List<T> lastBreadcrumbs = new ArrayList<>();
 
         List<T> breadcrumbs = null;
         Integer lastBreadcrumbPosition = null;
         if (result.isEmpty()) { // First time entering the
-                                // questionnairDefinition
-            breadcrumbs = makeBreadcrumbs(questionnairDefinition, questionnair);
-            leaveBreakcrumbs(questionnair, breadcrumbs);
+                                // questionnaireDefinition
+            breadcrumbs = makeBreadcrumbs(questionnaireDefinition, questionnaire);
+            leaveBreakcrumbs(questionnaire, breadcrumbs);
             populateLastBreadcrumbs(lastBreadcrumbs, breadcrumbs);
         } else {
             // At least one breadcrumb
@@ -82,10 +82,10 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
             if (!breadcrumb.getRenderingMode().equals(type)) {
                 // Clean dirties
                 breadcrumbService.deleteByExample(
-                        Breadcrumb.withProps().questionnair(Questionnair.with().id(questionnairId).build()).build(),
+                        Breadcrumb.withProps().questionnaire(Questionnaire.with().id(questionnaireId).build()).build(),
                         new SearchParameters());
-                breadcrumbs = makeBreadcrumbs(questionnairDefinition, questionnair);
-                leaveBreakcrumbs(questionnair, breadcrumbs);
+                breadcrumbs = makeBreadcrumbs(questionnaireDefinition, questionnaire);
+                leaveBreakcrumbs(questionnaire, breadcrumbs);
                 populateLastBreadcrumbs(lastBreadcrumbs, breadcrumbs);
             } else {
                 if (!type.equals(RenderingMode.ALL_IN_ONE)) {
@@ -106,32 +106,32 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
         } else {
             T nextBreadcrumb;
             if (NavigationAction.NEXT.equals(action)) {
-                nextBreadcrumb = findNextBreadcrumb(questionnairDefinition, questionnair, lastBreadcrumbs.get(0),
+                nextBreadcrumb = findNextBreadcrumb(questionnaireDefinition, questionnaire, lastBreadcrumbs.get(0),
                         lastBreadcrumbPosition);
             } else {// PREVIOUS
-                nextBreadcrumb = findPreviousBreadcrumb(questionnairDefinition, questionnair, lastBreadcrumbs.get(0),
+                nextBreadcrumb = findPreviousBreadcrumb(questionnaireDefinition, questionnaire, lastBreadcrumbs.get(0),
                         lastBreadcrumbPosition);
             }
             // Prevent that questiongroups are still in range.
             if (nextBreadcrumb != null) {
                 lastBreadcrumbs.get(0).setLast(Boolean.FALSE);
                 nextBreadcrumb.setLast(Boolean.TRUE);
-                leaveBreakcrumbs(questionnair, Arrays.asList(lastBreadcrumbs.get(0), nextBreadcrumb));
+                leaveBreakcrumbs(questionnaire, Arrays.asList(lastBreadcrumbs.get(0), nextBreadcrumb));
             } else {
                 nextBreadcrumb = lastBreadcrumbs.get(0);
             }
             nextBreadcrumbs.add(nextBreadcrumb);
         }
-        return createPageStructure(questionnairDefinition.getRandomizationStrategy(), nextBreadcrumbs);
+        return createPageStructure(questionnaireDefinition.getRandomizationStrategy(), nextBreadcrumbs);
     }
 
-    protected abstract T findPreviousBreadcrumb(QuestionnairDefinition questionnairDefinition,
-            Questionnair questionnair, T lastBreadcrumb, Integer lastBreadcrumbPosition);
+    protected abstract T findPreviousBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
+            Questionnaire questionnaire, T lastBreadcrumb, Integer lastBreadcrumbPosition);
 
-    protected abstract T findNextBreadcrumb(QuestionnairDefinition questionnairDefinition, Questionnair questionnair,
+    protected abstract T findNextBreadcrumb(QuestionnaireDefinition questionnaireDefinition, Questionnaire questionnaire,
             T lastBreadcrumb, Integer lastBreadcrumbPosition);
 
-    protected abstract List<T> makeBreadcrumbs(QuestionnairDefinition questionnairDefinition, Questionnair questionnair);
+    protected abstract List<T> makeBreadcrumbs(QuestionnaireDefinition questionnaireDefinition, Questionnaire questionnaire);
 
     protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy, List<T> breadcrumbs) {
         PageStructure nextPage = new PageStructure();
@@ -141,11 +141,11 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
         return nextPage;
     }
 
-    protected void leaveBreakcrumbs(final Questionnair questionnair, List<T> breadcrumbs) {
+    protected void leaveBreakcrumbs(final Questionnaire questionnaire, List<T> breadcrumbs) {
         for (T newBreadcrumb : breadcrumbs) {
-            questionnair.addBreadcrumb(newBreadcrumb);
+            questionnaire.addBreadcrumb(newBreadcrumb);
         }
-        questionnairService.save(questionnair);
+        questionnaireService.save(questionnaire);
     }
 
     protected List<Question> findQuestions(QuestionGroup questionGroup) {

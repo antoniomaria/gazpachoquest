@@ -97,14 +97,14 @@ public class QuestionnairResourceTest {
     }
 
     /*-
-     public void getQuestionnairsTestOldWay() throws JsonParseException, JsonMappingException, IOException {
+     public void getquestionnairesTestOldWay() throws JsonParseException, JsonMappingException, IOException {
      String invitationToken = "UO6QUYLIK1";
 
      ObjectMapper mapper = new ObjectMapper();
      JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, QuestionnairDTO.class);
 
      client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
-     String response = client().target(getBaseUri() + "runtime/questionnairs").request()
+     String response = client().target(getBaseUri() + "runtime/questionnaires").request()
      .accept(MediaType.APPLICATION_JSON).get(String.class);
 
      List<QuestionnairDTO> questionnairDTOs = mapper.readValue(response, type);
@@ -112,10 +112,10 @@ public class QuestionnairResourceTest {
      }*/
 
     @Test
-    public void questionnairsListTest() {
+    public void questionnairesListTest() {
         String invitationToken = "UO6QUYLIK1";
         client().register(new HttpBasicAuthFilter(Login.RESPONDENT_USER_NAME, invitationToken));
-        Response response = client().target(getBaseUri() + "runtime/questionnairs").request()
+        Response response = client().target(getBaseUri() + "runtime/questionnaires").request()
                 .accept(MediaType.APPLICATION_JSON).get();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
         List<QuestionnairDTO> questionnairDTOs = response.readEntity(new GenericType<List<QuestionnairDTO>>() {
@@ -126,15 +126,15 @@ public class QuestionnairResourceTest {
     @Test
     public void navigateQuestionByQuestionTest() {
         String invitationToken = "UO6QUYLIK1";
-        Integer questionnairId = 58;
+        Integer questionnaireId = 58;
         RenderingMode mode = RenderingMode.QUESTION_BY_QUESTION;
         BrowsingAction action = BrowsingAction.ENTERING;
 
         // client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
         PageDTO page = null;
         Response response = client()
-                .target(String.format("%sruntime/questionnairs/%d/page?mode=%s&action=%s", getBaseUri(),
-                        questionnairId, mode, action)).request().accept(MediaType.APPLICATION_JSON).get();
+                .target(String.format("%sruntime/questionnaires/%d/page?mode=%s&action=%s", getBaseUri(),
+                        questionnaireId, mode, action)).request().accept(MediaType.APPLICATION_JSON).get();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
         page = response.readEntity(PageDTO.class);
 
@@ -144,8 +144,8 @@ public class QuestionnairResourceTest {
 
         // client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
         response = client()
-                .target(String.format("%sruntime/questionnairs/%d/page?mode=%s&action=%s", getBaseUri(),
-                        questionnairId, mode, action)).request().accept(MediaType.APPLICATION_JSON).get();
+                .target(String.format("%sruntime/questionnaires/%d/page?mode=%s&action=%s", getBaseUri(),
+                        questionnaireId, mode, action)).request().accept(MediaType.APPLICATION_JSON).get();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
         page = response.readEntity(PageDTO.class);
@@ -179,15 +179,15 @@ public class QuestionnairResourceTest {
         questionnairAnswersService.save(questionnair, "q8_o4", Boolean.FALSE);
 
         String invitationToken = "UO6QUYLIK1";
-        Integer questionnairId = questionnair.getId();
+        Integer questionnaireId = questionnair.getId();
         RenderingMode mode = RenderingMode.GROUP_BY_GROUP;
         BrowsingAction action = BrowsingAction.ENTERING;
 
         // client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
         PageDTO page = null;
         Response response = client()
-                .target(String.format("%sruntime/questionnairs/%d/page?mode=%s&action=%s", getBaseUri(),
-                        questionnairId, mode, action)).request().accept(MediaType.APPLICATION_JSON).get();
+                .target(String.format("%sruntime/questionnaires/%d/page?mode=%s&action=%s", getBaseUri(),
+                        questionnaireId, mode, action)).request().accept(MediaType.APPLICATION_JSON).get();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
         page = response.readEntity(PageDTO.class);
 
@@ -198,8 +198,8 @@ public class QuestionnairResourceTest {
 
         // client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
         response = client()
-                .target(String.format("%sruntime/questionnairs/%d/page?mode=%s&action=%s", getBaseUri(),
-                        questionnairId, mode, action)).request().accept(MediaType.APPLICATION_JSON).get();
+                .target(String.format("%sruntime/questionnaires/%d/page?mode=%s&action=%s", getBaseUri(),
+                        questionnaireId, mode, action)).request().accept(MediaType.APPLICATION_JSON).get();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
         page = response.readEntity(PageDTO.class);
@@ -209,8 +209,8 @@ public class QuestionnairResourceTest {
 
         // client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
         response = client()
-                .target(String.format("%sruntime/questionnairs/%d/page?mode=%s&action=%s", getBaseUri(),
-                        questionnairId, mode, action)).request().accept(MediaType.APPLICATION_JSON).get();
+                .target(String.format("%sruntime/questionnaires/%d/page?mode=%s&action=%s", getBaseUri(),
+                        questionnaireId, mode, action)).request().accept(MediaType.APPLICATION_JSON).get();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
         page = response.readEntity(PageDTO.class);
 
@@ -221,14 +221,14 @@ public class QuestionnairResourceTest {
     @Test
     public void saveAnswerTest() {
         String invitationToken = "UO6QUYLIK1";
-        Integer questionnairId = 58;
+        Integer questionnaireId = 58;
         // client().register(new HttpBasicAuthFilter(LoginService.RESPONDENT_USER_NAME, invitationToken));
         String questionCode = "Q1";
         TextAnswer answer = TextAnswer.fromValue("Antonio Maria");
         Entity<TextAnswer> wrapper = Entity.json(answer);
         Response response = client()
-                .target(String.format("%sruntime/questionnairs/%d/answer?questionCode=%s", getBaseUri(),
-                        questionnairId, questionCode)).request().accept(MediaType.APPLICATION_JSON).post(wrapper);
+                .target(String.format("%sruntime/questionnaires/%d/answer?questionCode=%s", getBaseUri(),
+                        questionnaireId, questionCode)).request().accept(MediaType.APPLICATION_JSON).post(wrapper);
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK_200.getStatusCode());
     }
 

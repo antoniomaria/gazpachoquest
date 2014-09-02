@@ -8,9 +8,9 @@ import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
-import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.questionnair.support.PageStructure;
-import net.sf.gazpachoquest.services.QuestionnairService;
+import net.sf.gazpachoquest.services.QuestionnaireService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.NavigationAction;
 
@@ -30,13 +30,13 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
-        "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnair-context.xml" })
+        "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnaire-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class AllInOneResolverTest {
 
     @Autowired
-    private QuestionnairService questionnairService;
+    private QuestionnaireService questionnaireService;
 
     @Autowired
     @Qualifier("AllInOneResolver")
@@ -46,9 +46,9 @@ public class AllInOneResolverTest {
     @DatabaseSetup("QuestionnairDefinitionNoRandomizationEnabled-dataset.xml")
     @DatabaseTearDown("QuestionnairDefinitionNoRandomizationEnabled-dataset.xml")
     public void resolveNextPageNoRandomizationTest() {
-        Integer questionnairId = 58;
-        Questionnair questionnair = questionnairService.findOne(questionnairId);
-        PageStructure pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
+        Integer questionnaireId = 58;
+        Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
+        PageStructure pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.ENTERING);
         List<QuestionGroup> questionGroups = pageStructure.getQuestionGroups();
 
         assertThat(questionGroups).hasSize(3);
@@ -76,9 +76,9 @@ public class AllInOneResolverTest {
     @DatabaseSetup("QuestionnairDefinitionNoRandomizationEnabledGroupByGroupStarted-dataset.xml")
     @DatabaseTearDown("QuestionnairDefinitionNoRandomizationEnabledGroupByGroupStarted-dataset.xml")
     public void resolveNextPageNoRandomizationEnabledDirty() {
-        Integer questionnairId = 58;
-        Questionnair questionnair = questionnairService.findOne(questionnairId);
-        PageStructure pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
+        Integer questionnaireId = 58;
+        Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
+        PageStructure pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.ENTERING);
         List<QuestionGroup> questionGroups = pageStructure.getQuestionGroups();
 
         assertThat(questionGroups).hasSize(3);
@@ -106,9 +106,9 @@ public class AllInOneResolverTest {
     @DatabaseSetup("QuestionnairDefinitionNoRandomizationEnabledAllInOneStarted-dataset.xml")
     @DatabaseTearDown("QuestionnairDefinitionNoRandomizationEnabledAllInOneStarted-dataset.xml")
     public void resolveNextPageNoRandomizationEnabledStarted() {
-        Integer questionnairId = 58;
-        Questionnair questionnair = questionnairService.findOne(questionnairId);
-        PageStructure pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
+        Integer questionnaireId = 58;
+        Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
+        PageStructure pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.ENTERING);
         List<QuestionGroup> questionGroups = pageStructure.getQuestionGroups();
 
         assertThat(questionGroups).hasSize(3);
@@ -137,9 +137,9 @@ public class AllInOneResolverTest {
     @DatabaseSetup("QuestionnairDefinitionGroupRandomizationEnabled-dataset.xml")
     @DatabaseTearDown("QuestionnairDefinitionGroupRandomizationEnabled-dataset.xml")
     public void resolveNextPageGroupsRandomizationTest() {
-        Integer questionnairId = 58;
-        Questionnair questionnair = questionnairService.findOne(questionnairId);
-        PageStructure pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
+        Integer questionnaireId = 58;
+        Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
+        PageStructure pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.ENTERING);
         List<QuestionGroup> questionGroups = pageStructure.getQuestionGroups();
 
         assertThat(questionGroups).hasSize(3);
@@ -157,9 +157,9 @@ public class AllInOneResolverTest {
     @DatabaseSetup("QuestionnairDefinitionQuestionRandomizationEnabled-dataset.xml")
     @DatabaseTearDown("QuestionnairDefinitionQuestionRandomizationEnabled-dataset.xml")
     public void resolveNextPageQuestionRandomizationStrategyTest() {
-        Integer questionnairId = 58;
-        Questionnair questionnair = questionnairService.findOne(questionnairId);
-        PageStructure pageStructure = resolver.resolveNextPage(questionnair, NavigationAction.ENTERING);
+        Integer questionnaireId = 58;
+        Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
+        PageStructure pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.ENTERING);
         List<QuestionGroup> questionGroups = pageStructure.getQuestionGroups();
         assertThat(questionGroups).hasSize(1);
 

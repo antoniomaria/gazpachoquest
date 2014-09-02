@@ -13,7 +13,7 @@ public class HMACSignatureTest {
     public void calculateRFC2104HMACTest() throws SignatureException {
         String date = "Tue, 13 May 2014 20:10:38 +0200";
 
-        String resource = "/questionnairs/58";
+        String resource = "/questionnaires/58";
         String method = "GET";
         String stringToSign = new StringBuilder().append(method).append(" ").append(resource).append("\n").append(date)
                 .toString();

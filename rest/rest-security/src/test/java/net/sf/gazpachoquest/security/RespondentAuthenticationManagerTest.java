@@ -9,7 +9,7 @@ import javax.security.auth.login.AccountNotFoundException;
 
 import net.sf.gazpachoquest.dto.auth.Account;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
-import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
+import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
 import net.sf.gazpachoquest.security.shiro.HmacAuthToken;
 import net.sf.gazpachoquest.security.shiro.JPARealm;
 import net.sf.gazpachoquest.security.support.HMACSignature;
@@ -51,7 +51,7 @@ public class RespondentAuthenticationManagerTest {
     private JPARealm apiKeyRealm;
 
     @Autowired
-    private QuestionnairAnswersRepository repository;
+    private QuestionnaireAnswersRepository repository;
 
     @Before
     public void setUp() {
@@ -65,7 +65,7 @@ public class RespondentAuthenticationManagerTest {
         RespondentAccount respondentAccount = (RespondentAccount) account;
 
         assertThat(respondentAccount.getGivenNames()).isEqualTo("Tyrion");
-        assertThat(respondentAccount.getGrantedQuestionnairIds()).contains(73);
+        assertThat(respondentAccount.getGrantedquestionnaireIds()).contains(73);
 
         account = authenticationManager.authenticate("respondent", "SYZPVHYMLK");
         assertThat(account).isInstanceOf(RespondentAccount.class);
@@ -74,9 +74,9 @@ public class RespondentAuthenticationManagerTest {
         String secret = account.getSecret();
         assertThat(secret).isNotNull();
 
-        int grantedQuestionnair = respondentAccount.getGrantedQuestionnairIds().iterator().next();
+        int grantedQuestionnair = respondentAccount.getGrantedquestionnaireIds().iterator().next();
         String date = DateFormatUtils.SMTP_DATETIME_FORMAT.format(new Date());
-        String resource = "/questionnairs/" + grantedQuestionnair;
+        String resource = "/questionnaires/" + grantedQuestionnair;
         String method = "GET";
         String stringToSign = new StringBuilder().append(method).append(" ").append(resource).append("\n").append(date)
                 .toString();
@@ -90,7 +90,7 @@ public class RespondentAuthenticationManagerTest {
         Subject subject = SecurityUtils.getSubject();
         subject.login(token);
 
-        boolean isPermitted = subject.isPermitted("questionnair:read:" + grantedQuestionnair);
+        boolean isPermitted = subject.isPermitted("questionnaire:read:" + grantedQuestionnair);
         assertThat(isPermitted);
     }
 }

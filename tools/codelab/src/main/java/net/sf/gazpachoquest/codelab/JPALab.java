@@ -1,6 +1,6 @@
 package net.sf.gazpachoquest.codelab;
 
-import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.questionnair.resolver.PageResolver;
 import net.sf.gazpachoquest.types.NavigationAction;
 
@@ -16,6 +16,6 @@ public class JPALab {
     private PageResolver resolver;
 
     public void execute() {
-        resolver.resolveNextPage(Questionnair.with().id(64).build(), NavigationAction.NEXT);
+        resolver.resolveNextPage(Questionnaire.with().id(64).build(), NavigationAction.NEXT);
     }
 }

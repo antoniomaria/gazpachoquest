@@ -57,10 +57,10 @@ public class AccessRight2Lab {
         research = researchService.findOne(102);
         permission = ResearchPermission.with().user(support).target(research).addPerm(Perm.READ).build();
         researchPermissionService.save(permission);
-
-        permission = ResearchPermission.with().group(administrators).target(research).addPerm(Perm.READ)
-                .addPerm(Perm.UPDATE).build();
-        researchPermissionService.save(permission);
+        /*-
+         permission = ResearchPermission.with().group(administrators).target(research).addPerm(Perm.READ)
+         .addPerm(Perm.UPDATE).build();
+         researchPermissionService.save(permission);*/
 
         research = researchService.findOne(119);
         permission = ResearchPermission.with().user(support).target(research).addPerm(Perm.READ).build();

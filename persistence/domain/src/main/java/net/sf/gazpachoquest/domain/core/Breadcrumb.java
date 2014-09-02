@@ -35,7 +35,7 @@ public class Breadcrumb extends AbstractAuditable {
     private static final long serialVersionUID = 8807488300208839486L;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    protected Questionnair questionnair;
+    protected Questionnaire questionnaire;
 
     @Enumerated(EnumType.STRING)
     @Convert(converter = RenderingModeConverter.class)
@@ -48,12 +48,12 @@ public class Breadcrumb extends AbstractAuditable {
         super();
     }
 
-    public Questionnair getQuestionnair() {
-        return questionnair;
+    public Questionnaire getQuestionnair() {
+        return questionnaire;
     }
 
-    public void setQuestionnair(Questionnair questionnair) {
-        this.questionnair = questionnair;
+    public void setQuestionnair(Questionnaire questionnaire) {
+        this.questionnaire = questionnaire;
     }
 
     public Boolean isLast() {
@@ -78,11 +78,11 @@ public class Breadcrumb extends AbstractAuditable {
 
     public static class BuilderImpl {
         private Integer id;
-        private Questionnair questionnair;
+        private Questionnaire questionnaire;
         private Boolean last;
 
-        public BuilderImpl questionnair(Questionnair questionnair) {
-            this.questionnair = questionnair;
+        public BuilderImpl questionnaire(Questionnaire questionnaire) {
+            this.questionnaire = questionnaire;
             return this;
         }
 
@@ -99,7 +99,7 @@ public class Breadcrumb extends AbstractAuditable {
         public Breadcrumb build() {
             Breadcrumb breadcrumb = new Breadcrumb();
             breadcrumb.setId(id);
-            breadcrumb.questionnair = questionnair;
+            breadcrumb.questionnaire = questionnaire;
             breadcrumb.last = last;
             return breadcrumb;
         }

@@ -7,9 +7,9 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.permission;
 
-import net.sf.gazpachoquest.domain.permission.QuestionnairDefinitionPermission;
+import net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission;
 import net.sf.gazpachoquest.services.PersistenceService;
 
-public interface QuestionnairDefinitionPermissionService extends PersistenceService<QuestionnairDefinitionPermission> {
+public interface QuestionnairDefinitionPermissionService extends PersistenceService<QuestionnaireDefinitionPermission> {
 
 }

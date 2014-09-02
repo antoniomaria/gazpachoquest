@@ -17,7 +17,7 @@
 
   <jpa:auditing auditor-aware-ref="auditorAware" />
 
-  <bean id="auditorAware" class="net.sf.gazpachoquest.domain.audit.SimpleAuditorAware" />
+  <bean id="auditorAware" class="net.sf.gazpachoquest.domain.audit.ShiroAuditorAware" />
 
   <tx:annotation-driven />
 

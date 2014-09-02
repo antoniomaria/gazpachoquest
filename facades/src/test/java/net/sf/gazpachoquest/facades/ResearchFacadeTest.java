@@ -1,10 +1,10 @@
 package net.sf.gazpachoquest.facades;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
+import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.ResearchDTO;
 import net.sf.gazpachoquest.dto.UserDTO;
-import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
+import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.ResearchAccessType;
 
@@ -40,24 +40,24 @@ public class ResearchFacadeTest {
     private ResearchFacade researchFacade;
 
     @Autowired
-    private QuestionnairAnswersRepository questionnairAnswersRepository;
+    private QuestionnaireAnswersRepository questionnaireAnswersRepository;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Before
     public void setUp() {
-        questionnairAnswersRepository.activeAllAnswers();
+        questionnaireAnswersRepository.activeAllAnswers();
     }
 
     @Test
     public void saveTest() {
-        QuestionnairDefinitionDTO questionnairDefinition = QuestionnairDefinitionDTO.with().id(7).build();
+        QuestionnaireDefinitionDTO questionnairDefinition = QuestionnaireDefinitionDTO.with().id(7).build();
         UserDTO respondent = respondentFacade.findOne(6);
 
         ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION).build();
         research.addRespondent(respondent);
-        research.addQuestionnairDefinition(questionnairDefinition);
+        research.addQuestionnaireDefinition(questionnairDefinition);
         research = researchFacade.save(research);
         assertThat(research.isNew()).isFalse();
     }

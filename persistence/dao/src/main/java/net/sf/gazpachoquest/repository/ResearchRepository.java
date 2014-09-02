@@ -20,9 +20,9 @@ import org.springframework.data.repository.query.Param;
 
 public interface ResearchRepository extends GenericRepository<Research> {
 
-    @Query("select distinct s from Research s join s.questionnairs q join q.questionnairDefinition qd where qd.id = :questionnairDefinitionId")
-    List<Research> findByQuestionnairDefinition(@Param("questionnairDefinitionId")
-    Integer questionnairDefinitionId);
+    @Query("select distinct s from Research s join s.questionnaires q join q.questionnaireDefinition qd where qd.id = :questionnaireDefinitionId")
+    List<Research> findByQuestionnaireDefinition(@Param("questionnaireDefinitionId")
+    Integer questionnaireDefinitionId);
 
     @Query("select distinct r from ResearchPermission p join p.target r where p.user.id = :userId and mod(p.mask / :bitMask, 2) = 1")
     List<Research> findByAllAvailableFor(@Param("userId")

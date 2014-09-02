@@ -12,7 +12,7 @@ import net.sf.gazpachoquest.dto.auth.Account;
 import com.wordnik.swagger.annotations.Api;
 
 @Path("/account")
-@Api(value = "/account", description = "Runtime Questionnairs Interface")
+@Api(value = "/account", description = "Runtime questionnaires Interface")
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountResource {

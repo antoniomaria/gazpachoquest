@@ -135,10 +135,10 @@
     </field>
   </mapping>
 
-  <!-- QuestionnairDefinition Mappings -->
+  <!-- QuestionnaireDefinition Mappings -->
   <mapping type="one-way">
-    <class-a>net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO</class-a>
-    <class-b>net.sf.gazpachoquest.domain.core.QuestionnairDefinition</class-b>
+    <class-a>net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO</class-a>
+    <class-b>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</class-b>
     <field>
       <a>questionGroups</a>
       <b set-method="addQuestionGroup" type="iterate">questionGroups</b>
@@ -159,8 +159,8 @@
   </mapping>
 
   <mapping type="one-way">
-    <class-a>net.sf.gazpachoquest.domain.core.QuestionnairDefinition</class-a>
-    <class-b>net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO</class-b>
+    <class-a>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</class-a>
+    <class-b>net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO</class-b>
     <field-exclude type="one-way">
       <a>questionGroups</a>
       <b>questionGroups</b>
@@ -168,8 +168,8 @@
   </mapping>
 
   <mapping type="one-way" map-id="toDTOwithQuestionGroups">
-    <class-a>net.sf.gazpachoquest.domain.core.QuestionnairDefinition</class-a>
-    <class-b>net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO</class-b>
+    <class-a>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</class-a>
+    <class-b>net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO</class-b>
     <field>
       <a>questionGroups</a>
       <b set-method="addQuestionGroup" type="iterate">questionGroups</b>

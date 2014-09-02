@@ -26,7 +26,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.permission.UserPermission;
 import net.sf.gazpachoquest.domain.support.AbstractSecurizable;
 import net.sf.gazpachoquest.jpa.converter.GenderTypeConverter;
@@ -70,7 +70,7 @@ public class User extends AbstractSecurizable<UserPermission> {
     private Gender gender;
 
     @OneToMany(mappedBy = "respondent", fetch = FetchType.LAZY)
-    private final Set<Questionnair> questionnairs = new HashSet<Questionnair>();
+    private final Set<Questionnaire> questionnaires = new HashSet<Questionnaire>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_group", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "group_id", referencedColumnName = "id") })
@@ -97,8 +97,8 @@ public class User extends AbstractSecurizable<UserPermission> {
         this.username = username;
     }
 
-    public Set<Questionnair> getQuestionnairs() {
-        return Collections.unmodifiableSet(questionnairs);
+    public Set<Questionnaire> getquestionnaires() {
+        return Collections.unmodifiableSet(questionnaires);
     }
 
     public Set<Group> getGroups() {

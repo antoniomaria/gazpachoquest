@@ -9,7 +9,7 @@ package net.sf.gazpachoquest.services.core.impl;
 
 import java.util.Set;
 
-import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.permission.ResearchPermission;
 import net.sf.gazpachoquest.domain.user.User;
@@ -29,7 +29,7 @@ public class ResearchPermissionsAwareServiceImpl extends
     }
 
     @Override
-    public Research save(Research research, Set<QuestionnairDefinition> questionnairDefinitions, Set<User> respondents) {
+    public Research save(Research research, Set<QuestionnaireDefinition> questionnaireDefinitions, Set<User> respondents) {
         throw new UnsupportedOperationException("Method not supported in this implementation");
     }
 

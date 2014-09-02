@@ -19,7 +19,7 @@ import net.sf.gazpachoquest.domain.i18.QuestionGroupTranslation;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.QuestionGroupRepository;
 import net.sf.gazpachoquest.repository.QuestionRepository;
-import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
+import net.sf.gazpachoquest.repository.QuestionnaireDefinitionRepository;
 import net.sf.gazpachoquest.repository.i18.QuestionGroupTranslationRepository;
 import net.sf.gazpachoquest.services.QuestionGroupService;
 
@@ -37,7 +37,7 @@ public class QuestionGroupServiceImpl extends
     private QuestionRepository questionRepository;
 
     @Autowired
-    private QuestionnairDefinitionRepository questionnairDefinitionRepository;
+    private QuestionnaireDefinitionRepository questionnaireDefinitionRepository;
 
     @Autowired
     public QuestionGroupServiceImpl(final QuestionGroupRepository repository,
@@ -75,7 +75,7 @@ public class QuestionGroupServiceImpl extends
     @Transactional(readOnly = false)
     public QuestionGroup save(final QuestionGroup questionGroup) {
         Assert.state(!questionGroup.isNew(),
-                "QuestionGroup must be already persisted. Try by adding to QuestionnairDefinition first.");
+                "QuestionGroup must be already persisted. Try by adding to QuestionnaireDefinition first.");
 
         QuestionGroup existing = repository.findOne(questionGroup.getId());
         existing.setLanguageSettings(questionGroup.getLanguageSettings());

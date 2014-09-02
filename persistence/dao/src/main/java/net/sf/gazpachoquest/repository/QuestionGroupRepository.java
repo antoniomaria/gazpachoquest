@@ -19,16 +19,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface QuestionGroupRepository extends GenericRepository<QuestionGroup> {
-    @Query("select qg from QuestionnairDefinition s join s.questionGroups qg where s.id = :questionnairDefinition order by index(qg)")
-    List<QuestionGroup> findByQuestionnairDefinitionId(@Param("questionnairDefinition")
+    @Query("select qg from QuestionnaireDefinition s join s.questionGroups qg where s.id = :questionnaireDefinition order by index(qg)")
+    List<QuestionGroup> findByQuestionnairDefinitionId(@Param("questionnaireDefinition")
     Integer questionnairDefinitionId);
 
-    @Query("select qg from QuestionnairDefinition s join s.questionGroups qg where s.id = :questionnairDefinition and index(qg) = :position")
-    QuestionGroup findOneByPositionInQuestionnairDefinition(@Param("questionnairDefinition")
+    @Query("select qg from QuestionnaireDefinition s join s.questionGroups qg where s.id = :questionnaireDefinition and index(qg) = :position")
+    QuestionGroup findOneByPositionInQuestionnairDefinition(@Param("questionnaireDefinition")
     Integer questionnairDefinitionId, @Param("position")
     Integer position);
 
-    @Query("select index(qg) from QuestionnairDefinition s join s.questionGroups qg where qg.id = :questionGroupId")
+    @Query("select index(qg) from QuestionnaireDefinition s join s.questionGroups qg where qg.id = :questionGroupId")
     Integer positionInQuestionnairDefinition(@Param("questionGroupId")
     Integer questionGroupId);
 }

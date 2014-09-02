@@ -46,7 +46,7 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
     private DateTime expirationDate;
 
     @OneToMany(mappedBy = "research", fetch = FetchType.LAZY)
-    private final Set<Questionnair> questionnairs = new HashSet<Questionnair>();
+    private final Set<Questionnaire> questionnaires = new HashSet<Questionnaire>();
 
     public Research() {
         super();
@@ -60,8 +60,8 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
         return name;
     }
 
-    public Set<Questionnair> getQuestionnairs() {
-        return questionnairs;
+    public Set<Questionnaire> getquestionnaires() {
+        return questionnaires;
     }
 
     public DateTime getStartDate() {

@@ -37,19 +37,17 @@ import javax.xml.bind.annotation.XmlType;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionGroupLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionGroupTranslation;
 import net.sf.gazpachoquest.domain.support.AbstractLocalizable;
-import net.sf.gazpachoquest.domain.support.QuestionnairElement;
 import net.sf.gazpachoquest.types.Language;
 
 @Entity
 @XmlType(propOrder = { "language", "languageSettings", "questions", "translations", "randomizationEnabled" })
-public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation, QuestionGroupLanguageSettings>
-        implements QuestionnairElement {
+public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation, QuestionGroupLanguageSettings> {
 
     private static final long serialVersionUID = 5849288763708940985L;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @XmlTransient
-    private QuestionnairDefinition questionnairDefinition;
+    private QuestionnaireDefinition questionnaireDefinition;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -77,7 +75,7 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
     }
 
     public Integer getQuestionnairDefinitionId() {
-        return questionnairDefinition.getId();
+        return questionnaireDefinition.getId();
     }
 
     public List<Question> getQuestions() {
@@ -92,12 +90,12 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
         return Collections.unmodifiableList(questionsId);
     }
 
-    public QuestionnairDefinition getQuestionnairDefinition() {
-        return questionnairDefinition;
+    public QuestionnaireDefinition getQuestionnairDefinition() {
+        return questionnaireDefinition;
     }
 
-    public void setQuestionnairDefinition(QuestionnairDefinition questionnairDefinition) {
-        this.questionnairDefinition = questionnairDefinition;
+    public void setQuestionnairDefinition(QuestionnaireDefinition questionnaireDefinition) {
+        this.questionnaireDefinition = questionnaireDefinition;
     }
 
     @Override
@@ -156,7 +154,7 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
 
     public static class Builder {
         private Integer id;
-        private QuestionnairDefinition questionnairDefinition;
+        private QuestionnaireDefinition questionnaireDefinition;
         private Language language;
         private QuestionGroupLanguageSettings languageSettings;
         private Boolean randomizationEnabled;
@@ -166,8 +164,8 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
             return this;
         }
 
-        public Builder questionnairDefinition(QuestionnairDefinition questionnairDefinition) {
-            this.questionnairDefinition = questionnairDefinition;
+        public Builder questionnaireDefinition(QuestionnaireDefinition questionnaireDefinition) {
+            this.questionnaireDefinition = questionnaireDefinition;
             return this;
         }
 
@@ -189,7 +187,7 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
         public QuestionGroup build() {
             QuestionGroup questionGroup = new QuestionGroup();
             questionGroup.setId(id);
-            questionGroup.questionnairDefinition = questionnairDefinition;
+            questionGroup.questionnaireDefinition = questionnaireDefinition;
             questionGroup.language = language;
             questionGroup.languageSettings = languageSettings;
             questionGroup.randomizationEnabled = randomizationEnabled;

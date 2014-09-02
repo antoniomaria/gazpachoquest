@@ -13,7 +13,7 @@
   <import resource="classpath:/services-context.xml"/>
   <import resource="classpath:/facades-context.xml"/>
   <import resource="classpath:/components-context.xml"/>
-  <import resource="classpath:/questionnair-context.xml"/>
+  <import resource="classpath:/questionnaire-context.xml"/>
 
   <context:annotation-config />
 

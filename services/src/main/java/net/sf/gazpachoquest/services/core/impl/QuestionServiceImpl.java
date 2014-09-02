@@ -25,7 +25,7 @@ import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionTranslation;
 import net.sf.gazpachoquest.repository.QuestionGroupRepository;
 import net.sf.gazpachoquest.repository.QuestionRepository;
-import net.sf.gazpachoquest.repository.QuestionnairDefinitionRepository;
+import net.sf.gazpachoquest.repository.QuestionnaireDefinitionRepository;
 import net.sf.gazpachoquest.repository.i18.QuestionTranslationRepository;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.types.Language;
@@ -46,7 +46,7 @@ public class QuestionServiceImpl extends
     private QuestionGroupRepository questionGroupRepository;
 
     @Autowired
-    private QuestionnairDefinitionRepository questionnairDefinitionRepository;
+    private QuestionnaireDefinitionRepository questionnaireDefinitionRepository;
 
     @PersistenceContext
     private EntityManager entityManager;

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.gazpachoquest.domain.core.MailMessageTemplate;
-import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachoquest.domain.user.User;
@@ -55,7 +55,7 @@ public class MailMessageTemplateServiceTest extends AbstractShiroTest {
     @Test
     public void findByExampleTest() {
         MailMessageTemplate example = new MailMessageTemplate();
-        example.setQuestionnairDefinition(QuestionnairDefinition.with().id(7).build());
+        example.setQuestionnairDefinition(QuestionnaireDefinition.with().id(7).build());
         List<MailMessageTemplate> results = mailMessageTemplateService.findByExample(example, new SearchParameters());
         assertThat(results).contains(MailMessageTemplate.with().id(55).build());
     }
@@ -72,11 +72,11 @@ public class MailMessageTemplateServiceTest extends AbstractShiroTest {
                 .language(Language.EN).fromAddress("support@gazpacho.net").replyTo("nonreply@gazpacho.net").build();
 
         MailMessageTemplateLanguageSettings languageSettings = new MailMessageTemplateLanguageSettings();
-        languageSettings.setSubject("Your questionnairDefinition");
+        languageSettings.setSubject("Your questionnaireDefinition");
         languageSettings
-                .setBody("Dear Mr. $lastname, <br> You have been invited to take this questionnairDefinition. <br>"
+                .setBody("Dear Mr. $lastname, <br> You have been invited to take this questionnaireDefinition. <br>"
                         + "The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off."
-                        + "<a href=\"\">Click here</a> to take the questionnairDefinition");
+                        + "<a href=\"\">Click here</a> to take the questionnaireDefinition");
         mailMessageTemplate.setLanguageSettings(languageSettings);
 
         mailMessageTemplate = mailMessageTemplateService.save(mailMessageTemplate);

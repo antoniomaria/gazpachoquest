@@ -21,13 +21,13 @@ import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.QuestionGroup.Builder;
 import net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb;
-import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.core.Questionnaire;
+import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.questionnair.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 import net.sf.gazpachoquest.services.QuestionGroupService;
-import net.sf.gazpachoquest.services.QuestionnairDefinitionService;
+import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
@@ -51,39 +51,39 @@ public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcru
     private QuestionGroupService questionGroupService;
 
     @Autowired
-    private QuestionnairDefinitionService questionnairDefinitionService;
+    private QuestionnaireDefinitionService questionnaireDefinitionService;
 
     protected GroupByGroupResolver() {
         super(RenderingMode.GROUP_BY_GROUP);
     }
 
     @Override
-    protected List<QuestionGroupBreadcrumb> makeBreadcrumbs(QuestionnairDefinition questionnairDefinition,
-            Questionnair questionnair) {
+    protected List<QuestionGroupBreadcrumb> makeBreadcrumbs(QuestionnaireDefinition questionnaireDefinition,
+            Questionnaire questionnaire) {
         List<QuestionGroupBreadcrumb> breadcrumbs = new ArrayList<>();
         QuestionGroupBreadcrumb breadcrumb = null;
-        Integer questionnairDefinitionId = questionnairDefinition.getId();
-        RandomizationStrategy randomizationStrategy = questionnairDefinition.getRandomizationStrategy();
+        Integer questionnairDefinitionId = questionnaireDefinition.getId();
+        RandomizationStrategy randomizationStrategy = questionnaireDefinition.getRandomizationStrategy();
         if (RandomizationStrategy.GROUPS_RANDOMIZATION.equals(randomizationStrategy)) {
             List<QuestionGroup> questionGroups = questionGroupService.findByExample(
                     QuestionGroup.with()
-                            .questionnairDefinition(QuestionnairDefinition.with().id(questionnairDefinitionId).build())
+                            .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnairDefinitionId).build())
                             .build(), new SearchParameters());
             Collections.shuffle(questionGroups);
             for (QuestionGroup questionGroup : questionGroups) {
-                breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup)
+                breadcrumb = QuestionGroupBreadcrumb.with().questionnaire(questionnaire).questionGroup(questionGroup)
                         .last(Boolean.FALSE).renderingMode(RenderingMode.GROUP_BY_GROUP).build();
                 breadcrumbs.add(breadcrumb);
             }
             populateQuestionsBreadcrumbs(breadcrumbs);
         } else if (RandomizationStrategy.QUESTIONS_RANDOMIZATION.equals(randomizationStrategy)) {
-            List<Question> questions = questionnairDefinitionService.getQuestions(questionnairDefinitionId);
+            List<Question> questions = questionnaireDefinitionService.getQuestions(questionnairDefinitionId);
             Collections.shuffle(questions);
-            Integer questionPerPage = questionnairDefinition.getQuestionsPerPage();
+            Integer questionPerPage = questionnaireDefinition.getQuestionsPerPage();
             int questionIdx = 0;
             for (Question question : questions) {
                 if (questionIdx % questionPerPage == 0) {
-                    breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).last(Boolean.FALSE)
+                    breadcrumb = QuestionGroupBreadcrumb.with().questionnaire(questionnaire).last(Boolean.FALSE)
                             .renderingMode(RenderingMode.GROUP_BY_GROUP).build();
                     breadcrumbs.add(breadcrumb);
                 }
@@ -93,7 +93,7 @@ public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcru
 
         } else {
             QuestionGroup questionGroup = findFirstQuestionGroup(questionnairDefinitionId);
-            breadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(questionGroup)
+            breadcrumb = QuestionGroupBreadcrumb.with().questionnaire(questionnaire).questionGroup(questionGroup)
                     .renderingMode(RenderingMode.GROUP_BY_GROUP).build();
             breadcrumbs.add(breadcrumb);
             populateQuestionsBreadcrumbs(breadcrumbs);
@@ -103,18 +103,18 @@ public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcru
     }
 
     @Override
-    protected QuestionGroupBreadcrumb findNextBreadcrumb(final QuestionnairDefinition questionnairDefinition,
-            final Questionnair questionnair, final QuestionGroupBreadcrumb lastBreadcrumb,
+    protected QuestionGroupBreadcrumb findNextBreadcrumb(final QuestionnaireDefinition questionnaireDefinition,
+            final Questionnaire questionnaire, final QuestionGroupBreadcrumb lastBreadcrumb,
             final Integer lastBreadcrumbPosition) {
 
         QuestionGroupBreadcrumb breadcrumb = (QuestionGroupBreadcrumb) breadcrumbService
-                .findByQuestionnairIdAndPosition(questionnair.getId(), lastBreadcrumbPosition + 1);
+                .findByquestionnaireIdAndPosition(questionnaire.getId(), lastBreadcrumbPosition + 1);
 
         QuestionGroupBreadcrumb nextBreadcrumb = null;
 
         // There is no real questionGroup when QuestionsRandomization is enabled
         if (breadcrumb == null
-                && !questionnairDefinition.getRandomizationStrategy().equals(
+                && !questionnaireDefinition.getRandomizationStrategy().equals(
                         RandomizationStrategy.QUESTIONS_RANDOMIZATION)) {
 
             Assert.isInstanceOf(QuestionGroupBreadcrumb.class, lastBreadcrumb);
@@ -122,13 +122,13 @@ public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcru
             Integer position = questionGroupService.positionInQuestionnairDefinition(lastBreadcrumb.getQuestionGroup()
                     .getId());
             QuestionGroup next = questionGroupService.findOneByPositionInQuestionnairDefinition(
-                    questionnairDefinition.getId(), position + 1);
+                    questionnaireDefinition.getId(), position + 1);
             // The respondent has reached the last question group
             if (next == null) {
                 logger.warn("Page out of range. Returning last page");
                 return null;
             }
-            nextBreadcrumb = QuestionGroupBreadcrumb.with().questionnair(questionnair).questionGroup(next)
+            nextBreadcrumb = QuestionGroupBreadcrumb.with().questionnaire(questionnaire).questionGroup(next)
                     .renderingMode(RenderingMode.GROUP_BY_GROUP).build();
             populateQuestionsBreadcrumbs(Arrays.asList(nextBreadcrumb));
         } else {
@@ -138,15 +138,15 @@ public class GroupByGroupResolver extends AbstractResolver<QuestionGroupBreadcru
     }
 
     @Override
-    protected QuestionGroupBreadcrumb findPreviousBreadcrumb(final QuestionnairDefinition questionnairDefinition,
-            final Questionnair questionnair, final QuestionGroupBreadcrumb lastBreadcrumb,
+    protected QuestionGroupBreadcrumb findPreviousBreadcrumb(final QuestionnaireDefinition questionnaireDefinition,
+            final Questionnaire questionnaire, final QuestionGroupBreadcrumb lastBreadcrumb,
             final Integer lastBreadcrumbPosition) {
         if (lastBreadcrumbPosition == INITIAL_POSITION) {
             logger.warn("Page out of range. First page is returned.");
             return null;
         }
 
-        return (QuestionGroupBreadcrumb) breadcrumbService.findByQuestionnairIdAndPosition(questionnair.getId(),
+        return (QuestionGroupBreadcrumb) breadcrumbService.findByquestionnaireIdAndPosition(questionnaire.getId(),
                 lastBreadcrumbPosition - 1);
     }
 

@@ -3,10 +3,10 @@ package net.sf.gazpachoquest.jaas;
 import java.util.Collections;
 
 import net.sf.gazpachoquest.api.AuthenticationResource;
-import net.sf.gazpachoquest.api.QuestionnairResource;
+import net.sf.gazpachoquest.api.QuestionnaireResource;
 import net.sf.gazpachoquest.cxf.interceptor.HmacAuthInterceptor;
-import net.sf.gazpachoquest.dto.QuestionnairDTO;
-import net.sf.gazpachoquest.dto.QuestionnairPageDTO;
+import net.sf.gazpachoquest.dto.QuestionnaireDTO;
+import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.dto.auth.Account;
@@ -31,20 +31,20 @@ public class ClientInterceptorTest {
 
     @Test
     public void saveAnswerTest() {
-        QuestionnairResource questionnairResource = JAXRSClientFactory.create(BASE_URI, QuestionnairResource.class,
+        QuestionnaireResource questionnaireResource = JAXRSClientFactory.create(BASE_URI, QuestionnaireResource.class,
                 Collections.singletonList(new JacksonJsonProvider()), null);
 
-        Client client = WebClient.client(questionnairResource);
+        Client client = WebClient.client(questionnaireResource);
         ClientConfiguration config = WebClient.getConfig(client);
 
         // config.getHttpConduit().setAuthSupplier(new MyHttpAuthSupplier());
         Answer answer = new TextAnswer("Antonio Maria");
-        Integer questionnairId = 11;
+        Integer questionnaireId = 11;
         String questionCode = "Q1";
         String apiKey = "1234";
         String secret = "123434";
         config.getOutInterceptors().add(new HmacAuthInterceptor(apiKey, secret));
-        questionnairResource.saveAnswer(answer, questionnairId, questionCode);
+        questionnaireResource.saveAnswer(answer, questionnaireId, questionCode);
     }
 
     @Test
@@ -58,34 +58,34 @@ public class ClientInterceptorTest {
 
     @Test
     public void getQuestionnairTest() {
-        QuestionnairResource questionnairResource = JAXRSClientFactory.create(BASE_URI, QuestionnairResource.class,
+        QuestionnaireResource questionnaireResource = JAXRSClientFactory.create(BASE_URI, QuestionnaireResource.class,
                 Collections.singletonList(new JacksonJsonProvider()), null);
 
-        Client client = WebClient.client(questionnairResource);
+        Client client = WebClient.client(questionnaireResource);
         ClientConfiguration config = WebClient.getConfig(client);
 
         String apiKey = "ES619O31DPD8DYJ";
         String secret = "123434";
         config.getOutInterceptors().add(new HmacAuthInterceptor(apiKey, secret));
 
-        Integer questionnairId = 61;
-        QuestionnairDTO definition = questionnairResource.getDefinition(questionnairId);
+        Integer questionnaireId = 61;
+        QuestionnaireDTO definition = questionnaireResource.getDefinition(questionnaireId);
     }
 
     @Test
     public void getPageTest() {
-        QuestionnairResource questionnairResource = JAXRSClientFactory.create(BASE_URI, QuestionnairResource.class,
+        QuestionnaireResource questionnaireResource = JAXRSClientFactory.create(BASE_URI, QuestionnaireResource.class,
                 Collections.singletonList(new JacksonJsonProvider()), null);
 
-        Client client = WebClient.client(questionnairResource);
+        Client client = WebClient.client(questionnaireResource);
         ClientConfiguration config = WebClient.getConfig(client);
 
         String apiKey = "FGFQM8T6YPVSW4Q";
         String secret = "39JYOYPWYR46R38OAOTVRZJMEXNJ46HL";
         config.getOutInterceptors().add(new HmacAuthInterceptor(apiKey, secret));
 
-        Integer questionnairId = 103;
-        QuestionnairPageDTO definition = questionnairResource.getPage(questionnairId, RenderingMode.ALL_IN_ONE,
+        Integer questionnaireId = 103;
+        QuestionnairePageDTO definition = questionnaireResource.getPage(questionnaireId, RenderingMode.ALL_IN_ONE,
                 Language.EN, NavigationAction.ENTERING);
 
         // System.out.println(definition.getQuestionGroups().get(0).getQuestions());

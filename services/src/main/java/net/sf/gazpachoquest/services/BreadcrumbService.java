@@ -16,10 +16,10 @@ import net.sf.gazpachoquest.domain.core.Breadcrumb;
 
 public interface BreadcrumbService extends PersistenceService<Breadcrumb> {
 
-    List<Object[]> findLastAndPosition(Integer questionnairId);
+    List<Object[]> findLastAndPosition(Integer questionnaireId);
 
-    Breadcrumb findByQuestionnairIdAndPosition(Integer questionnairId, Integer position);
+    Breadcrumb findByquestionnaireIdAndPosition(Integer questionnaireId, Integer position);
 
-    Integer countByQuestionnair(Integer questionnairId);
+    Integer countByQuestionnair(Integer questionnaireId);
 
 }
