@@ -7,19 +7,20 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.user.impl;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
+import net.sf.gazpachoquest.domain.permission.UserPermission;
 import net.sf.gazpachoquest.domain.support.Permission;
 import net.sf.gazpachoquest.domain.user.Group;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
+import net.sf.gazpachoquest.repository.permission.UserPermissionRepository;
 import net.sf.gazpachoquest.repository.user.GroupRepository;
 import net.sf.gazpachoquest.repository.user.UserRepository;
 import net.sf.gazpachoquest.services.UserService;
 import net.sf.gazpachoquest.services.core.impl.AbstractPersistenceService;
+import net.sf.gazpachoquest.types.Perm;
 import net.sf.gazpachoquest.util.RandomTokenGenerator;
 
 import org.apache.commons.lang3.StringUtils;
@@ -41,6 +42,9 @@ public class UserServiceImpl extends AbstractPersistenceService<User> implements
     private GroupRepository groupRepository;
 
     @Autowired
+    private UserPermissionRepository userPermissionRepository;
+
+    @Autowired
     public UserServiceImpl(final UserRepository repository) {
         super(repository);
     }
@@ -53,6 +57,10 @@ public class UserServiceImpl extends AbstractPersistenceService<User> implements
             user.setApiKey(tokenGenerator.generate(API_KEY_LENGTH));
             user.setSecret(tokenGenerator.generate(SECRET_LENGTH));
             existing = repository.save(user);
+            UserPermission userPermission = UserPermission.with().addPerm(Perm.READ).addPerm(Perm.UPDATE).addPerm(Perm.DELETE).target(existing)
+                    .user(getAuthenticatedUser()).build();
+            userPermissionRepository.save(userPermission);
+            
         } else {
             existing = repository.findOne(user.getId());
             existing.setEmail(user.getEmail());

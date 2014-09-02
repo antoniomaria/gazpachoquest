@@ -23,14 +23,17 @@ import net.sf.gazpachoquest.domain.core.QuestionGroup;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnaireDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation;
+import net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.MailMessageRepository;
 import net.sf.gazpachoquest.repository.QuestionGroupRepository;
 import net.sf.gazpachoquest.repository.QuestionnaireDefinitionRepository;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
 import net.sf.gazpachoquest.repository.i18.QuestionnaireDefinitionTranslationRepository;
+import net.sf.gazpachoquest.repository.permission.QuestionnaireDefinitionPermissionRepository;
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.types.EntityStatus;
+import net.sf.gazpachoquest.types.Perm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.Marshaller;
@@ -64,6 +67,9 @@ public class QuestionnaireDefinitionServiceImpl
     private QuestionnaireDefinitionTranslationRepository questionnaireDefinitionTranslationRepository;
 
     @Autowired
+    private QuestionnaireDefinitionPermissionRepository questionnaireDefinitionPermissionRepository;
+    
+    @Autowired
     public QuestionnaireDefinitionServiceImpl(final QuestionnaireDefinitionRepository questionnaireDefinitionRepository,
             final QuestionnaireDefinitionTranslationRepository translationRepository) {
         super(questionnaireDefinitionRepository, translationRepository, new QuestionnaireDefinitionTranslation.Builder());
@@ -96,6 +102,9 @@ public class QuestionnaireDefinitionServiceImpl
         if (questionnaireDefinition.isNew()) {
             questionnaireDefinition.setStatus(EntityStatus.DRAFT);
             existing = repository.save(questionnaireDefinition);
+            
+            QuestionnaireDefinitionPermission permission = QuestionnaireDefinitionPermission.with().addPerm(Perm.READ).addPerm(Perm.UPDATE).addPerm(Perm.UPDATE).target(existing).user(getAuthenticatedUser()).build();
+            questionnaireDefinitionPermissionRepository.save(permission);
         } else {
             existing = repository.findOne(questionnaireDefinition.getId());
             existing.setLanguage(questionnaireDefinition.getLanguage());

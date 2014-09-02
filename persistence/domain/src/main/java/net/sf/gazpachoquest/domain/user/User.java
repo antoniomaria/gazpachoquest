@@ -22,6 +22,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -85,6 +86,9 @@ public class User extends AbstractSecurizable<UserPermission> {
     @org.eclipse.persistence.annotations.Convert(value = "map-to-string-converter")
     private Map<String, String> attributes = new HashMap<String, String>();
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    private Directory directory;
+    
     public User() {
         super();
     }
@@ -97,12 +101,20 @@ public class User extends AbstractSecurizable<UserPermission> {
         this.username = username;
     }
 
-    public Set<Questionnaire> getquestionnaires() {
+    public Set<Questionnaire> getQuestionnaires() {
         return Collections.unmodifiableSet(questionnaires);
     }
 
     public Set<Group> getGroups() {
         return Collections.unmodifiableSet(groups);
+    }
+
+    public Directory getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(Directory directory) {
+        this.directory = directory;
     }
 
     public Set<Role> getRoles() {
