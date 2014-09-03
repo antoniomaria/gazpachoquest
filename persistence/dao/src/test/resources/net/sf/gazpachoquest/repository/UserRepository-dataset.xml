@@ -1,7 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <role id="1" description="Administrators" name="Administrators"/>
-
   <users id="1" api_key="9BNONCVRNG4JPBQ" secret="L0LTMJ1XAMEY13FT27MWZMQX1LWK8I1L" created_date="2014-04-19 10:35:10.713" email="support@gazpacho.net" given_names="support" last_modified_date="2014-04-19 10:35:10.713"
     surname="support" username="support" createdby_id="1" lastmodifiedby_id="1" />
   <users id="3" api_key="B868UOHUTKUDWXM" secret="IQO27YUZO8NJ7RADIK6SJ9BQZNYP4EMO" created_date="2014-04-19 10:35:11.206" email="tyrion.lannister@kingslanding.net" gender="M" given_names="Tyrion"
@@ -20,8 +18,8 @@
     title="Sample questionnaireDefinition" welcome_text="Thank you for taking the time to participate in this questionnaireDefinition."
     createdby_id="1" lastmodifiedby_id="1" randomization_strategy="N" welcome_visible="true" progress_visible="true" question_group_info_visible="true" rendering_mode="GBG"/>
   <questionnaire_definition_permission id="5" user_id="1" target_id="7" mask="1"/>
-  
   <questionnaire_definition_translation />
+
   <research id="57" created_date="2014-04-19 10:35:13.867" expiration_date="2014-04-19 10:35:13.812" last_modified_date="2014-04-19 10:35:13.867"
     name="New private questionnaire Sample questionnaireDefinition started" start_date="2014-04-19 10:35:13.813" type="P"
     createdby_id="1" lastmodifiedby_id="1" />
@@ -53,7 +51,7 @@
   <user_group />
   <mail_message_template />
   <mail_message_template_translation />
-  <questionnaire_definition_translation />
+  <role id="1" description="Administrators" name="Administrators"/>
   <user_role user_id="1" role_id="1"/>
 
 

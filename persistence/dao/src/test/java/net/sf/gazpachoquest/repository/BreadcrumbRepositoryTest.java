@@ -43,7 +43,7 @@ public class BreadcrumbRepositoryTest {
     public void findByquestionnaireIdAndPosition() {
         Integer questionnaireId = 58;
         Integer position = 1;
-        Breadcrumb next = repository.findByquestionnaireIdAndPosition(questionnaireId, position);
+        Breadcrumb next = repository.findByQuestionnaireIdAndPosition(questionnaireId, position);
         assertThat(next).isEqualTo(QuestionBreadcrumb.with().id(3).build());
     }
 

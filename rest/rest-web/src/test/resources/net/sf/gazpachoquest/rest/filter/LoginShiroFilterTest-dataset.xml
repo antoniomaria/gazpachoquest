@@ -50,7 +50,7 @@
   <user_role role_id="7" user_id="4" />
   <user_role role_id="9" user_id="5" />
   <user_role role_id="11" user_id="6" />
-  <group_role />
+  
 
   <permission id="60" entity_id="58" mask="3" scope="Q" role_id="5" />
   <permission id="65" entity_id="63" mask="3" scope="Q" role_id="7" />

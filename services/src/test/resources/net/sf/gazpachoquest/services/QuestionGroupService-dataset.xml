@@ -57,7 +57,7 @@
   <questionnaire />
   <groups />
   <user_group />
-  <group_role />
+  
 
   <mail_message_template />
   <mail_message_template_translation />

@@ -82,7 +82,7 @@ public class QuestionnaireDefinition
     private final Map<Language, QuestionnaireDefinitionTranslation> translations = new HashMap<Language, QuestionnaireDefinitionTranslation>();
 
     @OneToMany(mappedBy = "questionnaireDefinition", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @OrderColumn(name = "order_in_questionnair")
+    @OrderColumn(name = "order_in_questionnaire")
     @XmlElementWrapper(name = "question-groups")
     @XmlElement(name = "question-group")
     private final List<QuestionGroup> questionGroups = new ArrayList<QuestionGroup>();
