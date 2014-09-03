@@ -53,7 +53,7 @@ public class QuestionnairAnswersRepositoryTest {
     @Before
     public void setUp() {
         repository.activeAllAnswers();
-        String insertSql = "INSERT INTO questionnair_answers_7 (id) values(?)";
+        String insertSql = "INSERT INTO questionnaire_answers_7 (id) values(?)";
         jdbcTemplate.update(insertSql, answersId);
     }
 
@@ -86,7 +86,7 @@ public class QuestionnairAnswersRepositoryTest {
         questionnaireAnswers = repository.save(questionnaireDefinition.getId(), questionnaireAnswers);
 
         Map<String, Object> answers = jdbcTemplate.queryForMap(
-                "select q1,q2,q3,q5,q6,q7_1,q8_o1 from questionnair_answers_7 where id = ?", answersId);
+                "select q1,q2,q3,q5,q6,q7_1,q8_o1 from questionnaire_answers_7 where id = ?", answersId);
         assertThat(answers).isNotEmpty();
         assertThat(answers.get("q1")).isEqualTo("Antonio Maria");
         // Updating
@@ -99,7 +99,7 @@ public class QuestionnairAnswersRepositoryTest {
     @After
     public void tearDown() {
         try {
-            jdbcTemplate.update("delete from questionnair_answers_7 where id = ?", answersId);
+            jdbcTemplate.update("delete from questionnaire_answers_7 where id = ?", answersId);
 
         } catch (Exception e) {
 

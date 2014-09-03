@@ -56,7 +56,7 @@ public class QuestionnaireAnswersServiceTest extends AbstractShiroTest {
     @Before
     public void setUp() {
         repository.activeAllAnswers();
-        String insertSql = "INSERT INTO questionnair_answers_7 (id) values(?)";
+        String insertSql = "INSERT INTO questionnaire_answers_7 (id) values(?)";
         jdbcTemplate.update(insertSql, answersId);
     }
 
@@ -68,7 +68,7 @@ public class QuestionnaireAnswersServiceTest extends AbstractShiroTest {
         questionnaireAnswersService.save(questionnaire, questionCode, answer);
 
         Map<String, Object> answers = jdbcTemplate.queryForMap(
-                "select q1,q2,q3,q5,q6,q7_1,q8_o1 from questionnair_answers_7 where id = ?", answersId);
+                "select q1,q2,q3,q5,q6,q7_1,q8_o1 from questionnaire_answers_7 where id = ?", answersId);
         assertThat(answers).isNotEmpty();
         assertThat(answers.get("q1")).isEqualTo("Antonio Maria");
 

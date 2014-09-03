@@ -48,7 +48,7 @@ public class GroupServiceTest {
     }
 
     @Test
-    public void isUserInGroupIdentifiedByNameTest() {
+    public void isUserInGroupByNameTest() {
         Integer userId = 3;
         String groupName = "Respondents";
         boolean isInGroup = groupService.isUserInGroup(userId, groupName);
