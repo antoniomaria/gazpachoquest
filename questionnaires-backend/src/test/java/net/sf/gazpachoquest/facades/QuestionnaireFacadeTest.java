@@ -1,7 +1,11 @@
 package net.sf.gazpachoquest.facades;
 
+import static org.easymock.EasyMock.createNiceMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
 import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDTO;
 import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
@@ -13,10 +17,12 @@ import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
 import net.sf.gazpachoquest.services.QuestionnaireAnswersService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
+import net.sf.gazpachoquest.test.shiro.support.AbstractShiroTest;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RenderingMode;
 
+import org.apache.shiro.subject.Subject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -43,7 +49,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @DatabaseSetup(value = "QuestionnaireFacade-dataset.xml", type = DatabaseOperation.CLEAN_INSERT)
 @DatabaseTearDown("QuestionnaireFacade-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class QuestionnaireFacadeTest {
+public class QuestionnaireFacadeTest extends AbstractShiroTest {
 
     @Autowired
     private QuestionnaireFacade questionnaireFacade;
@@ -60,8 +66,8 @@ public class QuestionnaireFacadeTest {
     @Before
     public void setUp() {
         repository.activeAllAnswers();
-        jdbcTemplate.update("INSERT INTO questionnair_answers_7 (id) values(?)", 5);
-        jdbcTemplate.update("INSERT INTO questionnair_answers_7 (id) values(?)", 10);
+        jdbcTemplate.update("INSERT INTO questionnaire_answers_7 (id) values(?)", 5);
+        jdbcTemplate.update("INSERT INTO questionnaire_answers_7 (id) values(?)", 10);
     }
 
     @Test
@@ -116,7 +122,7 @@ public class QuestionnaireFacadeTest {
         String questionCode = "Q1";
         Answer answer = TextAnswer.fromValue("Antonio Maria");
         Integer questionDefinitionId = jdbcTemplate.queryForObject(
-                "select questionnairdefinition_id from questionnaire where id = ?", Integer.class,
+                "select questionnairedefinition_id from questionnaire where id = ?", Integer.class,
                 questionnaire.getId());
         questionnaireFacade.saveAnswer(questionnaire.getId(), questionCode, answer);
 
@@ -124,21 +130,21 @@ public class QuestionnaireFacadeTest {
                 Integer.class, questionnaire.getId());
         assertThat(answersId).isNotNull();
         Object value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase()
-                + " from questionnair_answers_" + questionDefinitionId + " where id = ?", new Object[] { answersId },
+                + " from questionnaire_answers_" + questionDefinitionId + " where id = ?", new Object[] { answersId },
                 String.class);
         assertThat(value).isEqualTo(answer.getValue());
 
         questionCode = "Q2";
         answer = TextAnswer.fromValue("O5");
         questionnaireFacade.saveAnswer(questionnaire.getId(), questionCode, answer);
-        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnaire_answers_"
                 + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
         assertThat(value).isEqualTo(answer.getValue());
 
         questionCode = "Q3";
         answer = NumericAnswer.fromValue(33);
         questionnaireFacade.saveAnswer(questionnaire.getId(), questionCode, answer);
-        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnaire_answers_"
                 + questionDefinitionId + " where id = ?", Integer.class, answersId);
         assertThat(value).isEqualTo(answer.getValue());
 
@@ -149,21 +155,21 @@ public class QuestionnaireFacadeTest {
         questionCode = "Q5";
         answer = TextAnswer.fromValue("O2");
         questionnaireFacade.saveAnswer(questionnaire.getId(), questionCode, answer);
-        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnaire_answers_"
                 + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
         assertThat(value).isEqualTo(answer.getValue());
 
         questionCode = "Q6";
         answer = TextAnswer.fromValue("O2");
         questionnaireFacade.saveAnswer(questionnaire.getId(), questionCode, answer);
-        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnaire_answers_"
                 + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
         assertThat(value).isEqualTo(answer.getValue());
 
         questionCode = "Q7_1";
         answer = TextAnswer.fromValue("O1");
         questionnaireFacade.saveAnswer(questionnaire.getId(), questionCode, answer);
-        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnair_answers_"
+        value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + " from questionnaire_answers_"
                 + questionDefinitionId + " where id = ?", new Object[] { answersId }, String.class);
         assertThat(value).isEqualTo(answer.getValue());
 
@@ -182,7 +188,7 @@ public class QuestionnaireFacadeTest {
         questionnaireFacade.saveAnswer(questionnaire.getId(), questionCode, answer);
 
         value = jdbcTemplate.queryForObject("select " + questionCode.toLowerCase() + "_" + questionOption
-                + " from questionnair_answers_" + questionDefinitionId + " where id = ?", new Object[] { answersId },
+                + " from questionnaire_answers_" + questionDefinitionId + " where id = ?", new Object[] { answersId },
                 Boolean.class);
         assertThat(value).isEqualTo(answer.getValue());
 
@@ -190,6 +196,22 @@ public class QuestionnaireFacadeTest {
 
     @After
     public void tearDown() {
-        jdbcTemplate.update("delete from questionnair_answers_7");
+        jdbcTemplate.update("delete from questionnaire_answers_7");
+    }
+
+    @Before
+    public void setUpSubject() {
+        Subject subjectUnderTest = createNiceMock(Subject.class);
+        User support = User.with().id(1).build();
+        expect(subjectUnderTest.getPrincipal()).andReturn(support).anyTimes();
+        replay(subjectUnderTest);
+        // 2. Bind the subject to the current thread:
+        setSubject(subjectUnderTest);
+    }
+
+    @After
+    public void tearDownSubject() {
+        // 3. Unbind the subject from the current thread:
+        clearSubject();
     }
 }

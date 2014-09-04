@@ -16,9 +16,9 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
     <bean class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer" />
   -->
 
-  <bean id="questionnaireResource" class="net.sf.gazpachoquest.rest.resources.questionnaireResource" autowire="byType" />
+  <bean id="questionnaireResource" class="net.sf.gazpachoquest.rest.resources.QuestionnaireResource" autowire="byType" />
   
-  <bean id="questionnaireDefinitionResource" class="net.sf.gazpachoquest.rest.resources.questionnaireDefinitionResource" autowire="byType" />
+  <bean id="questionnaireDefinitionResource" class="net.sf.gazpachoquest.rest.resources.QuestionnaireDefinitionResource" autowire="byType" />
 
   <bean id="authenticationResource" class="net.sf.gazpachoquest.rest.resources.AuthenticationResource" autowire="byType" />
 
