@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
+  <groups />
+
   <users id="1" api_key="9BNONCVRNG4JPBQ" secret="L0LTMJ1XAMEY13FT27MWZMQX1LWK8I1L" created_date="2014-04-19 10:35:10.713" email="support@gazpacho.net"
     given_names="support" last_modified_date="2014-04-19 10:35:10.713" surname="support" username="support" createdby_id="1" lastmodifiedby_id="1" />
   <users id="3" api_key="B868UOHUTKUDWXM" secret="IQO27YUZO8NJ7RADIK6SJ9BQZNYP4EMO" created_date="2014-04-19 10:35:11.206" email="tyrion.lannister@kingslanding.net"
@@ -11,6 +13,8 @@
   <users id="6" api_key="PCN1SYW4X977UE7" secret="EQSV5ARQY1LLHKDLO8EF9RMBKV9T95K5" created_date="2014-04-19 10:35:11.263" email="catelyn.stark@winterfell.net"
     gender="F" given_names="Catelyn" last_modified_date="2014-04-19 10:35:11.263" preferred_language="FI" surname="Stark" createdby_id="1" lastmodifiedby_id="1" />
   <user_permission />
+
+  <user_group />
 
   <questionnaire_definition id="7" created_date="2014-04-19 10:35:11.358" language="EN" last_modified_date="2014-04-19 10:35:11.358"
     status="C" description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample questionnaireDefinition&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;"
@@ -46,9 +50,7 @@
   <question_option />
   <question_option_translation />
 
-  <groups />
 
-  <user_group />
   <mail_message_template />
   <mail_message_template_translation />
   <role id="1" description="Administrators" name="Administrators" />
