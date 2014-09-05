@@ -41,7 +41,8 @@
   <user_group group_id="2" user_id="6" />
 
   <role />
-
+  <user_role />
+  
   <label_set />
   <label />
   <breadcrumb />

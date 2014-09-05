@@ -25,7 +25,7 @@
   <user_group />
   <mail_message_template />
   <mail_message_template_translation />
-  <questionnaire_definition_translation />
+  <role />
   <user_role />
 
   <label_set />

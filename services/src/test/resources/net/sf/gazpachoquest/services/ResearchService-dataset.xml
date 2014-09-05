@@ -2,6 +2,7 @@
 <dataset>
   <groups id="1" name="administrator" description="administrator" />
   <groups id="2" name="Respondents" description="Respondents" />
+  <user_group />
 
   <users id="1" api_key="9BNONCVRNG4JPBQ" secret="L0LTMJ1XAMEY13FT27MWZMQX1LWK8I1L" created_date="2014-04-19 10:35:10.713" email="support@gazpacho.net"
     given_names="support" last_modified_date="2014-04-19 10:35:10.713" surname="support" username="support" createdby_id="1" lastmodifiedby_id="1" />
@@ -107,7 +108,9 @@
     body="Estimado Sr. $lastname, &lt;br&gt; Has sido invitado para participar en esta encuesta &lt;br&gt;Nos dedicas 15 minutos para realizar la encuesta?, puedes interrumpirla y completarla m&#225;s tarde si es necesario&lt;a href=&quot;$link&quot;&gt;Click aqui&lt;/a&gt; para empezar"
     subject="Invitaci&#243;n para participar en una encuesta" createdby_id="1" lastmodifiedby_id="1" mailmessagetemplate_id="55" />
 
-  <questionnaire_definition_translation />
+
+  <role />
+  <user_role />
 
   <label_set />
   <label />
