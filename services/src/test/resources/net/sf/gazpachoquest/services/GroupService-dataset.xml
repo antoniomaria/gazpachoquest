@@ -1,8 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  
-  <groups id="2" description="Respondent group" name="Respondents"/>
 
+  <groups id="2" description="Respondent group" name="Respondents" />
+
+  <users id="1" api_key="9BNONCVRNG4JPBQ" secret="L0LTMJ1XAMEY13FT27MWZMQX1LWK8I1L" created_date="2014-04-19 10:35:10.713" email="support@gazpacho.net"
+    given_names="support" last_modified_date="2014-04-19 10:35:10.713" surname="support" username="support" createdby_id="1" lastmodifiedby_id="1" />
   <users id="3" api_key="B868UOHUTKUDWXM" secret="IQO27YUZO8NJ7RADIK6SJ9BQZNYP4EMO" created_date="2014-04-19 10:35:11.206" email="tyrion.lannister@kingslanding.net"
     gender="M" given_names="Tyrion" last_modified_date="2014-04-19 10:35:11.206" preferred_language="EN" surname="Lannister" createdby_id="1" lastmodifiedby_id="1" />
   <users id="4" api_key="HLME1JSCHZMVBH3" secret="39JYOYPWYR46R38OAOTVRZJMEXNJ46HL" created_date="2014-04-19 10:35:11.222" email="jon.snow@nightswatch.net"
