@@ -154,26 +154,29 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         Builder languageSettings(QuestionnaireDefinitionLanguageSettingsDTO languageSettings);
 
         QuestionnaireDefinitionLanguageSettingsDTO.Builder questionnairLanguageSettingsStart();
+
     }
 
     public static class BuilderImpl implements Builder {
+        private static final int DEFAULT_QUESTIONS_PER_PAGE = 1;
+
         private Integer id;
 
         private Language language;
 
         private QuestionnaireDefinitionLanguageSettingsDTO languageSettings;
 
-        private Boolean welcomeVisible;
+        private Boolean welcomeVisible = Boolean.TRUE;
 
-        private Boolean progressVisible;
+        private Boolean progressVisible = Boolean.TRUE;
 
-        private Boolean questionGroupInfoVisible;
+        private Boolean questionGroupInfoVisible = Boolean.TRUE;
 
-        private RandomizationStrategy randomizationStrategy;
+        private RandomizationStrategy randomizationStrategy = RandomizationStrategy.NONE;
 
         private Integer questionsPerPage;
 
-        private RenderingMode renderingMode;
+        private RenderingMode renderingMode = RenderingMode.GROUP_BY_GROUP;
 
         @Override
         public QuestionnaireDefinitionDTO build() {
@@ -186,6 +189,10 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
             questionnaireDefinitionDTO.progressVisible = progressVisible;
             questionnaireDefinitionDTO.questionGroupInfoVisible = questionGroupInfoVisible;
             questionnaireDefinitionDTO.randomizationStrategy = randomizationStrategy;
+
+            if (randomizationStrategy.equals(RandomizationStrategy.QUESTIONS_RANDOMIZATION) && questionsPerPage == null) {
+                questionsPerPage = DEFAULT_QUESTIONS_PER_PAGE;
+            }
             questionnaireDefinitionDTO.questionsPerPage = questionsPerPage;
             questionnaireDefinitionDTO.renderingMode = renderingMode;
             return questionnaireDefinitionDTO;

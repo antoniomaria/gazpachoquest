@@ -12,7 +12,6 @@ import net.sf.gazpachoquest.dto.support.TranslationDTO;
 import net.sf.gazpachoquest.facades.QuestionnaireDefinitionEditorFacade;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
-import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +25,7 @@ public class SampleQuizCreator {
 
     public QuestionnaireDefinitionDTO create() {
         QuestionnaireDefinitionDTO questionnairDefinition = QuestionnaireDefinitionDTO.with().language(Language.EN)
-                .welcomeVisible(true).progressVisible(true).randomizationStrategy(RandomizationStrategy.NONE)
-                .questionGroupInfoVisible(true).questionnairLanguageSettingsStart()
-                .title("European general knowledge quiz")
+                .questionnairLanguageSettingsStart().title("European general knowledge quiz")
                 .description("How much do you know about Europe? Answer to this questions and let's find out!")
                 .welcomeText("Thank you for taking the time to participate in this questionnaire.")
                 .questionnairLanguageSettingsEnd().renderingMode(RenderingMode.GROUP_BY_GROUP).build();

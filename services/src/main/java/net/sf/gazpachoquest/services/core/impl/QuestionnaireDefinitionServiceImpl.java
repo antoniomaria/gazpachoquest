@@ -34,7 +34,6 @@ import net.sf.gazpachoquest.repository.permission.QuestionnaireDefinitionPermiss
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.Perm;
-import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.Marshaller;
@@ -114,20 +113,12 @@ public class QuestionnaireDefinitionServiceImpl
         } else {
             existing = repository.findOne(questionnaireDefinition.getId());
             existing.setLanguage(questionnaireDefinition.getLanguage());
-            RandomizationStrategy randomizationStrategy = questionnaireDefinition.getRandomizationStrategy();
-            if (randomizationStrategy.equals(RandomizationStrategy.QUESTIONS_RANDOMIZATION)) {
-                Integer questionsPerPage = questionnaireDefinition.getQuestionsPerPage();
-                existing.setQuestionsPerPage(questionsPerPage == null ? DEFAULT_QUESTIONS_PER_PAGE : questionsPerPage);
-            }
+            existing.setQuestionsPerPage(questionnaireDefinition.getQuestionsPerPage());
             existing.setRandomizationStrategy(questionnaireDefinition.getRandomizationStrategy());
             existing.setLanguageSettings(questionnaireDefinition.getLanguageSettings());
-            existing.setProgressVisible(questionnaireDefinition.isProgressVisible() == null ? Boolean.TRUE
-                    : questionnaireDefinition.isProgressVisible());
-            existing.setRenderingMode(questionnaireDefinition.getRenderingMode() == null ? existing.getRenderingMode()
-                    : questionnaireDefinition.getRenderingMode());
-
-            existing.setQuestionGroupInfoVisible(questionnaireDefinition.isQuestionGroupInfoVisible() == null ? Boolean.TRUE
-                    : questionnaireDefinition.isQuestionGroupInfoVisible());
+            existing.setProgressVisible(questionnaireDefinition.isProgressVisible());
+            existing.setRenderingMode(questionnaireDefinition.getRenderingMode());
+            existing.setQuestionGroupInfoVisible(questionnaireDefinition.isQuestionGroupInfoVisible());
 
             for (QuestionGroup questionGroup : questionnaireDefinition.getQuestionGroups()) {
                 if (!questionGroup.isNew()) {
