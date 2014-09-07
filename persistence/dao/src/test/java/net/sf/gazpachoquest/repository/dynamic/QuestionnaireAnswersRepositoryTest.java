@@ -34,7 +34,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @DatabaseSetup("QuestionnaireAnswersRepository-dataset.xml")
 @DatabaseTearDown("QuestionnaireAnswersRepository-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class QuestionnairAnswersRepositoryTest {
+public class QuestionnaireAnswersRepositoryTest {
 
     @Autowired
     private QuestionnaireAnswersRepository repository;

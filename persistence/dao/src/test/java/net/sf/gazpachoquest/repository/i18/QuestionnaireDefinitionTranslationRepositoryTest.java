@@ -28,7 +28,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @DatabaseSetup("QuestionnaireDefinitionTranslationRepository-dataset.xml")
 @DatabaseTearDown("QuestionnaireDefinitionTranslationRepository-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class QuestionnairDefinitionTranslationRepositoryTest {
+public class QuestionnaireDefinitionTranslationRepositoryTest {
 
     @Autowired
     private QuestionnaireDefinitionTranslationRepository questionnaireDefinitionTranslationRepository;

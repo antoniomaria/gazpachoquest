@@ -34,6 +34,7 @@ import net.sf.gazpachoquest.repository.permission.QuestionnaireDefinitionPermiss
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.Perm;
+import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.Marshaller;
@@ -47,6 +48,8 @@ public class QuestionnaireDefinitionServiceImpl
         extends
         AbstractLocalizedPersistenceService<QuestionnaireDefinition, QuestionnaireDefinitionTranslation, QuestionnaireDefinitionLanguageSettings>
         implements QuestionnaireDefinitionService {
+
+    private static final Integer DEFAULT_QUESTIONS_PER_PAGE = 1;
 
     @Autowired
     private Marshaller marshaller;
@@ -68,11 +71,13 @@ public class QuestionnaireDefinitionServiceImpl
 
     @Autowired
     private QuestionnaireDefinitionPermissionRepository questionnaireDefinitionPermissionRepository;
-    
+
     @Autowired
-    public QuestionnaireDefinitionServiceImpl(final QuestionnaireDefinitionRepository questionnaireDefinitionRepository,
+    public QuestionnaireDefinitionServiceImpl(
+            final QuestionnaireDefinitionRepository questionnaireDefinitionRepository,
             final QuestionnaireDefinitionTranslationRepository translationRepository) {
-        super(questionnaireDefinitionRepository, translationRepository, new QuestionnaireDefinitionTranslation.Builder());
+        super(questionnaireDefinitionRepository, translationRepository,
+                new QuestionnaireDefinitionTranslation.Builder());
     }
 
     @Override
@@ -102,14 +107,28 @@ public class QuestionnaireDefinitionServiceImpl
         if (questionnaireDefinition.isNew()) {
             questionnaireDefinition.setStatus(EntityStatus.DRAFT);
             existing = repository.save(questionnaireDefinition);
-            
-            QuestionnaireDefinitionPermission permission = QuestionnaireDefinitionPermission.with().addPerm(Perm.READ).addPerm(Perm.UPDATE).addPerm(Perm.UPDATE).target(existing).user(getAuthenticatedUser()).build();
+
+            QuestionnaireDefinitionPermission permission = QuestionnaireDefinitionPermission.with().addPerm(Perm.READ)
+                    .addPerm(Perm.UPDATE).addPerm(Perm.UPDATE).target(existing).user(getAuthenticatedUser()).build();
             questionnaireDefinitionPermissionRepository.save(permission);
         } else {
             existing = repository.findOne(questionnaireDefinition.getId());
             existing.setLanguage(questionnaireDefinition.getLanguage());
+            RandomizationStrategy randomizationStrategy = questionnaireDefinition.getRandomizationStrategy();
+            if (randomizationStrategy.equals(RandomizationStrategy.QUESTIONS_RANDOMIZATION)) {
+                Integer questionsPerPage = questionnaireDefinition.getQuestionsPerPage();
+                existing.setQuestionsPerPage(questionsPerPage == null ? DEFAULT_QUESTIONS_PER_PAGE : questionsPerPage);
+            }
             existing.setRandomizationStrategy(questionnaireDefinition.getRandomizationStrategy());
             existing.setLanguageSettings(questionnaireDefinition.getLanguageSettings());
+            existing.setProgressVisible(questionnaireDefinition.isProgressVisible() == null ? Boolean.TRUE
+                    : questionnaireDefinition.isProgressVisible());
+            existing.setRenderingMode(questionnaireDefinition.getRenderingMode() == null ? existing.getRenderingMode()
+                    : questionnaireDefinition.getRenderingMode());
+
+            existing.setQuestionGroupInfoVisible(questionnaireDefinition.isQuestionGroupInfoVisible() == null ? Boolean.TRUE
+                    : questionnaireDefinition.isQuestionGroupInfoVisible());
+
             for (QuestionGroup questionGroup : questionnaireDefinition.getQuestionGroups()) {
                 if (!questionGroup.isNew()) {
                     continue;

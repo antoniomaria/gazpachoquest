@@ -145,6 +145,18 @@
       <b-hint>net.sf.gazpachoquest.domain.core.QuestionGroup</b-hint>
     </field>
     <field>
+      <a>questionsPerPage</a>
+      <b>questionsPerPage</b>
+    </field>
+    <field>
+      <a>renderingMode</a>
+      <b>renderingMode</b>
+    </field>
+    <field>
+      <a>randomizationStrategy</a>
+      <b>randomizationStrategy</b>
+    </field> 
+    <field>
       <a get-method="isWelcomeVisible" is-accessible="true">welcomeVisible</a>
       <b>welcomeVisible</b>
     </field>

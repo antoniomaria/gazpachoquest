@@ -132,9 +132,9 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
 
         WebBrowser webBrowser = Page.getCurrent().getWebBrowser();
         Integer screenWidth = webBrowser.getScreenWidth();
-        Integer heightWidth = webBrowser.getScreenWidth();
+        Integer heightWidth = webBrowser.getScreenHeight();
 
-        logger.debug("Broswer screen settings  {} x {}", screenWidth, heightWidth);
+        logger.debug("Browser screen settings  {} x {}", screenWidth, heightWidth);
 
         if (heightWidth <= 480) {
             renderingMode = RenderingMode.QUESTION_BY_QUESTION;
@@ -209,12 +209,12 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
     @Override
     public void buttonClick(ClickEvent event) {
         if (nextButton.equals(event.getButton())) {
-            QuestionnairePageDTO page = questionnaireResource.getPage(questionnaireId, renderingMode, preferredLanguage,
-                    NavigationAction.NEXT);
+            QuestionnairePageDTO page = questionnaireResource.getPage(questionnaireId, renderingMode,
+                    preferredLanguage, NavigationAction.NEXT);
             update(page);
         } else {
-            QuestionnairePageDTO page = questionnaireResource.getPage(questionnaireId, renderingMode, preferredLanguage,
-                    NavigationAction.PREVIOUS);
+            QuestionnairePageDTO page = questionnaireResource.getPage(questionnaireId, renderingMode,
+                    preferredLanguage, NavigationAction.PREVIOUS);
             update(page);
         }
 
