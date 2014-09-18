@@ -80,8 +80,8 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         this.languageSettings = languageSettings;
     }
 
-    public Boolean getWelcomeVisible() {
-        return welcomeVisible;
+    public void setWelcomeVisible(Boolean welcomeVisible) {
+        this.welcomeVisible = welcomeVisible;
     }
 
     public void isWelcomeVisible(Boolean welcomeVisible) {
@@ -100,7 +100,7 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         return questionGroupInfoVisible;
     }
 
-    public void isQuestionGroupInfoVisible(Boolean questionGroupInfoVisible) {
+    public void setQuestionGroupInfoVisible(Boolean questionGroupInfoVisible) {
         this.questionGroupInfoVisible = questionGroupInfoVisible;
     }
 

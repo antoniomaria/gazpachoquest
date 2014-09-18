@@ -155,7 +155,7 @@
     <field>
       <a>randomizationStrategy</a>
       <b>randomizationStrategy</b>
-    </field> 
+    </field>
     <field>
       <a get-method="isWelcomeVisible" is-accessible="true">welcomeVisible</a>
       <b>welcomeVisible</b>
@@ -177,6 +177,30 @@
       <a>questionGroups</a>
       <b>questionGroups</b>
     </field-exclude>
+    <field>
+      <a>questionsPerPage</a>
+      <b>questionsPerPage</b>
+    </field>
+    <field>
+      <a>renderingMode</a>
+      <b>renderingMode</b>
+    </field>
+    <field>
+      <a>randomizationStrategy</a>
+      <b>randomizationStrategy</b>
+    </field>
+    <field>
+      <a get-method="isWelcomeVisible" is-accessible="true">welcomeVisible</a>
+      <b>welcomeVisible</b>
+    </field>
+    <field>
+      <a get-method="isProgressVisible" is-accessible="true">progressVisible</a>
+      <b>progressVisible</b>
+    </field>
+    <field>
+      <a get-method="isQuestionGroupInfoVisible" is-accessible="true">questionGroupInfoVisible</a>
+      <b>questionGroupInfoVisible</b>
+    </field>
   </mapping>
 
   <mapping type="one-way" map-id="toDTOwithQuestionGroups">
@@ -186,6 +210,30 @@
       <a>questionGroups</a>
       <b set-method="addQuestionGroup" type="iterate">questionGroups</b>
       <b-hint>net.sf.gazpachoquest.dto.QuestionGroupDTO</b-hint>
+    </field>
+    <field>
+      <a>questionsPerPage</a>
+      <b>questionsPerPage</b>
+    </field>
+    <field>
+      <a>renderingMode</a>
+      <b>renderingMode</b>
+    </field>
+    <field>
+      <a>randomizationStrategy</a>
+      <b>randomizationStrategy</b>
+    </field>
+    <field>
+      <a get-method="isWelcomeVisible" is-accessible="true">welcomeVisible</a>
+      <b>welcomeVisible</b>
+    </field>
+    <field>
+      <a get-method="isProgressVisible" is-accessible="true">progressVisible</a>
+      <b>progressVisible</b>
+    </field>
+    <field>
+      <a get-method="isQuestionGroupInfoVisible" is-accessible="true">questionGroupInfoVisible</a>
+      <b>questionGroupInfoVisible</b>
     </field>
   </mapping>
 

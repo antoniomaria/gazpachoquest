@@ -48,8 +48,6 @@ public class QuestionnaireDefinitionServiceImpl
         AbstractLocalizedPersistenceService<QuestionnaireDefinition, QuestionnaireDefinitionTranslation, QuestionnaireDefinitionLanguageSettings>
         implements QuestionnaireDefinitionService {
 
-    private static final Integer DEFAULT_QUESTIONS_PER_PAGE = 1;
-
     @Autowired
     private Marshaller marshaller;
 
