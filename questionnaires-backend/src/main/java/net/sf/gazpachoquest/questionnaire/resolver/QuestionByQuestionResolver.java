@@ -74,7 +74,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
         QuestionBreadcrumb breadcrumb = null;
         Integer questionnairDefinitionId = questionnaireDefinition.getId();
         RandomizationStrategy randomizationStrategy = questionnaireDefinition.getRandomizationStrategy();
-        if (RandomizationStrategy.GROUPS_RANDOMIZATION.equals(randomizationStrategy)) {
+        if (RandomizationStrategy.SECTIONS_RANDOMIZATION.equals(randomizationStrategy)) {
             List<Section> sections = sectionService.findByExample(
                     Section.with()
                             .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnairDefinitionId).build())

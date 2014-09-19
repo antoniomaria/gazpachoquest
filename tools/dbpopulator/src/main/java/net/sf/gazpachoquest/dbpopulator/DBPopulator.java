@@ -18,9 +18,9 @@ import net.sf.gazpachoquest.dto.LabelDTO;
 import net.sf.gazpachoquest.dto.LabelSetDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateLanguageSettingsDTO;
-import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.ResearchDTO;
+import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.UserDTO;
 import net.sf.gazpachoquest.dto.support.TranslationDTO;
 import net.sf.gazpachoquest.facades.GroupFacade;
@@ -134,6 +134,12 @@ public class DBPopulator {
         asignDefaultMailTemplate(questionnaireDefinition);
         questionnaireDefinitionEditorFacade.confirm(questionnaireDefinition);
 
+        research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
+                .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.addQuestionnaireDefinition(questionnaireDefinition);
+        researchFacade.save(research);
+
         // Question Randomization Enabled
         questionnaireDefinition = sampleQuizCreator.create();
         questionnaireDefinition.setQuestionsPerPage(1);
@@ -160,7 +166,7 @@ public class DBPopulator {
 
         // Groups Randomization Enabled
         questionnaireDefinition = sampleQuizCreator.create();
-        questionnaireDefinition.setRandomizationStrategy(RandomizationStrategy.GROUPS_RANDOMIZATION);
+        questionnaireDefinition.setRandomizationStrategy(RandomizationStrategy.SECTIONS_RANDOMIZATION);
         questionnaireDefinition = questionnaireDefinitionEditorFacade.save(questionnaireDefinition);
 
         asignDefaultMailTemplate(questionnaireDefinition);
