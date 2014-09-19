@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
-import net.sf.gazpachoquest.api.QuestionnairResource;
+import net.sf.gazpachoquest.api.QuestionnaireResource;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.questionnaires.events.AnswerSavedEvent;
@@ -24,19 +24,19 @@ public class AnswerSavedListener implements Serializable {
 
     @GazpachoResource
     @Inject
-    private QuestionnairResource questionnairResource;
+    private QuestionnaireResource questionnaireResource;
 
     public void listen(@Observes
     AnswerSavedEvent event) {
         RespondentAccount respondent = (RespondentAccount) VaadinServletService.getCurrentServletRequest()
                 .getUserPrincipal();
-        Integer questionnairId = respondent.getGrantedQuestionnairIds().iterator().next();
+        Integer questionnaireId = respondent.getGrantedquestionnaireIds().iterator().next();
 
         Answer answer = event.getAnswer();
         String questionCode = event.getQuestionCode();
 
         logger.debug("Trying to save answer: {}  for questionnair identified with id  = {} and questionCode = {}",
-                answer, questionnairId, questionCode);
-        questionnairResource.saveAnswer(answer, questionnairId, questionCode);
+                answer, questionnaireId, questionCode);
+        questionnaireResource.saveAnswer(answer, questionnaireId, questionCode);
     }
 }

@@ -1,14 +1,13 @@
 package net.sf.gazpachoquest.dbpopulator.samples;
 
 import net.sf.gazpachoquest.dto.QuestionDTO;
-import net.sf.gazpachoquest.dto.QuestionGroupDTO;
+import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
-import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
+import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.SubquestionDTO;
-import net.sf.gazpachoquest.facades.QuestionnairDefinitionEditorFacade;
+import net.sf.gazpachoquest.facades.QuestionnaireDefinitionEditorFacade;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
-import net.sf.gazpachoquest.types.RandomizationStrategy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,31 +16,28 @@ import org.springframework.stereotype.Component;
 public class FastFoodSurveyCreator {
 
     @Autowired
-    private QuestionnairDefinitionEditorFacade questionnairDefinitionEditorFacade;
+    private QuestionnaireDefinitionEditorFacade questionnaireDefinitionEditorFacade;
 
-    public QuestionnairDefinitionDTO create() {
-        QuestionnairDefinitionDTO survey = QuestionnairDefinitionDTO
+    public QuestionnaireDefinitionDTO create() {
+        QuestionnaireDefinitionDTO survey = QuestionnaireDefinitionDTO
                 .with()
                 .language(Language.EN)
-                .welcomeVisible(true)
-                .progressVisible(true)
-                .randomizationStrategy(RandomizationStrategy.NONE)
-                .questionGroupInfoVisible(true)
                 .questionnairLanguageSettingsStart()
-                .title("Food Quality QuestionnairDefinition")
+                .title("Food Quality QuestionnaireDefinition")
                 .description(
                         "We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry.")
                 .welcomeText(
                         "Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:")
                 .questionnairLanguageSettingsEnd().build();
-        survey = questionnairDefinitionEditorFacade.save(survey);
+        survey = questionnaireDefinitionEditorFacade.save(survey);
 
-        QuestionGroupDTO questionGroup = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false).pageLanguageSettingsStart()
-                .title("Fast Food QuestionnairDefinition - QuestionGroup").pageLanguageSettingsEnd().build();
+        SectionDTO section = SectionDTO.with().language(Language.EN).randomizationEnabled(false)
+                .pageLanguageSettingsStart().title("Fast Food QuestionnaireDefinition - Section")
+                .pageLanguageSettingsEnd().build();
 
-        survey.addQuestionGroup(questionGroup);
-        survey = questionnairDefinitionEditorFacade.save(survey);
-        questionGroup = survey.getLastQuestionGroupDTO();
+        survey.addSection(section);
+        survey = questionnaireDefinitionEditorFacade.save(survey);
+        section = survey.getLastSectionDTO();
 
         // Question 1: Rating Scale (1-5)
         QuestionDTO question = QuestionDTO.with().type(QuestionType.F).code("Q1").language(Language.EN)
@@ -69,8 +65,8 @@ public class FastFoodSurveyCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O6").language(Language.EN).title("Disagree strongly")
                 .build());
 
-        questionGroup.addQuestion(question);
-        questionGroup = questionnairDefinitionEditorFacade.save(questionGroup);
+        section.addQuestion(question);
+        section = questionnaireDefinitionEditorFacade.save(section);
 
         // Question 2: Rating Scale (Agree-Disagree)
         question = QuestionDTO.with().type(QuestionType.F).code("Q2").language(Language.EN).languageSettingsStart()
@@ -109,8 +105,8 @@ public class FastFoodSurveyCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O6").language(Language.EN).title("Disagree strongly")
                 .build());
 
-        questionGroup.addQuestion(question);
-        questionGroup = questionnairDefinitionEditorFacade.save(questionGroup);
+        section.addQuestion(question);
+        section = questionnaireDefinitionEditorFacade.save(section);
 
         // Question 3: Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).code("Q3").language(Language.EN).languageSettingsStart()
@@ -127,8 +123,8 @@ public class FastFoodSurveyCreator {
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).code("O5").title("Over 85,000€")
                 .build());
 
-        questionGroup.addQuestion(question);
-        questionGroup = questionnairDefinitionEditorFacade.save(questionGroup);
+        section.addQuestion(question);
+        section = questionnaireDefinitionEditorFacade.save(section);
 
         return survey;
     }

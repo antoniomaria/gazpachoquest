@@ -10,6 +10,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.core.impl;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -76,10 +78,20 @@ public abstract class AbstractLocalizedPersistenceService<L extends Localizable<
             }
         }
         // Otherwise the entity is modified after session commit
-        em.detach(entity);
-        entity.setLanguage(language);
-        entity.setLanguageSettings(languageSettings);
-        return entity;
+        L dump = createInstance(getTypeParameterClass());
+        dump.setLanguage(language);
+        dump.setLanguageSettings(languageSettings);
+        return dump;
+    }
+
+    private L createInstance(Class<L> typeParameterClass) {
+        L instance = null;
+        try {
+            instance = typeParameterClass.newInstance();
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+        return instance;
     }
 
     @Override
@@ -109,6 +121,13 @@ public abstract class AbstractLocalizedPersistenceService<L extends Localizable<
             list.add(tr.getLanguage());
         }
         return list.isEmpty() ? EnumSet.noneOf(Language.class) : EnumSet.copyOf(list);
+    }
+
+    @SuppressWarnings("unchecked")
+    private Class<L> getTypeParameterClass() {
+        Type type = getClass().getGenericSuperclass();
+        ParameterizedType paramType = (ParameterizedType) type;
+        return (Class<L>) paramType.getActualTypeArguments()[0];
     }
 
 }

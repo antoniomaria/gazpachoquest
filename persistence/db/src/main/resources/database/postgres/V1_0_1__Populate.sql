@@ -4,747 +4,972 @@
 
 -- Dumped from database version 9.3.4
 -- Dumped by pg_dump version 9.3.4
--- Started on 2014-08-11 09:17:31
+-- Started on 2014-09-07 18:22:48
 
+-- TOC entry 2379 (class 0 OID 91218)
+-- Dependencies: 201
+-- Data for Name: directory; Type: TABLE DATA; Schema: public; Owner: postgres
 --
--- TOC entry 2214 (class 0 OID 65776)
--- Dependencies: 190
--- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: postgres
--- Only Export Data > Use  column insert & user insert commands
 
-INSERT INTO role (id, description, name) VALUES (2, 'Specific role for support support ', 'User Role');
-INSERT INTO role (id, description, name) VALUES (5, 'Specific role for Tyrion Lannister ', 'User Role');
-INSERT INTO role (id, description, name) VALUES (7, 'Specific role for Jon Snow ', 'User Role');
-INSERT INTO role (id, description, name) VALUES (9, 'Specific role for Arya Stark ', 'User Role');
-INSERT INTO role (id, description, name) VALUES (11, 'Specific role for Catelyn Stark ', 'User Role');
 
 
 --
--- TOC entry 2215 (class 0 OID 65784)
--- Dependencies: 191
+-- TOC entry 2382 (class 0 OID 91242)
+-- Dependencies: 204
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, preferred_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (1, 'PKCC00D3YH83KEP', 'L0LTMJ1XAMEY13FT27MWZMQX1LWK8I1L', '2014-04-29 14:09:28.906', 'support@gazpacho.net', NULL, 'support', '2014-04-29 14:09:28.906', NULL, 'support', 'support', 1, 2, 1);
-INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, preferred_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (4, 'TKIETCJZ3V6NOSM', 'IQO27YUZO8NJ7RADIK6SJ9BQZNYP4EMO', '2014-04-29 14:09:29.042', 'tyrion.lannister@kingslanding.net', 'M', 'Tyrion', '2014-04-29 14:09:29.042', 'EN', 'Lannister', NULL, 1, 5, 1);
-INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, preferred_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (6, 'FGFQM8T6YPVSW4Q', '39JYOYPWYR46R38OAOTVRZJMEXNJ46HL', '2014-04-29 14:09:29.05', 'jon.snow@nightswatch.net', 'M', 'Jon', '2014-04-29 14:09:29.05', NULL, 'Snow', NULL, 1, 7, 1);
-INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, preferred_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (8, 'WR7MZM016D4YXN5', 'ZBH1QL28VZEE00XHH7N4R16Q8ZRURU5P', '2014-04-29 14:09:29.058', 'arya.stark@winterfell.net', 'F', 'Arya', '2014-04-29 14:09:29.058', 'ES', 'Stark', NULL, 1, 9, 1);
-INSERT INTO users (id, api_key, secret, created_date, email, gender, given_names, last_modified_date, preferred_language, surname, username, createdby_id, defaultrole_id, lastmodifiedby_id) VALUES (10, 'HC00N1926K0ZKAF', 'EQSV5ARQY1LLHKDLO8EF9RMBKV9T95K5', '2014-04-29 14:09:29.067', 'catelyn.stark@winterfell.net', 'F', 'Catelyn', '2014-04-29 14:09:29.067', 'FI', 'Stark', NULL, 1, 11, 1);
-
---
--- TOC entry 2203 (class 0 OID 65691)
--- Dependencies: 179
--- Data for Name: questionnair_definition; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO questionnair_definition (id, created_date, language, last_modified_date, progress_visible, question_group_info_visible, questions_per_page, randomization_strategy, status, welcome_visible, description, end_text, title, welcome_text, createdby_id, lastmodifiedby_id) VALUES (12, '2014-08-11 09:16:49.821', 'EN', '2014-08-11 09:16:49.821', true, true, NULL, 'N', 'C', true, 'How much do you know about Europe? Answer to this questions and let''s find out!', NULL, 'European general knowledge quiz', 'Thank you for taking the time to participate in this questionnair.', 1, 1);
-INSERT INTO questionnair_definition (id, created_date, language, last_modified_date, progress_visible, question_group_info_visible, questions_per_page, randomization_strategy, status, welcome_visible, description, end_text, title, welcome_text, createdby_id, lastmodifiedby_id) VALUES (121, '2014-08-11 09:16:50.737', 'EN', '2014-08-11 09:16:50.737', true, true, NULL, 'Q', 'C', true, 'How much do you know about Europe? Answer to this questions and let''s find out!', NULL, 'European general knowledge quiz', 'Thank you for taking the time to participate in this questionnair.', 1, 1);
-INSERT INTO questionnair_definition (id, created_date, language, last_modified_date, progress_visible, question_group_info_visible, questions_per_page, randomization_strategy, status, welcome_visible, description, end_text, title, welcome_text, createdby_id, lastmodifiedby_id) VALUES (230, '2014-08-11 09:16:51.757', 'EN', '2014-08-11 09:16:51.757', true, true, NULL, 'G', 'C', true, 'How much do you know about Europe? Answer to this questions and let''s find out!', NULL, 'European general knowledge quiz', 'Thank you for taking the time to participate in this questionnair.', 1, 1);
-INSERT INTO questionnair_definition (id, created_date, language, last_modified_date, progress_visible, question_group_info_visible, questions_per_page, randomization_strategy, status, welcome_visible, description, end_text, title, welcome_text, createdby_id, lastmodifiedby_id) VALUES (339, '2014-08-11 09:16:52.498', 'EN', '2014-08-11 09:16:52.498', true, true, NULL, 'N', 'C', true, 'How much do you know about Europe? Answer to this questions and let''s find out!', NULL, 'European general knowledge quiz', 'Thank you for taking the time to participate in this questionnair.', 1, 1);
-INSERT INTO questionnair_definition (id, created_date, language, last_modified_date, progress_visible, question_group_info_visible, questions_per_page, randomization_strategy, status, welcome_visible, description, end_text, title, welcome_text, createdby_id, lastmodifiedby_id) VALUES (448, '2014-08-11 09:16:52.952', 'EN', '2014-08-11 09:16:52.952', true, true, NULL, 'N', 'C', true, 'We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry.', NULL, 'Food Quality QuestionnairDefinition', 'Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:', 1, 1);
+INSERT INTO users (id, api_key, attributes, created_date, email, gender, given_names, last_modified_date, password, preferred_language, secret, surname, username, createdby_id, directory_id, lastmodifiedby_id) VALUES (1, '3Q2JBVEASJY2SC6', NULL, '2014-09-07 18:12:57.807', 'support@gazpacho.net', NULL, 'support', '2014-09-07 18:12:57.807', NULL, NULL, 'XFQRMVGKR8R328TJ78E688J9MB8D6HS4', 'support', 'support', 1, NULL, 1);
+INSERT INTO users (id, api_key, attributes, created_date, email, gender, given_names, last_modified_date, password, preferred_language, secret, surname, username, createdby_id, directory_id, lastmodifiedby_id) VALUES (4, 'CD6EKABJ47WGGLR', NULL, '2014-09-07 18:12:57.994', 'tyrion.lannister@kingslanding.net', 'M', 'Tyrion', '2014-09-07 18:12:57.994', NULL, NULL, '75AW8E3ZGZFBAW63R9BFNYEJ5JJYGWNE', 'Lannister', NULL, 1, NULL, 1);
+INSERT INTO users (id, api_key, attributes, created_date, email, gender, given_names, last_modified_date, password, preferred_language, secret, surname, username, createdby_id, directory_id, lastmodifiedby_id) VALUES (6, 'ESNKHAFLEEH32Y4', NULL, '2014-09-07 18:12:58.041', 'jon.snow@nightswatch.net', 'M', 'Jon', '2014-09-07 18:12:58.041', NULL, 'ES', 'VA47ZZBU6EMVJ5B7442TPM3BZ6PE5BGN', 'Snow', NULL, 1, NULL, 1);
+INSERT INTO users (id, api_key, attributes, created_date, email, gender, given_names, last_modified_date, password, preferred_language, secret, surname, username, createdby_id, directory_id, lastmodifiedby_id) VALUES (8, 'TBALWC9URDNMSQR', NULL, '2014-09-07 18:12:58.088', 'arya.stark@winterfell.net', 'F', 'Arya', '2014-09-07 18:12:58.088', NULL, 'EN', 'V3QWVS6ZALC255S5QWYC3S68CLL6CNS9', 'Stark', NULL, 1, NULL, 1);
+INSERT INTO users (id, api_key, attributes, created_date, email, gender, given_names, last_modified_date, password, preferred_language, secret, surname, username, createdby_id, directory_id, lastmodifiedby_id) VALUES (10, 'JUF5BU9U857X6DG', NULL, '2014-09-07 18:12:58.135', 'catelyn.stark@winterfell.net', 'F', 'Catelyn', '2014-09-07 18:12:58.135', NULL, 'FI', '3ZZVRB9BXBHEKKZN6BLYRBZ8SFWSMDYB', 'Stark', NULL, 1, NULL, 1);
+INSERT INTO users (id, api_key, attributes, created_date, email, gender, given_names, last_modified_date, password, preferred_language, secret, surname, username, createdby_id, directory_id, lastmodifiedby_id) VALUES (601, 'CXQ4MF4XCPP3KEP', NULL, '2014-09-07 18:19:36.466', 'no-reply@gazpachoquest.net', NULL, 'anonymous', '2014-09-07 18:19:36.466', NULL, NULL, 'DF22K3NA2EYM5DVKXLV7Y29VHPT9MEVB', 'anonymous', NULL, NULL, NULL, NULL);
+INSERT INTO users (id, api_key, attributes, created_date, email, gender, given_names, last_modified_date, password, preferred_language, secret, surname, username, createdby_id, directory_id, lastmodifiedby_id) VALUES (610, 'ZJTSLZ48TKHEVUK', NULL, '2014-09-07 18:20:12.057', 'no-reply@gazpachoquest.net', NULL, 'anonymous', '2014-09-07 18:20:12.057', NULL, NULL, 'QSJM9DZGAT64WJEWY2XWSWJXQJ2K52EF', 'anonymous', NULL, NULL, NULL, NULL);
 
 
 --
--- TOC entry 2201 (class 0 OID 65678)
--- Dependencies: 177
--- Data for Name: question_group; Type: TABLE DATA; Schema: public; Owner: postgres
+-- TOC entry 2365 (class 0 OID 91121)
+-- Dependencies: 187
+-- Data for Name: questionnaire_definition; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO question_group (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairdefinition_id, order_in_questionnair) VALUES (14, '2014-08-11 09:16:49.856', 'EN', '2014-08-11 09:16:49.856', false, NULL, 'European Capitals', 1, 1, 12, 0);
-INSERT INTO question_group (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairdefinition_id, order_in_questionnair) VALUES (16, '2014-08-11 09:16:49.877', 'EN', '2014-08-11 09:16:49.877', false, NULL, 'European Union', 1, 1, 12, 1);
-INSERT INTO question_group (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairdefinition_id, order_in_questionnair) VALUES (18, '2014-08-11 09:16:49.894', 'EN', '2014-08-11 09:16:49.894', false, NULL, 'European History', 1, 1, 12, 2);
-INSERT INTO question_group (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairdefinition_id, order_in_questionnair) VALUES (123, '2014-08-11 09:16:50.753', 'EN', '2014-08-11 09:16:50.753', false, NULL, 'European Capitals', 1, 1, 121, 0);
-INSERT INTO question_group (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairdefinition_id, order_in_questionnair) VALUES (125, '2014-08-11 09:16:50.77', 'EN', '2014-08-11 09:16:50.77', false, NULL, 'European Union', 1, 1, 121, 1);
-INSERT INTO question_group (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairdefinition_id, order_in_questionnair) VALUES (127, '2014-08-11 09:16:50.789', 'EN', '2014-08-11 09:16:50.789', false, NULL, 'European History', 1, 1, 121, 2);
-INSERT INTO question_group (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairdefinition_id, order_in_questionnair) VALUES (232, '2014-08-11 09:16:51.928', 'EN', '2014-08-11 09:16:51.928', false, NULL, 'European Capitals', 1, 1, 230, 0);
-INSERT INTO question_group (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairdefinition_id, order_in_questionnair) VALUES (234, '2014-08-11 09:16:51.944', 'EN', '2014-08-11 09:16:51.944', false, NULL, 'European Union', 1, 1, 230, 1);
-INSERT INTO question_group (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairdefinition_id, order_in_questionnair) VALUES (236, '2014-08-11 09:16:51.96', 'EN', '2014-08-11 09:16:51.96', false, NULL, 'European History', 1, 1, 230, 2);
-INSERT INTO question_group (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairdefinition_id, order_in_questionnair) VALUES (343, '2014-08-11 09:16:52.516', 'EN', '2014-08-11 09:16:52.516', false, NULL, 'European Union', 1, 1, 339, 1);
-INSERT INTO question_group (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairdefinition_id, order_in_questionnair) VALUES (345, '2014-08-11 09:16:52.527', 'EN', '2014-08-11 09:16:52.527', false, NULL, 'European History', 1, 1, 339, 2);
-INSERT INTO question_group (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairdefinition_id, order_in_questionnair) VALUES (341, '2014-08-11 09:16:52.507', 'EN', '2014-08-11 09:16:52.507', true, NULL, 'European Capitals', 1, 1, 339, 0);
-INSERT INTO question_group (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairdefinition_id, order_in_questionnair) VALUES (449, '2014-08-11 09:16:52.952', 'EN', '2014-08-11 09:16:52.952', false, NULL, 'Fast Food QuestionnairDefinition - QuestionGroup', 1, 1, 448, 0);
+INSERT INTO questionnaire_definition (id, created_date, language, last_modified_date, progress_visible, section_info_visible, questions_per_page, randomization_strategy, rendering_mode, status, welcome_visible, description, end_text, title, welcome_text, createdby_id, lastmodifiedby_id) VALUES (12, '2014-09-07 18:12:58.182', 'EN', '2014-09-07 18:12:58.182', true, true, NULL, 'N', 'SBS', 'C', true, 'How much do you know about Europe? Answer to this questions and let''s find out!', NULL, 'European general knowledge quiz', 'Thank you for taking the time to participate in this questionnaire.', 1, 1);
+INSERT INTO questionnaire_definition (id, created_date, language, last_modified_date, progress_visible, section_info_visible, questions_per_page, randomization_strategy, rendering_mode, status, welcome_visible, description, end_text, title, welcome_text, createdby_id, lastmodifiedby_id) VALUES (124, '2014-09-07 18:12:59.883', 'EN', '2014-09-07 18:12:59.883', true, true, NULL, 'N', 'AIO', 'C', true, 'How much do you know about Europe? Answer to this questions and let''s find out!', NULL, 'European general knowledge quiz', 'Thank you for taking the time to participate in this questionnaire.', 1, 1);
+INSERT INTO questionnaire_definition (id, created_date, language, last_modified_date, progress_visible, section_info_visible, questions_per_page, randomization_strategy, rendering_mode, status, welcome_visible, description, end_text, title, welcome_text, createdby_id, lastmodifiedby_id) VALUES (215, '2014-09-07 18:13:00.368', 'EN', '2014-09-07 18:13:00.368', true, true, 3, 'Q', 'SBS', 'C', true, 'How much do you know about Europe? Answer to this questions and let''s find out!', NULL, 'European general knowledge quiz', 'Thank you for taking the time to participate in this questionnaire.', 1, 1);
+INSERT INTO questionnaire_definition (id, created_date, language, last_modified_date, progress_visible, section_info_visible, questions_per_page, randomization_strategy, rendering_mode, status, welcome_visible, description, end_text, title, welcome_text, createdby_id, lastmodifiedby_id) VALUES (327, '2014-09-07 18:13:00.923', 'EN', '2014-09-07 18:13:00.923', true, true, NULL, 'S', 'SBS', 'C', true, 'How much do you know about Europe? Answer to this questions and let''s find out!', NULL, 'European general knowledge quiz', 'Thank you for taking the time to participate in this questionnaire.', 1, 1);
+INSERT INTO questionnaire_definition (id, created_date, language, last_modified_date, progress_visible, section_info_visible, questions_per_page, randomization_strategy, rendering_mode, status, welcome_visible, description, end_text, title, welcome_text, createdby_id, lastmodifiedby_id) VALUES (439, '2014-09-07 18:13:01.456', 'EN', '2014-09-07 18:13:01.456', true, true, NULL, 'N', 'SBS', 'C', true, 'How much do you know about Europe? Answer to this questions and let''s find out!', NULL, 'European general knowledge quiz', 'Thank you for taking the time to participate in this questionnaire.', 1, 1);
+INSERT INTO questionnaire_definition (id, created_date, language, last_modified_date, progress_visible, section_info_visible, questions_per_page, randomization_strategy, rendering_mode, status, welcome_visible, description, end_text, title, welcome_text, createdby_id, lastmodifiedby_id) VALUES (551, '2014-09-07 18:13:01.841', 'EN', '2014-09-07 18:13:01.841', true, true, NULL, 'N', 'SBS', 'C', true, 'We at BIG DEES take pride in providing you with the highest standards of QUALITY, SERVICE, CLEANLINESS and VALUE in the restaurant industry.', NULL, 'Food Quality QuestionnaireDefinition', 'Your opinion is extremely important in evaluating our business. Thank you for taking a moment to questionOption the following questions:', 1, 1);
 
 
 --
--- TOC entry 2200 (class 0 OID 65670)
--- Dependencies: 176
+-- TOC entry 2363 (class 0 OID 91108)
+-- Dependencies: 185
+-- Data for Name: section; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (15, '2014-09-07 18:12:58.291', 'EN', '2014-09-07 18:12:58.291', false, NULL, 'European Capitals', 1, 1, 12, 0);
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (17, '2014-09-07 18:12:58.353', 'EN', '2014-09-07 18:12:58.353', false, NULL, 'European Union', 1, 1, 12, 1);
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (19, '2014-09-07 18:12:58.4', 'EN', '2014-09-07 18:12:58.4', false, NULL, 'European History', 1, 1, 12, 2);
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (127, '2014-09-07 18:12:59.899', 'EN', '2014-09-07 18:12:59.899', false, NULL, 'European Capitals', 1, 1, 124, 0);
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (129, '2014-09-07 18:12:59.915', 'EN', '2014-09-07 18:12:59.915', false, NULL, 'European Union', 1, 1, 124, 1);
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (131, '2014-09-07 18:12:59.93', 'EN', '2014-09-07 18:12:59.93', false, NULL, 'European History', 1, 1, 124, 2);
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (218, '2014-09-07 18:13:00.383', 'EN', '2014-09-07 18:13:00.383', false, NULL, 'European Capitals', 1, 1, 215, 0);
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (220, '2014-09-07 18:13:00.399', 'EN', '2014-09-07 18:13:00.399', false, NULL, 'European Union', 1, 1, 215, 1);
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (222, '2014-09-07 18:13:00.415', 'EN', '2014-09-07 18:13:00.415', false, NULL, 'European History', 1, 1, 215, 2);
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (330, '2014-09-07 18:13:00.923', 'EN', '2014-09-07 18:13:00.923', false, NULL, 'European Capitals', 1, 1, 327, 0);
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (332, '2014-09-07 18:13:00.938', 'EN', '2014-09-07 18:13:00.938', false, NULL, 'European Union', 1, 1, 327, 1);
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (334, '2014-09-07 18:13:00.954', 'EN', '2014-09-07 18:13:00.954', false, NULL, 'European History', 1, 1, 327, 2);
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (444, '2014-09-07 18:13:01.476', 'EN', '2014-09-07 18:13:01.476', false, NULL, 'European Union', 1, 1, 439, 1);
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (446, '2014-09-07 18:13:01.487', 'EN', '2014-09-07 18:13:01.487', false, NULL, 'European History', 1, 1, 439, 2);
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (442, '2014-09-07 18:13:01.466', 'EN', '2014-09-07 18:13:01.466', true, NULL, 'European Capitals', 1, 1, 439, 0);
+INSERT INTO section (id, created_date, language, last_modified_date, randomization_enabled, description, title, createdby_id, lastmodifiedby_id, questionnairedefinition_id, order_in_questionnaire) VALUES (553, '2014-09-07 18:13:01.841', 'EN', '2014-09-07 18:13:01.841', false, NULL, 'Fast Food QuestionnaireDefinition - QuestionGroup', 1, 1, 551, 0);
+
+
+--
+-- TOC entry 2362 (class 0 OID 91100)
+-- Dependencies: 184
 -- Data for Name: question; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (20, 'Q1', '2014-08-11 09:16:49.92', 'EN', '2014-08-11 09:16:49.92', false, true, 'S', NULL, 'What is the capital of Malta?', 1, 1, NULL, 14, NULL, 0);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (22, 'Q2', '2014-08-11 09:16:49.947', 'EN', '2014-08-11 09:16:49.947', false, true, 'L', NULL, 'Which the country has as capital Copenhague?', 1, 1, NULL, 14, NULL, 1);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (32, 'Q3', '2014-08-11 09:16:49.999', 'EN', '2014-08-11 09:16:49.999', false, true, 'N', NULL, 'How many European capitals were founded by Romans?', 1, 1, NULL, 14, NULL, 2);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (34, 'Q4', '2014-08-11 09:16:50.051', 'EN', '2014-08-11 09:16:50.051', false, false, 'M', NULL, 'Which ones of these European capital are near by a river? Choose all that apply.', 1, 1, NULL, 14, NULL, 3);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (44, 'Q5', '2014-08-11 09:16:50.1', 'EN', '2014-08-11 09:16:50.1', false, true, 'S', NULL, 'What does EU stand for??', 1, 1, NULL, 16, NULL, 0);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (46, 'Q6', '2014-08-11 09:16:50.118', 'EN', '2014-08-11 09:16:50.118', false, true, 'L', NULL, 'Where was the treaty signed that created the European economic community - forerunner of the EU?', 1, 1, NULL, 16, NULL, 1);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (56, 'Q7', '2014-08-11 09:16:50.162', 'EN', '2014-08-11 09:16:50.162', false, false, 'M', NULL, 'Which ones of these European countries belongs to Euro Zone? Choose all that apply.', 1, 1, NULL, 16, NULL, 2);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (66, 'Q8', '2014-08-11 09:16:50.211', 'EN', '2014-08-11 09:16:50.211', false, true, 'N', NULL, 'How many finnish marc do you need to get an euro?', 1, 1, NULL, 16, NULL, 3);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (68, 'Q9', '2014-08-11 09:16:50.236', 'EN', '2014-08-11 09:16:50.236', false, true, 'L', NULL, 'Where was Christopher columbus was born?', 1, 1, NULL, 18, NULL, 0);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (78, 'Q10', '2014-08-11 09:16:50.275', 'EN', '2014-08-11 09:16:50.275', false, true, 'L', NULL, 'What was the large Eurpean Empire in century 16th ?', 1, 1, NULL, 18, NULL, 1);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (88, 'Q11', '2014-08-11 09:16:50.321', 'EN', '2014-08-11 09:16:50.321', false, true, 'S', NULL, 'Which nationality has the first european that to get Congo?', 1, 1, NULL, 18, NULL, 2);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (90, 'Q12', '2014-08-11 09:16:50.35', 'EN', '2014-08-11 09:16:50.35', false, true, 'L', NULL, 'Which of the men caused more casualities in Europe?', 1, 1, NULL, 18, NULL, 3);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (129, 'Q1', '2014-08-11 09:16:50.806', 'EN', '2014-08-11 09:16:50.806', false, true, 'S', NULL, 'What is the capital of Malta?', 1, 1, NULL, 123, NULL, 0);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (131, 'Q2', '2014-08-11 09:16:50.821', 'EN', '2014-08-11 09:16:50.821', false, true, 'L', NULL, 'Which the country has as capital Copenhague?', 1, 1, NULL, 123, NULL, 1);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (141, 'Q3', '2014-08-11 09:16:50.864', 'EN', '2014-08-11 09:16:50.864', false, true, 'N', NULL, 'How many European capitals were founded by Romans?', 1, 1, NULL, 123, NULL, 2);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (143, 'Q4', '2014-08-11 09:16:50.889', 'EN', '2014-08-11 09:16:50.889', false, false, 'M', NULL, 'Which ones of these European capital are near by a river? Choose all that apply.', 1, 1, NULL, 123, NULL, 3);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (153, 'Q5', '2014-08-11 09:16:50.935', 'EN', '2014-08-11 09:16:50.935', false, true, 'S', NULL, 'What does EU stand for??', 1, 1, NULL, 125, NULL, 0);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (155, 'Q6', '2014-08-11 09:16:50.951', 'EN', '2014-08-11 09:16:50.951', false, true, 'L', NULL, 'Where was the treaty signed that created the European economic community - forerunner of the EU?', 1, 1, NULL, 125, NULL, 1);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (165, 'Q7', '2014-08-11 09:16:50.993', 'EN', '2014-08-11 09:16:50.993', false, false, 'M', NULL, 'Which ones of these European countries belongs to Euro Zone? Choose all that apply.', 1, 1, NULL, 125, NULL, 2);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (175, 'Q8', '2014-08-11 09:16:51.039', 'EN', '2014-08-11 09:16:51.039', false, true, 'N', NULL, 'How many finnish marc do you need to get an euro?', 1, 1, NULL, 125, NULL, 3);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (177, 'Q9', '2014-08-11 09:16:51.063', 'EN', '2014-08-11 09:16:51.063', false, true, 'L', NULL, 'Where was Christopher columbus was born?', 1, 1, NULL, 127, NULL, 0);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (187, 'Q10', '2014-08-11 09:16:51.106', 'EN', '2014-08-11 09:16:51.106', false, true, 'L', NULL, 'What was the large Eurpean Empire in century 16th ?', 1, 1, NULL, 127, NULL, 1);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (197, 'Q11', '2014-08-11 09:16:51.152', 'EN', '2014-08-11 09:16:51.152', false, true, 'S', NULL, 'Which nationality has the first european that to get Congo?', 1, 1, NULL, 127, NULL, 2);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (199, 'Q12', '2014-08-11 09:16:51.177', 'EN', '2014-08-11 09:16:51.177', false, true, 'L', NULL, 'Which of the men caused more casualities in Europe?', 1, 1, NULL, 127, NULL, 3);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (238, 'Q1', '2014-08-11 09:16:51.975', 'EN', '2014-08-11 09:16:51.975', false, true, 'S', NULL, 'What is the capital of Malta?', 1, 1, NULL, 232, NULL, 0);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (240, 'Q2', '2014-08-11 09:16:51.991', 'EN', '2014-08-11 09:16:51.991', false, true, 'L', NULL, 'Which the country has as capital Copenhague?', 1, 1, NULL, 232, NULL, 1);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (250, 'Q3', '2014-08-11 09:16:52.022', 'EN', '2014-08-11 09:16:52.022', false, true, 'N', NULL, 'How many European capitals were founded by Romans?', 1, 1, NULL, 232, NULL, 2);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (252, 'Q4', '2014-08-11 09:16:52.038', 'EN', '2014-08-11 09:16:52.038', false, false, 'M', NULL, 'Which ones of these European capital are near by a river? Choose all that apply.', 1, 1, NULL, 232, NULL, 3);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (262, 'Q5', '2014-08-11 09:16:52.069', 'EN', '2014-08-11 09:16:52.069', false, true, 'S', NULL, 'What does EU stand for??', 1, 1, NULL, 234, NULL, 0);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (264, 'Q6', '2014-08-11 09:16:52.085', 'EN', '2014-08-11 09:16:52.085', false, true, 'L', NULL, 'Where was the treaty signed that created the European economic community - forerunner of the EU?', 1, 1, NULL, 234, NULL, 1);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (274, 'Q7', '2014-08-11 09:16:52.1', 'EN', '2014-08-11 09:16:52.1', false, false, 'M', NULL, 'Which ones of these European countries belongs to Euro Zone? Choose all that apply.', 1, 1, NULL, 234, NULL, 2);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (284, 'Q8', '2014-08-11 09:16:52.132', 'EN', '2014-08-11 09:16:52.132', false, true, 'N', NULL, 'How many finnish marc do you need to get an euro?', 1, 1, NULL, 234, NULL, 3);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (286, 'Q9', '2014-08-11 09:16:52.147', 'EN', '2014-08-11 09:16:52.147', false, true, 'L', NULL, 'Where was Christopher columbus was born?', 1, 1, NULL, 236, NULL, 0);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (296, 'Q10', '2014-08-11 09:16:52.178', 'EN', '2014-08-11 09:16:52.178', false, true, 'L', NULL, 'What was the large Eurpean Empire in century 16th ?', 1, 1, NULL, 236, NULL, 1);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (306, 'Q11', '2014-08-11 09:16:52.21', 'EN', '2014-08-11 09:16:52.21', false, true, 'S', NULL, 'Which nationality has the first european that to get Congo?', 1, 1, NULL, 236, NULL, 2);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (308, 'Q12', '2014-08-11 09:16:52.225', 'EN', '2014-08-11 09:16:52.225', false, true, 'L', NULL, 'Which of the men caused more casualities in Europe?', 1, 1, NULL, 236, NULL, 3);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (347, 'Q1', '2014-08-11 09:16:52.537', 'EN', '2014-08-11 09:16:52.537', false, true, 'S', NULL, 'What is the capital of Malta?', 1, 1, NULL, 341, NULL, 0);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (349, 'Q2', '2014-08-11 09:16:52.547', 'EN', '2014-08-11 09:16:52.547', false, true, 'L', NULL, 'Which the country has as capital Copenhague?', 1, 1, NULL, 341, NULL, 1);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (359, 'Q3', '2014-08-11 09:16:52.573', 'EN', '2014-08-11 09:16:52.573', false, true, 'N', NULL, 'How many European capitals were founded by Romans?', 1, 1, NULL, 341, NULL, 2);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (361, 'Q4', '2014-08-11 09:16:52.589', 'EN', '2014-08-11 09:16:52.589', false, false, 'M', NULL, 'Which ones of these European capital are near by a river? Choose all that apply.', 1, 1, NULL, 341, NULL, 3);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (371, 'Q5', '2014-08-11 09:16:52.605', 'EN', '2014-08-11 09:16:52.605', false, true, 'S', NULL, 'What does EU stand for??', 1, 1, NULL, 343, NULL, 0);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (373, 'Q6', '2014-08-11 09:16:52.62', 'EN', '2014-08-11 09:16:52.62', false, true, 'L', NULL, 'Where was the treaty signed that created the European economic community - forerunner of the EU?', 1, 1, NULL, 343, NULL, 1);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (383, 'Q7', '2014-08-11 09:16:52.636', 'EN', '2014-08-11 09:16:52.636', false, false, 'M', NULL, 'Which ones of these European countries belongs to Euro Zone? Choose all that apply.', 1, 1, NULL, 343, NULL, 2);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (393, 'Q8', '2014-08-11 09:16:52.667', 'EN', '2014-08-11 09:16:52.667', false, true, 'N', NULL, 'How many finnish marc do you need to get an euro?', 1, 1, NULL, 343, NULL, 3);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (395, 'Q9', '2014-08-11 09:16:52.683', 'EN', '2014-08-11 09:16:52.683', false, true, 'L', NULL, 'Where was Christopher columbus was born?', 1, 1, NULL, 345, NULL, 0);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (405, 'Q10', '2014-08-11 09:16:52.698', 'EN', '2014-08-11 09:16:52.698', false, true, 'L', NULL, 'What was the large Eurpean Empire in century 16th ?', 1, 1, NULL, 345, NULL, 1);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (415, 'Q11', '2014-08-11 09:16:52.73', 'EN', '2014-08-11 09:16:52.73', false, true, 'S', NULL, 'Which nationality has the first european that to get Congo?', 1, 1, NULL, 345, NULL, 2);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (417, 'Q12', '2014-08-11 09:16:52.745', 'EN', '2014-08-11 09:16:52.745', false, true, 'L', NULL, 'Which of the men caused more casualities in Europe?', 1, 1, NULL, 345, NULL, 3);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (450, 'Q1', '2014-08-11 09:16:52.967', 'EN', '2014-08-11 09:16:52.967', false, true, 'F', NULL, '<b>Food Quality</b>', 1, 1, NULL, 449, NULL, 0);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (457, 'Q1.1', '2014-08-11 09:16:52.967', 'EN', '2014-08-11 09:16:52.967', false, false, 'L', NULL, 'The food is served hot and fresh', 1, 1, 450, NULL, 0, NULL);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (458, 'Q1.2', '2014-08-11 09:16:52.983', 'EN', '2014-08-11 09:16:52.983', false, false, 'L', NULL, 'The menu has a good variety of items', 1, 1, 450, NULL, 1, NULL);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (459, 'Q1.3', '2014-08-11 09:16:52.983', 'EN', '2014-08-11 09:16:52.983', false, false, 'L', NULL, 'The quality of food is excellent', 1, 1, 450, NULL, 2, NULL);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (460, 'Q1.4', '2014-08-11 09:16:52.983', 'EN', '2014-08-11 09:16:52.983', false, false, 'L', NULL, 'The food is tasty and flavorful', 1, 1, 450, NULL, 3, NULL);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (461, 'Q2', '2014-08-11 09:16:52.999', 'EN', '2014-08-11 09:16:52.999', false, true, 'F', NULL, '<b>Resturant</b>', 1, 1, NULL, 449, NULL, 1);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (468, 'Q2.1', '2014-08-11 09:16:52.999', 'EN', '2014-08-11 09:16:52.999', false, false, 'L', NULL, 'My food order was correct and complete', 1, 1, 461, NULL, 0, NULL);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (469, 'Q2.2', '2014-08-11 09:16:52.999', 'EN', '2014-08-11 09:16:52.999', false, false, 'L', NULL, 'Employees are patient when taking my order', 1, 1, 461, NULL, 1, NULL);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (470, 'Q2.3', '2014-08-11 09:16:52.999', 'EN', '2014-08-11 09:16:52.999', false, false, 'L', NULL, 'I was served promptly', 1, 1, 461, NULL, 2, NULL);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (471, 'Q2.4', '2014-08-11 09:16:52.999', 'EN', '2014-08-11 09:16:52.999', false, false, 'L', NULL, 'Availability of sauces, utensils, napkins, etc. was good', 1, 1, 461, NULL, 3, NULL);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (472, 'Q2.5', '2014-08-11 09:16:52.999', 'EN', '2014-08-11 09:16:52.999', false, false, 'L', NULL, 'The menu board was easy to read', 1, 1, 461, NULL, 4, NULL);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (473, 'Q2.6', '2014-08-11 09:16:52.999', 'EN', '2014-08-11 09:16:52.999', false, false, 'L', NULL, 'The drive-thru sound system was cleara', 1, 1, 461, NULL, 5, NULL);
-INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, questiongroup_id, order_in_subquestions, order_in_questiongroup) VALUES (474, 'Q3', '2014-08-11 09:16:53.03', 'EN', '2014-08-11 09:16:53.03', false, true, 'L', NULL, 'Indicate total household income', 1, 1, NULL, 449, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (21, 'Q1', '2014-09-07 18:12:58.432', 'EN', '2014-09-07 18:12:58.432', false, true, 'S', NULL, 'What is the capital of Malta?', 1, 1, NULL, 15, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (23, 'Q2', '2014-09-07 18:12:58.463', 'EN', '2014-09-07 18:12:58.463', false, true, 'L', NULL, 'Which the country has as capital Copenhague?', 1, 1, NULL, 15, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (33, 'Q3', '2014-09-07 18:12:58.525', 'EN', '2014-09-07 18:12:58.525', false, true, 'N', NULL, 'How many European capitals were founded by Romans?', 1, 1, NULL, 15, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (35, 'Q4', '2014-09-07 18:12:58.557', 'EN', '2014-09-07 18:12:58.557', false, false, 'M', NULL, 'Which ones of these European capital are near by a river? Choose all that apply.', 1, 1, NULL, 15, NULL, 3);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (45, 'Q5', '2014-09-07 18:12:58.791', 'EN', '2014-09-07 18:12:58.791', false, true, 'S', NULL, 'What does EU stand for??', 1, 1, NULL, 17, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (47, 'Q6', '2014-09-07 18:12:58.853', 'EN', '2014-09-07 18:12:58.853', false, true, 'L', NULL, 'Where was the treaty signed that created the European economic community - forerunner of the EU?', 1, 1, NULL, 17, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (57, 'Q7', '2014-09-07 18:12:58.9', 'EN', '2014-09-07 18:12:58.9', false, false, 'M', NULL, 'Which ones of these European countries belongs to Euro Zone? Choose all that apply.', 1, 1, NULL, 17, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (67, 'Q8', '2014-09-07 18:12:59.119', 'EN', '2014-09-07 18:12:59.119', false, true, 'N', NULL, 'How many finnish marc do you need to get an euro?', 1, 1, NULL, 17, NULL, 3);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (69, 'Q9', '2014-09-07 18:12:59.166', 'EN', '2014-09-07 18:12:59.166', false, true, 'L', NULL, 'Where was Christopher columbus was born?', 1, 1, NULL, 19, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (79, 'Q10', '2014-09-07 18:12:59.228', 'EN', '2014-09-07 18:12:59.228', false, true, 'L', NULL, 'What was the large Eurpean Empire in century 16th ?', 1, 1, NULL, 19, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (89, 'Q11', '2014-09-07 18:12:59.432', 'EN', '2014-09-07 18:12:59.432', false, true, 'S', NULL, 'Which nationality has the first european that to get Congo?', 1, 1, NULL, 19, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (91, 'Q12', '2014-09-07 18:12:59.494', 'EN', '2014-09-07 18:12:59.494', false, true, 'L', NULL, 'Which of the men caused more casualities in Europe?', 1, 1, NULL, 19, NULL, 3);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (133, 'Q1', '2014-09-07 18:12:59.946', 'EN', '2014-09-07 18:12:59.946', false, true, 'S', NULL, 'What is the capital of Malta?', 1, 1, NULL, 127, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (135, 'Q2', '2014-09-07 18:12:59.961', 'EN', '2014-09-07 18:12:59.961', false, true, 'L', NULL, 'Which the country has as capital Copenhague?', 1, 1, NULL, 127, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (145, 'Q3', '2014-09-07 18:12:59.993', 'EN', '2014-09-07 18:12:59.993', false, true, 'N', NULL, 'How many European capitals were founded by Romans?', 1, 1, NULL, 127, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (147, 'Q4', '2014-09-07 18:13:00.008', 'EN', '2014-09-07 18:13:00.008', false, false, 'M', NULL, 'Which ones of these European capital are near by a river? Choose all that apply.', 1, 1, NULL, 127, NULL, 3);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (157, 'Q5', '2014-09-07 18:13:00.055', 'EN', '2014-09-07 18:13:00.055', false, true, 'S', NULL, 'What does EU stand for??', 1, 1, NULL, 129, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (159, 'Q6', '2014-09-07 18:13:00.055', 'EN', '2014-09-07 18:13:00.055', false, true, 'L', NULL, 'Where was the treaty signed that created the European economic community - forerunner of the EU?', 1, 1, NULL, 129, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (169, 'Q7', '2014-09-07 18:13:00.086', 'EN', '2014-09-07 18:13:00.086', false, false, 'M', NULL, 'Which ones of these European countries belongs to Euro Zone? Choose all that apply.', 1, 1, NULL, 129, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (179, 'Q8', '2014-09-07 18:13:00.133', 'EN', '2014-09-07 18:13:00.133', false, true, 'N', NULL, 'How many finnish marc do you need to get an euro?', 1, 1, NULL, 129, NULL, 3);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (181, 'Q9', '2014-09-07 18:13:00.149', 'EN', '2014-09-07 18:13:00.149', false, true, 'L', NULL, 'Where was Christopher columbus was born?', 1, 1, NULL, 131, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (191, 'Q10', '2014-09-07 18:13:00.18', 'EN', '2014-09-07 18:13:00.18', false, true, 'L', NULL, 'What was the large Eurpean Empire in century 16th ?', 1, 1, NULL, 131, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (201, 'Q11', '2014-09-07 18:13:00.211', 'EN', '2014-09-07 18:13:00.211', false, true, 'S', NULL, 'Which nationality has the first european that to get Congo?', 1, 1, NULL, 131, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (203, 'Q12', '2014-09-07 18:13:00.227', 'EN', '2014-09-07 18:13:00.227', false, true, 'L', NULL, 'Which of the men caused more casualities in Europe?', 1, 1, NULL, 131, NULL, 3);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (224, 'Q1', '2014-09-07 18:13:00.415', 'EN', '2014-09-07 18:13:00.415', false, true, 'S', NULL, 'What is the capital of Malta?', 1, 1, NULL, 218, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (226, 'Q2', '2014-09-07 18:13:00.43', 'EN', '2014-09-07 18:13:00.43', false, true, 'L', NULL, 'Which the country has as capital Copenhague?', 1, 1, NULL, 218, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (236, 'Q3', '2014-09-07 18:13:00.461', 'EN', '2014-09-07 18:13:00.461', false, true, 'N', NULL, 'How many European capitals were founded by Romans?', 1, 1, NULL, 218, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (238, 'Q4', '2014-09-07 18:13:00.477', 'EN', '2014-09-07 18:13:00.477', false, false, 'M', NULL, 'Which ones of these European capital are near by a river? Choose all that apply.', 1, 1, NULL, 218, NULL, 3);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (248, 'Q5', '2014-09-07 18:13:00.524', 'EN', '2014-09-07 18:13:00.524', false, true, 'S', NULL, 'What does EU stand for??', 1, 1, NULL, 220, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (250, 'Q6', '2014-09-07 18:13:00.524', 'EN', '2014-09-07 18:13:00.524', false, true, 'L', NULL, 'Where was the treaty signed that created the European economic community - forerunner of the EU?', 1, 1, NULL, 220, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (260, 'Q7', '2014-09-07 18:13:00.571', 'EN', '2014-09-07 18:13:00.571', false, false, 'M', NULL, 'Which ones of these European countries belongs to Euro Zone? Choose all that apply.', 1, 1, NULL, 220, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (270, 'Q8', '2014-09-07 18:13:00.602', 'EN', '2014-09-07 18:13:00.602', false, true, 'N', NULL, 'How many finnish marc do you need to get an euro?', 1, 1, NULL, 220, NULL, 3);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (272, 'Q9', '2014-09-07 18:13:00.618', 'EN', '2014-09-07 18:13:00.618', false, true, 'L', NULL, 'Where was Christopher columbus was born?', 1, 1, NULL, 222, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (282, 'Q10', '2014-09-07 18:13:00.633', 'EN', '2014-09-07 18:13:00.633', false, true, 'L', NULL, 'What was the large Eurpean Empire in century 16th ?', 1, 1, NULL, 222, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (292, 'Q11', '2014-09-07 18:13:00.665', 'EN', '2014-09-07 18:13:00.665', false, true, 'S', NULL, 'Which nationality has the first european that to get Congo?', 1, 1, NULL, 222, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (294, 'Q12', '2014-09-07 18:13:00.68', 'EN', '2014-09-07 18:13:00.68', false, true, 'L', NULL, 'Which of the men caused more casualities in Europe?', 1, 1, NULL, 222, NULL, 3);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (336, 'Q1', '2014-09-07 18:13:00.969', 'EN', '2014-09-07 18:13:00.969', false, true, 'S', NULL, 'What is the capital of Malta?', 1, 1, NULL, 330, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (338, 'Q2', '2014-09-07 18:13:00.969', 'EN', '2014-09-07 18:13:00.969', false, true, 'L', NULL, 'Which the country has as capital Copenhague?', 1, 1, NULL, 330, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (348, 'Q3', '2014-09-07 18:13:01.001', 'EN', '2014-09-07 18:13:01.001', false, true, 'N', NULL, 'How many European capitals were founded by Romans?', 1, 1, NULL, 330, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (350, 'Q4', '2014-09-07 18:13:01.016', 'EN', '2014-09-07 18:13:01.016', false, false, 'M', NULL, 'Which ones of these European capital are near by a river? Choose all that apply.', 1, 1, NULL, 330, NULL, 3);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (360, 'Q5', '2014-09-07 18:13:01.048', 'EN', '2014-09-07 18:13:01.048', false, true, 'S', NULL, 'What does EU stand for??', 1, 1, NULL, 332, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (362, 'Q6', '2014-09-07 18:13:01.063', 'EN', '2014-09-07 18:13:01.063', false, true, 'L', NULL, 'Where was the treaty signed that created the European economic community - forerunner of the EU?', 1, 1, NULL, 332, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (372, 'Q7', '2014-09-07 18:13:01.095', 'EN', '2014-09-07 18:13:01.095', false, false, 'M', NULL, 'Which ones of these European countries belongs to Euro Zone? Choose all that apply.', 1, 1, NULL, 332, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (382, 'Q8', '2014-09-07 18:13:01.126', 'EN', '2014-09-07 18:13:01.126', false, true, 'N', NULL, 'How many finnish marc do you need to get an euro?', 1, 1, NULL, 332, NULL, 3);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (384, 'Q9', '2014-09-07 18:13:01.141', 'EN', '2014-09-07 18:13:01.141', false, true, 'L', NULL, 'Where was Christopher columbus was born?', 1, 1, NULL, 334, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (394, 'Q10', '2014-09-07 18:13:01.173', 'EN', '2014-09-07 18:13:01.173', false, true, 'L', NULL, 'What was the large Eurpean Empire in century 16th ?', 1, 1, NULL, 334, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (404, 'Q11', '2014-09-07 18:13:01.204', 'EN', '2014-09-07 18:13:01.204', false, true, 'S', NULL, 'Which nationality has the first european that to get Congo?', 1, 1, NULL, 334, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (406, 'Q12', '2014-09-07 18:13:01.22', 'EN', '2014-09-07 18:13:01.22', false, true, 'L', NULL, 'Which of the men caused more casualities in Europe?', 1, 1, NULL, 334, NULL, 3);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (448, 'Q1', '2014-09-07 18:13:01.498', 'EN', '2014-09-07 18:13:01.498', false, true, 'S', NULL, 'What is the capital of Malta?', 1, 1, NULL, 442, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (450, 'Q2', '2014-09-07 18:13:01.507', 'EN', '2014-09-07 18:13:01.507', false, true, 'L', NULL, 'Which the country has as capital Copenhague?', 1, 1, NULL, 442, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (460, 'Q3', '2014-09-07 18:13:01.534', 'EN', '2014-09-07 18:13:01.534', false, true, 'N', NULL, 'How many European capitals were founded by Romans?', 1, 1, NULL, 442, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (462, 'Q4', '2014-09-07 18:13:01.548', 'EN', '2014-09-07 18:13:01.548', false, false, 'M', NULL, 'Which ones of these European capital are near by a river? Choose all that apply.', 1, 1, NULL, 442, NULL, 3);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (472, 'Q5', '2014-09-07 18:13:01.575', 'EN', '2014-09-07 18:13:01.575', false, true, 'S', NULL, 'What does EU stand for??', 1, 1, NULL, 444, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (474, 'Q6', '2014-09-07 18:13:01.583', 'EN', '2014-09-07 18:13:01.583', false, true, 'L', NULL, 'Where was the treaty signed that created the European economic community - forerunner of the EU?', 1, 1, NULL, 444, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (516, 'Q11', '2014-09-07 18:13:01.684', 'EN', '2014-09-07 18:13:01.684', false, true, 'S', NULL, 'Which nationality has the first european that to get Congo?', 1, 1, NULL, 446, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (484, 'Q7', '2014-09-07 18:13:01.59', 'EN', '2014-09-07 18:13:01.59', false, false, 'M', NULL, 'Which ones of these European countries belongs to Euro Zone? Choose all that apply.', 1, 1, NULL, 444, NULL, 2);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (494, 'Q8', '2014-09-07 18:13:01.622', 'EN', '2014-09-07 18:13:01.622', false, true, 'N', NULL, 'How many finnish marc do you need to get an euro?', 1, 1, NULL, 444, NULL, 3);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (496, 'Q9', '2014-09-07 18:13:01.637', 'EN', '2014-09-07 18:13:01.637', false, true, 'L', NULL, 'Where was Christopher columbus was born?', 1, 1, NULL, 446, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (518, 'Q12', '2014-09-07 18:13:01.684', 'EN', '2014-09-07 18:13:01.684', false, true, 'L', NULL, 'Which of the men caused more casualities in Europe?', 1, 1, NULL, 446, NULL, 3);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (554, 'Q1', '2014-09-07 18:13:01.856', 'EN', '2014-09-07 18:13:01.856', false, true, 'F', NULL, '<b>Food Quality</b>', 1, 1, NULL, 553, NULL, 0);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (561, 'Q1.1', '2014-09-07 18:13:01.856', 'EN', '2014-09-07 18:13:01.856', false, false, 'L', NULL, 'The food is served hot and fresh', 1, 1, 554, NULL, 0, NULL);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (562, 'Q1.2', '2014-09-07 18:13:01.856', 'EN', '2014-09-07 18:13:01.856', false, false, 'L', NULL, 'The menu has a good variety of items', 1, 1, 554, NULL, 1, NULL);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (563, 'Q1.3', '2014-09-07 18:13:01.856', 'EN', '2014-09-07 18:13:01.856', false, false, 'L', NULL, 'The quality of food is excellent', 1, 1, 554, NULL, 2, NULL);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (564, 'Q1.4', '2014-09-07 18:13:01.856', 'EN', '2014-09-07 18:13:01.856', false, false, 'L', NULL, 'The food is tasty and flavorful', 1, 1, 554, NULL, 3, NULL);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (506, 'Q10', '2014-09-07 18:13:01.653', 'EN', '2014-09-07 18:13:01.653', false, true, 'L', NULL, 'What was the large Eurpean Empire in century 16th ?', 1, 1, NULL, 446, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (565, 'Q2', '2014-09-07 18:13:01.887', 'EN', '2014-09-07 18:13:01.887', false, true, 'F', NULL, '<b>Resturant</b>', 1, 1, NULL, 553, NULL, 1);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (572, 'Q2.1', '2014-09-07 18:13:01.887', 'EN', '2014-09-07 18:13:01.887', false, false, 'L', NULL, 'My food order was correct and complete', 1, 1, 565, NULL, 0, NULL);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (573, 'Q2.2', '2014-09-07 18:13:01.887', 'EN', '2014-09-07 18:13:01.887', false, false, 'L', NULL, 'Employees are patient when taking my order', 1, 1, 565, NULL, 1, NULL);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (574, 'Q2.3', '2014-09-07 18:13:01.887', 'EN', '2014-09-07 18:13:01.887', false, false, 'L', NULL, 'I was served promptly', 1, 1, 565, NULL, 2, NULL);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (575, 'Q2.4', '2014-09-07 18:13:01.887', 'EN', '2014-09-07 18:13:01.887', false, false, 'L', NULL, 'Availability of sauces, utensils, napkins, etc. was good', 1, 1, 565, NULL, 3, NULL);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (576, 'Q2.5', '2014-09-07 18:13:01.887', 'EN', '2014-09-07 18:13:01.887', false, false, 'L', NULL, 'The menu board was easy to read', 1, 1, 565, NULL, 4, NULL);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (577, 'Q2.6', '2014-09-07 18:13:01.887', 'EN', '2014-09-07 18:13:01.887', false, false, 'L', NULL, 'The drive-thru sound system was cleara', 1, 1, 565, NULL, 5, NULL);
+INSERT INTO question (id, code, created_date, language, last_modified_date, other_allowed, required, type, help, title, createdby_id, lastmodifiedby_id, parent_id, SECTION_ID, order_in_subquestions, order_in_section) VALUES (578, 'Q3', '2014-09-07 18:13:01.903', 'EN', '2014-09-07 18:13:01.903', false, true, 'L', NULL, 'Indicate total household income', 1, 1, NULL, 553, NULL, 2);
 
 
 --
--- TOC entry 2205 (class 0 OID 65707)
--- Dependencies: 181
+-- TOC entry 2367 (class 0 OID 91137)
+-- Dependencies: 189
 -- Data for Name: research; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (102, '2014-08-11 09:16:50.582', '2014-08-11 09:16:50.572', '2014-08-11 09:16:50.582', 'New QuizEuropean general knowledge quiz started', '2014-08-11 09:16:50.572', 'P', 1, 1);
-INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (119, '2014-08-11 09:16:50.727', '2014-08-11 09:16:50.716', '2014-08-11 09:16:50.727', 'Anonymous New QuizEuropean general knowledge quiz started', '2014-08-11 09:16:50.717', 'O', 1, 1);
-INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (211, '2014-08-11 09:16:51.521', '2014-08-11 09:16:51.51', '2014-08-11 09:16:51.521', 'New QuizEuropean general knowledge quiz started', '2014-08-11 09:16:51.51', 'P', 1, 1);
-INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (228, '2014-08-11 09:16:51.692', '2014-08-11 09:16:51.681', '2014-08-11 09:16:51.692', 'Anonymous New QuizEuropean general knowledge quiz started', '2014-08-11 09:16:51.681', 'O', 1, 1);
-INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (320, '2014-08-11 09:16:52.437', '2014-08-11 09:16:52.429', '2014-08-11 09:16:52.437', 'New QuizEuropean general knowledge quiz started', '2014-08-11 09:16:52.429', 'P', 1, 1);
-INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (337, '2014-08-11 09:16:52.493', '2014-08-11 09:16:52.486', '2014-08-11 09:16:52.493', 'Anonymous New QuizEuropean general knowledge quiz started', '2014-08-11 09:16:52.486', 'O', 1, 1);
-INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (429, '2014-08-11 09:16:52.905', '2014-08-11 09:16:52.905', '2014-08-11 09:16:52.905', 'New QuizEuropean general knowledge quiz started', '2014-08-11 09:16:52.905', 'P', 1, 1);
-INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (446, '2014-08-11 09:16:52.952', '2014-08-11 09:16:52.952', '2014-08-11 09:16:52.952', 'Anonymous New QuizEuropean general knowledge quiz started', '2014-08-11 09:16:52.952', 'O', 1, 1);
-INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (482, '2014-08-11 09:16:53.186', '2014-08-11 09:16:53.186', '2014-08-11 09:16:53.186', 'New customer satisfation survey Food Quality QuestionnairDefinition started', '2014-08-11 09:16:53.186', 'O', 1, 1);
+INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (103, '2014-09-07 18:12:59.774', '2014-09-07 18:12:59.774', '2014-09-07 18:12:59.774', 'New QuizEuropean general knowledge quiz started', '2014-09-07 18:12:59.774', 'P', 1, 1);
+INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (121, '2014-09-07 18:12:59.883', '2014-09-07 18:12:59.868', '2014-09-07 18:12:59.883', 'Anonymous New QuizEuropean general knowledge quiz started', '2014-09-07 18:12:59.868', 'O', 1, 1);
+INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (306, '2014-09-07 18:13:00.844', '2014-09-07 18:13:00.844', '2014-09-07 18:13:00.844', 'New QuizEuropean general knowledge quiz started', '2014-09-07 18:13:00.844', 'P', 1, 1);
+INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (324, '2014-09-07 18:13:00.907', '2014-09-07 18:13:00.907', '2014-09-07 18:13:00.907', 'Anonymous New QuizEuropean general knowledge quiz started', '2014-09-07 18:13:00.907', 'O', 1, 1);
+INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (418, '2014-09-07 18:13:01.394', '2014-09-07 18:13:01.385', '2014-09-07 18:13:01.394', 'New QuizEuropean general knowledge quiz started', '2014-09-07 18:13:01.385', 'P', 1, 1);
+INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (436, '2014-09-07 18:13:01.449', '2014-09-07 18:13:01.442', '2014-09-07 18:13:01.449', 'Anonymous New QuizEuropean general knowledge quiz started', '2014-09-07 18:13:01.442', 'O', 1, 1);
+INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (530, '2014-09-07 18:13:01.794', '2014-09-07 18:13:01.778', '2014-09-07 18:13:01.794', 'New QuizEuropean general knowledge quiz started', '2014-09-07 18:13:01.778', 'P', 1, 1);
+INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (548, '2014-09-07 18:13:01.825', '2014-09-07 18:13:01.825', '2014-09-07 18:13:01.825', 'Anonymous New QuizEuropean general knowledge quiz started', '2014-09-07 18:13:01.825', 'O', 1, 1);
+INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (586, '2014-09-07 18:13:02.001', '2014-09-07 18:13:02.001', '2014-09-07 18:13:02.001', 'New customer satisfation survey Food Quality QuestionnaireDefinition started', '2014-09-07 18:13:02.001', 'O', 1, 1);
 
-
---
--- TOC entry 2202 (class 0 OID 65686)
--- Dependencies: 178
--- Data for Name: questionnair; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (103, 1, '2014-08-11 09:16:50.61', '2014-08-11 09:16:50.61', 'C', NULL, 1, 1, 12, 102, 6);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (107, 2, '2014-08-11 09:16:50.655', '2014-08-11 09:16:50.655', 'C', NULL, 1, 1, 12, 102, 4);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (111, 3, '2014-08-11 09:16:50.674', '2014-08-11 09:16:50.674', 'C', NULL, 1, 1, 12, 102, 10);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (115, 4, '2014-08-11 09:16:50.693', '2014-08-11 09:16:50.693', 'C', NULL, 1, 1, 12, 102, 8);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (212, 1, '2014-08-11 09:16:51.527', '2014-08-11 09:16:51.527', 'C', NULL, 1, 1, 121, 211, 6);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (216, 2, '2014-08-11 09:16:51.542', '2014-08-11 09:16:51.542', 'C', NULL, 1, 1, 121, 211, 4);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (220, 3, '2014-08-11 09:16:51.555', '2014-08-11 09:16:51.555', 'C', NULL, 1, 1, 121, 211, 10);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (224, 4, '2014-08-11 09:16:51.566', '2014-08-11 09:16:51.566', 'C', NULL, 1, 1, 121, 211, 8);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (321, 1, '2014-08-11 09:16:52.443', '2014-08-11 09:16:52.443', 'C', NULL, 1, 1, 230, 320, 6);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (325, 2, '2014-08-11 09:16:52.456', '2014-08-11 09:16:52.456', 'C', NULL, 1, 1, 230, 320, 4);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (329, 3, '2014-08-11 09:16:52.466', '2014-08-11 09:16:52.466', 'C', NULL, 1, 1, 230, 320, 10);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (333, 4, '2014-08-11 09:16:52.475', '2014-08-11 09:16:52.475', 'C', NULL, 1, 1, 230, 320, 8);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (430, 1, '2014-08-11 09:16:52.905', '2014-08-11 09:16:52.905', 'C', NULL, 1, 1, 339, 429, 6);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (434, 2, '2014-08-11 09:16:52.921', '2014-08-11 09:16:52.921', 'C', NULL, 1, 1, 339, 429, 4);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (438, 3, '2014-08-11 09:16:52.921', '2014-08-11 09:16:52.921', 'C', NULL, 1, 1, 339, 429, 10);
-INSERT INTO questionnair (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairdefinition_id, research_id, respondent_id) VALUES (442, 4, '2014-08-11 09:16:52.936', '2014-08-11 09:16:52.936', 'C', NULL, 1, 1, 339, 429, 8);
-
+INSERT INTO research (id, created_date, expiration_date, last_modified_date, name, start_date, type, createdby_id, lastmodifiedby_id) VALUES (587, '2014-09-07 18:12:59.883', '2014-09-07 18:12:59.868', '2014-09-07 18:12:59.883', 'Anonymous New QuizEuropean general knowledge quiz started', '2014-09-07 18:12:59.868', 'O', 1, 1);
 
 --
--- TOC entry 2195 (class 0 OID 65633)
--- Dependencies: 171
--- Data for Name: breadcrumb; Type: TABLE DATA; Schema: public; Owner: postgres
+-- TOC entry 2364 (class 0 OID 91116)
+-- Dependencies: 186
+-- Data for Name: questionnaire; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (104, 401, '2014-09-07 18:12:59.79', '2014-09-07 18:12:59.79', 'C', NULL, 1, 1, 12, 103, 6);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (108, 402, '2014-09-07 18:12:59.821', '2014-09-07 18:12:59.821', 'C', NULL, 1, 1, 12, 103, 4);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (112, 403, '2014-09-07 18:12:59.836', '2014-09-07 18:12:59.836', 'C', NULL, 1, 1, 12, 103, 10);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (116, 404, '2014-09-07 18:12:59.852', '2014-09-07 18:12:59.852', 'C', NULL, 1, 1, 12, 103, 8);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (307, 201, '2014-09-07 18:13:00.86', '2014-09-07 18:13:00.86', 'C', NULL, 1, 1, 215, 306, 6);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (311, 202, '2014-09-07 18:13:00.876', '2014-09-07 18:13:00.876', 'C', NULL, 1, 1, 215, 306, 4);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (315, 203, '2014-09-07 18:13:00.876', '2014-09-07 18:13:00.876', 'C', NULL, 1, 1, 215, 306, 10);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (319, 204, '2014-09-07 18:13:00.891', '2014-09-07 18:13:00.891', 'C', NULL, 1, 1, 215, 306, 8);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (419, 201, '2014-09-07 18:13:01.401', '2014-09-07 18:13:01.401', 'C', NULL, 1, 1, 327, 418, 6);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (423, 202, '2014-09-07 18:13:01.414', '2014-09-07 18:13:01.414', 'C', NULL, 1, 1, 327, 418, 4);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (427, 203, '2014-09-07 18:13:01.423', '2014-09-07 18:13:01.423', 'C', NULL, 1, 1, 327, 418, 10);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (431, 204, '2014-09-07 18:13:01.432', '2014-09-07 18:13:01.432', 'C', NULL, 1, 1, 327, 418, 8);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (531, 201, '2014-09-07 18:13:01.794', '2014-09-07 18:13:01.794', 'C', NULL, 1, 1, 439, 530, 6);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (535, 202, '2014-09-07 18:13:01.809', '2014-09-07 18:13:01.809', 'C', NULL, 1, 1, 439, 530, 4);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (539, 203, '2014-09-07 18:13:01.809', '2014-09-07 18:13:01.809', 'C', NULL, 1, 1, 439, 530, 10);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (543, 204, '2014-09-07 18:13:01.825', '2014-09-07 18:13:01.825', 'C', NULL, 1, 1, 439, 530, 8);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (603, 451, '2014-09-07 18:19:36.481', '2014-09-07 18:19:36.481', 'C', NULL, NULL, NULL, 12, 121, 601);
+INSERT INTO questionnaire (id, answers_id, created_date, last_modified_date, status, submit_date, createdby_id, lastmodifiedby_id, questionnairedefinition_id, research_id, respondent_id) VALUES (612, 251, '2014-09-07 18:20:12.057', '2014-09-07 18:20:12.057', 'C', NULL, NULL, NULL, 215, 324, 610);
+
 
 
 
 --
--- TOC entry 2212 (class 0 OID 65763)
--- Dependencies: 188
+-- TOC entry 2381 (class 0 OID 91234)
+-- Dependencies: 203
+-- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 2374 (class 0 OID 91193)
+-- Dependencies: 196
+-- Data for Name: directory_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 2380 (class 0 OID 91226)
+-- Dependencies: 202
 -- Data for Name: groups; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO groups (id, created_date, description, last_modified_date, name, createdby_id, lastmodifiedby_id) VALUES (3, '2014-08-11 09:16:49.779', 'Respondent group', '2014-08-11 09:16:49.779', 'Respondents', 1, 1);
+INSERT INTO groups (id, created_date, description, last_modified_date, name, createdby_id, lastmodifiedby_id) VALUES (3, '2014-09-07 18:12:57.978', 'Respondent group', '2014-09-07 18:12:57.978', 'Respondents', 1, 1);
 
 
 --
--- TOC entry 2216 (class 0 OID 65798)
--- Dependencies: 192
--- Data for Name: group_role; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-
-
---
--- TOC entry 2194 (class 0 OID 65625)
--- Dependencies: 170
+-- TOC entry 2356 (class 0 OID 91055)
+-- Dependencies: 178
 -- Data for Name: invitation; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (105, 'P', 'A', 'YAS5ICHRBE', 102, NULL, 6);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (109, 'P', 'A', 'UCVZ45JZ3T', 102, NULL, 4);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (113, 'P', 'A', '76HHP9M9FQ', 102, NULL, 10);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (117, 'P', 'A', 'R7CHFY0YHQ', 102, NULL, 8);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (120, 'A', 'A', '6O6PDUQLKN', 119, 12, NULL);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (214, 'P', 'A', 'SRBRWP9XG6', 211, NULL, 6);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (218, 'P', 'A', 'VXCQYXAH3N', 211, NULL, 4);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (222, 'P', 'A', 'CABWQ7HKJY', 211, NULL, 10);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (226, 'P', 'A', '65AFLUXBKL', 211, NULL, 8);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (229, 'A', 'A', 'RQDF3PAKTA', 228, 121, NULL);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (323, 'P', 'A', 'MCZ5YQX2CG', 320, NULL, 6);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (327, 'P', 'A', 'KLKMQZH28D', 320, NULL, 4);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (331, 'P', 'A', 'K3MA7AQPWS', 320, NULL, 10);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (335, 'P', 'A', 'NKFYP425BK', 320, NULL, 8);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (338, 'A', 'A', 'QMCZHGFHUF', 337, 230, NULL);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (432, 'P', 'A', 'CLY6KFZS9L', 429, NULL, 6);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (436, 'P', 'A', '9Y4VPQNHJL', 429, NULL, 4);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (440, 'P', 'A', 'YDHHDCGK9E', 429, NULL, 10);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (444, 'P', 'A', '3BU5ASAYVB', 429, NULL, 8);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (447, 'A', 'A', 'HXH38ZTYVB', 446, 339, NULL);
-INSERT INTO invitation (id, type, status, token, research_id, questionnairdefinition_id, respondent_id) VALUES (483, 'A', 'A', 'P0C6Q2NN3H', 482, 448, NULL);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (106, 'P', 'A', 'XVKDAB45XG', 103, NULL, 6);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (110, 'P', 'A', '3B5GKVKCKK', 103, NULL, 4);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (114, 'P', 'A', 'R4MZDKVLZS', 103, NULL, 10);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (118, 'P', 'A', '77ZSPNQB7C', 103, NULL, 8);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (122, 'A', 'A', '7ESWZMSQ8H', 121, 12, NULL);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (309, 'P', 'A', 'NS9M4GG5EU', 306, NULL, 6);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (313, 'P', 'A', 'BGBT6AA3AU', 306, NULL, 4);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (317, 'P', 'A', 'F3ZVFHMZ5W', 306, NULL, 10);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (321, 'P', 'A', 'EPUD7K67BZ', 306, NULL, 8);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (325, 'A', 'A', 'FFWXDVNCZG', 324, 215, NULL);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (421, 'P', 'A', 'QLM7MVK3RG', 418, NULL, 6);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (425, 'P', 'A', 'BQBTBE3SNP', 418, NULL, 4);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (429, 'P', 'A', '4AQ9BR7ABH', 418, NULL, 10);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (433, 'P', 'A', 'HK4MK3KR23', 418, NULL, 8);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (437, 'A', 'A', '8FSXJDJ8UJ', 436, 327, NULL);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (533, 'P', 'A', 'BNTEGYGVYD', 530, NULL, 6);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (537, 'P', 'A', '7Y7P4W6NF5', 530, NULL, 4);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (541, 'P', 'A', 'JXD5EUJDSK', 530, NULL, 10);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (545, 'P', 'A', 'EXWEHLBMDJ', 530, NULL, 8);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (549, 'A', 'A', 'B6YB5QAMMN', 548, 439, NULL);
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (587, 'A', 'A', 'SLJ5Z26HNB', 586, 551, NULL);
 
+INSERT INTO invitation (id, type, status, token, research_id, questionnairedefinition_id, respondent_id) VALUES (588, 'A', 'A', 'SLJ5Z26HNC', 587, 124, NULL);
 
 --
--- TOC entry 2197 (class 0 OID 65646)
--- Dependencies: 173
+-- TOC entry 2359 (class 0 OID 91076)
+-- Dependencies: 181
 -- Data for Name: label_set; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
 
 --
--- TOC entry 2196 (class 0 OID 65638)
--- Dependencies: 172
+-- TOC entry 2358 (class 0 OID 91068)
+-- Dependencies: 180
 -- Data for Name: label; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
 
 --
--- TOC entry 2206 (class 0 OID 65715)
--- Dependencies: 182
+-- TOC entry 2368 (class 0 OID 91145)
+-- Dependencies: 190
 -- Data for Name: label_translation; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 
 
 --
--- TOC entry 2198 (class 0 OID 65654)
--- Dependencies: 174
+-- TOC entry 2360 (class 0 OID 91084)
+-- Dependencies: 182
 -- Data for Name: mail_message; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (106, 'Estimado Sr. Snow, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=G2H65S8N8Q">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitación para participar en un cuestionario', 'jon.snow@nightswatch.net');
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (110, 'Estimado Sr. Lannister, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=GKXX4XWG7Z">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnair', 'tyrion.lannister@kingslanding.net');
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (114, 'Dear Mr. Stark, <br> You have been invited to take this questionnair. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=7C82AHUDTW">Click here</a> to take the questionnairDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnair', 'catelyn.stark@winterfell.net');
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (118, 'Dear Mr. Stark, <br> You have been invited to take this questionnair. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=6LQDPFCGW4">Click here</a> to take the questionnairDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnair', 'arya.stark@winterfell.net');
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (215, 'Estimado Sr. Snow, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=SRBRWP9XG6">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitación para participar en un cuestionario', 'jon.snow@nightswatch.net');
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (219, 'Estimado Sr. Lannister, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=VXCQYXAH3N">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnair', 'tyrion.lannister@kingslanding.net');
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (223, 'Dear Mr. Stark, <br> You have been invited to take this questionnair. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=CABWQ7HKJY">Click here</a> to take the questionnairDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnair', 'catelyn.stark@winterfell.net');
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (227, 'Dear Mr. Stark, <br> You have been invited to take this questionnair. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=65AFLUXBKL">Click here</a> to take the questionnairDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnair', 'arya.stark@winterfell.net');
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (324, 'Estimado Sr. Snow, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=MCZ5YQX2CG">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitación para participar en un cuestionario', 'jon.snow@nightswatch.net');
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (328, 'Estimado Sr. Lannister, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=KLKMQZH28D">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnair', 'tyrion.lannister@kingslanding.net');
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (332, 'Dear Mr. Stark, <br> You have been invited to take this questionnair. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=K3MA7AQPWS">Click here</a> to take the questionnairDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnair', 'catelyn.stark@winterfell.net');
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (336, 'Dear Mr. Stark, <br> You have been invited to take this questionnair. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=NKFYP425BK">Click here</a> to take the questionnairDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnair', 'arya.stark@winterfell.net');
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (433, 'Estimado Sr. Snow, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=CLY6KFZS9L">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitación para participar en un cuestionario', 'jon.snow@nightswatch.net');
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (437, 'Estimado Sr. Lannister, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=9Y4VPQNHJL">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnair', 'tyrion.lannister@kingslanding.net');
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (441, 'Dear Mr. Stark, <br> You have been invited to take this questionnair. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=YDHHDCGK9E">Click here</a> to take the questionnairDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnair', 'catelyn.stark@winterfell.net');
-INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (445, 'Dear Mr. Stark, <br> You have been invited to take this questionnair. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=3BU5ASAYVB">Click here</a> to take the questionnairDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnair', 'arya.stark@winterfell.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (107, 'Estimado Sr. Snow, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=XVKDAB45XG">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitación para participar en un cuestionario', 'jon.snow@nightswatch.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (111, 'Estimado Sr. Lannister, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=3B5GKVKCKK">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnaire', 'tyrion.lannister@kingslanding.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (115, 'Dear Mr. Stark, <br> You have been invited to take this questionnaire. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=R4MZDKVLZS">Click here</a> to take the questionnaireDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnaire', 'catelyn.stark@winterfell.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (119, 'Dear Mr. Stark, <br> You have been invited to take this questionnaire. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=77ZSPNQB7C">Click here</a> to take the questionnaireDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnaire', 'arya.stark@winterfell.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (310, 'Estimado Sr. Snow, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=NS9M4GG5EU">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitación para participar en un cuestionario', 'jon.snow@nightswatch.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (314, 'Estimado Sr. Lannister, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=BGBT6AA3AU">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnaire', 'tyrion.lannister@kingslanding.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (318, 'Dear Mr. Stark, <br> You have been invited to take this questionnaire. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=F3ZVFHMZ5W">Click here</a> to take the questionnaireDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnaire', 'catelyn.stark@winterfell.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (322, 'Dear Mr. Stark, <br> You have been invited to take this questionnaire. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=EPUD7K67BZ">Click here</a> to take the questionnaireDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnaire', 'arya.stark@winterfell.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (422, 'Estimado Sr. Snow, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=QLM7MVK3RG">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitación para participar en un cuestionario', 'jon.snow@nightswatch.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (426, 'Estimado Sr. Lannister, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=BQBTBE3SNP">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnaire', 'tyrion.lannister@kingslanding.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (430, 'Dear Mr. Stark, <br> You have been invited to take this questionnaire. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=4AQ9BR7ABH">Click here</a> to take the questionnaireDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnaire', 'catelyn.stark@winterfell.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (434, 'Dear Mr. Stark, <br> You have been invited to take this questionnaire. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=HK4MK3KR23">Click here</a> to take the questionnaireDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnaire', 'arya.stark@winterfell.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (534, 'Estimado Sr. Snow, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=BNTEGYGVYD">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitación para participar en un cuestionario', 'jon.snow@nightswatch.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (538, 'Estimado Sr. Lannister, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="http://localhost:8080/questionaires-ui/token=7Y7P4W6NF5">Click aqui</a> para empezar', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnaire', 'tyrion.lannister@kingslanding.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (542, 'Dear Mr. Stark, <br> You have been invited to take this questionnaire. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=JXD5EUJDSK">Click here</a> to take the questionnaireDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnaire', 'catelyn.stark@winterfell.net');
+INSERT INTO mail_message (id, body, delivery_attempts, from_address, reply_to, sent_date, subject, to_address) VALUES (546, 'Dear Mr. Stark, <br> You have been invited to take this questionnaire. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="http://localhost:8080/questionaires-ui/token=EXWEHLBMDJ">Click here</a> to take the questionnaireDefinition', NULL, 'support@gazpacho.net', 'support@gazpacho.net', NULL, 'Invitation to participate in a questionnaire', 'arya.stark@winterfell.net');
 
 
 --
--- TOC entry 2199 (class 0 OID 65662)
--- Dependencies: 175
+-- TOC entry 2361 (class 0 OID 91092)
+-- Dependencies: 183
 -- Data for Name: mail_message_template; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO mail_message_template (id, created_date, from_address, language, last_modified_date, reply_to, type, body, subject, createdby_id, lastmodifiedby_id, questionnairdefinition_id) VALUES (100, '2014-08-11 09:16:50.406', 'support@gazpacho.net', 'EN', '2014-08-11 09:16:50.406', 'support@gazpacho.net', 'INVITATION', 'Dear Mr. $lastname, <br> You have been invited to take this questionnair. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="$link">Click here</a> to take the questionnairDefinition', 'Invitation to participate in a questionnair', 1, 1, 12);
-INSERT INTO mail_message_template (id, created_date, from_address, language, last_modified_date, reply_to, type, body, subject, createdby_id, lastmodifiedby_id, questionnairdefinition_id) VALUES (209, '2014-08-11 09:16:51.277', 'support@gazpacho.net', 'EN', '2014-08-11 09:16:51.277', 'support@gazpacho.net', 'INVITATION', 'Dear Mr. $lastname, <br> You have been invited to take this questionnair. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="$link">Click here</a> to take the questionnairDefinition', 'Invitation to participate in a questionnair', 1, 1, 121);
-INSERT INTO mail_message_template (id, created_date, from_address, language, last_modified_date, reply_to, type, body, subject, createdby_id, lastmodifiedby_id, questionnairdefinition_id) VALUES (318, '2014-08-11 09:16:52.305', 'support@gazpacho.net', 'EN', '2014-08-11 09:16:52.305', 'support@gazpacho.net', 'INVITATION', 'Dear Mr. $lastname, <br> You have been invited to take this questionnair. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="$link">Click here</a> to take the questionnairDefinition', 'Invitation to participate in a questionnair', 1, 1, 230);
-INSERT INTO mail_message_template (id, created_date, from_address, language, last_modified_date, reply_to, type, body, subject, createdby_id, lastmodifiedby_id, questionnairdefinition_id) VALUES (427, '2014-08-11 09:16:52.776', 'support@gazpacho.net', 'EN', '2014-08-11 09:16:52.776', 'support@gazpacho.net', 'INVITATION', 'Dear Mr. $lastname, <br> You have been invited to take this questionnair. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="$link">Click here</a> to take the questionnairDefinition', 'Invitation to participate in a questionnair', 1, 1, 339);
-INSERT INTO mail_message_template (id, created_date, from_address, language, last_modified_date, reply_to, type, body, subject, createdby_id, lastmodifiedby_id, questionnairdefinition_id) VALUES (480, '2014-08-11 09:16:53.061', 'support@gazpacho.net', 'EN', '2014-08-11 09:16:53.061', 'support@gazpacho.net', 'INVITATION', 'Dear Mr. $lastname, <br> You have been invited to take this questionnair. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="$link">Click here</a> to take the questionnairDefinition', 'Invitation to participate in a questionnair', 1, 1, 448);
+INSERT INTO mail_message_template (id, created_date, from_address, language, last_modified_date, reply_to, type, body, subject, createdby_id, lastmodifiedby_id, questionnairedefinition_id) VALUES (101, '2014-09-07 18:12:59.635', 'support@gazpacho.net', 'EN', '2014-09-07 18:12:59.635', 'support@gazpacho.net', 'INVITATION', 'Dear Mr. $lastname, <br> You have been invited to take this questionnaire. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="$link">Click here</a> to take the questionnaireDefinition', 'Invitation to participate in a questionnaire', 1, 1, 12);
+INSERT INTO mail_message_template (id, created_date, from_address, language, last_modified_date, reply_to, type, body, subject, createdby_id, lastmodifiedby_id, questionnairedefinition_id) VALUES (213, '2014-09-07 18:13:00.305', 'support@gazpacho.net', 'EN', '2014-09-07 18:13:00.305', 'support@gazpacho.net', 'INVITATION', 'Dear Mr. $lastname, <br> You have been invited to take this questionnaire. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="$link">Click here</a> to take the questionnaireDefinition', 'Invitation to participate in a questionnaire', 1, 1, 124);
+INSERT INTO mail_message_template (id, created_date, from_address, language, last_modified_date, reply_to, type, body, subject, createdby_id, lastmodifiedby_id, questionnairedefinition_id) VALUES (304, '2014-09-07 18:13:00.774', 'support@gazpacho.net', 'EN', '2014-09-07 18:13:00.774', 'support@gazpacho.net', 'INVITATION', 'Dear Mr. $lastname, <br> You have been invited to take this questionnaire. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="$link">Click here</a> to take the questionnaireDefinition', 'Invitation to participate in a questionnaire', 1, 1, 215);
+INSERT INTO mail_message_template (id, created_date, from_address, language, last_modified_date, reply_to, type, body, subject, createdby_id, lastmodifiedby_id, questionnairedefinition_id) VALUES (416, '2014-09-07 18:13:01.299', 'support@gazpacho.net', 'EN', '2014-09-07 18:13:01.299', 'support@gazpacho.net', 'INVITATION', 'Dear Mr. $lastname, <br> You have been invited to take this questionnaire. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="$link">Click here</a> to take the questionnaireDefinition', 'Invitation to participate in a questionnaire', 1, 1, 327);
+INSERT INTO mail_message_template (id, created_date, from_address, language, last_modified_date, reply_to, type, body, subject, createdby_id, lastmodifiedby_id, questionnairedefinition_id) VALUES (528, '2014-09-07 18:13:01.731', 'support@gazpacho.net', 'EN', '2014-09-07 18:13:01.731', 'support@gazpacho.net', 'INVITATION', 'Dear Mr. $lastname, <br> You have been invited to take this questionnaire. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="$link">Click here</a> to take the questionnaireDefinition', 'Invitation to participate in a questionnaire', 1, 1, 439);
+INSERT INTO mail_message_template (id, created_date, from_address, language, last_modified_date, reply_to, type, body, subject, createdby_id, lastmodifiedby_id, questionnairedefinition_id) VALUES (584, '2014-09-07 18:13:01.934', 'support@gazpacho.net', 'EN', '2014-09-07 18:13:01.934', 'support@gazpacho.net', 'INVITATION', 'Dear Mr. $lastname, <br> You have been invited to take this questionnaire. <br>The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off.<a href="$link">Click here</a> to take the questionnaireDefinition', 'Invitation to participate in a questionnaire', 1, 1, 551);
 
 
 --
--- TOC entry 2207 (class 0 OID 65723)
--- Dependencies: 183
+-- TOC entry 2369 (class 0 OID 91153)
+-- Dependencies: 191
 -- Data for Name: mail_message_template_translation; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO mail_message_template_translation (id, created_date, language, last_modified_date, body, subject, createdby_id, lastmodifiedby_id, mailmessagetemplate_id) VALUES (101, '2014-08-11 09:16:50.419', 'ES', '2014-08-11 09:16:50.419', 'Estimado Sr. $lastname, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="$link">Click aqui</a> para empezar', 'Invitación para participar en un cuestionario', 1, 1, 100);
-INSERT INTO mail_message_template_translation (id, created_date, language, last_modified_date, body, subject, createdby_id, lastmodifiedby_id, mailmessagetemplate_id) VALUES (210, '2014-08-11 09:16:51.284', 'ES', '2014-08-11 09:16:51.284', 'Estimado Sr. $lastname, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="$link">Click aqui</a> para empezar', 'Invitación para participar en un cuestionario', 1, 1, 209);
-INSERT INTO mail_message_template_translation (id, created_date, language, last_modified_date, body, subject, createdby_id, lastmodifiedby_id, mailmessagetemplate_id) VALUES (319, '2014-08-11 09:16:52.309', 'ES', '2014-08-11 09:16:52.309', 'Estimado Sr. $lastname, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="$link">Click aqui</a> para empezar', 'Invitación para participar en un cuestionario', 1, 1, 318);
-INSERT INTO mail_message_template_translation (id, created_date, language, last_modified_date, body, subject, createdby_id, lastmodifiedby_id, mailmessagetemplate_id) VALUES (428, '2014-08-11 09:16:52.776', 'ES', '2014-08-11 09:16:52.776', 'Estimado Sr. $lastname, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="$link">Click aqui</a> para empezar', 'Invitación para participar en un cuestionario', 1, 1, 427);
-INSERT INTO mail_message_template_translation (id, created_date, language, last_modified_date, body, subject, createdby_id, lastmodifiedby_id, mailmessagetemplate_id) VALUES (481, '2014-08-11 09:16:53.061', 'ES', '2014-08-11 09:16:53.061', 'Estimado Sr. $lastname, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="$link">Click aqui</a> para empezar', 'Invitación para participar en un cuestionario', 1, 1, 480);
+INSERT INTO mail_message_template_translation (id, created_date, language, last_modified_date, body, subject, createdby_id, lastmodifiedby_id, mailmessagetemplate_id) VALUES (102, '2014-09-07 18:12:59.65', 'ES', '2014-09-07 18:12:59.65', 'Estimado Sr. $lastname, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="$link">Click aqui</a> para empezar', 'Invitación para participar en un cuestionario', 1, 1, 101);
+INSERT INTO mail_message_template_translation (id, created_date, language, last_modified_date, body, subject, createdby_id, lastmodifiedby_id, mailmessagetemplate_id) VALUES (214, '2014-09-07 18:13:00.305', 'ES', '2014-09-07 18:13:00.305', 'Estimado Sr. $lastname, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="$link">Click aqui</a> para empezar', 'Invitación para participar en un cuestionario', 1, 1, 213);
+INSERT INTO mail_message_template_translation (id, created_date, language, last_modified_date, body, subject, createdby_id, lastmodifiedby_id, mailmessagetemplate_id) VALUES (305, '2014-09-07 18:13:00.774', 'ES', '2014-09-07 18:13:00.774', 'Estimado Sr. $lastname, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="$link">Click aqui</a> para empezar', 'Invitación para participar en un cuestionario', 1, 1, 304);
+INSERT INTO mail_message_template_translation (id, created_date, language, last_modified_date, body, subject, createdby_id, lastmodifiedby_id, mailmessagetemplate_id) VALUES (417, '2014-09-07 18:13:01.303', 'ES', '2014-09-07 18:13:01.303', 'Estimado Sr. $lastname, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="$link">Click aqui</a> para empezar', 'Invitación para participar en un cuestionario', 1, 1, 416);
+INSERT INTO mail_message_template_translation (id, created_date, language, last_modified_date, body, subject, createdby_id, lastmodifiedby_id, mailmessagetemplate_id) VALUES (529, '2014-09-07 18:13:01.731', 'ES', '2014-09-07 18:13:01.731', 'Estimado Sr. $lastname, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="$link">Click aqui</a> para empezar', 'Invitación para participar en un cuestionario', 1, 1, 528);
+INSERT INTO mail_message_template_translation (id, created_date, language, last_modified_date, body, subject, createdby_id, lastmodifiedby_id, mailmessagetemplate_id) VALUES (585, '2014-09-07 18:13:01.934', 'ES', '2014-09-07 18:13:01.934', 'Estimado Sr. $lastname, <br> Has sido invitado para participar en esta cuestionario <br>Nos dedicas 15 minutos para completarlo?, puedes interrumpirlo y completarlo más tarde si es necesario<a href="$link">Click aqui</a> para empezar', 'Invitación para participar en un cuestionario', 1, 1, 584);
 
 
 --
--- TOC entry 2213 (class 0 OID 65771)
--- Dependencies: 189
--- Data for Name: permission; Type: TABLE DATA; Schema: public; Owner: postgres
+-- TOC entry 2370 (class 0 OID 91161)
+-- Dependencies: 192
+-- Data for Name: section_translation; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (104, 103, 3, 'Q', 7);
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (108, 107, 3, 'Q', 5);
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (112, 111, 3, 'Q', 11);
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (116, 115, 3, 'Q', 9);
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (213, 212, 3, 'Q', 7);
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (217, 216, 3, 'Q', 5);
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (221, 220, 3, 'Q', 11);
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (225, 224, 3, 'Q', 9);
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (322, 321, 3, 'Q', 7);
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (326, 325, 3, 'Q', 5);
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (330, 329, 3, 'Q', 11);
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (334, 333, 3, 'Q', 9);
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (431, 430, 3, 'Q', 7);
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (435, 434, 3, 'Q', 5);
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (439, 438, 3, 'Q', 11);
-INSERT INTO permission (id, entity_id, mask, scope, role_id) VALUES (443, 442, 3, 'Q', 9);
-
-
---
--- TOC entry 2208 (class 0 OID 65731)
--- Dependencies: 184
--- Data for Name: question_group_translation; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO question_group_translation (id, language, description, title, questiongroup_id) VALUES (15, 'ES', NULL, 'Capitales Europeas', 14);
-INSERT INTO question_group_translation (id, language, description, title, questiongroup_id) VALUES (17, 'ES', NULL, 'Unión Europea', 16);
-INSERT INTO question_group_translation (id, language, description, title, questiongroup_id) VALUES (19, 'ES', NULL, 'Sociedad', 18);
-INSERT INTO question_group_translation (id, language, description, title, questiongroup_id) VALUES (124, 'ES', NULL, 'Capitales Europeas', 123);
-INSERT INTO question_group_translation (id, language, description, title, questiongroup_id) VALUES (126, 'ES', NULL, 'Unión Europea', 125);
-INSERT INTO question_group_translation (id, language, description, title, questiongroup_id) VALUES (128, 'ES', NULL, 'Sociedad', 127);
-INSERT INTO question_group_translation (id, language, description, title, questiongroup_id) VALUES (233, 'ES', NULL, 'Capitales Europeas', 232);
-INSERT INTO question_group_translation (id, language, description, title, questiongroup_id) VALUES (235, 'ES', NULL, 'Unión Europea', 234);
-INSERT INTO question_group_translation (id, language, description, title, questiongroup_id) VALUES (237, 'ES', NULL, 'Sociedad', 236);
-INSERT INTO question_group_translation (id, language, description, title, questiongroup_id) VALUES (342, 'ES', NULL, 'Capitales Europeas', 341);
-INSERT INTO question_group_translation (id, language, description, title, questiongroup_id) VALUES (344, 'ES', NULL, 'Unión Europea', 343);
-INSERT INTO question_group_translation (id, language, description, title, questiongroup_id) VALUES (346, 'ES', NULL, 'Sociedad', 345);
+INSERT INTO section_translation (id, language, description, title, SECTION_ID) VALUES (16, 'ES', NULL, 'Capitales Europeas', 15);
+INSERT INTO section_translation (id, language, description, title, SECTION_ID) VALUES (18, 'ES', NULL, 'Unión Europea', 17);
+INSERT INTO section_translation (id, language, description, title, SECTION_ID) VALUES (20, 'ES', NULL, 'Sociedad', 19);
+INSERT INTO section_translation (id, language, description, title, SECTION_ID) VALUES (128, 'ES', NULL, 'Capitales Europeas', 127);
+INSERT INTO section_translation (id, language, description, title, SECTION_ID) VALUES (130, 'ES', NULL, 'Unión Europea', 129);
+INSERT INTO section_translation (id, language, description, title, SECTION_ID) VALUES (132, 'ES', NULL, 'Sociedad', 131);
+INSERT INTO section_translation (id, language, description, title, SECTION_ID) VALUES (219, 'ES', NULL, 'Capitales Europeas', 218);
+INSERT INTO section_translation (id, language, description, title, SECTION_ID) VALUES (221, 'ES', NULL, 'Unión Europea', 220);
+INSERT INTO section_translation (id, language, description, title, SECTION_ID) VALUES (223, 'ES', NULL, 'Sociedad', 222);
+INSERT INTO section_translation (id, language, description, title, SECTION_ID) VALUES (331, 'ES', NULL, 'Capitales Europeas', 330);
+INSERT INTO section_translation (id, language, description, title, SECTION_ID) VALUES (333, 'ES', NULL, 'Unión Europea', 332);
+INSERT INTO section_translation (id, language, description, title, SECTION_ID) VALUES (335, 'ES', NULL, 'Sociedad', 334);
+INSERT INTO section_translation (id, language, description, title, SECTION_ID) VALUES (443, 'ES', NULL, 'Capitales Europeas', 442);
+INSERT INTO section_translation (id, language, description, title, SECTION_ID) VALUES (445, 'ES', NULL, 'Unión Europea', 444);
+INSERT INTO section_translation (id, language, description, title, SECTION_ID) VALUES (447, 'ES', NULL, 'Sociedad', 446);
 
 
 --
--- TOC entry 2204 (class 0 OID 65699)
--- Dependencies: 180
+-- TOC entry 2366 (class 0 OID 91129)
+-- Dependencies: 188
 -- Data for Name: question_option; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (23, 'O1', '2014-08-11 09:16:49.949', 'EN', '2014-08-11 09:16:49.949', 'Norway', 1, 1, 22, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (24, 'O2', '2014-08-11 09:16:49.949', 'EN', '2014-08-11 09:16:49.949', 'Sweden', 1, 1, 22, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (25, 'O3', '2014-08-11 09:16:49.95', 'EN', '2014-08-11 09:16:49.95', 'Denmark', 1, 1, 22, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (26, 'O4', '2014-08-11 09:16:49.951', 'EN', '2014-08-11 09:16:49.951', 'Iceland', 1, 1, 22, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (35, 'O1', '2014-08-11 09:16:50.051', 'EN', '2014-08-11 09:16:50.051', 'Vatican City', 1, 1, 34, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (36, 'O2', '2014-08-11 09:16:50.052', 'EN', '2014-08-11 09:16:50.052', 'Roma', 1, 1, 34, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (37, 'O3', '2014-08-11 09:16:50.053', 'EN', '2014-08-11 09:16:50.053', 'Helsinki', 1, 1, 34, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (38, 'O4', '2014-08-11 09:16:50.053', 'EN', '2014-08-11 09:16:50.053', 'Viena', 1, 1, 34, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (47, 'O1', '2014-08-11 09:16:50.12', 'EN', '2014-08-11 09:16:50.12', 'Westphalia', 1, 1, 46, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (48, 'O2', '2014-08-11 09:16:50.12', 'EN', '2014-08-11 09:16:50.12', 'Rome', 1, 1, 46, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (49, 'O3', '2014-08-11 09:16:50.121', 'EN', '2014-08-11 09:16:50.121', 'Brussels', 1, 1, 46, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (50, 'O4', '2014-08-11 09:16:50.122', 'EN', '2014-08-11 09:16:50.122', 'Versailles', 1, 1, 46, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (57, 'O1', '2014-08-11 09:16:50.163', 'EN', '2014-08-11 09:16:50.163', 'Norway', 1, 1, 56, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (58, 'O2', '2014-08-11 09:16:50.164', 'EN', '2014-08-11 09:16:50.164', 'Poland', 1, 1, 56, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (59, 'O3', '2014-08-11 09:16:50.165', 'EN', '2014-08-11 09:16:50.165', 'Macedonia', 1, 1, 56, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (60, 'O4', '2014-08-11 09:16:50.166', 'EN', '2014-08-11 09:16:50.166', 'Chipre', 1, 1, 56, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (69, 'O1', '2014-08-11 09:16:50.237', 'EN', '2014-08-11 09:16:50.237', 'Barcelona', 1, 1, 68, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (70, 'O2', '2014-08-11 09:16:50.238', 'EN', '2014-08-11 09:16:50.238', 'Lisboa', 1, 1, 68, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (71, 'O3', '2014-08-11 09:16:50.239', 'EN', '2014-08-11 09:16:50.239', 'Genoa', 1, 1, 68, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (72, 'O4', '2014-08-11 09:16:50.239', 'EN', '2014-08-11 09:16:50.239', 'Roma', 1, 1, 68, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (79, 'O1', '2014-08-11 09:16:50.276', 'EN', '2014-08-11 09:16:50.276', 'Portuguese Empire', 1, 1, 78, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (80, 'O2', '2014-08-11 09:16:50.277', 'EN', '2014-08-11 09:16:50.277', 'British Empire', 1, 1, 78, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (81, 'O3', '2014-08-11 09:16:50.278', 'EN', '2014-08-11 09:16:50.278', 'Spanish Empire', 1, 1, 78, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (82, 'O4', '2014-08-11 09:16:50.279', 'EN', '2014-08-11 09:16:50.279', 'Dutch Empire', 1, 1, 78, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (91, 'O1', '2014-08-11 09:16:50.351', 'EN', '2014-08-11 09:16:50.351', 'Adolph Hitler', 1, 1, 90, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (92, 'O2', '2014-08-11 09:16:50.352', 'EN', '2014-08-11 09:16:50.352', 'Napoleon', 1, 1, 90, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (93, 'O3', '2014-08-11 09:16:50.353', 'EN', '2014-08-11 09:16:50.353', 'Philip 2th King of Spain', 1, 1, 90, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (94, 'O4', '2014-08-11 09:16:50.354', 'EN', '2014-08-11 09:16:50.354', 'Julius Caesar', 1, 1, 90, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (132, 'O1', '2014-08-11 09:16:50.822', 'EN', '2014-08-11 09:16:50.822', 'Norway', 1, 1, 131, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (133, 'O2', '2014-08-11 09:16:50.823', 'EN', '2014-08-11 09:16:50.823', 'Sweden', 1, 1, 131, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (134, 'O3', '2014-08-11 09:16:50.824', 'EN', '2014-08-11 09:16:50.824', 'Denmark', 1, 1, 131, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (135, 'O4', '2014-08-11 09:16:50.825', 'EN', '2014-08-11 09:16:50.825', 'Iceland', 1, 1, 131, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (144, 'O1', '2014-08-11 09:16:50.89', 'EN', '2014-08-11 09:16:50.89', 'Vatican City', 1, 1, 143, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (145, 'O2', '2014-08-11 09:16:50.891', 'EN', '2014-08-11 09:16:50.891', 'Roma', 1, 1, 143, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (146, 'O3', '2014-08-11 09:16:50.892', 'EN', '2014-08-11 09:16:50.892', 'Helsinki', 1, 1, 143, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (147, 'O4', '2014-08-11 09:16:50.893', 'EN', '2014-08-11 09:16:50.893', 'Viena', 1, 1, 143, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (156, 'O1', '2014-08-11 09:16:50.952', 'EN', '2014-08-11 09:16:50.952', 'Westphalia', 1, 1, 155, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (157, 'O2', '2014-08-11 09:16:50.953', 'EN', '2014-08-11 09:16:50.953', 'Rome', 1, 1, 155, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (158, 'O3', '2014-08-11 09:16:50.954', 'EN', '2014-08-11 09:16:50.954', 'Brussels', 1, 1, 155, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (159, 'O4', '2014-08-11 09:16:50.955', 'EN', '2014-08-11 09:16:50.955', 'Versailles', 1, 1, 155, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (166, 'O1', '2014-08-11 09:16:50.994', 'EN', '2014-08-11 09:16:50.994', 'Norway', 1, 1, 165, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (167, 'O2', '2014-08-11 09:16:50.995', 'EN', '2014-08-11 09:16:50.995', 'Poland', 1, 1, 165, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (168, 'O3', '2014-08-11 09:16:50.996', 'EN', '2014-08-11 09:16:50.996', 'Macedonia', 1, 1, 165, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (169, 'O4', '2014-08-11 09:16:50.997', 'EN', '2014-08-11 09:16:50.997', 'Chipre', 1, 1, 165, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (178, 'O1', '2014-08-11 09:16:51.064', 'EN', '2014-08-11 09:16:51.064', 'Barcelona', 1, 1, 177, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (179, 'O2', '2014-08-11 09:16:51.065', 'EN', '2014-08-11 09:16:51.065', 'Lisboa', 1, 1, 177, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (180, 'O3', '2014-08-11 09:16:51.066', 'EN', '2014-08-11 09:16:51.066', 'Genoa', 1, 1, 177, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (181, 'O4', '2014-08-11 09:16:51.067', 'EN', '2014-08-11 09:16:51.067', 'Roma', 1, 1, 177, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (188, 'O1', '2014-08-11 09:16:51.107', 'EN', '2014-08-11 09:16:51.107', 'Portuguese Empire', 1, 1, 187, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (189, 'O2', '2014-08-11 09:16:51.109', 'EN', '2014-08-11 09:16:51.109', 'British Empire', 1, 1, 187, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (190, 'O3', '2014-08-11 09:16:51.11', 'EN', '2014-08-11 09:16:51.11', 'Spanish Empire', 1, 1, 187, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (191, 'O4', '2014-08-11 09:16:51.111', 'EN', '2014-08-11 09:16:51.111', 'Dutch Empire', 1, 1, 187, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (200, 'O1', '2014-08-11 09:16:51.178', 'EN', '2014-08-11 09:16:51.178', 'Adolph Hitler', 1, 1, 199, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (201, 'O2', '2014-08-11 09:16:51.179', 'EN', '2014-08-11 09:16:51.179', 'Napoleon', 1, 1, 199, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (202, 'O3', '2014-08-11 09:16:51.18', 'EN', '2014-08-11 09:16:51.18', 'Philip 2th King of Spain', 1, 1, 199, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (203, 'O4', '2014-08-11 09:16:51.18', 'EN', '2014-08-11 09:16:51.18', 'Julius Caesar', 1, 1, 199, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (241, 'O1', '2014-08-11 09:16:51.991', 'EN', '2014-08-11 09:16:51.991', 'Norway', 1, 1, 240, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (242, 'O2', '2014-08-11 09:16:51.991', 'EN', '2014-08-11 09:16:51.991', 'Sweden', 1, 1, 240, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (243, 'O3', '2014-08-11 09:16:51.991', 'EN', '2014-08-11 09:16:51.991', 'Denmark', 1, 1, 240, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (244, 'O4', '2014-08-11 09:16:51.991', 'EN', '2014-08-11 09:16:51.991', 'Iceland', 1, 1, 240, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (253, 'O1', '2014-08-11 09:16:52.038', 'EN', '2014-08-11 09:16:52.038', 'Vatican City', 1, 1, 252, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (254, 'O2', '2014-08-11 09:16:52.038', 'EN', '2014-08-11 09:16:52.038', 'Roma', 1, 1, 252, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (255, 'O3', '2014-08-11 09:16:52.038', 'EN', '2014-08-11 09:16:52.038', 'Helsinki', 1, 1, 252, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (256, 'O4', '2014-08-11 09:16:52.038', 'EN', '2014-08-11 09:16:52.038', 'Viena', 1, 1, 252, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (265, 'O1', '2014-08-11 09:16:52.085', 'EN', '2014-08-11 09:16:52.085', 'Westphalia', 1, 1, 264, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (266, 'O2', '2014-08-11 09:16:52.085', 'EN', '2014-08-11 09:16:52.085', 'Rome', 1, 1, 264, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (267, 'O3', '2014-08-11 09:16:52.085', 'EN', '2014-08-11 09:16:52.085', 'Brussels', 1, 1, 264, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (268, 'O4', '2014-08-11 09:16:52.085', 'EN', '2014-08-11 09:16:52.085', 'Versailles', 1, 1, 264, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (275, 'O1', '2014-08-11 09:16:52.116', 'EN', '2014-08-11 09:16:52.116', 'Norway', 1, 1, 274, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (276, 'O2', '2014-08-11 09:16:52.116', 'EN', '2014-08-11 09:16:52.116', 'Poland', 1, 1, 274, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (277, 'O3', '2014-08-11 09:16:52.116', 'EN', '2014-08-11 09:16:52.116', 'Macedonia', 1, 1, 274, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (278, 'O4', '2014-08-11 09:16:52.116', 'EN', '2014-08-11 09:16:52.116', 'Chipre', 1, 1, 274, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (287, 'O1', '2014-08-11 09:16:52.163', 'EN', '2014-08-11 09:16:52.163', 'Barcelona', 1, 1, 286, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (288, 'O2', '2014-08-11 09:16:52.163', 'EN', '2014-08-11 09:16:52.163', 'Lisboa', 1, 1, 286, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (289, 'O3', '2014-08-11 09:16:52.163', 'EN', '2014-08-11 09:16:52.163', 'Genoa', 1, 1, 286, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (290, 'O4', '2014-08-11 09:16:52.163', 'EN', '2014-08-11 09:16:52.163', 'Roma', 1, 1, 286, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (297, 'O1', '2014-08-11 09:16:52.178', 'EN', '2014-08-11 09:16:52.178', 'Portuguese Empire', 1, 1, 296, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (298, 'O2', '2014-08-11 09:16:52.178', 'EN', '2014-08-11 09:16:52.178', 'British Empire', 1, 1, 296, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (299, 'O3', '2014-08-11 09:16:52.178', 'EN', '2014-08-11 09:16:52.178', 'Spanish Empire', 1, 1, 296, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (300, 'O4', '2014-08-11 09:16:52.178', 'EN', '2014-08-11 09:16:52.178', 'Dutch Empire', 1, 1, 296, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (309, 'O1', '2014-08-11 09:16:52.225', 'EN', '2014-08-11 09:16:52.225', 'Adolph Hitler', 1, 1, 308, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (310, 'O2', '2014-08-11 09:16:52.225', 'EN', '2014-08-11 09:16:52.225', 'Napoleon', 1, 1, 308, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (311, 'O3', '2014-08-11 09:16:52.225', 'EN', '2014-08-11 09:16:52.225', 'Philip 2th King of Spain', 1, 1, 308, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (312, 'O4', '2014-08-11 09:16:52.225', 'EN', '2014-08-11 09:16:52.225', 'Julius Caesar', 1, 1, 308, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (350, 'O1', '2014-08-11 09:16:52.547', 'EN', '2014-08-11 09:16:52.547', 'Norway', 1, 1, 349, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (351, 'O2', '2014-08-11 09:16:52.548', 'EN', '2014-08-11 09:16:52.548', 'Sweden', 1, 1, 349, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (352, 'O3', '2014-08-11 09:16:52.549', 'EN', '2014-08-11 09:16:52.549', 'Denmark', 1, 1, 349, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (353, 'O4', '2014-08-11 09:16:52.549', 'EN', '2014-08-11 09:16:52.549', 'Iceland', 1, 1, 349, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (362, 'O1', '2014-08-11 09:16:52.589', 'EN', '2014-08-11 09:16:52.589', 'Vatican City', 1, 1, 361, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (363, 'O2', '2014-08-11 09:16:52.589', 'EN', '2014-08-11 09:16:52.589', 'Roma', 1, 1, 361, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (364, 'O3', '2014-08-11 09:16:52.59', 'EN', '2014-08-11 09:16:52.59', 'Helsinki', 1, 1, 361, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (365, 'O4', '2014-08-11 09:16:52.59', 'EN', '2014-08-11 09:16:52.59', 'Viena', 1, 1, 361, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (374, 'O1', '2014-08-11 09:16:52.62', 'EN', '2014-08-11 09:16:52.62', 'Westphalia', 1, 1, 373, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (375, 'O2', '2014-08-11 09:16:52.62', 'EN', '2014-08-11 09:16:52.62', 'Rome', 1, 1, 373, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (376, 'O3', '2014-08-11 09:16:52.62', 'EN', '2014-08-11 09:16:52.62', 'Brussels', 1, 1, 373, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (377, 'O4', '2014-08-11 09:16:52.62', 'EN', '2014-08-11 09:16:52.62', 'Versailles', 1, 1, 373, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (384, 'O1', '2014-08-11 09:16:52.636', 'EN', '2014-08-11 09:16:52.636', 'Norway', 1, 1, 383, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (385, 'O2', '2014-08-11 09:16:52.636', 'EN', '2014-08-11 09:16:52.636', 'Poland', 1, 1, 383, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (386, 'O3', '2014-08-11 09:16:52.636', 'EN', '2014-08-11 09:16:52.636', 'Macedonia', 1, 1, 383, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (387, 'O4', '2014-08-11 09:16:52.636', 'EN', '2014-08-11 09:16:52.636', 'Chipre', 1, 1, 383, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (396, 'O1', '2014-08-11 09:16:52.683', 'EN', '2014-08-11 09:16:52.683', 'Barcelona', 1, 1, 395, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (397, 'O2', '2014-08-11 09:16:52.683', 'EN', '2014-08-11 09:16:52.683', 'Lisboa', 1, 1, 395, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (398, 'O3', '2014-08-11 09:16:52.683', 'EN', '2014-08-11 09:16:52.683', 'Genoa', 1, 1, 395, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (399, 'O4', '2014-08-11 09:16:52.683', 'EN', '2014-08-11 09:16:52.683', 'Roma', 1, 1, 395, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (406, 'O1', '2014-08-11 09:16:52.698', 'EN', '2014-08-11 09:16:52.698', 'Portuguese Empire', 1, 1, 405, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (407, 'O2', '2014-08-11 09:16:52.698', 'EN', '2014-08-11 09:16:52.698', 'British Empire', 1, 1, 405, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (408, 'O3', '2014-08-11 09:16:52.698', 'EN', '2014-08-11 09:16:52.698', 'Spanish Empire', 1, 1, 405, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (409, 'O4', '2014-08-11 09:16:52.698', 'EN', '2014-08-11 09:16:52.698', 'Dutch Empire', 1, 1, 405, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (418, 'O1', '2014-08-11 09:16:52.745', 'EN', '2014-08-11 09:16:52.745', 'Adolph Hitler', 1, 1, 417, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (419, 'O2', '2014-08-11 09:16:52.745', 'EN', '2014-08-11 09:16:52.745', 'Napoleon', 1, 1, 417, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (420, 'O3', '2014-08-11 09:16:52.745', 'EN', '2014-08-11 09:16:52.745', 'Philip 2th King of Spain', 1, 1, 417, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (421, 'O4', '2014-08-11 09:16:52.745', 'EN', '2014-08-11 09:16:52.745', 'Julius Caesar', 1, 1, 417, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (451, 'O1', '2014-08-11 09:16:52.967', 'EN', '2014-08-11 09:16:52.967', 'Agree strongly', 1, 1, 450, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (452, 'O2', '2014-08-11 09:16:52.967', 'EN', '2014-08-11 09:16:52.967', 'Agree somewhat', 1, 1, 450, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (453, 'O3', '2014-08-11 09:16:52.967', 'EN', '2014-08-11 09:16:52.967', 'Neither agree nor disagree', 1, 1, 450, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (454, 'O4', '2014-08-11 09:16:52.967', 'EN', '2014-08-11 09:16:52.967', 'Disagree somewhat', 1, 1, 450, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (455, 'O5', '2014-08-11 09:16:52.967', 'EN', '2014-08-11 09:16:52.967', 'Agree strongly', 1, 1, 450, 4);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (456, 'O6', '2014-08-11 09:16:52.967', 'EN', '2014-08-11 09:16:52.967', 'Disagree strongly', 1, 1, 450, 5);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (462, 'O1', '2014-08-11 09:16:52.999', 'EN', '2014-08-11 09:16:52.999', 'Agree strongly', 1, 1, 461, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (463, 'O2', '2014-08-11 09:16:52.999', 'EN', '2014-08-11 09:16:52.999', 'Agree somewhat', 1, 1, 461, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (464, 'O3', '2014-08-11 09:16:52.999', 'EN', '2014-08-11 09:16:52.999', 'Neither agree nor disagree', 1, 1, 461, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (465, 'O4', '2014-08-11 09:16:52.999', 'EN', '2014-08-11 09:16:52.999', 'Disagree somewhat', 1, 1, 461, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (466, 'O5', '2014-08-11 09:16:52.999', 'EN', '2014-08-11 09:16:52.999', 'Agree strongly', 1, 1, 461, 4);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (467, 'O6', '2014-08-11 09:16:52.999', 'EN', '2014-08-11 09:16:52.999', 'Disagree strongly', 1, 1, 461, 5);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (475, 'O1', '2014-08-11 09:16:53.03', 'EN', '2014-08-11 09:16:53.03', 'under 25,000€', 1, 1, 474, 0);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (476, 'O2', '2014-08-11 09:16:53.03', 'EN', '2014-08-11 09:16:53.03', '25,000 - 29,999€', 1, 1, 474, 1);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (477, 'O3', '2014-08-11 09:16:53.03', 'EN', '2014-08-11 09:16:53.03', '30,000 - 34,999€', 1, 1, 474, 2);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (478, 'O4', '2014-08-11 09:16:53.03', 'EN', '2014-08-11 09:16:53.03', '35,000 - 39,999€', 1, 1, 474, 3);
-INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (479, 'O5', '2014-08-11 09:16:53.03', 'EN', '2014-08-11 09:16:53.03', 'Over 85,000€', 1, 1, 474, 4);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (24, 'O1', '2014-09-07 18:12:58.463', 'EN', '2014-09-07 18:12:58.463', 'Norway', 1, 1, 23, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (25, 'O2', '2014-09-07 18:12:58.463', 'EN', '2014-09-07 18:12:58.463', 'Sweden', 1, 1, 23, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (26, 'O3', '2014-09-07 18:12:58.463', 'EN', '2014-09-07 18:12:58.463', 'Denmark', 1, 1, 23, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (27, 'O4', '2014-09-07 18:12:58.463', 'EN', '2014-09-07 18:12:58.463', 'Iceland', 1, 1, 23, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (36, 'O1', '2014-09-07 18:12:58.557', 'EN', '2014-09-07 18:12:58.557', 'Vatican City', 1, 1, 35, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (37, 'O2', '2014-09-07 18:12:58.557', 'EN', '2014-09-07 18:12:58.557', 'Roma', 1, 1, 35, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (38, 'O3', '2014-09-07 18:12:58.557', 'EN', '2014-09-07 18:12:58.557', 'Helsinki', 1, 1, 35, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (39, 'O4', '2014-09-07 18:12:58.557', 'EN', '2014-09-07 18:12:58.557', 'Viena', 1, 1, 35, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (48, 'O1', '2014-09-07 18:12:58.853', 'EN', '2014-09-07 18:12:58.853', 'Westphalia', 1, 1, 47, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (49, 'O2', '2014-09-07 18:12:58.853', 'EN', '2014-09-07 18:12:58.853', 'Rome', 1, 1, 47, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (50, 'O3', '2014-09-07 18:12:58.853', 'EN', '2014-09-07 18:12:58.853', 'Brussels', 1, 1, 47, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (51, 'O4', '2014-09-07 18:12:58.853', 'EN', '2014-09-07 18:12:58.853', 'Versailles', 1, 1, 47, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (58, 'O1', '2014-09-07 18:12:58.9', 'EN', '2014-09-07 18:12:58.9', 'Norway', 1, 1, 57, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (59, 'O2', '2014-09-07 18:12:58.9', 'EN', '2014-09-07 18:12:58.9', 'Poland', 1, 1, 57, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (60, 'O3', '2014-09-07 18:12:58.9', 'EN', '2014-09-07 18:12:58.9', 'Macedonia', 1, 1, 57, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (61, 'O4', '2014-09-07 18:12:58.9', 'EN', '2014-09-07 18:12:58.9', 'Chipre', 1, 1, 57, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (70, 'O1', '2014-09-07 18:12:59.166', 'EN', '2014-09-07 18:12:59.166', 'Barcelona', 1, 1, 69, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (71, 'O2', '2014-09-07 18:12:59.166', 'EN', '2014-09-07 18:12:59.166', 'Lisboa', 1, 1, 69, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (72, 'O3', '2014-09-07 18:12:59.166', 'EN', '2014-09-07 18:12:59.166', 'Genoa', 1, 1, 69, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (73, 'O4', '2014-09-07 18:12:59.166', 'EN', '2014-09-07 18:12:59.166', 'Roma', 1, 1, 69, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (80, 'O1', '2014-09-07 18:12:59.228', 'EN', '2014-09-07 18:12:59.228', 'Portuguese Empire', 1, 1, 79, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (81, 'O2', '2014-09-07 18:12:59.228', 'EN', '2014-09-07 18:12:59.228', 'British Empire', 1, 1, 79, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (82, 'O3', '2014-09-07 18:12:59.228', 'EN', '2014-09-07 18:12:59.228', 'Spanish Empire', 1, 1, 79, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (83, 'O4', '2014-09-07 18:12:59.228', 'EN', '2014-09-07 18:12:59.228', 'Dutch Empire', 1, 1, 79, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (92, 'O1', '2014-09-07 18:12:59.494', 'EN', '2014-09-07 18:12:59.494', 'Adolph Hitler', 1, 1, 91, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (93, 'O2', '2014-09-07 18:12:59.494', 'EN', '2014-09-07 18:12:59.494', 'Napoleon', 1, 1, 91, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (94, 'O3', '2014-09-07 18:12:59.51', 'EN', '2014-09-07 18:12:59.51', 'Philip 2th King of Spain', 1, 1, 91, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (95, 'O4', '2014-09-07 18:12:59.51', 'EN', '2014-09-07 18:12:59.51', 'Julius Caesar', 1, 1, 91, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (136, 'O1', '2014-09-07 18:12:59.961', 'EN', '2014-09-07 18:12:59.961', 'Norway', 1, 1, 135, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (137, 'O2', '2014-09-07 18:12:59.961', 'EN', '2014-09-07 18:12:59.961', 'Sweden', 1, 1, 135, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (138, 'O3', '2014-09-07 18:12:59.961', 'EN', '2014-09-07 18:12:59.961', 'Denmark', 1, 1, 135, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (139, 'O4', '2014-09-07 18:12:59.961', 'EN', '2014-09-07 18:12:59.961', 'Iceland', 1, 1, 135, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (148, 'O1', '2014-09-07 18:13:00.008', 'EN', '2014-09-07 18:13:00.008', 'Vatican City', 1, 1, 147, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (149, 'O2', '2014-09-07 18:13:00.008', 'EN', '2014-09-07 18:13:00.008', 'Roma', 1, 1, 147, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (150, 'O3', '2014-09-07 18:13:00.008', 'EN', '2014-09-07 18:13:00.008', 'Helsinki', 1, 1, 147, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (151, 'O4', '2014-09-07 18:13:00.008', 'EN', '2014-09-07 18:13:00.008', 'Viena', 1, 1, 147, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (160, 'O1', '2014-09-07 18:13:00.055', 'EN', '2014-09-07 18:13:00.055', 'Westphalia', 1, 1, 159, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (161, 'O2', '2014-09-07 18:13:00.055', 'EN', '2014-09-07 18:13:00.055', 'Rome', 1, 1, 159, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (162, 'O3', '2014-09-07 18:13:00.055', 'EN', '2014-09-07 18:13:00.055', 'Brussels', 1, 1, 159, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (163, 'O4', '2014-09-07 18:13:00.055', 'EN', '2014-09-07 18:13:00.055', 'Versailles', 1, 1, 159, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (170, 'O1', '2014-09-07 18:13:00.086', 'EN', '2014-09-07 18:13:00.086', 'Norway', 1, 1, 169, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (171, 'O2', '2014-09-07 18:13:00.086', 'EN', '2014-09-07 18:13:00.086', 'Poland', 1, 1, 169, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (172, 'O3', '2014-09-07 18:13:00.086', 'EN', '2014-09-07 18:13:00.086', 'Macedonia', 1, 1, 169, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (173, 'O4', '2014-09-07 18:13:00.086', 'EN', '2014-09-07 18:13:00.086', 'Chipre', 1, 1, 169, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (182, 'O1', '2014-09-07 18:13:00.149', 'EN', '2014-09-07 18:13:00.149', 'Barcelona', 1, 1, 181, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (183, 'O2', '2014-09-07 18:13:00.149', 'EN', '2014-09-07 18:13:00.149', 'Lisboa', 1, 1, 181, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (184, 'O3', '2014-09-07 18:13:00.149', 'EN', '2014-09-07 18:13:00.149', 'Genoa', 1, 1, 181, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (185, 'O4', '2014-09-07 18:13:00.149', 'EN', '2014-09-07 18:13:00.149', 'Roma', 1, 1, 181, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (192, 'O1', '2014-09-07 18:13:00.18', 'EN', '2014-09-07 18:13:00.18', 'Portuguese Empire', 1, 1, 191, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (193, 'O2', '2014-09-07 18:13:00.18', 'EN', '2014-09-07 18:13:00.18', 'British Empire', 1, 1, 191, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (194, 'O3', '2014-09-07 18:13:00.18', 'EN', '2014-09-07 18:13:00.18', 'Spanish Empire', 1, 1, 191, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (195, 'O4', '2014-09-07 18:13:00.18', 'EN', '2014-09-07 18:13:00.18', 'Dutch Empire', 1, 1, 191, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (204, 'O1', '2014-09-07 18:13:00.227', 'EN', '2014-09-07 18:13:00.227', 'Adolph Hitler', 1, 1, 203, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (205, 'O2', '2014-09-07 18:13:00.227', 'EN', '2014-09-07 18:13:00.227', 'Napoleon', 1, 1, 203, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (206, 'O3', '2014-09-07 18:13:00.227', 'EN', '2014-09-07 18:13:00.227', 'Philip 2th King of Spain', 1, 1, 203, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (207, 'O4', '2014-09-07 18:13:00.227', 'EN', '2014-09-07 18:13:00.227', 'Julius Caesar', 1, 1, 203, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (227, 'O1', '2014-09-07 18:13:00.43', 'EN', '2014-09-07 18:13:00.43', 'Norway', 1, 1, 226, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (228, 'O2', '2014-09-07 18:13:00.43', 'EN', '2014-09-07 18:13:00.43', 'Sweden', 1, 1, 226, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (229, 'O3', '2014-09-07 18:13:00.43', 'EN', '2014-09-07 18:13:00.43', 'Denmark', 1, 1, 226, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (230, 'O4', '2014-09-07 18:13:00.43', 'EN', '2014-09-07 18:13:00.43', 'Iceland', 1, 1, 226, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (239, 'O1', '2014-09-07 18:13:00.477', 'EN', '2014-09-07 18:13:00.477', 'Vatican City', 1, 1, 238, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (240, 'O2', '2014-09-07 18:13:00.477', 'EN', '2014-09-07 18:13:00.477', 'Roma', 1, 1, 238, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (241, 'O3', '2014-09-07 18:13:00.477', 'EN', '2014-09-07 18:13:00.477', 'Helsinki', 1, 1, 238, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (242, 'O4', '2014-09-07 18:13:00.493', 'EN', '2014-09-07 18:13:00.493', 'Viena', 1, 1, 238, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (251, 'O1', '2014-09-07 18:13:00.54', 'EN', '2014-09-07 18:13:00.54', 'Westphalia', 1, 1, 250, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (252, 'O2', '2014-09-07 18:13:00.54', 'EN', '2014-09-07 18:13:00.54', 'Rome', 1, 1, 250, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (253, 'O3', '2014-09-07 18:13:00.54', 'EN', '2014-09-07 18:13:00.54', 'Brussels', 1, 1, 250, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (254, 'O4', '2014-09-07 18:13:00.54', 'EN', '2014-09-07 18:13:00.54', 'Versailles', 1, 1, 250, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (261, 'O1', '2014-09-07 18:13:00.571', 'EN', '2014-09-07 18:13:00.571', 'Norway', 1, 1, 260, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (262, 'O2', '2014-09-07 18:13:00.571', 'EN', '2014-09-07 18:13:00.571', 'Poland', 1, 1, 260, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (263, 'O3', '2014-09-07 18:13:00.571', 'EN', '2014-09-07 18:13:00.571', 'Macedonia', 1, 1, 260, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (264, 'O4', '2014-09-07 18:13:00.571', 'EN', '2014-09-07 18:13:00.571', 'Chipre', 1, 1, 260, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (273, 'O1', '2014-09-07 18:13:00.618', 'EN', '2014-09-07 18:13:00.618', 'Barcelona', 1, 1, 272, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (274, 'O2', '2014-09-07 18:13:00.618', 'EN', '2014-09-07 18:13:00.618', 'Lisboa', 1, 1, 272, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (275, 'O3', '2014-09-07 18:13:00.618', 'EN', '2014-09-07 18:13:00.618', 'Genoa', 1, 1, 272, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (276, 'O4', '2014-09-07 18:13:00.618', 'EN', '2014-09-07 18:13:00.618', 'Roma', 1, 1, 272, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (283, 'O1', '2014-09-07 18:13:00.633', 'EN', '2014-09-07 18:13:00.633', 'Portuguese Empire', 1, 1, 282, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (284, 'O2', '2014-09-07 18:13:00.633', 'EN', '2014-09-07 18:13:00.633', 'British Empire', 1, 1, 282, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (285, 'O3', '2014-09-07 18:13:00.633', 'EN', '2014-09-07 18:13:00.633', 'Spanish Empire', 1, 1, 282, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (286, 'O4', '2014-09-07 18:13:00.633', 'EN', '2014-09-07 18:13:00.633', 'Dutch Empire', 1, 1, 282, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (295, 'O1', '2014-09-07 18:13:00.68', 'EN', '2014-09-07 18:13:00.68', 'Adolph Hitler', 1, 1, 294, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (296, 'O2', '2014-09-07 18:13:00.68', 'EN', '2014-09-07 18:13:00.68', 'Napoleon', 1, 1, 294, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (297, 'O3', '2014-09-07 18:13:00.68', 'EN', '2014-09-07 18:13:00.68', 'Philip 2th King of Spain', 1, 1, 294, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (298, 'O4', '2014-09-07 18:13:00.696', 'EN', '2014-09-07 18:13:00.696', 'Julius Caesar', 1, 1, 294, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (579, 'O1', '2014-09-07 18:13:01.903', 'EN', '2014-09-07 18:13:01.903', 'under 25,000€', 1, 1, 578, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (580, 'O2', '2014-09-07 18:13:01.903', 'EN', '2014-09-07 18:13:01.903', '25,000 - 29,999€', 1, 1, 578, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (581, 'O3', '2014-09-07 18:13:01.919', 'EN', '2014-09-07 18:13:01.919', '30,000 - 34,999€', 1, 1, 578, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (582, 'O4', '2014-09-07 18:13:01.919', 'EN', '2014-09-07 18:13:01.919', '35,000 - 39,999€', 1, 1, 578, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (583, 'O5', '2014-09-07 18:13:01.919', 'EN', '2014-09-07 18:13:01.919', 'Over 85,000€', 1, 1, 578, 4);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (339, 'O1', '2014-09-07 18:13:00.969', 'EN', '2014-09-07 18:13:00.969', 'Norway', 1, 1, 338, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (340, 'O2', '2014-09-07 18:13:00.969', 'EN', '2014-09-07 18:13:00.969', 'Sweden', 1, 1, 338, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (341, 'O3', '2014-09-07 18:13:00.969', 'EN', '2014-09-07 18:13:00.969', 'Denmark', 1, 1, 338, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (342, 'O4', '2014-09-07 18:13:00.969', 'EN', '2014-09-07 18:13:00.969', 'Iceland', 1, 1, 338, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (351, 'O1', '2014-09-07 18:13:01.016', 'EN', '2014-09-07 18:13:01.016', 'Vatican City', 1, 1, 350, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (352, 'O2', '2014-09-07 18:13:01.016', 'EN', '2014-09-07 18:13:01.016', 'Roma', 1, 1, 350, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (353, 'O3', '2014-09-07 18:13:01.016', 'EN', '2014-09-07 18:13:01.016', 'Helsinki', 1, 1, 350, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (354, 'O4', '2014-09-07 18:13:01.016', 'EN', '2014-09-07 18:13:01.016', 'Viena', 1, 1, 350, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (385, 'O1', '2014-09-07 18:13:01.141', 'EN', '2014-09-07 18:13:01.141', 'Barcelona', 1, 1, 384, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (386, 'O2', '2014-09-07 18:13:01.141', 'EN', '2014-09-07 18:13:01.141', 'Lisboa', 1, 1, 384, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (387, 'O3', '2014-09-07 18:13:01.141', 'EN', '2014-09-07 18:13:01.141', 'Genoa', 1, 1, 384, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (388, 'O4', '2014-09-07 18:13:01.141', 'EN', '2014-09-07 18:13:01.141', 'Roma', 1, 1, 384, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (395, 'O1', '2014-09-07 18:13:01.173', 'EN', '2014-09-07 18:13:01.173', 'Portuguese Empire', 1, 1, 394, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (396, 'O2', '2014-09-07 18:13:01.173', 'EN', '2014-09-07 18:13:01.173', 'British Empire', 1, 1, 394, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (397, 'O3', '2014-09-07 18:13:01.173', 'EN', '2014-09-07 18:13:01.173', 'Spanish Empire', 1, 1, 394, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (398, 'O4', '2014-09-07 18:13:01.173', 'EN', '2014-09-07 18:13:01.173', 'Dutch Empire', 1, 1, 394, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (407, 'O1', '2014-09-07 18:13:01.22', 'EN', '2014-09-07 18:13:01.22', 'Adolph Hitler', 1, 1, 406, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (408, 'O2', '2014-09-07 18:13:01.22', 'EN', '2014-09-07 18:13:01.22', 'Napoleon', 1, 1, 406, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (409, 'O3', '2014-09-07 18:13:01.22', 'EN', '2014-09-07 18:13:01.22', 'Philip 2th King of Spain', 1, 1, 406, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (410, 'O4', '2014-09-07 18:13:01.22', 'EN', '2014-09-07 18:13:01.22', 'Julius Caesar', 1, 1, 406, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (451, 'O1', '2014-09-07 18:13:01.508', 'EN', '2014-09-07 18:13:01.508', 'Norway', 1, 1, 450, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (452, 'O2', '2014-09-07 18:13:01.509', 'EN', '2014-09-07 18:13:01.509', 'Sweden', 1, 1, 450, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (453, 'O3', '2014-09-07 18:13:01.509', 'EN', '2014-09-07 18:13:01.509', 'Denmark', 1, 1, 450, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (454, 'O4', '2014-09-07 18:13:01.509', 'EN', '2014-09-07 18:13:01.509', 'Iceland', 1, 1, 450, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (507, 'O1', '2014-09-07 18:13:01.653', 'EN', '2014-09-07 18:13:01.653', 'Portuguese Empire', 1, 1, 506, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (508, 'O2', '2014-09-07 18:13:01.653', 'EN', '2014-09-07 18:13:01.653', 'British Empire', 1, 1, 506, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (509, 'O3', '2014-09-07 18:13:01.653', 'EN', '2014-09-07 18:13:01.653', 'Spanish Empire', 1, 1, 506, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (510, 'O4', '2014-09-07 18:13:01.653', 'EN', '2014-09-07 18:13:01.653', 'Dutch Empire', 1, 1, 506, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (566, 'O1', '2014-09-07 18:13:01.887', 'EN', '2014-09-07 18:13:01.887', 'Agree strongly', 1, 1, 565, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (567, 'O2', '2014-09-07 18:13:01.887', 'EN', '2014-09-07 18:13:01.887', 'Agree somewhat', 1, 1, 565, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (568, 'O3', '2014-09-07 18:13:01.887', 'EN', '2014-09-07 18:13:01.887', 'Neither agree nor disagree', 1, 1, 565, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (569, 'O4', '2014-09-07 18:13:01.887', 'EN', '2014-09-07 18:13:01.887', 'Disagree somewhat', 1, 1, 565, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (570, 'O5', '2014-09-07 18:13:01.887', 'EN', '2014-09-07 18:13:01.887', 'Agree strongly', 1, 1, 565, 4);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (571, 'O6', '2014-09-07 18:13:01.887', 'EN', '2014-09-07 18:13:01.887', 'Disagree strongly', 1, 1, 565, 5);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (363, 'O1', '2014-09-07 18:13:01.063', 'EN', '2014-09-07 18:13:01.063', 'Westphalia', 1, 1, 362, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (364, 'O2', '2014-09-07 18:13:01.063', 'EN', '2014-09-07 18:13:01.063', 'Rome', 1, 1, 362, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (365, 'O3', '2014-09-07 18:13:01.063', 'EN', '2014-09-07 18:13:01.063', 'Brussels', 1, 1, 362, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (366, 'O4', '2014-09-07 18:13:01.063', 'EN', '2014-09-07 18:13:01.063', 'Versailles', 1, 1, 362, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (475, 'O1', '2014-09-07 18:13:01.583', 'EN', '2014-09-07 18:13:01.583', 'Westphalia', 1, 1, 474, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (476, 'O2', '2014-09-07 18:13:01.584', 'EN', '2014-09-07 18:13:01.584', 'Rome', 1, 1, 474, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (477, 'O3', '2014-09-07 18:13:01.584', 'EN', '2014-09-07 18:13:01.584', 'Brussels', 1, 1, 474, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (478, 'O4', '2014-09-07 18:13:01.584', 'EN', '2014-09-07 18:13:01.584', 'Versailles', 1, 1, 474, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (373, 'O1', '2014-09-07 18:13:01.095', 'EN', '2014-09-07 18:13:01.095', 'Norway', 1, 1, 372, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (374, 'O2', '2014-09-07 18:13:01.095', 'EN', '2014-09-07 18:13:01.095', 'Poland', 1, 1, 372, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (375, 'O3', '2014-09-07 18:13:01.095', 'EN', '2014-09-07 18:13:01.095', 'Macedonia', 1, 1, 372, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (376, 'O4', '2014-09-07 18:13:01.095', 'EN', '2014-09-07 18:13:01.095', 'Chipre', 1, 1, 372, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (463, 'O1', '2014-09-07 18:13:01.549', 'EN', '2014-09-07 18:13:01.549', 'Vatican City', 1, 1, 462, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (464, 'O2', '2014-09-07 18:13:01.549', 'EN', '2014-09-07 18:13:01.549', 'Roma', 1, 1, 462, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (465, 'O3', '2014-09-07 18:13:01.549', 'EN', '2014-09-07 18:13:01.549', 'Helsinki', 1, 1, 462, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (466, 'O4', '2014-09-07 18:13:01.55', 'EN', '2014-09-07 18:13:01.55', 'Viena', 1, 1, 462, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (497, 'O1', '2014-09-07 18:13:01.637', 'EN', '2014-09-07 18:13:01.637', 'Barcelona', 1, 1, 496, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (498, 'O2', '2014-09-07 18:13:01.637', 'EN', '2014-09-07 18:13:01.637', 'Lisboa', 1, 1, 496, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (499, 'O3', '2014-09-07 18:13:01.637', 'EN', '2014-09-07 18:13:01.637', 'Genoa', 1, 1, 496, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (500, 'O4', '2014-09-07 18:13:01.637', 'EN', '2014-09-07 18:13:01.637', 'Roma', 1, 1, 496, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (519, 'O1', '2014-09-07 18:13:01.684', 'EN', '2014-09-07 18:13:01.684', 'Adolph Hitler', 1, 1, 518, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (520, 'O2', '2014-09-07 18:13:01.684', 'EN', '2014-09-07 18:13:01.684', 'Napoleon', 1, 1, 518, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (521, 'O3', '2014-09-07 18:13:01.7', 'EN', '2014-09-07 18:13:01.7', 'Philip 2th King of Spain', 1, 1, 518, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (522, 'O4', '2014-09-07 18:13:01.7', 'EN', '2014-09-07 18:13:01.7', 'Julius Caesar', 1, 1, 518, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (555, 'O1', '2014-09-07 18:13:01.856', 'EN', '2014-09-07 18:13:01.856', 'Agree strongly', 1, 1, 554, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (556, 'O2', '2014-09-07 18:13:01.856', 'EN', '2014-09-07 18:13:01.856', 'Agree somewhat', 1, 1, 554, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (557, 'O3', '2014-09-07 18:13:01.856', 'EN', '2014-09-07 18:13:01.856', 'Neither agree nor disagree', 1, 1, 554, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (558, 'O4', '2014-09-07 18:13:01.856', 'EN', '2014-09-07 18:13:01.856', 'Disagree somewhat', 1, 1, 554, 3);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (559, 'O5', '2014-09-07 18:13:01.856', 'EN', '2014-09-07 18:13:01.856', 'Agree strongly', 1, 1, 554, 4);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (560, 'O6', '2014-09-07 18:13:01.856', 'EN', '2014-09-07 18:13:01.856', 'Disagree strongly', 1, 1, 554, 5);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (485, 'O1', '2014-09-07 18:13:01.59', 'EN', '2014-09-07 18:13:01.59', 'Norway', 1, 1, 484, 0);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (486, 'O2', '2014-09-07 18:13:01.59', 'EN', '2014-09-07 18:13:01.59', 'Poland', 1, 1, 484, 1);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (487, 'O3', '2014-09-07 18:13:01.59', 'EN', '2014-09-07 18:13:01.59', 'Macedonia', 1, 1, 484, 2);
+INSERT INTO question_option (id, code, created_date, language, last_modified_date, title, createdby_id, lastmodifiedby_id, question_id, order_in_question) VALUES (488, 'O4', '2014-09-07 18:13:01.606', 'EN', '2014-09-07 18:13:01.606', 'Chipre', 1, 1, 484, 3);
 
 
 --
--- TOC entry 2210 (class 0 OID 65747)
--- Dependencies: 186
+-- TOC entry 2372 (class 0 OID 91177)
+-- Dependencies: 194
 -- Data for Name: question_option_translation; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (28, 'ES', 'Noruega', 23);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (29, 'ES', 'Suecia', 24);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (30, 'ES', 'Dinamarca', 25);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (31, 'ES', 'Islandia', 26);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (40, 'ES', 'Ciudad del Vaticano', 35);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (41, 'ES', 'Roma', 36);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (42, 'ES', 'Helsinki', 37);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (43, 'ES', 'Viena', 38);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (52, 'ES', 'Westphalia', 47);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (53, 'ES', 'Roma', 48);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (54, 'ES', 'Bruselas', 49);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (55, 'ES', 'Islandia', 50);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (62, 'ES', 'Noruega', 57);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (63, 'ES', 'Polonia', 58);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (64, 'ES', 'Macedonia', 59);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (65, 'ES', 'Chipre', 60);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (74, 'ES', 'Barcelona', 69);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (75, 'ES', 'Lisboa', 70);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (76, 'ES', 'Genova', 71);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (77, 'ES', 'Roma', 72);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (84, 'ES', 'Imperio Portugues', 79);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (85, 'ES', 'Imperio Británico', 80);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (86, 'ES', 'Imperio Español', 81);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (87, 'ES', 'Imperio Holandés', 82);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (96, 'ES', 'Adolfo Hitler', 91);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (97, 'ES', 'Napoleón', 92);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (98, 'ES', 'Felipe II', 93);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (99, 'ES', 'Julio Cesar', 94);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (137, 'ES', 'Noruega', 132);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (138, 'ES', 'Suecia', 133);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (139, 'ES', 'Dinamarca', 134);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (140, 'ES', 'Islandia', 135);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (149, 'ES', 'Ciudad del Vaticano', 144);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (150, 'ES', 'Roma', 145);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (151, 'ES', 'Helsinki', 146);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (152, 'ES', 'Viena', 147);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (161, 'ES', 'Westphalia', 156);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (162, 'ES', 'Roma', 157);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (163, 'ES', 'Bruselas', 158);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (164, 'ES', 'Islandia', 159);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (171, 'ES', 'Noruega', 166);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (172, 'ES', 'Polonia', 167);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (173, 'ES', 'Macedonia', 168);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (174, 'ES', 'Chipre', 169);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (183, 'ES', 'Barcelona', 178);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (184, 'ES', 'Lisboa', 179);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (185, 'ES', 'Genova', 180);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (186, 'ES', 'Roma', 181);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (193, 'ES', 'Imperio Portugues', 188);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (194, 'ES', 'Imperio Británico', 189);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (195, 'ES', 'Imperio Español', 190);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (196, 'ES', 'Imperio Holandés', 191);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (205, 'ES', 'Adolfo Hitler', 200);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (206, 'ES', 'Napoleón', 201);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (207, 'ES', 'Felipe II', 202);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (208, 'ES', 'Julio Cesar', 203);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (246, 'ES', 'Noruega', 241);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (247, 'ES', 'Suecia', 242);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (248, 'ES', 'Dinamarca', 243);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (249, 'ES', 'Islandia', 244);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (258, 'ES', 'Ciudad del Vaticano', 253);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (259, 'ES', 'Roma', 254);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (260, 'ES', 'Helsinki', 255);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (261, 'ES', 'Viena', 256);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (270, 'ES', 'Westphalia', 265);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (271, 'ES', 'Roma', 266);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (272, 'ES', 'Bruselas', 267);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (273, 'ES', 'Islandia', 268);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (280, 'ES', 'Noruega', 275);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (281, 'ES', 'Polonia', 276);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (282, 'ES', 'Macedonia', 277);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (283, 'ES', 'Chipre', 278);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (292, 'ES', 'Barcelona', 287);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (293, 'ES', 'Lisboa', 288);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (294, 'ES', 'Genova', 289);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (295, 'ES', 'Roma', 290);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (302, 'ES', 'Imperio Portugues', 297);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (303, 'ES', 'Imperio Británico', 298);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (304, 'ES', 'Imperio Español', 299);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (305, 'ES', 'Imperio Holandés', 300);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (314, 'ES', 'Adolfo Hitler', 309);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (315, 'ES', 'Napoleón', 310);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (316, 'ES', 'Felipe II', 311);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (317, 'ES', 'Julio Cesar', 312);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (355, 'ES', 'Noruega', 350);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (356, 'ES', 'Suecia', 351);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (357, 'ES', 'Dinamarca', 352);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (358, 'ES', 'Islandia', 353);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (367, 'ES', 'Ciudad del Vaticano', 362);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (368, 'ES', 'Roma', 363);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (369, 'ES', 'Helsinki', 364);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (370, 'ES', 'Viena', 365);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (379, 'ES', 'Westphalia', 374);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (380, 'ES', 'Roma', 375);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (381, 'ES', 'Bruselas', 376);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (382, 'ES', 'Islandia', 377);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (389, 'ES', 'Noruega', 384);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (390, 'ES', 'Polonia', 385);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (391, 'ES', 'Macedonia', 386);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (392, 'ES', 'Chipre', 387);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (401, 'ES', 'Barcelona', 396);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (402, 'ES', 'Lisboa', 397);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (403, 'ES', 'Genova', 398);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (404, 'ES', 'Roma', 399);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (411, 'ES', 'Imperio Portugues', 406);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (412, 'ES', 'Imperio Británico', 407);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (413, 'ES', 'Imperio Español', 408);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (414, 'ES', 'Imperio Holandés', 409);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (423, 'ES', 'Adolfo Hitler', 418);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (424, 'ES', 'Napoleón', 419);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (425, 'ES', 'Felipe II', 420);
-INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (426, 'ES', 'Julio Cesar', 421);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (29, 'ES', 'Noruega', 24);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (30, 'ES', 'Suecia', 25);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (31, 'ES', 'Dinamarca', 26);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (32, 'ES', 'Islandia', 27);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (41, 'ES', 'Ciudad del Vaticano', 36);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (42, 'ES', 'Roma', 37);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (43, 'ES', 'Helsinki', 38);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (44, 'ES', 'Viena', 39);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (53, 'ES', 'Westphalia', 48);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (54, 'ES', 'Roma', 49);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (55, 'ES', 'Bruselas', 50);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (56, 'ES', 'Islandia', 51);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (63, 'ES', 'Noruega', 58);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (64, 'ES', 'Polonia', 59);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (65, 'ES', 'Macedonia', 60);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (66, 'ES', 'Chipre', 61);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (75, 'ES', 'Barcelona', 70);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (76, 'ES', 'Lisboa', 71);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (77, 'ES', 'Genova', 72);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (78, 'ES', 'Roma', 73);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (85, 'ES', 'Imperio Portugues', 80);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (86, 'ES', 'Imperio Británico', 81);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (87, 'ES', 'Imperio Español', 82);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (88, 'ES', 'Imperio Holandés', 83);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (97, 'ES', 'Adolfo Hitler', 92);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (98, 'ES', 'Napoleón', 93);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (99, 'ES', 'Felipe II', 94);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (100, 'ES', 'Julio Cesar', 95);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (141, 'ES', 'Noruega', 136);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (142, 'ES', 'Suecia', 137);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (143, 'ES', 'Dinamarca', 138);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (144, 'ES', 'Islandia', 139);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (153, 'ES', 'Ciudad del Vaticano', 148);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (154, 'ES', 'Roma', 149);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (155, 'ES', 'Helsinki', 150);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (156, 'ES', 'Viena', 151);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (165, 'ES', 'Westphalia', 160);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (166, 'ES', 'Roma', 161);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (167, 'ES', 'Bruselas', 162);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (168, 'ES', 'Islandia', 163);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (175, 'ES', 'Noruega', 170);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (176, 'ES', 'Polonia', 171);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (177, 'ES', 'Macedonia', 172);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (178, 'ES', 'Chipre', 173);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (187, 'ES', 'Barcelona', 182);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (188, 'ES', 'Lisboa', 183);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (189, 'ES', 'Genova', 184);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (190, 'ES', 'Roma', 185);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (197, 'ES', 'Imperio Portugues', 192);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (198, 'ES', 'Imperio Británico', 193);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (199, 'ES', 'Imperio Español', 194);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (200, 'ES', 'Imperio Holandés', 195);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (209, 'ES', 'Adolfo Hitler', 204);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (210, 'ES', 'Napoleón', 205);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (211, 'ES', 'Felipe II', 206);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (212, 'ES', 'Julio Cesar', 207);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (232, 'ES', 'Noruega', 227);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (233, 'ES', 'Suecia', 228);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (234, 'ES', 'Dinamarca', 229);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (235, 'ES', 'Islandia', 230);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (244, 'ES', 'Ciudad del Vaticano', 239);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (245, 'ES', 'Roma', 240);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (246, 'ES', 'Helsinki', 241);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (247, 'ES', 'Viena', 242);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (256, 'ES', 'Westphalia', 251);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (257, 'ES', 'Roma', 252);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (258, 'ES', 'Bruselas', 253);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (259, 'ES', 'Islandia', 254);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (266, 'ES', 'Noruega', 261);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (267, 'ES', 'Polonia', 262);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (268, 'ES', 'Macedonia', 263);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (269, 'ES', 'Chipre', 264);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (278, 'ES', 'Barcelona', 273);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (279, 'ES', 'Lisboa', 274);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (280, 'ES', 'Genova', 275);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (281, 'ES', 'Roma', 276);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (288, 'ES', 'Imperio Portugues', 283);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (289, 'ES', 'Imperio Británico', 284);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (290, 'ES', 'Imperio Español', 285);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (291, 'ES', 'Imperio Holandés', 286);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (300, 'ES', 'Adolfo Hitler', 295);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (301, 'ES', 'Napoleón', 296);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (302, 'ES', 'Felipe II', 297);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (303, 'ES', 'Julio Cesar', 298);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (344, 'ES', 'Noruega', 339);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (345, 'ES', 'Suecia', 340);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (346, 'ES', 'Dinamarca', 341);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (347, 'ES', 'Islandia', 342);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (356, 'ES', 'Ciudad del Vaticano', 351);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (357, 'ES', 'Roma', 352);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (358, 'ES', 'Helsinki', 353);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (359, 'ES', 'Viena', 354);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (368, 'ES', 'Westphalia', 363);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (369, 'ES', 'Roma', 364);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (370, 'ES', 'Bruselas', 365);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (371, 'ES', 'Islandia', 366);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (378, 'ES', 'Noruega', 373);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (379, 'ES', 'Polonia', 374);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (380, 'ES', 'Macedonia', 375);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (381, 'ES', 'Chipre', 376);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (390, 'ES', 'Barcelona', 385);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (391, 'ES', 'Lisboa', 386);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (392, 'ES', 'Genova', 387);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (393, 'ES', 'Roma', 388);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (400, 'ES', 'Imperio Portugues', 395);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (401, 'ES', 'Imperio Británico', 396);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (402, 'ES', 'Imperio Español', 397);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (403, 'ES', 'Imperio Holandés', 398);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (412, 'ES', 'Adolfo Hitler', 407);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (413, 'ES', 'Napoleón', 408);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (414, 'ES', 'Felipe II', 409);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (415, 'ES', 'Julio Cesar', 410);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (456, 'ES', 'Noruega', 451);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (457, 'ES', 'Suecia', 452);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (458, 'ES', 'Dinamarca', 453);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (459, 'ES', 'Islandia', 454);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (468, 'ES', 'Ciudad del Vaticano', 463);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (469, 'ES', 'Roma', 464);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (470, 'ES', 'Helsinki', 465);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (471, 'ES', 'Viena', 466);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (480, 'ES', 'Westphalia', 475);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (481, 'ES', 'Roma', 476);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (482, 'ES', 'Bruselas', 477);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (483, 'ES', 'Islandia', 478);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (490, 'ES', 'Noruega', 485);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (491, 'ES', 'Polonia', 486);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (492, 'ES', 'Macedonia', 487);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (493, 'ES', 'Chipre', 488);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (502, 'ES', 'Barcelona', 497);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (503, 'ES', 'Lisboa', 498);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (504, 'ES', 'Genova', 499);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (505, 'ES', 'Roma', 500);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (512, 'ES', 'Imperio Portugues', 507);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (513, 'ES', 'Imperio Británico', 508);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (514, 'ES', 'Imperio Español', 509);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (515, 'ES', 'Imperio Holandés', 510);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (524, 'ES', 'Adolfo Hitler', 519);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (525, 'ES', 'Napoleón', 520);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (526, 'ES', 'Felipe II', 521);
+INSERT INTO question_option_translation (id, language, title, questionoption_id) VALUES (527, 'ES', 'Julio Cesar', 522);
 
 
 --
--- TOC entry 2211 (class 0 OID 65755)
--- Dependencies: 187
+-- TOC entry 2373 (class 0 OID 91185)
+-- Dependencies: 195
 -- Data for Name: question_translation; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (21, 'ES', NULL, '¿Cuál es la capital de Malta?', 20);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (27, 'ES', NULL, '¿Qué pais tiene como capital Copenague?', 22);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (33, 'ES', NULL, '¿Cuantas capitales europeas fueron fundadas por los romanos?', 32);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (39, 'ES', NULL, '¿Cuantas de estas capitales Europeas estan al pie de un río?', 34);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (45, 'ES', NULL, '¿Que significa UE?', 44);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (51, 'ES', NULL, '¿Dónde fue firmado el trado de Comunidad Económica Europea, precedesor de Unión Europea?', 46);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (61, 'ES', NULL, '¿Cuál de estos países europeos pertenecen a la zona euro?', 56);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (67, 'ES', NULL, '¿Cuantos marcos finlandeses necesitas para tener un euro?', 66);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (73, 'ES', NULL, '¿Dónde nació Cristobal Colón?', 68);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (83, 'ES', NULL, '¿Cuál fue el imperio más grande en el siglo XVI?', 78);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (89, 'ES', NULL, '¿Qué nacionalidad tenía el primer Europeo que llegó a Congo?', 88);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (95, 'ES', NULL, '¿Cual de estos hombres causó más bajas en Europa?', 90);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (130, 'ES', NULL, '¿Cuál es la capital de Malta?', 129);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (136, 'ES', NULL, '¿Qué pais tiene como capital Copenague?', 131);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (142, 'ES', NULL, '¿Cuantas capitales europeas fueron fundadas por los romanos?', 141);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (148, 'ES', NULL, '¿Cuantas de estas capitales Europeas estan al pie de un río?', 143);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (154, 'ES', NULL, '¿Que significa UE?', 153);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (160, 'ES', NULL, '¿Dónde fue firmado el trado de Comunidad Económica Europea, precedesor de Unión Europea?', 155);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (170, 'ES', NULL, '¿Cuál de estos países europeos pertenecen a la zona euro?', 165);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (176, 'ES', NULL, '¿Cuantos marcos finlandeses necesitas para tener un euro?', 175);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (182, 'ES', NULL, '¿Dónde nació Cristobal Colón?', 177);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (192, 'ES', NULL, '¿Cuál fue el imperio más grande en el siglo XVI?', 187);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (198, 'ES', NULL, '¿Qué nacionalidad tenía el primer Europeo que llegó a Congo?', 197);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (204, 'ES', NULL, '¿Cual de estos hombres causó más bajas en Europa?', 199);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (239, 'ES', NULL, '¿Cuál es la capital de Malta?', 238);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (245, 'ES', NULL, '¿Qué pais tiene como capital Copenague?', 240);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (251, 'ES', NULL, '¿Cuantas capitales europeas fueron fundadas por los romanos?', 250);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (257, 'ES', NULL, '¿Cuantas de estas capitales Europeas estan al pie de un río?', 252);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (263, 'ES', NULL, '¿Que significa UE?', 262);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (269, 'ES', NULL, '¿Dónde fue firmado el trado de Comunidad Económica Europea, precedesor de Unión Europea?', 264);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (279, 'ES', NULL, '¿Cuál de estos países europeos pertenecen a la zona euro?', 274);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (285, 'ES', NULL, '¿Cuantos marcos finlandeses necesitas para tener un euro?', 284);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (291, 'ES', NULL, '¿Dónde nació Cristobal Colón?', 286);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (301, 'ES', NULL, '¿Cuál fue el imperio más grande en el siglo XVI?', 296);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (307, 'ES', NULL, '¿Qué nacionalidad tenía el primer Europeo que llegó a Congo?', 306);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (313, 'ES', NULL, '¿Cual de estos hombres causó más bajas en Europa?', 308);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (348, 'ES', NULL, '¿Cuál es la capital de Malta?', 347);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (354, 'ES', NULL, '¿Qué pais tiene como capital Copenague?', 349);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (360, 'ES', NULL, '¿Cuantas capitales europeas fueron fundadas por los romanos?', 359);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (366, 'ES', NULL, '¿Cuantas de estas capitales Europeas estan al pie de un río?', 361);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (372, 'ES', NULL, '¿Que significa UE?', 371);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (378, 'ES', NULL, '¿Dónde fue firmado el trado de Comunidad Económica Europea, precedesor de Unión Europea?', 373);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (388, 'ES', NULL, '¿Cuál de estos países europeos pertenecen a la zona euro?', 383);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (394, 'ES', NULL, '¿Cuantos marcos finlandeses necesitas para tener un euro?', 393);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (400, 'ES', NULL, '¿Dónde nació Cristobal Colón?', 395);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (410, 'ES', NULL, '¿Cuál fue el imperio más grande en el siglo XVI?', 405);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (416, 'ES', NULL, '¿Qué nacionalidad tenía el primer Europeo que llegó a Congo?', 415);
-INSERT INTO question_translation (id, language, help, title, question_id) VALUES (422, 'ES', NULL, '¿Cual de estos hombres causó más bajas en Europa?', 417);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (22, 'ES', NULL, '¿Cuál es la capital de Malta?', 21);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (28, 'ES', NULL, '¿Qué pais tiene como capital Copenague?', 23);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (34, 'ES', NULL, '¿Cuantas capitales europeas fueron fundadas por los romanos?', 33);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (40, 'ES', NULL, '¿Cuantas de estas capitales Europeas estan al pie de un río?', 35);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (46, 'ES', NULL, '¿Que significa UE?', 45);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (52, 'ES', NULL, '¿Dónde fue firmado el trado de Comunidad Económica Europea, precedesor de Unión Europea?', 47);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (62, 'ES', NULL, '¿Cuál de estos países europeos pertenecen a la zona euro?', 57);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (68, 'ES', NULL, '¿Cuantos marcos finlandeses necesitas para tener un euro?', 67);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (74, 'ES', NULL, '¿Dónde nació Cristobal Colón?', 69);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (84, 'ES', NULL, '¿Cuál fue el imperio más grande en el siglo XVI?', 79);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (90, 'ES', NULL, '¿Qué nacionalidad tenía el primer Europeo que llegó a Congo?', 89);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (96, 'ES', NULL, '¿Cual de estos hombres causó más bajas en Europa?', 91);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (134, 'ES', NULL, '¿Cuál es la capital de Malta?', 133);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (140, 'ES', NULL, '¿Qué pais tiene como capital Copenague?', 135);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (146, 'ES', NULL, '¿Cuantas capitales europeas fueron fundadas por los romanos?', 145);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (152, 'ES', NULL, '¿Cuantas de estas capitales Europeas estan al pie de un río?', 147);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (158, 'ES', NULL, '¿Que significa UE?', 157);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (164, 'ES', NULL, '¿Dónde fue firmado el trado de Comunidad Económica Europea, precedesor de Unión Europea?', 159);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (174, 'ES', NULL, '¿Cuál de estos países europeos pertenecen a la zona euro?', 169);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (180, 'ES', NULL, '¿Cuantos marcos finlandeses necesitas para tener un euro?', 179);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (186, 'ES', NULL, '¿Dónde nació Cristobal Colón?', 181);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (196, 'ES', NULL, '¿Cuál fue el imperio más grande en el siglo XVI?', 191);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (202, 'ES', NULL, '¿Qué nacionalidad tenía el primer Europeo que llegó a Congo?', 201);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (208, 'ES', NULL, '¿Cual de estos hombres causó más bajas en Europa?', 203);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (225, 'ES', NULL, '¿Cuál es la capital de Malta?', 224);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (231, 'ES', NULL, '¿Qué pais tiene como capital Copenague?', 226);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (237, 'ES', NULL, '¿Cuantas capitales europeas fueron fundadas por los romanos?', 236);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (243, 'ES', NULL, '¿Cuantas de estas capitales Europeas estan al pie de un río?', 238);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (249, 'ES', NULL, '¿Que significa UE?', 248);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (255, 'ES', NULL, '¿Dónde fue firmado el trado de Comunidad Económica Europea, precedesor de Unión Europea?', 250);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (265, 'ES', NULL, '¿Cuál de estos países europeos pertenecen a la zona euro?', 260);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (271, 'ES', NULL, '¿Cuantos marcos finlandeses necesitas para tener un euro?', 270);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (277, 'ES', NULL, '¿Dónde nació Cristobal Colón?', 272);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (287, 'ES', NULL, '¿Cuál fue el imperio más grande en el siglo XVI?', 282);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (293, 'ES', NULL, '¿Qué nacionalidad tenía el primer Europeo que llegó a Congo?', 292);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (299, 'ES', NULL, '¿Cual de estos hombres causó más bajas en Europa?', 294);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (337, 'ES', NULL, '¿Cuál es la capital de Malta?', 336);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (343, 'ES', NULL, '¿Qué pais tiene como capital Copenague?', 338);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (349, 'ES', NULL, '¿Cuantas capitales europeas fueron fundadas por los romanos?', 348);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (355, 'ES', NULL, '¿Cuantas de estas capitales Europeas estan al pie de un río?', 350);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (361, 'ES', NULL, '¿Que significa UE?', 360);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (367, 'ES', NULL, '¿Dónde fue firmado el trado de Comunidad Económica Europea, precedesor de Unión Europea?', 362);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (377, 'ES', NULL, '¿Cuál de estos países europeos pertenecen a la zona euro?', 372);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (383, 'ES', NULL, '¿Cuantos marcos finlandeses necesitas para tener un euro?', 382);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (389, 'ES', NULL, '¿Dónde nació Cristobal Colón?', 384);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (399, 'ES', NULL, '¿Cuál fue el imperio más grande en el siglo XVI?', 394);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (405, 'ES', NULL, '¿Qué nacionalidad tenía el primer Europeo que llegó a Congo?', 404);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (411, 'ES', NULL, '¿Cual de estos hombres causó más bajas en Europa?', 406);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (449, 'ES', NULL, '¿Cuál es la capital de Malta?', 448);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (455, 'ES', NULL, '¿Qué pais tiene como capital Copenague?', 450);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (461, 'ES', NULL, '¿Cuantas capitales europeas fueron fundadas por los romanos?', 460);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (467, 'ES', NULL, '¿Cuantas de estas capitales Europeas estan al pie de un río?', 462);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (473, 'ES', NULL, '¿Que significa UE?', 472);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (479, 'ES', NULL, '¿Dónde fue firmado el trado de Comunidad Económica Europea, precedesor de Unión Europea?', 474);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (489, 'ES', NULL, '¿Cuál de estos países europeos pertenecen a la zona euro?', 484);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (495, 'ES', NULL, '¿Cuantos marcos finlandeses necesitas para tener un euro?', 494);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (501, 'ES', NULL, '¿Dónde nació Cristobal Colón?', 496);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (511, 'ES', NULL, '¿Cuál fue el imperio más grande en el siglo XVI?', 506);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (517, 'ES', NULL, '¿Qué nacionalidad tenía el primer Europeo que llegó a Congo?', 516);
+INSERT INTO question_translation (id, language, help, title, question_id) VALUES (523, 'ES', NULL, '¿Cual de estos hombres causó más bajas en Europa?', 518);
 
 
 --
--- TOC entry 2220 (class 0 OID 66088)
--- Dependencies: 196
--- Data for Name: questionnair_answers_12; Type: TABLE DATA; Schema: public; Owner: postgres
+-- TOC entry 2350 (class 0 OID 86504)
+-- Dependencies: 172
+-- Data for Name: questionnaire_answers_12; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO questionnair_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO questionnair_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO questionnair_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO questionnair_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (51, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (52, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (53, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (54, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (101, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (102, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (103, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (104, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (151, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (152, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (153, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (154, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (201, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (202, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (203, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (204, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (251, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (252, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (253, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (254, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (301, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (302, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (303, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (304, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (351, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (352, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (353, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (354, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (401, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (402, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (403, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (404, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_12 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (451, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 
 --
--- TOC entry 2221 (class 0 OID 66096)
+-- TOC entry 2351 (class 0 OID 86512)
+-- Dependencies: 173
+-- Data for Name: questionnaire_answers_124; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 2352 (class 0 OID 86520)
+-- Dependencies: 174
+-- Data for Name: questionnaire_answers_215; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (51, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (52, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (53, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (54, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (101, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (102, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (103, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (104, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (151, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (152, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (153, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (154, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (201, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (202, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (203, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (204, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_215 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (251, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+
+--
+-- TOC entry 2353 (class 0 OID 86528)
+-- Dependencies: 175
+-- Data for Name: questionnaire_answers_327; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (51, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (52, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (53, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (54, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (101, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (102, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (103, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (104, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (151, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (152, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (153, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (154, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (201, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (202, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (203, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_327 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (204, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+
+--
+-- TOC entry 2354 (class 0 OID 86536)
+-- Dependencies: 176
+-- Data for Name: questionnaire_answers_439; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (51, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (52, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (53, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (54, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (101, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (102, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (103, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (104, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (151, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (152, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (153, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (154, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (201, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (202, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (203, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_answers_439 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (204, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+
+--
+-- TOC entry 2355 (class 0 OID 86544)
+-- Dependencies: 177
+-- Data for Name: questionnaire_answers_551; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 2375 (class 0 OID 91198)
 -- Dependencies: 197
--- Data for Name: questionnair_answers_121; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: questionnaire_definition_permission; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO questionnair_answers_121 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO questionnair_answers_121 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO questionnair_answers_121 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO questionnair_answers_121 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_definition_permission (id, mask, role_id, user_id, target_id) VALUES (13, 3, NULL, 1, 12);
+INSERT INTO questionnaire_definition_permission (id, mask, role_id, user_id, target_id) VALUES (125, 3, NULL, 1, 124);
+INSERT INTO questionnaire_definition_permission (id, mask, role_id, user_id, target_id) VALUES (216, 3, NULL, 1, 215);
+INSERT INTO questionnaire_definition_permission (id, mask, role_id, user_id, target_id) VALUES (328, 3, NULL, 1, 327);
+INSERT INTO questionnaire_definition_permission (id, mask, role_id, user_id, target_id) VALUES (440, 3, NULL, 1, 439);
+INSERT INTO questionnaire_definition_permission (id, mask, role_id, user_id, target_id) VALUES (552, 3, NULL, 1, 551);
 
 
 --
--- TOC entry 2222 (class 0 OID 66106)
+-- TOC entry 2371 (class 0 OID 91169)
+-- Dependencies: 193
+-- Data for Name: questionnaire_definition_translation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO questionnaire_definition_translation (id, language, description, end_text, title, welcome_text, questionnairedefinition_id) VALUES (14, 'ES', '¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!', NULL, 'Test de conocimiento general sobre Europa', 'Gracias por participar en este cuestionario', 12);
+INSERT INTO questionnaire_definition_translation (id, language, description, end_text, title, welcome_text, questionnairedefinition_id) VALUES (126, 'ES', '¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!', NULL, 'Test de conocimiento general sobre Europa', 'Gracias por participar en este cuestionario', 124);
+INSERT INTO questionnaire_definition_translation (id, language, description, end_text, title, welcome_text, questionnairedefinition_id) VALUES (217, 'ES', '¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!', NULL, 'Test de conocimiento general sobre Europa', 'Gracias por participar en este cuestionario', 215);
+INSERT INTO questionnaire_definition_translation (id, language, description, end_text, title, welcome_text, questionnairedefinition_id) VALUES (329, 'ES', '¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!', NULL, 'Test de conocimiento general sobre Europa', 'Gracias por participar en este cuestionario', 327);
+INSERT INTO questionnaire_definition_translation (id, language, description, end_text, title, welcome_text, questionnairedefinition_id) VALUES (441, 'ES', '¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!', NULL, 'Test de conocimiento general sobre Europa', 'Gracias por participar en este cuestionario', 439);
+
+
+--
+-- TOC entry 2376 (class 0 OID 91203)
 -- Dependencies: 198
--- Data for Name: questionnair_answers_230; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: questionnaire_permission; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO questionnair_answers_230 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO questionnair_answers_230 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO questionnair_answers_230 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO questionnair_answers_230 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (105, 3, NULL, 6, 104);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (109, 3, NULL, 4, 108);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (113, 3, NULL, 10, 112);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (117, 3, NULL, 8, 116);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (308, 3, NULL, 6, 307);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (312, 3, NULL, 4, 311);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (316, 3, NULL, 10, 315);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (320, 3, NULL, 8, 319);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (420, 3, NULL, 6, 419);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (424, 3, NULL, 4, 423);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (428, 3, NULL, 10, 427);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (432, 3, NULL, 8, 431);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (532, 3, NULL, 6, 531);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (536, 3, NULL, 4, 535);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (540, 3, NULL, 10, 539);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (544, 3, NULL, 8, 543);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (604, 3, NULL, 601, 603);
+INSERT INTO questionnaire_permission (id, mask, role_id, user_id, target_id) VALUES (613, 3, NULL, 610, 612);
 
 
 --
--- TOC entry 2223 (class 0 OID 66114)
+-- TOC entry 2377 (class 0 OID 91208)
 -- Dependencies: 199
--- Data for Name: questionnair_answers_339; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: research_permission; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO questionnair_answers_339 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO questionnair_answers_339 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO questionnair_answers_339 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO questionnair_answers_339 (id, q1, q10, q11, q12, q2, q3, q4_o1, q4_o2, q4_o3, q4_o4, q5, q6, q7_o1, q7_o2, q7_o3, q7_o4, q8, q9) VALUES (4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-
-
---
--- TOC entry 2224 (class 0 OID 66122)
--- Dependencies: 200
--- Data for Name: questionnair_answers_448; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
+INSERT INTO research_permission (id, mask, role_id, user_id, target_id) VALUES (120, 7, NULL, 1, 103);
+INSERT INTO research_permission (id, mask, role_id, user_id, target_id) VALUES (123, 7, NULL, 1, 121);
+INSERT INTO research_permission (id, mask, role_id, user_id, target_id) VALUES (323, 7, NULL, 1, 306);
+INSERT INTO research_permission (id, mask, role_id, user_id, target_id) VALUES (326, 7, NULL, 1, 324);
+INSERT INTO research_permission (id, mask, role_id, user_id, target_id) VALUES (435, 7, NULL, 1, 418);
+INSERT INTO research_permission (id, mask, role_id, user_id, target_id) VALUES (438, 7, NULL, 1, 436);
+INSERT INTO research_permission (id, mask, role_id, user_id, target_id) VALUES (547, 7, NULL, 1, 530);
+INSERT INTO research_permission (id, mask, role_id, user_id, target_id) VALUES (550, 7, NULL, 1, 548);
+INSERT INTO research_permission (id, mask, role_id, user_id, target_id) VALUES (588, 7, NULL, 1, 586);
 
 
 --
--- TOC entry 2209 (class 0 OID 65739)
--- Dependencies: 185
--- Data for Name: questionnair_definition_translation; Type: TABLE DATA; Schema: public; Owner: postgres
+-- TOC entry 2348 (class 0 OID 85804)
+-- Dependencies: 170
+-- Data for Name: schema_version; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO questionnair_definition_translation (id, language, description, end_text, title, welcome_text, questionnairdefinition_id) VALUES (13, 'ES', '¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!', NULL, 'Test de conocimiento general sobre Europa', 'Gracias por participar en este cuestionario', 12);
-INSERT INTO questionnair_definition_translation (id, language, description, end_text, title, welcome_text, questionnairdefinition_id) VALUES (122, 'ES', '¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!', NULL, 'Test de conocimiento general sobre Europa', 'Gracias por participar en este cuestionario', 121);
-INSERT INTO questionnair_definition_translation (id, language, description, end_text, title, welcome_text, questionnairdefinition_id) VALUES (231, 'ES', '¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!', NULL, 'Test de conocimiento general sobre Europa', 'Gracias por participar en este cuestionario', 230);
-INSERT INTO questionnair_definition_translation (id, language, description, end_text, title, welcome_text, questionnairdefinition_id) VALUES (340, 'ES', '¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!', NULL, 'Test de conocimiento general sobre Europa', 'Gracias por participar en este cuestionario', 339);
 
 
 --
--- TOC entry 2219 (class 0 OID 66083)
--- Dependencies: 195
+-- TOC entry 2349 (class 0 OID 86499)
+-- Dependencies: 171
 -- Data for Name: sequence; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO sequence (seq_name, seq_count) VALUES ('questionnair_answers_12_seq', 50);
-INSERT INTO sequence (seq_name, seq_count) VALUES ('questionnair_answers_121_seq', 50);
-INSERT INTO sequence (seq_name, seq_count) VALUES ('questionnair_answers_230_seq', 50);
-INSERT INTO sequence (seq_name, seq_count) VALUES ('questionnair_answers_339_seq', 50);
-INSERT INTO sequence (seq_name, seq_count) VALUES ('SEQ_GEN', 500);
-INSERT INTO sequence (seq_name, seq_count) VALUES ('questionnair_answers_448_seq', 0);
+INSERT INTO sequence (seq_name, seq_count) VALUES ('questionnaire_answers_124_seq', 0);
+INSERT INTO sequence (seq_name, seq_count) VALUES ('SEQ_GEN', 650);
+INSERT INTO sequence (seq_name, seq_count) VALUES ('questionnaire_answers_551_seq', 0);
+INSERT INTO sequence (seq_name, seq_count) VALUES ('questionnaire_answers_12_seq', 500);
+INSERT INTO sequence (seq_name, seq_count) VALUES ('questionnaire_answers_215_seq', 300);
+INSERT INTO sequence (seq_name, seq_count) VALUES ('questionnaire_answers_327_seq', 250);
+INSERT INTO sequence (seq_name, seq_count) VALUES ('questionnaire_answers_439_seq', 250);
 
 
 --
--- TOC entry 2217 (class 0 OID 65803)
--- Dependencies: 193
+-- TOC entry 2383 (class 0 OID 91256)
+-- Dependencies: 205
 -- Data for Name: user_group; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -755,19 +980,29 @@ INSERT INTO user_group (group_id, user_id) VALUES (3, 8);
 
 
 --
--- TOC entry 2218 (class 0 OID 65808)
--- Dependencies: 194
+-- TOC entry 2378 (class 0 OID 91213)
+-- Dependencies: 200
+-- Data for Name: user_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO user_permission (id, mask, role_id, user_id, target_id) VALUES (2, 7, NULL, 1, 1);
+INSERT INTO user_permission (id, mask, role_id, user_id, target_id) VALUES (5, 7, NULL, 1, 4);
+INSERT INTO user_permission (id, mask, role_id, user_id, target_id) VALUES (7, 7, NULL, 1, 6);
+INSERT INTO user_permission (id, mask, role_id, user_id, target_id) VALUES (9, 7, NULL, 1, 8);
+INSERT INTO user_permission (id, mask, role_id, user_id, target_id) VALUES (11, 7, NULL, 1, 10);
+INSERT INTO user_permission (id, mask, role_id, user_id, target_id) VALUES (602, 7, NULL, NULL, 601);
+INSERT INTO user_permission (id, mask, role_id, user_id, target_id) VALUES (611, 7, NULL, NULL, 610);
+
+
+--
+-- TOC entry 2384 (class 0 OID 91261)
+-- Dependencies: 206
 -- Data for Name: user_role; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO user_role (role_id, user_id) VALUES (2, 1);
-INSERT INTO user_role (role_id, user_id) VALUES (5, 4);
-INSERT INTO user_role (role_id, user_id) VALUES (7, 6);
-INSERT INTO user_role (role_id, user_id) VALUES (9, 8);
-INSERT INTO user_role (role_id, user_id) VALUES (11, 10);
 
 
--- Completed on 2014-08-11 09:17:32
+-- Completed on 2014-09-07 18:22:48
 
 --
 -- PostgreSQL database dump complete

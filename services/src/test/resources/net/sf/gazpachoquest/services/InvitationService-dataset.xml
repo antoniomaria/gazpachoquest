@@ -1,53 +1,52 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <role id="1" description="Specific role for support support " name="User Role" />
-  <role id="5" description="Specific role for Tyrion Lannister " name="User Role" />
-  <role id="7" description="Specific role for Jon Snow " name="User Role" />
-  <role id="9" description="Specific role for Arya Stark " name="User Role" />
-  <role id="11" description="Specific role for Catelyn Stark " name="User Role" />
-  
-  <users id="1" api_key="9BNONCVRNG4JPBQ" secret="L0LTMJ1XAMEY13FT27MWZMQX1LWK8I1L" created_date="2014-04-19 10:35:10.713" email="support@gazpacho.net" given_names="support" last_modified_date="2014-04-19 10:35:10.713"
-    surname="support" username="support" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="1" />
-  <users id="3" api_key="B868UOHUTKUDWXM" secret="IQO27YUZO8NJ7RADIK6SJ9BQZNYP4EMO" created_date="2014-04-19 10:35:11.206" email="tyrion.lannister@kingslanding.net" gender="M" given_names="Tyrion"
-    last_modified_date="2014-04-19 10:35:11.206" preferred_language="EN" surname="Lannister" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="5" />
-  <users id="4" api_key="HLME1JSCHZMVBH3" secret="39JYOYPWYR46R38OAOTVRZJMEXNJ46HL" created_date="2014-04-19 10:35:11.222" email="jon.snow@nightswatch.net" gender="M" given_names="Jon"
-    last_modified_date="2014-04-19 10:35:11.222" preferred_language="ES" surname="Snow" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="7" />
-  <users id="5" api_key="YRG6AEJX2VTKFGA" secret="ZBH1QL28VZEE00XHH7N4R16Q8ZRURU5P" created_date="2014-04-19 10:35:11.244" email="arya.stark@winterfell.net" gender="F" given_names="Arya"
-    last_modified_date="2014-04-19 10:35:11.244" surname="Stark" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="9" />
-  <users id="6" api_key="PCN1SYW4X977UE7" secret="EQSV5ARQY1LLHKDLO8EF9RMBKV9T95K5" created_date="2014-04-19 10:35:11.263" email="catelyn.stark@winterfell.net" gender="F" given_names="Catelyn"
-    last_modified_date="2014-04-19 10:35:11.263" preferred_language="FI" surname="Stark" createdby_id="1" lastmodifiedby_id="1" defaultrole_id="11" />
-  
-    
-  <research id="57" created_date="2014-04-19 10:35:13.867" expiration_date="2014-04-19 10:35:13.812" last_modified_date="2014-04-19 10:35:13.867"
-    name="New private Questionnair Sample QuestionnairDefinition started" start_date="2014-04-19 10:35:13.813" type="P"
-    createdby_id="1" lastmodifiedby_id="1" />
+  <groups />
+
+
+  <users id="1" api_key="9BNONCVRNG4JPBQ" secret="L0LTMJ1XAMEY13FT27MWZMQX1LWK8I1L" created_date="2014-04-19 10:35:10.713" email="support@gazpacho.net"
+    given_names="support" last_modified_date="2014-04-19 10:35:10.713" surname="support" username="support" createdby_id="1" lastmodifiedby_id="1" />
+  <users id="3" api_key="B868UOHUTKUDWXM" secret="IQO27YUZO8NJ7RADIK6SJ9BQZNYP4EMO" created_date="2014-04-19 10:35:11.206" email="tyrion.lannister@kingslanding.net"
+    gender="M" given_names="Tyrion" last_modified_date="2014-04-19 10:35:11.206" preferred_language="EN" surname="Lannister" createdby_id="1" lastmodifiedby_id="1" />
+  <users id="4" api_key="HLME1JSCHZMVBH3" secret="39JYOYPWYR46R38OAOTVRZJMEXNJ46HL" created_date="2014-04-19 10:35:11.222" email="jon.snow@nightswatch.net"
+    gender="M" given_names="Jon" last_modified_date="2014-04-19 10:35:11.222" preferred_language="ES" surname="Snow" createdby_id="1" lastmodifiedby_id="1" />
+  <users id="5" api_key="YRG6AEJX2VTKFGA" secret="ZBH1QL28VZEE00XHH7N4R16Q8ZRURU5P" created_date="2014-04-19 10:35:11.244" email="arya.stark@winterfell.net"
+    gender="F" given_names="Arya" last_modified_date="2014-04-19 10:35:11.244" surname="Stark" createdby_id="1" lastmodifiedby_id="1" />
+  <users id="6" api_key="PCN1SYW4X977UE7" secret="EQSV5ARQY1LLHKDLO8EF9RMBKV9T95K5" created_date="2014-04-19 10:35:11.263" email="catelyn.stark@winterfell.net"
+    gender="F" given_names="Catelyn" last_modified_date="2014-04-19 10:35:11.263" preferred_language="FI" surname="Stark" createdby_id="1" lastmodifiedby_id="1" />
+  <user_group />
+  <user_permission />
+
+  <research id="57" created_date="2014-04-19 10:35:14.444" expiration_date="2014-04-19 10:35:13.812" last_modified_date="2014-04-19 10:35:13.867"
+    name="New private questionnaire Sample questionnaireDefinition started" start_date="2014-04-19 10:35:13.813" type="P" createdby_id="1" lastmodifiedby_id="1" />
   <research id="78" created_date="2014-04-19 10:35:14.444" expiration_date="2014-04-19 10:35:14.419" last_modified_date="2014-04-19 10:35:14.444"
-    name="New open Questionnair Sample QuestionnairDefinition started" start_date="2014-04-19 10:35:14.42" type="O"
-    createdby_id="1" lastmodifiedby_id="1" />
+    name="New open questionnaire Sample questionnaireDefinition started" start_date="2014-04-19 10:35:14.42" type="O" createdby_id="1" lastmodifiedby_id="1" />
+  <research_permission />
   <invitation id="61" type="P" status="A" token="NHAZXA4UK9" research_id="57" respondent_id="6" />
   <invitation id="66" type="P" status="A" token="6DBG41LE89" research_id="57" respondent_id="5" />
   <invitation id="71" type="P" status="A" token="I5BB43NDO6" research_id="57" respondent_id="4" />
   <invitation id="76" type="P" status="A" token="90POKHJE16" research_id="57" respondent_id="3" />
   <invitation id="79" type="A" status="A" token="SYZPVHYMLK" research_id="78" />
 
-  <questionnair_definition />
-  <questionnair_definition_translation/>
-  <question_group />
+  <questionnaire_definition />
+  <questionnaire_definition_translation />
+  <questionnaire_definition_permission />
+
+  <section />
+  <section_translation />
+
   <question />
   <question_translation />
   <question_option />
   <question_option_translation />
-  <questionnair />
-  <groups />
-  <user_group />
+  <questionnaire />
+  <questionnaire_permission />
+
+
   <mail_message_template />
   <mail_message_template_translation />
-  <questionnair_definition_translation />
+  <questionnaire_definition_translation />
+  <role />
   <user_role />
-  <group_role/>
-  
-  <permission />
-
 
   <label_set />
   <label />

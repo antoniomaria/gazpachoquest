@@ -28,7 +28,7 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
 
     private String replyTo;
 
-    private QuestionnairDefinitionDTO questionnairDefinition;
+    private QuestionnaireDefinitionDTO questionnairDefinition;
 
     private MailMessageTemplateType type;
 
@@ -54,7 +54,7 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
         return replyTo;
     }
 
-    public QuestionnairDefinitionDTO getQuestionnairDefinition() {
+    public QuestionnaireDefinitionDTO getQuestionnairDefinition() {
         return questionnairDefinition;
     }
 
@@ -80,7 +80,7 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
         this.replyTo = replyTo;
     }
 
-    public void setQuestionnairDefinition(final QuestionnairDefinitionDTO survey) {
+    public void setQuestionnairDefinition(final QuestionnaireDefinitionDTO survey) {
         this.questionnairDefinition = survey;
     }
 
@@ -98,7 +98,7 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
 
         public Builder replyTo(String replyTo);
 
-        public Builder questionnairDefinition(QuestionnairDefinitionDTO survey);
+        public Builder questionnairDefinition(QuestionnaireDefinitionDTO survey);
 
         public Builder type(MailMessageTemplateType type);
 
@@ -125,7 +125,7 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
         private Language language;
         private MailMessageTemplateLanguageSettingsDTO languageSettings;
         private String replyTo;
-        private QuestionnairDefinitionDTO questionnairDefinition;
+        private QuestionnaireDefinitionDTO questionnairDefinition;
         private MailMessageTemplateType type;
 
         @Override
@@ -177,7 +177,7 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
         }
 
         @Override
-        public Builder questionnairDefinition(final QuestionnairDefinitionDTO survey) {
+        public Builder questionnairDefinition(final QuestionnaireDefinitionDTO survey) {
             this.questionnairDefinition = survey;
             return this;
         }

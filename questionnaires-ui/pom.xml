@@ -14,7 +14,7 @@
   <properties>
     <arquillian.version>1.0.0.Alpha1</arquillian.version>
     <version.shrinkwrap.resolvers>2.1.0-alpha-1</version.shrinkwrap.resolvers>
-    <vaadin.version>7.3.0.beta1</vaadin.version>
+    <vaadin.version>7.3.0</vaadin.version>
     <vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
   </properties>
   <dependencyManagement>
@@ -90,7 +90,9 @@
       <groupId>org.apache.openejb</groupId>
       <artifactId>javaee-api</artifactId>
       <version>6.0-5</version>
+      <scope>provided</scope>
     </dependency>
+    
     <!-- Arquillian vaadin -->
     <dependency>
       <groupId>org.jboss.arquillian.junit</groupId>
@@ -119,6 +121,10 @@
         <exclusion>
           <artifactId>activemq-jdbc-store</artifactId>
           <groupId>org.apache.activemq</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>slf4j-jdk14</artifactId>
+          <groupId>org.slf4j</groupId>
         </exclusion>
       </exclusions>
     </dependency>

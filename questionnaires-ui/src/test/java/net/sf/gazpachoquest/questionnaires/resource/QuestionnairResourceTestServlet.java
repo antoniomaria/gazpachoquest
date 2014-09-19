@@ -20,14 +20,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.gazpachoquest.api.QuestionnairResource;
+import net.sf.gazpachoquest.api.QuestionnaireResource;
 
 @WebServlet(name = "testServlet", urlPatterns = { "/testServlet" })
 public class QuestionnairResourceTestServlet extends HttpServlet {
 
     @Inject
     @GazpachoResource
-    private QuestionnairResource questionnairResource;
+    private QuestionnaireResource questionnaireResource;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

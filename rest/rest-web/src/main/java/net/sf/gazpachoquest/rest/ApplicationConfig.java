@@ -13,8 +13,8 @@ import net.sf.gazpachoquest.rest.exception.ShiroExceptionHandler;
 import net.sf.gazpachoquest.rest.filter.LoginShiroFilter;
 import net.sf.gazpachoquest.rest.filter.LogoutShiroFilter;
 import net.sf.gazpachoquest.rest.resources.AuthenticationResource;
-import net.sf.gazpachoquest.rest.resources.QuestionnairDefinitionResource;
-import net.sf.gazpachoquest.rest.resources.QuestionnairResource;
+import net.sf.gazpachoquest.rest.resources.QuestionnaireDefinitionResource;
+import net.sf.gazpachoquest.rest.resources.QuestionnaireResource;
 import net.sf.gazpachoquest.rest.resources.UserResource;
 import net.sf.gazpachoquest.rest.support.JacksonContextResolver;
 
@@ -33,8 +33,8 @@ public class ApplicationConfig extends Application {
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<Class<?>>();
         classes.add(AuthenticationResource.class);
-        classes.add(QuestionnairDefinitionResource.class);
-        classes.add(QuestionnairResource.class);
+        classes.add(QuestionnaireDefinitionResource.class);
+        classes.add(QuestionnaireResource.class);
         classes.add(UserResource.class);
 
         classes.add(ApiListingResourceJSON.class);

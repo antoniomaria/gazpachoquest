@@ -6,7 +6,7 @@ import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
-import net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb;
+import net.sf.gazpachoquest.domain.core.SectionBreadcrumb;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;
@@ -37,21 +37,21 @@ public class BreadcrumbRepositoryTest {
     private BreadcrumbRepository repository;
 
     @Autowired
-    private QuestionnairRepository questionnairRepository;
+    private QuestionnaireRepository questionnaireRepository;
 
     @Test
-    public void findByQuestionnairIdAndPosition() {
-        Integer questionnairId = 58;
+    public void findByquestionnaireIdAndPosition() {
+        Integer questionnaireId = 58;
         Integer position = 1;
-        Breadcrumb next = repository.findByQuestionnairIdAndPosition(questionnairId, position);
+        Breadcrumb next = repository.findByQuestionnaireIdAndPosition(questionnaireId, position);
         assertThat(next).isEqualTo(QuestionBreadcrumb.with().id(3).build());
     }
 
     @Test
     public void findLastAndPositionTest() {
-        Integer questionnairId = 58;
-        List<Object[]> next = repository.findLastAndPosition(questionnairId);
+        Integer questionnaireId = 58;
+        List<Object[]> next = repository.findLastAndPosition(questionnaireId);
         assertThat(next).hasSize(1);
-        assertThat(next.get(0)).isEqualTo(new Object[] { QuestionGroupBreadcrumb.with().id(3).build(), 1 });
+        assertThat(next.get(0)).isEqualTo(new Object[] { SectionBreadcrumb.with().id(3).build(), 1 });
     }
 }

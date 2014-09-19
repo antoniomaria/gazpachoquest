@@ -30,8 +30,8 @@ public class BreadcrumbServiceTest {
 
     @Test
     public void countByQuestionnair() {
-        Integer questionnairId = 58;
-        Integer count = breadcrumbService.countByQuestionnair(questionnairId);
+        Integer questionnaireId = 58;
+        Integer count = breadcrumbService.countByQuestionnair(questionnaireId);
         assertThat(count).isEqualTo(3);
     }
 

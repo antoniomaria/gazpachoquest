@@ -13,10 +13,12 @@ package net.sf.gazpachoquest.services.core.impl;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.support.Persistable;
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.support.GenericRepository;
 import net.sf.gazpachoquest.services.PersistenceService;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -69,6 +71,11 @@ public abstract class AbstractPersistenceService<T extends Persistable> implemen
     @Override
     public void deleteByExample(final T entity, final SearchParameters searchParameters) {
         repository.deleteByExample(entity, searchParameters);
+    }
+
+    @Override
+    public User getAuthenticatedUser() {
+        return (User) SecurityUtils.getSubject().getPrincipal();
     }
 
 }

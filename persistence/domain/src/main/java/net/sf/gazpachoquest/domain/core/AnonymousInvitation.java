@@ -25,18 +25,18 @@ public class AnonymousInvitation extends Invitation {
     private static final long serialVersionUID = -9203813369476903640L;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    protected QuestionnairDefinition questionnairDefinition;
+    protected QuestionnaireDefinition questionnaireDefinition;
 
     public AnonymousInvitation() {
         super();
     }
 
-    public QuestionnairDefinition getQuestionnairDefinition() {
-        return questionnairDefinition;
+    public QuestionnaireDefinition getQuestionnairDefinition() {
+        return questionnaireDefinition;
     }
 
-    public void setQuestionnairDefinition(QuestionnairDefinition questionnairDefinition) {
-        this.questionnairDefinition = questionnairDefinition;
+    public void setQuestionnairDefinition(QuestionnaireDefinition questionnaireDefinition) {
+        this.questionnaireDefinition = questionnaireDefinition;
     }
 
     public static Builder with() {
@@ -48,7 +48,7 @@ public class AnonymousInvitation extends Invitation {
         private String token;
         private Research research;
         private InvitationStatus status;
-        private QuestionnairDefinition questionnairDefinition;
+        private QuestionnaireDefinition questionnaireDefinition;
 
         @Override
         public Builder token(String token) {
@@ -68,8 +68,8 @@ public class AnonymousInvitation extends Invitation {
             return this;
         }
 
-        public Builder questionnairDefinition(QuestionnairDefinition questionnairDefinition) {
-            this.questionnairDefinition = questionnairDefinition;
+        public Builder questionnaireDefinition(QuestionnaireDefinition questionnaireDefinition) {
+            this.questionnaireDefinition = questionnaireDefinition;
             return this;
         }
 
@@ -81,7 +81,7 @@ public class AnonymousInvitation extends Invitation {
 
     private AnonymousInvitation(Builder builder) {
         super(builder.token, builder.research, builder.status);
-        questionnairDefinition = builder.questionnairDefinition;
+        questionnaireDefinition = builder.questionnaireDefinition;
     }
 
 }

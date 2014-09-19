@@ -23,7 +23,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 @MappedSuperclass
-public abstract class AbstractAuditable extends AbstractPersistable {
+public abstract class AbstractAuditable extends AbstractPersistable implements Auditable {
 
     private static final long serialVersionUID = 6507308518779364972L;
 

@@ -34,8 +34,8 @@ import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 
-@Path("runtime/questionnairs")
-@Api(value = "/runtime/questionnairs", description = "Runtime Questionnairs Interface")
+@Path("runtime/questionnaires")
+@Api(value = "/runtime/questionnaires", description = "Runtime questionnaires Interface")
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
 // https://github.com/jurberg/rest-security/
@@ -57,32 +57,32 @@ public class QuestionnairResource {
     @RolesAllowed("respondent")
     @ApiOperation(value = "Get questionnair definition", notes = "More notes about this method", response = QuestionnairDTO.class)
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
-            @ApiResponse(code = 200, message = "Questionnairs available") })
+            @ApiResponse(code = 200, message = "questionnaires available") })
     public Response getDefinition(@Context
-    final SecurityContext context, @PathParam("questionnairId")
+    final SecurityContext context, @PathParam("questionnaireId")
     @ApiParam(value = "Questionnair id")
-    Integer questionnairId) {
+    Integer questionnaireId) {
         logger.debug("New petition received from {}", context.getUserPrincipal().getName());
         Participant respondent = (Participant) context.getUserPrincipal();
 
-        QuestionnairDTO questionnairDTO = questionnairFacade.findOne(questionnairId);
+        QuestionnairDTO questionnairDTO = questionnairFacade.findOne(questionnaireId);
         logger.debug("Respondent {} retriving Questionnair Definition = {}", respondent.getId(),
                 questionnairDTO.getId());
         return Response.ok(questionnairDTO).build();
     }
 
     @GET
-    @Path("/{questionnairId}/page")
+    @Path("/{questionnaireId}/page")
     @RolesAllowed("respondent")
     @ApiOperation(value = "Fetch the next, current or previous page for the given questionnair", notes = "More notes about this method", response = PageDTO.class)
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
-            @ApiResponse(code = 200, message = "Questionnairs available") })
+            @ApiResponse(code = 200, message = "questionnaires available") })
     public Response getPage(
             @Context
             final SecurityContext context,
-            @PathParam("questionnairId")
+            @PathParam("questionnaireId")
             @ApiParam(value = "Questionnair id")
-            Integer questionnairId,
+            Integer questionnaireId,
             @ApiParam(name = "mode", value = "Refers how many questions are returned by page.", required = true, defaultValue = "GROUP_BY_GROUP", allowableValues = "QUESTION_BY_QUESTION,GROUP_BY_GROUP", allowMultiple = true)
             @QueryParam("mode")
             String modeStr,
@@ -92,26 +92,26 @@ public class QuestionnairResource {
         logger.debug("New petition received from {}", context.getUserPrincipal().getName());
         RenderingMode mode = RenderingMode.fromString(modeStr);
         BrowsingAction action = BrowsingAction.fromString(actionStr);
-        PageDTO page = questionnairFacade.resolvePage(questionnairId, mode, action);
+        PageDTO page = questionnairFacade.resolvePage(questionnaireId, mode, action);
         return Response.ok(page).build();
     }
 
     @POST
-    @Path("/{questionnairId}/answer")
+    @Path("/{questionnaireId}/answer")
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Allow the respondent save answers")
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
             @ApiResponse(code = 200, message = "Answer saved correctly") })
     public Response saveAnswer(@ApiParam(value = "Answer", required = true)
     Answer answer, @Context
-    final SecurityContext context, @PathParam("questionnairId")
+    final SecurityContext context, @PathParam("questionnaireId")
     @ApiParam(value = "Questionnair id", required = true)
-    Integer questionnairId, @QueryParam("questionCode")
+    Integer questionnaireId, @QueryParam("questionCode")
     @ApiParam(value = "Question Code", required = true)
     String questionCode) {
         logger.debug("New attempt for saving answer from {}", context.getUserPrincipal().getName());
         try {
-            questionnairFacade.saveAnswer(questionnairId, questionCode, answer);
+            questionnairFacade.saveAnswer(questionnaireId, questionCode, answer);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);

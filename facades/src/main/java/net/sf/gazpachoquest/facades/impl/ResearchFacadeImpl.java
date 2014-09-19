@@ -10,10 +10,10 @@ package net.sf.gazpachoquest.facades.impl;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.sf.gazpachoquest.domain.core.QuestionnairDefinition;
+import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.user.User;
-import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
+import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.ResearchDTO;
 import net.sf.gazpachoquest.dto.UserDTO;
 import net.sf.gazpachoquest.facades.ResearchFacade;
@@ -21,6 +21,7 @@ import net.sf.gazpachoquest.services.ResearchService;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,6 +31,7 @@ public class ResearchFacadeImpl implements ResearchFacade {
     private Mapper mapper;
 
     @Autowired
+    @Qualifier("researchServiceImpl")
     private ResearchService researchService;
 
     @Override
@@ -52,13 +54,13 @@ public class ResearchFacadeImpl implements ResearchFacade {
             respondents.add(respondent);
         }
 
-        Set<QuestionnairDefinition> questionnairDefinitions = new HashSet<QuestionnairDefinition>();
-        for (QuestionnairDefinitionDTO questionnairDefinitionDTO : research.getQuestionnairDefinitions()) {
-            QuestionnairDefinition questionnairDefinition = mapper.map(questionnairDefinitionDTO,
-                    QuestionnairDefinition.class);
-            questionnairDefinitions.add(questionnairDefinition);
+        Set<QuestionnaireDefinition> questionnaireDefinitions = new HashSet<QuestionnaireDefinition>();
+        for (QuestionnaireDefinitionDTO questionnaireDefinitionDTO : research.getQuestionnaireDefinitions()) {
+            QuestionnaireDefinition questionnaireDefinition = mapper.map(questionnaireDefinitionDTO,
+                    QuestionnaireDefinition.class);
+            questionnaireDefinitions.add(questionnaireDefinition);
         }
-        entity = researchService.save(entity, questionnairDefinitions, respondents);
+        entity = researchService.save(entity, questionnaireDefinitions, respondents);
         return mapper.map(entity, ResearchDTO.class);
     }
 }

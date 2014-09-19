@@ -44,7 +44,7 @@ public class JPARealmTest {
 
         String date = DateFormatUtils.SMTP_DATETIME_FORMAT.format(new Date());
 
-        String resource = "/questionnairs/58";
+        String resource = "/questionnaires/58";
         String method = "GET";
         String stringToSign = new StringBuilder().append(method).append(" ").append(resource).append("\n").append(date)
                 .toString();
@@ -59,7 +59,7 @@ public class JPARealmTest {
         assertThat(subject.getPrincipal()).isInstanceOf(User.class);
         assertThat(subject.getPrincipal()).isEqualTo(User.with().id(3).build());
 
-        boolean isPermitted = subject.isPermitted("questionnair:read:58");
+        boolean isPermitted = subject.isPermitted("questionnaire:read:58");
         assertThat(isPermitted).isTrue();
     }
 

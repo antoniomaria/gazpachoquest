@@ -22,12 +22,12 @@ import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 
 public interface QuestionRepository extends GenericRepository<Question> {
-    @Query("select q from QuestionGroup qg join qg.questions q where qg.id = :questionGroupId order by index(q)")
-    List<Question> findByQuestionGroupId(@Param("questionGroupId")
-    Integer questionGroupId);
+    @Query("select q from Section qg join qg.questions q where qg.id = :sectionId order by index(q)")
+    List<Question> findBySectionId(@Param("sectionId")
+    Integer sectionId);
 
-    @Query("select q from QuestionnairDefinition s join s.questionGroups qg join fetch qg.questions q where s.id = :questionnairDefinition order by index(qg),index(q)")
-    List<Question> findByQuestionnairId(@Param("questionnairDefinition")
+    @Query("select q from QuestionnaireDefinition s join s.sections qg join fetch qg.questions q where s.id = :questionnaireDefinition order by index(qg),index(q)")
+    List<Question> findByQuestionnaireId(@Param("questionnaireDefinition")
     Integer questionnairDefinitionId);
 
     @Query("select q from Question q where q.id in :questionIds")
@@ -41,13 +41,13 @@ public interface QuestionRepository extends GenericRepository<Question> {
     List<Question> findInList(@Param("questionIds")
     List<Integer> questionIds);
 
-    @Query("select q from QuestionGroup qg join qg.questions q where qg.id = :questionGroupId and index(q) = :position")
-    Question findOneByPositionInQuestionGroup(@Param("questionGroupId")
-    Integer questionGroupId, @Param("position")
+    @Query("select q from Section qg join qg.questions q where qg.id = :sectionId and index(q) = :position")
+    Question findOneByPositionInSection(@Param("sectionId")
+    Integer sectionId, @Param("position")
     Integer position);
 
-    @Query("select index(q) from QuestionGroup qg join qg.questions q where q.id = :questionId")
-    Integer findPositionInQuestionGroup(@Param("questionId")
+    @Query("select index(q) from Section qg join qg.questions q where q.id = :questionId")
+    Integer findPositionInSection(@Param("questionId")
     Integer questionId);
 
 }

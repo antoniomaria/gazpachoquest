@@ -26,7 +26,7 @@ public class ExporterRunner {
                 "exporter-jpa-context.xml", "services-context.xml", "facades-context.xml", "components-context.xml");
         Exporter exporter = ctx.getBean(Exporter.class);
         StopWatch stopWatch = new StopWatch();
-        logger.info("Exporting questionnair definition");
+        logger.info("Exporting questionnaire definition");
         stopWatch.start();
         exporter.doExport();
         stopWatch.stop();

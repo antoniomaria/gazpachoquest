@@ -13,6 +13,7 @@ package net.sf.gazpachoquest.services;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.support.Persistable;
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 
 import org.springframework.data.domain.Page;
@@ -35,4 +36,6 @@ public interface PersistenceService<T extends Persistable> {
     void deleteByExample(T entity, SearchParameters searchParameters);
 
     Page<T> findPaginated(Integer pageNumber, Integer size);
+
+    User getAuthenticatedUser();
 }

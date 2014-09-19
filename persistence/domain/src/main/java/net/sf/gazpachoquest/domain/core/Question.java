@@ -35,7 +35,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionTranslation;
 import net.sf.gazpachoquest.domain.support.AbstractLocalizable;
-import net.sf.gazpachoquest.domain.support.QuestionnairElement;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 
@@ -44,8 +43,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 @Entity
-public class Question extends AbstractLocalizable<QuestionTranslation, QuestionLanguageSettings> implements
-        QuestionnairElement {
+public class Question extends AbstractLocalizable<QuestionTranslation, QuestionLanguageSettings> {
 
     private static final long serialVersionUID = -4372634574851905803L;
 
@@ -62,7 +60,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     private Question parent;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private QuestionGroup questionGroup;
+    private Section section;
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderColumn(name = "order_in_subquestions")
@@ -126,20 +124,20 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         this.parent = parent;
     }
 
-    public QuestionGroup getQuestionGroup() {
-        return questionGroup;
+    public Section getSection() {
+        return section;
     }
 
-    public Integer getQuestionGroupId() {
-        return questionGroup.getId();
+    public Integer getSectionId() {
+        return section.getId();
     }
 
     public Integer getQuestionnairDefinitionId() {
-        return questionGroup.getQuestionnairDefinitionId();
+        return section.getQuestionnairDefinitionId();
     }
 
-    public void setQuestionGroup(QuestionGroup questionGroup) {
-        this.questionGroup = questionGroup;
+    public void setSection(Section section) {
+        this.section = section;
     }
 
     public List<QuestionOption> getQuestionOptions() {
@@ -258,7 +256,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         private Integer id;
         private String code;
         private Question parent;
-        private QuestionGroup questionGroup;
+        private Section section;
         private Boolean required;
         private Boolean otherAllowed;
         private QuestionType type;
@@ -280,8 +278,8 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
             return this;
         }
 
-        public Builder questionGroup(QuestionGroup questionGroup) {
-            this.questionGroup = questionGroup;
+        public Builder section(Section section) {
+            this.section = section;
             return this;
         }
 
@@ -315,7 +313,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
             question.setId(id);
             question.code = code;
             question.parent = parent;
-            question.questionGroup = questionGroup;
+            question.section = section;
             question.required = required;
             question.otherAllowed = otherAllowed;
             question.type = type;

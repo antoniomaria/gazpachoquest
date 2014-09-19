@@ -1,7 +1,7 @@
 package net.sf.gazpachoquest.types;
 
 public enum RandomizationStrategy {
-    GROUPS_RANDOMIZATION("G"), QUESTIONS_RANDOMIZATION("Q"), NONE("N");
+    SECTIONS_RANDOMIZATION("S"), QUESTIONS_RANDOMIZATION("Q"), NONE("N");
 
     private final String code;
 

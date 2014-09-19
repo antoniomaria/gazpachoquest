@@ -7,7 +7,6 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
 
@@ -20,21 +19,11 @@ public class Role extends AbstractPersistable {
 
     private String description;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    private final Set<Permission> permissions = new HashSet<Permission>();
-
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private final Set<User> users = new HashSet<User>();
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private final Set<Group> groups = new HashSet<Group>();
-
     public Role() {
         super();
-    }
-
-    public Set<Group> getGroups() {
-        return Collections.unmodifiableSet(groups);
     }
 
     public Set<User> getUsers() {
@@ -49,10 +38,6 @@ public class Role extends AbstractPersistable {
         this.description = description;
     }
 
-    public Set<Permission> getPermissions() {
-        return Collections.unmodifiableSet(permissions);
-    }
-
     public String getName() {
         return name;
     }
@@ -61,17 +46,9 @@ public class Role extends AbstractPersistable {
         this.name = name;
     }
 
-    public void assignPermission(Permission permission) {
-        permissions.add(permission);
-        permission.setRole(this);
-    }
-
-    public void addUser(User user) {
+    public void assignUser(User user) {
         users.add(user);
-    }
-
-    public void addGroup(Group group) {
-        groups.add(group);
+        user.addRole(this);
     }
 
     public static Builder with() {

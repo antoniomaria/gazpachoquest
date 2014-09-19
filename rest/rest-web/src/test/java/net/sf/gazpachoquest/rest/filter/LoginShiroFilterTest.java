@@ -55,7 +55,7 @@ public class LoginShiroFilterTest {
 
         String date = DateFormatUtils.SMTP_DATETIME_FORMAT.format(new Date());
 
-        String resource = "/questionnairs/61";
+        String resource = "/questionnaires/61";
         String method = "GET";
         String stringToSign = new StringBuilder().append(method).append(" ").append(resource).append("\n").append(date)
                 .toString();

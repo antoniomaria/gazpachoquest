@@ -28,7 +28,7 @@ public class ResearchDTO extends AbstractIdentifiableDTO {
 
     private DateTime startDate;
 
-    private final Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<>();
+    private final Set<QuestionnaireDefinitionDTO> questionnaireDefinitions = new HashSet<>();
 
     private ResearchAccessType type;
 
@@ -76,12 +76,12 @@ public class ResearchDTO extends AbstractIdentifiableDTO {
         this.type = type;
     }
 
-    public void addQuestionnairDefinition(QuestionnairDefinitionDTO questionnairDefinition) {
-        questionnairDefinitions.add(questionnairDefinition);
+    public void addQuestionnaireDefinition(QuestionnaireDefinitionDTO questionnaireDefinition) {
+        questionnaireDefinitions.add(questionnaireDefinition);
     }
 
-    public Set<QuestionnairDefinitionDTO> getQuestionnairDefinitions() {
-        return Collections.unmodifiableSet(questionnairDefinitions);
+    public Set<QuestionnaireDefinitionDTO> getQuestionnaireDefinitions() {
+        return Collections.unmodifiableSet(questionnaireDefinitions);
     }
 
     public static Builder with() {

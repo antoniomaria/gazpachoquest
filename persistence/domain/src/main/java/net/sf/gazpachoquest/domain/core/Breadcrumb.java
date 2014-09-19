@@ -11,8 +11,11 @@
 package net.sf.gazpachoquest.domain.core;
 
 import javax.persistence.Basic;
+import javax.persistence.Convert;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -20,6 +23,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
+import net.sf.gazpachoquest.jpa.converter.RenderingModeConverter;
+import net.sf.gazpachoquest.types.RenderingMode;
 
 @Entity
 @Table(name = "breadcrumb")
@@ -30,7 +35,11 @@ public class Breadcrumb extends AbstractAuditable {
     private static final long serialVersionUID = 8807488300208839486L;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    protected Questionnair questionnair;
+    protected Questionnaire questionnaire;
+
+    @Enumerated(EnumType.STRING)
+    @Convert(converter = RenderingModeConverter.class)
+    protected RenderingMode renderingMode;
 
     @Basic
     protected Boolean last;
@@ -39,12 +48,12 @@ public class Breadcrumb extends AbstractAuditable {
         super();
     }
 
-    public Questionnair getQuestionnair() {
-        return questionnair;
+    public Questionnaire getQuestionnair() {
+        return questionnaire;
     }
 
-    public void setQuestionnair(Questionnair questionnair) {
-        this.questionnair = questionnair;
+    public void setQuestionnair(Questionnaire questionnaire) {
+        this.questionnaire = questionnaire;
     }
 
     public Boolean isLast() {
@@ -59,13 +68,21 @@ public class Breadcrumb extends AbstractAuditable {
         return new BuilderImpl();
     }
 
+    public RenderingMode getRenderingMode() {
+        return renderingMode;
+    }
+
+    public void setRenderingMode(RenderingMode renderingMode) {
+        this.renderingMode = renderingMode;
+    }
+
     public static class BuilderImpl {
         private Integer id;
-        private Questionnair questionnair;
+        private Questionnaire questionnaire;
         private Boolean last;
 
-        public BuilderImpl questionnair(Questionnair questionnair) {
-            this.questionnair = questionnair;
+        public BuilderImpl questionnaire(Questionnaire questionnaire) {
+            this.questionnaire = questionnaire;
             return this;
         }
 
@@ -82,7 +99,7 @@ public class Breadcrumb extends AbstractAuditable {
         public Breadcrumb build() {
             Breadcrumb breadcrumb = new Breadcrumb();
             breadcrumb.setId(id);
-            breadcrumb.questionnair = questionnair;
+            breadcrumb.questionnaire = questionnaire;
             breadcrumb.last = last;
             return breadcrumb;
         }

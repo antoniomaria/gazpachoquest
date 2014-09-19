@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import net.sf.gazpachoquest.api.QuestionnairResource;
+import net.sf.gazpachoquest.api.QuestionnaireResource;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -44,7 +44,7 @@ public class QuestionnairResourceInServletTest {
         String beansDescriptor = Descriptors.create(BeansDescriptor.class).exportAsString();
         return ShrinkWrap
                 .create(WebArchive.class, "test.war")
-                .addClasses(ResourceProducer.class, GazpachoResource.class, QuestionnairResource.class,
+                .addClasses(ResourceProducer.class, GazpachoResource.class, QuestionnaireResource.class,
                         QuestionnairResourceTestServlet.class)
                 .addAsWebInfResource(new StringAsset(beansDescriptor), "beans.xml");
     }

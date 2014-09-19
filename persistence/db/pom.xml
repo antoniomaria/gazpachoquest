@@ -21,11 +21,21 @@
       <groupId>com.mchange</groupId>
       <artifactId>c3p0</artifactId>
     </dependency>
-    
+
     <dependency>
       <groupId>com.jolbox</groupId>
       <artifactId>bonecp</artifactId>
       <version>0.8.0.RELEASE</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>guava</artifactId>
+          <groupId>com.google.guava</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>slf4j-api</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 </project>

@@ -15,9 +15,6 @@ public class SimpleAuditorAware implements AuditorAware<User> {
 
     @Override
     public User getCurrentAuditor() {
-        Integer userId = 1;
-        User auditor = new User();
-        auditor.setId(userId);
-        return auditor;
+        return User.with().id(1).build();
     }
 }

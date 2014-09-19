@@ -13,8 +13,8 @@ package net.sf.gazpachoquest.questionnaires.views.login;
 import java.util.Collections;
 import java.util.Locale;
 
-import net.sf.gazpachoquest.api.QuestionnairResource;
-import net.sf.gazpachoquest.questionnaires.views.QuestionnairView;
+import net.sf.gazpachoquest.api.QuestionnaireResource;
+import net.sf.gazpachoquest.questionnaires.views.QuestionnaireView;
 
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.slf4j.Logger;
@@ -144,8 +144,8 @@ public class OldLoginView extends CustomComponent implements View, Button.ClickL
     @Override
     public void buttonClick(ClickEvent event) {
         logger.info("Submitting login");
-        // List<QuestionnairDTO> questionnairs = questionnairResource.list();
-        // System.out.println(questionnairs);
+        // List<QuestionnaireDTO> questionnaires = questionnairResource.list();
+        // System.out.println(questionnaires);
         //
         // Validate the fields using the navigator. By using validors for the
         // fields we reduce the amount of queries we have to use to the database
@@ -158,7 +158,7 @@ public class OldLoginView extends CustomComponent implements View, Button.ClickL
         String invitation = invitationTextField.getValue();
         WrappedSession session = VaadinService.getCurrentRequest().getWrappedSession();
 
-        QuestionnairResource proxy = JAXRSClientFactory.create("", QuestionnairResource.class,
+        QuestionnaireResource proxy = JAXRSClientFactory.create("", QuestionnaireResource.class,
                 Collections.singletonList(new JacksonJsonProvider()), "respondent", invitation, null);
 
         //
@@ -173,7 +173,7 @@ public class OldLoginView extends CustomComponent implements View, Button.ClickL
             session.setAttribute("password", invitation);
 
             // Navigate to main view
-            getUI().getNavigator().navigateTo(QuestionnairView.NAME);
+            getUI().getNavigator().navigateTo(QuestionnaireView.NAME);
         } else {
             // Wrong password clear the password field and refocuses it
             invitationTextField.setValue(null);

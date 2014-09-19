@@ -27,8 +27,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import net.sf.gazpachoquest.domain.core.Questionnair;
-import net.sf.gazpachoquest.domain.support.AbstractAuditable;
+import net.sf.gazpachoquest.domain.core.Questionnaire;
+import net.sf.gazpachoquest.domain.permission.UserPermission;
+import net.sf.gazpachoquest.domain.support.AbstractSecurizable;
 import net.sf.gazpachoquest.jpa.converter.GenderTypeConverter;
 import net.sf.gazpachoquest.jpa.converter.MapToStringConverter;
 import net.sf.gazpachoquest.types.Gender;
@@ -38,7 +39,7 @@ import org.eclipse.persistence.annotations.Converter;
 
 @Entity
 @Table(name = "users")
-public class User extends AbstractAuditable {
+public class User extends AbstractSecurizable<UserPermission> {
 
     private static final long serialVersionUID = 7209387649701141462L;
 
@@ -70,7 +71,7 @@ public class User extends AbstractAuditable {
     private Gender gender;
 
     @OneToMany(mappedBy = "respondent", fetch = FetchType.LAZY)
-    private final Set<Questionnair> questionnairs = new HashSet<Questionnair>();
+    private final Set<Questionnaire> questionnaires = new HashSet<Questionnaire>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_group", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "group_id", referencedColumnName = "id") })
@@ -80,14 +81,14 @@ public class User extends AbstractAuditable {
     @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
     private final Set<Role> roles = new HashSet<Role>();
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Role defaultRole;
-
     @Column(name = "attributes")
     @Converter(name = "map-to-string-converter", converterClass = MapToStringConverter.class)
     @org.eclipse.persistence.annotations.Convert(value = "map-to-string-converter")
     private Map<String, String> attributes = new HashMap<String, String>();
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    private Directory directory;
+    
     public User() {
         super();
     }
@@ -100,12 +101,24 @@ public class User extends AbstractAuditable {
         this.username = username;
     }
 
-    public Set<Questionnair> getQuestionnairs() {
-        return Collections.unmodifiableSet(questionnairs);
+    public Set<Questionnaire> getQuestionnaires() {
+        return Collections.unmodifiableSet(questionnaires);
     }
 
     public Set<Group> getGroups() {
         return Collections.unmodifiableSet(groups);
+    }
+
+    public Directory getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(Directory directory) {
+        this.directory = directory;
+    }
+
+    public Set<Role> getRoles() {
+        return Collections.unmodifiableSet(roles);
     }
 
     public Map<String, String> getAttributes() {
@@ -114,10 +127,6 @@ public class User extends AbstractAuditable {
 
     public void setAttributes(Map<String, String> attributes) {
         this.attributes = attributes;
-    }
-
-    public Set<Role> getRoles() {
-        return Collections.unmodifiableSet(roles);
     }
 
     @Override
@@ -173,21 +182,13 @@ public class User extends AbstractAuditable {
         this.gender = gender;
     }
 
-    public void assignToRole(Role role) {
-        roles.add(role);
-        role.addUser(this);
-    }
-
     public void addGroup(Group group) {
         groups.add(group);
     }
 
-    public Role getDefaultRole() {
-        return defaultRole;
-    }
 
-    public void setDefaultRole(Role defaultRole) {
-        this.defaultRole = defaultRole;
+    protected void addRole(Role role) {
+        roles.add(role);
     }
 
     public String getPassword() {

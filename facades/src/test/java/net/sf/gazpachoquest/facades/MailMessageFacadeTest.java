@@ -1,13 +1,21 @@
 package net.sf.gazpachoquest.facades;
 
+import static org.easymock.EasyMock.createNiceMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
 import static org.fest.assertions.api.Assertions.assertThat;
+import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.MailMessageTemplateDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.support.TranslationDTO;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
+import net.sf.gazpachoquest.test.shiro.support.AbstractShiroTest;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
 
+import org.apache.shiro.subject.Subject;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +36,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @DatabaseSetup("MailMessageFacadeTest-dataset.xml")
 @DatabaseTearDown("MailMessageFacadeTest-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class MailMessageFacadeTest {
+public class MailMessageFacadeTest extends AbstractShiroTest {
 
     @Autowired
     private MailMessageFacade mailMessageFacade;
@@ -40,11 +48,11 @@ public class MailMessageFacadeTest {
                 .replyTo("nonreply@gazpacho.net").build();
 
         MailMessageTemplateLanguageSettingsDTO languageSettings = new MailMessageTemplateLanguageSettingsDTO();
-        languageSettings.setSubject("Your questionnairDefinition");
+        languageSettings.setSubject("Your questionnaireDefinition");
         languageSettings
-                .setBody("Dear Mr. $lastname, <br> You have been invited to take this questionnairDefinition. <br>"
+                .setBody("Dear Mr. $lastname, <br> You have been invited to take this questionnaireDefinition. <br>"
                         + "The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off."
-                        + "<a href=\"\">Click here</a> to take the questionnairDefinition");
+                        + "<a href=\"\">Click here</a> to take the questionnaireDefinition");
         mailMessageTemplate.setLanguageSettings(languageSettings);
 
         mailMessageTemplate = mailMessageFacade.save(mailMessageTemplate);
@@ -67,5 +75,21 @@ public class MailMessageFacadeTest {
 
         translation = mailMessageFacade.saveTranslation(translation);
         assertThat(translation.getId()).isNotNull();
+    }
+
+    @Before
+    public void setUpSubject() {
+        Subject subjectUnderTest = createNiceMock(Subject.class);
+        User support = User.with().id(1).build();
+        expect(subjectUnderTest.getPrincipal()).andReturn(support).anyTimes();
+        replay(subjectUnderTest);
+        // 2. Bind the subject to the current thread:
+        setSubject(subjectUnderTest);
+    }
+
+    @After
+    public void tearDownSubject() {
+        // 3. Unbind the subject from the current thread:
+        clearSubject();
     }
 }

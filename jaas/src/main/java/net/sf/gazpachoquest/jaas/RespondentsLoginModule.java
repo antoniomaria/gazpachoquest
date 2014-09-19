@@ -38,11 +38,12 @@ public class RespondentsLoginModule implements LoginModule {
     private Subject subject;
     private Account userPrincipal;
     private AuthenticationResource authenticationResource;
+    private String endpoint;
 
     @Override
     public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState,
             Map<String, ?> options) {
-        String endpoint = (String) options.get("gazpachoquest.rest.endpoint");
+        endpoint = (String) options.get("gazpachoquest.rest.endpoint");
         handler = callbackHandler;
         this.subject = subject;
         authenticationResource = JAXRSClientFactory.create(endpoint, AuthenticationResource.class,
@@ -65,9 +66,7 @@ public class RespondentsLoginModule implements LoginModule {
             String username = ((NameCallback) callbacks[0]).getName();
             String password = String.valueOf(((PasswordCallback) callbacks[1]).getPassword());
             logger.info("New username attempt for user: {}", username);
-
             Account account = authenticationResource.authenticate(password);
-
             logger.info("Access granted to user {}", account.getFullName());
             userPrincipal = account;
             return true;
@@ -75,11 +74,11 @@ public class RespondentsLoginModule implements LoginModule {
             logger.error(e.getMessage(), e);
             throw new LoginException(e.getMessage());
         } catch (ServerWebApplicationException e) {
-            logger.error(e.getMessage(), e);
+            logger.error("Authentication server {} return html status = {} ", endpoint, e.getStatus(), e);
             throw new LoginException(e.getMessage());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            throw new LoginException(e.getMessage());
+            throw new LoginException("An unknown error has occurred in authentication process");
         }
 
     }

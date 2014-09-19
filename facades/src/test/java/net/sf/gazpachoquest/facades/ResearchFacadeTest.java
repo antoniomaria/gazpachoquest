@@ -1,13 +1,19 @@
 package net.sf.gazpachoquest.facades;
 
+import static org.easymock.EasyMock.createNiceMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
 import static org.fest.assertions.api.Assertions.assertThat;
-import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
+import net.sf.gazpachoquest.domain.user.User;
+import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.ResearchDTO;
 import net.sf.gazpachoquest.dto.UserDTO;
-import net.sf.gazpachoquest.repository.dynamic.QuestionnairAnswersRepository;
+import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
+import net.sf.gazpachoquest.test.shiro.support.AbstractShiroTest;
 import net.sf.gazpachoquest.types.ResearchAccessType;
 
+import org.apache.shiro.subject.Subject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +37,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @DatabaseSetup("ResearchFacade-dataset.xml")
 @DatabaseTearDown("ResearchFacade-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class ResearchFacadeTest {
+public class ResearchFacadeTest extends AbstractShiroTest {
 
     @Autowired
     private UserFacade respondentFacade;
@@ -40,30 +46,46 @@ public class ResearchFacadeTest {
     private ResearchFacade researchFacade;
 
     @Autowired
-    private QuestionnairAnswersRepository questionnairAnswersRepository;
+    private QuestionnaireAnswersRepository questionnaireAnswersRepository;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Before
     public void setUp() {
-        questionnairAnswersRepository.activeAllAnswers();
+        questionnaireAnswersRepository.activeAllAnswers();
     }
 
     @Test
     public void saveTest() {
-        QuestionnairDefinitionDTO questionnairDefinition = QuestionnairDefinitionDTO.with().id(7).build();
+        QuestionnaireDefinitionDTO questionnairDefinition = QuestionnaireDefinitionDTO.with().id(7).build();
         UserDTO respondent = respondentFacade.findOne(6);
 
         ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION).build();
         research.addRespondent(respondent);
-        research.addQuestionnairDefinition(questionnairDefinition);
+        research.addQuestionnaireDefinition(questionnairDefinition);
         research = researchFacade.save(research);
         assertThat(research.isNew()).isFalse();
     }
 
     @After
     public void tearDown() {
-        jdbcTemplate.update("delete from questionnair_answers_7");
+        jdbcTemplate.update("delete from questionnaire_answers_7");
+    }
+
+    @Before
+    public void setUpSubject() {
+        Subject subjectUnderTest = createNiceMock(Subject.class);
+        User support = User.with().id(1).build();
+        expect(subjectUnderTest.getPrincipal()).andReturn(support).anyTimes();
+        replay(subjectUnderTest);
+        // 2. Bind the subject to the current thread:
+        setSubject(subjectUnderTest);
+    }
+
+    @After
+    public void tearDownSubject() {
+        // 3. Unbind the subject from the current thread:
+        clearSubject();
     }
 }

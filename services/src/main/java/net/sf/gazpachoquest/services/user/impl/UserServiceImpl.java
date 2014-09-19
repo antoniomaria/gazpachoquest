@@ -8,18 +8,19 @@
 package net.sf.gazpachoquest.services.user.impl;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
+import net.sf.gazpachoquest.domain.permission.UserPermission;
+import net.sf.gazpachoquest.domain.support.Permission;
 import net.sf.gazpachoquest.domain.user.Group;
-import net.sf.gazpachoquest.domain.user.Permission;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
+import net.sf.gazpachoquest.repository.permission.UserPermissionRepository;
 import net.sf.gazpachoquest.repository.user.GroupRepository;
-import net.sf.gazpachoquest.repository.user.RoleRepository;
 import net.sf.gazpachoquest.repository.user.UserRepository;
 import net.sf.gazpachoquest.services.UserService;
 import net.sf.gazpachoquest.services.core.impl.AbstractPersistenceService;
+import net.sf.gazpachoquest.types.Perm;
 import net.sf.gazpachoquest.util.RandomTokenGenerator;
 
 import org.apache.commons.lang3.StringUtils;
@@ -41,7 +42,7 @@ public class UserServiceImpl extends AbstractPersistenceService<User> implements
     private GroupRepository groupRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private UserPermissionRepository userPermissionRepository;
 
     @Autowired
     public UserServiceImpl(final UserRepository repository) {
@@ -55,14 +56,11 @@ public class UserServiceImpl extends AbstractPersistenceService<User> implements
         if (user.isNew()) {
             user.setApiKey(tokenGenerator.generate(API_KEY_LENGTH));
             user.setSecret(tokenGenerator.generate(SECRET_LENGTH));
-            Role role = Role.with().name("User Role")
-                    .description(String.format("Specific role for %s %s ", user.getGivenNames(), user.getSurname()))
-                    .build();
             existing = repository.save(user);
-
-            role = roleRepository.save(role);
-            existing.assignToRole(role);
-            existing.setDefaultRole(role);
+            UserPermission userPermission = UserPermission.with().addPerm(Perm.READ).addPerm(Perm.UPDATE).addPerm(Perm.DELETE).target(existing)
+                    .user(getAuthenticatedUser()).build();
+            userPermissionRepository.save(userPermission);
+            
         } else {
             existing = repository.findOne(user.getId());
             existing.setEmail(user.getEmail());
@@ -79,26 +77,25 @@ public class UserServiceImpl extends AbstractPersistenceService<User> implements
     }
 
     @Override
-    public Set<Permission> getPermissions(Integer userId) {
-        Set<Permission> permissions = new HashSet<Permission>();
-        permissions.addAll(((UserRepository) repository).getPermissions(userId));
-        List<Group> groups = ((UserRepository) repository).getGroups(userId);
-        for (Group group : groups) {
-            List<Permission> groupPermissions = groupRepository.getPermissions(group.getId());
-            permissions.addAll(groupPermissions);
-        }
-
-        return permissions;
-    }
-
-    @Override
     @Transactional(readOnly = true)
-    public List<Group> getGroups(Integer userId) {
+    public Set<Group> getGroups(Integer userId) {
         return ((UserRepository) repository).getGroups(userId);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Set<Role> getRoles(Integer userId) {
         return ((UserRepository) repository).getRoles(userId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Set<Permission<?>> getPermissions(Integer userId) {
+        Set<Permission<?>> permissions = new HashSet<Permission<?>>();
+        permissions.addAll(((UserRepository) repository).getQuestionnairPermissions(userId));
+        permissions.addAll(((UserRepository) repository).getQuestionnairDefinitionPermissions(userId));
+        permissions.addAll(((UserRepository) repository).getResearchPermissions(userId));
+        permissions.addAll(((UserRepository) repository).getUserPermissions(userId));
+        return permissions;
     }
 }

@@ -80,7 +80,7 @@ public class LoginView extends CustomComponent implements View {
         invitation = new TextField("Invitation");
         invitation.setSizeUndefined();
         invitation.focus();
-        invitation.setValue("YAS5ICHRBE");
+        // invitation.setValue("YAS5ICHRBE");
         fields.addComponent(invitation);
 
         login = new Button("Start");

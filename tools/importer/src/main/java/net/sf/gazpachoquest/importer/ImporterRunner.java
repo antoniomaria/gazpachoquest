@@ -26,7 +26,7 @@ public class ImporterRunner {
                 "importer-jpa-context.xml", "services-context.xml", "facades-context.xml", "components-context.xml");
         Importer populator = ctx.getBean(Importer.class);
         StopWatch stopWatch = new StopWatch();
-        logger.info("Importing questionnair definitions");
+        logger.info("Importing questionnaire definitions");
         stopWatch.start();
         populator.doImport();
         stopWatch.stop();

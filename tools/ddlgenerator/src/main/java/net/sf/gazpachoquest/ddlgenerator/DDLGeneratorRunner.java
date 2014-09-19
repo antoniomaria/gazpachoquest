@@ -16,7 +16,7 @@ public class DDLGeneratorRunner {
 
     public static void main(String args[]) throws Exception {
         logger.info("Generating ddl schema using META-INF/default-persistence.xml settings");
-        new DDLGenerator().generate("mysql");
+        new DDLGenerator().generate("hsql");
         logger.info("Done successfully. Check your target/generated-sources directory");
     }
 }

@@ -2,7 +2,7 @@ package net.sf.gazpachoquest.questionnaires.resource;
 
 import javax.inject.Inject;
 
-import net.sf.gazpachoquest.api.QuestionnairResource;
+import net.sf.gazpachoquest.api.QuestionnaireResource;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -28,13 +28,13 @@ public class QuestionnairResourceTest {
 
     @Inject
     @GazpachoResource
-    private QuestionnairResource questionnairResource;
+    private QuestionnaireResource questionnaireResource;
 
     @Deployment
     public static Archive<?> createTestArchive() {
         String beansDescriptor = Descriptors.create(BeansDescriptor.class).exportAsString();
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "myarchive.jar")
-                .addClasses(QuestionnairResource.class, ResourceProducer.class, GazpachoResource.class)
+                .addClasses(QuestionnaireResource.class, ResourceProducer.class, GazpachoResource.class)
                 .addAsResource("resources/messages.properties")
                 .addAsManifestResource(new StringAsset(beansDescriptor), "beans.xml");
         return archive;
@@ -42,9 +42,9 @@ public class QuestionnairResourceTest {
 
     @Test
     public void listTest() {
-        Integer questionnairId = 58;
-        // QuestionnairDTO questionnair =
-        // questionnairResource.getDefinition(questionnairId);
+        Integer questionnaireId = 58;
+        // QuestionnaireDTO questionnair =
+        // questionnaireResource.getDefinition(questionnaireId);
         // System.out.println(questionnair.getId() + " " +
         // questionnair.getLanguageSettings().getTitle());
         System.out.println("fin");

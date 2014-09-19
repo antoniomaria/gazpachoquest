@@ -19,7 +19,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
-import net.sf.gazpachoquest.domain.support.AbstractAuditable;
+import net.sf.gazpachoquest.domain.permission.ResearchPermission;
+import net.sf.gazpachoquest.domain.support.AbstractSecurizable;
 import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
 import net.sf.gazpachoquest.jpa.converter.ResearchAccessTypeConverter;
 import net.sf.gazpachoquest.types.ResearchAccessType;
@@ -27,7 +28,7 @@ import net.sf.gazpachoquest.types.ResearchAccessType;
 import org.joda.time.DateTime;
 
 @Entity
-public class Research extends AbstractAuditable {
+public class Research extends AbstractSecurizable<ResearchPermission> {
 
     private static final long serialVersionUID = -5917291757324504802L;
 
@@ -45,7 +46,7 @@ public class Research extends AbstractAuditable {
     private DateTime expirationDate;
 
     @OneToMany(mappedBy = "research", fetch = FetchType.LAZY)
-    private final Set<Questionnair> questionnairs = new HashSet<Questionnair>();
+    private final Set<Questionnaire> questionnaires = new HashSet<Questionnaire>();
 
     public Research() {
         super();
@@ -59,8 +60,8 @@ public class Research extends AbstractAuditable {
         return name;
     }
 
-    public Set<Questionnair> getQuestionnairs() {
-        return questionnairs;
+    public Set<Questionnaire> getquestionnaires() {
+        return questionnaires;
     }
 
     public DateTime getStartDate() {

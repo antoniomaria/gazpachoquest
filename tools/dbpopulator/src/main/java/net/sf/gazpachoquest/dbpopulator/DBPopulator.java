@@ -18,20 +18,21 @@ import net.sf.gazpachoquest.dto.LabelDTO;
 import net.sf.gazpachoquest.dto.LabelSetDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateLanguageSettingsDTO;
-import net.sf.gazpachoquest.dto.QuestionGroupDTO;
-import net.sf.gazpachoquest.dto.QuestionnairDefinitionDTO;
+import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.ResearchDTO;
+import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.UserDTO;
 import net.sf.gazpachoquest.dto.support.TranslationDTO;
 import net.sf.gazpachoquest.facades.GroupFacade;
 import net.sf.gazpachoquest.facades.MailMessageFacade;
-import net.sf.gazpachoquest.facades.QuestionnairDefinitionEditorFacade;
+import net.sf.gazpachoquest.facades.QuestionnaireDefinitionEditorFacade;
 import net.sf.gazpachoquest.facades.ResearchFacade;
 import net.sf.gazpachoquest.facades.UserFacade;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
+import net.sf.gazpachoquest.types.RenderingMode;
 import net.sf.gazpachoquest.types.ResearchAccessType;
 
 import org.joda.time.DateTime;
@@ -50,7 +51,7 @@ public class DBPopulator {
     private GroupFacade groupFacade;
 
     @Autowired
-    private QuestionnairDefinitionEditorFacade questionnairDefinitionEditorFacade;
+    private QuestionnaireDefinitionEditorFacade questionnaireDefinitionEditorFacade;
 
     @Autowired
     private ResearchFacade researchFacade;
@@ -81,203 +82,195 @@ public class DBPopulator {
     }
 
     public void populateForJUnitTest(Set<UserDTO> respondents) {
-        QuestionnairDefinitionDTO questionnairDef = demoSurveyCreator.create();
-        asignDefaultMailTemplate(questionnairDef);
-        questionnairDefinitionEditorFacade.confirm(questionnairDef);
+        QuestionnaireDefinitionDTO questionnaireDefinition = demoSurveyCreator.create();
+        asignDefaultMailTemplate(questionnaireDefinition);
+        questionnaireDefinitionEditorFacade.confirm(questionnaireDefinition);
 
-        ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
-                .name("New private Questionnair " + questionnairDef.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnairDefinition(questionnairDef);
+        ResearchDTO research = ResearchDTO
+                .with()
+                .type(ResearchAccessType.BY_INVITATION)
+                .name("New private Questionnaire " + questionnaireDefinition.getLanguageSettings().getTitle()
+                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.addQuestionnaireDefinition(questionnaireDefinition);
         for (UserDTO respondent : respondents) {
             research.addRespondent(respondent);
         }
         researchFacade.save(research);
 
-        research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
-                .name("New open Questionnair " + questionnairDef.getLanguageSettings().getTitle() + " started")
+        research = ResearchDTO
+                .with()
+                .type(ResearchAccessType.OPEN_ACCESS)
+                .name("New open Questionnaire " + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnairDefinition(questionnairDef);
+        research.addQuestionnaireDefinition(questionnaireDefinition);
         // researchFacade.save(research);
     }
 
     public void populateForFullDemo(Set<UserDTO> respondents) {
         // No Randomization enabled
-        QuestionnairDefinitionDTO questionnairDef = sampleQuizCreator.create();
-        asignDefaultMailTemplate(questionnairDef);
-        questionnairDefinitionEditorFacade.confirm(questionnairDef);
-        Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<>();
-        questionnairDefinitions.add(questionnairDef);
+        QuestionnaireDefinitionDTO questionnaireDefinition = sampleQuizCreator.create();
+        asignDefaultMailTemplate(questionnaireDefinition);
+        questionnaireDefinitionEditorFacade.confirm(questionnaireDefinition);
 
         ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
-                .name("New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .name("New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnairDefinition(questionnairDef);
+        research.addQuestionnaireDefinition(questionnaireDefinition);
         for (UserDTO respondent : respondents) {
             research.addRespondent(respondent);
         }
         researchFacade.save(research);
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
-                .name("Anonymous New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnairDefinition(questionnairDef);
-        for (UserDTO respondent : respondents) {
-            research.addRespondent(respondent);
-        }
+        research.addQuestionnaireDefinition(questionnaireDefinition);
+        researchFacade.save(research);
+
+        questionnaireDefinition = sampleQuizCreator.create();
+        questionnaireDefinition.setRenderingMode(RenderingMode.ALL_IN_ONE);
+        questionnaireDefinition = questionnaireDefinitionEditorFacade.save(questionnaireDefinition);
+
+        asignDefaultMailTemplate(questionnaireDefinition);
+        questionnaireDefinitionEditorFacade.confirm(questionnaireDefinition);
+
+        research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
+                .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.addQuestionnaireDefinition(questionnaireDefinition);
         researchFacade.save(research);
 
         // Question Randomization Enabled
-        questionnairDef = sampleQuizCreator.create();
-        questionnairDef.setQuestionsPerPage(1);
-        questionnairDef.setRandomizationStrategy(RandomizationStrategy.QUESTIONS_RANDOMIZATION);
-        questionnairDef = questionnairDefinitionEditorFacade.save(questionnairDef);
+        questionnaireDefinition = sampleQuizCreator.create();
+        questionnaireDefinition.setQuestionsPerPage(1);
+        questionnaireDefinition.setRandomizationStrategy(RandomizationStrategy.QUESTIONS_RANDOMIZATION);
+        questionnaireDefinition = questionnaireDefinitionEditorFacade.save(questionnaireDefinition);
 
-        asignDefaultMailTemplate(questionnairDef);
-        questionnairDefinitionEditorFacade.confirm(questionnairDef);
-        questionnairDefinitions = new HashSet<>();
-        questionnairDefinitions.add(questionnairDef);
+        asignDefaultMailTemplate(questionnaireDefinition);
+        questionnaireDefinitionEditorFacade.confirm(questionnaireDefinition);
 
         research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
-                .name("New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .name("New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnairDefinition(questionnairDef);
+        research.addQuestionnaireDefinition(questionnaireDefinition);
         for (UserDTO respondent : respondents) {
             research.addRespondent(respondent);
         }
         researchFacade.save(research);
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
-                .name("Anonymous New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnairDefinition(questionnairDef);
-        for (UserDTO respondent : respondents) {
-            research.addRespondent(respondent);
-        }
+        research.addQuestionnaireDefinition(questionnaireDefinition);
         researchFacade.save(research);
 
         // Groups Randomization Enabled
-        questionnairDef = sampleQuizCreator.create();
-        questionnairDef.setRandomizationStrategy(RandomizationStrategy.GROUPS_RANDOMIZATION);
-        questionnairDef = questionnairDefinitionEditorFacade.save(questionnairDef);
+        questionnaireDefinition = sampleQuizCreator.create();
+        questionnaireDefinition.setRandomizationStrategy(RandomizationStrategy.SECTIONS_RANDOMIZATION);
+        questionnaireDefinition = questionnaireDefinitionEditorFacade.save(questionnaireDefinition);
 
-        asignDefaultMailTemplate(questionnairDef);
-        questionnairDefinitionEditorFacade.confirm(questionnairDef);
-        questionnairDefinitions = new HashSet<>();
-        questionnairDefinitions.add(questionnairDef);
+        asignDefaultMailTemplate(questionnaireDefinition);
+        questionnaireDefinitionEditorFacade.confirm(questionnaireDefinition);
 
         research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
-                .name("New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .name("New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnairDefinition(questionnairDef);
+        research.addQuestionnaireDefinition(questionnaireDefinition);
         for (UserDTO respondent : respondents) {
             research.addRespondent(respondent);
         }
         researchFacade.save(research);
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
-                .name("Anonymous New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnairDefinition(questionnairDef);
-        for (UserDTO respondent : respondents) {
-            research.addRespondent(respondent);
-        }
+        research.addQuestionnaireDefinition(questionnaireDefinition);
         researchFacade.save(research);
 
         // First Group Randomization Enabled
-        questionnairDef = sampleQuizCreator.create();
-        QuestionGroupDTO firstQuestionGroup = questionnairDef.getQuestionGroups().get(0);
-        firstQuestionGroup.setRandomizationEnabled(true);
-        questionnairDefinitionEditorFacade.save(firstQuestionGroup);
+        questionnaireDefinition = sampleQuizCreator.create();
+        SectionDTO firstSection = questionnaireDefinition.getSections().get(0);
+        firstSection.setRandomizationEnabled(true);
+        questionnaireDefinitionEditorFacade.save(firstSection);
 
-        asignDefaultMailTemplate(questionnairDef);
-        questionnairDefinitionEditorFacade.confirm(questionnairDef);
-        questionnairDefinitions = new HashSet<>();
-        questionnairDefinitions.add(questionnairDef);
+        asignDefaultMailTemplate(questionnaireDefinition);
+        questionnaireDefinitionEditorFacade.confirm(questionnaireDefinition);
 
         research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
-                .name("New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .name("New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnairDefinition(questionnairDef);
+        research.addQuestionnaireDefinition(questionnaireDefinition);
         for (UserDTO respondent : respondents) {
             research.addRespondent(respondent);
         }
         researchFacade.save(research);
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
-                .name("Anonymous New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnairDefinition(questionnairDef);
-        for (UserDTO respondent : respondents) {
-            research.addRespondent(respondent);
-        }
+        research.addQuestionnaireDefinition(questionnaireDefinition);
         researchFacade.save(research);
 
-        questionnairDef = fastFoodSurveyCreator.create();
-        asignDefaultMailTemplate(questionnairDef);
-        questionnairDefinitionEditorFacade.confirm(questionnairDef);
-        questionnairDefinitions = new HashSet<>();
-        questionnairDefinitions.add(questionnairDef);
+        questionnaireDefinition = fastFoodSurveyCreator.create();
+        asignDefaultMailTemplate(questionnaireDefinition);
+        questionnaireDefinitionEditorFacade.confirm(questionnaireDefinition);
 
         research = ResearchDTO
                 .with()
                 .type(ResearchAccessType.OPEN_ACCESS)
-                .name("New customer satisfation survey " + questionnairDef.getLanguageSettings().getTitle()
+                .name("New customer satisfation survey " + questionnaireDefinition.getLanguageSettings().getTitle()
                         + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        for (UserDTO respondent : respondents) {
-            research.addRespondent(respondent);
-        }
-        research.addQuestionnairDefinition(questionnairDef);
+        research.addQuestionnaireDefinition(questionnaireDefinition);
         researchFacade.save(research);
 
     }
 
     public void populateForDemo(Set<UserDTO> respondents) {
-        QuestionnairDefinitionDTO questionnairDef = sampleQuizCreator.create();
-        asignDefaultMailTemplate(questionnairDef);
-        questionnairDefinitionEditorFacade.confirm(questionnairDef);
-        Set<QuestionnairDefinitionDTO> questionnairDefinitions = new HashSet<>();
-        questionnairDefinitions.add(questionnairDef);
+        QuestionnaireDefinitionDTO questionnaireDefinition = sampleQuizCreator.create();
+        asignDefaultMailTemplate(questionnaireDefinition);
+        questionnaireDefinitionEditorFacade.confirm(questionnaireDefinition);
+        Set<QuestionnaireDefinitionDTO> questionnairDefinitions = new HashSet<>();
+        questionnairDefinitions.add(questionnaireDefinition);
 
         ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
-                .name("New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .name("New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnairDefinition(questionnairDef);
+        research.addQuestionnaireDefinition(questionnaireDefinition);
         for (UserDTO respondent : respondents) {
             research.addRespondent(respondent);
         }
         researchFacade.save(research);
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
-                .name("Anonymous New Quiz" + questionnairDef.getLanguageSettings().getTitle() + " started")
+                .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
                 .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnairDefinition(questionnairDef);
+        research.addQuestionnaireDefinition(questionnaireDefinition);
         for (UserDTO respondent : respondents) {
             research.addRespondent(respondent);
         }
 
         researchFacade.save(research);
 
-        questionnairDef = fastFoodSurveyCreator.create();
-        asignDefaultMailTemplate(questionnairDef);
-        questionnairDefinitionEditorFacade.confirm(questionnairDef);
+        questionnaireDefinition = fastFoodSurveyCreator.create();
+        asignDefaultMailTemplate(questionnaireDefinition);
+        questionnaireDefinitionEditorFacade.confirm(questionnaireDefinition);
         questionnairDefinitions = new HashSet<>();
-        questionnairDefinitions.add(questionnairDef);
+        questionnairDefinitions.add(questionnaireDefinition);
 
         research = ResearchDTO
                 .with()
                 .type(ResearchAccessType.OPEN_ACCESS)
-                .name("New customer satisfation survey " + questionnairDef.getLanguageSettings().getTitle()
+                .name("New customer satisfation survey " + questionnaireDefinition.getLanguageSettings().getTitle()
                         + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
         for (UserDTO respondent : respondents) {
             research.addRespondent(respondent);
         }
-        research.addQuestionnairDefinition(questionnairDef);
+        research.addQuestionnaireDefinition(questionnaireDefinition);
         researchFacade.save(research);
 
     }
 
-    public MailMessageTemplateDTO asignDefaultMailTemplate(final QuestionnairDefinitionDTO questionnair) {
+    public MailMessageTemplateDTO asignDefaultMailTemplate(final QuestionnaireDefinitionDTO questionnair) {
         MailMessageTemplateDTO mailMessageTemplate = MailMessageTemplateDTO
                 .with()
                 .language(Language.EN)
@@ -286,10 +279,10 @@ public class DBPopulator {
                 .fromAddress("support@gazpacho.net")
                 .replyTo("support@gazpacho.net")
                 .mailMessageTemplateLanguageSettingsStart()
-                .subject("Invitation to participate in a questionnair")
-                .body("Dear Mr. $lastname, <br> You have been invited to take this questionnair. <br>"
+                .subject("Invitation to participate in a questionnaire")
+                .body("Dear Mr. $lastname, <br> You have been invited to take this questionnaire. <br>"
                         + "The questionnaire will take about 15 minutes to complete and if you get interrupted, you can return later and continue where you left off."
-                        + "<a href=\"$link\">Click here</a> to take the questionnairDefinition")
+                        + "<a href=\"$link\">Click here</a> to take the questionnaireDefinition")
                 .mailMessageTemplateLanguageSettingsEnd().build();
         mailMessageTemplate = mailMessageFacade.save(mailMessageTemplate);
 
@@ -312,7 +305,7 @@ public class DBPopulator {
 
     public void populateLabelSet() {
         LabelSetDTO labelSet = LabelSetDTO.with().language(Language.EN).name("Feelings").build();
-        labelSet = questionnairDefinitionEditorFacade.save(labelSet);
+        labelSet = questionnaireDefinitionEditorFacade.save(labelSet);
 
         LabelDTO label = LabelDTO.with().language(Language.EN).title("Agree strongly").build();
         labelSet.addLabel(label);
@@ -328,7 +321,7 @@ public class DBPopulator {
         label = LabelDTO.with().language(Language.EN).title("Disagree strongly").build();
         labelSet.addLabel(label);
 
-        questionnairDefinitionEditorFacade.save(labelSet);
+        questionnaireDefinitionEditorFacade.save(labelSet);
     }
 
     protected Set<UserDTO> addRespondents() {

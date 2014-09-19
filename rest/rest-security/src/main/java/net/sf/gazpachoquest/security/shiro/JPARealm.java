@@ -9,13 +9,11 @@ import java.util.Set;
 
 import javax.persistence.PersistenceException;
 
-import net.sf.gazpachoquest.domain.user.Permission;
+import net.sf.gazpachoquest.domain.support.Permission;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.security.support.HMACSignature;
-import net.sf.gazpachoquest.services.PermissionService;
-import net.sf.gazpachoquest.services.RoleService;
 import net.sf.gazpachoquest.services.UserService;
 
 import org.apache.commons.lang3.StringUtils;
@@ -43,12 +41,6 @@ public class JPARealm extends AuthorizingRealm {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private PermissionService permissionService;
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
@@ -99,14 +91,13 @@ public class JPARealm extends AuthorizingRealm {
         User user = (User) getAvailablePrincipal(principals);
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-
         Set<Role> roles = userService.getRoles(user.getId());
         for (Role role : roles) {
             info.addRole(role.getName());
         }
-        Set<Permission> permissions = userService.getPermissions(user.getId());
+        Set<Permission<?>> permissions = userService.getPermissions(user.getId());
 
-        for (Permission permission : permissions) {
+        for (Permission<?> permission : permissions) {
             info.addStringPermission(permission.getLiteral());
         }
         return info;

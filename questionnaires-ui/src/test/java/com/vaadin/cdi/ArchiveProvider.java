@@ -77,7 +77,7 @@ public class ArchiveProvider {
      return Archives
      .create("test.jar", JavaArchive.class)
      .addClasses(FRAMEWORK_CLASSES)
-     .addClasses(QuestionnairesUI.class, QuestionnairsClient.class)
+     .addClasses(QuestionnairesUI.class, questionnairesClient.class)
      .addManifestResource(
      new ByteArrayAsset(
      "<decorators><class>net.sf.gazpachoquest.questionnaires</class></decorators>"

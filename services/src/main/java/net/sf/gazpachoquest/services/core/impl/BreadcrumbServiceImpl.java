@@ -13,7 +13,7 @@ package net.sf.gazpachoquest.services.core.impl;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
-import net.sf.gazpachoquest.domain.core.Questionnair;
+import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.BreadcrumbRepository;
 import net.sf.gazpachoquest.services.BreadcrumbService;
@@ -32,14 +32,14 @@ public class BreadcrumbServiceImpl extends AbstractPersistenceService<Breadcrumb
 
     @Override
     @Transactional
-    public Breadcrumb findByQuestionnairIdAndPosition(Integer questionnairId, Integer position) {
-        return ((BreadcrumbRepository) repository).findByQuestionnairIdAndPosition(questionnairId, position);
+    public Breadcrumb findByquestionnaireIdAndPosition(Integer questionnaireId, Integer position) {
+        return ((BreadcrumbRepository) repository).findByQuestionnaireIdAndPosition(questionnaireId, position);
     }
 
     @Override
     @Transactional
-    public List<Object[]> findLastAndPosition(Integer questionnairId) {
-        return ((BreadcrumbRepository) repository).findLastAndPosition(questionnairId);
+    public List<Object[]> findLastAndPosition(Integer questionnaireId) {
+        return ((BreadcrumbRepository) repository).findLastAndPosition(questionnaireId);
     }
 
     @Override
@@ -59,10 +59,10 @@ public class BreadcrumbServiceImpl extends AbstractPersistenceService<Breadcrumb
 
     @Override
     @Transactional
-    public Integer countByQuestionnair(Integer questionnairId) {
+    public Integer countByQuestionnair(Integer questionnaireId) {
         return (int) repository.countByExample(
-                Breadcrumb.withProps().questionnair(Questionnair.with().id(questionnairId).build()).build(),
+                Breadcrumb.withProps().questionnaire(Questionnaire.with().id(questionnaireId).build()).build(),
                 new SearchParameters());
-        // return ((BreadcrumbRepository) repository).count(questionnairId);
+        // return ((BreadcrumbRepository) repository).count(questionnaireId);
     }
 }

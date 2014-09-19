@@ -22,10 +22,10 @@ public class CodeLabRunner {
 
     public static void main(final String... args) throws IOException {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("codelab-datasource-context.xml",
-                "codelab-jpa-context.xml", "services-context.xml", "facades-context.xml", "questionnair-context.xml",
+                "codelab-jpa-context.xml", "services-context.xml", "facades-context.xml", "questionnaire-context.xml",
                 "components-context.xml");
         logger.info("Hand on lab started");
-        AccessRightLab codelab = ctx.getBean(AccessRightLab.class);
+        AccessRight2Lab codelab = ctx.getBean(AccessRight2Lab.class);
         codelab.execute();
         logger.info("Hand on lab ended");
         ctx.close();

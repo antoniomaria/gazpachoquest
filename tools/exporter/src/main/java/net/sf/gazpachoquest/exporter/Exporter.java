@@ -10,7 +10,7 @@ package net.sf.gazpachoquest.exporter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import net.sf.gazpachoquest.facades.QuestionnairDefinitionAccessorFacade;
+import net.sf.gazpachoquest.facades.QuestionnaireDefinitionAccessorFacade;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,14 +23,14 @@ public class Exporter {
     private static Logger logger = LoggerFactory.getLogger(Exporter.class);
 
     @Autowired
-    private QuestionnairDefinitionAccessorFacade questionnairDefinitionAccessorFacade;
+    private QuestionnaireDefinitionAccessorFacade questionnaireDefinitionAccessorFacade;
 
     public void doExport() throws IOException {
         FileOutputStream fos = null;
         try {
             Integer questionnairDefinitionId = 12;
-            fos = new FileOutputStream(String.format("target/QuestionnairDefinition_%d.xml", questionnairDefinitionId));
-            questionnairDefinitionAccessorFacade.exportQuestionnairDefinition(questionnairDefinitionId, fos);
+            fos = new FileOutputStream(String.format("target/QuestionnaireDefinition_%d.xml", questionnairDefinitionId));
+            questionnaireDefinitionAccessorFacade.exportQuestionnaireDefinition(questionnairDefinitionId, fos);
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
         } finally {
