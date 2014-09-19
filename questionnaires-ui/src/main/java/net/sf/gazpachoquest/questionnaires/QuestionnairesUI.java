@@ -15,7 +15,7 @@ import java.security.Principal;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
-import net.sf.gazpachoquest.questionnaires.views.QuestionnairView;
+import net.sf.gazpachoquest.questionnaires.views.QuestionnaireView;
 import net.sf.gazpachoquest.questionnaires.views.login.LoginEvent;
 import net.sf.gazpachoquest.questionnaires.views.login.LoginView;
 
@@ -64,7 +64,7 @@ public class QuestionnairesUI extends UI {
         navigator.setErrorProvider(new GazpachoErrorViewProvider());
 
         if (isUserSignedIn()) {
-            navigator.navigateTo(QuestionnairView.NAME);
+            navigator.navigateTo(QuestionnaireView.NAME);
         } else {
             navigator.navigateTo(LoginView.NAME);
         }
@@ -74,12 +74,12 @@ public class QuestionnairesUI extends UI {
     LoginEvent loginEvent) {
         if (isUserSignedIn()) {
             logger.info("User {} already authenticated", getPrincipalName());
-            navigator.navigateTo(QuestionnairView.NAME);
+            navigator.navigateTo(QuestionnaireView.NAME);
             return;
         }
         try {
             JaasAccessControl.login(loginEvent.getUsername(), loginEvent.getPassword());
-            navigator.navigateTo(QuestionnairView.NAME);
+            navigator.navigateTo(QuestionnaireView.NAME);
         } catch (Exception e) {
             Notification.show("Error logging in", Type.ERROR_MESSAGE);
             logger.error(e.getMessage(), e);

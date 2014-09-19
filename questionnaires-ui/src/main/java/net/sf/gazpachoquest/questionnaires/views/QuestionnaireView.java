@@ -18,9 +18,9 @@ import javax.resource.NotSupportedException;
 
 import net.sf.gazpachoquest.api.QuestionnaireResource;
 import net.sf.gazpachoquest.dto.QuestionDTO;
-import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDTO;
 import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
+import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 import net.sf.gazpachoquest.questionnaires.components.question.QuestionComponent;
 import net.sf.gazpachoquest.questionnaires.components.question.QuestionFactory;
@@ -51,15 +51,15 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
 
-@CDIView(QuestionnairView.NAME)
+@CDIView(QuestionnaireView.NAME)
 @RolesAllowed(RespondentAccount.DEFAULT_ROLE_NAME)
-public class QuestionnairView extends CustomComponent implements View, ClickListener {
+public class QuestionnaireView extends CustomComponent implements View, ClickListener {
 
     private static final long serialVersionUID = -4474306191162456568L;
 
     public static final String NAME = "questionnair";
 
-    private static Logger logger = LoggerFactory.getLogger(QuestionnairView.class);
+    private static Logger logger = LoggerFactory.getLogger(QuestionnaireView.class);
 
     @Inject
     @GazpachoResource
@@ -126,7 +126,7 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
 
     @Override
     public void enter(ViewChangeEvent event) {
-        logger.debug("Entering {} view ", QuestionnairView.NAME);
+        logger.debug("Entering {} view ", QuestionnaireView.NAME);
         addStyleName(Reindeer.LAYOUT_BLUE);
         addStyleName("questionnaires");
 

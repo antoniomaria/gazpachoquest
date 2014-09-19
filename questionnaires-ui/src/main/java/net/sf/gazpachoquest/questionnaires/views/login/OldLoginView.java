@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.Locale;
 
 import net.sf.gazpachoquest.api.QuestionnaireResource;
-import net.sf.gazpachoquest.questionnaires.views.QuestionnairView;
+import net.sf.gazpachoquest.questionnaires.views.QuestionnaireView;
 
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.slf4j.Logger;
@@ -173,7 +173,7 @@ public class OldLoginView extends CustomComponent implements View, Button.ClickL
             session.setAttribute("password", invitation);
 
             // Navigate to main view
-            getUI().getNavigator().navigateTo(QuestionnairView.NAME);
+            getUI().getNavigator().navigateTo(QuestionnaireView.NAME);
         } else {
             // Wrong password clear the password field and refocuses it
             invitationTextField.setValue(null);
