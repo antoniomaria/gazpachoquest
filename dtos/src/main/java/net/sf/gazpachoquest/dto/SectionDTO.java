@@ -20,19 +20,19 @@ import net.sf.gazpachoquest.types.Language;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class QuestionGroupDTO extends AbstractAuditableDTO implements
-        IdentifiableLocalizable<QuestionGroupLanguageSettingsDTO> {
+public class SectionDTO extends AbstractAuditableDTO implements
+        IdentifiableLocalizable<SectionLanguageSettingsDTO> {
     private static final long serialVersionUID = 4668205160387380803L;
 
     private Language language;
 
-    private QuestionGroupLanguageSettingsDTO languageSettings;
+    private SectionLanguageSettingsDTO languageSettings;
 
     private final List<QuestionDTO> questions = new ArrayList<>();
 
     private Boolean randomizationEnabled;
 
-    public QuestionGroupDTO() {
+    public SectionDTO() {
         super();
     }
 
@@ -46,7 +46,7 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
     }
 
     @Override
-    public QuestionGroupLanguageSettingsDTO getLanguageSettings() {
+    public SectionLanguageSettingsDTO getLanguageSettings() {
         return languageSettings;
     }
 
@@ -66,7 +66,7 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
     }
 
     @Override
-    public void setLanguageSettings(final QuestionGroupLanguageSettingsDTO languageSettings) {
+    public void setLanguageSettings(final SectionLanguageSettingsDTO languageSettings) {
         this.languageSettings = languageSettings;
     }
 
@@ -80,15 +80,15 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
 
     public static interface Builder {
 
-        QuestionGroupDTO build();
+        SectionDTO build();
 
         Builder language(Language language);
 
         Builder randomizationEnabled(Boolean randomizationEnabled);
 
-        Builder languageSettings(QuestionGroupLanguageSettingsDTO languageSettings);
+        Builder languageSettings(SectionLanguageSettingsDTO languageSettings);
 
-        QuestionGroupLanguageSettingsDTO.Builder pageLanguageSettingsStart();
+        SectionLanguageSettingsDTO.Builder pageLanguageSettingsStart();
     }
 
     public static class BuilderImpl implements Builder {
@@ -96,15 +96,15 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
 
         private Boolean randomizationEnabled;
 
-        private QuestionGroupLanguageSettingsDTO languageSettings;
+        private SectionLanguageSettingsDTO languageSettings;
 
         @Override
-        public QuestionGroupDTO build() {
-            QuestionGroupDTO questionGroupDTO = new QuestionGroupDTO();
-            questionGroupDTO.languageSettings = languageSettings;
-            questionGroupDTO.language = language;
-            questionGroupDTO.randomizationEnabled = randomizationEnabled;
-            return questionGroupDTO;
+        public SectionDTO build() {
+            SectionDTO sectionDTO = new SectionDTO();
+            sectionDTO.languageSettings = languageSettings;
+            sectionDTO.language = language;
+            sectionDTO.randomizationEnabled = randomizationEnabled;
+            return sectionDTO;
         }
 
         @Override
@@ -114,14 +114,14 @@ public class QuestionGroupDTO extends AbstractAuditableDTO implements
         }
 
         @Override
-        public BuilderImpl languageSettings(final QuestionGroupLanguageSettingsDTO languageSettings) {
+        public BuilderImpl languageSettings(final SectionLanguageSettingsDTO languageSettings) {
             this.languageSettings = languageSettings;
             return this;
         }
 
         @Override
-        public QuestionGroupLanguageSettingsDTO.Builder pageLanguageSettingsStart() {
-            return QuestionGroupLanguageSettingsDTO.pageLanguageSettingsStart(this);
+        public SectionLanguageSettingsDTO.Builder pageLanguageSettingsStart() {
+            return SectionLanguageSettingsDTO.pageLanguageSettingsStart(this);
         }
 
         @Override

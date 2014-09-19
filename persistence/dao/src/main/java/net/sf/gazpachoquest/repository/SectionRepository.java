@@ -12,23 +12,23 @@ package net.sf.gazpachoquest.repository;
 
 import java.util.List;
 
-import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.repository.support.GenericRepository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface QuestionGroupRepository extends GenericRepository<QuestionGroup> {
-    @Query("select qg from QuestionnaireDefinition s join s.questionGroups qg where s.id = :questionnaireDefinition order by index(qg)")
-    List<QuestionGroup> findByQuestionnairDefinitionId(@Param("questionnaireDefinition")
+public interface SectionRepository extends GenericRepository<Section> {
+    @Query("select qg from QuestionnaireDefinition s join s.sections qg where s.id = :questionnaireDefinition order by index(qg)")
+    List<Section> findByQuestionnairDefinitionId(@Param("questionnaireDefinition")
     Integer questionnairDefinitionId);
 
-    @Query("select qg from QuestionnaireDefinition s join s.questionGroups qg where s.id = :questionnaireDefinition and index(qg) = :position")
-    QuestionGroup findOneByPositionInQuestionnairDefinition(@Param("questionnaireDefinition")
+    @Query("select qg from QuestionnaireDefinition s join s.sections qg where s.id = :questionnaireDefinition and index(qg) = :position")
+    Section findOneByPositionInQuestionnairDefinition(@Param("questionnaireDefinition")
     Integer questionnairDefinitionId, @Param("position")
     Integer position);
 
-    @Query("select index(qg) from QuestionnaireDefinition s join s.questionGroups qg where qg.id = :questionGroupId")
-    Integer positionInQuestionnairDefinition(@Param("questionGroupId")
-    Integer questionGroupId);
+    @Query("select index(qg) from QuestionnaireDefinition s join s.sections qg where qg.id = :sectionId")
+    Integer positionInQuestionnairDefinition(@Param("sectionId")
+    Integer sectionId);
 }

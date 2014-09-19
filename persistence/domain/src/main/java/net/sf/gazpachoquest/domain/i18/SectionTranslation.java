@@ -19,20 +19,20 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlTransient;
 
-import net.sf.gazpachoquest.domain.core.QuestionGroup;
-import net.sf.gazpachoquest.domain.core.embeddables.QuestionGroupLanguageSettings;
+import net.sf.gazpachoquest.domain.core.Section;
+import net.sf.gazpachoquest.domain.core.embeddables.SectionLanguageSettings;
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
 import net.sf.gazpachoquest.domain.support.Translation;
 import net.sf.gazpachoquest.domain.support.TranslationBuilder;
 import net.sf.gazpachoquest.types.Language;
 
 @Entity
-public class QuestionGroupTranslation extends AbstractPersistable implements Translation<QuestionGroupLanguageSettings> {
+public class SectionTranslation extends AbstractPersistable implements Translation<SectionLanguageSettings> {
 
     private static final long serialVersionUID = -2719163699375812306L;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private QuestionGroup questionGroup;
+    private Section section;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, insertable = true, updatable = true)
@@ -40,21 +40,21 @@ public class QuestionGroupTranslation extends AbstractPersistable implements Tra
     private Language language;
 
     @Embedded
-    private QuestionGroupLanguageSettings languageSettings;
+    private SectionLanguageSettings languageSettings;
 
-    public QuestionGroupTranslation() {
+    public SectionTranslation() {
         super();
     }
 
-    public QuestionGroup getQuestionGroup() {
-        if (questionGroup == null) {
-            return new QuestionGroup();
+    public Section getSection() {
+        if (section == null) {
+            return new Section();
         }
-        return questionGroup;
+        return section;
     }
 
-    public void setQuestionGroup(QuestionGroup questionGroup) {
-        this.questionGroup = questionGroup;
+    public void setSection(Section section) {
+        this.section = section;
     }
 
     @Override
@@ -68,12 +68,12 @@ public class QuestionGroupTranslation extends AbstractPersistable implements Tra
     }
 
     @Override
-    public QuestionGroupLanguageSettings getLanguageSettings() {
+    public SectionLanguageSettings getLanguageSettings() {
         return languageSettings;
     }
 
     @Override
-    public void setLanguageSettings(QuestionGroupLanguageSettings languageSettings) {
+    public void setLanguageSettings(SectionLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }
 
@@ -81,13 +81,13 @@ public class QuestionGroupTranslation extends AbstractPersistable implements Tra
         return new Builder();
     }
 
-    public static class Builder implements TranslationBuilder<QuestionGroupTranslation, QuestionGroupLanguageSettings> {
-        private QuestionGroup questionGroup;
+    public static class Builder implements TranslationBuilder<SectionTranslation, SectionLanguageSettings> {
+        private Section section;
         private Language language;
-        private QuestionGroupLanguageSettings languageSettings;
+        private SectionLanguageSettings languageSettings;
 
-        public Builder questionGroup(QuestionGroup questionGroup) {
-            this.questionGroup = questionGroup;
+        public Builder section(Section section) {
+            this.section = section;
             return this;
         }
 
@@ -98,30 +98,30 @@ public class QuestionGroupTranslation extends AbstractPersistable implements Tra
         }
 
         @Override
-        public Builder languageSettings(QuestionGroupLanguageSettings languageSettings) {
+        public Builder languageSettings(SectionLanguageSettings languageSettings) {
             this.languageSettings = languageSettings;
             return this;
         }
 
         @Override
-        public QuestionGroupTranslation build() {
-            QuestionGroupTranslation questionGroupTranslation = new QuestionGroupTranslation();
-            questionGroupTranslation.questionGroup = questionGroup;
-            questionGroupTranslation.language = language;
-            questionGroupTranslation.languageSettings = languageSettings;
-            return questionGroupTranslation;
+        public SectionTranslation build() {
+            SectionTranslation sectionTranslation = new SectionTranslation();
+            sectionTranslation.section = section;
+            sectionTranslation.language = language;
+            sectionTranslation.languageSettings = languageSettings;
+            return sectionTranslation;
         }
 
         @Override
         public Builder translatedEntityId(Integer entityId) {
-            QuestionGroup questionGroup = new QuestionGroup();
-            questionGroup.setId(entityId);
-            return questionGroup(questionGroup);
+            Section section = new Section();
+            section.setId(entityId);
+            return section(section);
         }
     }
 
     @Override
     public Integer getTranslatedEntityId() {
-        return getQuestionGroup().getId();
+        return getSection().getId();
     }
 }

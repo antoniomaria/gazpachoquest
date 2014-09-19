@@ -20,11 +20,11 @@ import net.sf.gazpachoquest.types.Language;
 public interface QuestionService extends
         LocalizedPersistenceService<Question, QuestionTranslation, QuestionLanguageSettings> {
 
-    Question findOneByPositionInQuestionGroup(Integer questionGroupId, Integer position);
+    Question findOneByPositionInSection(Integer sectionId, Integer position);
 
-    Integer findPositionInQuestionGroup(Integer questionId);
+    Integer findPositionInSection(Integer questionId);
 
-    List<Question> findByQuestionGroupId(Integer questionGroupId);
+    List<Question> findBySectionId(Integer sectionId);
 
     List<Question> findInList(List<Integer> questionIds);
 

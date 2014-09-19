@@ -18,7 +18,7 @@ import net.sf.gazpachoquest.dto.LabelDTO;
 import net.sf.gazpachoquest.dto.LabelSetDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateLanguageSettingsDTO;
-import net.sf.gazpachoquest.dto.QuestionGroupDTO;
+import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.ResearchDTO;
 import net.sf.gazpachoquest.dto.UserDTO;
@@ -183,9 +183,9 @@ public class DBPopulator {
 
         // First Group Randomization Enabled
         questionnaireDefinition = sampleQuizCreator.create();
-        QuestionGroupDTO firstQuestionGroup = questionnaireDefinition.getQuestionGroups().get(0);
-        firstQuestionGroup.setRandomizationEnabled(true);
-        questionnaireDefinitionEditorFacade.save(firstQuestionGroup);
+        SectionDTO firstSection = questionnaireDefinition.getSections().get(0);
+        firstSection.setRandomizationEnabled(true);
+        questionnaireDefinitionEditorFacade.save(firstSection);
 
         asignDefaultMailTemplate(questionnaireDefinition);
         questionnaireDefinitionEditorFacade.confirm(questionnaireDefinition);

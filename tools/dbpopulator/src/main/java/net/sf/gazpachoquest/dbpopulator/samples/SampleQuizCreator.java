@@ -1,8 +1,8 @@
 package net.sf.gazpachoquest.dbpopulator.samples;
 
 import net.sf.gazpachoquest.dto.QuestionDTO;
-import net.sf.gazpachoquest.dto.QuestionGroupDTO;
-import net.sf.gazpachoquest.dto.QuestionGroupLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.SectionDTO;
+import net.sf.gazpachoquest.dto.SectionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionLanguageSettingsDTO;
@@ -28,7 +28,7 @@ public class SampleQuizCreator {
                 .questionnairLanguageSettingsStart().title("European general knowledge quiz")
                 .description("How much do you know about Europe? Answer to this questions and let's find out!")
                 .welcomeText("Thank you for taking the time to participate in this questionnaire.")
-                .questionnairLanguageSettingsEnd().renderingMode(RenderingMode.GROUP_BY_GROUP).build();
+                .questionnairLanguageSettingsEnd().renderingMode(RenderingMode.SECTION_BY_SECTION).build();
         questionnairDefinition = questionnaireDefinitionEditorFacade.save(questionnairDefinition);
 
         TranslationDTO<QuestionnaireDefinitionDTO, QuestionnaireDefinitionLanguageSettingsDTO> questionnairTranslation = new TranslationDTO<>();
@@ -42,57 +42,57 @@ public class SampleQuizCreator {
         questionnaireDefinitionEditorFacade.saveQuestionnaireTranslation(questionnairTranslation);
 
         // Page 1
-        QuestionGroupDTO questionGroup1 = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false)
+        SectionDTO section1 = SectionDTO.with().language(Language.EN).randomizationEnabled(false)
                 .pageLanguageSettingsStart().title("European Capitals").pageLanguageSettingsEnd().build();
 
-        questionnairDefinition.addQuestionGroup(questionGroup1);
+        questionnairDefinition.addSection(section1);
         questionnairDefinition = questionnaireDefinitionEditorFacade.save(questionnairDefinition);
 
-        questionGroup1 = questionnairDefinition.getLastQuestionGroupDTO();
+        section1 = questionnairDefinition.getLastSectionDTO();
 
-        TranslationDTO<QuestionGroupDTO, QuestionGroupLanguageSettingsDTO> questionGroupTranslation = new TranslationDTO<>();
-        questionGroupTranslation.setLanguage(Language.ES);
-        questionGroupTranslation.setLanguageSettings(QuestionGroupLanguageSettingsDTO.with()
+        TranslationDTO<SectionDTO, SectionLanguageSettingsDTO> sectionTranslation = new TranslationDTO<>();
+        sectionTranslation.setLanguage(Language.ES);
+        sectionTranslation.setLanguageSettings(SectionLanguageSettingsDTO.with()
                 .title("Capitales Europeas").build());
-        questionGroupTranslation.setTranslatedEntity(questionGroup1);
-        questionnaireDefinitionEditorFacade.saveQuestionGroupTranslation(questionGroupTranslation);
+        sectionTranslation.setTranslatedEntity(section1);
+        questionnaireDefinitionEditorFacade.saveSectionTranslation(sectionTranslation);
 
         // Page 2
-        QuestionGroupDTO questionGroup2 = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false)
+        SectionDTO section2 = SectionDTO.with().language(Language.EN).randomizationEnabled(false)
                 .pageLanguageSettingsStart().title("European Union").pageLanguageSettingsEnd().build();
 
-        questionnairDefinition.addQuestionGroup(questionGroup2);
+        questionnairDefinition.addSection(section2);
         questionnairDefinition = questionnaireDefinitionEditorFacade.save(questionnairDefinition);
-        questionGroup2 = questionnairDefinition.getLastQuestionGroupDTO();
+        section2 = questionnairDefinition.getLastSectionDTO();
 
-        questionGroupTranslation = new TranslationDTO<>();
-        questionGroupTranslation.setLanguage(Language.ES);
-        questionGroupTranslation.setLanguageSettings(QuestionGroupLanguageSettingsDTO.with().title("Unión Europea")
+        sectionTranslation = new TranslationDTO<>();
+        sectionTranslation.setLanguage(Language.ES);
+        sectionTranslation.setLanguageSettings(SectionLanguageSettingsDTO.with().title("Unión Europea")
                 .build());
-        questionGroupTranslation.setTranslatedEntity(questionGroup2);
-        questionnaireDefinitionEditorFacade.saveQuestionGroupTranslation(questionGroupTranslation);
+        sectionTranslation.setTranslatedEntity(section2);
+        questionnaireDefinitionEditorFacade.saveSectionTranslation(sectionTranslation);
 
         // Page 3
-        QuestionGroupDTO questionGroup3 = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false)
+        SectionDTO section3 = SectionDTO.with().language(Language.EN).randomizationEnabled(false)
                 .pageLanguageSettingsStart().title("European History").pageLanguageSettingsEnd().build();
 
-        questionnairDefinition.addQuestionGroup(questionGroup3);
+        questionnairDefinition.addSection(section3);
         questionnairDefinition = questionnaireDefinitionEditorFacade.save(questionnairDefinition);
-        questionGroup3 = questionnairDefinition.getLastQuestionGroupDTO();
+        section3 = questionnairDefinition.getLastSectionDTO();
 
-        questionGroupTranslation = new TranslationDTO<>();
-        questionGroupTranslation.setLanguage(Language.ES);
-        questionGroupTranslation.setLanguageSettings(QuestionGroupLanguageSettingsDTO.with().title("Sociedad").build());
-        questionGroupTranslation.setTranslatedEntity(questionGroup3);
-        questionnaireDefinitionEditorFacade.saveQuestionGroupTranslation(questionGroupTranslation);
+        sectionTranslation = new TranslationDTO<>();
+        sectionTranslation.setLanguage(Language.ES);
+        sectionTranslation.setLanguageSettings(SectionLanguageSettingsDTO.with().title("Sociedad").build());
+        sectionTranslation.setTranslatedEntity(section3);
+        questionnaireDefinitionEditorFacade.saveSectionTranslation(sectionTranslation);
 
         // 1 Single Textbox
         QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).code("Q1")
                 .languageSettingsStart().title("What is the capital of Malta?").languageSettingsEnd().required(true)
                 .build();
-        questionGroup1.addQuestion(question);
-        questionGroup1 = questionnaireDefinitionEditorFacade.save(questionGroup1);
-        question = questionGroup1.getLastQuestionDTO();
+        section1.addQuestion(question);
+        section1 = questionnaireDefinitionEditorFacade.save(section1);
+        question = section1.getLastQuestionDTO();
 
         TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
@@ -110,9 +110,9 @@ public class SampleQuizCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN).title("Denmark").build());
         question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("Iceland").build());
 
-        questionGroup1.addQuestion(question);
-        questionGroup1 = questionnaireDefinitionEditorFacade.save(questionGroup1);
-        question = questionGroup1.getLastQuestionDTO();
+        section1.addQuestion(question);
+        section1 = questionnaireDefinitionEditorFacade.save(section1);
+        question = section1.getLastQuestionDTO();
 
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
@@ -153,10 +153,10 @@ public class SampleQuizCreator {
                 .title("How many European capitals were founded by Romans?").languageSettingsEnd().required(true)
                 .build();
 
-        questionGroup1.addQuestion(question);
-        questionGroup1 = questionnaireDefinitionEditorFacade.save(questionGroup1);
+        section1.addQuestion(question);
+        section1 = questionnaireDefinitionEditorFacade.save(section1);
 
-        question = questionGroup1.getLastQuestionDTO();
+        question = section1.getLastQuestionDTO();
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
         questionTranslation.setLanguageSettings(QuestionLanguageSettingsDTO.with()
@@ -174,10 +174,10 @@ public class SampleQuizCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN).title("Helsinki").build());
         question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("Viena").build());
 
-        questionGroup1.addQuestion(question);
-        questionGroup1 = questionnaireDefinitionEditorFacade.save(questionGroup1);
+        section1.addQuestion(question);
+        section1 = questionnaireDefinitionEditorFacade.save(section1);
 
-        question = questionGroup1.getLastQuestionDTO();
+        question = section1.getLastQuestionDTO();
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
         questionTranslation.setLanguageSettings(QuestionLanguageSettingsDTO.with()
@@ -214,9 +214,9 @@ public class SampleQuizCreator {
         // 5 Single Textbox
         question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).code("Q5").languageSettingsStart()
                 .title("What does EU stand for??").languageSettingsEnd().required(true).build();
-        questionGroup2.addQuestion(question);
-        questionGroup2 = questionnaireDefinitionEditorFacade.save(questionGroup2);
-        question = questionGroup2.getLastQuestionDTO();
+        section2.addQuestion(question);
+        section2 = questionnaireDefinitionEditorFacade.save(section2);
+        question = section2.getLastQuestionDTO();
 
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
@@ -241,9 +241,9 @@ public class SampleQuizCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("Versailles")
                 .build());
 
-        questionGroup2.addQuestion(question);
-        questionGroup2 = questionnaireDefinitionEditorFacade.save(questionGroup2);
-        question = questionGroup2.getLastQuestionDTO();
+        section2.addQuestion(question);
+        section2 = questionnaireDefinitionEditorFacade.save(section2);
+        question = section2.getLastQuestionDTO();
 
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
@@ -289,10 +289,10 @@ public class SampleQuizCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN).title("Macedonia").build());
         question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("Chipre").build());
 
-        questionGroup2.addQuestion(question);
-        questionGroup2 = questionnaireDefinitionEditorFacade.save(questionGroup2);
+        section2.addQuestion(question);
+        section2 = questionnaireDefinitionEditorFacade.save(section2);
 
-        question = questionGroup2.getLastQuestionDTO();
+        question = section2.getLastQuestionDTO();
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
         questionTranslation.setLanguageSettings(QuestionLanguageSettingsDTO.with()
@@ -332,10 +332,10 @@ public class SampleQuizCreator {
                 .title("How many finnish marc do you need to get an euro?").languageSettingsEnd().required(true)
                 .build();
 
-        questionGroup2.addQuestion(question);
-        questionGroup2 = questionnaireDefinitionEditorFacade.save(questionGroup2);
+        section2.addQuestion(question);
+        section2 = questionnaireDefinitionEditorFacade.save(section2);
 
-        question = questionGroup2.getLastQuestionDTO();
+        question = section2.getLastQuestionDTO();
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
         questionTranslation.setLanguageSettings(QuestionLanguageSettingsDTO.with()
@@ -352,9 +352,9 @@ public class SampleQuizCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN).title("Genoa").build());
         question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("Roma").build());
 
-        questionGroup3.addQuestion(question);
-        questionGroup3 = questionnaireDefinitionEditorFacade.save(questionGroup3);
-        question = questionGroup3.getLastQuestionDTO();
+        section3.addQuestion(question);
+        section3 = questionnaireDefinitionEditorFacade.save(section3);
+        question = section3.getLastQuestionDTO();
 
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
@@ -402,9 +402,9 @@ public class SampleQuizCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("Dutch Empire")
                 .build());
 
-        questionGroup3.addQuestion(question);
-        questionGroup3 = questionnaireDefinitionEditorFacade.save(questionGroup3);
-        question = questionGroup3.getLastQuestionDTO();
+        section3.addQuestion(question);
+        section3 = questionnaireDefinitionEditorFacade.save(section3);
+        question = section3.getLastQuestionDTO();
 
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
@@ -445,9 +445,9 @@ public class SampleQuizCreator {
         question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).code("Q11").languageSettingsStart()
                 .title("Which nationality has the first european that to get Congo?").languageSettingsEnd()
                 .required(true).build();
-        questionGroup3.addQuestion(question);
-        questionGroup3 = questionnaireDefinitionEditorFacade.save(questionGroup3);
-        question = questionGroup3.getLastQuestionDTO();
+        section3.addQuestion(question);
+        section3 = questionnaireDefinitionEditorFacade.save(section3);
+        question = section3.getLastQuestionDTO();
 
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
@@ -469,9 +469,9 @@ public class SampleQuizCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("Julius Caesar")
                 .build());
 
-        questionGroup3.addQuestion(question);
-        questionGroup3 = questionnaireDefinitionEditorFacade.save(questionGroup3);
-        question = questionGroup3.getLastQuestionDTO();
+        section3.addQuestion(question);
+        section3 = questionnaireDefinitionEditorFacade.save(section3);
+        question = section3.getLastQuestionDTO();
 
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);

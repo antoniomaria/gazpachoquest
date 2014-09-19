@@ -9,7 +9,7 @@
 
   <persistence:class>net.sf.gazpachoquest.domain.core.Breadcrumb</persistence:class>
   <persistence:class>net.sf.gazpachoquest.domain.core.QuestionBreadcrumb</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb</persistence:class>
+  <persistence:class>net.sf.gazpachoquest.domain.core.SectionBreadcrumb</persistence:class>
 
   <persistence:class>net.sf.gazpachoquest.domain.core.Label</persistence:class>
   <persistence:class>net.sf.gazpachoquest.domain.core.LabelSet</persistence:class>
@@ -19,7 +19,7 @@
 
   <persistence:class>net.sf.gazpachoquest.domain.core.PersonalInvitation</persistence:class>
   <persistence:class>net.sf.gazpachoquest.domain.core.Question</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.core.QuestionGroup</persistence:class>
+  <persistence:class>net.sf.gazpachoquest.domain.core.Section</persistence:class>
   <persistence:class>net.sf.gazpachoquest.domain.core.Questionnaire</persistence:class>
   <persistence:class>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</persistence:class>
   <persistence:class>net.sf.gazpachoquest.domain.core.QuestionOption</persistence:class>
@@ -35,10 +35,12 @@
   <!-- i18 -->
   <persistence:class>net.sf.gazpachoquest.domain.i18.LabelTranslation</persistence:class>
   <persistence:class>net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.i18.QuestionGroupTranslation</persistence:class>
+  <persistence:class>net.sf.gazpachoquest.domain.i18.SectionTranslation</persistence:class>
   <persistence:class>net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation</persistence:class>
   <persistence:class>net.sf.gazpachoquest.domain.i18.QuestionOptionTranslation</persistence:class>
   <persistence:class>net.sf.gazpachoquest.domain.i18.QuestionTranslation</persistence:class>
+  <persistence:class>net.sf.gazpachoquest.domain.i18.SectionTranslation</persistence:class>
+
   <!-- Support -->
   <persistence:class>net.sf.gazpachoquest.domain.support.Invitation</persistence:class>
 

@@ -88,7 +88,7 @@ public class ClientInterceptorTest {
         QuestionnairePageDTO definition = questionnaireResource.getPage(questionnaireId, RenderingMode.ALL_IN_ONE,
                 Language.EN, NavigationAction.ENTERING);
 
-        // System.out.println(definition.getQuestionGroups().get(0).getQuestions());
+        // System.out.println(definition.getSections().get(0).getQuestions());
         System.out.println(definition.getQuestions());
     }
 }

@@ -21,22 +21,22 @@ public class QuestionnairePageDTO implements Serializable {
 
     private static final long serialVersionUID = -4722536148236589317L;
 
-    private final List<QuestionGroupDTO> questionGroups = new ArrayList<>();
+    private final List<SectionDTO> sections = new ArrayList<>();
 
     private PageMetadataDTO metadata;
 
-    private boolean questionGroupInfoAvailable;
+    private boolean sectionInfoAvailable;
 
     public QuestionnairePageDTO() {
         super();
     }
 
-    public void addQuestionGroup(QuestionGroupDTO questionGroup) {
-        questionGroups.add(questionGroup);
+    public void addSection(SectionDTO section) {
+        sections.add(section);
     }
 
-    public List<QuestionGroupDTO> getQuestionGroups() {
-        return Collections.unmodifiableList(questionGroups);
+    public List<SectionDTO> getSections() {
+        return Collections.unmodifiableList(sections);
     }
 
     public PageMetadataDTO getMetadata() {
@@ -50,19 +50,19 @@ public class QuestionnairePageDTO implements Serializable {
     @JsonIgnore
     public List<QuestionDTO> getQuestions() {
         List<QuestionDTO> allQuestions = new ArrayList<>();
-        for (QuestionGroupDTO questionGroup : questionGroups) {
-            List<QuestionDTO> questions = questionGroup.getQuestions();
+        for (SectionDTO section : sections) {
+            List<QuestionDTO> questions = section.getQuestions();
             allQuestions.addAll(questions);
         }
         return allQuestions;
     }
 
-    public boolean isQuestionGroupInfoAvailable() {
-        return questionGroupInfoAvailable;
+    public boolean isSectionInfoAvailable() {
+        return sectionInfoAvailable;
     }
 
-    public void setQuestionGroupInfoAvailable(boolean questionGroupInfoAvailable) {
-        this.questionGroupInfoAvailable = questionGroupInfoAvailable;
+    public void setSectionInfoAvailable(boolean sectionInfoAvailable) {
+        this.sectionInfoAvailable = sectionInfoAvailable;
     }
 
 }

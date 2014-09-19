@@ -39,10 +39,10 @@ public class PageMetadataCreatorTest {
     @DatabaseSetup("PageMetadataCreatorTest-dataset.xml")
     @DatabaseTearDown("PageMetadataCreatorTest-dataset.xml")
     @Test
-    public void createForQuestionGroupNoRandomizationTest() {
+    public void createForSectionNoRandomizationTest() {
         Breadcrumb breadcrumb = breadcrumbService.findOne(201);
         PageMetadataStructure metadata = pageMetadataCreator.create(RandomizationStrategy.NONE,
-                RenderingMode.GROUP_BY_GROUP, breadcrumb);
+                RenderingMode.SECTION_BY_SECTION, breadcrumb);
         assertThat(metadata.getCount()).isEqualTo(3);
         assertThat(metadata.getNumber()).isEqualTo(3);
     }
@@ -53,7 +53,7 @@ public class PageMetadataCreatorTest {
     public void createRandomizationPerQuestionEnabledTest() {
         Breadcrumb breadcrumb = breadcrumbService.findOne(103);
         PageMetadataStructure metadata = pageMetadataCreator.create(RandomizationStrategy.QUESTIONS_RANDOMIZATION,
-                RenderingMode.GROUP_BY_GROUP, breadcrumb);
+                RenderingMode.SECTION_BY_SECTION, breadcrumb);
         assertThat(metadata.getCount()).isEqualTo(8);
         assertThat(metadata.getNumber()).isEqualTo(2);
     }

@@ -17,6 +17,8 @@ import net.sf.gazpachoquest.domain.support.AbstractSecurizable;
 @Entity
 public class Directory extends AbstractSecurizable<DirectoryPermission> {
 
+    private static final long serialVersionUID = 8348734621404990152L;
+
     @Column(nullable = false)
     private String name;
 

@@ -23,7 +23,7 @@ import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionOption;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionTranslation;
-import net.sf.gazpachoquest.repository.QuestionGroupRepository;
+import net.sf.gazpachoquest.repository.SectionRepository;
 import net.sf.gazpachoquest.repository.QuestionRepository;
 import net.sf.gazpachoquest.repository.QuestionnaireDefinitionRepository;
 import net.sf.gazpachoquest.repository.i18.QuestionTranslationRepository;
@@ -43,7 +43,7 @@ public class QuestionServiceImpl extends
         QuestionService {
 
     @Autowired
-    private QuestionGroupRepository questionGroupRepository;
+    private SectionRepository sectionRepository;
 
     @Autowired
     private QuestionnaireDefinitionRepository questionnaireDefinitionRepository;
@@ -59,20 +59,20 @@ public class QuestionServiceImpl extends
 
     @Override
     @Transactional
-    public Question findOneByPositionInQuestionGroup(final Integer questionGroupId, final Integer position) {
-        return ((QuestionRepository) repository).findOneByPositionInQuestionGroup(questionGroupId, position);
+    public Question findOneByPositionInSection(final Integer sectionId, final Integer position) {
+        return ((QuestionRepository) repository).findOneByPositionInSection(sectionId, position);
     }
 
     @Override
     @Transactional
-    public Integer findPositionInQuestionGroup(final Integer questionId) {
-        return ((QuestionRepository) repository).findPositionInQuestionGroup(questionId);
+    public Integer findPositionInSection(final Integer questionId) {
+        return ((QuestionRepository) repository).findPositionInSection(questionId);
     }
 
     @Override
     @Transactional
-    public List<Question> findByQuestionGroupId(Integer questionGroupId) {
-        return ((QuestionRepository) repository).findByQuestionGroupId(questionGroupId);
+    public List<Question> findBySectionId(Integer sectionId) {
+        return ((QuestionRepository) repository).findBySectionId(sectionId);
     }
 
     @Override
@@ -153,7 +153,7 @@ public class QuestionServiceImpl extends
     @Transactional(readOnly = false)
     public Question save(final Question question) {
         Assert.state(!question.isNew(),
-                "Question must be already persisted. Try by adding to QuestionGroup or as added as subquestion first.");
+                "Question must be already persisted. Try by adding to Section or as added as subquestion first.");
         Question existing = repository.save(question);
         for (Question subquestion : question.getSubquestions()) {
             if (!subquestion.isNew()) { // Skip created subquestions

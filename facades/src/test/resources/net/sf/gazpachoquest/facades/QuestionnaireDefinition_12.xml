@@ -6,8 +6,8 @@
       <title>European general knowledge quiz</title>
       <welcomeText>Thank you for taking the time to participate in this questionnaire.</welcomeText>
    </language-settings>
-   <question-groups>
-      <question-group>
+   <sections>
+      <section>
          <language>EN</language>
          <language-settings>
             <title>European Capitals</title>
@@ -251,8 +251,8 @@
             </entry>
          </translations>
          <randomization-enabled>false</randomization-enabled>
-      </question-group>
-      <question-group>
+      </section>
+      <section>
          <language>EN</language>
          <language-settings>
             <title>European Union</title>
@@ -446,8 +446,8 @@
             </entry>
          </translations>
          <randomization-enabled>false</randomization-enabled>
-      </question-group>
-      <question-group>
+      </section>
+      <section>
          <language>EN</language>
          <language-settings>
             <title>European History</title>
@@ -760,8 +760,8 @@
             </entry>
          </translations>
          <randomization-enabled>false</randomization-enabled>
-      </question-group>
-   </question-groups>
+      </section>
+   </sections>
    <mail-templates>
       <entry>
          <key>INVITATION</key>
@@ -801,7 +801,7 @@
    </translations>
    <welcome-visible>true</welcome-visible>
    <progress-visible>true</progress-visible>
-   <question-group-info-visible>true</question-group-info-visible>
+   <section-info-visible>true</section-info-visible>
    <randomization-strategy>NONE</randomization-strategy>
-   <rendering-mode>GROUP_BY_GROUP</rendering-mode>
+   <rendering-mode>SECTION_BY_SECTION</rendering-mode>
 </questionnaire-definition>

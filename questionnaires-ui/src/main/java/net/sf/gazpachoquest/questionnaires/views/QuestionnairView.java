@@ -18,7 +18,7 @@ import javax.resource.NotSupportedException;
 
 import net.sf.gazpachoquest.api.QuestionnaireResource;
 import net.sf.gazpachoquest.dto.QuestionDTO;
-import net.sf.gazpachoquest.dto.QuestionGroupDTO;
+import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDTO;
 import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
@@ -84,20 +84,20 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
 
     private Language preferredLanguage;
 
-    private Boolean questionGroupInfoVisible;
+    private Boolean sectionInfoVisible;
 
     public void update(QuestionnairePageDTO page) {
         questionsLayout.removeAllComponents();
 
-        List<QuestionGroupDTO> questionGroups = page.getQuestionGroups();
+        List<SectionDTO> sections = page.getSections();
 
-        for (QuestionGroupDTO questionGroupDTO : questionGroups) {
-            if (questionGroupInfoVisible && page.isQuestionGroupInfoAvailable()) {
-                final Label questionGroupTile = new Label(questionGroupDTO.getLanguageSettings().getTitle());
-                questionGroupTile.addStyleName(Reindeer.LABEL_H2);
-                questionsLayout.addComponent(questionGroupTile);
+        for (SectionDTO sectionDTO : sections) {
+            if (sectionInfoVisible && page.isSectionInfoAvailable()) {
+                final Label sectionTile = new Label(sectionDTO.getLanguageSettings().getTitle());
+                sectionTile.addStyleName(Reindeer.LABEL_H2);
+                questionsLayout.addComponent(sectionTile);
             }
-            List<QuestionDTO> questions = questionGroupDTO.getQuestions();
+            List<QuestionDTO> questions = sectionDTO.getQuestions();
             for (QuestionDTO questionDTO : questions) {
                 QuestionComponent questionComponent;
                 try {
@@ -153,7 +153,7 @@ public class QuestionnairView extends CustomComponent implements View, ClickList
         questionnaireId = respondent.getGrantedquestionnaireIds().iterator().next();
         logger.debug("Trying to fetch questionnair identified with id  = {} ", questionnaireId);
         QuestionnaireDTO questionnair = questionnaireResource.getDefinition(questionnaireId);
-        questionGroupInfoVisible = questionnair.isQuestionGroupInfoVisible();
+        sectionInfoVisible = questionnair.isSectionInfoVisible();
         QuestionnairePageDTO page = questionnaireResource.getPage(questionnaireId, renderingMode, preferredLanguage,
                 NavigationAction.ENTERING);
 

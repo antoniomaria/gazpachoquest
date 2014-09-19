@@ -28,7 +28,7 @@ public interface QuestionnaireDefinitionService
 
     QuestionnaireDefinition confirm(QuestionnaireDefinition questionnaireDefinition);
 
-    int questionGroupsCount(Integer questionnairDefinitionId);
+    int sectionsCount(Integer questionnairDefinitionId);
 
     Integer questionsCount(Integer questionnairDefinitionId);
 
@@ -37,7 +37,7 @@ public interface QuestionnaireDefinitionService
      * questionnairDefinitionId
      * 
      * <pre>
-     * [11, 2, 0] = [questionGroupId, questionCount, order_in_questionnair]
+     * [11, 2, 0] = [sectionId, questionCount, order_in_questionnair]
      * [10, 3, 1]
      * [9, 2, 2]
      * </pre>
@@ -45,7 +45,7 @@ public interface QuestionnaireDefinitionService
      * @param questionnairDefinitionId
      * @return
      */
-    List<Object[]> questionsCountGroupByQuestionGroups(Integer questionnairDefinitionId);
+    List<Object[]> questionsCountGroupBySections(Integer questionnairDefinitionId);
 
     List<Question> getQuestions(Integer questionnairDefinitionId);
 

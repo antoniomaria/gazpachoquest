@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.Section;
 
 public class PageStructure {
 
     private PageMetadataStructure metadata;
 
-    private final List<QuestionGroup> questionGroups = new ArrayList<>();
+    private final List<Section> sections = new ArrayList<>();
 
-    private boolean questionGroupInfoAvailable;
+    private boolean sectionInfoAvailable;
 
     public PageStructure() {
         super();
@@ -20,18 +20,18 @@ public class PageStructure {
 
     public List<Integer> getQuestionsId() {
         List<Integer> allQuestionsId = new ArrayList<>();
-        for (QuestionGroup questionGroup : questionGroups) {
-            List<Integer> questionIds = questionGroup.getQuestionsId();
+        for (Section section : sections) {
+            List<Integer> questionIds = section.getQuestionsId();
             allQuestionsId.addAll(questionIds);
         }
         return Collections.unmodifiableList(allQuestionsId);
     }
 
-    public void addQuestionGroup(QuestionGroup questionGroup) {
-        if (!questionGroup.isNew()) {
-            questionGroupInfoAvailable = true;
+    public void addSection(Section section) {
+        if (!section.isNew()) {
+            sectionInfoAvailable = true;
         }
-        questionGroups.add(questionGroup);
+        sections.add(section);
     }
 
     public PageMetadataStructure getMetadata() {
@@ -42,11 +42,11 @@ public class PageStructure {
         this.metadata = metadata;
     }
 
-    public List<QuestionGroup> getQuestionGroups() {
-        return Collections.unmodifiableList(questionGroups);
+    public List<Section> getSections() {
+        return Collections.unmodifiableList(sections);
     }
 
-    public boolean isQuestionGroupInfoAvailable() {
-        return questionGroupInfoAvailable;
+    public boolean isSectionInfoAvailable() {
+        return sectionInfoAvailable;
     }
 }

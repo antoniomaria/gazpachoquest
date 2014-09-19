@@ -13,16 +13,16 @@ package net.sf.gazpachoquest.facades.impl;
 import net.sf.gazpachoquest.domain.core.Label;
 import net.sf.gazpachoquest.domain.core.LabelSet;
 import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.QuestionOption;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.LabelLanguageSettings;
-import net.sf.gazpachoquest.domain.core.embeddables.QuestionGroupLanguageSettings;
+import net.sf.gazpachoquest.domain.core.embeddables.SectionLanguageSettings;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionOptionLanguageSettings;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnaireDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.LabelTranslation;
-import net.sf.gazpachoquest.domain.i18.QuestionGroupTranslation;
+import net.sf.gazpachoquest.domain.i18.SectionTranslation;
 import net.sf.gazpachoquest.domain.i18.QuestionOptionTranslation;
 import net.sf.gazpachoquest.domain.i18.QuestionTranslation;
 import net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation;
@@ -30,8 +30,8 @@ import net.sf.gazpachoquest.dto.LabelDTO;
 import net.sf.gazpachoquest.dto.LabelLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.LabelSetDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
-import net.sf.gazpachoquest.dto.QuestionGroupDTO;
-import net.sf.gazpachoquest.dto.QuestionGroupLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.SectionDTO;
+import net.sf.gazpachoquest.dto.SectionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionLanguageSettingsDTO;
@@ -41,7 +41,7 @@ import net.sf.gazpachoquest.dto.support.TranslationDTO;
 import net.sf.gazpachoquest.facades.QuestionnaireDefinitionEditorFacade;
 import net.sf.gazpachoquest.services.LabelService;
 import net.sf.gazpachoquest.services.LabelSetService;
-import net.sf.gazpachoquest.services.QuestionGroupService;
+import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.services.QuestionOptionService;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
@@ -63,7 +63,7 @@ public final class QuestionnaireDefinitionEditorFacadeImpl implements Questionna
     private Mapper mapper;
 
     @Autowired
-    private QuestionGroupService questionGroupService;
+    private SectionService sectionService;
 
     @Autowired
     private QuestionOptionService questionOptionService;
@@ -106,10 +106,10 @@ public final class QuestionnaireDefinitionEditorFacadeImpl implements Questionna
     }
 
     @Override
-    public QuestionGroupDTO save(final QuestionGroupDTO questionGroup) {
-        QuestionGroup entity = mapper.map(questionGroup, QuestionGroup.class);
-        entity = questionGroupService.save(entity);
-        return mapper.map(entity, QuestionGroupDTO.class);
+    public SectionDTO save(final SectionDTO section) {
+        Section entity = mapper.map(section, Section.class);
+        entity = sectionService.save(entity);
+        return mapper.map(entity, SectionDTO.class);
     }
 
     @Override
@@ -124,10 +124,10 @@ public final class QuestionnaireDefinitionEditorFacadeImpl implements Questionna
         QuestionnaireDefinition entity = mapper.map(questionnaireDefinitionDTO, QuestionnaireDefinition.class);
         entity = questionnaireDefinitionService.save(entity);
 
-        if (questionnaireDefinitionDTO.getQuestionGroups().isEmpty()) {
+        if (questionnaireDefinitionDTO.getSections().isEmpty()) {
             return mapper.map(entity, QuestionnaireDefinitionDTO.class);
         } else {
-            return mapper.map(entity, QuestionnaireDefinitionDTO.class, "toDTOwithQuestionGroups");
+            return mapper.map(entity, QuestionnaireDefinitionDTO.class, "toDTOwithSections");
         }
     }
 
@@ -146,15 +146,15 @@ public final class QuestionnaireDefinitionEditorFacadeImpl implements Questionna
     }
 
     @Override
-    public TranslationDTO<QuestionGroupDTO, QuestionGroupLanguageSettingsDTO> saveQuestionGroupTranslation(
-            final TranslationDTO<QuestionGroupDTO, QuestionGroupLanguageSettingsDTO> translation) {
+    public TranslationDTO<SectionDTO, SectionLanguageSettingsDTO> saveSectionTranslation(
+            final TranslationDTO<SectionDTO, SectionLanguageSettingsDTO> translation) {
 
-        QuestionGroupLanguageSettings languageSettings = mapper.map(translation.getLanguageSettings(),
-                QuestionGroupLanguageSettings.class);
-        QuestionGroup entity = mapper.map(translation.getTranslatedEntity(), QuestionGroup.class);
-        QuestionGroupTranslation translationEntity = QuestionGroupTranslation.with()
-                .language(translation.getLanguage()).languageSettings(languageSettings).questionGroup(entity).build();
-        QuestionGroupTranslation tr = questionGroupService.saveTranslation(translationEntity);
+        SectionLanguageSettings languageSettings = mapper.map(translation.getLanguageSettings(),
+                SectionLanguageSettings.class);
+        Section entity = mapper.map(translation.getTranslatedEntity(), Section.class);
+        SectionTranslation translationEntity = SectionTranslation.with()
+                .language(translation.getLanguage()).languageSettings(languageSettings).section(entity).build();
+        SectionTranslation tr = sectionService.saveTranslation(translationEntity);
         translation.setId(tr.getId());
         return translation;
     }

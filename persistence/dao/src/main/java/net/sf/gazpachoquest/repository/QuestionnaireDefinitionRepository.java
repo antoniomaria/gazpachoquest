@@ -26,7 +26,7 @@ public interface QuestionnaireDefinitionRepository extends GenericRepository<Que
      * questionnaireDefinitionId
      * 
      * <pre>
-     * [11, 2, 0] = [questionGroupId, questionCount, order_in_questionnair]
+     * [11, 2, 0] = [sectionId, questionCount, order_in_questionnair]
      * [10, 3, 1]
      * [9, 2, 2]
      * </pre>
@@ -34,15 +34,15 @@ public interface QuestionnaireDefinitionRepository extends GenericRepository<Que
      * @param questionnaireDefinitionId
      * @return
      */
-    @Query("select qg.id,count(q.id),index(qg) from QuestionnaireDefinition qd left join qd.questionGroups qg left join qg.questions q where qd.id = :questionnaireDefinitionId group by qg.id order by index(qg)")
-    List<Object[]> questionsCountGroupByQuestionGroups(@Param("questionnaireDefinitionId")
+    @Query("select qg.id,count(q.id),index(qg) from QuestionnaireDefinition qd left join qd.sections qg left join qg.questions q where qd.id = :questionnaireDefinitionId group by qg.id order by index(qg)")
+    List<Object[]> questionsCountGroupBySections(@Param("questionnaireDefinitionId")
     Integer questionnaireDefinitionId);
 
-    @Query("select count(q) from QuestionnaireDefinition qd left join qd.questionGroups qg left join qg.questions q where qd.id = :questionnaireDefinitionId")
+    @Query("select count(q) from QuestionnaireDefinition qd left join qd.sections qg left join qg.questions q where qd.id = :questionnaireDefinitionId")
     Integer questionsCount(@Param("questionnaireDefinitionId")
     Integer questionnaireDefinitionId);
 
-    @Query("select q from QuestionnaireDefinition qd left join qd.questionGroups qg left join qg.questions q where qd.id = :questionnaireDefinitionId")
+    @Query("select q from QuestionnaireDefinition qd left join qd.sections qg left join qg.questions q where qd.id = :questionnaireDefinitionId")
     List<Question> getQuestions(@Param("questionnaireDefinitionId")
     Integer questionnaireDefinitionId);
 

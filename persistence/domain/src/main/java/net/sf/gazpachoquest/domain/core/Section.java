@@ -34,14 +34,14 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-import net.sf.gazpachoquest.domain.core.embeddables.QuestionGroupLanguageSettings;
-import net.sf.gazpachoquest.domain.i18.QuestionGroupTranslation;
+import net.sf.gazpachoquest.domain.core.embeddables.SectionLanguageSettings;
+import net.sf.gazpachoquest.domain.i18.SectionTranslation;
 import net.sf.gazpachoquest.domain.support.AbstractLocalizable;
 import net.sf.gazpachoquest.types.Language;
 
 @Entity
 @XmlType(propOrder = { "language", "languageSettings", "questions", "translations", "randomizationEnabled" })
-public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation, QuestionGroupLanguageSettings> {
+public class Section extends AbstractLocalizable<SectionTranslation, SectionLanguageSettings> {
 
     private static final long serialVersionUID = 5849288763708940985L;
 
@@ -54,15 +54,15 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
     private Language language;
 
     @Embedded
-    private QuestionGroupLanguageSettings languageSettings;
+    private SectionLanguageSettings languageSettings;
 
-    @OneToMany(mappedBy = "questionGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "section", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
-    private final Map<Language, QuestionGroupTranslation> translations = new HashMap<Language, QuestionGroupTranslation>();
+    private final Map<Language, SectionTranslation> translations = new HashMap<Language, SectionTranslation>();
 
-    @OneToMany(mappedBy = "questionGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @OrderColumn(name = "order_in_questiongroup")
+    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OrderColumn(name = "order_in_section")
     @XmlElementWrapper(name = "questions")
     @XmlElement(name = "question")
     private final List<Question> questions = new ArrayList<Question>();
@@ -70,7 +70,7 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
     @Column(nullable = false)
     private Boolean randomizationEnabled;
 
-    public QuestionGroup() {
+    public Section() {
         super();
     }
 
@@ -109,23 +109,23 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
     }
 
     @Override
-    public QuestionGroupLanguageSettings getLanguageSettings() {
+    public SectionLanguageSettings getLanguageSettings() {
         return languageSettings;
     }
 
     @Override
-    public void setLanguageSettings(QuestionGroupLanguageSettings languageSettings) {
+    public void setLanguageSettings(SectionLanguageSettings languageSettings) {
         this.languageSettings = languageSettings;
     }
 
     @Override
-    public Map<Language, QuestionGroupTranslation> getTranslations() {
+    public Map<Language, SectionTranslation> getTranslations() {
         return Collections.unmodifiableMap(translations);
     }
 
     public void addQuestion(Question question) {
         questions.add(question);
-        question.setQuestionGroup(this);
+        question.setSection(this);
     }
 
     public Boolean isRandomizationEnabled() {
@@ -137,13 +137,13 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
     }
 
     public void updateInverseRelationships() {
-        for (Entry<Language, QuestionGroupTranslation> entry : translations.entrySet()) {
-            QuestionGroupTranslation questionGroupTranslation = entry.getValue();
-            questionGroupTranslation.setQuestionGroup(this);
-            questionGroupTranslation.setLanguage(entry.getKey());
+        for (Entry<Language, SectionTranslation> entry : translations.entrySet()) {
+            SectionTranslation sectionTranslation = entry.getValue();
+            sectionTranslation.setSection(this);
+            sectionTranslation.setLanguage(entry.getKey());
         }
         for (Question question : questions) {
-            question.setQuestionGroup(this);
+            question.setSection(this);
             question.updateInverseRelationships();
         }
     }
@@ -156,7 +156,7 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
         private Integer id;
         private QuestionnaireDefinition questionnaireDefinition;
         private Language language;
-        private QuestionGroupLanguageSettings languageSettings;
+        private SectionLanguageSettings languageSettings;
         private Boolean randomizationEnabled;
 
         public Builder id(Integer id) {
@@ -179,19 +179,19 @@ public class QuestionGroup extends AbstractLocalizable<QuestionGroupTranslation,
             return this;
         }
 
-        public Builder languageSettings(QuestionGroupLanguageSettings languageSettings) {
+        public Builder languageSettings(SectionLanguageSettings languageSettings) {
             this.languageSettings = languageSettings;
             return this;
         }
 
-        public QuestionGroup build() {
-            QuestionGroup questionGroup = new QuestionGroup();
-            questionGroup.setId(id);
-            questionGroup.questionnaireDefinition = questionnaireDefinition;
-            questionGroup.language = language;
-            questionGroup.languageSettings = languageSettings;
-            questionGroup.randomizationEnabled = randomizationEnabled;
-            return questionGroup;
+        public Section build() {
+            Section section = new Section();
+            section.setId(id);
+            section.questionnaireDefinition = questionnaireDefinition;
+            section.language = language;
+            section.languageSettings = languageSettings;
+            section.randomizationEnabled = randomizationEnabled;
+            return section;
         }
     }
 

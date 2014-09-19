@@ -80,19 +80,19 @@ public class QuestionnaireFacadeTest extends AbstractShiroTest {
     @Test
     public void resolvePageTest() {
         Integer questionnaireId = 70;
-        QuestionnairePageDTO page = questionnaireFacade.resolvePage(questionnaireId, RenderingMode.GROUP_BY_GROUP,
+        QuestionnairePageDTO page = questionnaireFacade.resolvePage(questionnaireId, RenderingMode.SECTION_BY_SECTION,
                 Language.EN, NavigationAction.ENTERING);
 
         assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(12).build(),
                 QuestionDTO.with().id(13).build(), QuestionDTO.with().id(29).build());
 
-        page = questionnaireFacade.resolvePage(questionnaireId, RenderingMode.GROUP_BY_GROUP, Language.EN,
+        page = questionnaireFacade.resolvePage(questionnaireId, RenderingMode.SECTION_BY_SECTION, Language.EN,
                 NavigationAction.NEXT);
 
         assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(30).build(),
                 QuestionDTO.with().id(31).build(), QuestionDTO.with().id(35).build());
 
-        page = questionnaireFacade.resolvePage(questionnaireId, RenderingMode.GROUP_BY_GROUP, Language.EN,
+        page = questionnaireFacade.resolvePage(questionnaireId, RenderingMode.SECTION_BY_SECTION, Language.EN,
                 NavigationAction.PREVIOUS);
 
         assertThat(page.getQuestions()).containsSequence(QuestionDTO.with().id(12).build(),

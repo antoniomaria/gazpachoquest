@@ -25,28 +25,28 @@ import javax.persistence.OrderColumn;
 import net.sf.gazpachoquest.types.RenderingMode;
 
 @Entity
-@DiscriminatorValue("G")
-public class QuestionGroupBreadcrumb extends Breadcrumb {
+@DiscriminatorValue("S")
+public class SectionBreadcrumb extends Breadcrumb {
 
     private static final long serialVersionUID = -1490244249723723725L;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private QuestionGroup questionGroup;
+    private Section section;
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderColumn(name = "order_in_breadcrumb_group")
+    @OrderColumn(name = "order_in_section_breadcrumb")
     private final List<QuestionBreadcrumb> breadcrumbs = new ArrayList<QuestionBreadcrumb>();
 
-    public QuestionGroupBreadcrumb() {
+    public SectionBreadcrumb() {
         super();
     }
 
-    public QuestionGroup getQuestionGroup() {
-        return questionGroup;
+    public Section getSection() {
+        return section;
     }
 
-    public void setQuestionGroup(QuestionGroup questionGroup) {
-        this.questionGroup = questionGroup;
+    public void setSection(Section section) {
+        this.section = section;
     }
 
     public List<QuestionBreadcrumb> getBreadcrumbs() {
@@ -62,14 +62,14 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
         return !breadcrumbs.isEmpty();
     }
 
-    public static QuestionGroupBreadcrumb.Builder with() {
-        return new QuestionGroupBreadcrumb.Builder();
+    public static SectionBreadcrumb.Builder with() {
+        return new SectionBreadcrumb.Builder();
     }
 
     public static class Builder {
         private Integer id;
 
-        private QuestionGroup questionGroup;
+        private Section section;
 
         private Questionnaire questionnaire;
 
@@ -97,19 +97,19 @@ public class QuestionGroupBreadcrumb extends Breadcrumb {
             return this;
         }
 
-        public Builder questionGroup(QuestionGroup questionGroup) {
-            this.questionGroup = questionGroup;
+        public Builder section(Section section) {
+            this.section = section;
             return this;
         }
 
-        public QuestionGroupBreadcrumb build() {
-            QuestionGroupBreadcrumb questionGroupBreadcrumb = new QuestionGroupBreadcrumb();
-            questionGroupBreadcrumb.setId(id);
-            questionGroupBreadcrumb.setLast(last);
-            questionGroupBreadcrumb.setRenderingMode(renderingMode);
-            questionGroupBreadcrumb.questionGroup = questionGroup;
-            questionGroupBreadcrumb.questionnaire = questionnaire;
-            return questionGroupBreadcrumb;
+        public SectionBreadcrumb build() {
+            SectionBreadcrumb sectionBreadcrumb = new SectionBreadcrumb();
+            sectionBreadcrumb.setId(id);
+            sectionBreadcrumb.setLast(last);
+            sectionBreadcrumb.setRenderingMode(renderingMode);
+            sectionBreadcrumb.section = section;
+            sectionBreadcrumb.questionnaire = questionnaire;
+            return sectionBreadcrumb;
         }
     }
 }

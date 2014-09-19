@@ -74,10 +74,10 @@
     </field>
   </mapping>
   
-  <!-- QuestionGroup Mappings -->
+  <!-- Section Mappings -->
   <mapping type="one-way">
-    <class-a>net.sf.gazpachoquest.dto.QuestionGroupDTO</class-a>
-    <class-b>net.sf.gazpachoquest.domain.core.QuestionGroup</class-b>
+    <class-a>net.sf.gazpachoquest.dto.SectionDTO</class-a>
+    <class-b>net.sf.gazpachoquest.domain.core.Section</class-b>
     <field>
       <a get-method="isRandomizationEnabled">randomizationEnabled</a>
       <b>randomizationEnabled</b>
@@ -90,8 +90,8 @@
   </mapping>
 
   <mapping type="one-way">
-    <class-a>net.sf.gazpachoquest.domain.core.QuestionGroup</class-a>
-    <class-b>net.sf.gazpachoquest.dto.QuestionGroupDTO</class-b>
+    <class-a>net.sf.gazpachoquest.domain.core.Section</class-a>
+    <class-b>net.sf.gazpachoquest.dto.SectionDTO</class-b>
     <field>
       <a get-method="isRandomizationEnabled">randomizationEnabled</a>
       <b>randomizationEnabled</b>
@@ -140,9 +140,9 @@
     <class-a>net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</class-b>
     <field>
-      <a>questionGroups</a>
-      <b set-method="addQuestionGroup" type="iterate">questionGroups</b>
-      <b-hint>net.sf.gazpachoquest.domain.core.QuestionGroup</b-hint>
+      <a>sections</a>
+      <b set-method="addSection" type="iterate">sections</b>
+      <b-hint>net.sf.gazpachoquest.domain.core.Section</b-hint>
     </field>
     <field>
       <a>questionsPerPage</a>
@@ -165,8 +165,8 @@
       <b>progressVisible</b>
     </field>
     <field>
-      <a get-method="isQuestionGroupInfoVisible" is-accessible="true">questionGroupInfoVisible</a>
-      <b>questionGroupInfoVisible</b>
+      <a get-method="isSectionInfoVisible" is-accessible="true">sectionInfoVisible</a>
+      <b>sectionInfoVisible</b>
     </field>
   </mapping>
 
@@ -174,8 +174,8 @@
     <class-a>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</class-a>
     <class-b>net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO</class-b>
     <field-exclude type="one-way">
-      <a>questionGroups</a>
-      <b>questionGroups</b>
+      <a>sections</a>
+      <b>sections</b>
     </field-exclude>
     <field>
       <a>questionsPerPage</a>
@@ -198,18 +198,18 @@
       <b>progressVisible</b>
     </field>
     <field>
-      <a get-method="isQuestionGroupInfoVisible" is-accessible="true">questionGroupInfoVisible</a>
-      <b>questionGroupInfoVisible</b>
+      <a get-method="isSectionInfoVisible" is-accessible="true">sectionInfoVisible</a>
+      <b>sectionInfoVisible</b>
     </field>
   </mapping>
 
-  <mapping type="one-way" map-id="toDTOwithQuestionGroups">
+  <mapping type="one-way" map-id="toDTOwithSections">
     <class-a>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</class-a>
     <class-b>net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO</class-b>
     <field>
-      <a>questionGroups</a>
-      <b set-method="addQuestionGroup" type="iterate">questionGroups</b>
-      <b-hint>net.sf.gazpachoquest.dto.QuestionGroupDTO</b-hint>
+      <a>sections</a>
+      <b set-method="addSection" type="iterate">sections</b>
+      <b-hint>net.sf.gazpachoquest.dto.SectionDTO</b-hint>
     </field>
     <field>
       <a>questionsPerPage</a>
@@ -232,8 +232,8 @@
       <b>progressVisible</b>
     </field>
     <field>
-      <a get-method="isQuestionGroupInfoVisible" is-accessible="true">questionGroupInfoVisible</a>
-      <b>questionGroupInfoVisible</b>
+      <a get-method="isSectionInfoVisible" is-accessible="true">sectionInfoVisible</a>
+      <b>sectionInfoVisible</b>
     </field>
   </mapping>
 

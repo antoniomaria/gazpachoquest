@@ -72,7 +72,7 @@ public class QuestionnaireResource {
             @PathParam("questionnaireId")
             @ApiParam(value = "Questionnaire id")
             Integer questionnaireId,
-            @ApiParam(name = "mode", value = "Refers how many questions are returned by page.", required = false, defaultValue = "GROUP_BY_GROUP", allowableValues = "QUESTION_BY_QUESTION,GROUP_BY_GROUP,ALL_IN_ONE", allowMultiple = true)
+            @ApiParam(name = "mode", value = "Refers how many questions are returned by page.", required = false, defaultValue = "SECTION_BY_SECTION", allowableValues = "QUESTION_BY_QUESTION,SECTION_BY_SECTION,ALL_IN_ONE", allowMultiple = true)
             @QueryParam("mode")
             String modeStr,
             @ApiParam(name = "preferredLanguage", value = "Preferred Language for the page is availabe", required = true, defaultValue = "EN", allowableValues = "EN,ES,FI", allowMultiple = true)

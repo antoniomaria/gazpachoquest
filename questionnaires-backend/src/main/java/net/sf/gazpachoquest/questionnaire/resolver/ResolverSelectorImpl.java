@@ -20,8 +20,8 @@ import org.springframework.stereotype.Component;
 public class ResolverSelectorImpl implements ResolverSelector {
 
     @Autowired
-    @Qualifier("GroupByGroupResolver")
-    private PageResolver groupByGroupResolver;
+    @Qualifier("SectionBySectionResolver")
+    private PageResolver sectionBySectionResolver;
 
     @Autowired
     @Qualifier("QuestionByQuestionResolver")
@@ -38,8 +38,8 @@ public class ResolverSelectorImpl implements ResolverSelector {
         case QUESTION_BY_QUESTION:
             resolver = questionByQuestionResolver;
             break;
-        case GROUP_BY_GROUP:
-            resolver = groupByGroupResolver;
+        case SECTION_BY_SECTION:
+            resolver = sectionBySectionResolver;
             break;
         case ALL_IN_ONE:
             resolver = allInOneResolver;

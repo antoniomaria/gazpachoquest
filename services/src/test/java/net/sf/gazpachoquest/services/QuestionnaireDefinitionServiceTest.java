@@ -62,9 +62,9 @@ public class QuestionnaireDefinitionServiceTest extends AbstractShiroTest {
     }
 
     @Test
-    public void questionGroupsCountTest() {
+    public void sectionsCountTest() {
         int questionnairDefinitionId = 7;
-        long count = questionnaireDefinitionService.questionGroupsCount(questionnairDefinitionId);
+        long count = questionnaireDefinitionService.sectionsCount(questionnairDefinitionId);
         assertThat(count).isEqualTo(3);
     }
 
@@ -74,9 +74,9 @@ public class QuestionnaireDefinitionServiceTest extends AbstractShiroTest {
                 .title("My QuestionnaireDefinition").description("My description").welcomeText("welcome").build();
 
         QuestionnaireDefinition questionnaireDefinition = QuestionnaireDefinition.with().language(Language.EN)
-                .languageSettings(languageSettings).questionGroupInfoVisible(true).progressVisible(true)
+                .languageSettings(languageSettings).sectionInfoVisible(true).progressVisible(true)
                 .welcomeVisible(true).randomizationStrategy(RandomizationStrategy.NONE)
-                .renderingMode(RenderingMode.GROUP_BY_GROUP).build();
+                .renderingMode(RenderingMode.SECTION_BY_SECTION).build();
 
         questionnaireDefinition = questionnaireDefinitionService.save(questionnaireDefinition);
         DateTime lastModifiedDate = questionnaireDefinition.getLastModifiedDate();

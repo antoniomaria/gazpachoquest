@@ -15,12 +15,12 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.dto.PageMetadataDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
-import net.sf.gazpachoquest.dto.QuestionGroupDTO;
+import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
@@ -34,7 +34,7 @@ import net.sf.gazpachoquest.questionnaire.support.AnswersPopulator;
 import net.sf.gazpachoquest.questionnaire.support.PageMetadataCreator;
 import net.sf.gazpachoquest.questionnaire.support.PageMetadataStructure;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
-import net.sf.gazpachoquest.services.QuestionGroupService;
+import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnaireAnswersService;
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
@@ -65,7 +65,7 @@ public class QuestionnaireFacadeImpl implements QuestionnaireFacade {
     private QuestionService questionService;
 
     @Autowired
-    private QuestionGroupService questionGroupService;
+    private SectionService sectionService;
 
     @Autowired
     private QuestionnaireDefinitionService questionnaireDefinitionService;
@@ -98,7 +98,7 @@ public class QuestionnaireFacadeImpl implements QuestionnaireFacade {
 
         QuestionnaireDTO questionnaireDTO = QuestionnaireDTO.with().language(definition.getLanguage())
                 .languageSettings(languageSettings).id(questionnaireId).progressVisible(definition.isProgressVisible())
-                .questionGroupInfoVisible(definition.isQuestionGroupInfoVisible())
+                .sectionInfoVisible(definition.isSectionInfoVisible())
                 .welcomeVisible(definition.isWelcomeVisible()).build();
         for (Language language : translations) {
             questionnaireDTO.addSupportedLanguage(language);
@@ -124,27 +124,27 @@ public class QuestionnaireFacadeImpl implements QuestionnaireFacade {
         if (pageStructure == null) { // TODO Handle exception
             return page;
         }
-        List<QuestionGroup> questionGroups = pageStructure.getQuestionGroups();
+        List<Section> sections = pageStructure.getSections();
         List<QuestionDTO> allVisibleQuestions = new ArrayList<>();
-        for (QuestionGroup questionGroup : questionGroups) {
-            List<Integer> questionIds = questionGroup.getQuestionsId();
+        for (Section section : sections) {
+            List<Integer> questionIds = section.getQuestionsId();
             List<Question> questions = questionService.findInList(questionIds, preferredLanguage);
-            QuestionGroup localizedQuestionGroup = QuestionGroup.with().build();
-            if (pageStructure.isQuestionGroupInfoAvailable()) {
-                localizedQuestionGroup = questionGroupService.findOne(questionGroup.getId(), preferredLanguage);
+            Section localizedSection = Section.with().build();
+            if (pageStructure.isSectionInfoAvailable()) {
+                localizedSection = sectionService.findOne(section.getId(), preferredLanguage);
             }
-            QuestionGroupDTO questionGroupDTO = mapper.map(localizedQuestionGroup, QuestionGroupDTO.class);
-            page.addQuestionGroup(questionGroupDTO);
+            SectionDTO sectionDTO = mapper.map(localizedSection, SectionDTO.class);
+            page.addSection(sectionDTO);
             for (Question question : questions) {
                 QuestionDTO questionDTO = mapper.map(question, QuestionDTO.class);
-                questionGroupDTO.addQuestion(questionDTO);
+                sectionDTO.addQuestion(questionDTO);
                 allVisibleQuestions.add(questionDTO);
             }
         }
         answersPopulator.populate(questionnaire, allVisibleQuestions);
         PageMetadataStructure metadata = pageStructure.getMetadata();
         page.setMetadata(mapper.map(metadata, PageMetadataDTO.class));
-        page.setQuestionGroupInfoAvailable(pageStructure.isQuestionGroupInfoAvailable());
+        page.setSectionInfoAvailable(pageStructure.isSectionInfoAvailable());
 
         logger.info("Returning page {} of {} for questionnaireId = {}", metadata.getNumber(), metadata.getCount(),
                 questionnaireId);

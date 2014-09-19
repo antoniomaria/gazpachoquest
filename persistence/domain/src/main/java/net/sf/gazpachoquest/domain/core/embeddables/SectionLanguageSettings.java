@@ -17,7 +17,7 @@ import javax.persistence.Lob;
 import net.sf.gazpachoquest.domain.support.LanguageSettings;
 
 @Embeddable
-public class QuestionGroupLanguageSettings implements LanguageSettings {
+public class SectionLanguageSettings implements LanguageSettings {
 
     private static final long serialVersionUID = -3294430575682341044L;
 
@@ -27,7 +27,7 @@ public class QuestionGroupLanguageSettings implements LanguageSettings {
     @Lob
     private String description;
 
-    public QuestionGroupLanguageSettings() {
+    public SectionLanguageSettings() {
         super();
     }
 

@@ -29,13 +29,13 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
 
     private QuestionnaireDefinitionLanguageSettingsDTO languageSettings;
 
-    private final List<QuestionGroupDTO> questionGroups = new ArrayList<>();
+    private final List<SectionDTO> sections = new ArrayList<>();
 
     private Boolean welcomeVisible;
 
     private Boolean progressVisible;
 
-    private Boolean questionGroupInfoVisible;
+    private Boolean sectionInfoVisible;
 
     private RandomizationStrategy randomizationStrategy;
 
@@ -47,8 +47,8 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         super();
     }
 
-    public void addQuestionGroup(final QuestionGroupDTO questionGroup) {
-        questionGroups.add(questionGroup);
+    public void addSection(final SectionDTO section) {
+        sections.add(section);
     }
 
     @Override
@@ -61,13 +61,13 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         return languageSettings;
     }
 
-    public QuestionGroupDTO getLastQuestionGroupDTO() {
-        int count = questionGroups.size();
-        return count > 0 ? questionGroups.get(count - 1) : null;
+    public SectionDTO getLastSectionDTO() {
+        int count = sections.size();
+        return count > 0 ? sections.get(count - 1) : null;
     }
 
-    public List<QuestionGroupDTO> getQuestionGroups() {
-        return Collections.unmodifiableList(questionGroups);
+    public List<SectionDTO> getSections() {
+        return Collections.unmodifiableList(sections);
     }
 
     @Override
@@ -96,12 +96,12 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         this.progressVisible = progressVisible;
     }
 
-    public Boolean isQuestionGroupInfoVisible() {
-        return questionGroupInfoVisible;
+    public Boolean isSectionInfoVisible() {
+        return sectionInfoVisible;
     }
 
-    public void setQuestionGroupInfoVisible(Boolean questionGroupInfoVisible) {
-        this.questionGroupInfoVisible = questionGroupInfoVisible;
+    public void setSectionInfoVisible(Boolean sectionInfoVisible) {
+        this.sectionInfoVisible = sectionInfoVisible;
     }
 
     public RandomizationStrategy getRandomizationStrategy() {
@@ -143,7 +143,7 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
 
         Builder progressVisible(Boolean progressVisible);
 
-        Builder questionGroupInfoVisible(Boolean questionGroupInfoVisible);
+        Builder sectionInfoVisible(Boolean sectionInfoVisible);
 
         Builder randomizationStrategy(RandomizationStrategy randomizationStrategy);
 
@@ -170,13 +170,13 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
 
         private Boolean progressVisible = Boolean.TRUE;
 
-        private Boolean questionGroupInfoVisible = Boolean.TRUE;
+        private Boolean sectionInfoVisible = Boolean.TRUE;
 
         private RandomizationStrategy randomizationStrategy = RandomizationStrategy.NONE;
 
         private Integer questionsPerPage;
 
-        private RenderingMode renderingMode = RenderingMode.GROUP_BY_GROUP;
+        private RenderingMode renderingMode = RenderingMode.SECTION_BY_SECTION;
 
         @Override
         public QuestionnaireDefinitionDTO build() {
@@ -187,7 +187,7 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
 
             questionnaireDefinitionDTO.welcomeVisible = welcomeVisible;
             questionnaireDefinitionDTO.progressVisible = progressVisible;
-            questionnaireDefinitionDTO.questionGroupInfoVisible = questionGroupInfoVisible;
+            questionnaireDefinitionDTO.sectionInfoVisible = sectionInfoVisible;
             questionnaireDefinitionDTO.randomizationStrategy = randomizationStrategy;
 
             if (randomizationStrategy.equals(RandomizationStrategy.QUESTIONS_RANDOMIZATION) && questionsPerPage == null) {
@@ -234,8 +234,8 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         }
 
         @Override
-        public Builder questionGroupInfoVisible(Boolean questionGroupInfoVisible) {
-            this.questionGroupInfoVisible = questionGroupInfoVisible;
+        public Builder sectionInfoVisible(Boolean sectionInfoVisible) {
+            this.sectionInfoVisible = sectionInfoVisible;
             return this;
         }
 

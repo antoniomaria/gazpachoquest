@@ -37,7 +37,7 @@ public class QuestionnaireDTO extends AbstractIdentifiableDTO {
 
     private Boolean progressVisible;
 
-    private Boolean questionGroupInfoVisible;
+    private Boolean sectionInfoVisible;
 
     public QuestionnaireDTO() {
         super();
@@ -83,12 +83,12 @@ public class QuestionnaireDTO extends AbstractIdentifiableDTO {
         this.progressVisible = progressVisible;
     }
 
-    public Boolean isQuestionGroupInfoVisible() {
-        return questionGroupInfoVisible;
+    public Boolean isSectionInfoVisible() {
+        return sectionInfoVisible;
     }
 
-    public void setQuestionGroupInfoVisible(Boolean questionGroupInfoVisible) {
-        this.questionGroupInfoVisible = questionGroupInfoVisible;
+    public void setSectionInfoVisible(Boolean sectionInfoVisible) {
+        this.sectionInfoVisible = sectionInfoVisible;
     }
 
     public static Builder with() {
@@ -101,7 +101,7 @@ public class QuestionnaireDTO extends AbstractIdentifiableDTO {
         private QuestionnaireDefinitionLanguageSettingsDTO languageSettings;
         private Boolean welcomeVisible;
         private Boolean progressVisible;
-        private Boolean questionGroupInfoVisible;
+        private Boolean sectionInfoVisible;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -123,8 +123,8 @@ public class QuestionnaireDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
-        public Builder questionGroupInfoVisible(Boolean questionGroupInfoVisible) {
-            this.questionGroupInfoVisible = questionGroupInfoVisible;
+        public Builder sectionInfoVisible(Boolean sectionInfoVisible) {
+            this.sectionInfoVisible = sectionInfoVisible;
             return this;
         }
 
@@ -140,7 +140,7 @@ public class QuestionnaireDTO extends AbstractIdentifiableDTO {
             questionnaireDTO.languageSettings = languageSettings;
             questionnaireDTO.welcomeVisible = welcomeVisible;
             questionnaireDTO.progressVisible = progressVisible;
-            questionnaireDTO.questionGroupInfoVisible = questionGroupInfoVisible;
+            questionnaireDTO.sectionInfoVisible = sectionInfoVisible;
             return questionnaireDTO;
         }
     }

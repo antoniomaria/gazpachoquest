@@ -31,8 +31,8 @@
   <questionnaire_definition_translation />
   <questionnaire_definition_permission />
 
-  <question_group />
-  <question_group_translation />
+  <section />
+  <section_translation />
 
   <question />
   <question_translation />

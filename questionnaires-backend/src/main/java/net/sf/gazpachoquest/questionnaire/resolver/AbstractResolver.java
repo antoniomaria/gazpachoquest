@@ -8,15 +8,15 @@ import java.util.List;
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
-import net.sf.gazpachoquest.domain.core.QuestionGroup;
-import net.sf.gazpachoquest.domain.core.QuestionGroupBreadcrumb;
+import net.sf.gazpachoquest.domain.core.Section;
+import net.sf.gazpachoquest.domain.core.SectionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.questionnaire.support.PageMetadataCreator;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
-import net.sf.gazpachoquest.services.QuestionGroupService;
+import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.services.QuestionnaireService;
@@ -36,7 +36,7 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
     private BreadcrumbService breadcrumbService;
 
     @Autowired
-    private QuestionGroupService questionGroupService;
+    private SectionService sectionService;
 
     @Autowired
     private QuestionService questionService;
@@ -112,7 +112,7 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
                 nextBreadcrumb = findPreviousBreadcrumb(questionnaireDefinition, questionnaire, lastBreadcrumbs.get(0),
                         lastBreadcrumbPosition);
             }
-            // Prevent that questiongroups are still in range.
+            // Prevent that sections are still in range.
             if (nextBreadcrumb != null) {
                 lastBreadcrumbs.get(0).setLast(Boolean.FALSE);
                 nextBreadcrumb.setLast(Boolean.TRUE);
@@ -148,29 +148,29 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
         questionnaireService.save(questionnaire);
     }
 
-    protected List<Question> findQuestions(QuestionGroup questionGroup) {
+    protected List<Question> findQuestions(Section section) {
         List<Question> questions;
-        if (questionGroup.isRandomizationEnabled()) {
+        if (section.isRandomizationEnabled()) {
             questions = questionService.findByExample(
-                    Question.with().questionGroup(QuestionGroup.with().id(questionGroup.getId()).build()).build(),
+                    Question.with().section(Section.with().id(section.getId()).build()).build(),
                     new SearchParameters());
             shuffle(questions);
         } else {
-            questions = questionService.findByQuestionGroupId(questionGroup.getId());
+            questions = questionService.findBySectionId(section.getId());
         }
         return questions;
     }
 
     protected void populateQuestionsBreadcrumbs(List<T> breadcrumbs) {
         for (Breadcrumb breadcrumb : breadcrumbs) {
-            QuestionGroupBreadcrumb questionGroupBreadcrumb = (QuestionGroupBreadcrumb) breadcrumb;
+            SectionBreadcrumb sectionBreadcrumb = (SectionBreadcrumb) breadcrumb;
 
-            QuestionGroup questionGroup = questionGroupBreadcrumb.getQuestionGroup();
+            Section section = sectionBreadcrumb.getSection();
 
-            List<Question> questions = findQuestions(questionGroup);
+            List<Question> questions = findQuestions(section);
 
             for (Question question : questions) {
-                questionGroupBreadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).last(Boolean.FALSE)
+                sectionBreadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).last(Boolean.FALSE)
                         .build());
             }
         }

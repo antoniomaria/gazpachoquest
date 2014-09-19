@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
@@ -57,23 +57,23 @@ public class AllInOneResolverTest extends AbstractShiroTest {
         Integer questionnaireId = 58;
         Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
         PageStructure pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.ENTERING);
-        List<QuestionGroup> questionGroups = pageStructure.getQuestionGroups();
+        List<Section> sections = pageStructure.getSections();
 
-        assertThat(questionGroups).hasSize(3);
+        assertThat(sections).hasSize(3);
 
-        QuestionGroup firstGroup = questionGroups.get(0);
+        Section firstGroup = sections.get(0);
         assertThat(firstGroup.getId()).isEqualTo(9);
         assertThat(firstGroup.getQuestions()).isEqualTo(
                 Arrays.asList(Question.with().id(13).build(), Question.with().id(12).build(), Question.with().id(29)
                         .build()));
 
-        QuestionGroup secondGroup = questionGroups.get(1);
+        Section secondGroup = sections.get(1);
         assertThat(secondGroup.getId()).isEqualTo(10);
         assertThat(secondGroup.getQuestions()).isEqualTo(
                 Arrays.asList(Question.with().id(30).build(), Question.with().id(31).build(), Question.with().id(35)
                         .build()));
 
-        QuestionGroup thirdGroup = questionGroups.get(2);
+        Section thirdGroup = sections.get(2);
         assertThat(thirdGroup.getId()).isEqualTo(11);
 
         assertThat(thirdGroup.getQuestions()).isEqualTo(
@@ -87,23 +87,23 @@ public class AllInOneResolverTest extends AbstractShiroTest {
         Integer questionnaireId = 58;
         Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
         PageStructure pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.ENTERING);
-        List<QuestionGroup> questionGroups = pageStructure.getQuestionGroups();
+        List<Section> sections = pageStructure.getSections();
 
-        assertThat(questionGroups).hasSize(3);
+        assertThat(sections).hasSize(3);
 
-        QuestionGroup firstGroup = questionGroups.get(0);
+        Section firstGroup = sections.get(0);
         assertThat(firstGroup.getId()).isEqualTo(9);
         assertThat(firstGroup.getQuestions()).isEqualTo(
                 Arrays.asList(Question.with().id(13).build(), Question.with().id(12).build(), Question.with().id(29)
                         .build()));
 
-        QuestionGroup secondGroup = questionGroups.get(1);
+        Section secondGroup = sections.get(1);
         assertThat(secondGroup.getId()).isEqualTo(10);
         assertThat(secondGroup.getQuestions()).isEqualTo(
                 Arrays.asList(Question.with().id(30).build(), Question.with().id(31).build(), Question.with().id(35)
                         .build()));
 
-        QuestionGroup thirdGroup = questionGroups.get(2);
+        Section thirdGroup = sections.get(2);
         assertThat(thirdGroup.getId()).isEqualTo(11);
 
         assertThat(thirdGroup.getQuestions()).isEqualTo(
@@ -117,23 +117,23 @@ public class AllInOneResolverTest extends AbstractShiroTest {
         Integer questionnaireId = 58;
         Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
         PageStructure pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.ENTERING);
-        List<QuestionGroup> questionGroups = pageStructure.getQuestionGroups();
+        List<Section> sections = pageStructure.getSections();
 
-        assertThat(questionGroups).hasSize(3);
+        assertThat(sections).hasSize(3);
 
-        QuestionGroup firstGroup = questionGroups.get(0);
+        Section firstGroup = sections.get(0);
         assertThat(firstGroup.getId()).isEqualTo(9);
         assertThat(firstGroup.getQuestions()).isEqualTo(
                 Arrays.asList(Question.with().id(13).build(), Question.with().id(12).build(), Question.with().id(29)
                         .build()));
 
-        QuestionGroup secondGroup = questionGroups.get(1);
+        Section secondGroup = sections.get(1);
         assertThat(secondGroup.getId()).isEqualTo(10);
         assertThat(secondGroup.getQuestions()).isEqualTo(
                 Arrays.asList(Question.with().id(30).build(), Question.with().id(31).build(), Question.with().id(35)
                         .build()));
 
-        QuestionGroup thirdGroup = questionGroups.get(2);
+        Section thirdGroup = sections.get(2);
         assertThat(thirdGroup.getId()).isEqualTo(11);
 
         assertThat(thirdGroup.getQuestions()).isEqualTo(
@@ -147,13 +147,13 @@ public class AllInOneResolverTest extends AbstractShiroTest {
         Integer questionnaireId = 58;
         Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
         PageStructure pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.ENTERING);
-        List<QuestionGroup> questionGroups = pageStructure.getQuestionGroups();
+        List<Section> sections = pageStructure.getSections();
 
-        assertThat(questionGroups).hasSize(3);
+        assertThat(sections).hasSize(3);
         List<Question> visitedQuestions = new ArrayList<>();
 
         List<Question> allQuestions = getAllQuestions();
-        QuestionGroup firstGroup = questionGroups.get(0);
+        Section firstGroup = sections.get(0);
         for (Question question : firstGroup.getQuestions()) {
             visitedQuestions.add(question);
         }
@@ -167,15 +167,15 @@ public class AllInOneResolverTest extends AbstractShiroTest {
         Integer questionnaireId = 58;
         Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
         PageStructure pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.ENTERING);
-        List<QuestionGroup> questionGroups = pageStructure.getQuestionGroups();
-        assertThat(questionGroups).hasSize(1);
+        List<Section> sections = pageStructure.getSections();
+        assertThat(sections).hasSize(1);
 
         List<Question> visitedQuestions = new ArrayList<>();
 
         List<Question> allQuestions = getAllQuestions();
 
-        for (QuestionGroup questionGroup : questionGroups) {
-            for (Question question : questionGroup.getQuestions()) {
+        for (Section section : sections) {
+            for (Question question : section.getQuestions()) {
                 visitedQuestions.add(question);
             }
         }

@@ -60,7 +60,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     private Question parent;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private QuestionGroup questionGroup;
+    private Section section;
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderColumn(name = "order_in_subquestions")
@@ -124,20 +124,20 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         this.parent = parent;
     }
 
-    public QuestionGroup getQuestionGroup() {
-        return questionGroup;
+    public Section getSection() {
+        return section;
     }
 
-    public Integer getQuestionGroupId() {
-        return questionGroup.getId();
+    public Integer getSectionId() {
+        return section.getId();
     }
 
     public Integer getQuestionnairDefinitionId() {
-        return questionGroup.getQuestionnairDefinitionId();
+        return section.getQuestionnairDefinitionId();
     }
 
-    public void setQuestionGroup(QuestionGroup questionGroup) {
-        this.questionGroup = questionGroup;
+    public void setSection(Section section) {
+        this.section = section;
     }
 
     public List<QuestionOption> getQuestionOptions() {
@@ -256,7 +256,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         private Integer id;
         private String code;
         private Question parent;
-        private QuestionGroup questionGroup;
+        private Section section;
         private Boolean required;
         private Boolean otherAllowed;
         private QuestionType type;
@@ -278,8 +278,8 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
             return this;
         }
 
-        public Builder questionGroup(QuestionGroup questionGroup) {
-            this.questionGroup = questionGroup;
+        public Builder section(Section section) {
+            this.section = section;
             return this;
         }
 
@@ -313,7 +313,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
             question.setId(id);
             question.code = code;
             question.parent = parent;
-            question.questionGroup = questionGroup;
+            question.section = section;
             question.required = required;
             question.otherAllowed = otherAllowed;
             question.type = type;

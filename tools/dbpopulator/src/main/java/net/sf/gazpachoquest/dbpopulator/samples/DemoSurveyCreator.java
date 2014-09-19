@@ -1,8 +1,8 @@
 package net.sf.gazpachoquest.dbpopulator.samples;
 
 import net.sf.gazpachoquest.dto.QuestionDTO;
-import net.sf.gazpachoquest.dto.QuestionGroupDTO;
-import net.sf.gazpachoquest.dto.QuestionGroupLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.SectionDTO;
+import net.sf.gazpachoquest.dto.SectionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionLanguageSettingsDTO;
@@ -46,54 +46,54 @@ public class DemoSurveyCreator {
         questionnaireDefinitionEditorFacade.saveQuestionnaireTranslation(surveyTranslation);
 
         // Page 1
-        QuestionGroupDTO questionGroup1 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
-                .title("QuestionGroup 1").pageLanguageSettingsEnd().randomizationEnabled(false).build();
+        SectionDTO section1 = SectionDTO.with().language(Language.EN).pageLanguageSettingsStart()
+                .title("Section 1").pageLanguageSettingsEnd().randomizationEnabled(false).build();
 
-        survey.addQuestionGroup(questionGroup1);
+        survey.addSection(section1);
         survey = questionnaireDefinitionEditorFacade.save(survey);
 
-        questionGroup1 = survey.getLastQuestionGroupDTO();
+        section1 = survey.getLastSectionDTO();
 
-        TranslationDTO<QuestionGroupDTO, QuestionGroupLanguageSettingsDTO> questionGroupTranslation = new TranslationDTO<>();
-        questionGroupTranslation.setLanguage(Language.ES);
-        questionGroupTranslation.setLanguageSettings(QuestionGroupLanguageSettingsDTO.with().title("Grupo 1").build());
-        questionGroupTranslation.setTranslatedEntity(questionGroup1);
-        questionnaireDefinitionEditorFacade.saveQuestionGroupTranslation(questionGroupTranslation);
+        TranslationDTO<SectionDTO, SectionLanguageSettingsDTO> sectionTranslation = new TranslationDTO<>();
+        sectionTranslation.setLanguage(Language.ES);
+        sectionTranslation.setLanguageSettings(SectionLanguageSettingsDTO.with().title("Grupo 1").build());
+        sectionTranslation.setTranslatedEntity(section1);
+        questionnaireDefinitionEditorFacade.saveSectionTranslation(sectionTranslation);
 
         // Page 2
-        QuestionGroupDTO questionGroup2 = QuestionGroupDTO.with().language(Language.EN).pageLanguageSettingsStart()
-                .title("QuestionGroup 2").pageLanguageSettingsEnd().randomizationEnabled(false).build();
+        SectionDTO section2 = SectionDTO.with().language(Language.EN).pageLanguageSettingsStart()
+                .title("Section 2").pageLanguageSettingsEnd().randomizationEnabled(false).build();
 
-        survey.addQuestionGroup(questionGroup2);
+        survey.addSection(section2);
         survey = questionnaireDefinitionEditorFacade.save(survey);
-        questionGroup2 = survey.getLastQuestionGroupDTO();
+        section2 = survey.getLastSectionDTO();
 
-        questionGroupTranslation = new TranslationDTO<>();
-        questionGroupTranslation.setLanguage(Language.ES);
-        questionGroupTranslation.setLanguageSettings(QuestionGroupLanguageSettingsDTO.with().title("Grupo 2").build());
-        questionGroupTranslation.setTranslatedEntity(questionGroup2);
-        questionnaireDefinitionEditorFacade.saveQuestionGroupTranslation(questionGroupTranslation);
+        sectionTranslation = new TranslationDTO<>();
+        sectionTranslation.setLanguage(Language.ES);
+        sectionTranslation.setLanguageSettings(SectionLanguageSettingsDTO.with().title("Grupo 2").build());
+        sectionTranslation.setTranslatedEntity(section2);
+        questionnaireDefinitionEditorFacade.saveSectionTranslation(sectionTranslation);
 
         // Page 3
-        QuestionGroupDTO questionGroup3 = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false)
-                .pageLanguageSettingsStart().title("QuestionGroup 3").pageLanguageSettingsEnd().build();
+        SectionDTO section3 = SectionDTO.with().language(Language.EN).randomizationEnabled(false)
+                .pageLanguageSettingsStart().title("Section 3").pageLanguageSettingsEnd().build();
 
-        survey.addQuestionGroup(questionGroup3);
+        survey.addSection(section3);
         survey = questionnaireDefinitionEditorFacade.save(survey);
-        questionGroup3 = survey.getLastQuestionGroupDTO();
+        section3 = survey.getLastSectionDTO();
 
-        questionGroupTranslation = new TranslationDTO<>();
-        questionGroupTranslation.setLanguage(Language.ES);
-        questionGroupTranslation.setLanguageSettings(QuestionGroupLanguageSettingsDTO.with().title("Grupo 3").build());
-        questionGroupTranslation.setTranslatedEntity(questionGroup3);
-        questionnaireDefinitionEditorFacade.saveQuestionGroupTranslation(questionGroupTranslation);
+        sectionTranslation = new TranslationDTO<>();
+        sectionTranslation.setLanguage(Language.ES);
+        sectionTranslation.setLanguageSettings(SectionLanguageSettingsDTO.with().title("Grupo 3").build());
+        sectionTranslation.setTranslatedEntity(section3);
+        questionnaireDefinitionEditorFacade.saveSectionTranslation(sectionTranslation);
 
         // 1 Single Textbox
         QuestionDTO question = QuestionDTO.with().type(QuestionType.S).language(Language.EN).code("Q1")
                 .languageSettingsStart().title("What is your name?").languageSettingsEnd().required(true).build();
-        questionGroup1.addQuestion(question);
-        questionGroup1 = questionnaireDefinitionEditorFacade.save(questionGroup1);
-        question = questionGroup1.getLastQuestionDTO();
+        section1.addQuestion(question);
+        section1 = questionnaireDefinitionEditorFacade.save(section1);
+        question = section1.getLastQuestionDTO();
 
         TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
@@ -114,9 +114,9 @@ public class DemoSurveyCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("40 and over")
                 .build());
 
-        questionGroup1.addQuestion(question);
-        questionGroup1 = questionnaireDefinitionEditorFacade.save(questionGroup1);
-        question = questionGroup1.getLastQuestionDTO();
+        section1.addQuestion(question);
+        section1 = questionnaireDefinitionEditorFacade.save(section1);
+        question = section1.getLastQuestionDTO();
 
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
@@ -158,10 +158,10 @@ public class DemoSurveyCreator {
                 .title("And for our records, specifically how old are you?").languageSettingsEnd().required(true)
                 .build();
 
-        questionGroup1.addQuestion(question);
-        questionGroup1 = questionnaireDefinitionEditorFacade.save(questionGroup1);
+        section1.addQuestion(question);
+        section1 = questionnaireDefinitionEditorFacade.save(section1);
 
-        question = questionGroup1.getLastQuestionDTO();
+        question = section1.getLastQuestionDTO();
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
         questionTranslation.setLanguageSettings(QuestionLanguageSettingsDTO.with()
@@ -174,10 +174,10 @@ public class DemoSurveyCreator {
                 .title("Please tell us a little about yourself. What was your first job, and did you enjoy it?")
                 .languageSettingsEnd().required(true).build();
 
-        questionGroup2.addQuestion(question);
-        questionGroup2 = questionnaireDefinitionEditorFacade.save(questionGroup2);
+        section2.addQuestion(question);
+        section2 = questionnaireDefinitionEditorFacade.save(section2);
 
-        question = questionGroup2.getLastQuestionDTO();
+        question = section2.getLastQuestionDTO();
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
         questionTranslation.setLanguageSettings(QuestionLanguageSettingsDTO.with()
@@ -196,10 +196,10 @@ public class DemoSurveyCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN)
                 .title("How <b><i>dare</i></b> you insult me like that! I'm YOUNG").build());
 
-        questionGroup2.addQuestion(question);
-        questionGroup2 = questionnaireDefinitionEditorFacade.save(questionGroup2);
+        section2.addQuestion(question);
+        section2 = questionnaireDefinitionEditorFacade.save(section2);
 
-        question = questionGroup2.getLastQuestionDTO();
+        question = section2.getLastQuestionDTO();
         questionTranslation = new TranslationDTO<>();
         questionTranslation.setLanguage(Language.ES);
         questionTranslation.setLanguageSettings(QuestionLanguageSettingsDTO.with()
@@ -215,8 +215,8 @@ public class DemoSurveyCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O2").language(Language.EN).title("Ad two").build());
         question.addQuestionOption(QuestionOptionDTO.with().code("O3").language(Language.EN).title("Ad three").build());
 
-        questionGroup2.addQuestion(question);
-        questionGroup2 = questionnaireDefinitionEditorFacade.save(questionGroup2);
+        section2.addQuestion(question);
+        section2 = questionnaireDefinitionEditorFacade.save(section2);
 
         // 7 Rating Scale (Agree-Disagree) Array Flexible
         question = QuestionDTO
@@ -255,8 +255,8 @@ public class DemoSurveyCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O6").language(Language.EN).title("Disagree strongly")
                 .build());
 
-        questionGroup3.addQuestion(question);
-        questionGroup3 = questionnaireDefinitionEditorFacade.save(questionGroup3);
+        section3.addQuestion(question);
+        section3 = questionnaireDefinitionEditorFacade.save(section3);
 
         // 8. List checkbox - Multiple_Answers
         question = QuestionDTO.with().type(QuestionType.M).code("Q8").language(Language.EN).languageSettingsStart()
@@ -268,8 +268,8 @@ public class DemoSurveyCreator {
                 .build());
         question.addQuestionOption(QuestionOptionDTO.with().code("O4").language(Language.EN).title("Pistachio").build());
 
-        questionGroup3.addQuestion(question);
-        questionGroup3 = questionnaireDefinitionEditorFacade.save(questionGroup3);
+        section3.addQuestion(question);
+        section3 = questionnaireDefinitionEditorFacade.save(section3);
 
         return survey;
     }

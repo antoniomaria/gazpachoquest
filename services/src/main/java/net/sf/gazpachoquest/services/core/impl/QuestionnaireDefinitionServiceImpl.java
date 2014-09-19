@@ -19,14 +19,14 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnaireDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation;
 import net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.MailMessageRepository;
-import net.sf.gazpachoquest.repository.QuestionGroupRepository;
+import net.sf.gazpachoquest.repository.SectionRepository;
 import net.sf.gazpachoquest.repository.QuestionnaireDefinitionRepository;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
 import net.sf.gazpachoquest.repository.i18.QuestionnaireDefinitionTranslationRepository;
@@ -58,7 +58,7 @@ public class QuestionnaireDefinitionServiceImpl
     private MailMessageRepository mailMessageRepository;
 
     @Autowired
-    private QuestionGroupRepository questionGroupRepository;
+    private SectionRepository sectionRepository;
 
     @Autowired
     private QuestionnaireAnswersRepository questionnaireAnswersRepository;
@@ -90,9 +90,9 @@ public class QuestionnaireDefinitionServiceImpl
 
     @Override
     @Transactional(readOnly = true)
-    public int questionGroupsCount(final Integer questionnairDefinitionId) {
-        return (int) questionGroupRepository.countByExample(
-                QuestionGroup.with()
+    public int sectionsCount(final Integer questionnairDefinitionId) {
+        return (int) sectionRepository.countByExample(
+                Section.with()
                         .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnairDefinitionId).build())
                         .build(), new SearchParameters());
     }
@@ -116,13 +116,13 @@ public class QuestionnaireDefinitionServiceImpl
             existing.setLanguageSettings(questionnaireDefinition.getLanguageSettings());
             existing.setProgressVisible(questionnaireDefinition.isProgressVisible());
             existing.setRenderingMode(questionnaireDefinition.getRenderingMode());
-            existing.setQuestionGroupInfoVisible(questionnaireDefinition.isQuestionGroupInfoVisible());
+            existing.setSectionInfoVisible(questionnaireDefinition.isSectionInfoVisible());
 
-            for (QuestionGroup questionGroup : questionnaireDefinition.getQuestionGroups()) {
-                if (!questionGroup.isNew()) {
+            for (Section section : questionnaireDefinition.getSections()) {
+                if (!section.isNew()) {
                     continue;
                 }
-                existing.addQuestionGroup(questionGroup);
+                existing.addSection(section);
             }
         }
         return existing;
@@ -135,9 +135,9 @@ public class QuestionnaireDefinitionServiceImpl
     }
 
     @Override
-    public List<Object[]> questionsCountGroupByQuestionGroups(final Integer questionnairDefinitionId) {
+    public List<Object[]> questionsCountGroupBySections(final Integer questionnairDefinitionId) {
         return ((QuestionnaireDefinitionRepository) repository)
-                .questionsCountGroupByQuestionGroups(questionnairDefinitionId);
+                .questionsCountGroupBySections(questionnairDefinitionId);
     }
 
     @Override

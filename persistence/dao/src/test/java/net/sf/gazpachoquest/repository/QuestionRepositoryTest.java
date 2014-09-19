@@ -35,10 +35,10 @@ public class QuestionRepositoryTest {
     private QuestionRepository repository;
 
     @Test
-    public void findOneByPositionInQuestionGroupTest() {
-        int questionGroupId = 9;
+    public void findOneByPositionInSectionTest() {
+        int sectionId = 9;
         int position = 2;
-        Question question = repository.findOneByPositionInQuestionGroup(questionGroupId, position);
+        Question question = repository.findOneByPositionInSection(sectionId, position);
         assertThat(question).isEqualTo(Question.with().id(29).build());
     }
 
@@ -50,16 +50,16 @@ public class QuestionRepositoryTest {
     }
 
     @Test
-    public void findPositionInQuestionGroupTest() {
+    public void findPositionInSectionTest() {
         Integer questionId = 31;
-        Integer position = repository.findPositionInQuestionGroup(questionId);
+        Integer position = repository.findPositionInSection(questionId);
         assertThat(position).isEqualTo(1);
     }
 
     @Test
-    public void findQuestionByQuestionGroup() {
-        int questionGroupId = 11;
-        List<Question> questions = repository.findByQuestionGroupId(questionGroupId);
+    public void findQuestionBySection() {
+        int sectionId = 11;
+        List<Question> questions = repository.findBySectionId(sectionId);
         assertThat(questions).containsExactly(Question.with().id(39).build(), Question.with().id(50).build());
     }
 

@@ -52,9 +52,8 @@ import net.sf.gazpachoquest.types.RenderingMode;
 
 @Entity
 @XmlRootElement
-@XmlType(propOrder = { "language", "languageSettings", "questionGroups", "mailTemplates", "translations",
-        "welcomeVisible", "progressVisible", "questionGroupInfoVisible", "randomizationStrategy", "questionsPerPage",
-        "renderingMode" })
+@XmlType(propOrder = { "language", "languageSettings", "sections", "mailTemplates", "translations", "welcomeVisible",
+        "progressVisible", "sectionInfoVisible", "randomizationStrategy", "questionsPerPage", "renderingMode" })
 public class QuestionnaireDefinition
         extends
         AbstractSecurizableLocalizable<QuestionnaireDefinitionPermission, QuestionnaireDefinitionTranslation, QuestionnaireDefinitionLanguageSettings> {
@@ -83,9 +82,9 @@ public class QuestionnaireDefinition
 
     @OneToMany(mappedBy = "questionnaireDefinition", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @OrderColumn(name = "order_in_questionnaire")
-    @XmlElementWrapper(name = "question-groups")
-    @XmlElement(name = "question-group")
-    private final List<QuestionGroup> questionGroups = new ArrayList<QuestionGroup>();
+    @XmlElementWrapper(name = "sections")
+    @XmlElement(name = "section")
+    private final List<Section> sections = new ArrayList<Section>();
 
     @OneToMany(mappedBy = "questionnaireDefinition", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapKeyEnumerated(EnumType.STRING)
@@ -99,7 +98,7 @@ public class QuestionnaireDefinition
     private Boolean progressVisible;
 
     @Column(nullable = false)
-    private Boolean questionGroupInfoVisible;
+    private Boolean sectionInfoVisible;
 
     @Convert(converter = RandomizationStrategyTypeConverter.class)
     @Column(nullable = false)
@@ -120,13 +119,13 @@ public class QuestionnaireDefinition
         return Collections.unmodifiableMap(translations);
     }
 
-    public List<QuestionGroup> getQuestionGroups() {
-        return Collections.unmodifiableList(questionGroups);
+    public List<Section> getSections() {
+        return Collections.unmodifiableList(sections);
     }
 
-    public void addQuestionGroup(QuestionGroup questionGroup) {
-        questionGroups.add(questionGroup);
-        questionGroup.setQuestionnairDefinition(this);
+    public void addSection(Section section) {
+        sections.add(section);
+        section.setQuestionnairDefinition(this);
     }
 
     @Override
@@ -182,12 +181,12 @@ public class QuestionnaireDefinition
         this.progressVisible = progressVisible;
     }
 
-    public Boolean isQuestionGroupInfoVisible() {
-        return questionGroupInfoVisible;
+    public Boolean isSectionInfoVisible() {
+        return sectionInfoVisible;
     }
 
-    public void setQuestionGroupInfoVisible(Boolean questionGroupInfoVisible) {
-        this.questionGroupInfoVisible = questionGroupInfoVisible;
+    public void setSectionInfoVisible(Boolean sectionInfoVisible) {
+        this.sectionInfoVisible = sectionInfoVisible;
     }
 
     public RandomizationStrategy getRandomizationStrategy() {
@@ -220,9 +219,9 @@ public class QuestionnaireDefinition
             mailMessageTemplate.updateInverseRelationships();
         }
 
-        for (QuestionGroup questionGroup : questionGroups) {
-            questionGroup.setQuestionnairDefinition(this);
-            questionGroup.updateInverseRelationships();
+        for (Section section : sections) {
+            section.setQuestionnairDefinition(this);
+            section.updateInverseRelationships();
         }
     }
 
@@ -245,7 +244,7 @@ public class QuestionnaireDefinition
         private Language language;
         private Boolean welcomeVisible;
         private Boolean progressVisible;
-        private Boolean questionGroupInfoVisible;
+        private Boolean sectionInfoVisible;
         private RandomizationStrategy randomizationStrategy;
         private Integer questionsPerPage;
         private RenderingMode renderingMode;
@@ -290,8 +289,8 @@ public class QuestionnaireDefinition
             return this;
         }
 
-        public Builder questionGroupInfoVisible(Boolean questionGroupInfoVisible) {
-            this.questionGroupInfoVisible = questionGroupInfoVisible;
+        public Builder sectionInfoVisible(Boolean sectionInfoVisible) {
+            this.sectionInfoVisible = sectionInfoVisible;
             return this;
         }
 
@@ -308,7 +307,7 @@ public class QuestionnaireDefinition
             questionnaireDefinition.language = language;
             questionnaireDefinition.welcomeVisible = welcomeVisible;
             questionnaireDefinition.progressVisible = progressVisible;
-            questionnaireDefinition.questionGroupInfoVisible = questionGroupInfoVisible;
+            questionnaireDefinition.sectionInfoVisible = sectionInfoVisible;
             questionnaireDefinition.randomizationStrategy = randomizationStrategy;
             questionnaireDefinition.questionsPerPage = questionsPerPage;
             questionnaireDefinition.renderingMode = renderingMode;

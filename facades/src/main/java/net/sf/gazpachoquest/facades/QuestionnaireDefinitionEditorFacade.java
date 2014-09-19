@@ -14,8 +14,8 @@ import net.sf.gazpachoquest.dto.LabelDTO;
 import net.sf.gazpachoquest.dto.LabelLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.LabelSetDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
-import net.sf.gazpachoquest.dto.QuestionGroupDTO;
-import net.sf.gazpachoquest.dto.QuestionGroupLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.SectionDTO;
+import net.sf.gazpachoquest.dto.SectionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionLanguageSettingsDTO;
@@ -33,7 +33,7 @@ public interface QuestionnaireDefinitionEditorFacade {
 
     QuestionDTO save(QuestionDTO question);
 
-    QuestionGroupDTO save(QuestionGroupDTO questionGroup);
+    SectionDTO save(SectionDTO section);
 
     QuestionOptionDTO save(QuestionOptionDTO questionOption);
 
@@ -42,8 +42,8 @@ public interface QuestionnaireDefinitionEditorFacade {
     TranslationDTO<LabelDTO, LabelLanguageSettingsDTO> saveLabelTranslation(
             TranslationDTO<LabelDTO, LabelLanguageSettingsDTO> translation);
 
-    TranslationDTO<QuestionGroupDTO, QuestionGroupLanguageSettingsDTO> saveQuestionGroupTranslation(
-            TranslationDTO<QuestionGroupDTO, QuestionGroupLanguageSettingsDTO> translation);
+    TranslationDTO<SectionDTO, SectionLanguageSettingsDTO> saveSectionTranslation(
+            TranslationDTO<SectionDTO, SectionLanguageSettingsDTO> translation);
 
     TranslationDTO<QuestionOptionDTO, QuestionOptionLanguageSettingsDTO> saveQuestionOptionTranslation(
             TranslationDTO<QuestionOptionDTO, QuestionOptionLanguageSettingsDTO> translation);

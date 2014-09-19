@@ -12,36 +12,36 @@ package net.sf.gazpachoquest.dto;
 
 import net.sf.gazpachoquest.dto.support.LanguageSettingsDTO;
 
-public class QuestionGroupLanguageSettingsDTO implements LanguageSettingsDTO {
+public class SectionLanguageSettingsDTO implements LanguageSettingsDTO {
 
     public static interface Builder {
 
-        QuestionGroupLanguageSettingsDTO build();
+        SectionLanguageSettingsDTO build();
 
-        QuestionGroupDTO.Builder pageLanguageSettingsEnd();
+        SectionDTO.Builder pageLanguageSettingsEnd();
 
         Builder title(String title);
 
     }
 
     public static class BuilderImpl implements Builder {
-        private final QuestionGroupDTO.Builder container;
+        private final SectionDTO.Builder container;
 
         private String title;
 
-        public BuilderImpl(final QuestionGroupDTO.Builder container) {
+        public BuilderImpl(final SectionDTO.Builder container) {
             this.container = container;
         }
 
         @Override
-        public QuestionGroupLanguageSettingsDTO build() {
-            QuestionGroupLanguageSettingsDTO surveyLanguageSettingsDTO = new QuestionGroupLanguageSettingsDTO();
+        public SectionLanguageSettingsDTO build() {
+            SectionLanguageSettingsDTO surveyLanguageSettingsDTO = new SectionLanguageSettingsDTO();
             surveyLanguageSettingsDTO.title = title;
             return surveyLanguageSettingsDTO;
         }
 
         @Override
-        public QuestionGroupDTO.Builder pageLanguageSettingsEnd() {
+        public SectionDTO.Builder pageLanguageSettingsEnd() {
             return container.languageSettings(build());
         }
 
@@ -54,8 +54,8 @@ public class QuestionGroupLanguageSettingsDTO implements LanguageSettingsDTO {
 
     private static final long serialVersionUID = 8942148329254332833L;
 
-    public static Builder pageLanguageSettingsStart(final QuestionGroupDTO.Builder container) {
-        return new QuestionGroupLanguageSettingsDTO.BuilderImpl(container);
+    public static Builder pageLanguageSettingsStart(final SectionDTO.Builder container) {
+        return new SectionLanguageSettingsDTO.BuilderImpl(container);
     }
 
     public static Builder with() {
@@ -64,7 +64,7 @@ public class QuestionGroupLanguageSettingsDTO implements LanguageSettingsDTO {
 
     private String title;
 
-    public QuestionGroupLanguageSettingsDTO() {
+    public SectionLanguageSettingsDTO() {
         super();
     }
 

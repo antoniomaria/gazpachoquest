@@ -17,15 +17,15 @@ import java.util.List;
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
-import net.sf.gazpachoquest.domain.core.QuestionGroup;
-import net.sf.gazpachoquest.domain.core.QuestionGroup.Builder;
+import net.sf.gazpachoquest.domain.core.Section;
+import net.sf.gazpachoquest.domain.core.Section.Builder;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.questionnaire.support.PageMetadataCreator;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
-import net.sf.gazpachoquest.services.QuestionGroupService;
+import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.services.QuestionnaireService;
@@ -49,7 +49,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
     private BreadcrumbService breadcrumbService;
 
     @Autowired
-    private QuestionGroupService questionGroupService;
+    private SectionService sectionService;
 
     @Autowired
     private QuestionService questionService;
@@ -75,13 +75,13 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
         Integer questionnairDefinitionId = questionnaireDefinition.getId();
         RandomizationStrategy randomizationStrategy = questionnaireDefinition.getRandomizationStrategy();
         if (RandomizationStrategy.GROUPS_RANDOMIZATION.equals(randomizationStrategy)) {
-            List<QuestionGroup> questionGroups = questionGroupService.findByExample(
-                    QuestionGroup.with()
+            List<Section> sections = sectionService.findByExample(
+                    Section.with()
                             .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnairDefinitionId).build())
                             .build(), new SearchParameters());
-            Collections.shuffle(questionGroups);
-            for (QuestionGroup questionGroup : questionGroups) {
-                List<Question> questions = findQuestions(questionGroup);
+            Collections.shuffle(sections);
+            for (Section section : sections) {
+                List<Question> questions = findQuestions(section);
                 for (Question question : questions) {
                     breadcrumb = QuestionBreadcrumb.with().questionnaire(questionnaire).last(Boolean.FALSE)
                             .question(question).renderingMode(RenderingMode.QUESTION_BY_QUESTION).build();
@@ -118,23 +118,23 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
         if (breadcrumb == null) {
             Assert.isInstanceOf(QuestionBreadcrumb.class, lastBreadcrumb);
 
-            QuestionGroup lastQuestionGroup = lastBreadcrumb.getQuestion().getQuestionGroup();
+            Section lastSection = lastBreadcrumb.getQuestion().getSection();
 
-            Integer position = questionService.findPositionInQuestionGroup(lastBreadcrumb.getQuestion().getId());
-            long questionsCount = questionGroupService.questionsCount(lastQuestionGroup.getId());
+            Integer position = questionService.findPositionInSection(lastBreadcrumb.getQuestion().getId());
+            long questionsCount = sectionService.questionsCount(lastSection.getId());
             Question next = null;
             if (position < questionsCount - 1) { // Not last in group
-                next = questionService.findOneByPositionInQuestionGroup(lastQuestionGroup.getId(), position + 1);
+                next = questionService.findOneByPositionInSection(lastSection.getId(), position + 1);
             } else {
-                Integer questionGroupPosition = questionGroupService.positionInQuestionnairDefinition(lastQuestionGroup
+                Integer sectionPosition = sectionService.positionInQuestionnairDefinition(lastSection
                         .getId());
-                QuestionGroup nextQuestionGroup = questionGroupService.findOneByPositionInQuestionnairDefinition(
-                        questionnaireDefinition.getId(), questionGroupPosition + 1);
+                Section nextSection = sectionService.findOneByPositionInQuestionnairDefinition(
+                        questionnaireDefinition.getId(), sectionPosition + 1);
 
-                if (nextQuestionGroup == null) { // TODO handle exceptions
+                if (nextSection == null) { // TODO handle exceptions
                     return null;
                 }
-                next = questionService.findOneByPositionInQuestionGroup(nextQuestionGroup.getId(), INITIAL_POSITION);
+                next = questionService.findOneByPositionInSection(nextSection.getId(), INITIAL_POSITION);
             }
             // Mark next element as last browsed.
             nextBreadcrumb = QuestionBreadcrumb.with().questionnaire(questionnaire).question(next)
@@ -161,23 +161,23 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
     }
 
     @Override
-    protected List<Question> findQuestions(QuestionGroup questionGroup) {
+    protected List<Question> findQuestions(Section section) {
         List<Question> questions;
-        if (questionGroup.isRandomizationEnabled()) {
+        if (section.isRandomizationEnabled()) {
             questions = questionService.findByExample(
-                    Question.with().questionGroup(QuestionGroup.with().id(questionGroup.getId()).build()).build(),
+                    Question.with().section(Section.with().id(section.getId()).build()).build(),
                     new SearchParameters());
             Collections.shuffle(questions);
         } else {
-            questions = questionService.findByQuestionGroupId(questionGroup.getId());
+            questions = questionService.findBySectionId(section.getId());
         }
         return questions;
     }
 
     private Question findFirstQuestion(int questionnairDefinitionId) {
-        QuestionGroup initialGroup = questionGroupService.findOneByPositionInQuestionnairDefinition(
+        Section initialGroup = sectionService.findOneByPositionInQuestionnairDefinition(
                 questionnairDefinitionId, INITIAL_POSITION);
-        return questionService.findOneByPositionInQuestionGroup(initialGroup.getId(), INITIAL_POSITION);
+        return questionService.findOneByPositionInSection(initialGroup.getId(), INITIAL_POSITION);
     }
 
     @Override
@@ -188,14 +188,14 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
         Breadcrumb active = breadcrumbs.get(0);
 
         QuestionBreadcrumb questionBreadcrumb = (QuestionBreadcrumb) active;
-        Builder builder = QuestionGroup.with();
+        Builder builder = Section.with();
         if (!randomizationStrategy.equals(RandomizationStrategy.QUESTIONS_RANDOMIZATION)) {
-            builder.id(questionBreadcrumb.getQuestion().getQuestionGroupId());
+            builder.id(questionBreadcrumb.getQuestion().getSectionId());
         }
-        QuestionGroup questionGroup = builder.build();
-        questionGroup.addQuestion(Question.with().id(questionBreadcrumb.getQuestion().getId()).build());
+        Section section = builder.build();
+        section.addQuestion(Question.with().id(questionBreadcrumb.getQuestion().getId()).build());
 
-        nextPage.addQuestionGroup(questionGroup);
+        nextPage.addSection(section);
         return nextPage;
     }
 

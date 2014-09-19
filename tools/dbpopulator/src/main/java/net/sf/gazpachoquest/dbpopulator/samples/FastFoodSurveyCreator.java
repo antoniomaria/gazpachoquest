@@ -1,7 +1,7 @@
 package net.sf.gazpachoquest.dbpopulator.samples;
 
 import net.sf.gazpachoquest.dto.QuestionDTO;
-import net.sf.gazpachoquest.dto.QuestionGroupDTO;
+import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.SubquestionDTO;
@@ -31,13 +31,13 @@ public class FastFoodSurveyCreator {
                 .questionnairLanguageSettingsEnd().build();
         survey = questionnaireDefinitionEditorFacade.save(survey);
 
-        QuestionGroupDTO questionGroup = QuestionGroupDTO.with().language(Language.EN).randomizationEnabled(false)
-                .pageLanguageSettingsStart().title("Fast Food QuestionnaireDefinition - QuestionGroup")
+        SectionDTO section = SectionDTO.with().language(Language.EN).randomizationEnabled(false)
+                .pageLanguageSettingsStart().title("Fast Food QuestionnaireDefinition - Section")
                 .pageLanguageSettingsEnd().build();
 
-        survey.addQuestionGroup(questionGroup);
+        survey.addSection(section);
         survey = questionnaireDefinitionEditorFacade.save(survey);
-        questionGroup = survey.getLastQuestionGroupDTO();
+        section = survey.getLastSectionDTO();
 
         // Question 1: Rating Scale (1-5)
         QuestionDTO question = QuestionDTO.with().type(QuestionType.F).code("Q1").language(Language.EN)
@@ -65,8 +65,8 @@ public class FastFoodSurveyCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O6").language(Language.EN).title("Disagree strongly")
                 .build());
 
-        questionGroup.addQuestion(question);
-        questionGroup = questionnaireDefinitionEditorFacade.save(questionGroup);
+        section.addQuestion(question);
+        section = questionnaireDefinitionEditorFacade.save(section);
 
         // Question 2: Rating Scale (Agree-Disagree)
         question = QuestionDTO.with().type(QuestionType.F).code("Q2").language(Language.EN).languageSettingsStart()
@@ -105,8 +105,8 @@ public class FastFoodSurveyCreator {
         question.addQuestionOption(QuestionOptionDTO.with().code("O6").language(Language.EN).title("Disagree strongly")
                 .build());
 
-        questionGroup.addQuestion(question);
-        questionGroup = questionnaireDefinitionEditorFacade.save(questionGroup);
+        section.addQuestion(question);
+        section = questionnaireDefinitionEditorFacade.save(section);
 
         // Question 3: Multiple Choice (Only One QuestionOption)
         question = QuestionDTO.with().type(QuestionType.L).code("Q3").language(Language.EN).languageSettingsStart()
@@ -123,8 +123,8 @@ public class FastFoodSurveyCreator {
         question.addQuestionOption(QuestionOptionDTO.with().language(Language.EN).code("O5").title("Over 85,000€")
                 .build());
 
-        questionGroup.addQuestion(question);
-        questionGroup = questionnaireDefinitionEditorFacade.save(questionGroup);
+        section.addQuestion(question);
+        section = questionnaireDefinitionEditorFacade.save(section);
 
         return survey;
     }

@@ -8,9 +8,9 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
-import net.sf.gazpachoquest.domain.core.embeddables.QuestionGroupLanguageSettings;
+import net.sf.gazpachoquest.domain.core.embeddables.SectionLanguageSettings;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnaireDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.user.User;
@@ -52,26 +52,26 @@ public class QuestionnaireDefinitionRepositoryTest extends AbstractShiroTest {
     public void findOne() {
         Integer questionnairDefinitionId = 7;
         QuestionnaireDefinition questionnaireDefinition = repository.findOne(questionnairDefinitionId);
-        List<QuestionGroup> questionGroups = questionnaireDefinition.getQuestionGroups();
-        assertThat(questionGroups).hasSize(3);
+        List<Section> sections = questionnaireDefinition.getSections();
+        assertThat(sections).hasSize(3);
     }
 
     @Test
-    public void saveWithQuestionGroups() {
+    public void saveWithSections() {
         QuestionnaireDefinitionLanguageSettings settings = QuestionnaireDefinitionLanguageSettings.with()
                 .title("My QuestionnaireDefinition example").description("My questionnaireDefinition description")
                 .welcomeText("welcome").build();
         QuestionnaireDefinition questionnaireDefinition = QuestionnaireDefinition.with().language(Language.ES)
-                .languageSettings(settings).questionGroupInfoVisible(true).progressVisible(true).welcomeVisible(true)
-                .randomizationStrategy(RandomizationStrategy.NONE).renderingMode(RenderingMode.GROUP_BY_GROUP).build();
-        QuestionGroup questionGroup = new QuestionGroup();
-        questionGroup.setLanguage(Language.ES);
-        questionGroup.setRandomizationEnabled(false);
-        QuestionGroupLanguageSettings groupSettings = new QuestionGroupLanguageSettings();
+                .languageSettings(settings).sectionInfoVisible(true).progressVisible(true).welcomeVisible(true)
+                .randomizationStrategy(RandomizationStrategy.NONE).renderingMode(RenderingMode.SECTION_BY_SECTION).build();
+        Section section = new Section();
+        section.setLanguage(Language.ES);
+        section.setRandomizationEnabled(false);
+        SectionLanguageSettings groupSettings = new SectionLanguageSettings();
         groupSettings.setTitle("Group 1");
-        questionGroup.setLanguageSettings(groupSettings);
+        section.setLanguageSettings(groupSettings);
 
-        questionnaireDefinition.addQuestionGroup(questionGroup);
+        questionnaireDefinition.addSection(section);
 
         repository.save(questionnaireDefinition);
 
@@ -85,7 +85,7 @@ public class QuestionnaireDefinitionRepositoryTest extends AbstractShiroTest {
         question.setLanguageSettings(questionLanguageSettings);
         question.setOtherAllowed(false);
         question.setRequired(false);
-        questionGroup.addQuestion(question);
+        section.addQuestion(question);
 
         question = new Question();
         question.setCode("Q2");
@@ -96,13 +96,13 @@ public class QuestionnaireDefinitionRepositoryTest extends AbstractShiroTest {
         question.setLanguageSettings(questionLanguageSettings);
         question.setOtherAllowed(false);
         question.setRequired(false);
-        questionGroup.addQuestion(question);
+        section.addQuestion(question);
 
         questionnaireDefinition = repository.save(questionnaireDefinition);
 
         QuestionnaireDefinition fetched = repository.findOne(questionnaireDefinition.getId());
-        assertThat(fetched.getQuestionGroups()).hasSize(1);
-        assertThat(fetched.getQuestionGroups().get(0).getQuestions()).hasSize(2);
+        assertThat(fetched.getSections()).hasSize(1);
+        assertThat(fetched.getSections().get(0).getQuestions()).hasSize(2);
     }
 
     @Test
@@ -110,9 +110,9 @@ public class QuestionnaireDefinitionRepositoryTest extends AbstractShiroTest {
         QuestionnaireDefinitionLanguageSettings languageSettings = QuestionnaireDefinitionLanguageSettings.with()
                 .title("My QuestionnaireDefinition").description("my description").welcomeText("welcome").build();
         QuestionnaireDefinition questionnaireDefinition = QuestionnaireDefinition.with().language(Language.EN)
-                .languageSettings(languageSettings).questionGroupInfoVisible(true).progressVisible(true)
+                .languageSettings(languageSettings).sectionInfoVisible(true).progressVisible(true)
                 .welcomeVisible(true).randomizationStrategy(RandomizationStrategy.NONE)
-                .renderingMode(RenderingMode.GROUP_BY_GROUP).build();
+                .renderingMode(RenderingMode.SECTION_BY_SECTION).build();
         questionnaireDefinition = repository.save(questionnaireDefinition);
         assertThat(questionnaireDefinition.getCreatedDate()).isNotNull();
         assertThat(questionnaireDefinition.getCreatedBy()).isNotNull();
@@ -126,9 +126,9 @@ public class QuestionnaireDefinitionRepositoryTest extends AbstractShiroTest {
     }
 
     @Test
-    public void questionsCountGroupByQuestionGroupsTest() {
+    public void questionsCountGroupBySectionsTest() {
         Integer questionnairDefinitionId = 7;
-        List<Object[]> result = repository.questionsCountGroupByQuestionGroups(questionnairDefinitionId);
+        List<Object[]> result = repository.questionsCountGroupBySections(questionnairDefinitionId);
         assertThat(result).hasSize(3);
         assertThat(result.get(0)).isEqualTo(new Object[] { 11, 2L, 0 });
         assertThat(result.get(1)).isEqualTo(new Object[] { 10, 3L, 1 });

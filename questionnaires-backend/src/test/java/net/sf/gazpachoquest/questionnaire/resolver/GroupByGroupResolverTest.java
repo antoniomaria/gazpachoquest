@@ -45,7 +45,7 @@ public class GroupByGroupResolverTest extends AbstractShiroTest {
     private QuestionnaireService questionnaireService;
 
     @Autowired
-    @Qualifier("GroupByGroupResolver")
+    @Qualifier("SectionBySectionResolver")
     private PageResolver resolver;
 
     @Test

@@ -14,7 +14,7 @@
   <questionnaire_definition id="7" created_date="2014-04-19 10:35:11.358" language="EN" last_modified_date="2014-04-19 10:35:11.358"
     status="C" description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample questionnaireDefinition&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;"
     title="Sample questionnaireDefinition" welcome_text="Thank you for taking the time to participate in this questionnaireDefinition." createdby_id="1"
-    lastmodifiedby_id="1" randomization_strategy="N" welcome_visible="true" progress_visible="true" question_group_info_visible="true" rendering_mode="GBG" />
+    lastmodifiedby_id="1" randomization_strategy="N" welcome_visible="true" progress_visible="true" section_info_visible="true" rendering_mode="SBS" />
   <questionnaire_definition_permission />
 
   <questionnaire_definition_translation id="8" language="ES"
@@ -22,8 +22,8 @@
     questionnairedefinition_id="7" />
   <questionnaire_permission />
 
-  <question_group />
-  <question_group_translation />
+  <section />
+  <section_translation />
 
   <question />
   <question_translation />

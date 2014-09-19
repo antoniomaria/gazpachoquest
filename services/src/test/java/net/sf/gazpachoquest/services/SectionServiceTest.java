@@ -1,7 +1,7 @@
 package net.sf.gazpachoquest.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import net.sf.gazpachoquest.domain.core.QuestionGroup;
+import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.types.Language;
 
@@ -22,27 +22,27 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @ContextConfiguration(locations = { "classpath:/jpa-test-context.xml", "classpath:/datasource-test-context.xml",
         "classpath:/services-context.xml", "classpath:/components-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("QuestionGroupService-dataset.xml")
-@DatabaseTearDown("QuestionGroupService-dataset.xml")
+@DatabaseSetup("SectionService-dataset.xml")
+@DatabaseTearDown("SectionService-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class QuestionGroupServiceTest {
+public class SectionServiceTest {
 
     @Autowired
-    private QuestionGroupService questionGroupService;
+    private SectionService sectionService;
 
     @Test
     public void questionsCountTest() {
-        Integer questionGroupId = 9;
-        long count = questionGroupService.questionsCount(questionGroupId);
+        Integer sectionId = 9;
+        long count = sectionService.questionsCount(sectionId);
         assertThat(count).isEqualTo(3);
     }
 
     @Test
     public void findOneTest() {
-        Integer questionGroupId = 9;
+        Integer sectionId = 9;
         Language language = Language.ES;
-        QuestionGroup questionGroup = questionGroupService.findOne(questionGroupId, language);
-        assertThat(questionGroup.getQuestionsId()).isEmpty();
-        assertThat(questionGroup.getLanguageSettings().getTitle()).isEqualTo("QuestionGroup 1 Spanish Version");
+        Section section = sectionService.findOne(sectionId, language);
+        assertThat(section.getQuestionsId()).isEmpty();
+        assertThat(section.getLanguageSettings().getTitle()).isEqualTo("Section 1 Spanish Version");
     }
 }
