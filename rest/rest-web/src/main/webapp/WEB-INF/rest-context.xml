@@ -63,8 +63,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
     <property name="title" value="GazpachoQuest REST Interface" />
     <property name="description" value="This is the endpoint to all gazpacho quest services" />
     <property name="contact" value="antoniomariasanchez@gmail.com" />
-    <property name="license" value="Apache 2.0 License" />
-    <property name="licenseUrl" value="http://www.apache.org/licenses/LICENSE-2.0.html" />
+    <property name="license" value="GNU Public License v3.0" />
+    <property name="licenseUrl" value="http://www.gnu.org/licenses/gpl.html" />
     <property name="filterClass" value="net.sf.gazpachoquest.rest.filter.InternalSwaggerFilter"/>
     <property name="scan" value="true" />
   </bean>
