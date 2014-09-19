@@ -50,7 +50,6 @@
  <modules>
   <module>testsuite</module>
   <module>api</module>
-  <module>cargo</module>
   <module>types</module>
   <module>persistence</module>
   <module>components</module>
