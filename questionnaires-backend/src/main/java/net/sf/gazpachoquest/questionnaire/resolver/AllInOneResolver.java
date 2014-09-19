@@ -7,16 +7,15 @@ import java.util.List;
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
+import net.sf.gazpachoquest.domain.core.Questionnaire;
+import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.Section.Builder;
 import net.sf.gazpachoquest.domain.core.SectionBreadcrumb;
-import net.sf.gazpachoquest.domain.core.Questionnaire;
-import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 import net.sf.gazpachoquest.services.SectionService;
-import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
@@ -36,9 +35,6 @@ public class AllInOneResolver extends AbstractResolver<SectionBreadcrumb> implem
     @Autowired
     private SectionService sectionService;
 
-    @Autowired
-    private QuestionnaireDefinitionService questionnaireDefinitionService;
-
     @Override
     protected List<SectionBreadcrumb> makeBreadcrumbs(QuestionnaireDefinition questionnaireDefinition,
             Questionnaire questionnaire) {
@@ -49,12 +45,13 @@ public class AllInOneResolver extends AbstractResolver<SectionBreadcrumb> implem
         if (RandomizationStrategy.SECTIONS_RANDOMIZATION.equals(randomizationStrategy)) {
             List<Section> sections = sectionService.findByExample(
                     Section.with()
-                            .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnairDefinitionId).build())
-                            .build(), new SearchParameters());
+                            .questionnaireDefinition(
+                                    QuestionnaireDefinition.with().id(questionnairDefinitionId).build()).build(),
+                    new SearchParameters());
             Collections.shuffle(sections);
             for (Section section : sections) {
-                breadcrumb = SectionBreadcrumb.with().questionnaire(questionnaire).section(section)
-                        .last(Boolean.TRUE).renderingMode(RenderingMode.ALL_IN_ONE).build();
+                breadcrumb = SectionBreadcrumb.with().questionnaire(questionnaire).section(section).last(Boolean.TRUE)
+                        .renderingMode(RenderingMode.ALL_IN_ONE).build();
                 breadcrumbs.add(breadcrumb);
             }
             populateQuestionsBreadcrumbs(breadcrumbs);
@@ -72,11 +69,12 @@ public class AllInOneResolver extends AbstractResolver<SectionBreadcrumb> implem
         } else {
             List<Section> sections = sectionService.findByExample(
                     Section.with()
-                            .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnairDefinitionId).build())
-                            .build(), new SearchParameters());
+                            .questionnaireDefinition(
+                                    QuestionnaireDefinition.with().id(questionnairDefinitionId).build()).build(),
+                    new SearchParameters());
             for (Section section : sections) {
-                breadcrumb = SectionBreadcrumb.with().questionnaire(questionnaire).section(section)
-                        .last(Boolean.TRUE).renderingMode(RenderingMode.ALL_IN_ONE).build();
+                breadcrumb = SectionBreadcrumb.with().questionnaire(questionnaire).section(section).last(Boolean.TRUE)
+                        .renderingMode(RenderingMode.ALL_IN_ONE).build();
                 breadcrumbs.add(breadcrumb);
             }
             populateQuestionsBreadcrumbs(breadcrumbs);

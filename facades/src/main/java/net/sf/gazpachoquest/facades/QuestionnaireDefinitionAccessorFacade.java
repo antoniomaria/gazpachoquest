@@ -15,11 +15,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Set;
 
-import org.springframework.oxm.XmlMappingException;
-
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
+import net.sf.gazpachoquest.dto.support.PageDTO;
 import net.sf.gazpachoquest.types.Language;
+
+import org.springframework.oxm.XmlMappingException;
 
 public interface QuestionnaireDefinitionAccessorFacade {
 
@@ -34,5 +35,7 @@ public interface QuestionnaireDefinitionAccessorFacade {
 
     QuestionnaireDefinitionDTO importQuestionnaireDefinition(InputStream inputStream) throws XmlMappingException,
             IOException;
+
+    PageDTO<QuestionnaireDefinitionDTO> findPaginated(Integer pageNumber, Integer size);
 
 }

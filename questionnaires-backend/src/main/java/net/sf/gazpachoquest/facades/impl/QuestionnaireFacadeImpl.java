@@ -15,15 +15,15 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
+import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.dto.PageMetadataDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
-import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
+import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.answers.BooleanAnswer;
 import net.sf.gazpachoquest.dto.answers.SimpleAnswer;
@@ -34,11 +34,11 @@ import net.sf.gazpachoquest.questionnaire.support.AnswersPopulator;
 import net.sf.gazpachoquest.questionnaire.support.PageMetadataCreator;
 import net.sf.gazpachoquest.questionnaire.support.PageMetadataStructure;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
-import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnaireAnswersService;
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.services.QuestionnaireService;
+import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RenderingMode;
@@ -47,6 +47,7 @@ import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,6 +69,7 @@ public class QuestionnaireFacadeImpl implements QuestionnaireFacade {
     private SectionService sectionService;
 
     @Autowired
+    @Qualifier("questionnaireDefinitionServiceImpl")
     private QuestionnaireDefinitionService questionnaireDefinitionService;
 
     @Autowired
@@ -98,8 +100,8 @@ public class QuestionnaireFacadeImpl implements QuestionnaireFacade {
 
         QuestionnaireDTO questionnaireDTO = QuestionnaireDTO.with().language(definition.getLanguage())
                 .languageSettings(languageSettings).id(questionnaireId).progressVisible(definition.isProgressVisible())
-                .sectionInfoVisible(definition.isSectionInfoVisible())
-                .welcomeVisible(definition.isWelcomeVisible()).build();
+                .sectionInfoVisible(definition.isSectionInfoVisible()).welcomeVisible(definition.isWelcomeVisible())
+                .build();
         for (Language language : translations) {
             questionnaireDTO.addSupportedLanguage(language);
         }

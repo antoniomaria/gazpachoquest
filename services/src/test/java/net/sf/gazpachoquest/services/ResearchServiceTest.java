@@ -52,6 +52,7 @@ public class ResearchServiceTest extends AbstractShiroTest {
     private QuestionnaireRepository questionnaireRepository;
 
     @Autowired
+    @Qualifier("questionnaireDefinitionServiceImpl")
     private QuestionnaireDefinitionService questionnaireDefinitionService;
 
     @Autowired

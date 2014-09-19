@@ -11,6 +11,8 @@ import net.sf.gazpachoquest.repository.user.UserRepository;
 import net.sf.gazpachoquest.services.permission.impl.PermissionSpecification;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public abstract class AbstractPermissionsAwarePersistenceService<S extends Securizable<P>, P extends Permission<S>>
         extends AbstractPersistenceService<S> {
@@ -27,6 +29,15 @@ public abstract class AbstractPermissionsAwarePersistenceService<S extends Secur
         Integer userId = getAuthenticatedUser().getId();
         Integer roleIds[] = toRoleIds(userRepository.getRoles(userId));
         return repository.findAll(new PermissionSpecification<S, P>().canRead(userId, roleIds));
+    }
+
+    @Override
+    public Page<S> findPaginated(Integer pageNumber, Integer size) {
+        Integer userId = getAuthenticatedUser().getId();
+        Integer roleIds[] = toRoleIds(userRepository.getRoles(userId));
+
+        return repository.findAll(new PermissionSpecification<S, P>().canRead(userId, roleIds), new PageRequest(
+                pageNumber - 1, size));
     }
 
     @Override

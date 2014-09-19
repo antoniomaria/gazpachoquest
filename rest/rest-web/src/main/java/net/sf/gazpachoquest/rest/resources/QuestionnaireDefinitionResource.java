@@ -9,10 +9,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import net.sf.gazpachoquest.dto.QuestionnaireDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
+import net.sf.gazpachoquest.dto.support.PageDTO;
 import net.sf.gazpachoquest.facades.QuestionnaireDefinitionAccessorFacade;
 
 import org.apache.cxf.io.CachedOutputStream;
@@ -39,6 +41,22 @@ public class QuestionnaireDefinitionResource {
     @Autowired
     private QuestionnaireDefinitionAccessorFacade questionnaireDefinitionAccessorFacade;
 
+    @GET
+    @ApiOperation(value = "Returns questionnaire definitions available", response = PageDTO.class)
+    @ApiResponses(value = { @ApiResponse(code = 404, message = "Not enough access rights"),
+            @ApiResponse(code = 200, message = "Questionnaire Definitions available") })
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public PageDTO<QuestionnaireDefinitionDTO> getQuestionnairDefinitions(
+            @ApiParam(name = "pageNumber", value = "Refers page number", required = true)
+            @QueryParam("pageNumber")
+            Integer pageNumber, @ApiParam(name = "size", value = "Refers page size", required = true)
+            @QueryParam("size")
+            Integer size) throws XmlMappingException, IOException {
+        logger.info("New getQuestionnairDefinitions petition received ");
+        return questionnaireDefinitionAccessorFacade.findPaginated(pageNumber, size);
+    }
+
     @POST
     @Path("/import")
     @Consumes("multipart/form-data")
@@ -51,7 +69,8 @@ public class QuestionnaireDefinitionResource {
     @ApiParam(access = "internal")
     InputStream content) throws Exception {
         logger.info("New import QuestionnaireDefinition petition received");
-        QuestionnaireDefinitionDTO imported = questionnaireDefinitionAccessorFacade.importQuestionnaireDefinition(content);
+        QuestionnaireDefinitionDTO imported = questionnaireDefinitionAccessorFacade
+                .importQuestionnaireDefinition(content);
         logger.info("QuestionnaireDefinition imported with id = {}", imported.getId());
         return imported;
     }
@@ -73,4 +92,5 @@ public class QuestionnaireDefinitionResource {
         logger.info("QuestionnaireDefinition with id = {} exported succesfully", questionnairDefinitionId);
         return outputStream.getInputStream();
     }
+
 }

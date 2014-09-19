@@ -135,8 +135,8 @@ public class GroupByGroupResolverTest extends AbstractShiroTest {
     }
 
     @Test
-    @DatabaseSetup("QuestionnaireDefinitionGroupRandomizationEnabled-dataset.xml")
-    @DatabaseTearDown("QuestionnaireDefinitionGroupRandomizationEnabled-dataset.xml")
+    @DatabaseSetup("QuestionnaireDefinitionSectionRandomizationEnabled-dataset.xml")
+    @DatabaseTearDown("QuestionnaireDefinitionSectionRandomizationEnabled-dataset.xml")
     public void resolveNextPageGroupsRandomizationTest() {
         List<Integer> visitedQuestionIds = new ArrayList<Integer>();
 

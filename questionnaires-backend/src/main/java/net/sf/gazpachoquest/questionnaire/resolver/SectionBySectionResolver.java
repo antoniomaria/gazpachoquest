@@ -18,16 +18,15 @@ import java.util.List;
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
+import net.sf.gazpachoquest.domain.core.Questionnaire;
+import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.Section.Builder;
 import net.sf.gazpachoquest.domain.core.SectionBreadcrumb;
-import net.sf.gazpachoquest.domain.core.Questionnaire;
-import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 import net.sf.gazpachoquest.services.SectionService;
-import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
@@ -50,9 +49,6 @@ public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb
     @Autowired
     private SectionService sectionService;
 
-    @Autowired
-    private QuestionnaireDefinitionService questionnaireDefinitionService;
-
     protected SectionBySectionResolver() {
         super(RenderingMode.SECTION_BY_SECTION);
     }
@@ -67,12 +63,13 @@ public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb
         if (RandomizationStrategy.SECTIONS_RANDOMIZATION.equals(randomizationStrategy)) {
             List<Section> sections = sectionService.findByExample(
                     Section.with()
-                            .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnairDefinitionId).build())
-                            .build(), new SearchParameters());
+                            .questionnaireDefinition(
+                                    QuestionnaireDefinition.with().id(questionnairDefinitionId).build()).build(),
+                    new SearchParameters());
             Collections.shuffle(sections);
             for (Section section : sections) {
-                breadcrumb = SectionBreadcrumb.with().questionnaire(questionnaire).section(section)
-                        .last(Boolean.FALSE).renderingMode(RenderingMode.SECTION_BY_SECTION).build();
+                breadcrumb = SectionBreadcrumb.with().questionnaire(questionnaire).section(section).last(Boolean.FALSE)
+                        .renderingMode(RenderingMode.SECTION_BY_SECTION).build();
                 breadcrumbs.add(breadcrumb);
             }
             populateQuestionsBreadcrumbs(breadcrumbs);
@@ -87,7 +84,7 @@ public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb
                             .renderingMode(RenderingMode.SECTION_BY_SECTION).build();
                     breadcrumbs.add(breadcrumb);
                 }
-                breadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).build());
+                breadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).last(Boolean.FALSE).build());
                 questionIdx++;
             }
 
@@ -107,8 +104,8 @@ public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb
             final Questionnaire questionnaire, final SectionBreadcrumb lastBreadcrumb,
             final Integer lastBreadcrumbPosition) {
 
-        SectionBreadcrumb breadcrumb = (SectionBreadcrumb) breadcrumbService
-                .findByquestionnaireIdAndPosition(questionnaire.getId(), lastBreadcrumbPosition + 1);
+        SectionBreadcrumb breadcrumb = (SectionBreadcrumb) breadcrumbService.findByquestionnaireIdAndPosition(
+                questionnaire.getId(), lastBreadcrumbPosition + 1);
 
         SectionBreadcrumb nextBreadcrumb = null;
 
@@ -119,10 +116,9 @@ public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb
 
             Assert.isInstanceOf(SectionBreadcrumb.class, lastBreadcrumb);
 
-            Integer position = sectionService.positionInQuestionnairDefinition(lastBreadcrumb.getSection()
-                    .getId());
-            Section next = sectionService.findOneByPositionInQuestionnairDefinition(
-                    questionnaireDefinition.getId(), position + 1);
+            Integer position = sectionService.positionInQuestionnairDefinition(lastBreadcrumb.getSection().getId());
+            Section next = sectionService.findOneByPositionInQuestionnairDefinition(questionnaireDefinition.getId(),
+                    position + 1);
             // The respondent has reached the last question group
             if (next == null) {
                 logger.warn("Page out of range. Returning last page");
@@ -151,8 +147,7 @@ public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb
     }
 
     private Section findFirstSection(int questionnairDefinitionId) {
-        return sectionService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId,
-                INITIAL_POSITION);
+        return sectionService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId, INITIAL_POSITION);
     }
 
     @Override

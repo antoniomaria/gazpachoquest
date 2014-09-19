@@ -17,18 +17,17 @@ import java.util.List;
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
-import net.sf.gazpachoquest.domain.core.Section;
-import net.sf.gazpachoquest.domain.core.Section.Builder;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
+import net.sf.gazpachoquest.domain.core.Section;
+import net.sf.gazpachoquest.domain.core.Section.Builder;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.questionnaire.support.PageMetadataCreator;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
-import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.services.QuestionService;
-import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.services.QuestionnaireService;
+import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
@@ -58,9 +57,6 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
     private QuestionnaireService questionnaireService;
 
     @Autowired
-    private QuestionnaireDefinitionService questionnaireDefinitionService;
-
-    @Autowired
     private PageMetadataCreator metadataCreator;
 
     public QuestionByQuestionResolver() {
@@ -77,8 +73,9 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
         if (RandomizationStrategy.SECTIONS_RANDOMIZATION.equals(randomizationStrategy)) {
             List<Section> sections = sectionService.findByExample(
                     Section.with()
-                            .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnairDefinitionId).build())
-                            .build(), new SearchParameters());
+                            .questionnaireDefinition(
+                                    QuestionnaireDefinition.with().id(questionnairDefinitionId).build()).build(),
+                    new SearchParameters());
             Collections.shuffle(sections);
             for (Section section : sections) {
                 List<Question> questions = findQuestions(section);
@@ -126,8 +123,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
             if (position < questionsCount - 1) { // Not last in group
                 next = questionService.findOneByPositionInSection(lastSection.getId(), position + 1);
             } else {
-                Integer sectionPosition = sectionService.positionInQuestionnairDefinition(lastSection
-                        .getId());
+                Integer sectionPosition = sectionService.positionInQuestionnairDefinition(lastSection.getId());
                 Section nextSection = sectionService.findOneByPositionInQuestionnairDefinition(
                         questionnaireDefinition.getId(), sectionPosition + 1);
 
@@ -164,9 +160,9 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
     protected List<Question> findQuestions(Section section) {
         List<Question> questions;
         if (section.isRandomizationEnabled()) {
-            questions = questionService.findByExample(
-                    Question.with().section(Section.with().id(section.getId()).build()).build(),
-                    new SearchParameters());
+            questions = questionService
+                    .findByExample(Question.with().section(Section.with().id(section.getId()).build()).build(),
+                            new SearchParameters());
             Collections.shuffle(questions);
         } else {
             questions = questionService.findBySectionId(section.getId());
@@ -175,8 +171,8 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
     }
 
     private Question findFirstQuestion(int questionnairDefinitionId) {
-        Section initialGroup = sectionService.findOneByPositionInQuestionnairDefinition(
-                questionnairDefinitionId, INITIAL_POSITION);
+        Section initialGroup = sectionService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId,
+                INITIAL_POSITION);
         return questionService.findOneByPositionInSection(initialGroup.getId(), INITIAL_POSITION);
     }
 

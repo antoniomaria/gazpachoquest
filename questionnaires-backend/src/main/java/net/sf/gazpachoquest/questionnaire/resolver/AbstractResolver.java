@@ -8,18 +8,18 @@ import java.util.List;
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
-import net.sf.gazpachoquest.domain.core.Section;
-import net.sf.gazpachoquest.domain.core.SectionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
+import net.sf.gazpachoquest.domain.core.Section;
+import net.sf.gazpachoquest.domain.core.SectionBreadcrumb;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.questionnaire.support.PageMetadataCreator;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
-import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.services.QuestionnaireService;
+import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
@@ -27,6 +27,7 @@ import net.sf.gazpachoquest.types.RenderingMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 public abstract class AbstractResolver<T extends Breadcrumb> implements PageResolver {
 
@@ -45,7 +46,8 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
     private QuestionnaireService questionnaireService;
 
     @Autowired
-    private QuestionnaireDefinitionService questionnaireDefinitionService;
+    @Qualifier("questionnaireDefinitionServiceImpl")
+    protected QuestionnaireDefinitionService questionnaireDefinitionService;
 
     @Autowired
     private PageMetadataCreator metadataCreator;
@@ -128,10 +130,11 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
     protected abstract T findPreviousBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
             Questionnaire questionnaire, T lastBreadcrumb, Integer lastBreadcrumbPosition);
 
-    protected abstract T findNextBreadcrumb(QuestionnaireDefinition questionnaireDefinition, Questionnaire questionnaire,
-            T lastBreadcrumb, Integer lastBreadcrumbPosition);
+    protected abstract T findNextBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
+            Questionnaire questionnaire, T lastBreadcrumb, Integer lastBreadcrumbPosition);
 
-    protected abstract List<T> makeBreadcrumbs(QuestionnaireDefinition questionnaireDefinition, Questionnaire questionnaire);
+    protected abstract List<T> makeBreadcrumbs(QuestionnaireDefinition questionnaireDefinition,
+            Questionnaire questionnaire);
 
     protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy, List<T> breadcrumbs) {
         PageStructure nextPage = new PageStructure();
@@ -151,9 +154,9 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
     protected List<Question> findQuestions(Section section) {
         List<Question> questions;
         if (section.isRandomizationEnabled()) {
-            questions = questionService.findByExample(
-                    Question.with().section(Section.with().id(section.getId()).build()).build(),
-                    new SearchParameters());
+            questions = questionService
+                    .findByExample(Question.with().section(Section.with().id(section.getId()).build()).build(),
+                            new SearchParameters());
             shuffle(questions);
         } else {
             questions = questionService.findBySectionId(section.getId());

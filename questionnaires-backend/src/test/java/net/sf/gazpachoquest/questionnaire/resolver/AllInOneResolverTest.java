@@ -10,8 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
+import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
 import net.sf.gazpachoquest.services.QuestionnaireService;
@@ -141,8 +141,8 @@ public class AllInOneResolverTest extends AbstractShiroTest {
     }
 
     @Test
-    @DatabaseSetup("QuestionnaireDefinitionGroupRandomizationEnabled-dataset.xml")
-    @DatabaseTearDown("QuestionnaireDefinitionGroupRandomizationEnabled-dataset.xml")
+    @DatabaseSetup("QuestionnaireDefinitionSectionRandomizationEnabled-dataset.xml")
+    @DatabaseTearDown("QuestionnaireDefinitionSectionRandomizationEnabled-dataset.xml")
     public void resolveNextPageGroupsRandomizationTest() {
         Integer questionnaireId = 58;
         Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);

@@ -1,5 +1,8 @@
 package net.sf.gazpachoquest.services;
 
+import static org.easymock.EasyMock.createNiceMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.Set;
@@ -13,7 +16,7 @@ import net.sf.gazpachoquest.test.shiro.support.AbstractShiroTest;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
-import static org.easymock.EasyMock.*;
+
 import org.apache.shiro.subject.Subject;
 import org.joda.time.DateTime;
 import org.junit.After;
@@ -21,6 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -41,6 +45,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 public class QuestionnaireDefinitionServiceTest extends AbstractShiroTest {
 
     @Autowired
+    @Qualifier("questionnaireDefinitionServiceImpl")
     private QuestionnaireDefinitionService questionnaireDefinitionService;
 
     @Test
@@ -57,7 +62,8 @@ public class QuestionnaireDefinitionServiceTest extends AbstractShiroTest {
     @Test
     public void findOneTest() {
         int questionnairDefinitionId = 7;
-        QuestionnaireDefinition questionnaireDefinition = questionnaireDefinitionService.findOne(questionnairDefinitionId);
+        QuestionnaireDefinition questionnaireDefinition = questionnaireDefinitionService
+                .findOne(questionnairDefinitionId);
         assertThat(questionnaireDefinition).isNotNull();
     }
 
@@ -74,9 +80,9 @@ public class QuestionnaireDefinitionServiceTest extends AbstractShiroTest {
                 .title("My QuestionnaireDefinition").description("My description").welcomeText("welcome").build();
 
         QuestionnaireDefinition questionnaireDefinition = QuestionnaireDefinition.with().language(Language.EN)
-                .languageSettings(languageSettings).sectionInfoVisible(true).progressVisible(true)
-                .welcomeVisible(true).randomizationStrategy(RandomizationStrategy.NONE)
-                .renderingMode(RenderingMode.SECTION_BY_SECTION).build();
+                .languageSettings(languageSettings).sectionInfoVisible(true).progressVisible(true).welcomeVisible(true)
+                .randomizationStrategy(RandomizationStrategy.NONE).renderingMode(RenderingMode.SECTION_BY_SECTION)
+                .build();
 
         questionnaireDefinition = questionnaireDefinitionService.save(questionnaireDefinition);
         DateTime lastModifiedDate = questionnaireDefinition.getLastModifiedDate();

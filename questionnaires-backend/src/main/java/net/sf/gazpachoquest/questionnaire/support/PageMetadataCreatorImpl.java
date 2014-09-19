@@ -8,13 +8,14 @@ import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.SectionBreadcrumb;
 import net.sf.gazpachoquest.services.BreadcrumbService;
-import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
+import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,6 +28,7 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
     private QuestionService questionService;
 
     @Autowired
+    @Qualifier("questionnaireDefinitionServiceImpl")
     private QuestionnaireDefinitionService questionnaireDefinitionService;
 
     @Autowired
@@ -46,8 +48,7 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
             if (RandomizationStrategy.NONE.equals(randomizationStrategy)) {
                 section = sectionService.findOne(section.getId());
                 position = sectionService.positionInQuestionnairDefinition(section.getId());
-                count = questionnaireDefinitionService.sectionsCount(section.getQuestionnairDefinition()
-                        .getId());
+                count = questionnaireDefinitionService.sectionsCount(section.getQuestionnairDefinition().getId());
             } else {
                 count = breadcrumbService.countByQuestionnair(breadcrumb.getQuestionnair().getId());
                 position = (Integer) breadcrumbService.findLastAndPosition(breadcrumb.getQuestionnair().getId()).get(0)[1];

@@ -13,41 +13,42 @@ package net.sf.gazpachoquest.facades.impl;
 import net.sf.gazpachoquest.domain.core.Label;
 import net.sf.gazpachoquest.domain.core.LabelSet;
 import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.QuestionOption;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
+import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.embeddables.LabelLanguageSettings;
-import net.sf.gazpachoquest.domain.core.embeddables.SectionLanguageSettings;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionLanguageSettings;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionOptionLanguageSettings;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnaireDefinitionLanguageSettings;
+import net.sf.gazpachoquest.domain.core.embeddables.SectionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.LabelTranslation;
-import net.sf.gazpachoquest.domain.i18.SectionTranslation;
 import net.sf.gazpachoquest.domain.i18.QuestionOptionTranslation;
 import net.sf.gazpachoquest.domain.i18.QuestionTranslation;
 import net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation;
+import net.sf.gazpachoquest.domain.i18.SectionTranslation;
 import net.sf.gazpachoquest.dto.LabelDTO;
 import net.sf.gazpachoquest.dto.LabelLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.LabelSetDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
-import net.sf.gazpachoquest.dto.SectionDTO;
-import net.sf.gazpachoquest.dto.SectionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.SectionDTO;
+import net.sf.gazpachoquest.dto.SectionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.support.TranslationDTO;
 import net.sf.gazpachoquest.facades.QuestionnaireDefinitionEditorFacade;
 import net.sf.gazpachoquest.services.LabelService;
 import net.sf.gazpachoquest.services.LabelSetService;
-import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.services.QuestionOptionService;
 import net.sf.gazpachoquest.services.QuestionService;
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
+import net.sf.gazpachoquest.services.SectionService;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -72,6 +73,7 @@ public final class QuestionnaireDefinitionEditorFacadeImpl implements Questionna
     private QuestionService questionService;
 
     @Autowired
+    @Qualifier("questionnaireDefinitionServiceImpl")
     private QuestionnaireDefinitionService questionnaireDefinitionService;
 
     public QuestionnaireDefinitionEditorFacadeImpl() {
@@ -152,8 +154,8 @@ public final class QuestionnaireDefinitionEditorFacadeImpl implements Questionna
         SectionLanguageSettings languageSettings = mapper.map(translation.getLanguageSettings(),
                 SectionLanguageSettings.class);
         Section entity = mapper.map(translation.getTranslatedEntity(), Section.class);
-        SectionTranslation translationEntity = SectionTranslation.with()
-                .language(translation.getLanguage()).languageSettings(languageSettings).section(entity).build();
+        SectionTranslation translationEntity = SectionTranslation.with().language(translation.getLanguage())
+                .languageSettings(languageSettings).section(entity).build();
         SectionTranslation tr = sectionService.saveTranslation(translationEntity);
         translation.setId(tr.getId());
         return translation;
