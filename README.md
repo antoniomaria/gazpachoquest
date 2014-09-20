@@ -47,8 +47,9 @@ This module holds all the actives questionnaires/surveys ready to be fill out fo
     cd gazpachoquest
     mvn clean install
     cd launcher
-    mvn tomee:run
+    mvn clean tomee:run
         
 To see the demo, navigate to
- [Backend REST-API](http://localhost:8080/gazpachoquest-rest-web)
- [Questonnaires UI](http://localhost:8080)
+
+* [Backend REST-API](http://localhost:8080/gazpachoquest-rest-web)
+* [Questonnaires UI](http://localhost:8080)
