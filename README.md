@@ -50,4 +50,5 @@ This module holds all the actives questionnaires/surveys ready to be fill out fo
     mvn tomee:run
         
 To see the demo, navigate to
- [http://localhost:8080](http://localhost:8080)
+ [Backend REST-API](http://localhost:8080/gazpachoquest-rest-web)
+ [Questonnaires UI](http://localhost:8080)
