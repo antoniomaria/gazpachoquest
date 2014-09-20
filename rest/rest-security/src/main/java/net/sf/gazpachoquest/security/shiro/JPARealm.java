@@ -131,7 +131,7 @@ public class JPARealm extends AuthorizingRealm {
 
     private void verifySignature(String secret, String message, String expectedSignature) {
         try {
-            logger.debug("Verifing message signature {}", message);
+            logger.debug("Verifing signature... signedContent = {}", message);
             String signature = HMACSignature.calculateRFC2104HMAC(message, secret);
 
             if (!signature.equals(expectedSignature)) {

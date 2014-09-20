@@ -18,6 +18,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
 public abstract class AbstractSecurizableLocalizable<P extends Permission<?>, TR extends Translation<LS>, LS extends LanguageSettings>
@@ -30,6 +31,7 @@ public abstract class AbstractSecurizableLocalizable<P extends Permission<?>, TR
     }
 
     @OneToMany(mappedBy = "target", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @XmlTransient
     protected final Set<P> permissions = new HashSet<P>();
 
     @Override

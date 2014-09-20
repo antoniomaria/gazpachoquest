@@ -58,7 +58,9 @@
         CustomAuthorization.prototype.apply = function(obj, authorizations) {
           var now = new Date().toUTCString();
           var resource = obj.url.substring(obj.url.indexOf('api') + 3);
-          var stringToSign = obj.method + ' ' + resource;
+          // Hack for post multipart request
+          var method = obj.method ? obj.method : "POST";
+          var stringToSign = method + ' ' + resource;
           log("stringToSign " + stringToSign);
           var signature = CryptoJS.HmacSHA1(stringToSign, this.secret);
           var signatureBase64 = CryptoJS.enc.Base64.stringify(signature);
