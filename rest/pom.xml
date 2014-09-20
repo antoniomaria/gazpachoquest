@@ -4,7 +4,7 @@
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
     <artifactId>gazpachoquest</artifactId>
-    <version>0.5.4.1-SNAPSHOT</version>
+    <version>0.5.4.1-RELEASE</version>
   </parent>
   <artifactId>gazpachoquest-rest</artifactId>
   <packaging>pom</packaging>
