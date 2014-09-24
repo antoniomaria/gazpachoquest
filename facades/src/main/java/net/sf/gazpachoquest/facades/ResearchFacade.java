@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.facades;
 
 import net.sf.gazpachoquest.dto.ResearchDTO;
+import net.sf.gazpachoquest.dto.support.PageDTO;
 
 public interface ResearchFacade {
 
@@ -19,5 +20,7 @@ public interface ResearchFacade {
     ResearchDTO findOne(Integer id);
 
     ResearchDTO save(ResearchDTO research);
+
+    PageDTO<ResearchDTO> findPaginated(Integer pageNumber, Integer size);
 
 }

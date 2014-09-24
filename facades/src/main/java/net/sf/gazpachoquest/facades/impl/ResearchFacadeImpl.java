@@ -16,12 +16,14 @@ import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.ResearchDTO;
 import net.sf.gazpachoquest.dto.UserDTO;
+import net.sf.gazpachoquest.dto.support.PageDTO;
 import net.sf.gazpachoquest.facades.ResearchFacade;
 import net.sf.gazpachoquest.services.ResearchService;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -33,6 +35,26 @@ public class ResearchFacadeImpl implements ResearchFacade {
     @Autowired
     @Qualifier("researchServiceImpl")
     private ResearchService researchService;
+
+    @Autowired
+    @Qualifier("researchPermissionsAwareServiceImpl")
+    private ResearchService researchPermissionsAwareServiceImpl;
+
+    @Override
+    public PageDTO<ResearchDTO> findPaginated(Integer pageNumber, Integer size) {
+        Page<Research> page = researchPermissionsAwareServiceImpl.findPaginated(pageNumber, size);
+        PageDTO<ResearchDTO> pageDTO = new PageDTO<>();
+        pageDTO.setNumber(page.getNumber());
+        pageDTO.setSize(page.getSize());
+        pageDTO.setTotalPages(page.getTotalPages());
+        pageDTO.setTotalElements(page.getTotalElements());
+
+        for (Research user : page.getContent()) {
+            ResearchDTO userDTO = mapper.map(user, ResearchDTO.class);
+            pageDTO.addElement(userDTO);
+        }
+        return pageDTO;
+    }
 
     @Override
     public void delete(final Integer id) {
