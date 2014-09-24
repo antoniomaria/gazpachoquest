@@ -66,12 +66,6 @@
    <artifactId>gazpachoquest-db</artifactId>
   </dependency>
 
-  <!-- Google flyway -->
-  <dependency>
-   <groupId>com.googlecode.flyway</groupId>
-   <artifactId>flyway-core</artifactId>
-  </dependency>
-
   <!-- C3P0 DBpool -->
   <dependency>
    <groupId>com.mchange</groupId>
