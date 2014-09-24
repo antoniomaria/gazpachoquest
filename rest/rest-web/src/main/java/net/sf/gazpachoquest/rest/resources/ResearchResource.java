@@ -1,6 +1,7 @@
 package net.sf.gazpachoquest.rest.resources;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -21,10 +22,9 @@ import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 
-@Api(value = "researches", description = "Researches Interface")
+@Api(value = "/research", description = "Researches Interface")
 @Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
-@Path("/researches")
+@Path("/research")
 public class ResearchResource {
 
     private static final Logger logger = LoggerFactory.getLogger(ResearchResource.class);
@@ -32,10 +32,12 @@ public class ResearchResource {
     @Autowired
     private ResearchFacade researchFacade;
 
+    @GET
+    @Path("/list")
     @ApiOperation(value = "Get user list", notes = "More notes about this method", response = PageDTO.class)
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
             @ApiResponse(code = 200, message = "Researches available") })
-    public PageDTO<ResearchDTO> getResearches(
+    public PageDTO<ResearchDTO> findAllResearches(
             @ApiParam(name = "pageNumber", value = "Refers page number", required = true)
             @QueryParam("pageNumber")
             Integer pageNumber, @ApiParam(name = "size", value = "Refers page size", required = true)
@@ -49,6 +51,7 @@ public class ResearchResource {
     @ApiOperation(value = "Save research")
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
             @ApiResponse(code = 200, message = "Successfully saved") })
+    @Consumes(MediaType.APPLICATION_JSON)
     public ResearchDTO saveResearch(@ApiParam(value = "Research", required = true)
     ResearchDTO researchDTO) {
         return researchFacade.save(researchDTO);
