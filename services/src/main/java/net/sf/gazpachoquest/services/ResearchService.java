@@ -12,9 +12,14 @@ import java.util.Set;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.user.User;
+import net.sf.gazpachoquest.types.EntityStatus;
 
 public interface ResearchService extends PersistenceService<Research> {
 
     Research save(Research research, Set<QuestionnaireDefinition> questionnaireDefinitions, Set<User> respondents);
+
+    void changeStatus(Integer researchId, EntityStatus newStatus);
+
+    void addRespondent(Integer researchId, User respondent);
 
 }

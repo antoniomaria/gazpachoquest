@@ -75,6 +75,10 @@ public class QuestionnaireDefinition
     @XmlTransient
     private final Set<Questionnaire> questionnaires = new HashSet<Questionnaire>();
 
+    @OneToMany(mappedBy = "questionnaireDefinition", fetch = FetchType.LAZY)
+    @XmlTransient
+    private final Set<Research> researches = new HashSet<Research>();
+
     @OneToMany(mappedBy = "questionnaireDefinition", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapKeyEnumerated(EnumType.STRING)
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
@@ -205,6 +209,14 @@ public class QuestionnaireDefinition
         this.questionsPerPage = questionsPerPage;
     }
 
+    public Set<Research> getResearches() {
+        return Collections.unmodifiableSet(researches);
+    }
+
+    public void addResearch(Research research) {
+        researches.add(research);
+    }
+
     public void updateInverseRelationships() {
         for (Entry<Language, QuestionnaireDefinitionTranslation> entry : translations.entrySet()) {
             QuestionnaireDefinitionTranslation translation = entry.getValue();
@@ -314,4 +326,5 @@ public class QuestionnaireDefinition
             return questionnaireDefinition;
         }
     }
+
 }

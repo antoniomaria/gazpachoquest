@@ -21,7 +21,8 @@
     description="&lt;p&gt;Esto es una encuesta de ejemplo dise&#241;ada para GazpachoSurvey&lt;/p&gt;" title="Ejemplo de encuesta" welcome_text="Gracias por participar en esta encuesta"
     questionnairedefinition_id="7" />
   <questionnaire_permission />
-
+  
+  
   <section />
   <section_translation />
 

@@ -237,4 +237,10 @@
     </field>
   </mapping>
 
+
+  <!-- Research Mappings -->
+  <mapping type="one-way">
+    <class-a>net.sf.gazpachoquest.dto.ResearchDTO</class-a>
+    <class-b>net.sf.gazpachoquest.domain.core.Research</class-b>
+  </mapping>
 </mappings>

@@ -10,6 +10,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.domain.core;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,12 +18,15 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import net.sf.gazpachoquest.domain.permission.ResearchPermission;
 import net.sf.gazpachoquest.domain.support.AbstractSecurizable;
 import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
+import net.sf.gazpachoquest.jpa.converter.EntityStatusConverter;
 import net.sf.gazpachoquest.jpa.converter.ResearchAccessTypeConverter;
+import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.ResearchAccessType;
 
 import org.joda.time.DateTime;
@@ -31,6 +35,10 @@ import org.joda.time.DateTime;
 public class Research extends AbstractSecurizable<ResearchPermission> {
 
     private static final long serialVersionUID = -5917291757324504802L;
+
+    @Column(nullable = false)
+    @Convert(converter = EntityStatusConverter.class)
+    private EntityStatus status;
 
     private String name;
 
@@ -48,6 +56,9 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
     @OneToMany(mappedBy = "research", fetch = FetchType.LAZY)
     private final Set<Questionnaire> questionnaires = new HashSet<Questionnaire>();
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private QuestionnaireDefinition questionnaireDefinition;
+
     public Research() {
         super();
     }
@@ -58,10 +69,6 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
 
     public String getName() {
         return name;
-    }
-
-    public Set<Questionnaire> getquestionnaires() {
-        return questionnaires;
     }
 
     public DateTime getStartDate() {
@@ -88,6 +95,26 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
         this.type = type;
     }
 
+    public Set<Questionnaire> getQuestionnaires() {
+        return Collections.unmodifiableSet(questionnaires);
+    }
+
+    public QuestionnaireDefinition getQuestionnaireDefinition() {
+        return questionnaireDefinition;
+    }
+
+    public void setQuestionnaireDefinition(QuestionnaireDefinition questionnaireDefinition) {
+        this.questionnaireDefinition = questionnaireDefinition;
+    }
+
+    public EntityStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(EntityStatus status) {
+        this.status = status;
+    }
+
     public static Builder with() {
         return new Builder();
     }
@@ -98,6 +125,7 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
         private ResearchAccessType type;
         private DateTime startDate;
         private DateTime expirationDate;
+        private EntityStatus status;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -111,6 +139,11 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
 
         public Builder type(ResearchAccessType type) {
             this.type = type;
+            return this;
+        }
+
+        public Builder status(EntityStatus status) {
+            this.status = status;
             return this;
         }
 
@@ -131,6 +164,7 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
             research.type = type;
             research.startDate = startDate;
             research.expirationDate = expirationDate;
+            research.status = status;
             return research;
         }
     }

@@ -11,12 +11,6 @@
   <users id="6" api_key="PCN1SYW4X977UE7" secret="EQSV5ARQY1LLHKDLO8EF9RMBKV9T95K5" created_date="2014-04-19 10:35:11.263" email="catelyn.stark@winterfell.net"
     gender="F" given_names="Catelyn" last_modified_date="2014-04-19 10:35:11.263" preferred_language="FI" surname="Stark" createdby_id="1" lastmodifiedby_id="1" />
   <user_permission />
-  
-  <research id="57" created_date="2014-04-19 10:35:13.867" expiration_date="2014-04-19 10:35:13.812" last_modified_date="2014-04-19 10:35:13.867"
-    name="New private questionnaire Sample questionnaireDefinition started" start_date="2014-04-19 10:35:13.813" type="P" createdby_id="1" lastmodifiedby_id="1" />
-  <research id="78" created_date="2014-04-19 10:35:14.444" expiration_date="2014-04-19 10:35:14.419" last_modified_date="2014-04-19 10:35:14.444"
-    name="New open questionnaire Sample questionnaireDefinition started" start_date="2014-04-19 10:35:14.42" type="O" createdby_id="1" lastmodifiedby_id="1" />
-  <research_permission />
 
   <questionnaire_definition id="7" created_date="2014-04-19 10:35:11.358" language="EN" last_modified_date="2014-04-19 10:35:11.358"
     status="C" description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample questionnaireDefinition&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;"
@@ -25,11 +19,19 @@
   <questionnaire_definition_translation />
   <questionnaire_definition_permission />
 
+  <research id="57" status="C" questionnairedefinition_id="7" created_date="2014-04-19 10:35:13.867" expiration_date="2014-04-19 10:35:13.812"
+    last_modified_date="2014-04-19 10:35:13.867" name="New private questionnaire Sample questionnaireDefinition started" start_date="2014-04-19 10:35:13.813"
+    type="P" createdby_id="1" lastmodifiedby_id="1" />
+  <research id="78" status="C" questionnairedefinition_id="7" created_date="2014-04-19 10:35:14.444" expiration_date="2014-04-19 10:35:14.419"
+    last_modified_date="2014-04-19 10:35:14.444" name="New open questionnaire Sample questionnaireDefinition started" start_date="2014-04-19 10:35:14.42" type="O"
+    createdby_id="1" lastmodifiedby_id="1" />
+  <research_permission />
+
   <invitation id="61" type="P" status="A" token="NHAZXA4UK9" research_id="57" respondent_id="6" />
   <invitation id="66" type="P" status="A" token="6DBG41LE89" research_id="57" respondent_id="5" />
   <invitation id="71" type="P" status="A" token="I5BB43NDO6" research_id="57" respondent_id="4" />
   <invitation id="76" type="P" status="A" token="90POKHJE16" research_id="57" respondent_id="3" />
-  <invitation id="79" type="A" status="A" token="SYZPVHYMLK" research_id="78" questionnairedefinition_id="7" />
+  <invitation id="79" type="A" status="A" token="SYZPVHYMLK" research_id="78" />
 
 
   <section />

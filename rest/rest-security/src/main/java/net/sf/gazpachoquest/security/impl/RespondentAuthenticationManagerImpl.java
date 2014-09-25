@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.security.auth.login.AccountNotFoundException;
 
-import net.sf.gazpachoquest.domain.core.AnonymousInvitation;
 import net.sf.gazpachoquest.domain.core.PersonalInvitation;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.core.Research;
@@ -61,14 +60,11 @@ public class RespondentAuthenticationManagerImpl implements AuthenticationManage
                     .research(Research.with().id(research.getId()).build()).build();
             questionnaires = questionnaireService.findByExample(questionnairExample, new SearchParameters());
         } else {
-            AnonymousInvitation anonymousInvitation = (AnonymousInvitation) invitation;
-
             respondent = User.with().givenNames("anonymous").surname("anonymous").email("no-reply@gazpachoquest.net")
                     .build();
             respondent = userService.save(respondent);
             Questionnaire questionnaire = Questionnaire.with().status(EntityStatus.CONFIRMED).research(research)
-                    .questionnaireDefinition(anonymousInvitation.getQuestionnairDefinition()).respondent(respondent)
-                    .build();
+                    .questionnaireDefinition(research.getQuestionnaireDefinition()).respondent(respondent).build();
             questionnaire = questionnaireService.save(questionnaire);
             questionnaires.add(questionnaire);
             // Grant right to the anonymous questionnaire

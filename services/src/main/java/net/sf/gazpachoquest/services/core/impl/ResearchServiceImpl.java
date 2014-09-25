@@ -95,11 +95,10 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
         super(repository);
     }
 
-    @Override
-    @Transactional(readOnly = false)
-    public Research save(Research research) {
+    public Research saveOld(Research research) {
         Research existing = null;
         if (research.isNew()) {
+            research.setStatus(EntityStatus.DRAFT);
             existing = repository.save(research);
         } else {
             existing = repository.findOne(research.getId());
@@ -111,27 +110,108 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
 
     @Override
     @Transactional(readOnly = false)
+    public Research save(Research research) {
+        Research existing = null;
+        if (research.isNew()) {
+            research.setStatus(EntityStatus.DRAFT);
+            existing = repository.save(research);
+
+            String token = tokenGenerator.generate();
+            AnonymousInvitation anonymousInvitation = AnonymousInvitation.with().research(research).token(token)
+                    .status(InvitationStatus.ACTIVE).build();
+            invitationRepository.save(anonymousInvitation);
+
+            ResearchPermission permission = ResearchPermission.with().addPerm(Perm.READ).addPerm(Perm.UPDATE)
+                    .addPerm(Perm.DELETE).user(getAuthenticatedUser()).target(research).build();
+            researchPermissionRepository.save(permission);
+
+        } else {
+            existing = repository.findOne(research.getId());
+            existing.setStartDate(research.getStartDate());
+            existing.setExpirationDate(research.getExpirationDate());
+        }
+        return existing;
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void changeStatus(Integer researchId, EntityStatus newStatus) {
+        Research research = repository.findOne(researchId);
+
+        if (research.getStatus().equals(newStatus)) {
+            return;
+        }
+        research.setStatus(newStatus);
+
+        for (Questionnaire questionnaire : research.getQuestionnaires()) {
+            questionnaire.setStatus(newStatus);
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void addRespondent(Integer researchId, User respondent) {
+        Assert.state(!respondent.isNew(), "Persist respondent before using inside a research.");
+
+        Research research = repository.findOne(researchId);
+        Assert.state(research.getType().equals(ResearchAccessType.BY_INVITATION),
+                "Tracked participants are not supported in anonymous researches");
+
+        QuestionnaireDefinition questionnaireDefinition = research.getQuestionnaireDefinition();
+
+        Questionnaire questionnaire = Questionnaire.with().status(research.getStatus()).research(research)
+                .questionnaireDefinition(questionnaireDefinition).respondent(respondent).build();
+        questionnaire = questionnaireRepository.save(questionnaire);
+
+        // Create answers holder
+        QuestionnaireAnswers questionnaireAnswers = new QuestionnaireAnswers();
+        questionnaireAnswers = questionnaireAnswersRepository.save(questionnaire.getQuestionnairDefinition().getId(),
+                questionnaireAnswers);
+        questionnaire.setAnswersId(questionnaireAnswers.getId());
+
+        // Grant permissions over questionnaire to respondent
+        QuestionnairePermission permission = QuestionnairePermission.with().addPerm(Perm.READ).addPerm(Perm.UPDATE)
+                .user(respondent).target(questionnaire).build();
+        questionnairePermissionRepository.save(permission);
+
+        String token = tokenGenerator.generate();
+        PersonalInvitation personalInvitation = PersonalInvitation.with().research(research).token(token)
+                .status(InvitationStatus.ACTIVE).respondent(respondent).build();
+        invitationRepository.save(personalInvitation);
+
+        // Add the respondent to respondents groups
+        Group example = Group.with().name("Respondents").build();
+        Group respondentsGroup = groupRepository.findOneByExample(example, new SearchParameters());
+        if (groupRepository.isUserInGroup(respondent.getId(), "Respondents") == 0) {
+            respondentsGroup.assignUser(respondent);
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = false)
     public Research save(Research research, Set<QuestionnaireDefinition> questionnaireDefinitions, Set<User> respondents) {
-        research = this.save(research);
+        research = saveOld(research);
         if (ResearchAccessType.BY_INVITATION.equals(research.getType())) {
             for (QuestionnaireDefinition questionnaireDefinition : questionnaireDefinitions) {
 
                 questionnaireDefinition = questionnaireDefinitionRepository.findOne(questionnaireDefinition.getId());
 
-                Map<MailMessageTemplateType, MailMessageTemplate> templates = questionnaireDefinition.getMailTemplates();
+                Map<MailMessageTemplateType, MailMessageTemplate> templates = questionnaireDefinition
+                        .getMailTemplates();
                 MailMessageTemplate invitationTemplate = templates.get(MailMessageTemplateType.INVITATION);
 
                 Group example = Group.with().name("Respondents").build();
                 Group respondentsGroup = groupRepository.findOneByExample(example, new SearchParameters());
                 for (User respondent : respondents) {
                     Assert.state(!respondent.isNew(), "Persist all respondents before starting a research.");
-                    Questionnaire questionnaire = Questionnaire.with().status(EntityStatus.CONFIRMED).research(research)
-                            .questionnaireDefinition(questionnaireDefinition).respondent(respondent).build();
+                    Questionnaire questionnaire = Questionnaire.with().status(EntityStatus.CONFIRMED)
+                            .research(research).questionnaireDefinition(questionnaireDefinition).respondent(respondent)
+                            .build();
                     questionnaire = questionnaireRepository.save(questionnaire);
                     // Create answers holder
                     QuestionnaireAnswers questionnaireAnswers = new QuestionnaireAnswers();
-                    questionnaireAnswers = questionnaireAnswersRepository.save(questionnaire.getQuestionnairDefinition()
-                            .getId(), questionnaireAnswers);
+                    questionnaireAnswers = questionnaireAnswersRepository.save(questionnaire
+                            .getQuestionnairDefinition().getId(), questionnaireAnswers);
                     questionnaire.setAnswersId(questionnaireAnswers.getId());
 
                     String token = tokenGenerator.generate();
@@ -160,8 +240,7 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
                     "Only one questionnairDefinitions supported for Open Access researches");
             String token = tokenGenerator.generate();
 
-            AnonymousInvitation anonymousInvitation = AnonymousInvitation.with().research(research)
-                    .questionnaireDefinition(questionnaireDefinitions.iterator().next()).token(token)
+            AnonymousInvitation anonymousInvitation = AnonymousInvitation.with().research(research).token(token)
                     .status(InvitationStatus.ACTIVE).build();
             invitationRepository.save(anonymousInvitation);
         }
