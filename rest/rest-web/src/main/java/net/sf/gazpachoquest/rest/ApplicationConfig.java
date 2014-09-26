@@ -15,6 +15,7 @@ import net.sf.gazpachoquest.rest.filter.LogoutShiroFilter;
 import net.sf.gazpachoquest.rest.resources.AuthenticationResource;
 import net.sf.gazpachoquest.rest.resources.QuestionnaireDefinitionResource;
 import net.sf.gazpachoquest.rest.resources.QuestionnaireResource;
+import net.sf.gazpachoquest.rest.resources.ResearchResource;
 import net.sf.gazpachoquest.rest.resources.UserResource;
 import net.sf.gazpachoquest.rest.support.JacksonContextResolver;
 
@@ -36,6 +37,7 @@ public class ApplicationConfig extends Application {
         classes.add(QuestionnaireDefinitionResource.class);
         classes.add(QuestionnaireResource.class);
         classes.add(UserResource.class);
+        classes.add(ResearchResource.class);
 
         classes.add(ApiListingResourceJSON.class);
         classes.add(ResourceListingProvider.class);

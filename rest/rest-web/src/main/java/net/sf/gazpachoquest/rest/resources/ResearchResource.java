@@ -22,9 +22,9 @@ import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 
-@Api(value = "/research", description = "Researches Interface")
+@Api(value = "/researches", description = "Researches Interface")
 @Produces(MediaType.APPLICATION_JSON)
-@Path("/research")
+@Path("/researches")
 public class ResearchResource {
 
     private static final Logger logger = LoggerFactory.getLogger(ResearchResource.class);
@@ -32,9 +32,13 @@ public class ResearchResource {
     @Autowired
     private ResearchFacade researchFacade;
 
+    public ResearchResource() {
+        super();
+    }
+
     @GET
-    @Path("/list")
-    @ApiOperation(value = "Get user list", notes = "More notes about this method", response = PageDTO.class)
+    @Path("/")
+    @ApiOperation(value = "Get research list", notes = "More notes about this method", response = PageDTO.class)
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
             @ApiResponse(code = 200, message = "Researches available") })
     public PageDTO<ResearchDTO> findAllResearches(
@@ -48,6 +52,7 @@ public class ResearchResource {
     }
 
     @POST
+    @Path("/")
     @ApiOperation(value = "Save research")
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
             @ApiResponse(code = 200, message = "Successfully saved") })

@@ -24,8 +24,6 @@ public class ResearchDTO extends AbstractIdentifiableDTO {
 
     private String name;
 
-    private final Set<UserDTO> respondents = new HashSet<>();
-
     private DateTime startDate;
 
     private QuestionnaireDefinitionDTO questionnaireDefinition;
@@ -42,14 +40,6 @@ public class ResearchDTO extends AbstractIdentifiableDTO {
 
     public String getName() {
         return name;
-    }
-
-    public void addRespondent(UserDTO userDTO) {
-        respondents.add(userDTO);
-    }
-
-    public Set<UserDTO> getRespondents() {
-        return Collections.unmodifiableSet(respondents);
     }
 
     public DateTime getStartDate() {

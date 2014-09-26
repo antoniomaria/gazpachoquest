@@ -59,10 +59,7 @@ public class ResearchFacadeTest extends AbstractShiroTest {
     @Test
     public void saveTest() {
         QuestionnaireDefinitionDTO questionnaireDefinition = QuestionnaireDefinitionDTO.with().id(7).build();
-        UserDTO respondent = respondentFacade.findOne(6);
-
         ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION).build();
-        research.addRespondent(respondent);
         research.setQuestionnaireDefinition(questionnaireDefinition);
         research = researchFacade.save(research);
         assertThat(research.isNew()).isFalse();
