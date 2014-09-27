@@ -203,6 +203,41 @@
     </field>
   </mapping>
 
+  <mapping type="one-way" map-id="QuestionnaireDefinition2QuestionnaireDefinitionDTO_skeleton_noaudit">
+    <class-a>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</class-a>
+    <class-b>net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO</class-b>
+    <field-exclude>
+      <a>sections</a>
+      <b>sections</b>
+    </field-exclude>
+    <field-exclude>
+      <a>createdBy</a>
+      <b>createdBy</b>
+    </field-exclude>
+    <field-exclude>
+      <a>lastModifiedBy</a>
+      <b>lastModifiedBy</b>
+    </field-exclude>
+    <field-exclude>
+      <a>createdDate</a>
+      <b>createdDate</b>
+    </field-exclude>
+    <field-exclude>
+      <a>lastModifiedDate</a>
+      <b>lastModifiedDate</b>
+    </field-exclude>
+    <field-exclude>
+      <a>randomizationStrategy</a>
+      <b>randomizationStrategy</b>
+    </field-exclude>
+
+    <field-exclude>
+      <a>renderingMode</a>
+      <b>renderingMode</b>
+    </field-exclude>
+  </mapping>
+
+
   <mapping type="one-way" map-id="toDTOwithSections">
     <class-a>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</class-a>
     <class-b>net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO</class-b>
@@ -242,5 +277,14 @@
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.ResearchDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.core.Research</class-b>
+  </mapping> 
+
+  <mapping type="one-way">
+    <class-a>net.sf.gazpachoquest.domain.core.Research</class-a>
+    <class-b>net.sf.gazpachoquest.dto.ResearchDTO</class-b>
+    <field map-id="QuestionnaireDefinition2QuestionnaireDefinitionDTO_skeleton_noaudit">
+      <a>questionnaireDefinition</a>
+      <b>questionnaireDefinition</b>
+    </field>
   </mapping>
 </mappings>

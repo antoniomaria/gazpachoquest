@@ -11,12 +11,13 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.sf.gazpachoquest.dto.support.AbstractAuditableDTO;
 import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachoquest.types.ResearchAccessType;
 
 import org.joda.time.DateTime;
 
-public class ResearchDTO extends AbstractIdentifiableDTO {
+public class ResearchDTO extends AbstractAuditableDTO {
 
     private static final long serialVersionUID = -8624509103476946501L;
 
@@ -79,6 +80,7 @@ public class ResearchDTO extends AbstractIdentifiableDTO {
     }
 
     public static class Builder {
+        private Integer id;
         private DateTime expirationDate;
         private String name;
         private DateTime startDate;
@@ -95,6 +97,11 @@ public class ResearchDTO extends AbstractIdentifiableDTO {
             return this;
         }
 
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+        
         public Builder name(String name) {
             this.name = name;
             return this;
@@ -117,6 +124,7 @@ public class ResearchDTO extends AbstractIdentifiableDTO {
             researchDTO.startDate = startDate;
             researchDTO.type = type;
             researchDTO.questionnaireDefinition = questionnaireDefinition;
+            researchDTO.setId(id);
             return researchDTO;
         }
     }

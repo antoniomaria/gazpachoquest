@@ -40,14 +40,14 @@ public class ResearchFacadeImpl implements ResearchFacade {
     public PageDTO<ResearchDTO> findPaginated(Integer pageNumber, Integer size) {
         Page<Research> page = researchPermissionsAwareServiceImpl.findPaginated(pageNumber, size);
         PageDTO<ResearchDTO> pageDTO = new PageDTO<>();
-        pageDTO.setNumber(page.getNumber());
+        pageDTO.setNumber(page.getNumber() + 1);
         pageDTO.setSize(page.getSize());
         pageDTO.setTotalPages(page.getTotalPages());
         pageDTO.setTotalElements(page.getTotalElements());
 
-        for (Research user : page.getContent()) {
-            ResearchDTO userDTO = mapper.map(user, ResearchDTO.class);
-            pageDTO.addElement(userDTO);
+        for (Research research : page.getContent()) {
+            ResearchDTO researchDTO = mapper.map(research, ResearchDTO.class);
+            pageDTO.addElement(researchDTO);
         }
         return pageDTO;
     }

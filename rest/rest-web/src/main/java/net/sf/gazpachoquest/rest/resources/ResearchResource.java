@@ -41,7 +41,7 @@ public class ResearchResource {
     @ApiOperation(value = "Get research list", notes = "More notes about this method", response = PageDTO.class)
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
             @ApiResponse(code = 200, message = "Researches available") })
-    public PageDTO<ResearchDTO> findAllResearches(
+    public PageDTO<ResearchDTO> getResearches(
             @ApiParam(name = "pageNumber", value = "Refers page number", required = true)
             @QueryParam("pageNumber")
             Integer pageNumber, @ApiParam(name = "size", value = "Refers page size", required = true)

@@ -86,7 +86,7 @@ public class QuestionnaireDefinitionAccessorFacadeImpl implements QuestionnaireD
         Page<QuestionnaireDefinition> page = questionnaireDefinitionPermissionsAwareService.findPaginated(pageNumber,
                 size);
         PageDTO<QuestionnaireDefinitionDTO> pageDTO = new PageDTO<>();
-        pageDTO.setNumber(page.getNumber());
+        pageDTO.setNumber(page.getNumber() + 1);
         pageDTO.setSize(page.getSize());
         pageDTO.setTotalPages(page.getTotalPages());
         pageDTO.setTotalElements(page.getTotalElements());
