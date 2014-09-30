@@ -2,7 +2,7 @@
 <mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://dozer.sourceforge.net
           http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
-  <!-- LabelSet Mappings -->
+	<!-- LabelSet Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.LabelSetDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.core.LabelSet</class-b>
@@ -50,8 +50,8 @@
       <b>language</b>
     </field>
   </mapping>
-  
-   <!-- User Mappings -->
+
+	<!-- User Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.UserDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.user.User</class-b>
@@ -60,21 +60,44 @@
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.domain.user.User</class-a>
     <class-b>net.sf.gazpachoquest.dto.UserDTO</class-b>
-
     <field>
       <a>lastModifiedBy</a>
       <b>lastModifiedBy</b>
       <b-hint>net.sf.gazpachoquest.dto.AuditorDTO</b-hint>
     </field>
-
     <field>
       <a>createdBy</a>
       <b>createdBy</b>
       <b-hint>net.sf.gazpachoquest.dto.AuditorDTO</b-hint>
     </field>
   </mapping>
-  
-  <!-- Section Mappings -->
+
+  <mapping type="one-way" map-id="U-UDTO-preview-no-audit">
+    <class-a>net.sf.gazpachoquest.domain.user.User</class-a>
+    <class-b>net.sf.gazpachoquest.dto.UserDTO</class-b>
+    <field-exclude>
+      <a>createdBy</a>
+      <b>createdBy</b>
+    </field-exclude>
+    <field-exclude>
+      <a>lastModifiedBy</a>
+      <b>lastModifiedBy</b>
+    </field-exclude>
+    <field-exclude>
+      <a>createdDate</a>
+      <b>createdDate</b>
+    </field-exclude>
+    <field-exclude>
+      <a>lastModifiedDate</a>
+      <b>lastModifiedDate</b>
+    </field-exclude>
+    <field-exclude>
+      <a>attributes</a>
+      <b>attributes</b>
+    </field-exclude>
+  </mapping>
+
+	<!-- Section Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.SectionDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.core.Section</class-b>
@@ -104,7 +127,7 @@
   </mapping>
 
 
-  <!-- Question Mappings -->
+	<!-- Question Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.QuestionDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.core.Question</class-b>
@@ -135,10 +158,11 @@
     </field>
   </mapping>
 
-  <!-- QuestionnaireDefinition Mappings -->
+	<!-- QuestionnaireDefinition Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO</class-a>
-    <class-b>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</class-b>
+    <class-b>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition
+    </class-b>
     <field>
       <a>sections</a>
       <b set-method="addSection" type="iterate">sections</b>
@@ -165,13 +189,15 @@
       <b>progressVisible</b>
     </field>
     <field>
-      <a get-method="isSectionInfoVisible" is-accessible="true">sectionInfoVisible</a>
+      <a get-method="isSectionInfoVisible" is-accessible="true">sectionInfoVisible
+      </a>
       <b>sectionInfoVisible</b>
     </field>
   </mapping>
 
   <mapping type="one-way">
-    <class-a>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</class-a>
+    <class-a>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition
+    </class-a>
     <class-b>net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO</class-b>
     <field-exclude type="one-way">
       <a>sections</a>
@@ -198,13 +224,15 @@
       <b>progressVisible</b>
     </field>
     <field>
-      <a get-method="isSectionInfoVisible" is-accessible="true">sectionInfoVisible</a>
+      <a get-method="isSectionInfoVisible" is-accessible="true">sectionInfoVisible
+      </a>
       <b>sectionInfoVisible</b>
     </field>
   </mapping>
-
-  <mapping type="one-way" map-id="QuestionnaireDefinition2QuestionnaireDefinitionDTO_skeleton_noaudit">
-    <class-a>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</class-a>
+                                  
+  <mapping type="one-way" map-id="QD-QDDTO-preview-no-audit">
+    <class-a>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition
+    </class-a>
     <class-b>net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO</class-b>
     <field-exclude>
       <a>sections</a>
@@ -239,7 +267,8 @@
 
 
   <mapping type="one-way" map-id="toDTOwithSections">
-    <class-a>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</class-a>
+    <class-a>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition
+    </class-a>
     <class-b>net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO</class-b>
     <field>
       <a>sections</a>
@@ -267,24 +296,78 @@
       <b>progressVisible</b>
     </field>
     <field>
-      <a get-method="isSectionInfoVisible" is-accessible="true">sectionInfoVisible</a>
+      <a get-method="isSectionInfoVisible" is-accessible="true">sectionInfoVisible
+      </a>
       <b>sectionInfoVisible</b>
     </field>
   </mapping>
 
 
-  <!-- Research Mappings -->
+	<!-- Research Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.ResearchDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.core.Research</class-b>
-  </mapping> 
+  </mapping>
 
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.domain.core.Research</class-a>
     <class-b>net.sf.gazpachoquest.dto.ResearchDTO</class-b>
-    <field map-id="QuestionnaireDefinition2QuestionnaireDefinitionDTO_skeleton_noaudit">
+    <field map-id="QD-QDDTO-preview-no-audit">
       <a>questionnaireDefinition</a>
       <b>questionnaireDefinition</b>
+    </field>
+  </mapping>
+
+  <mapping type="one-way" map-id="R-RDTO-preview-no-audit">
+    <class-a>net.sf.gazpachoquest.domain.core.Research</class-a>
+    <class-b>net.sf.gazpachoquest.dto.ResearchDTO</class-b>
+    <field map-id="QD-QDDTO-preview-no-audit">
+      <a>questionnaireDefinition</a>
+      <b>questionnaireDefinition</b>
+    </field>
+    <field-exclude>
+      <a>createdBy</a>
+      <b>createdBy</b>
+    </field-exclude>
+    <field-exclude>
+      <a>lastModifiedBy</a>
+      <b>lastModifiedBy</b>
+    </field-exclude>
+    <field-exclude>
+      <a>createdDate</a>
+      <b>createdDate</b>
+    </field-exclude>
+    <field-exclude>
+      <a>lastModifiedDate</a>
+      <b>lastModifiedDate</b>
+    </field-exclude>
+  </mapping>
+  
+	<!-- Invitation Mappings -->
+  <mapping type="one-way">
+    <class-a>net.sf.gazpachoquest.dto.PersonalInvitationDTO</class-a>
+    <class-b>net.sf.gazpachoquest.domain.core.PersonalInvitation</class-b>
+  </mapping>
+
+  <mapping type="one-way">
+    <class-a>net.sf.gazpachoquest.domain.core.PersonalInvitation</class-a>
+    <class-b>net.sf.gazpachoquest.dto.PersonalInvitationDTO</class-b>
+    <field map-id="U-UDTO-preview-no-audit">
+      <a>respondent</a>
+      <b>respondent</b>
+    </field>
+    <field map-id="R-RDTO-preview-no-audit">
+      <a>research</a>
+      <b>research</b>
+    </field>
+  </mapping>
+
+  <mapping type="one-way">
+    <class-a>net.sf.gazpachoquest.domain.core.AnonymousInvitation</class-a>
+    <class-b>net.sf.gazpachoquest.dto.AnonymousInvitationDTO</class-b>
+    <field map-id="R-RDTO-preview-no-audit">
+      <a>research</a>
+      <b>research</b>
     </field>
   </mapping>
 </mappings>

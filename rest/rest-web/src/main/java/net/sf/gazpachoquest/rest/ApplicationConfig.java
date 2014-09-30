@@ -13,6 +13,7 @@ import net.sf.gazpachoquest.rest.exception.ShiroExceptionHandler;
 import net.sf.gazpachoquest.rest.filter.LoginShiroFilter;
 import net.sf.gazpachoquest.rest.filter.LogoutShiroFilter;
 import net.sf.gazpachoquest.rest.resources.AuthenticationResource;
+import net.sf.gazpachoquest.rest.resources.InvitationResource;
 import net.sf.gazpachoquest.rest.resources.QuestionnaireDefinitionResource;
 import net.sf.gazpachoquest.rest.resources.QuestionnaireResource;
 import net.sf.gazpachoquest.rest.resources.ResearchResource;
@@ -34,6 +35,7 @@ public class ApplicationConfig extends Application {
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<Class<?>>();
         classes.add(AuthenticationResource.class);
+        classes.add(InvitationResource.class);
         classes.add(QuestionnaireDefinitionResource.class);
         classes.add(QuestionnaireResource.class);
         classes.add(UserResource.class);

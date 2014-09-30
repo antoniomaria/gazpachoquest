@@ -107,6 +107,7 @@ public class UserDTO extends AbstractAuditableDTO {
     }
 
     public static class Builder {
+        private Integer id;
         private String email;
         private String givenNames;
         private String surname;
@@ -119,7 +120,10 @@ public class UserDTO extends AbstractAuditableDTO {
             this.email = email;
             return this;
         }
-
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
         public Builder givenNames(String givenNames) {
             this.givenNames = givenNames;
             return this;
@@ -152,6 +156,7 @@ public class UserDTO extends AbstractAuditableDTO {
 
         public UserDTO build() {
             UserDTO userDTO = new UserDTO();
+            userDTO.setId(id);
             userDTO.email = email;
             userDTO.givenNames = givenNames;
             userDTO.surname = surname;

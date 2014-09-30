@@ -17,6 +17,8 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   -->
 
   <bean id="authenticationResource" class="net.sf.gazpachoquest.rest.resources.AuthenticationResource" autowire="byType" />
+  
+  <bean id="invitationResource" class="net.sf.gazpachoquest.rest.resources.InvitationResource" autowire="byType" />
 
   <bean id="questionnaireDefinitionResource" class="net.sf.gazpachoquest.rest.resources.QuestionnaireDefinitionResource" autowire="byType" />
 
@@ -75,6 +77,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   <jaxrs:server id="services" address="/">
     <jaxrs:serviceBeans>
       <ref bean="authenticationResource" />
+      <ref bean="invitationResource" />
       <ref bean="questionnaireDefinitionResource" />
       <ref bean="questionnaireResource" />
       <ref bean="researchResource" />
