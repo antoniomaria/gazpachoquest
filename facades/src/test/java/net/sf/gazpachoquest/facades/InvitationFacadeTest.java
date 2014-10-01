@@ -36,20 +36,23 @@ public class InvitationFacadeTest {
     @Autowired
     private InvitationFacade invitationFacade;
     
+    
     @Test
     public void findByExampleTest(){
        InvitationDTO invitationDTO = new InvitationDTO();
        invitationDTO.setResearch(ResearchDTO.with().id(57).build());
-        
-       List<InvitationDTO> invitations = invitationFacade.findByExample(invitationDTO);
+       List<InvitationDTO> invitations = null;
+       
+       invitations = invitationFacade.findByExample(invitationDTO);
        assertThat(invitations).isNotEmpty();
        assertThat(invitations.get(0)).isExactlyInstanceOf(PersonalInvitationDTO.class);
        assertThat(invitations.get(1)).isExactlyInstanceOf(AnonymousInvitationDTO.class);
        
        PersonalInvitationDTO personalInvitation = new PersonalInvitationDTO();
        personalInvitation.setRespondent(UserDTO.with().id(6).build());
-       invitations = invitationFacade.findByExample(invitationDTO);
-       assertThat(invitations).isNotEmpty();
+       personalInvitation.setResearch(ResearchDTO.with().id(57).build());
+       invitations = invitationFacade.findByExample(personalInvitation);
+       assertThat(invitations).hasSize(1);
        assertThat(invitations.get(0)).isExactlyInstanceOf(PersonalInvitationDTO.class);
        assertThat(invitations.get(0).getId()).isEqualTo(1);
     }

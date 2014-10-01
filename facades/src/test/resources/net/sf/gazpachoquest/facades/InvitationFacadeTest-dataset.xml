@@ -19,13 +19,14 @@
 
   <research id="58" questionnairedefinition_id="7" status="C" created_date="2014-04-19 10:35:13.867" expiration_date="2014-04-19 10:35:13.812"
     last_modified_date="2014-04-19 10:35:13.867" name="New anonymous private questionnaire Sample questionnaireDefinition started" start_date="2014-04-19 10:35:13.813"
-    type="A" createdby_id="1" lastmodifiedby_id="1" />
+    type="O" createdby_id="1" lastmodifiedby_id="1" />
   <research_permission id="2" user_id="1" target_id="58" mask="1" />
 
 
   <invitation id="1" type="P" token="12345678" respondent_id="6" research_id="57" status="A" />
-  <invitation id="2" type="A" token="12345679" research_id="57" status="A" />
-  <invitation id="3" type="A" token="12345610" research_id="58" status="A" />
+  <invitation id="2" type="P" token="12345674" respondent_id="6" research_id="58" status="A" />
+  <invitation id="3" type="A" token="12345679" research_id="57" status="A" />
+  <invitation id="4" type="A" token="12345610" research_id="58" status="A" />
 
   <section id="9" created_date="2014-04-19 10:35:11.517" language="EN" last_modified_date="2014-04-19 10:35:11.517" title="Section 1" createdby_id="1"
     lastmodifiedby_id="1" questionnairedefinition_id="7" order_in_questionnaire="0" randomization_enabled="true" />

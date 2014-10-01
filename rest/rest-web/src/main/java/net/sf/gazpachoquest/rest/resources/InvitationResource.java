@@ -57,6 +57,8 @@ public class InvitationResource {
             ((PersonalInvitationDTO) invitationDTO).setRespondent(UserDTO.with().id(respondentId).build());
         } else {
             invitationDTO = new InvitationDTO();
+        }
+        if (researchId != null){
             invitationDTO.setResearch(ResearchDTO.with().id(researchId).build());
         }
         return invitationFacade.findByExample(invitationDTO);

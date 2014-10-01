@@ -229,7 +229,7 @@
       <b>sectionInfoVisible</b>
     </field>
   </mapping>
-                                  
+
   <mapping type="one-way" map-id="QD-QDDTO-preview-no-audit">
     <class-a>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition
     </class-a>
@@ -318,6 +318,31 @@
     </field>
   </mapping>
 
+  <mapping map-id="R-RDTO-no-deps" type="one-way">
+    <class-a>net.sf.gazpachoquest.domain.core.Research</class-a>
+    <class-b>net.sf.gazpachoquest.dto.ResearchDTO</class-b>
+    <field-exclude>
+      <a>createdBy</a>
+      <b>createdBy</b>
+    </field-exclude>
+    <field-exclude>
+      <a>lastModifiedBy</a>
+      <b>lastModifiedBy</b>
+    </field-exclude>
+    <field-exclude>
+      <a>createdDate</a>
+      <b>createdDate</b>
+    </field-exclude>
+    <field-exclude>
+      <a>lastModifiedDate</a>
+      <b>lastModifiedDate</b>
+    </field-exclude>
+    <field-exclude>
+      <a>questionnaireDefinition</a>
+      <b>questionnaireDefinition</b>
+    </field-exclude>
+  </mapping>
+
   <mapping type="one-way" map-id="R-RDTO-preview-no-audit">
     <class-a>net.sf.gazpachoquest.domain.core.Research</class-a>
     <class-b>net.sf.gazpachoquest.dto.ResearchDTO</class-b>
@@ -356,7 +381,7 @@
       <a>respondent</a>
       <b>respondent</b>
     </field>
-    <field map-id="R-RDTO-preview-no-audit">
+    <field map-id="R-RDTO-no-deps">
       <a>research</a>
       <b>research</b>
     </field>
