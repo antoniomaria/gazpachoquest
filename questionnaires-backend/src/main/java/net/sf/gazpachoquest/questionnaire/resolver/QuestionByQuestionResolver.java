@@ -70,6 +70,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
         QuestionBreadcrumb breadcrumb = null;
         Integer questionnairDefinitionId = questionnaireDefinition.getId();
         RandomizationStrategy randomizationStrategy = questionnaireDefinition.getRandomizationStrategy();
+        Integer questionNumberCounter = QUESTION_NUMBER_START_COUNTER;
         if (RandomizationStrategy.SECTIONS_RANDOMIZATION.equals(randomizationStrategy)) {
             List<Section> sections = sectionService.findByExample(
                     Section.with()
@@ -81,7 +82,8 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
                 List<Question> questions = findQuestions(section);
                 for (Question question : questions) {
                     breadcrumb = QuestionBreadcrumb.with().questionnaire(questionnaire).last(Boolean.FALSE)
-                            .question(question).renderingMode(RenderingMode.QUESTION_BY_QUESTION).build();
+                            .question(question).renderingMode(RenderingMode.QUESTION_BY_QUESTION)
+                            .questionNumber(questionNumberCounter++).build();
                     breadcrumbs.add(breadcrumb);
                 }
             }
@@ -90,13 +92,15 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
             Collections.shuffle(questions);
             for (Question question : questions) {
                 breadcrumb = QuestionBreadcrumb.with().questionnaire(questionnaire).last(Boolean.FALSE)
-                        .question(question).renderingMode(RenderingMode.QUESTION_BY_QUESTION).build();
+                        .question(question).renderingMode(RenderingMode.QUESTION_BY_QUESTION)
+                        .questionNumber(questionNumberCounter++).build();
                 breadcrumbs.add(breadcrumb);
             }
         } else {
             Question question = findFirstQuestion(questionnairDefinitionId);
             breadcrumb = QuestionBreadcrumb.with().questionnaire(questionnaire).last(Boolean.FALSE)
-                    .renderingMode(RenderingMode.QUESTION_BY_QUESTION).question(question).build();
+                    .renderingMode(RenderingMode.QUESTION_BY_QUESTION).question(question)
+                    .questionNumber(questionNumberCounter).build();
             breadcrumbs.add(breadcrumb);
         }
         breadcrumbs.get(0).setLast(Boolean.TRUE);
@@ -134,6 +138,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
             }
             // Mark next element as last browsed.
             nextBreadcrumb = QuestionBreadcrumb.with().questionnaire(questionnaire).question(next)
+                    .questionNumber(lastBreadcrumb.getQuestionNumber() + 1)
                     .renderingMode(RenderingMode.QUESTION_BY_QUESTION).build();
         } else {
             Assert.isInstanceOf(QuestionBreadcrumb.class, breadcrumb);
@@ -163,7 +168,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
             questions = questionService
                     .findByExample(Question.with().section(Section.with().id(section.getId()).build()).build(),
                             new SearchParameters());
-            Collections.shuffle(questions);
+            shuffle(questions);
         } else {
             questions = questionService.findBySectionId(section.getId());
         }
@@ -189,7 +194,8 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
             builder.id(questionBreadcrumb.getQuestion().getSectionId());
         }
         Section section = builder.build();
-        section.addQuestion(Question.with().id(questionBreadcrumb.getQuestion().getId()).build());
+        section.addQuestion(Question.with().id(questionBreadcrumb.getQuestion().getId())
+                .number(questionBreadcrumb.getQuestionNumber()).build());
 
         nextPage.addSection(section);
         return nextPage;

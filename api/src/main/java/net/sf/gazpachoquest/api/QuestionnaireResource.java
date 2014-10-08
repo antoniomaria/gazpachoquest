@@ -21,8 +21,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
-import net.sf.gazpachoquest.dto.QuestionnaireDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.NavigationAction;
@@ -34,21 +34,17 @@ import net.sf.gazpachoquest.types.RenderingMode;
 public interface QuestionnaireResource extends Serializable {
 
     @GET
-    @Path("/{questionnaireId}")
-    QuestionnaireDTO getDefinition(@PathParam("questionnaireId")
-    Integer questionnaireId);
+    @Path("/{questionnaireId}/definition")
+    QuestionnaireDefinitionDTO getDefinition(@PathParam("questionnaireId") Integer questionnaireId);
 
     @GET
     @Path("/{questionnaireId}/page")
-    QuestionnairePageDTO getPage(@PathParam("questionnaireId")
-    Integer questionnaireId, @QueryParam("mode")
-    RenderingMode mode, @QueryParam("preferredLanguage")
-    Language language, @QueryParam("action")
-    NavigationAction action);
+    QuestionnairePageDTO getPage(@PathParam("questionnaireId") Integer questionnaireId,
+            @QueryParam("mode") RenderingMode mode, @QueryParam("preferredLanguage") Language language,
+            @QueryParam("action") NavigationAction action);
 
     @POST
     @Path("/{questionnaireId}/answer")
-    void saveAnswer(Answer answer, @PathParam("questionnaireId")
-    Integer questionnaireId, @QueryParam("questionCode")
-    String questionCode);
+    void saveAnswer(Answer answer, @PathParam("questionnaireId") Integer questionnaireId,
+            @QueryParam("questionCode") String questionCode);
 }

@@ -53,7 +53,7 @@ import net.sf.gazpachoquest.types.RenderingMode;
 @Entity
 @XmlRootElement
 @XmlType(propOrder = { "language", "languageSettings", "sections", "mailTemplates", "translations", "welcomeVisible",
-        "progressVisible", "sectionInfoVisible", "randomizationStrategy", "questionsPerPage", "renderingMode" })
+        "progressVisible", "sectionInfoVisible", "randomizationStrategy", "questionsPerPage", "questionNumberVisible", "renderingMode" })
 public class QuestionnaireDefinition
         extends
         AbstractSecurizableLocalizable<QuestionnaireDefinitionPermission, QuestionnaireDefinitionTranslation, QuestionnaireDefinitionLanguageSettings> {
@@ -103,6 +103,9 @@ public class QuestionnaireDefinition
 
     @Column(nullable = false)
     private Boolean sectionInfoVisible;
+    
+    @Column(nullable = false)
+    private Boolean questionNumberVisible;
 
     @Convert(converter = RandomizationStrategyTypeConverter.class)
     @Column(nullable = false)
@@ -130,6 +133,11 @@ public class QuestionnaireDefinition
     public void addSection(Section section) {
         sections.add(section);
         section.setQuestionnairDefinition(this);
+    }
+    
+    public void addQuestionnaire(Questionnaire questionnaire) {
+        questionnaires.add(questionnaire);
+        questionnaire.setQuestionnairDefinition(this);
     }
 
     @Override
@@ -191,6 +199,14 @@ public class QuestionnaireDefinition
 
     public void setSectionInfoVisible(Boolean sectionInfoVisible) {
         this.sectionInfoVisible = sectionInfoVisible;
+    }
+
+    public Boolean isQuestionNumberVisible() {
+        return questionNumberVisible;
+    }
+
+    public void setQuestionNumberVisible(Boolean questionNumberVisible) {
+        this.questionNumberVisible = questionNumberVisible;
     }
 
     public RandomizationStrategy getRandomizationStrategy() {

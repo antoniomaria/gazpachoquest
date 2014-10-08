@@ -13,6 +13,9 @@ package net.sf.gazpachoquest.services.core.impl;
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.core.QuestionnaireAnswers;
+import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
+import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.repository.QuestionnaireDefinitionRepository;
 import net.sf.gazpachoquest.repository.QuestionnaireRepository;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
 import net.sf.gazpachoquest.services.QuestionnaireService;
@@ -27,6 +30,9 @@ public class QuestionnaireServiceImpl extends AbstractPersistenceService<Questio
 
     @Autowired
     private QuestionnaireAnswersRepository questionnaireAnswersRepository;
+
+    @Autowired
+    private QuestionnaireDefinitionRepository questionnaireDefinitionRepository;
 
     @Autowired
     public QuestionnaireServiceImpl(final QuestionnaireRepository questionnaireRepository) {
@@ -64,5 +70,15 @@ public class QuestionnaireServiceImpl extends AbstractPersistenceService<Questio
             }
         }
         return existing;
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public QuestionnaireDefinition getDefinition(final Integer questionnaireId) {
+        QuestionnaireDefinition example = new QuestionnaireDefinition();
+        example.addQuestionnaire(Questionnaire.with().id(questionnaireId).build());
+        QuestionnaireDefinition definition = questionnaireDefinitionRepository.findOneByExample(example,
+                new SearchParameters());
+        return definition;
     }
 }

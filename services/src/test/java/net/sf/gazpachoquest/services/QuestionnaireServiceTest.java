@@ -2,6 +2,7 @@ package net.sf.gazpachoquest.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
+import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
@@ -10,6 +11,7 @@ import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.AssertThrows;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -39,5 +41,11 @@ public class QuestionnaireServiceTest {
         Questionnaire example = Questionnaire.with().respondent(respondent).research(research).build();
         Questionnaire questionnaire = questionnaireService.findOneByExample(example, new SearchParameters());
         assertThat(questionnaire).isEqualTo(Questionnaire.with().id(58).build());
+    }
+
+    @Test
+    public void getDefinitionTest() {
+        QuestionnaireDefinition questionnaireDefinition = questionnaireService.getDefinition(58);
+        assertThat(questionnaireDefinition).isEqualTo(QuestionnaireDefinition.with().id(7).build());
     }
 }

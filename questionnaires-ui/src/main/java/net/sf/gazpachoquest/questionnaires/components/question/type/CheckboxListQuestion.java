@@ -20,6 +20,7 @@ import org.vaadin.addon.cdiproperties.annotation.OptionGroupProperties;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.OptionGroup;
 
@@ -39,7 +40,10 @@ public class CheckboxListQuestion extends AbstractQuestionComponent implements V
 
     @Override
     protected void init() {
-        questionTitle.setCaption(questionDTO.getLanguageSettings().getTitle());
+        questionTitle.setCaption(String.format("<strong>%d</strong>. %s", questionDTO.getNumber(), questionDTO
+                .getLanguageSettings().getTitle()));
+        questionTitle.setContentMode(ContentMode.HTML);
+        
         content.addComponent(questionTitle);
         options.setCaption("Choose one of the following answers");
 

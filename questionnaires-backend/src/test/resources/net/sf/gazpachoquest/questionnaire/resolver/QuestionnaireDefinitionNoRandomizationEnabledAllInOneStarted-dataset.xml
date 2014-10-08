@@ -89,20 +89,20 @@
   <label />
 
   <breadcrumb id="1" questionnaire_id="58" type="S" last="true" rendering_mode="AIO" section_id="9" navigation_order="0" />
-  <breadcrumb id="2" parent_id="1" type="Q" question_id="13" order_in_section_breadcrumb="0" />
-  <breadcrumb id="3" parent_id="1" type="Q" question_id="12" order_in_section_breadcrumb="0" />
-  <breadcrumb id="4" parent_id="1" type="Q" question_id="29" order_in_section_breadcrumb="0" />
+  <breadcrumb id="2" parent_id="1" type="Q" question_id="13" question_number="1" order_in_section_breadcrumb="0" />
+  <breadcrumb id="3" parent_id="1" type="Q" question_id="12" question_number="2" order_in_section_breadcrumb="1" />
+  <breadcrumb id="4" parent_id="1" type="Q" question_id="29" question_number="3" order_in_section_breadcrumb="2" />
 
 
   <breadcrumb id="5" questionnaire_id="58" type="S" last="true" rendering_mode="AIO" section_id="10" navigation_order="1" />
-  <breadcrumb id="6" parent_id="5" type="Q" question_id="30" order_in_section_breadcrumb="0" />
-  <breadcrumb id="7" parent_id="5" type="Q" question_id="31" order_in_section_breadcrumb="1" />
-  <breadcrumb id="8" parent_id="5" type="Q" question_id="35" order_in_section_breadcrumb="2" />
+  <breadcrumb id="6" parent_id="5" type="Q" question_id="30" question_number="4" order_in_section_breadcrumb="0" />
+  <breadcrumb id="7" parent_id="5" type="Q" question_id="31" question_number="5" order_in_section_breadcrumb="1" />
+  <breadcrumb id="8" parent_id="5" type="Q" question_id="35" question_number="6" order_in_section_breadcrumb="2" />
 
 
   <breadcrumb id="9" questionnaire_id="58" type="S" last="true" rendering_mode="AIO" section_id="11" navigation_order="2" />
-  <breadcrumb id="10" parent_id="9" type="Q" question_id="39" order_in_section_breadcrumb="0" />
-  <breadcrumb id="11" parent_id="9" type="Q" question_id="50" order_in_section_breadcrumb="1" />
+  <breadcrumb id="10" parent_id="9" type="Q" question_id="39" question_number="7" order_in_section_breadcrumb="0" />
+  <breadcrumb id="11" parent_id="9" type="Q" question_id="50" question_number="8" order_in_section_breadcrumb="1" />
 
   <sequence seq_name="questionnaire_answers_7_seq" seq_count="50" />
   <sequence seq_name="SEQ_GEN" seq_count="150" />

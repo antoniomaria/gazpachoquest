@@ -53,11 +53,13 @@ public class QuestionByQuestionResolverTest extends AbstractShiroTest {
     @DatabaseTearDown("QuestionnaireDefinitionNoRandomizationEnabled-dataset.xml")
     public void resolveNextPageNoRandomizationTest() {
         Integer questionnaireId = 58;
+        int questionNumberCounter = 1;
         Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
         PageStructure pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.ENTERING);
-
+        
         List<Integer> questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(13);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter++);
 
         // Testing out of range
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
@@ -67,22 +69,27 @@ public class QuestionByQuestionResolverTest extends AbstractShiroTest {
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
         questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(12);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter++);
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
         questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(29);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter++);
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
         questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(30);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter++);
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
         questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(31);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter++);
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
         questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(35);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter++);
 
     }
 
@@ -99,57 +106,76 @@ public class QuestionByQuestionResolverTest extends AbstractShiroTest {
         Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
         PageStructure pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.ENTERING);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+        int questionNumberCounter = 1;
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter ++);
+        
         Integer firstQuestionId = pageStructure.getQuestionsId().get(0);
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter ++);
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter ++);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter ++);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
-        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
-        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
-
-        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
-        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
-        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
-
-        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter ++);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter ++);
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
+        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter ++);
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
+
+        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter);
+        visitedQuestionIds.addAll(pageStructure.getQuestionsId());
+        
+        questionNumberCounter --;
+        
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter --);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter --);
+        
+        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter --);
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter --);
+        
+        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
+        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter --);
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter --);
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
-
-        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
-        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
-
-        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
-        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
+        assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter --);
 
         assertThat(visitedQuestionIds).containsAll(allQuestionIds);
         assertThat(pageStructure.getQuestionsId().get(0)).isEqualTo(firstQuestionId);

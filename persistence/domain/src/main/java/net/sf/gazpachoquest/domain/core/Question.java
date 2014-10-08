@@ -29,6 +29,7 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
@@ -92,6 +93,9 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private final Map<Language, QuestionTranslation> translations = new HashMap<Language, QuestionTranslation>();
 
+    @Transient
+    private Integer number;
+    
     public Question() {
         super();
     }
@@ -207,6 +211,16 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         translations.put(language, translation);
     }
 
+    @Transient
+    public Integer getNumber() {
+        return number;
+    }
+    
+    @Transient
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
     public void updateInverseRelationships() {
         for (Entry<Language, QuestionTranslation> entry : translations.entrySet()) {
             QuestionTranslation questionTranslation = entry.getValue();
@@ -262,9 +276,16 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         private QuestionType type;
         private Language language;
         private QuestionLanguageSettings languageSettings;
+        private Integer number;
 
         public Builder id(Integer id) {
             this.id = id;
+            return this;
+        }
+
+        
+        public Builder number(Integer number) {
+            this.number = number;
             return this;
         }
 
@@ -319,6 +340,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
             question.type = type;
             question.language = language;
             question.languageSettings = languageSettings;
+            question.number = number;
             return question;
         }
     }

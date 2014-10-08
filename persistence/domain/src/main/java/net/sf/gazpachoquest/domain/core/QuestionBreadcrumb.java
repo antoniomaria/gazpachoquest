@@ -10,6 +10,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.domain.core;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,6 +30,10 @@ public class QuestionBreadcrumb extends Breadcrumb {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     private Breadcrumb parent;
+
+    // TODO Support inheritance in SessionCustomizer for a consistent naming convention
+    @Column(nullable = true, name = "question_number")
+    private Integer questionNumber;
 
     public QuestionBreadcrumb() {
         super();
@@ -53,6 +59,14 @@ public class QuestionBreadcrumb extends Breadcrumb {
         return new Builder();
     }
 
+    public Integer getQuestionNumber() {
+        return questionNumber;
+    }
+
+    public void setQuestionNumber(Integer questionNumber) {
+        this.questionNumber = questionNumber;
+    }
+
     public static class Builder {
         private Integer id;
 
@@ -63,7 +77,14 @@ public class QuestionBreadcrumb extends Breadcrumb {
         private Boolean last;
 
         private RenderingMode renderingMode;
-
+        
+        private Integer questionNumber;
+        
+        public Builder questionNumber(Integer questionNumber) {
+            this.questionNumber = questionNumber;
+            return this;
+        }
+        
         public Builder last(Boolean last) {
             this.last = last;
             return this;
@@ -96,6 +117,7 @@ public class QuestionBreadcrumb extends Breadcrumb {
             questionBreadcrumb.last = last;
             questionBreadcrumb.setId(id);
             questionBreadcrumb.setRenderingMode(renderingMode);
+            questionBreadcrumb.questionNumber = questionNumber;
             return questionBreadcrumb;
         }
     }

@@ -33,6 +33,8 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractResolver.class);
 
+    protected static final Integer QUESTION_NUMBER_START_COUNTER = 1;
+    
     @Autowired
     private BreadcrumbService breadcrumbService;
 
@@ -164,7 +166,8 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
         return questions;
     }
 
-    protected void populateQuestionsBreadcrumbs(List<T> breadcrumbs) {
+    protected void populateQuestionsBreadcrumbs(List<T> breadcrumbs, Integer nextQuestionNumber) {
+        Integer questionNumberCounter = nextQuestionNumber;
         for (Breadcrumb breadcrumb : breadcrumbs) {
             SectionBreadcrumb sectionBreadcrumb = (SectionBreadcrumb) breadcrumb;
 
@@ -174,7 +177,7 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
 
             for (Question question : questions) {
                 sectionBreadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).last(Boolean.FALSE)
-                        .build());
+                        .questionNumber(questionNumberCounter++).build());
             }
         }
     }
@@ -188,7 +191,7 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
         }
     }
 
-    private void shuffle(List<Question> questions) {
+    protected void shuffle(List<Question> questions) {
         SecureRandom random = new SecureRandom();
         for (int i = 0; i < questions.size(); i++) {
             int position = i + random.nextInt(questions.size() - i);

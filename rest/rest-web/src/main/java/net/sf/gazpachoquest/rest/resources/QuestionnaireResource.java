@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import net.sf.gazpachoquest.domain.user.User;
-import net.sf.gazpachoquest.dto.QuestionnaireDTO;
+import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.facades.QuestionnaireFacade;
@@ -47,8 +47,8 @@ public class QuestionnaireResource {
     }
 
     @GET
-    @Path("/{questionnaireId}")
-    @ApiOperation(value = "Get questionnaire definition", notes = "More notes about this method", response = QuestionnaireDTO.class)
+    @Path("/{questionnaireId}/definition")
+    @ApiOperation(value = "Get questionnaire definition", notes = "More notes about this method", response = QuestionnaireDefinitionDTO.class)
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
             @ApiResponse(code = 200, message = "questionnaires available") })
     public Response getDefinition(@PathParam("questionnaireId")
@@ -58,8 +58,8 @@ public class QuestionnaireResource {
         User principal = (User) SecurityUtils.getSubject().getPrincipal();
         subject.checkPermission("questionnaire:read:" + questionnaireId);
         logger.debug("Fetching Questionnaire Definition {} for user {}", questionnaireId, principal.getFullName());
-        QuestionnaireDTO questionnaireDTO = questionnaireFacade.findOne(questionnaireId);
-        return Response.ok(questionnaireDTO).build();
+        QuestionnaireDefinitionDTO questionnaireDefinitionDTO = questionnaireFacade.getDefinition(questionnaireId);
+        return Response.ok(questionnaireDefinitionDTO).build();
     }
 
     @GET

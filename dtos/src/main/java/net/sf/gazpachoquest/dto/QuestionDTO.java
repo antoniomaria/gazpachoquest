@@ -24,12 +24,22 @@ public class QuestionDTO extends AbstractQuestionDTO {
 
     private final List<SubquestionDTO> subquestions = new ArrayList<>();
 
+    private Integer number;
+
     public QuestionDTO() {
         super();
     }
 
     public void addSubquestion(final SubquestionDTO subQuestion) {
         subquestions.add(subQuestion);
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public List<SubquestionDTO> getSubquestions() {
@@ -44,18 +54,7 @@ public class QuestionDTO extends AbstractQuestionDTO {
         private Language language;
         private QuestionLanguageSettingsDTO languageSettings;
         private QuestionType type;
-
-        public QuestionDTO build() {
-            QuestionDTO questionDTO = new QuestionDTO();
-            questionDTO.setId(id);
-            questionDTO.code = code;
-            questionDTO.required = required;
-            questionDTO.type = type;
-            questionDTO.language = language;
-            questionDTO.languageSettings = languageSettings;
-            questionDTO.setOtherAllowed(otherAllowed);
-            return questionDTO;
-        }
+        private Integer number;
 
         public BuilderImpl id(final Integer id) {
             this.id = id;
@@ -95,6 +94,24 @@ public class QuestionDTO extends AbstractQuestionDTO {
         public BuilderImpl languageSettings(QuestionLanguageSettingsDTO languageSettings) {
             this.languageSettings = languageSettings;
             return this;
+        }
+
+        public BuilderImpl number(Integer number) {
+            this.number = number;
+            return this;
+        }
+
+        public QuestionDTO build() {
+            QuestionDTO questionDTO = new QuestionDTO();
+            questionDTO.setId(id);
+            questionDTO.code = code;
+            questionDTO.required = required;
+            questionDTO.type = type;
+            questionDTO.language = language;
+            questionDTO.languageSettings = languageSettings;
+            questionDTO.setOtherAllowed(otherAllowed);
+            questionDTO.number = number;
+            return questionDTO;
         }
 
     }

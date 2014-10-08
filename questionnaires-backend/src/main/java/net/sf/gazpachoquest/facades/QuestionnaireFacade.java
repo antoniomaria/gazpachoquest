@@ -10,6 +10,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.facades;
 
+import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
@@ -19,10 +20,10 @@ import net.sf.gazpachoquest.types.RenderingMode;
 
 public interface QuestionnaireFacade {
 
-    QuestionnaireDTO findOne(Integer questionnaireId);
-
     QuestionnairePageDTO resolvePage(Integer questionnaireId, RenderingMode mode, Language preferredLanguage, NavigationAction action);
 
     void saveAnswer(Integer questionnaireId, String questionCode, Answer answer);
+
+    QuestionnaireDefinitionDTO getDefinition(Integer questionnaireId);
 
 }

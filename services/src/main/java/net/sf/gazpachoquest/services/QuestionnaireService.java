@@ -11,7 +11,10 @@
 package net.sf.gazpachoquest.services;
 
 import net.sf.gazpachoquest.domain.core.Questionnaire;
+import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 
 public interface QuestionnaireService extends PersistenceService<Questionnaire> {
+
+    QuestionnaireDefinition getDefinition(Integer questionnaireId);
 
 }
