@@ -17,8 +17,6 @@ import org.vaadin.addon.cdiproperties.annotation.TextFieldProperties;
 
 import com.vaadin.data.Validator;
 import com.vaadin.data.Validator.InvalidValueException;
-import com.vaadin.data.util.converter.StringToIntegerConverter;
-import com.vaadin.data.validator.IntegerRangeValidator;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.server.UserError;
@@ -33,7 +31,7 @@ public class NumericQuestion extends AbstractQuestionComponent implements TextCh
     private static Logger logger = LoggerFactory.getLogger(NumericQuestion.class);
 
     @Inject
-    @LabelProperties
+    @LabelProperties(contentMode = ContentMode.HTML)
     private Label questionTitle;
 
     @Inject
@@ -46,12 +44,10 @@ public class NumericQuestion extends AbstractQuestionComponent implements TextCh
 
     @Override
     public void init() {
-        questionTitle.setCaption(String.format("<strong>%d</strong>. %s", questionDTO.getNumber(), questionDTO
+        questionTitle.setCaption(String.format("<b>%d</b>. %s", questionDTO.getNumber(), questionDTO
                 .getLanguageSettings().getTitle()));
-        questionTitle.setContentMode(ContentMode.HTML);
-        
+
         content.addComponent(questionTitle);
-        
 
         answerField.addTextChangeListener(this);
         if (questionDTO.getAnswer() instanceof NumericAnswer) {

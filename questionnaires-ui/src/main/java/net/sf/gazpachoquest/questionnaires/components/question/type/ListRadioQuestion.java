@@ -23,7 +23,7 @@ public class ListRadioQuestion extends AbstractQuestionComponent implements Valu
     private static final long serialVersionUID = -9223012579161288406L;
 
     @Inject
-    @LabelProperties
+    @LabelProperties(contentMode = ContentMode.HTML)
     private Label questionTitle;
 
     @Inject
@@ -32,10 +32,10 @@ public class ListRadioQuestion extends AbstractQuestionComponent implements Valu
 
     @Override
     protected void init() {
-        questionTitle.setCaption(String.format("<strong>%d</strong>. %s", questionDTO.getNumber(), questionDTO
+        questionTitle.setCaption(String.format("<b>%d</b>. %s", questionDTO.getNumber(), questionDTO
                 .getLanguageSettings().getTitle()));
         questionTitle.setContentMode(ContentMode.HTML);
-        
+
         content.addComponent(questionTitle);
 
         options.setCaption("Choose one of the following answers");

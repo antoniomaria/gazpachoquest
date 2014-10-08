@@ -31,7 +31,7 @@ public class ShortFreeTextQuestion extends AbstractQuestionComponent implements 
     private TextField answerField;
 
     @Inject
-    @LabelProperties
+    @LabelProperties(contentMode = ContentMode.HTML)
     private Label questionTitle;
 
     public ShortFreeTextQuestion() {
@@ -40,9 +40,8 @@ public class ShortFreeTextQuestion extends AbstractQuestionComponent implements 
 
     @Override
     public void init() {
-        questionTitle.setCaption(String.format("<strong>%d</strong>. %s", questionDTO.getNumber(), questionDTO
+        questionTitle.setCaption(String.format("<b>%d</b>. %s", questionDTO.getNumber(), questionDTO
                 .getLanguageSettings().getTitle()));
-        questionTitle.setContentMode(ContentMode.HTML);
         content.addComponent(questionTitle);
 
         answerField.addTextChangeListener(this);

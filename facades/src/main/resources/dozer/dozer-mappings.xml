@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://dozer.sourceforge.net
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://dozer.sourceforge.net
           http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
-	<!-- LabelSet Mappings -->
+  <!-- LabelSet Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.LabelSetDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.core.LabelSet</class-b>
@@ -51,7 +52,7 @@
     </field>
   </mapping>
 
-	<!-- User Mappings -->
+  <!-- User Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.UserDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.user.User</class-b>
@@ -97,7 +98,7 @@
     </field-exclude>
   </mapping>
 
-	<!-- Section Mappings -->
+  <!-- Section Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.SectionDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.core.Section</class-b>
@@ -127,7 +128,7 @@
   </mapping>
 
 
-	<!-- Question Mappings -->
+  <!-- Question Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.QuestionDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.core.Question</class-b>
@@ -158,7 +159,7 @@
     </field>
   </mapping>
 
-	<!-- QuestionnaireDefinition Mappings -->
+  <!-- QuestionnaireDefinition Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition
@@ -189,9 +190,12 @@
       <b>progressVisible</b>
     </field>
     <field>
-      <a get-method="isSectionInfoVisible" is-accessible="true">sectionInfoVisible
-      </a>
+      <a get-method="isSectionInfoVisible" is-accessible="true">sectionInfoVisible</a>
       <b>sectionInfoVisible</b>
+    </field>
+    <field>
+      <a get-method="isQuestionNumberVisible" is-accessible="true">questionNumberVisible</a>
+      <b>questionNumberVisible</b>
     </field>
   </mapping>
 
@@ -224,10 +228,14 @@
       <b>progressVisible</b>
     </field>
     <field>
-      <a get-method="isSectionInfoVisible" is-accessible="true">sectionInfoVisible
-      </a>
+      <a get-method="isSectionInfoVisible" is-accessible="true">sectionInfoVisible</a>
       <b>sectionInfoVisible</b>
     </field>
+    <field>
+      <a get-method="isQuestionNumberVisible" is-accessible="true">questionNumberVisible</a>
+      <b>questionNumberVisible</b>
+    </field>
+
   </mapping>
 
   <mapping type="one-way" map-id="QD-QDDTO-preview-no-audit">
@@ -303,7 +311,7 @@
   </mapping>
 
 
-	<!-- Research Mappings -->
+  <!-- Research Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.ResearchDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.core.Research</class-b>
@@ -367,8 +375,8 @@
       <b>lastModifiedDate</b>
     </field-exclude>
   </mapping>
-  
-	<!-- Invitation Mappings -->
+
+  <!-- Invitation Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.PersonalInvitationDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.core.PersonalInvitation</class-b>

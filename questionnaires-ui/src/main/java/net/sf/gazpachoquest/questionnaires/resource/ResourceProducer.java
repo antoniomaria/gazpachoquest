@@ -33,6 +33,10 @@ import org.apache.cxf.jaxrs.client.WebClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 @ApplicationScoped
@@ -63,8 +67,19 @@ public class ResourceProducer {
         String secret = principal.getSecret();
 
         logger.info("Getting QuestionnaireResource using api key {}: ", apiKey);
+
+        JacksonJsonProvider jacksonProvider = new JacksonJsonProvider();
+        ObjectMapper mapper = new ObjectMapper();
+
+        /* Register JodaModule to handle Joda DateTime Objects. */
+        mapper.registerModule(new JodaModule());
+        mapper.setSerializationInclusion(Include.NON_EMPTY);
+
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        jacksonProvider.setMapper(mapper);
+        
         QuestionnaireResource resource = JAXRSClientFactory.create(BASE_URI, QuestionnaireResource.class,
-                Collections.singletonList(new JacksonJsonProvider()), null);
+                Collections.singletonList(jacksonProvider), null);
         // proxies
         // WebClient.client(resource).header("Authorization", "GZQ " + apiKey);
 

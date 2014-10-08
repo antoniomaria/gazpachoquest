@@ -29,8 +29,8 @@ public class CheckboxListQuestion extends AbstractQuestionComponent implements V
     private static final long serialVersionUID = -9223012579161288406L;
 
     @Inject
-    @LabelProperties
-    private Label questionTitle;
+    @LabelProperties(contentMode = ContentMode.HTML)
+     private Label questionTitle;
 
     @Inject
     @OptionGroupProperties(immediate = true, nullSelectionAllowed = true, multiSelect = true)
@@ -40,7 +40,7 @@ public class CheckboxListQuestion extends AbstractQuestionComponent implements V
 
     @Override
     protected void init() {
-        questionTitle.setCaption(String.format("<strong>%d</strong>. %s", questionDTO.getNumber(), questionDTO
+        questionTitle.setCaption(String.format("<b>%d</b>. %s", questionDTO.getNumber(), questionDTO
                 .getLanguageSettings().getTitle()));
         questionTitle.setContentMode(ContentMode.HTML);
         
