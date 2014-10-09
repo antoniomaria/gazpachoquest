@@ -803,5 +803,6 @@
    <progress-visible>true</progress-visible>
    <section-info-visible>true</section-info-visible>
    <randomization-strategy>NONE</randomization-strategy>
+   <question-number-visible>true</question-number-visible>
    <rendering-mode>SECTION_BY_SECTION</rendering-mode>
 </questionnaire-definition>

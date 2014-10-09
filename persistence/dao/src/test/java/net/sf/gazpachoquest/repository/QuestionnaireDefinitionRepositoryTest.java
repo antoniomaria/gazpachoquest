@@ -63,7 +63,7 @@ public class QuestionnaireDefinitionRepositoryTest extends AbstractShiroTest {
                 .welcomeText("welcome").build();
         QuestionnaireDefinition questionnaireDefinition = QuestionnaireDefinition.with().language(Language.ES)
                 .languageSettings(settings).sectionInfoVisible(true).progressVisible(true).welcomeVisible(true)
-                .randomizationStrategy(RandomizationStrategy.NONE).renderingMode(RenderingMode.SECTION_BY_SECTION).build();
+                .randomizationStrategy(RandomizationStrategy.NONE).renderingMode(RenderingMode.SECTION_BY_SECTION).questionNumberVisible(false).build();
         Section section = new Section();
         section.setLanguage(Language.ES);
         section.setRandomizationEnabled(false);
@@ -111,7 +111,7 @@ public class QuestionnaireDefinitionRepositoryTest extends AbstractShiroTest {
                 .title("My QuestionnaireDefinition").description("my description").welcomeText("welcome").build();
         QuestionnaireDefinition questionnaireDefinition = QuestionnaireDefinition.with().language(Language.EN)
                 .languageSettings(languageSettings).sectionInfoVisible(true).progressVisible(true)
-                .welcomeVisible(true).randomizationStrategy(RandomizationStrategy.NONE)
+                .welcomeVisible(true).randomizationStrategy(RandomizationStrategy.NONE).questionNumberVisible(false)
                 .renderingMode(RenderingMode.SECTION_BY_SECTION).build();
         questionnaireDefinition = repository.save(questionnaireDefinition);
         assertThat(questionnaireDefinition.getCreatedDate()).isNotNull();

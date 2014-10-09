@@ -40,7 +40,7 @@ public class CheckboxListQuestion extends AbstractQuestionComponent implements V
 
     @Override
     protected void init() {
-        questionTitle.setCaption(String.format("<b>%d</b>. %s", questionDTO.getNumber(), questionDTO
+        questionTitle.setValue(String.format("<b>%d</b>. %s", questionDTO.getNumber(), questionDTO
                 .getLanguageSettings().getTitle()));
         questionTitle.setContentMode(ContentMode.HTML);
         

@@ -4,13 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
 import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.gazpachoquest.jpa.converter.support.HstoreSupport;
-import net.sf.gazpachoquest.jpa.converter.support.PGHStore;
 
 public class HStoreHelloWorld {
 
@@ -28,25 +25,24 @@ public class HStoreHelloWorld {
             Map<String, String> map = new HashMap<String, String>();
             map.put("position", "manager");
 
-            PGHStore hstore = new PGHStore(map);
-            String s = HstoreSupport.toString((Map) map);
-            
-            
+            // PGHStore hstore = new PGHStore(map);
+            String s = HstoreSupport.toString(map);
+
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, (int) System.currentTimeMillis());
             stmt.setString(2, String.valueOf(System.currentTimeMillis()));
             stmt.setString(3, String.valueOf(System.currentTimeMillis()));
             stmt.setString(4, String.valueOf(System.currentTimeMillis()));
-            
-           // stmt.setObject(5, s, Types.OTHER);
-            
+
+            // stmt.setObject(5, s, Types.OTHER);
+
             stmt.setString(5, s);
-            
-            
+
             stmt.executeUpdate();
             System.out.println("fin");
         } catch (Exception e) {
-            // For the sake of this tutorial, let's keep exception handling simple
+            // For the sake of this tutorial, let's keep exception handling
+            // simple
             e.printStackTrace();
         } finally {
             if (conn != null) {

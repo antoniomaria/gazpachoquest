@@ -23,7 +23,7 @@
   description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample questionnaireDefinition&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;"
   title="Sample questionnaireDefinition" welcome_text="Thank you for taking the time to participate in this questionnaireDefinition."
   createdby_id="1" lastmodifiedby_id="1" randomization_strategy="N" welcome_visible="true" progress_visible="true"
-  section_info_visible="true" rendering_mode="SBS" />
+  section_info_visible="true" rendering_mode="SBS" question_number_visible="true" />
  <questionnaire_definition_permission />
 
  <questionnaire_definition_translation />

@@ -276,7 +276,8 @@ public class QuestionnaireDefinition
         private RandomizationStrategy randomizationStrategy;
         private Integer questionsPerPage;
         private RenderingMode renderingMode;
-
+        private Boolean questionNumberVisible;
+        
         public Builder id(Integer id) {
             this.id = id;
             return this;
@@ -312,6 +313,12 @@ public class QuestionnaireDefinition
             return this;
         }
 
+        public Builder questionNumberVisible(Boolean questionNumberVisible) {
+            this.questionNumberVisible = questionNumberVisible;
+            return this;
+        }
+
+        
         public Builder randomizationStrategy(RandomizationStrategy randomizationStrategy) {
             this.randomizationStrategy = randomizationStrategy;
             return this;
@@ -339,6 +346,7 @@ public class QuestionnaireDefinition
             questionnaireDefinition.randomizationStrategy = randomizationStrategy;
             questionnaireDefinition.questionsPerPage = questionsPerPage;
             questionnaireDefinition.renderingMode = renderingMode;
+            questionnaireDefinition.questionNumberVisible = questionNumberVisible;
             return questionnaireDefinition;
         }
     }

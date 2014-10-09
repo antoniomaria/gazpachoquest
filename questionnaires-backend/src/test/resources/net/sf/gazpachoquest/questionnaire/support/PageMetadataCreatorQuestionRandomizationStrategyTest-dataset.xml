@@ -16,7 +16,7 @@
     progress_visible="true" section_info_visible="true" questions_per_page="1" randomization_strategy="Q" status="C" welcome_visible="true"
     description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample questionnaireDefinition&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;"
     title="Sample questionnaireDefinition" welcome_text="Thank you for taking the time to participate in this questionnaireDefinition." createdby_id="1"
-    lastmodifiedby_id="1" rendering_mode="SBS" />
+    lastmodifiedby_id="1" rendering_mode="SBS" question_number_visible="true" />
   <questionnaire_definition_translation />
   <questionnaire_definition_permission />
   

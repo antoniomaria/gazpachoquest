@@ -82,7 +82,7 @@ public class QuestionnaireDefinitionServiceTest extends AbstractShiroTest {
         QuestionnaireDefinition questionnaireDefinition = QuestionnaireDefinition.with().language(Language.EN)
                 .languageSettings(languageSettings).sectionInfoVisible(true).progressVisible(true).welcomeVisible(true)
                 .randomizationStrategy(RandomizationStrategy.NONE).renderingMode(RenderingMode.SECTION_BY_SECTION)
-                .build();
+                .questionNumberVisible(false).build();
 
         questionnaireDefinition = questionnaireDefinitionService.save(questionnaireDefinition);
         DateTime lastModifiedDate = questionnaireDefinition.getLastModifiedDate();

@@ -40,7 +40,7 @@ public class ShortFreeTextQuestion extends AbstractQuestionComponent implements 
 
     @Override
     public void init() {
-        questionTitle.setCaption(String.format("<b>%d</b>. %s", questionDTO.getNumber(), questionDTO
+        questionTitle.setValue(String.format("<b>%d</b>. %s", questionDTO.getNumber(), questionDTO
                 .getLanguageSettings().getTitle()));
         content.addComponent(questionTitle);
 
