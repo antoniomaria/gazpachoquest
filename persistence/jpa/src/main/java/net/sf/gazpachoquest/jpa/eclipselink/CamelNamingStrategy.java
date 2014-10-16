@@ -47,7 +47,7 @@ public class CamelNamingStrategy implements SessionCustomizer {
                 }
                 Vector<DatabaseMapping> mappings = descriptor.getMappings();
                 camelCaseToUnderscore(mappings);
-            } else if (descriptor.isAggregateDescriptor()) {
+            } else if (descriptor.isAggregateDescriptor() || descriptor.isChildDescriptor()) {
                 camelCaseToUnderscore(descriptor.getMappings());
             }
         }
