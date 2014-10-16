@@ -18,6 +18,8 @@ public class QuestionLanguageSettingsDTO implements LanguageSettingsDTO {
 
     private String title;
 
+    private String explanation;
+
     public QuestionLanguageSettingsDTO() {
         super();
     }
@@ -30,9 +32,19 @@ public class QuestionLanguageSettingsDTO implements LanguageSettingsDTO {
         this.title = title;
     }
 
+    public String getExplanation() {
+        return explanation;
+    }
+
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
+    }
+
     public static class BuilderImpl<C extends LanguageSettingsContainerBuilder<C>> {
 
         private String title;
+
+        private String explanation;
 
         private final C container;
 
@@ -44,6 +56,7 @@ public class QuestionLanguageSettingsDTO implements LanguageSettingsDTO {
         public QuestionLanguageSettingsDTO build() {
             QuestionLanguageSettingsDTO questionLanguageSettingsDTO = new QuestionLanguageSettingsDTO();
             questionLanguageSettingsDTO.title = title;
+            questionLanguageSettingsDTO.explanation = explanation;
             return questionLanguageSettingsDTO;
         }
 
@@ -53,6 +66,10 @@ public class QuestionLanguageSettingsDTO implements LanguageSettingsDTO {
 
         public BuilderImpl<C> title(final String title) {
             this.title = title;
+            return this;
+        }
+        public BuilderImpl<C> explanation(final String explanation) {
+            this.explanation = explanation;
             return this;
         }
     }
@@ -68,15 +85,22 @@ public class QuestionLanguageSettingsDTO implements LanguageSettingsDTO {
 
     public static class Builder {
         private String title;
+        private String explanation;
 
         public Builder title(String title) {
             this.title = title;
             return this;
         }
 
+        public Builder explanation(String explanation) {
+            this.explanation = explanation;
+            return this;
+        }
+
         public QuestionLanguageSettingsDTO build() {
             QuestionLanguageSettingsDTO questionLanguageSettingsDTO = new QuestionLanguageSettingsDTO();
             questionLanguageSettingsDTO.title = title;
+            questionLanguageSettingsDTO.explanation = explanation;
             return questionLanguageSettingsDTO;
         }
     }

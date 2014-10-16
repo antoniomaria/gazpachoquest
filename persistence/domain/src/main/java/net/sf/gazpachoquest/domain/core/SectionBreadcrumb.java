@@ -37,6 +37,8 @@ public class SectionBreadcrumb extends Breadcrumb {
     @OrderColumn(name = "order_in_section_breadcrumb")
     private final List<QuestionBreadcrumb> breadcrumbs = new ArrayList<QuestionBreadcrumb>();
 
+    private Integer lastQuestionNumberDisplayed;
+    
     public SectionBreadcrumb() {
         super();
     }

@@ -41,7 +41,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
         "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnaire-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class GroupByGroupResolverTest extends AbstractShiroTest {
+public class SectionBySectionResolverTest extends AbstractShiroTest {
 
     @Autowired
     private QuestionnaireService questionnaireService;

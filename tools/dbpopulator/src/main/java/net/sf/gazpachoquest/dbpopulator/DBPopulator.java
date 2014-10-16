@@ -12,6 +12,7 @@ import java.util.Set;
 
 import net.sf.gazpachoquest.dbpopulator.samples.DemoSurveyCreator;
 import net.sf.gazpachoquest.dbpopulator.samples.FastFoodSurveyCreator;
+import net.sf.gazpachoquest.dbpopulator.samples.JavaPerformanceSurveyCreator;
 import net.sf.gazpachoquest.dbpopulator.samples.SampleQuizCreator;
 import net.sf.gazpachoquest.dto.GroupDTO;
 import net.sf.gazpachoquest.dto.LabelDTO;
@@ -65,6 +66,9 @@ public class DBPopulator {
 
     @Autowired
     private DemoSurveyCreator demoSurveyCreator;
+    
+    @Autowired
+    private JavaPerformanceSurveyCreator javaPerformanceSurveyCreator;
 
     // http://www.objectpartners.com/2012/05/17/creating-a-hierarchical-test-data-builder-using-generics/
     public void populate() {
@@ -79,7 +83,39 @@ public class DBPopulator {
 
         // populateForJUnitTest(respondents);
         // populateForDemo(respondents);
-        populateForFullDemo(respondents);
+        // populateForFullDemo(respondents);
+        populateJavaPerformanceSurvey(respondents);
+    }
+
+    private void populateJavaPerformanceSurvey(Set<UserDTO> respondents) {
+        QuestionnaireDefinitionDTO questionnaireDefinition = javaPerformanceSurveyCreator.create();
+        asignDefaultMailTemplate(questionnaireDefinition);
+        questionnaireDefinitionEditorFacade.confirm(questionnaireDefinition);
+
+        ResearchDTO research = ResearchDTO
+                .with()
+                .type(ResearchAccessType.BY_INVITATION)
+                .name("Tracked survey: " + questionnaireDefinition.getLanguageSettings().getTitle()
+                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
+
+        research = researchFacade.save(research);
+        Integer researchId = research.getId();
+
+        for (UserDTO respondent : respondents) {
+            researchFacade.addRespondent(researchId, respondent);
+        }
+        researchFacade.changeStatus(researchId, EntityStatus.CONFIRMED);
+
+        research = ResearchDTO
+                .with()
+                .type(ResearchAccessType.OPEN_ACCESS)
+                .name("Anonymous Survey: " + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
+
+        research.setQuestionnaireDefinition(questionnaireDefinition);
+        research = researchFacade.save(research);
+        
     }
 
     public void populateForJUnitTest(Set<UserDTO> respondents) {

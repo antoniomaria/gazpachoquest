@@ -24,12 +24,12 @@ public class SampleQuizCreator {
     private QuestionnaireDefinitionEditorFacade questionnaireDefinitionEditorFacade;
 
     public QuestionnaireDefinitionDTO create() {
-        QuestionnaireDefinitionDTO questionnairDefinition = QuestionnaireDefinitionDTO.with().language(Language.EN)
+        QuestionnaireDefinitionDTO questionnaireDefinition = QuestionnaireDefinitionDTO.with().language(Language.EN)
                 .questionnairLanguageSettingsStart().title("European general knowledge quiz")
                 .description("How much do you know about Europe? Answer to this questions and let's find out!")
                 .welcomeText("Thank you for taking the time to participate in this questionnaire.")
                 .questionnairLanguageSettingsEnd().renderingMode(RenderingMode.SECTION_BY_SECTION).build();
-        questionnairDefinition = questionnaireDefinitionEditorFacade.save(questionnairDefinition);
+        questionnaireDefinition = questionnaireDefinitionEditorFacade.save(questionnaireDefinition);
 
         TranslationDTO<QuestionnaireDefinitionDTO, QuestionnaireDefinitionLanguageSettingsDTO> questionnairTranslation = new TranslationDTO<>();
         questionnairTranslation.setLanguage(Language.ES);
@@ -37,7 +37,7 @@ public class SampleQuizCreator {
                 .title("Test de conocimiento general sobre Europa")
                 .description("¿Cuánto sabes sobre Europa? Contesta a estas preguntas y averígualo!")
                 .welcomeText("Gracias por participar en este cuestionario").build());
-        questionnairTranslation.setTranslatedEntity(questionnairDefinition);
+        questionnairTranslation.setTranslatedEntity(questionnaireDefinition);
 
         questionnaireDefinitionEditorFacade.saveQuestionnaireTranslation(questionnairTranslation);
 
@@ -45,10 +45,10 @@ public class SampleQuizCreator {
         SectionDTO section1 = SectionDTO.with().language(Language.EN).randomizationEnabled(false)
                 .pageLanguageSettingsStart().title("European Capitals").pageLanguageSettingsEnd().build();
 
-        questionnairDefinition.addSection(section1);
-        questionnairDefinition = questionnaireDefinitionEditorFacade.save(questionnairDefinition);
+        questionnaireDefinition.addSection(section1);
+        questionnaireDefinition = questionnaireDefinitionEditorFacade.save(questionnaireDefinition);
 
-        section1 = questionnairDefinition.getLastSectionDTO();
+        section1 = questionnaireDefinition.getLastSectionDTO();
 
         TranslationDTO<SectionDTO, SectionLanguageSettingsDTO> sectionTranslation = new TranslationDTO<>();
         sectionTranslation.setLanguage(Language.ES);
@@ -61,9 +61,9 @@ public class SampleQuizCreator {
         SectionDTO section2 = SectionDTO.with().language(Language.EN).randomizationEnabled(false)
                 .pageLanguageSettingsStart().title("European Union").pageLanguageSettingsEnd().build();
 
-        questionnairDefinition.addSection(section2);
-        questionnairDefinition = questionnaireDefinitionEditorFacade.save(questionnairDefinition);
-        section2 = questionnairDefinition.getLastSectionDTO();
+        questionnaireDefinition.addSection(section2);
+        questionnaireDefinition = questionnaireDefinitionEditorFacade.save(questionnaireDefinition);
+        section2 = questionnaireDefinition.getLastSectionDTO();
 
         sectionTranslation = new TranslationDTO<>();
         sectionTranslation.setLanguage(Language.ES);
@@ -76,9 +76,9 @@ public class SampleQuizCreator {
         SectionDTO section3 = SectionDTO.with().language(Language.EN).randomizationEnabled(false)
                 .pageLanguageSettingsStart().title("European History").pageLanguageSettingsEnd().build();
 
-        questionnairDefinition.addSection(section3);
-        questionnairDefinition = questionnaireDefinitionEditorFacade.save(questionnairDefinition);
-        section3 = questionnairDefinition.getLastSectionDTO();
+        questionnaireDefinition.addSection(section3);
+        questionnaireDefinition = questionnaireDefinitionEditorFacade.save(questionnaireDefinition);
+        section3 = questionnaireDefinition.getLastSectionDTO();
 
         sectionTranslation = new TranslationDTO<>();
         sectionTranslation.setLanguage(Language.ES);
@@ -508,7 +508,7 @@ public class SampleQuizCreator {
         questionOptionTranslation.setTranslatedEntity(question.getQuestionOptions().get(3));
         questionnaireDefinitionEditorFacade.saveQuestionOptionTranslation(questionOptionTranslation);
 
-        return questionnairDefinition;
+        return questionnaireDefinition;
     }
 
 }

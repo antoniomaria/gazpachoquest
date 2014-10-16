@@ -47,7 +47,7 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
 
             if (RandomizationStrategy.NONE.equals(randomizationStrategy)) {
                 section = sectionService.findOne(section.getId());
-                position = sectionService.positionInQuestionnairDefinition(section.getId());
+                position = sectionService.positionInQuestionnaireDefinition(section.getId());
                 count = questionnaireDefinitionService.sectionsCount(section.getQuestionnairDefinition().getId());
             } else {
                 count = breadcrumbService.countByQuestionnair(breadcrumb.getQuestionnair().getId());

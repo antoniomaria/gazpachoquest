@@ -111,7 +111,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
     protected QuestionBreadcrumb findNextBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
             Questionnaire questionnaire, QuestionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
 
-        Breadcrumb breadcrumb = breadcrumbService.findByquestionnaireIdAndPosition(questionnaire.getId(),
+        Breadcrumb breadcrumb = breadcrumbService.findByQuestionnaireIdAndPosition(questionnaire.getId(),
                 lastBreadcrumbPosition + 1);
 
         QuestionBreadcrumb nextBreadcrumb = null;
@@ -127,8 +127,8 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
             if (position < questionsCount - 1) { // Not last in group
                 next = questionService.findOneByPositionInSection(lastSection.getId(), position + 1);
             } else {
-                Integer sectionPosition = sectionService.positionInQuestionnairDefinition(lastSection.getId());
-                Section nextSection = sectionService.findOneByPositionInQuestionnairDefinition(
+                Integer sectionPosition = sectionService.positionInQuestionnaireDefinition(lastSection.getId());
+                Section nextSection = sectionService.findOneByPositionInQuestionnaireDefinition(
                         questionnaireDefinition.getId(), sectionPosition + 1);
 
                 if (nextSection == null) { // TODO handle exceptions
@@ -155,7 +155,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
             logger.warn("Page out of range. First page is returned.");
             return null;
         }
-        Breadcrumb breadcrumb = breadcrumbService.findByquestionnaireIdAndPosition(questionnaire.getId(),
+        Breadcrumb breadcrumb = breadcrumbService.findByQuestionnaireIdAndPosition(questionnaire.getId(),
                 lastBreadcrumbPosition - 1);
         Assert.isInstanceOf(QuestionBreadcrumb.class, breadcrumb);
         return (QuestionBreadcrumb) breadcrumb;
@@ -176,7 +176,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
     }
 
     private Question findFirstQuestion(int questionnairDefinitionId) {
-        Section initialGroup = sectionService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId,
+        Section initialGroup = sectionService.findOneByPositionInQuestionnaireDefinition(questionnairDefinitionId,
                 INITIAL_POSITION);
         return questionService.findOneByPositionInSection(initialGroup.getId(), INITIAL_POSITION);
     }
