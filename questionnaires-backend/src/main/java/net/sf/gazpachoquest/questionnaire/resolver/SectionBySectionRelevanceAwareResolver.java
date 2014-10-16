@@ -12,14 +12,12 @@ package net.sf.gazpachoquest.questionnaire.resolver;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.el.ELException;
 import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
@@ -29,7 +27,6 @@ import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.Section.Builder;
 import net.sf.gazpachoquest.domain.core.SectionBreadcrumb;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 import net.sf.gazpachoquest.services.QuestionnaireAnswersService;
@@ -42,7 +39,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import de.odysseus.el.ExpressionFactoryImpl;
 import de.odysseus.el.util.SimpleContext;
@@ -81,6 +77,8 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
                 .renderingMode(RenderingMode.SECTION_BY_SECTION).build();
         breadcrumbs.add(breadcrumb);
         populateQuestionsBreadcrumbs(breadcrumbs, QUESTION_NUMBER_START_COUNTER);
+        // Store questions displayed  number in order to generate the question numbers.
+        breadcrumb.setQuestionsDisplayedCount(breadcrumb.getQuestionsBreadcrumbCount());
         breadcrumbs.get(0).setLast(Boolean.TRUE);
         return breadcrumbs;
     }
@@ -113,9 +111,9 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
         }
         nextBreadcrumb = SectionBreadcrumb.with().questionnaire(questionnaire).section(next)
                 .renderingMode(RenderingMode.SECTION_BY_SECTION).build();
-        Integer lastQuestionNumberDisplayed = extractLastQuestionNumberDisplayed(lastBreadcrumb);
-        populateQuestionsBreadcrumbs(Arrays.asList(nextBreadcrumb), lastQuestionNumberDisplayed + 1);
-
+        Integer questionsDisplayedCount = lastBreadcrumb.getQuestionsDisplayedCount();
+        populateQuestionsBreadcrumbs(Arrays.asList(nextBreadcrumb), questionsDisplayedCount + 1);
+        nextBreadcrumb.setQuestionsDisplayedCount(questionsDisplayedCount + nextBreadcrumb.getQuestionsBreadcrumbCount());
         return nextBreadcrumb;
     }
 
@@ -140,12 +138,6 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
             logger.warn("Errors found in evaluating the relevance condition", e);
         }
         return revealed;
-    }
-
-    private Integer extractLastQuestionNumberDisplayed(SectionBreadcrumb lastBreadcrumb) {
-        int questionsCount = lastBreadcrumb.getBreadcrumbs().size();
-        // TODO support empty sections
-        return lastBreadcrumb.getBreadcrumbs().get(questionsCount - 1).getQuestionNumber();
     }
 
     @Override

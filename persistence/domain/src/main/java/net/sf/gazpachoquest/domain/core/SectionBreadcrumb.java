@@ -37,7 +37,7 @@ public class SectionBreadcrumb extends Breadcrumb {
     @OrderColumn(name = "order_in_section_breadcrumb")
     private final List<QuestionBreadcrumb> breadcrumbs = new ArrayList<QuestionBreadcrumb>();
 
-    private Integer lastQuestionNumberDisplayed;
+    private Integer questionsDisplayedCount;
     
     public SectionBreadcrumb() {
         super();
@@ -64,6 +64,17 @@ public class SectionBreadcrumb extends Breadcrumb {
         return !breadcrumbs.isEmpty();
     }
 
+    public Integer getQuestionsDisplayedCount() {
+        return questionsDisplayedCount;
+    }
+
+    public void setQuestionsDisplayedCount(Integer questionsDisplayedCount) {
+        this.questionsDisplayedCount = questionsDisplayedCount;
+    }
+
+    public Integer getQuestionsBreadcrumbCount(){
+        return breadcrumbs.size();
+    }
     public static SectionBreadcrumb.Builder with() {
         return new SectionBreadcrumb.Builder();
     }
@@ -78,17 +89,23 @@ public class SectionBreadcrumb extends Breadcrumb {
         private Boolean last;
 
         private RenderingMode renderingMode;
-
-        public Builder last(Boolean last) {
-            this.last = last;
-            return this;
-        }
+        
+        private Integer questionsDisplayedCount;
 
         public Builder id(Integer id) {
             this.id = id;
             return this;
         }
 
+        public Builder last(Boolean last) {
+            this.last = last;
+            return this;
+        }
+
+        public Builder questionsDisplayedCounter(Integer questionsDisplayedCount) {
+            this.questionsDisplayedCount = questionsDisplayedCount;
+            return this;
+        }
         public Builder renderingMode(RenderingMode renderingMode) {
             this.renderingMode = renderingMode;
             return this;
@@ -111,6 +128,7 @@ public class SectionBreadcrumb extends Breadcrumb {
             sectionBreadcrumb.setRenderingMode(renderingMode);
             sectionBreadcrumb.section = section;
             sectionBreadcrumb.questionnaire = questionnaire;
+            sectionBreadcrumb.questionsDisplayedCount = questionsDisplayedCount;
             return sectionBreadcrumb;
         }
     }

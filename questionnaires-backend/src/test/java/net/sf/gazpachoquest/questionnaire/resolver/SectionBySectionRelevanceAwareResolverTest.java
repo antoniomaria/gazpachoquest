@@ -5,8 +5,6 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.fest.assertions.api.Assertions.assertThat;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Question;
@@ -78,11 +76,11 @@ public class SectionBySectionRelevanceAwareResolverTest extends AbstractShiroTes
         List<Integer> questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(15);
 
-        int questionNumberCounter = 1;
+        int questionNumberCount = 1;
         Section section = pageStructure.getSections().get(0);
         List<Question> questions = section.getQuestions();
         for (Question question : questions) {
-            assertThat(question.getNumber()).isEqualTo(questionNumberCounter++);
+            assertThat(question.getNumber()).isEqualTo(questionNumberCount++);
         }
         // Answer Yes to 1st question
         String updateSql = "UPDATE questionnaire_answers_12 SET q1 = ? where id = ?";
@@ -100,6 +98,10 @@ public class SectionBySectionRelevanceAwareResolverTest extends AbstractShiroTes
         assertThat(section).isEqualTo(Section.with().id(19).build());
         
         questionIds = pageStructure.getQuestionsId();
+        questions = section.getQuestions();
+        for (Question question : questions) {
+            assertThat(question.getNumber()).isEqualTo(questionNumberCount++);
+        }
         System.out.println(questionIds);
         // assertThat(questionIds).containsExactly(13, 12, 29);
 
