@@ -19,11 +19,11 @@ import net.sf.gazpachoquest.domain.i18.SectionTranslation;
 public interface SectionService extends
         LocalizedPersistenceService<Section, SectionTranslation, SectionLanguageSettings> {
 
-    List<Section> findByQuestionnairDefinitionId(Integer questionnairDefinitionId);
+    List<Section> findByQuestionnaireDefinitionId(Integer questionnaireDefinitionId);
 
-    Section findOneByPositionInQuestionnairDefinition(Integer questionnairDefinitionId, Integer position);
+    Section findOneByPositionInQuestionnaireDefinition(Integer questionnaireDefinitionId, Integer position);
 
-    int positionInQuestionnairDefinition(Integer sectionId);
+    int positionInQuestionnaireDefinition(Integer sectionId);
 
     long questionsCount(Integer sectionId);
 }

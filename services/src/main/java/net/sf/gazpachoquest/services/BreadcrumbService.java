@@ -18,7 +18,7 @@ public interface BreadcrumbService extends PersistenceService<Breadcrumb> {
 
     List<Object[]> findLastAndPosition(Integer questionnaireId);
 
-    Breadcrumb findByquestionnaireIdAndPosition(Integer questionnaireId, Integer position);
+    Breadcrumb findByQuestionnaireIdAndPosition(Integer questionnaireId, Integer position);
 
     Integer countByQuestionnair(Integer questionnaireId);
 
