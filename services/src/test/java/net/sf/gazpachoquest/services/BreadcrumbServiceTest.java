@@ -2,15 +2,20 @@ package net.sf.gazpachoquest.services;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-import javax.persistence.metamodel.SingularAttribute;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
+import net.sf.gazpachoquest.domain.core.Breadcrumb_;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
+import net.sf.gazpachoquest.domain.support.AbstractAuditable;
+import net.sf.gazpachoquest.qbe.Range;
+import net.sf.gazpachoquest.qbe.Ranges;
+import net.sf.gazpachoquest.qbe.Ranges.RangeLocalDateTime;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +49,11 @@ public class BreadcrumbServiceTest {
     }
 
     @Test
-    public void ff() {
+    public void deleteByExampleTest() {
         Integer questionnaireId = 58;
         Breadcrumb entity = Breadcrumb.withProps().questionnaire(Questionnaire.with().id(questionnaireId).build())
                 .build();
-        // DateTime from = new DateTime();
-        final SingularAttribute<?, LocalDate> field;
-        final LocalDate from;
-      //  SearchParameters searchParameters = new SearchParameters().after(field, from);
-        //breadcrumbService.deleteByExample(entity, searchParameters);
+        breadcrumbService.deleteByExample(entity, new SearchParameters().after(
+                Breadcrumb_.createdDate, new LocalDateTime(2014, 10, 17, 10, 00, 1)));
     }
 }

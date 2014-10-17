@@ -30,7 +30,7 @@ public interface GenericRepository<T> extends JpaRepository<T, Integer>, JpaSpec
 
     List<T> find(String pattern);
 
-    Page<T> findByExample(T example, List<Range<T, ?>> ranges, Pageable pageable);
+    Page<T> findByExample(T example, List<Range<?, ?>> ranges, Pageable pageable);
 
     Page<T> findByExample(T example, Pageable pageable);
 

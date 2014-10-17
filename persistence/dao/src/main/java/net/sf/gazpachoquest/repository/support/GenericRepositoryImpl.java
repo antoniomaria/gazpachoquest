@@ -104,15 +104,15 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
     }
 
     @Override
-    public Page<T> findByExample(final T example, final List<Range<T, ?>> ranges, final Pageable pageable) {
-        Specifications<T> spec = Specifications.where(byExampleSpecification.byExample(example));
+    public Page<T> findByExample(final T example, final List<Range<?, ?>> ranges, final Pageable pageable) {
+        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(example, new SearchParameters()));
         spec = RangeSpecification.andRangeIfSet(spec, ranges);
         return findAll(spec, pageable);
     }
 
     @Override
     public Page<T> findByExample(final T example, final Pageable pageable) {
-        Specifications<T> spec = Specifications.where(byExampleSpecification.byExample(example));
+        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(example, new SearchParameters()));
         return findAll(spec, pageable);
     }
 
@@ -123,6 +123,7 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
             return getNamedQueryUtil().findByNamedQuery(sp);
         }
         Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, sp));
+        spec = RangeSpecification.andRangeIfSet(spec, sp.getRanges());
         return findAll(spec);
     }
 
@@ -136,6 +137,7 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
     public T findOneByExample(final T entity, final SearchParameters sp) {
         Assert.notNull(sp, "Search parameters required");
         Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, sp));
+        spec = RangeSpecification.andRangeIfSet(spec, sp.getRanges());
         return super.findOne(spec);
     }
 

@@ -55,6 +55,23 @@ public class ByExampleEnhancedSpecification {
         Validate.notNull(example, "example must not be null");
 
         return new Specification<T>() {
+            
+            @Override
+            public Predicate toPredicate(final Root<T> rootPath, final CriteriaQuery<?> query,
+                    final CriteriaBuilder builder) {
+                Class<T> type = rootPath.getModel().getBindableJavaType();
+
+                ManagedType<T> mt = em.getMetamodel().entity(type);
+
+                List<Predicate> predicates = new ArrayList<Predicate>();
+                predicates.addAll(byExample(mt, rootPath, example, sp, builder));
+                predicates.addAll(byExampleOnXToOne(mt, rootPath, example, sp, builder)); 
+                // 1 level deep only
+                predicates.addAll(byExampleOnManyToMany(mt, rootPath, example, sp, builder));
+                // order by
+                query.orderBy(JpaUtil.buildJpaOrders(sp.getOrders(), rootPath, builder));
+                return JpaUtil.andPredicate(builder, predicates);
+            }
 
             public <T extends Persistable> List<Predicate> byExample(final ManagedType<T> mt, final Path<T> mtPath,
                     final T mtValue, final SearchParameters sp, final CriteriaBuilder builder) {
@@ -128,17 +145,8 @@ public class ByExampleEnhancedSpecification {
                 for (SingularAttribute<? super T, ?> attr : mt.getSingularAttributes()) {
                     if (attr.getPersistentAttributeType() == MANY_TO_ONE
                             || attr.getPersistentAttributeType() == ONE_TO_ONE) { //
-                        /*
-                         * Attribute<? super T, ?> m2oattr =
-                         * mt.getAttribute(attr.getName()); M2O m2oValue = (M2O)
-                         * ReflectionUtils
-                         * .invokeMethod((Method)m2oattr.getJavaMember(),
-                         * mtValue);
-                         */
-
                         M2O m2oValue = (M2O) getValue(mtValue, mt.getAttribute(attr.getName()));
 
-                        // if (m2oValue != null && !mtValue.isIdSet()) {
                         if (m2oValue != null) {
                             Class<M2O> m2oType = (Class<M2O>) attr.getBindableJavaType();
                             ManagedType<M2O> m2oMt = em.getMetamodel().entity(m2oType);
@@ -148,26 +156,6 @@ public class ByExampleEnhancedSpecification {
                     }
                 }
                 return predicates;
-            }
-
-            @Override
-            public Predicate toPredicate(final Root<T> rootPath, final CriteriaQuery<?> query,
-                    final CriteriaBuilder builder) {
-                Class<T> type = rootPath.getModel().getBindableJavaType();
-
-                ManagedType<T> mt = em.getMetamodel().entity(type);
-
-                List<Predicate> predicates = new ArrayList<Predicate>();
-                predicates.addAll(byExample(mt, rootPath, example, sp, builder));
-                predicates.addAll(byExampleOnXToOne(mt, rootPath, example, sp, builder)); // 1
-                                                                                          // level
-                                                                                          // deep
-                                                                                          // only
-                predicates.addAll(byExampleOnManyToMany(mt, rootPath, example, sp, builder));
-                // order by
-                query.orderBy(JpaUtil.buildJpaOrders(sp.getOrders(), rootPath, builder));
-
-                return JpaUtil.andPredicate(builder, predicates);
             }
 
             private <T> Object getValue(final T example, final Attribute<? super T, ?> attr) {
