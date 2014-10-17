@@ -15,13 +15,13 @@ import java.util.Date;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 @Converter(autoApply = true)
-public class DateTimeConverter implements AttributeConverter<DateTime, Date> {
+public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime, Date> {
 
     @Override
-    public Date convertToDatabaseColumn(DateTime dateTime) {
+    public Date convertToDatabaseColumn(LocalDateTime dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -29,11 +29,11 @@ public class DateTimeConverter implements AttributeConverter<DateTime, Date> {
     }
 
     @Override
-    public DateTime convertToEntityAttribute(Date date) {
+    public LocalDateTime convertToEntityAttribute(Date date) {
         if (date == null) {
             return null;
         }
-        return new DateTime(date);
+        return new LocalDateTime(date);
     }
 
 }

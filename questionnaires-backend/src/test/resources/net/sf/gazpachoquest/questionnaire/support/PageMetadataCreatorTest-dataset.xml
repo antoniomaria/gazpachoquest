@@ -6,12 +6,6 @@
     last_modified_date="2014-07-16 20:39:54.987" preferred_language="ES" secret="AZKLQ37RLJZFFG7PRY9RG7XHUCA265X6" surname="Snow" createdby_id="1"
     lastmodifiedby_id="1" />
 
-  <research id="63" status="C" created_date="2014-07-16 20:39:56.185" expiration_date="2014-07-16 20:39:56.157" last_modified_date="2014-07-16 20:39:56.185"
-    name="New private questionnaire Sample questionnaireDefinition started" start_date="2014-07-16 20:39:56.157" type="P" createdby_id="1" lastmodifiedby_id="1" />
-  <research_permission />
-
-  <invitation id="66" type="P" status="A" token="ALGB6SCJKW" research_id="63" respondent_id="6" />
-
   <questionnaire_definition id="12" created_date="2014-07-16 20:39:55.074" language="EN" last_modified_date="2014-07-16 20:39:55.074"
     progress_visible="true" section_info_visible="true" questions_per_page="1" randomization_strategy="Q" status="C" welcome_visible="true"
     description="&lt;p&gt;This is a &lt;strong&gt;&lt;em&gt;sample questionnaireDefinition&lt;/em&gt;&lt;/strong&gt; designed for testing GazpachoSurvey.&lt;/p&gt;"
@@ -19,6 +13,14 @@
     lastmodifiedby_id="1" rendering_mode="SBS" question_number_visible="true" />
   <questionnaire_definition_translation />
   <questionnaire_definition_permission />
+
+
+  <research id="63" status="C" created_date="2014-07-16 20:39:56.185" expiration_date="2014-07-16 20:39:56.157" last_modified_date="2014-07-16 20:39:56.185"
+    name="New private questionnaire Sample questionnaireDefinition started" start_date="2014-07-16 20:39:56.157" type="P" createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="12"/>
+  <research_permission />
+
+  <invitation id="66" type="P" status="A" token="ALGB6SCJKW" research_id="63" respondent_id="6" />
+
   
 
   <section id="14" created_date="2014-07-16 20:39:55.133" language="EN" last_modified_date="2014-07-16 20:39:55.133" randomization_enabled="false"

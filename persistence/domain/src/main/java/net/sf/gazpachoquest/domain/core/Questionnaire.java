@@ -24,11 +24,11 @@ import javax.persistence.Transient;
 import net.sf.gazpachoquest.domain.permission.QuestionnairePermission;
 import net.sf.gazpachoquest.domain.support.AbstractSecurizable;
 import net.sf.gazpachoquest.domain.user.User;
-import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
 import net.sf.gazpachoquest.jpa.converter.EntityStatusConverter;
+import net.sf.gazpachoquest.jpa.converter.LocalDateTimeConverter;
 import net.sf.gazpachoquest.types.EntityStatus;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 @Entity
 public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> {
@@ -44,8 +44,8 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
     private final List<Breadcrumb> breadcrumbs = new ArrayList<Breadcrumb>();
 
     @Column(columnDefinition = "timestamp")
-    @Convert(converter = DateTimeConverter.class)
-    private DateTime submitDate;
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime submitDate;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Research research;
@@ -75,7 +75,7 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
         return breadcrumbs;
     }
 
-    public DateTime getSubmitDate() {
+    public LocalDateTime getSubmitDate() {
         return submitDate;
     }
 
@@ -83,7 +83,7 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
         return research;
     }
 
-    public void setSubmitDate(final DateTime submitDate) {
+    public void setSubmitDate(final LocalDateTime submitDate) {
         this.submitDate = submitDate;
     }
 
@@ -135,7 +135,7 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
     public static class Builder {
         private Integer id;
         private EntityStatus status;
-        private DateTime submitDate;
+        private LocalDateTime submitDate;
         private Research research;
         private QuestionnaireDefinition questionnaireDefinition;
         private User respondent;
@@ -151,7 +151,7 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
             return this;
         }
 
-        public Builder submitDate(DateTime submitDate) {
+        public Builder submitDate(LocalDateTime submitDate) {
             this.submitDate = submitDate;
             return this;
         }

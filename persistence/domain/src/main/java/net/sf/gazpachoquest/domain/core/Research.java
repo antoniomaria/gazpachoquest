@@ -23,13 +23,13 @@ import javax.persistence.OneToMany;
 
 import net.sf.gazpachoquest.domain.permission.ResearchPermission;
 import net.sf.gazpachoquest.domain.support.AbstractSecurizable;
-import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
 import net.sf.gazpachoquest.jpa.converter.EntityStatusConverter;
+import net.sf.gazpachoquest.jpa.converter.LocalDateTimeConverter;
 import net.sf.gazpachoquest.jpa.converter.ResearchAccessTypeConverter;
 import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.ResearchAccessType;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 @Entity
 public class Research extends AbstractSecurizable<ResearchPermission> {
@@ -46,12 +46,12 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
     private ResearchAccessType type;
 
     @Column(columnDefinition = "timestamp")
-    @Convert(converter = DateTimeConverter.class)
-    private DateTime startDate;
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime startDate;
 
     @Column(columnDefinition = "timestamp")
-    @Convert(converter = DateTimeConverter.class)
-    private DateTime expirationDate;
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime expirationDate;
 
     @OneToMany(mappedBy = "research", fetch = FetchType.LAZY)
     private final Set<Questionnaire> questionnaires = new HashSet<Questionnaire>();
@@ -63,7 +63,7 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
         super();
     }
 
-    public DateTime getExpirationDate() {
+    public LocalDateTime getExpirationDate() {
         return expirationDate;
     }
 
@@ -71,7 +71,7 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
         return name;
     }
 
-    public DateTime getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
@@ -79,7 +79,7 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
         return type;
     }
 
-    public void setExpirationDate(DateTime expirationDate) {
+    public void setExpirationDate(LocalDateTime expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -87,7 +87,7 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
         this.name = name;
     }
 
-    public void setStartDate(DateTime startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
@@ -123,8 +123,8 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
         private Integer id;
         private String name;
         private ResearchAccessType type;
-        private DateTime startDate;
-        private DateTime expirationDate;
+        private LocalDateTime startDate;
+        private LocalDateTime expirationDate;
         private EntityStatus status;
 
         public Builder id(Integer id) {
@@ -147,12 +147,12 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
             return this;
         }
 
-        public Builder startDate(DateTime startDate) {
+        public Builder startDate(LocalDateTime startDate) {
             this.startDate = startDate;
             return this;
         }
 
-        public Builder expirationDate(DateTime expirationDate) {
+        public Builder expirationDate(LocalDateTime expirationDate) {
             this.expirationDate = expirationDate;
             return this;
         }

@@ -19,6 +19,7 @@ import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.apache.shiro.subject.Subject;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -85,7 +86,7 @@ public class QuestionnaireDefinitionServiceTest extends AbstractShiroTest {
                 .questionNumberVisible(false).build();
 
         questionnaireDefinition = questionnaireDefinitionService.save(questionnaireDefinition);
-        DateTime lastModifiedDate = questionnaireDefinition.getLastModifiedDate();
+        LocalDateTime lastModifiedDate = questionnaireDefinition.getLastModifiedDate();
 
         QuestionnaireDefinition created = questionnaireDefinitionService.findOne(questionnaireDefinition.getId());
         QuestionnaireDefinitionLanguageSettings newLanguageSettings = QuestionnaireDefinitionLanguageSettings.with()

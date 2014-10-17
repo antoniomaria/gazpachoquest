@@ -9,7 +9,7 @@ package net.sf.gazpachoquest.dto.support;
 
 import net.sf.gazpachoquest.dto.AuditorDTO;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
 
@@ -17,11 +17,11 @@ public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
 
     private AuditorDTO createdBy;
 
-    private DateTime createdDate;
+    private LocalDateTime createdDate;
 
     private AuditorDTO lastModifiedBy;
 
-    private DateTime lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 
     protected AbstractAuditableDTO() {
         super();
@@ -31,7 +31,7 @@ public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
         return createdBy;
     }
 
-    public DateTime getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
@@ -39,7 +39,7 @@ public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
         return lastModifiedBy;
     }
 
-    public DateTime getLastModifiedDate() {
+    public LocalDateTime getLastModifiedDate() {
         return lastModifiedDate;
     }
 
@@ -47,7 +47,7 @@ public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
         this.createdBy = createdBy;
     }
 
-    public void setCreatedDate(final DateTime createdDate) {
+    public void setCreatedDate(final LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -55,7 +55,7 @@ public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public void setLastModifiedDate(final DateTime lastModifiedDate) {
+    public void setLastModifiedDate(final LocalDateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 

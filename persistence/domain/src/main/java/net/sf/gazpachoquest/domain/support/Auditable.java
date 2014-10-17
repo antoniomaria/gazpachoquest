@@ -2,14 +2,14 @@ package net.sf.gazpachoquest.domain.support;
 
 import net.sf.gazpachoquest.domain.user.User;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 public interface Auditable extends Persistable {
     User getCreatedBy();
 
     User getLastModifiedBy();
 
-    DateTime getCreatedDate();
+    LocalDateTime getCreatedDate();
 
-    DateTime getLastModifiedDate();
+    LocalDateTime getLastModifiedDate();
 }
