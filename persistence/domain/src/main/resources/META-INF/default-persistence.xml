@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence:persistence version="1.0" xmlns:persistence="http://java.sun.com/xml/ns/persistence"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence ../../persistence_1_0.xsd ">
- <!-- Only used by eclipselink-staticweave-maven-plugin -->
- <persistence:persistence-unit name="default">
-  <persistence:provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence:provider>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence persistence_1_0.xsd" version="1.0">
+  <!-- Only used by eclipselink-staticweave-maven-plugin -->
+  <persistence-unit name="default">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <mapping-file>META-INF/orm.xml</mapping-file>
+
+    <class>net.sf.gazpachoquest.domain.core.AnonymousInvitation</class>
+
+    <class>net.sf.gazpachoquest.domain.core.Breadcrumb</class>
+    <class>net.sf.gazpachoquest.domain.core.QuestionBreadcrumb</class>
+    <class>net.sf.gazpachoquest.domain.core.SectionBreadcrumb</class>
+
+    <class>net.sf.gazpachoquest.domain.core.Label</class>
+    <class>net.sf.gazpachoquest.domain.core.LabelSet</class>
+
+    <class>net.sf.gazpachoquest.domain.core.MailMessage</class>
+    <class>net.sf.gazpachoquest.domain.core.MailMessageTemplate</class>
+
+    <class>net.sf.gazpachoquest.domain.core.PersonalInvitation</class>
+    <class>net.sf.gazpachoquest.domain.core.Question</class>
+    <class>net.sf.gazpachoquest.domain.core.Section</class>
+    <class>net.sf.gazpachoquest.domain.core.Questionnaire</class>
+    <class>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</class>
+    <class>net.sf.gazpachoquest.domain.core.QuestionOption</class>
+
+    <class>net.sf.gazpachoquest.domain.core.Research</class>
+
+    <!-- User -->
+    <class>net.sf.gazpachoquest.domain.user.Directory</class>
+    <class>net.sf.gazpachoquest.domain.user.Group</class>
+    <class>net.sf.gazpachoquest.domain.user.Role</class>
+    <class>net.sf.gazpachoquest.domain.user.User</class>
+
+    <!-- i18 -->
+    <class>net.sf.gazpachoquest.domain.i18.LabelTranslation</class>
+    <class>net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation</class>
+    <class>net.sf.gazpachoquest.domain.i18.SectionTranslation</class>
+    <class>net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation</class>
+    <class>net.sf.gazpachoquest.domain.i18.QuestionOptionTranslation</class>
+    <class>net.sf.gazpachoquest.domain.i18.QuestionTranslation</class>
+    <class>net.sf.gazpachoquest.domain.i18.SectionTranslation</class>
+
+    <!-- Support -->
+    <class>net.sf.gazpachoquest.domain.support.Invitation</class>
+
+    <!-- Permission -->
+    <class>net.sf.gazpachoquest.domain.permission.DirectoryPermission</class>
+    <class>net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission</class>
+    <class>net.sf.gazpachoquest.domain.permission.QuestionnairePermission</class>
+    <class>net.sf.gazpachoquest.domain.permission.ResearchPermission</class>
+    <class>net.sf.gazpachoquest.domain.permission.UserPermission</class>
+    <!--
+      <properties>
+      <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
+      <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/gazpachoquest" />
+      <property name="eclipselink.jdbc.user" value="root" />
+      <property name="eclipselink.jdbc.password" value="admin" />
+      <property name="eclipselink.weaving" value="static"></property>
+      </properties>
 
 
-  <persistence:class>net.sf.gazpachoquest.domain.core.AnonymousInvitation</persistence:class>
-
-  <persistence:class>net.sf.gazpachoquest.domain.core.Breadcrumb</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.core.QuestionBreadcrumb</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.core.SectionBreadcrumb</persistence:class>
-
-  <persistence:class>net.sf.gazpachoquest.domain.core.Label</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.core.LabelSet</persistence:class>
-
-  <persistence:class>net.sf.gazpachoquest.domain.core.MailMessage</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.core.MailMessageTemplate</persistence:class>
-
-  <persistence:class>net.sf.gazpachoquest.domain.core.PersonalInvitation</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.core.Question</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.core.Section</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.core.Questionnaire</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.core.QuestionOption</persistence:class>
-
-  <persistence:class>net.sf.gazpachoquest.domain.core.Research</persistence:class>
-
-  <!-- User -->
-  <persistence:class>net.sf.gazpachoquest.domain.user.Directory</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.user.Group</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.user.Role</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.user.User</persistence:class>
-
-  <!-- i18 -->
-  <persistence:class>net.sf.gazpachoquest.domain.i18.LabelTranslation</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.i18.SectionTranslation</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.i18.QuestionOptionTranslation</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.i18.QuestionTranslation</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.i18.SectionTranslation</persistence:class>
-
-  <!-- Support -->
-  <persistence:class>net.sf.gazpachoquest.domain.support.Invitation</persistence:class>
-
-  <!-- Permission -->
-  <persistence:class>net.sf.gazpachoquest.domain.permission.DirectoryPermission</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.permission.QuestionnairePermission</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.permission.ResearchPermission</persistence:class>
-  <persistence:class>net.sf.gazpachoquest.domain.permission.UserPermission</persistence:class>
-  <!--
-   <persistence:properties>
-   <persistence:property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
-   <persistence:property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/gazpachoquest" />
-   <persistence:property name="eclipselink.jdbc.user" value="root" />
-   <persistence:property name="eclipselink.jdbc.password" value="admin" />
-   <persistence:property name="eclipselink.weaving" value="static"></persistence:property>
-   </persistence:properties>
-
-
-   <persistence:properties>
-   <persistence:property name="eclipselink.jdbc.driver" value="org.postgresql.Driver" />
-   <persistence:property name="eclipselink.jdbc.url" value="jdbc:postgresql://localhost:5432/gazpachoquest" />
-   <persistence:property name="eclipselink.jdbc.user" value="postgres" />
-   <persistence:property name="eclipselink.jdbc.password" value="admin" />
-   <persistence:property name="eclipselink.weaving" value="static"></persistence:property>
-   </persistence:properties>
-  -->
- </persistence:persistence-unit>
-</persistence:persistence>
+      <properties>
+      <property name="eclipselink.jdbc.driver" value="org.postgresql.Driver" />
+      <property name="eclipselink.jdbc.url" value="jdbc:postgresql://localhost:5432/gazpachoquest" />
+      <property name="eclipselink.jdbc.user" value="postgres" />
+      <property name="eclipselink.jdbc.password" value="admin" />
+      <property name="eclipselink.weaving" value="static"></property>
+      </properties>
+    -->
+  </persistence-unit>
+</persistence>
