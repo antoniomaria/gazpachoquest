@@ -78,9 +78,16 @@
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-core</artifactId>
     </dependency>
+    
+    <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+            <version>2.5.2</version>
+          </dependency>
   </dependencies>
   <build>
     <plugins>
+    <!-- 
       <plugin>
         <groupId>org.bsc.maven</groupId>
         <artifactId>maven-processor-plugin</artifactId>
@@ -93,12 +100,10 @@
             </goals>
             <phase>generate-sources</phase>
             <configuration>
-              <!-- <compilerArguments>-Aeclipselink.persistencexml=src/main/resources/META-INF/default-persistence.xml</compilerArguments> -->
               <compilerArguments>-Aeclipselink.persistencexml=${main.basedir}/persistence/domain/src/main/resources/META-INF/default-persistence.xml</compilerArguments>
               <processors>
                 <processor>org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor</processor>
               </processors>
-              <!-- source output directory -->
               <outputDirectory>${project.build.directory}/generated-sources/metamodel</outputDirectory>
             </configuration>
           </execution>
@@ -130,6 +135,7 @@
           </execution>
         </executions>
       </plugin>
+       -->
       <plugin>
         <groupId>de.empulse.eclipselink</groupId>
         <artifactId>staticweave-maven-plugin</artifactId>

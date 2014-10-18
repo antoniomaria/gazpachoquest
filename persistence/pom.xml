@@ -16,6 +16,7 @@
   <modules>
     <module>db</module>
     <module>domain</module>
+    <module>domain-metamodel</module>
     <module>dao</module>
     <module>qbe</module>
     <module>jpa</module>

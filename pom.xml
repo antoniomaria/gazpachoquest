@@ -259,6 +259,12 @@
 
       <dependency>
         <groupId>${project.groupId}</groupId>
+        <artifactId>gazpachoquest-domain-metamodel</artifactId>
+        <version>${project.version} </version>
+      </dependency>
+
+      <dependency>
+        <groupId>${project.groupId}</groupId>
         <artifactId>gazpachoquest-dtos</artifactId>
         <version>${project.version} </version>
       </dependency>
