@@ -5,6 +5,7 @@
  <persistence:persistence-unit name="default">
   <persistence:provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence:provider>
 
+
   <persistence:class>net.sf.gazpachoquest.domain.core.AnonymousInvitation</persistence:class>
 
   <persistence:class>net.sf.gazpachoquest.domain.core.Breadcrumb</persistence:class>
