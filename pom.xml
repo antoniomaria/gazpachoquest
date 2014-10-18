@@ -625,7 +625,6 @@
           </execution>
         </executions>
       </plugin>
-
       <plugin>
         <groupId>org.bsc.maven</groupId>
         <artifactId>maven-processor-plugin</artifactId>
@@ -642,7 +641,7 @@
               <processors>
                 <processor>org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor</processor>
               </processors>
-              <outputDirectory>${project.build.directory}/generated-sources/metamodel</outputDirectory>
+              <outputDirectory>persistence/domain/target/generated-sources/metamodel</outputDirectory>
             </configuration>
           </execution>
         </executions>
@@ -667,7 +666,7 @@
             </goals>
             <configuration>
               <sources>
-                <source>${project.build.directory}/generated-sources/metamodel/</source>
+                <source>persistence/domain/target/generated-sources/metamodel/</source>
               </sources>
             </configuration>
           </execution>
