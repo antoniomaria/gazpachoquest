@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
@@ -9,7 +10,6 @@
   <packaging>jar</packaging>
   <name>gazpachoquest-facades</name>
   <url>http://maven.apache.org</url>
-
   <dependencies>
 
     <!-- Test dependencies -->
@@ -57,7 +57,7 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-dtos</artifactId>
     </dependency>
-	<!-- Third parties -->
+    <!-- Third parties -->
     <dependency>
       <groupId>net.sf.dozer</groupId>
       <artifactId>dozer</artifactId>
@@ -67,7 +67,12 @@
       <groupId>net.sf.dozer</groupId>
       <artifactId>dozer-spring</artifactId>
     </dependency>
-
+    
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>1.1.0.Final</version>
+    </dependency>
   </dependencies>
   <profiles>
     <profile>

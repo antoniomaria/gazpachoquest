@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf.gazpachoquest</groupId>
   <artifactId>gazpachoquest</artifactId>
@@ -14,7 +15,7 @@
     <spring.asm.version>3.1.4.RELEASE</spring.asm.version>
     <slf4j.version>1.7.7</slf4j.version>
     <logback.version>1.1.2</logback.version>
-    <eclipselink.version>2.5.2</eclipselink.version>
+    <eclipselink.version>2.6.0-M3</eclipselink.version>
     <postgres.version>9.3-1101-jdbc41</postgres.version>
     <mysql.version>5.1.23</mysql.version>
     <swagger.version>1.3.7</swagger.version>
@@ -37,7 +38,7 @@
     <tag>HEAD</tag>
   </scm>
 
- <!-- http://wiki.cloudbees.com/bin/view/DEV/CloudBees+Private+Maven+Repository -->
+  <!-- http://wiki.cloudbees.com/bin/view/DEV/CloudBees+Private+Maven+Repository -->
   <distributionManagement>
     <snapshotRepository>
       <id>cloudbees-private-snapshot-repository</id>
@@ -69,7 +70,7 @@
       <id>java.net</id>
       <url>http://download.java.net/maven/2</url>
     </repository>
-  <!-- Allow access to Spring milestones and snapshots -->
+    <!-- Allow access to Spring milestones and snapshots -->
     <repository>
       <id>spring-snapshots</id>
       <url>http://repo.spring.io/snapshot</url>
@@ -84,7 +85,7 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
-  <!-- Vaadin repositories -->
+    <!-- Vaadin repositories -->
     <repository>
       <id>vaadin-addons</id>
       <url>http://maven.vaadin.com/vaadin-addons</url>
@@ -146,7 +147,7 @@
   </pluginRepositories>
   <dependencyManagement>
     <dependencies>
-   <!-- Test dependencies -->
+      <!-- Test dependencies -->
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
@@ -194,7 +195,7 @@
         <version>${easymock.version}</version>
       </dependency>
 
-   <!-- JDBC drivers -->
+      <!-- JDBC drivers -->
       <dependency>
         <groupId>org.postgresql</groupId>
         <artifactId>postgresql</artifactId>
@@ -213,7 +214,7 @@
         <version>2.3.2</version>
       </dependency>
 
-   <!-- Logger logback -->
+      <!-- Logger logback -->
       <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
@@ -238,7 +239,7 @@
         <version>${slf4j.version}</version>
       </dependency>
 
-   <!-- Project dependencies -->
+      <!-- Project dependencies -->
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>gazpachoquest-testsuite</artifactId>
@@ -329,7 +330,7 @@
         <version>${project.version} </version>
       </dependency>
 
-   <!-- Third party dependencies -->
+      <!-- Third party dependencies -->
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
@@ -397,21 +398,21 @@
         <version>${spring.version}</version>
       </dependency>
 
-   <!-- Spring data jpa -->
+      <!-- Spring data jpa -->
       <dependency>
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-jpa</artifactId>
         <version>${spring.data.jpa.version}</version>
       </dependency>
 
-   <!-- JPA 2.0 Criteria canonical metamodels generator -->
+      <!-- JPA 2.0 Criteria canonical metamodels generator -->
       <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-jpamodelgen</artifactId>
         <version>1.2.0.Final</version>
       </dependency>
 
-   <!-- Persistence providers -->
+      <!-- Persistence providers -->
       <dependency>
         <groupId>org.eclipse.persistence</groupId>
         <artifactId>eclipselink</artifactId>
@@ -437,7 +438,7 @@
       </dependency>
 
 
-   <!-- Jackson provider -->
+      <!-- Jackson provider -->
       <dependency>
         <groupId>com.fasterxml.jackson.jaxrs</groupId>
         <artifactId>jackson-jaxrs-json-provider</artifactId>
@@ -461,7 +462,7 @@
         <artifactId>jackson-datatype-joda</artifactId>
         <version>${jackson.version}</version>
       </dependency>
-   <!-- API rest documenter -->
+      <!-- API rest documenter -->
       <dependency>
         <groupId>com.wordnik</groupId>
         <artifactId>swagger-jersey2-jaxrs_2.10</artifactId>
@@ -487,41 +488,41 @@
         <artifactId>swagger-jaxrs_2.10</artifactId>
         <version>${swagger.version}</version>
       </dependency>
-   
-   <!-- Google flyway -->
+
+      <!-- Google flyway -->
       <dependency>
         <groupId>org.flywaydb</groupId>
         <artifactId>flyway-core</artifactId>
         <version>${flyway.version}</version>
       </dependency>
 
-   <!-- C3P0 DBpool -->
+      <!-- C3P0 DBpool -->
       <dependency>
         <groupId>com.mchange</groupId>
         <artifactId>c3p0</artifactId>
         <version>0.9.5-pre6</version>
       </dependency>
-   <!-- Jodatime -->
+      <!-- Jodatime -->
       <dependency>
         <groupId>joda-time</groupId>
         <artifactId>joda-time</artifactId>
         <version>${joda.time.version}</version>
       </dependency>
-   <!-- Commons lang -->
+      <!-- Commons lang -->
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
         <version>${commons.lang3.version}</version>
       </dependency>
 
-   <!-- Velocity -->
+      <!-- Velocity -->
       <dependency>
         <groupId>org.apache.velocity</groupId>
         <artifactId>velocity</artifactId>
         <version>1.7</version>
       </dependency>
 
-   <!-- Dozer mapping -->
+      <!-- Dozer mapping -->
       <dependency>
         <groupId>net.sf.dozer</groupId>
         <artifactId>dozer</artifactId>
@@ -549,15 +550,15 @@
       </dependency>
 
 
-   <!-- Aspectj -->
+      <!-- Aspectj -->
       <dependency>
         <groupId>org.aspectj</groupId>
         <artifactId>aspectjweaver</artifactId>
         <version>1.7.3</version>
       </dependency>
 
-   <!-- CGlib and ASM -->
-   <!-- Allows to weave classes that don't implement any interface. By example test classes -->
+      <!-- CGlib and ASM -->
+      <!-- Allows to weave classes that don't implement any interface. By example test classes -->
       <dependency>
         <groupId>cglib</groupId>
         <artifactId>cglib</artifactId>
@@ -571,15 +572,15 @@
       </dependency>
 
 
-   <!-- Apache cxf -->
-   <!-- Provided scope if deployed in tomee -->
+      <!-- Apache cxf -->
+      <!-- Provided scope if deployed in tomee -->
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-frontend-jaxrs</artifactId>
         <version>${cxf.version}</version>
       </dependency>
 
-   <!-- Shiro security -->
+      <!-- Shiro security -->
       <dependency>
         <groupId>org.apache.shiro</groupId>
         <artifactId>shiro-core</artifactId>
@@ -597,11 +598,11 @@
           <encoding>UTF-8</encoding>
           <source>1.7</source>
           <target>1.7</target>
-     <!-- For generating the JPA metamodel -->
+          <!-- For generating the JPA metamodel -->
           <compilerArgument>-proc:none</compilerArgument>
         </configuration>
       </plugin>
-   <!-- mvn release:perform -Dgoals='deploy -f /home/antoniomaria/git/antoniomaria/gazpachosurvey/pom.xml' -->
+      <!-- mvn release:perform -Dgoals='deploy -f /home/antoniomaria/git/antoniomaria/gazpachosurvey/pom.xml' -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
@@ -624,6 +625,55 @@
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+        <groupId>org.bsc.maven</groupId>
+        <artifactId>maven-processor-plugin</artifactId>
+        <version>3.1.0-beta1</version>
+        <executions>
+          <execution>
+            <id>eclipselink-jpa-metamodel</id>
+            <goals>
+              <goal>process</goal>
+            </goals>
+            <phase>generate-sources</phase>
+            <configuration>
+              <compilerArguments>-Aeclipselink.persistencexml=persistence/domain/src/main/resources/META-INF/default-persistence.xml</compilerArguments>
+              <processors>
+                <processor>org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor</processor>
+              </processors>
+              <outputDirectory>${project.build.directory}/generated-sources/metamodel</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+            <version>2.6.0-M3</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${project.build.directory}/generated-sources/metamodel/</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
     <extensions>
       <extension>

@@ -99,12 +99,12 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-domain</artifactId>
     </dependency>
-
+<!--  
     <dependency>
       <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-domain-metamodel</artifactId>
     </dependency>
-    
+    -->
     <!-- Spring data jpa -->
     <dependency>
       <groupId>org.springframework.data</groupId>
