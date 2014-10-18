@@ -81,7 +81,6 @@
   </dependencies>
   <build>
     <plugins>
-    <!-- 
       <plugin>
         <groupId>org.bsc.maven</groupId>
         <artifactId>maven-processor-plugin</artifactId>
@@ -129,7 +128,6 @@
           </execution>
         </executions>
       </plugin>
-       -->
       <plugin>
         <groupId>de.empulse.eclipselink</groupId>
         <artifactId>staticweave-maven-plugin</artifactId>
