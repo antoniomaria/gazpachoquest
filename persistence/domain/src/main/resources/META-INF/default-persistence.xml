@@ -4,7 +4,7 @@
   <!-- Only used by eclipselink-staticweave-maven-plugin -->
   <persistence-unit name="default">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <mapping-file>META-INF/orm.xml</mapping-file>
+    <mapping-file>persistence/domain/src/main/resources/META-INF/orm.xml</mapping-file>
 
     <class>net.sf.gazpachoquest.domain.core.AnonymousInvitation</class>
 
