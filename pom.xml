@@ -27,6 +27,7 @@
     <easymock.version>3.2</easymock.version>
     <flyway.version>3.0</flyway.version>
     <dozer.version>5.5.1</dozer.version>
+    <main.basedir>${project.basedir}</main.basedir>
   </properties>
 
   <scm>
@@ -585,7 +586,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
+        <version>3.2</version>
         <configuration>
           <encoding>UTF-8</encoding>
           <source>1.7</source>

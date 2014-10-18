@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
@@ -9,6 +10,9 @@
   <artifactId>gazpachoquest-domain</artifactId>
   <name>gazpachoquest-domain</name>
   <url>http://maven.apache.org</url>
+  <properties>
+    <main.basedir>${project.parent.parent.basedir}</main.basedir>
+  </properties>
   <dependencies>
     <!-- Test -->
     <dependency>
@@ -61,14 +65,14 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
     </dependency>
-    
+
     <!-- Logger logback -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <scope>provided</scope>
     </dependency>
-    
+
     <!-- Shiro security -->
     <dependency>
       <groupId>org.apache.shiro</groupId>
@@ -80,7 +84,7 @@
       <plugin>
         <groupId>org.bsc.maven</groupId>
         <artifactId>maven-processor-plugin</artifactId>
-        <version>2.2.4</version>
+        <version>3.1.0-beta1</version>
         <executions>
           <execution>
             <id>eclipselink-jpa-metamodel</id>
@@ -89,7 +93,8 @@
             </goals>
             <phase>generate-sources</phase>
             <configuration>
-              <compilerArguments>-Aeclipselink.persistencexml=src/main/resources/META-INF/default-persistence.xml</compilerArguments>
+              <!-- <compilerArguments>-Aeclipselink.persistencexml=src/main/resources/META-INF/default-persistence.xml</compilerArguments> -->
+              <compilerArguments>-Aeclipselink.persistencexml=${main.basedir}/persistence/domain/src/main/resources/META-INF/default-persistence.xml</compilerArguments>
               <processors>
                 <processor>org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor</processor>
               </processors>
