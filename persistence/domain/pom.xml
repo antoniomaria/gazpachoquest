@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
@@ -11,7 +10,7 @@
   <name>gazpachoquest-domain</name>
   <url>http://maven.apache.org</url>
   <properties>
-    <main.basedir>${project.parent.parent.basedir}</main.basedir>
+    <metamodel.gen.version>${eclipselink.version}</metamodel.gen.version>
   </properties>
   <dependencies>
     <!-- Test -->
@@ -78,44 +77,9 @@
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-core</artifactId>
     </dependency>
-    
-    <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
-            <version>2.5.2</version>
-          </dependency>
   </dependencies>
   <build>
     <plugins>
-    <!-- 
-      <plugin>
-        <groupId>org.bsc.maven</groupId>
-        <artifactId>maven-processor-plugin</artifactId>
-        <version>3.1.0-beta1</version>
-        <executions>
-          <execution>
-            <id>eclipselink-jpa-metamodel</id>
-            <goals>
-              <goal>process</goal>
-            </goals>
-            <phase>generate-sources</phase>
-            <configuration>
-              <compilerArguments>-Aeclipselink.persistencexml=${main.basedir}/persistence/domain/src/main/resources/META-INF/default-persistence.xml</compilerArguments>
-              <processors>
-                <processor>org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor</processor>
-              </processors>
-              <outputDirectory>${project.build.directory}/generated-sources/metamodel</outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
-            <version>2.5.2</version>
-          </dependency>
-        </dependencies>
-      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
@@ -129,13 +93,12 @@
             </goals>
             <configuration>
               <sources>
-                <source>${project.build.directory}/generated-sources/metamodel/</source>
+                <source>${basedir}/src/main/metamodel</source>
               </sources>
             </configuration>
           </execution>
         </executions>
       </plugin>
-       -->
       <plugin>
         <groupId>de.empulse.eclipselink</groupId>
         <artifactId>staticweave-maven-plugin</artifactId>
@@ -148,7 +111,7 @@
             </goals>
             <configuration>
               <persistenceXMLLocation>META-INF/default-persistence.xml</persistenceXMLLocation>
-              <logLevel>FINE</logLevel>
+              <logLevel>WARNING</logLevel>
             </configuration>
           </execution>
         </executions>
@@ -224,6 +187,61 @@
           </plugin>
         </plugins>
       </reporting>
+    </profile>
+    <profile>
+      <id>metamodel</id>
+      <activation>
+        <property>
+          <name>metamodel</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>2.6</version>
+            <configuration>
+              <filesets>
+                <fileset>
+                  <directory>src/main/java/metamodel</directory>
+                  <includes>
+                    <include>**/*.java</include>
+                  </includes>
+                  <followSymlinks>false</followSymlinks>
+                </fileset>
+              </filesets>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.bsc.maven</groupId>
+            <artifactId>maven-processor-plugin</artifactId>
+            <version>2.2.4</version>
+            <executions>
+              <execution>
+                <id>eclipselink-jpa-metamodel</id>
+                <goals>
+                  <goal>process</goal>
+                </goals>
+                <phase>generate-sources</phase>
+                <configuration>
+                  <compilerArguments>-Aeclipselink.persistencexml=src/main/resources/META-INF/default-persistence.xml</compilerArguments>
+                  <processors>
+                    <processor>org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor</processor>
+                  </processors>
+                  <outputDirectory>${basedir}/src/main/metamodel</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>org.eclipse.persistence</groupId>
+                <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+                <version>${metamodel.gen.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
 </project>
