@@ -27,7 +27,6 @@
     <easymock.version>3.2</easymock.version>
     <flyway.version>3.0</flyway.version>
     <dozer.version>5.5.1</dozer.version>
-    <main.basedir>${project.basedir}</main.basedir>
   </properties>
 
   <scm>

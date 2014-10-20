@@ -10,13 +10,9 @@
   <artifactId>gazpacho-persistence</artifactId>
   <packaging>pom</packaging>
   <name>gazpacho-persistence</name>
-  <properties>
-    <main.basedir>${project.parent.basedir}</main.basedir>
-  </properties>
   <modules>
     <module>db</module>
     <module>domain</module>
-    <module>domain-metamodel</module>
     <module>dao</module>
     <module>qbe</module>
     <module>jpa</module>
