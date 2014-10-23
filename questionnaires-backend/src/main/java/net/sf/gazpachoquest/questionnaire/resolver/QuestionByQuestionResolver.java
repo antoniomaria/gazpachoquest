@@ -31,8 +31,6 @@ import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -41,8 +39,6 @@ import org.springframework.util.Assert;
 public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcrumb> implements PageResolver {
 
     private static final Integer INITIAL_POSITION = 0;
-
-    private static final Logger logger = LoggerFactory.getLogger(QuestionByQuestionResolver.class);
 
     @Autowired
     private BreadcrumbService breadcrumbService;
@@ -110,6 +106,8 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
     @Override
     protected QuestionBreadcrumb findNextBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
             Questionnaire questionnaire, QuestionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
+        Assert.notNull(lastBreadcrumbPosition, "Questionnaire not started for the given questionnaireId = "
+                + lastBreadcrumbPosition);
 
         Breadcrumb breadcrumb = breadcrumbService.findByQuestionnaireIdAndPosition(questionnaire.getId(),
                 lastBreadcrumbPosition + 1);
@@ -130,8 +128,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
                 Integer sectionPosition = sectionService.positionInQuestionnaireDefinition(lastSection.getId());
                 Section nextSection = sectionService.findOneByPositionInQuestionnaireDefinition(
                         questionnaireDefinition.getId(), sectionPosition + 1);
-                Assert.notNull(nextSection, "Questionnaire reNo more questions available");
-                if (nextSection == null) { // TODO handle exceptions
+                if (nextSection == null) {
                     return null;
                 }
                 next = questionService.findOneByPositionInSection(nextSection.getId(), INITIAL_POSITION);
@@ -144,15 +141,16 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
             Assert.isInstanceOf(QuestionBreadcrumb.class, breadcrumb);
             nextBreadcrumb = (QuestionBreadcrumb) breadcrumb;
         }
-
         return nextBreadcrumb;
     }
 
     @Override
     protected QuestionBreadcrumb findPreviousBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
             Questionnaire questionnaire, QuestionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
+        Assert.notNull(lastBreadcrumbPosition, "Questionnaire not started for the given questionnaireId = "
+                + lastBreadcrumbPosition);
+
         if (lastBreadcrumbPosition == INITIAL_POSITION) {
-            logger.warn("Page out of range. First page is returned.");
             return null;
         }
         Breadcrumb breadcrumb = breadcrumbService.findByQuestionnaireIdAndPosition(questionnaire.getId(),

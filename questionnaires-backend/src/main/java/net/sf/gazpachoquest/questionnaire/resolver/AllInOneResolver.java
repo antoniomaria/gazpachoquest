@@ -86,13 +86,13 @@ public class AllInOneResolver extends AbstractResolver<SectionBreadcrumb> implem
     @Override
     protected SectionBreadcrumb findPreviousBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
             Questionnaire questionnaire, SectionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
-        throw new IllegalStateException("Not supported for AllInOneResolver");
+        return null;
     }
 
     @Override
     protected SectionBreadcrumb findNextBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
             Questionnaire questionnaire, SectionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
-        throw new IllegalStateException("Not supported for AllInOneResolver");
+        return null;
     }
 
     @Override

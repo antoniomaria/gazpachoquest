@@ -2,7 +2,6 @@ package net.sf.gazpachoquest.questionnaire.resolver;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
@@ -29,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.util.Assert;
 
 public abstract class AbstractResolver<T extends Breadcrumb> implements PageResolver {
 
@@ -115,16 +115,21 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
             if (NavigationAction.NEXT.equals(action)) {
                 nextBreadcrumb = findNextBreadcrumb(questionnaireDefinition, questionnaire, lastBreadcrumbs.get(0),
                         lastBreadcrumbPosition);
-                
+                Assert.notNull(nextBreadcrumb, "Page out of range");
                 lastBreadcrumbs.get(0).setLast(Boolean.FALSE);
                 breadcrumbService.save(lastBreadcrumbs.get(0));
                 
                 nextBreadcrumb.setLast(Boolean.TRUE);
-                breadcrumbService.save(nextBreadcrumb);
-                
+                if (nextBreadcrumb.isNew()){
+                    questionnaire.addBreadcrumb(nextBreadcrumb);
+                    questionnaireService.save(questionnaire);
+                }else{
+                    breadcrumbService.save(nextBreadcrumb);
+                }
             } else {// PREVIOUS
                 nextBreadcrumb = findPreviousBreadcrumb(questionnaireDefinition, questionnaire, lastBreadcrumbs.get(0),
                         lastBreadcrumbPosition);
+                Assert.notNull(nextBreadcrumb, "Page out of range");
                 if (breadcrumbCacheEnable()) {
                     lastBreadcrumbs.get(0).setLast(Boolean.FALSE);
                     breadcrumbService.save(lastBreadcrumbs.get(0));
@@ -135,6 +140,8 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
                     breadcrumbService.deleteByExample(entity,
                             new SearchParameters().after(Breadcrumb_.createdDate, nextBreadcrumb.getCreatedDate()));
                 }
+                nextBreadcrumb.setLast(Boolean.TRUE);
+                breadcrumbService.save(nextBreadcrumb);
             }
             // In all renders except AllInOne only is displayed a breadcrumb at a time 
             nextBreadcrumbs.add(nextBreadcrumb);

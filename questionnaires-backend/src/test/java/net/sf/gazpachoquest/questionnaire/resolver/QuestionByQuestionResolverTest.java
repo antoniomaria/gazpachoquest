@@ -62,9 +62,13 @@ public class QuestionByQuestionResolverTest extends AbstractShiroTest {
         assertThat(pageStructure.getSections().get(0).getQuestions().get(0).getNumber()).isEqualTo(questionNumberCounter++);
 
         // Testing out of range
-        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
-        questionIds = pageStructure.getQuestionsId();
-        assertThat(questionIds).containsExactly(13);
+        boolean exceptionThrown = false;
+        try {
+            pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
+        }catch(IllegalArgumentException e){
+            exceptionThrown = true;
+        }
+        assertThat(exceptionThrown);
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
         questionIds = pageStructure.getQuestionsId();

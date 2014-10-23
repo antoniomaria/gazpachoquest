@@ -39,6 +39,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import de.odysseus.el.ExpressionFactoryImpl;
 import de.odysseus.el.util.SimpleContext;
@@ -107,7 +108,6 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
 
         // The respondent has reached the last question group
         if (next == null) {
-            logger.warn("Page out of range. Returning last page");
             return null;
         }
         nextBreadcrumb = SectionBreadcrumb.with().questionnaire(questionnaire).section(next)
@@ -147,12 +147,12 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
             final Questionnaire questionnaire, final SectionBreadcrumb lastBreadcrumb,
             final Integer lastBreadcrumbPosition) {
         if (lastBreadcrumbPosition == INITIAL_POSITION) {
-            logger.warn("Page out of range. First page is returned.");
             return null;
         }
-        SectionBreadcrumb previous = (SectionBreadcrumb) breadcrumbService.findByQuestionnaireIdAndPosition(
+        Breadcrumb previous =  breadcrumbService.findByQuestionnaireIdAndPosition(
                 questionnaire.getId(), lastBreadcrumbPosition - 1);
-        return previous;
+        Assert.isInstanceOf(SectionBreadcrumb.class, lastBreadcrumb);
+        return (SectionBreadcrumb) previous;
     }
 
     private Section findFirstSection(int questionnairDefinitionId) {

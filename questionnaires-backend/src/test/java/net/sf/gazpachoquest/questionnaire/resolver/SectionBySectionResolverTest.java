@@ -120,9 +120,14 @@ public class SectionBySectionResolverTest extends AbstractShiroTest {
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         // Testing out of range
-        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
-        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
-
+        boolean exceptionThrown = false;
+        try {
+            pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
+        }catch(IllegalArgumentException e){
+            exceptionThrown = true;
+        }
+        assertThat(exceptionThrown);
+        
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
@@ -137,8 +142,13 @@ public class SectionBySectionResolverTest extends AbstractShiroTest {
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         // Testing out of range
-        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
-        assertThat(pageStructure.getQuestionsId()).hasSize(2);
+        exceptionThrown = false;
+        try {
+            pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
+        }catch(IllegalArgumentException e){
+            exceptionThrown = true;
+        }
+        assertThat(exceptionThrown);
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);

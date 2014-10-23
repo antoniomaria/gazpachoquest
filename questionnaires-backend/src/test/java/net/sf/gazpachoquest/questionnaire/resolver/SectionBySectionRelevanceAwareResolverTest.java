@@ -1,6 +1,5 @@
 package net.sf.gazpachoquest.questionnaire.resolver;
 
-import static org.easymock.EasyMock.createNiceMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -10,7 +9,6 @@ import java.util.List;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.core.Section;
-import net.sf.gazpachoquest.domain.core.SectionBreadcrumb;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
@@ -20,6 +18,7 @@ import net.sf.gazpachoquest.test.shiro.support.AbstractShiroTest;
 import net.sf.gazpachoquest.types.NavigationAction;
 
 import org.apache.shiro.subject.Subject;
+import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -68,18 +67,6 @@ public class SectionBySectionRelevanceAwareResolverTest extends AbstractShiroTes
         jdbcTemplate.update(insertSql, answersId);
     }
 
-    @Test
-    public void f(){
-        
-        Questionnaire q = Questionnaire.with().id(11).build();
-        SectionBreadcrumb b1 = SectionBreadcrumb.with().id(1).build();
-        SectionBreadcrumb b2 = SectionBreadcrumb.with().id(1).build();
-        q.addBreadcrumb(b1);
-        q.addBreadcrumb(b2);
-        System.out.println(q.getBreadcrumbs());
-        
-        
-    }
     @Test
     public void resolveNextPageTest() {
         Integer questionnaireId = 103;
@@ -134,9 +121,12 @@ public class SectionBySectionRelevanceAwareResolverTest extends AbstractShiroTes
         
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
         section = pageStructure.getSections().get(0);
-        questions = section.getQuestions();
-        questionIds = pageStructure.getQuestionsId();
-        System.out.println("SectionId = " + section.getId() + " questions: --->" + questionIds);
+        assertThat(section).isEqualTo(Section.with().id(97).build());
+
+        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
+        section = pageStructure.getSections().get(0);
+        assertThat(section).isEqualTo(Section.with().id(87).build());
+
         
         // assertThat(questionIds).containsExactly(13, 12, 29);
 
@@ -162,7 +152,7 @@ public class SectionBySectionRelevanceAwareResolverTest extends AbstractShiroTes
 
     @Before
     public void setUpSubject() {
-        Subject subjectUnderTest = createNiceMock(Subject.class);
+        Subject subjectUnderTest = EasyMock.createNiceMock(Subject.class);
         User support = User.with().id(1).build();
         expect(subjectUnderTest.getPrincipal()).andReturn(support).anyTimes();
         replay(subjectUnderTest);

@@ -30,8 +30,6 @@ import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -40,8 +38,6 @@ import org.springframework.util.Assert;
 public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb> implements PageResolver {
 
     private static final Integer INITIAL_POSITION = 0;
-
-    private static final Logger logger = LoggerFactory.getLogger(SectionBySectionResolver.class);
 
     @Autowired
     private BreadcrumbService breadcrumbService;
@@ -91,7 +87,7 @@ public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb
             }
 
         } else {
-            Section section = findFirstSection(questionnairDefinitionId);
+            Section section = sectionService.findOneByPositionInQuestionnaireDefinition(questionnairDefinitionId, INITIAL_POSITION);
             breadcrumb = SectionBreadcrumb.with().questionnaire(questionnaire).section(section)
                     .renderingMode(RenderingMode.SECTION_BY_SECTION).build();
             breadcrumbs.add(breadcrumb);
@@ -115,7 +111,6 @@ public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb
         if (breadcrumb == null
                 && !questionnaireDefinition.getRandomizationStrategy().equals(
                         RandomizationStrategy.QUESTIONS_RANDOMIZATION)) {
-
             Assert.isInstanceOf(SectionBreadcrumb.class, lastBreadcrumb);
 
             Integer position = sectionService.positionInQuestionnaireDefinition(lastBreadcrumb.getSection().getId());
@@ -123,7 +118,6 @@ public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb
                     position + 1);
             // The respondent has reached the last question group
             if (next == null) {
-                logger.warn("Page out of range. Returning last page");
                 return null;
             }
             nextBreadcrumb = SectionBreadcrumb.with().questionnaire(questionnaire).section(next)
@@ -146,16 +140,12 @@ public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb
             final Questionnaire questionnaire, final SectionBreadcrumb lastBreadcrumb,
             final Integer lastBreadcrumbPosition) {
         if (lastBreadcrumbPosition == INITIAL_POSITION) {
-            logger.warn("Page out of range. First page is returned.");
             return null;
         }
-
-        return (SectionBreadcrumb) breadcrumbService.findByQuestionnaireIdAndPosition(questionnaire.getId(),
+        Breadcrumb breadcrumb = breadcrumbService.findByQuestionnaireIdAndPosition(questionnaire.getId(),
                 lastBreadcrumbPosition - 1);
-    }
-
-    private Section findFirstSection(int questionnairDefinitionId) {
-        return sectionService.findOneByPositionInQuestionnaireDefinition(questionnairDefinitionId, INITIAL_POSITION);
+        Assert.isInstanceOf(SectionBreadcrumb.class, breadcrumb);
+        return (SectionBreadcrumb) breadcrumb;
     }
 
     @Override
