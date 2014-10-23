@@ -10,6 +10,7 @@ import java.util.List;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.core.Section;
+import net.sf.gazpachoquest.domain.core.SectionBreadcrumb;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
@@ -68,6 +69,18 @@ public class SectionBySectionRelevanceAwareResolverTest extends AbstractShiroTes
     }
 
     @Test
+    public void f(){
+        
+        Questionnaire q = Questionnaire.with().id(11).build();
+        SectionBreadcrumb b1 = SectionBreadcrumb.with().id(1).build();
+        SectionBreadcrumb b2 = SectionBreadcrumb.with().id(1).build();
+        q.addBreadcrumb(b1);
+        q.addBreadcrumb(b2);
+        System.out.println(q.getBreadcrumbs());
+        
+        
+    }
+    @Test
     public void resolveNextPageTest() {
         Integer questionnaireId = 103;
         Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
@@ -102,7 +115,29 @@ public class SectionBySectionRelevanceAwareResolverTest extends AbstractShiroTes
         for (Question question : questions) {
             assertThat(question.getNumber()).isEqualTo(questionNumberCount++);
         }
-        System.out.println(questionIds);
+        System.out.println("SectionId = " + section.getId() + " questions: --->" + questionIds);
+        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
+        section = pageStructure.getSections().get(0);
+        questions = section.getQuestions();
+        questionIds = pageStructure.getQuestionsId();
+        System.out.println("SectionId = " + section.getId() + " questions: --->" + questionIds);
+        
+        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
+        section = pageStructure.getSections().get(0);
+        questions = section.getQuestions();
+        questionIds = pageStructure.getQuestionsId();
+        System.out.println("SectionId = " + section.getId() + " questions: --->" + questionIds);
+        
+        // Answer No to 1st question
+        updateSql = "UPDATE questionnaire_answers_12 SET q1 = ? where id = ?";
+        jdbcTemplate.update(updateSql, "no", answersId);
+        
+        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
+        section = pageStructure.getSections().get(0);
+        questions = section.getQuestions();
+        questionIds = pageStructure.getQuestionsId();
+        System.out.println("SectionId = " + section.getId() + " questions: --->" + questionIds);
+        
         // assertThat(questionIds).containsExactly(13, 12, 29);
 
         /*-

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
+import net.sf.gazpachoquest.domain.core.Breadcrumb_;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
@@ -34,7 +35,9 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
     private static final Logger logger = LoggerFactory.getLogger(AbstractResolver.class);
 
     protected static final Integer QUESTION_NUMBER_START_COUNTER = 1;
-    
+
+    protected static final boolean BREADCRUMB_CACHE_ENABLED = true;
+
     @Autowired
     private BreadcrumbService breadcrumbService;
 
@@ -74,8 +77,8 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
 
         List<T> breadcrumbs = null;
         Integer lastBreadcrumbPosition = null;
-        if (result.isEmpty()) { // First time entering the
-                                // questionnaireDefinition
+        // First time entering the questionnaire
+        if (result.isEmpty()) {
             breadcrumbs = makeBreadcrumbs(questionnaireDefinition, questionnaire);
             leaveBreakcrumbs(questionnaire, breadcrumbs);
             populateLastBreadcrumbs(lastBreadcrumbs, breadcrumbs);
@@ -112,18 +115,28 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
             if (NavigationAction.NEXT.equals(action)) {
                 nextBreadcrumb = findNextBreadcrumb(questionnaireDefinition, questionnaire, lastBreadcrumbs.get(0),
                         lastBreadcrumbPosition);
+                
+                lastBreadcrumbs.get(0).setLast(Boolean.FALSE);
+                breadcrumbService.save(lastBreadcrumbs.get(0));
+                
+                nextBreadcrumb.setLast(Boolean.TRUE);
+                breadcrumbService.save(nextBreadcrumb);
+                
             } else {// PREVIOUS
                 nextBreadcrumb = findPreviousBreadcrumb(questionnaireDefinition, questionnaire, lastBreadcrumbs.get(0),
                         lastBreadcrumbPosition);
+                if (breadcrumbCacheEnable()) {
+                    lastBreadcrumbs.get(0).setLast(Boolean.FALSE);
+                    breadcrumbService.save(lastBreadcrumbs.get(0));
+                } else {
+                    // Removed displayed questions from breadcrumbs
+                    Breadcrumb entity = Breadcrumb.withProps()
+                            .questionnaire(Questionnaire.with().id(questionnaire.getId()).build()).build();
+                    breadcrumbService.deleteByExample(entity,
+                            new SearchParameters().after(Breadcrumb_.createdDate, nextBreadcrumb.getCreatedDate()));
+                }
             }
-            // Prevent that sections are still in range.
-            if (nextBreadcrumb != null) {
-                lastBreadcrumbs.get(0).setLast(Boolean.FALSE);
-                nextBreadcrumb.setLast(Boolean.TRUE);
-                leaveBreakcrumbs(questionnaire, Arrays.asList(lastBreadcrumbs.get(0), nextBreadcrumb));
-            } else {
-                nextBreadcrumb = lastBreadcrumbs.get(0);
-            }
+            // In all renders except AllInOne only is displayed a breadcrumb at a time 
             nextBreadcrumbs.add(nextBreadcrumb);
         }
         return createPageStructure(questionnaireDefinition.getRandomizationStrategy(), nextBreadcrumbs);
@@ -189,6 +202,10 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
             }
             lastBreadcrumbs.add(breadcrumb);
         }
+    }
+
+    protected boolean breadcrumbCacheEnable() {
+        return BREADCRUMB_CACHE_ENABLED;
     }
 
     protected void shuffle(List<Question> questions) {

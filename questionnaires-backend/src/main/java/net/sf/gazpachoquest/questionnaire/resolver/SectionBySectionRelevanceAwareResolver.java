@@ -77,7 +77,8 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
                 .renderingMode(RenderingMode.SECTION_BY_SECTION).build();
         breadcrumbs.add(breadcrumb);
         populateQuestionsBreadcrumbs(breadcrumbs, QUESTION_NUMBER_START_COUNTER);
-        // Store questions displayed  number in order to generate the question numbers.
+        // Store questions displayed number in order to generate the question
+        // numbers.
         breadcrumb.setQuestionsDisplayedCount(breadcrumb.getQuestionsBreadcrumbCount());
         breadcrumbs.get(0).setLast(Boolean.TRUE);
         return breadcrumbs;
@@ -113,7 +114,8 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
                 .renderingMode(RenderingMode.SECTION_BY_SECTION).build();
         Integer questionsDisplayedCount = lastBreadcrumb.getQuestionsDisplayedCount();
         populateQuestionsBreadcrumbs(Arrays.asList(nextBreadcrumb), questionsDisplayedCount + 1);
-        nextBreadcrumb.setQuestionsDisplayedCount(questionsDisplayedCount + nextBreadcrumb.getQuestionsBreadcrumbCount());
+        nextBreadcrumb.setQuestionsDisplayedCount(questionsDisplayedCount
+                + nextBreadcrumb.getQuestionsBreadcrumbCount());
         return nextBreadcrumb;
     }
 
@@ -126,8 +128,8 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
         for (Entry<String, Object> answer : answers.entrySet()) {
             String code = answer.getKey();
             Object value = answer.getValue();
-            if (value != null){
-                context.setVariable(code, elFactory.createValueExpression(value, value.getClass()));    
+            if (value != null) {
+                context.setVariable(code, elFactory.createValueExpression(value, value.getClass()));
             }
         }
         Boolean revealed = false;
@@ -148,14 +150,19 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
             logger.warn("Page out of range. First page is returned.");
             return null;
         }
-
-        return (SectionBreadcrumb) breadcrumbService.findByQuestionnaireIdAndPosition(questionnaire.getId(),
-                lastBreadcrumbPosition - 1);
+        SectionBreadcrumb previous = (SectionBreadcrumb) breadcrumbService.findByQuestionnaireIdAndPosition(
+                questionnaire.getId(), lastBreadcrumbPosition - 1);
+        return previous;
     }
 
     private Section findFirstSection(int questionnairDefinitionId) {
         // It assumes that the first section is always displayed
         return sectionService.findOneByPositionInQuestionnaireDefinition(questionnairDefinitionId, INITIAL_POSITION);
+    }
+
+    @Override
+    protected boolean breadcrumbCacheEnable() {
+        return false;
     }
 
     @Override

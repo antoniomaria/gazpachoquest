@@ -130,7 +130,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
                 Integer sectionPosition = sectionService.positionInQuestionnaireDefinition(lastSection.getId());
                 Section nextSection = sectionService.findOneByPositionInQuestionnaireDefinition(
                         questionnaireDefinition.getId(), sectionPosition + 1);
-
+                Assert.notNull(nextSection, "Questionnaire reNo more questions available");
                 if (nextSection == null) { // TODO handle exceptions
                     return null;
                 }

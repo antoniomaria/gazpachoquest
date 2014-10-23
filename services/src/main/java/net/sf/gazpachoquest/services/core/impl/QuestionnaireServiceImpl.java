@@ -21,6 +21,8 @@ import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
 import net.sf.gazpachoquest.services.QuestionnaireService;
 import net.sf.gazpachoquest.types.EntityStatus;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class QuestionnaireServiceImpl extends AbstractPersistenceService<Questionnaire> implements QuestionnaireService {
 
+    private static Logger logger = LoggerFactory.getLogger(QuestionnaireServiceImpl.class);
+    
     @Autowired
     private QuestionnaireAnswersRepository questionnaireAnswersRepository;
 
@@ -61,8 +65,7 @@ public class QuestionnaireServiceImpl extends AbstractPersistenceService<Questio
             }
             for (Breadcrumb breadcrumb : questionnaire.getBreadcrumbs()) {
                 if (!breadcrumb.isNew()) {
-                    int pos = existing.getBreadcrumbs().indexOf(breadcrumb);
-                    existing.getBreadcrumbs().get(pos).setLast(breadcrumb.isLast());
+                    logger.warn(" {} won't be updated. Use instead BreadcrumbService interface", breadcrumb );
                     continue;
                 }
                 existing.getBreadcrumbs().add(breadcrumb);
