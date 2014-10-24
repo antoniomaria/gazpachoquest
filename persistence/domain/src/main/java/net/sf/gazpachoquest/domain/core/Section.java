@@ -72,6 +72,7 @@ public class Section extends AbstractLocalizable<SectionTranslation, SectionLang
     private Boolean randomizationEnabled;
     
     @Lob
+    @Column(nullable = false)
     private String relevance;
 
     public Section() {

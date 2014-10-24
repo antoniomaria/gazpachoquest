@@ -62,6 +62,7 @@ public class QuestionnaireDefinition
 
     @Convert(converter = EntityStatusConverter.class)
     @XmlTransient
+    @Column(nullable = false)
     private EntityStatus status;
 
     @Embedded

@@ -33,7 +33,6 @@ public class JavaPerformanceSurveyCreator {
 
         // Section 1
         SectionDTO section = SectionDTO.with().language(Language.EN).randomizationEnabled(false).build();
-
         questionnaireDefinition.addSection(section);
         questionnaireDefinition = questionnaireDefinitionEditorFacade.save(questionnaireDefinition);
 
@@ -44,8 +43,8 @@ public class JavaPerformanceSurveyCreator {
                 .title("Have you faced any Java performance issues during the past 12 months? ").languageSettingsEnd()
                 .required(true).build();
 
-        question.addQuestionOption(QuestionOptionDTO.with().code("O1").language(Language.EN).title("Yes").build());
-        question.addQuestionOption(QuestionOptionDTO.with().code("O2").language(Language.EN).title("No").build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("yes").language(Language.EN).title("Yes").build());
+        question.addQuestionOption(QuestionOptionDTO.with().code("no").language(Language.EN).title("No").build());
 
         section.addQuestion(question);
         section = questionnaireDefinitionEditorFacade.save(section);
@@ -58,7 +57,7 @@ public class JavaPerformanceSurveyCreator {
                 .pageLanguageSettingsStart()
                 .title("In case you faced several performance issues during the past year, "
                         + "describe just one while answering the following questions.").pageLanguageSettingsEnd()
-                .build();
+                .relevance("${q1=='yes'}").build();
         questionnaireDefinition.addSection(section);
         questionnaireDefinition = questionnaireDefinitionEditorFacade.save(questionnaireDefinition);
 
@@ -245,10 +244,10 @@ public class JavaPerformanceSurveyCreator {
                 .pageLanguageSettingsStart()
                 .title("As you do not seem to have faced any performance issues with Java applications, the rest of the survey questions were not applicable."
                         + " But we are still happy to offer you the possibility to get access to 3-months license and participate in Amazon gift card raffle.")
-                .pageLanguageSettingsEnd().build();
+                .pageLanguageSettingsEnd().relevance("${q1=='no'}").build();
         questionnaireDefinition.addSection(section);
         questionnaireDefinition = questionnaireDefinitionEditorFacade.save(questionnaireDefinition);
-        
+
         section = SectionDTO
                 .with()
                 .language(Language.EN)

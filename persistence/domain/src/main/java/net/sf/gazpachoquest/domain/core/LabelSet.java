@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,7 +31,7 @@ public class LabelSet extends AbstractPersistable {
 
     private static final long serialVersionUID = -8780599348940056785L;
 
-    @Basic(optional = false)
+    @Column(nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "labelSet", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)

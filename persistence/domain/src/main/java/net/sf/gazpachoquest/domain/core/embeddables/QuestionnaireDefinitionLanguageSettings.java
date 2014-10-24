@@ -36,6 +36,7 @@ public class QuestionnaireDefinitionLanguageSettings implements LanguageSettings
     private String welcomeText;
 
     @Lob
+    @Column(nullable = false)
     private String endText;
 
     public QuestionnaireDefinitionLanguageSettings() {
@@ -78,6 +79,14 @@ public class QuestionnaireDefinitionLanguageSettings implements LanguageSettings
 
     public void setWelcomeText(String welcomeText) {
         this.welcomeText = welcomeText;
+    }
+
+    public String getEndText() {
+        return endText;
+    }
+
+    public void setEndText(String endText) {
+        this.endText = endText;
     }
 
     public static Builder with() {

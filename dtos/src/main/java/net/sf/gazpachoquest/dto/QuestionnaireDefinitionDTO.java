@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import net.sf.gazpachoquest.dto.embeddables.QuestionnaireDefinitionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.support.AbstractAuditableDTO;
 import net.sf.gazpachoquest.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachoquest.types.Language;
@@ -52,7 +53,6 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
     private Integer questionsPerPage;
 
     private RenderingMode renderingMode;
-
 
     
     public QuestionnaireDefinitionDTO() {

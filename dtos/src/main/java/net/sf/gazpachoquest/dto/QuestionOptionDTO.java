@@ -10,6 +10,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto;
 
+import net.sf.gazpachoquest.dto.embeddables.QuestionOptionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachoquest.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachoquest.types.Language;

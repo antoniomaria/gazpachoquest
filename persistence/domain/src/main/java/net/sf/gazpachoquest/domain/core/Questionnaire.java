@@ -10,7 +10,6 @@ package net.sf.gazpachoquest.domain.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -57,7 +56,6 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User respondent;
 
-    @Basic
     private Integer answersId;
 
     public Questionnaire() {

@@ -8,8 +8,9 @@
  * Contributors:
  *     antoniomaria - initial API and implementation
  ******************************************************************************/
-package net.sf.gazpachoquest.dto;
+package net.sf.gazpachoquest.dto.embeddables;
 
+import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.support.LanguageSettingsDTO;
 
 import com.wordnik.swagger.annotations.ApiModel;
@@ -24,6 +25,8 @@ public class QuestionnaireDefinitionLanguageSettingsDTO implements LanguageSetti
     private String title;
 
     private String welcomeText;
+
+    private String endText;
 
     public QuestionnaireDefinitionLanguageSettingsDTO() {
         super();
@@ -49,6 +52,14 @@ public class QuestionnaireDefinitionLanguageSettingsDTO implements LanguageSetti
         this.title = title;
     }
 
+    public String getEndText() {
+        return endText;
+    }
+
+    public void setEndText(String endText) {
+        this.endText = endText;
+    }
+
     public void setWelcomeText(final String welcomeText) {
         this.welcomeText = welcomeText;
     }
@@ -69,15 +80,18 @@ public class QuestionnaireDefinitionLanguageSettingsDTO implements LanguageSetti
 
         Builder title(String title);
 
+        Builder endText(String endText);
+
         Builder welcomeText(String welcomeText);
 
     }
 
     public static class BuilderImpl implements Builder {
         private final QuestionnaireDefinitionDTO.Builder container;
-        private String description;
+        private String description = "";
         private String title;
-        private String welcomeText;
+        private String welcomeText = "";
+        private String endText = "";
 
         public BuilderImpl(final QuestionnaireDefinitionDTO.Builder container) {
             this.container = container;
@@ -89,6 +103,7 @@ public class QuestionnaireDefinitionLanguageSettingsDTO implements LanguageSetti
             questionnaireDefinitionLanguageSettingsDTO.title = title;
             questionnaireDefinitionLanguageSettingsDTO.description = description;
             questionnaireDefinitionLanguageSettingsDTO.welcomeText = welcomeText;
+            questionnaireDefinitionLanguageSettingsDTO.endText = endText;
             return questionnaireDefinitionLanguageSettingsDTO;
         }
 
@@ -112,6 +127,12 @@ public class QuestionnaireDefinitionLanguageSettingsDTO implements LanguageSetti
         @Override
         public BuilderImpl welcomeText(final String welcomeText) {
             this.welcomeText = welcomeText;
+            return this;
+        }
+
+        @Override
+        public Builder endText(String endText) {
+            this.endText = endText;
             return this;
         }
     }

@@ -16,10 +16,10 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlTransient;
 
-import net.sf.gazpachoquest.dto.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.answers.AbstractAnswer;
 import net.sf.gazpachoquest.dto.answers.Answer;
+import net.sf.gazpachoquest.dto.embeddables.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 
@@ -44,11 +44,21 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
 
     @XmlTransient
     protected Answer answer;
+    
+    private String relevance;
 
     protected AbstractQuestionDTO() {
         super();
     }
 
+    public String getRelevance() {
+        return relevance;
+    }
+
+    public void setRelevance(String relevance) {
+        this.relevance = relevance;
+    }
+    
     public String getCode() {
         return code;
     }

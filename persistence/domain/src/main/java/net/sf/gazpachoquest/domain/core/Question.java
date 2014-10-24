@@ -101,6 +101,7 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     private Integer number;
     
     @Lob
+    @Column(nullable = false)
     private String relevance;
     
     public Question() {

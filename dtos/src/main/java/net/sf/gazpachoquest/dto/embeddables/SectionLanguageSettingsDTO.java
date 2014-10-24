@@ -8,8 +8,9 @@
  * Contributors:
  *     antoniomaria - initial API and implementation
  ******************************************************************************/
-package net.sf.gazpachoquest.dto;
+package net.sf.gazpachoquest.dto.embeddables;
 
+import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.support.LanguageSettingsDTO;
 
 public class SectionLanguageSettingsDTO implements LanguageSettingsDTO {
@@ -62,9 +63,9 @@ public class SectionLanguageSettingsDTO implements LanguageSettingsDTO {
     public static class BuilderImpl implements Builder {
         private final SectionDTO.Builder container;
 
-        private String title;
+        private String title = "";
 
-        private String description;
+        private String description = "";
 
         public BuilderImpl(final SectionDTO.Builder container) {
             this.container = container;

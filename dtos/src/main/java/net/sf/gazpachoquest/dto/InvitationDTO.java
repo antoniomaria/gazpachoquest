@@ -69,7 +69,7 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
         private InvitationStatus status;
         private ResearchDTO research;
 
-        private String token;
+        private String token = "";
         private InvitationType type;
 
         public InvitationDTO build() {

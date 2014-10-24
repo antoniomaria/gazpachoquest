@@ -39,10 +39,12 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
     @Column(nullable = false)
     @Convert(converter = EntityStatusConverter.class)
     private EntityStatus status;
-
+    
+    @Column(nullable = false)
     private String name;
 
     @Convert(converter = ResearchAccessTypeConverter.class)
+    @Column(nullable = false)
     private ResearchAccessType type;
 
     @Column(columnDefinition = "timestamp")

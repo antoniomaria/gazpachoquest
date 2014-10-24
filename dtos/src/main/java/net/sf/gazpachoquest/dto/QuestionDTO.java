@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import net.sf.gazpachoquest.dto.embeddables.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.support.AbstractQuestionDTO;
 import net.sf.gazpachoquest.dto.support.LanguageSettingsContainerBuilder;
 import net.sf.gazpachoquest.types.Language;
@@ -49,13 +50,14 @@ public class QuestionDTO extends AbstractQuestionDTO {
     public static class BuilderImpl implements LanguageSettingsContainerBuilder<BuilderImpl> {
         private String code;
         private Integer id;
-        private boolean required;
-        private boolean otherAllowed;
+        private Boolean required = Boolean.FALSE;
+        private Boolean otherAllowed = Boolean.FALSE;
         private Language language;
         private QuestionLanguageSettingsDTO languageSettings;
         private QuestionType type;
         private Integer number;
-
+        private String relevance = "";
+        
         public BuilderImpl id(final Integer id) {
             this.id = id;
             return this;
@@ -111,6 +113,7 @@ public class QuestionDTO extends AbstractQuestionDTO {
             questionDTO.languageSettings = languageSettings;
             questionDTO.setOtherAllowed(otherAllowed);
             questionDTO.number = number;
+            questionDTO.setRelevance(relevance);
             return questionDTO;
         }
 

@@ -10,6 +10,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.domain.core;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,6 +30,7 @@ public class QuestionBreadcrumb extends Breadcrumb {
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     private Breadcrumb parent;
 
+    @Column(nullable = false)
     private Integer questionNumber;
 
     public QuestionBreadcrumb() {

@@ -22,9 +22,11 @@ public class SectionLanguageSettings implements LanguageSettings {
     private static final long serialVersionUID = -3294430575682341044L;
     
     @Lob
+    @Column(nullable = false)
     private String title;
 
     @Lob
+    @Column(nullable = false)
     private String description;
 
     public SectionLanguageSettings() {

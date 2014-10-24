@@ -8,7 +8,7 @@
  * Contributors:
  *     antoniomaria - initial API and implementation
  ******************************************************************************/
-package net.sf.gazpachoquest.dto;
+package net.sf.gazpachoquest.dto.embeddables;
 
 import net.sf.gazpachoquest.dto.support.LanguageSettingsContainerBuilder;
 import net.sf.gazpachoquest.dto.support.LanguageSettingsDTO;
@@ -44,7 +44,7 @@ public class QuestionLanguageSettingsDTO implements LanguageSettingsDTO {
 
         private String title;
 
-        private String explanation;
+        private String explanation = "";
 
         private final C container;
 
@@ -85,7 +85,7 @@ public class QuestionLanguageSettingsDTO implements LanguageSettingsDTO {
 
     public static class Builder {
         private String title;
-        private String explanation;
+        private String explanation = "";
 
         public Builder title(String title) {
             this.title = title;

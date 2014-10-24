@@ -25,21 +25,27 @@ public class MailMessage extends AbstractPersistable {
 
     private static final long serialVersionUID = 2597367892321945501L;
 
+    @Column(nullable = false)
     private String subject;
 
+    @Column(nullable = false)
     private String toAddress;
 
+    @Column(nullable = false)
     private String fromAddress;
 
+    @Column(nullable = false)
     private String replyTo;
 
     @Lob
+    @Column(nullable = false)
     private String body;
 
     @Column(columnDefinition = "timestamp")
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime sentDate;
 
+    @Column(nullable = false)
     private Integer deliveryAttempts;
 
     public MailMessage() {

@@ -23,6 +23,7 @@ public class QuestionLanguageSettings implements LanguageSettings {
     @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private String explanation;
 
     public QuestionLanguageSettings() {
@@ -41,8 +42,8 @@ public class QuestionLanguageSettings implements LanguageSettings {
         return explanation;
     }
 
-    public void setExplanation(String help) {
-        this.explanation = help;
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
     }
 
     @Override

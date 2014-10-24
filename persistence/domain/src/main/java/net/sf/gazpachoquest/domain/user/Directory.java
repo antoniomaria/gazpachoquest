@@ -21,7 +21,8 @@ public class Directory extends AbstractSecurizable<DirectoryPermission> {
 
     @Column(nullable = false)
     private String name;
-
+    
+    @Column(nullable = false)
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)

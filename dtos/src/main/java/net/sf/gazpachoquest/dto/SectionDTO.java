@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import net.sf.gazpachoquest.dto.embeddables.SectionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.support.AbstractAuditableDTO;
 import net.sf.gazpachoquest.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachoquest.types.Language;
@@ -31,6 +32,8 @@ public class SectionDTO extends AbstractAuditableDTO implements
     private final List<QuestionDTO> questions = new ArrayList<>();
 
     private Boolean randomizationEnabled;
+
+    private String relevance;
 
     public SectionDTO() {
         super();
@@ -78,6 +81,14 @@ public class SectionDTO extends AbstractAuditableDTO implements
         this.randomizationEnabled = randomizationEnabled;
     }
 
+    public String getRelevance() {
+        return relevance;
+    }
+
+    public void setRelevance(String relevance) {
+        this.relevance = relevance;
+    }
+
     public static interface Builder {
 
         SectionDTO build();
@@ -88,22 +99,30 @@ public class SectionDTO extends AbstractAuditableDTO implements
 
         Builder languageSettings(SectionLanguageSettingsDTO languageSettings);
 
+        Builder relevance(String relevance);
+        
         SectionLanguageSettingsDTO.Builder pageLanguageSettingsStart();
     }
 
     public static class BuilderImpl implements Builder {
         private Language language;
 
-        private Boolean randomizationEnabled;
+        private Boolean randomizationEnabled = Boolean.FALSE;
 
         private SectionLanguageSettingsDTO languageSettings;
+        
+        private String relevance = "";
 
         @Override
         public SectionDTO build() {
             SectionDTO sectionDTO = new SectionDTO();
+            if (languageSettings == null){
+                languageSettings = pageLanguageSettingsStart().build();
+            }
             sectionDTO.languageSettings = languageSettings;
             sectionDTO.language = language;
             sectionDTO.randomizationEnabled = randomizationEnabled;
+            sectionDTO.relevance = relevance;
             return sectionDTO;
         }
 
@@ -127,6 +146,12 @@ public class SectionDTO extends AbstractAuditableDTO implements
         @Override
         public Builder randomizationEnabled(Boolean randomizationEnabled) {
             this.randomizationEnabled = randomizationEnabled;
+            return this;
+        }
+
+        @Override
+        public Builder relevance(String relevance) {
+            this.relevance = relevance;
             return this;
         }
     }

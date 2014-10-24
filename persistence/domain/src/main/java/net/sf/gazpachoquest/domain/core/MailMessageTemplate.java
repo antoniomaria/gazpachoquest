@@ -51,9 +51,11 @@ public class MailMessageTemplate extends
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Language language;
-
+    
+    @Column(nullable = false)
     private String fromAddress;
 
+    @Column(nullable = false)
     private String replyTo;
 
     @Embedded

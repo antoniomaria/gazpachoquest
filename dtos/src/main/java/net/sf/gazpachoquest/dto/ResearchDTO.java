@@ -7,12 +7,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import net.sf.gazpachoquest.dto.support.AbstractAuditableDTO;
-import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachoquest.types.ResearchAccessType;
 
 import org.joda.time.DateTime;

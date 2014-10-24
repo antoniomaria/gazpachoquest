@@ -2,7 +2,6 @@
 <mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://dozer.sourceforge.net
           http://dozer.sourceforge.net/schema/beanmapping.xsd">
-
   <!-- LabelSet Mappings -->
   <mapping type="one-way">
     <class-a>net.sf.gazpachoquest.dto.LabelSetDTO</class-a>
@@ -160,7 +159,7 @@
   </mapping>
 
   <!-- QuestionnaireDefinition Mappings -->
-  <mapping type="one-way">
+  <mapping type="one-way" map-empty-string="true">
     <class-a>net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO</class-a>
     <class-b>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition
     </class-b>

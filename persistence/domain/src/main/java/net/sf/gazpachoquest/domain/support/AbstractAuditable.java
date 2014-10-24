@@ -32,7 +32,7 @@ public abstract class AbstractAuditable extends AbstractPersistable implements A
     @XmlTransient
     private User createdBy;
 
-    @Column(columnDefinition = "timestamp")
+    @Column(columnDefinition = "timestamp", nullable = false)
     @Convert(converter = LocalDateTimeConverter.class)
     @CreatedDate
     @XmlTransient
@@ -43,7 +43,7 @@ public abstract class AbstractAuditable extends AbstractPersistable implements A
     @XmlTransient
     private User lastModifiedBy;
 
-    @Column(columnDefinition = "timestamp")
+    @Column(columnDefinition = "timestamp", nullable = false)
     @Convert(converter = LocalDateTimeConverter.class)
     @LastModifiedDate
     @XmlTransient
