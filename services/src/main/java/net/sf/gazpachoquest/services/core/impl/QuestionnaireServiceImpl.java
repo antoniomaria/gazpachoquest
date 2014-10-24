@@ -49,7 +49,7 @@ public class QuestionnaireServiceImpl extends AbstractPersistenceService<Questio
             } else if (questionnaire.getStatus().equals(EntityStatus.CONFIRMED)) {
                 // Create answers holder
                 QuestionnaireAnswers questionnaireAnswers = new QuestionnaireAnswers();
-                questionnaireAnswers = questionnaireAnswersRepository.save(questionnaire.getQuestionnairDefinition()
+                questionnaireAnswers = questionnaireAnswersRepository.save(questionnaire.getQuestionnaireDefinition()
                         .getId(), questionnaireAnswers);
                 questionnaire.setAnswersId(questionnaireAnswers.getId());
             }

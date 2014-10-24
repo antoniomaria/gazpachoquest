@@ -54,13 +54,13 @@ public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb
             Questionnaire questionnaire) {
         List<SectionBreadcrumb> breadcrumbs = new ArrayList<>();
         SectionBreadcrumb breadcrumb = null;
-        Integer questionnairDefinitionId = questionnaireDefinition.getId();
+        Integer questionnaireDefinitionId = questionnaireDefinition.getId();
         RandomizationStrategy randomizationStrategy = questionnaireDefinition.getRandomizationStrategy();
         if (RandomizationStrategy.SECTIONS_RANDOMIZATION.equals(randomizationStrategy)) {
             List<Section> sections = sectionService.findByExample(
                     Section.with()
                             .questionnaireDefinition(
-                                    QuestionnaireDefinition.with().id(questionnairDefinitionId).build()).build(),
+                                    QuestionnaireDefinition.with().id(questionnaireDefinitionId).build()).build(),
                     new SearchParameters());
             Collections.shuffle(sections);
             for (Section section : sections) {
@@ -70,7 +70,7 @@ public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb
             }
             populateQuestionsBreadcrumbs(breadcrumbs, QUESTION_NUMBER_START_COUNTER);
         } else if (RandomizationStrategy.QUESTIONS_RANDOMIZATION.equals(randomizationStrategy)) {
-            List<Question> questions = questionnaireDefinitionService.getQuestions(questionnairDefinitionId);
+            List<Question> questions = questionnaireDefinitionService.getQuestions(questionnaireDefinitionId);
             Collections.shuffle(questions);
             Integer questionPerPage = questionnaireDefinition.getQuestionsPerPage();
             int questionIdx = 0;
@@ -87,7 +87,7 @@ public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb
             }
 
         } else {
-            Section section = sectionService.findOneByPositionInQuestionnaireDefinition(questionnairDefinitionId, INITIAL_POSITION);
+            Section section = sectionService.findOneByPositionInQuestionnaireDefinition(questionnaireDefinitionId, INITIAL_POSITION);
             breadcrumb = SectionBreadcrumb.with().questionnaire(questionnaire).section(section)
                     .renderingMode(RenderingMode.SECTION_BY_SECTION).build();
             breadcrumbs.add(breadcrumb);

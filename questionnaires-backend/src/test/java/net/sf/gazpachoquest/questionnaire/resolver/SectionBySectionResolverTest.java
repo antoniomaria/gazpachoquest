@@ -58,7 +58,6 @@ public class SectionBySectionResolverTest extends AbstractShiroTest {
         Integer questionnaireId = 58;
         Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
         PageStructure pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.ENTERING);
-
         List<Integer> questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(13, 12, 29);
 
@@ -70,10 +69,14 @@ public class SectionBySectionResolverTest extends AbstractShiroTest {
         }
 
         // Testing out of range
-        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
-        questionIds = pageStructure.getQuestionsId();
-        assertThat(questionIds).containsExactly(13, 12, 29);
-
+        boolean exceptionThrown = false;
+        try {
+            pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
+        }catch(IllegalArgumentException e){
+            exceptionThrown = true;
+        }
+        assertThat(exceptionThrown).isTrue();
+        
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
         questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(30, 31, 35);
@@ -85,13 +88,20 @@ public class SectionBySectionResolverTest extends AbstractShiroTest {
         }
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
+        
+        section = pageStructure.getSections().get(0);
+        assertThat(section).isEqualTo(Section.with().id(11).build());
         questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(39, 50);
 
         // Testing out of range
-        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
-        questionIds = pageStructure.getQuestionsId();
-        assertThat(questionIds).containsExactly(39, 50);
+        exceptionThrown = false;
+        try {
+            pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
+        }catch(IllegalArgumentException e){
+            exceptionThrown = true;
+        }
+        assertThat(exceptionThrown).isTrue();
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
         questionIds = pageStructure.getQuestionsId();

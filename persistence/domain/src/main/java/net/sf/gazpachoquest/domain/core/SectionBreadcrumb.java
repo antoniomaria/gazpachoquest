@@ -22,6 +22,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 
+import org.springframework.util.Assert;
+
 import net.sf.gazpachoquest.types.RenderingMode;
 
 @Entity
@@ -107,16 +109,19 @@ public class SectionBreadcrumb extends Breadcrumb {
             return this;
         }
         public Builder renderingMode(RenderingMode renderingMode) {
+            Assert.notNull(renderingMode);
             this.renderingMode = renderingMode;
             return this;
         }
 
         public Builder questionnaire(Questionnaire questionnaire) {
+            Assert.notNull(questionnaire);
             this.questionnaire = questionnaire;
             return this;
         }
 
         public Builder section(Section section) {
+            Assert.notNull(section);
             this.section = section;
             return this;
         }

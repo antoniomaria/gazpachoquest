@@ -111,7 +111,7 @@ public class QuestionnaireFacadeImpl implements QuestionnaireFacade {
             NavigationAction action) {
         Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
         if (mode == null) {
-            mode = questionnaire.getQuestionnairDefinition().getRenderingMode();
+            mode = questionnaire.getQuestionnaireDefinition().getRenderingMode();
         }
         PageResolver resolver = resolverSelector.selectBy(mode);
         logger.info("Requesting page {} for questionnaireId = {} in language {} using renderingMode = {}",

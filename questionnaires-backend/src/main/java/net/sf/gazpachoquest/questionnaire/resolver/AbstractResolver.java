@@ -67,11 +67,14 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
     @Override
     public PageStructure resolveNextPage(final Questionnaire questionnaire, final NavigationAction action) {
         Questionnaire fetchedQuestionnair = questionnaireService.findOne(questionnaire.getId());
-        QuestionnaireDefinition questionnaireDefinition = fetchedQuestionnair.getQuestionnairDefinition();
+        QuestionnaireDefinition questionnaireDefinition = fetchedQuestionnair.getQuestionnaireDefinition();
         int questionnaireId = questionnaire.getId();
-        logger.debug("Finding {} page for questionnaire {}", action.toString(), questionnaireId);
+        logger.debug("Fetching {} page for questionnaire {}", action.toString(), questionnaireId);
 
         List<Object[]> result = breadcrumbService.findLastAndPosition(questionnaireId);
+        if (!type.equals(RenderingMode.ALL_IN_ONE)){
+            Assert.state(result.size() <= 1, "Found more than one visible breadcrumb");
+        }
         T breadcrumb = null;
         List<T> lastBreadcrumbs = new ArrayList<>();
 

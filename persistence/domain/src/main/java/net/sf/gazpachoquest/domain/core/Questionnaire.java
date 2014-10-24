@@ -29,6 +29,7 @@ import net.sf.gazpachoquest.jpa.converter.LocalDateTimeConverter;
 import net.sf.gazpachoquest.types.EntityStatus;
 
 import org.joda.time.LocalDateTime;
+import org.springframework.util.Assert;
 
 @Entity
 public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> {
@@ -64,6 +65,8 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
     }
 
     public void addBreadcrumb(Breadcrumb breadcrumb) {
+        Assert.notNull(breadcrumb);
+        breadcrumb.setQuestionnaire(this);
         breadcrumbs.add(breadcrumb);
     }
 
@@ -91,11 +94,11 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
         this.research = research;
     }
 
-    public QuestionnaireDefinition getQuestionnairDefinition() {
+    public QuestionnaireDefinition getQuestionnaireDefinition() {
         return questionnaireDefinition;
     }
 
-    public void setQuestionnairDefinition(QuestionnaireDefinition questionnaireDefinition) {
+    public void setQuestionnaireDefinition(QuestionnaireDefinition questionnaireDefinition) {
         this.questionnaireDefinition = questionnaireDefinition;
     }
 

@@ -137,7 +137,7 @@ public class QuestionnaireDefinition
     
     public void addQuestionnaire(Questionnaire questionnaire) {
         questionnaires.add(questionnaire);
-        questionnaire.setQuestionnairDefinition(this);
+        questionnaire.setQuestionnaireDefinition(this);
     }
 
     @Override

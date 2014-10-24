@@ -165,7 +165,7 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
 
         // Create answers holder
         QuestionnaireAnswers questionnaireAnswers = new QuestionnaireAnswers();
-        questionnaireAnswers = questionnaireAnswersRepository.save(questionnaire.getQuestionnairDefinition().getId(),
+        questionnaireAnswers = questionnaireAnswersRepository.save(questionnaire.getQuestionnaireDefinition().getId(),
                 questionnaireAnswers);
         questionnaire.setAnswersId(questionnaireAnswers.getId());
 
@@ -211,7 +211,7 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
                     // Create answers holder
                     QuestionnaireAnswers questionnaireAnswers = new QuestionnaireAnswers();
                     questionnaireAnswers = questionnaireAnswersRepository.save(questionnaire
-                            .getQuestionnairDefinition().getId(), questionnaireAnswers);
+                            .getQuestionnaireDefinition().getId(), questionnaireAnswers);
                     questionnaire.setAnswersId(questionnaireAnswers.getId());
 
                     String token = tokenGenerator.generate();
