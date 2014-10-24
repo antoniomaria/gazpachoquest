@@ -87,7 +87,7 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
             return getNamedQueryUtil().numberByNamedQuery(sp).intValue();
         }
         Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, sp));
-
+        spec = RangeSpecification.andRangeIfSet(spec, sp.getRanges());
         return super.count(spec);
     }
 

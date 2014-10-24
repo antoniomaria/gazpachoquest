@@ -10,20 +10,25 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.core.impl;
 
+import net.sf.gazpachoquest.qbe.Range;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import javax.persistence.metamodel.SingularAttribute;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
+import net.sf.gazpachoquest.domain.core.Section_;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnaireDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation;
 import net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission;
+import net.sf.gazpachoquest.qbe.Ranges.RangeLocalDateTime;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.MailMessageRepository;
 import net.sf.gazpachoquest.repository.SectionRepository;
@@ -90,10 +95,10 @@ public class QuestionnaireDefinitionServiceImpl
 
     @Override
     @Transactional(readOnly = true)
-    public int sectionsCount(final Integer questionnairDefinitionId) {
+    public int sectionsCount(final Integer questionnaireDefinitionId) {
         return (int) sectionRepository.countByExample(
                 Section.with()
-                        .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnairDefinitionId).build())
+                        .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnaireDefinitionId).build())
                         .build(), new SearchParameters());
     }
 
@@ -130,36 +135,49 @@ public class QuestionnaireDefinitionServiceImpl
 
     @Override
     @Transactional(readOnly = true)
-    public Integer questionsCount(final Integer questionnairDefinitionId) {
-        return ((QuestionnaireDefinitionRepository) repository).questionsCount(questionnairDefinitionId);
+    public Integer questionsCount(final Integer questionnaireDefinitionId) {
+        return ((QuestionnaireDefinitionRepository) repository).questionsCount(questionnaireDefinitionId);
     }
 
     @Override
-    public List<Object[]> questionsCountGroupBySections(final Integer questionnairDefinitionId) {
+    public List<Object[]> questionsCountGroupBySections(final Integer questionnaireDefinitionId) {
         return ((QuestionnaireDefinitionRepository) repository)
-                .questionsCountGroupBySections(questionnairDefinitionId);
+                .questionsCountGroupBySections(questionnaireDefinitionId);
     }
 
     @Override
-    public List<Question> getQuestions(final Integer questionnairDefinitionId) {
-        return ((QuestionnaireDefinitionRepository) repository).getQuestions(questionnairDefinitionId);
+    public List<Question> getQuestions(final Integer questionnaireDefinitionId) {
+        return ((QuestionnaireDefinitionRepository) repository).getQuestions(questionnaireDefinitionId);
     }
 
     @Override
-    public void exportQuestionnairDefinition(Integer questionnairDefinitionId, OutputStream outputStream)
+    public void exportQuestionnaireDefinition(Integer questionnaireDefinitionId, OutputStream outputStream)
             throws XmlMappingException, IOException {
-        QuestionnaireDefinition questionnaireDefinition = repository.findOne(questionnairDefinitionId);
+        QuestionnaireDefinition questionnaireDefinition = repository.findOne(questionnaireDefinitionId);
         marshaller.marshal(questionnaireDefinition, new StreamResult(outputStream));
     }
 
     @Override
-    public QuestionnaireDefinition importQuestionnairDefinition(InputStream inputStream) throws XmlMappingException,
+    public QuestionnaireDefinition importQuestionnaireDefinition(InputStream inputStream) throws XmlMappingException,
             IOException {
         QuestionnaireDefinition questionnaireDefinition = (QuestionnaireDefinition) unmarshaller
                 .unmarshal(new StreamSource(inputStream));
         questionnaireDefinition.setStatus(EntityStatus.CONFIRMED);
         questionnaireDefinition.updateInverseRelationships();
         return repository.save(questionnaireDefinition);
+    }
+
+    @Override
+    public boolean isLinear(int questionnaireDefinitionId) {
+        // http://www.tuicool.com/articles/ZnAZby
+        Range<Section, String> range = new Range<Section, String>(Section_.relevance);
+        range.setIncludeNull(true);
+
+        Section entity = Section.with()
+                .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnaireDefinitionId).build()).build();
+        SearchParameters sp = new SearchParameters(range);
+        boolean isLinear = sectionRepository.countByExample(entity, sp) == 0;
+        return isLinear;
     }
 
 }

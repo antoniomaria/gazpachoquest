@@ -79,14 +79,19 @@ public class QuestionnaireDefinitionPermissionsAwareServiceImpl extends
     }
 
     @Override
-    public void exportQuestionnairDefinition(Integer questionnairDefinitionId, OutputStream outputStream)
+    public void exportQuestionnaireDefinition(Integer questionnairDefinitionId, OutputStream outputStream)
             throws XmlMappingException, IOException {
         throw new UnsupportedOperationException("Method not supported in this implementation");
     }
 
     @Override
-    public QuestionnaireDefinition importQuestionnairDefinition(InputStream inputStream) throws XmlMappingException,
+    public QuestionnaireDefinition importQuestionnaireDefinition(InputStream inputStream) throws XmlMappingException,
             IOException {
+        throw new UnsupportedOperationException("Method not supported in this implementation");
+    }
+    
+    @Override
+    public boolean isLinear(int questionnaireDefinitionId) {
         throw new UnsupportedOperationException("Method not supported in this implementation");
     }
 

@@ -28,9 +28,9 @@ public interface QuestionnaireDefinitionService
 
     QuestionnaireDefinition confirm(QuestionnaireDefinition questionnaireDefinition);
 
-    int sectionsCount(Integer questionnairDefinitionId);
+    int sectionsCount(Integer questionnaireDefinitionId);
 
-    Integer questionsCount(Integer questionnairDefinitionId);
+    Integer questionsCount(Integer questionnaireDefinitionId);
 
     /**
      * Returns questions count group by question group for a given
@@ -42,16 +42,18 @@ public interface QuestionnaireDefinitionService
      * [9, 2, 2]
      * </pre>
      * 
-     * @param questionnairDefinitionId
+     * @param questionnaireDefinitionId
      * @return
      */
-    List<Object[]> questionsCountGroupBySections(Integer questionnairDefinitionId);
+    List<Object[]> questionsCountGroupBySections(Integer questionnaireDefinitionId);
 
-    List<Question> getQuestions(Integer questionnairDefinitionId);
+    List<Question> getQuestions(Integer questionnaireDefinitionId);
 
-    void exportQuestionnairDefinition(Integer questionnairDefinitionId, OutputStream outputStream)
+    void exportQuestionnaireDefinition(Integer questionnaireDefinitionId, OutputStream outputStream)
             throws XmlMappingException, IOException;
 
-    QuestionnaireDefinition importQuestionnairDefinition(InputStream inputStream) throws XmlMappingException, IOException;
+    QuestionnaireDefinition importQuestionnaireDefinition(InputStream inputStream) throws XmlMappingException, IOException;
+
+    boolean isLinear(int questionnaireDefinitionId);
 
 }

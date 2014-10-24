@@ -62,19 +62,26 @@ public class QuestionnaireDefinitionServiceTest extends AbstractShiroTest {
 
     @Test
     public void findOneTest() {
-        int questionnairDefinitionId = 7;
+        int questionnaireDefinitionId = 7;
         QuestionnaireDefinition questionnaireDefinition = questionnaireDefinitionService
-                .findOne(questionnairDefinitionId);
+                .findOne(questionnaireDefinitionId);
         assertThat(questionnaireDefinition).isNotNull();
     }
 
     @Test
     public void sectionsCountTest() {
-        int questionnairDefinitionId = 7;
-        long count = questionnaireDefinitionService.sectionsCount(questionnairDefinitionId);
+        int questionnaireDefinitionId = 7;
+        long count = questionnaireDefinitionService.sectionsCount(questionnaireDefinitionId);
         assertThat(count).isEqualTo(3);
     }
 
+    @Test
+    public void isLinear() {
+        int questionnaireDefinitionId = 7;
+        boolean isLinear = questionnaireDefinitionService.isLinear(questionnaireDefinitionId);
+        assertThat(isLinear).isFalse();
+    }
+    
     @Test
     public void saveTest() {
         QuestionnaireDefinitionLanguageSettings languageSettings = QuestionnaireDefinitionLanguageSettings.with()

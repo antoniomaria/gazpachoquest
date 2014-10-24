@@ -70,14 +70,14 @@ public class QuestionnaireDefinitionAccessorFacadeImpl implements QuestionnaireD
     @Override
     public void exportQuestionnaireDefinition(Integer questionnairDefinitionId, OutputStream outputStream)
             throws XmlMappingException, IOException {
-        questionnaireDefinitionService.exportQuestionnairDefinition(questionnairDefinitionId, outputStream);
+        questionnaireDefinitionService.exportQuestionnaireDefinition(questionnairDefinitionId, outputStream);
     }
 
     @Override
     public QuestionnaireDefinitionDTO importQuestionnaireDefinition(InputStream inputStream)
             throws XmlMappingException, IOException {
         QuestionnaireDefinition questionnaireDefinition = questionnaireDefinitionService
-                .importQuestionnairDefinition(inputStream);
+                .importQuestionnaireDefinition(inputStream);
         return mapper.map(questionnaireDefinition, QuestionnaireDefinitionDTO.class);
     }
 
