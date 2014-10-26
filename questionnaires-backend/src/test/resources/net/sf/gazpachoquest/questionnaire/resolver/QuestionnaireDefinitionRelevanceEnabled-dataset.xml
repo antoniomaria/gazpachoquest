@@ -32,12 +32,12 @@
   <invitation id="116" type="A" status="A" token="ALFEVTFE4T" research_id="115" />
 
   <section id="13" created_date="2014-10-15 14:41:46.142" language="EN" last_modified_date="2014-10-15 14:41:46.142" randomization_enabled="false"
-    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="0" relevance="" description=""/>
+    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="0" title="" relevance="" description=""/>
   <section id="18" created_date="2014-10-15 14:41:48.693" language="EN" last_modified_date="2014-10-15 14:41:48.693" randomization_enabled="false"
     title="In case you faced several performance issues during the past year, describe just one while answering the following questions." createdby_id="1"
     lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="1" relevance="${q1=='yes'}" description=""/>
   <section id="19" created_date="2014-10-15 14:41:48.772" language="EN" last_modified_date="2014-10-15 14:41:48.772" randomization_enabled="false"
-    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="2" relevance="${q1=='yes'}" description=""/>
+    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="2" title=""  relevance="${q1=='yes'}" description=""/>
   <section id="97" created_date="2014-10-15 14:41:51.702" language="EN" last_modified_date="2014-10-15 14:41:51.702" randomization_enabled="false"
     title="As you do not seem to have faced any performance issues with Java applications, the rest of the survey questions were not applicable. But we are still happy to offer you the possibility to get access to 3-months license and participate in Amazon gift card raffle."
     createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="3" relevance="${q1=='no'}" description=""/>
