@@ -53,6 +53,7 @@ public class QuestionnaireDefinitionEditorFacadeTest extends AbstractShiroTest {
 
         QuestionLanguageSettingsDTO languageSettings = new QuestionLanguageSettingsDTO();
         languageSettings.setTitle("¿Cual es tu nombre?");
+        languageSettings.setExplanation("");
 
         TranslationDTO<QuestionDTO, QuestionLanguageSettingsDTO> translation = new TranslationDTO<>();
         translation.setTranslatedEntity(question);

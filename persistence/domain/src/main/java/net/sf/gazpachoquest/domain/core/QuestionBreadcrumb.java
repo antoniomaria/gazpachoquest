@@ -30,7 +30,6 @@ public class QuestionBreadcrumb extends Breadcrumb {
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     private Breadcrumb parent;
 
-    @Column(nullable = false)
     private Integer questionNumber;
 
     public QuestionBreadcrumb() {

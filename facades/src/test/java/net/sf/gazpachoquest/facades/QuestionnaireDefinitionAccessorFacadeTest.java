@@ -44,7 +44,7 @@ public class QuestionnaireDefinitionAccessorFacadeTest extends AbstractShiroTest
     private QuestionnaireDefinitionAccessorFacade questionnaireDefinitionAccessorFacade;
 
     @Test
-    public void findOneSurveyTest() {
+    public void findOneQuestionnaireDefinitionTest() {
         int questionnairDefinitionId = 7;
         QuestionnaireDefinitionDTO questionnairDefinition = questionnaireDefinitionAccessorFacade
                 .findOneQuestionnaireDefinition(questionnairDefinitionId);

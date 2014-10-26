@@ -43,20 +43,6 @@ public class QuestionnaireDefinitionLanguageSettings implements LanguageSettings
         super();
     }
 
-    public QuestionnaireDefinitionLanguageSettings(String title, String description, String welcomeText) {
-        super();
-        this.title = title;
-        this.description = description;
-        this.welcomeText = welcomeText;
-    }
-
-    public QuestionnaireDefinitionLanguageSettings(Builder builder) {
-        super();
-        title = builder.title;
-        description = builder.description;
-        welcomeText = builder.welcomeText;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -93,12 +79,26 @@ public class QuestionnaireDefinitionLanguageSettings implements LanguageSettings
         return new Builder();
     }
 
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof QuestionnaireDefinitionLanguageSettings) {
+            final QuestionnaireDefinitionLanguageSettings other = (QuestionnaireDefinitionLanguageSettings) obj;
+            return EqualsBuilder.reflectionEquals(this, other);
+        } else {
+            return false;
+        }
+    }
+
     public static class Builder {
         private String title;
-
         private String description;
-
         private String welcomeText;
+        private String endText;
 
         public Builder title(String title) {
             this.title = title;
@@ -115,23 +115,18 @@ public class QuestionnaireDefinitionLanguageSettings implements LanguageSettings
             return this;
         }
 
-        public QuestionnaireDefinitionLanguageSettings build() {
-            return new QuestionnaireDefinitionLanguageSettings(this);
+        public Builder endText(String endText) {
+            this.endText = endText;
+            return this;
         }
-    }
 
-    @Override
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof QuestionnaireDefinitionLanguageSettings) {
-            final QuestionnaireDefinitionLanguageSettings other = (QuestionnaireDefinitionLanguageSettings) obj;
-            return EqualsBuilder.reflectionEquals(this, other);
-        } else {
-            return false;
+        public QuestionnaireDefinitionLanguageSettings build() {
+            QuestionnaireDefinitionLanguageSettings questionnaireDefinitionLanguageSettings = new QuestionnaireDefinitionLanguageSettings();
+            questionnaireDefinitionLanguageSettings.title = title;
+            questionnaireDefinitionLanguageSettings.description = description;
+            questionnaireDefinitionLanguageSettings.welcomeText = welcomeText;
+            questionnaireDefinitionLanguageSettings.endText = endText;
+            return questionnaireDefinitionLanguageSettings;
         }
     }
 }

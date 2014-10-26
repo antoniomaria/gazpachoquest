@@ -40,7 +40,7 @@ public class BreadcrumbRepositoryTest {
     private QuestionnaireRepository questionnaireRepository;
 
     @Test
-    public void findByquestionnaireIdAndPosition() {
+    public void findByQuestionnaireIdAndPositionTest() {
         Integer questionnaireId = 58;
         Integer position = 1;
         Breadcrumb next = repository.findByQuestionnaireIdAndPosition(questionnaireId, position);

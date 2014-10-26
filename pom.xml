@@ -27,6 +27,7 @@
     <easymock.version>3.2</easymock.version>
     <flyway.version>3.0</flyway.version>
     <dozer.version>5.5.1</dozer.version>
+    <dbunit.version>2.4.9</dbunit.version>
   </properties>
 
   <scm>
@@ -161,7 +162,7 @@
       <dependency>
         <groupId>org.dbunit</groupId>
         <artifactId>dbunit</artifactId>
-        <version>2.5.0</version>
+        <version>${dbunit.version}</version>
         <exclusions>
           <exclusion>
             <artifactId>slf4j-api</artifactId>

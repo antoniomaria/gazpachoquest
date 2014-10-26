@@ -73,6 +73,8 @@ public class ByExampleEnhancedSpecification {
                 return JpaUtil.andPredicate(builder, predicates);
             }
 
+            //https://github.com/jaxio/generated-projects/tree/master/jsf2-spring-conversation/src/main/generated-java/com/jaxio/appli/repository/support
+                
             public <T extends Persistable> List<Predicate> byExample(final ManagedType<T> mt, final Path<T> mtPath,
                     final T mtValue, final SearchParameters sp, final CriteriaBuilder builder) {
                 List<Predicate> predicates = new ArrayList<Predicate>();

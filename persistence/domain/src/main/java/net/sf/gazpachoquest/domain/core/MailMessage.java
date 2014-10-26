@@ -45,7 +45,6 @@ public class MailMessage extends AbstractPersistable {
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime sentDate;
 
-    @Column(nullable = false)
     private Integer deliveryAttempts;
 
     public MailMessage() {

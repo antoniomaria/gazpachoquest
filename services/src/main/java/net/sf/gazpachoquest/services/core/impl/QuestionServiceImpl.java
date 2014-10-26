@@ -99,6 +99,7 @@ public class QuestionServiceImpl extends
         group.addAttribute("language");
         group.addAttribute("type");
         group.addAttribute("code");
+        group.addAttribute("relevance");
 
         group.addAttribute("subquestions.subquestions");
         group.addAttribute("subquestions.questionOptions");

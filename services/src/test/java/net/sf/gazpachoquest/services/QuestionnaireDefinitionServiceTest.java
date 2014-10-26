@@ -13,12 +13,12 @@ import net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.test.shiro.support.AbstractShiroTest;
+import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
 import org.apache.shiro.subject.Subject;
-import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.junit.After;
 import org.junit.Before;
@@ -85,9 +85,9 @@ public class QuestionnaireDefinitionServiceTest extends AbstractShiroTest {
     @Test
     public void saveTest() {
         QuestionnaireDefinitionLanguageSettings languageSettings = QuestionnaireDefinitionLanguageSettings.with()
-                .title("My QuestionnaireDefinition").description("My description").welcomeText("welcome").build();
+                .title("My QuestionnaireDefinition").description("My description").welcomeText("welcome").endText("").build();
 
-        QuestionnaireDefinition questionnaireDefinition = QuestionnaireDefinition.with().language(Language.EN)
+        QuestionnaireDefinition questionnaireDefinition = QuestionnaireDefinition.with().status(EntityStatus.DRAFT).language(Language.EN)
                 .languageSettings(languageSettings).sectionInfoVisible(true).progressVisible(true).welcomeVisible(true)
                 .randomizationStrategy(RandomizationStrategy.NONE).renderingMode(RenderingMode.SECTION_BY_SECTION)
                 .questionNumberVisible(false).build();
@@ -98,7 +98,7 @@ public class QuestionnaireDefinitionServiceTest extends AbstractShiroTest {
         QuestionnaireDefinition created = questionnaireDefinitionService.findOne(questionnaireDefinition.getId());
         QuestionnaireDefinitionLanguageSettings newLanguageSettings = QuestionnaireDefinitionLanguageSettings.with()
                 .title("My QuestionnaireDefinition. Ver 1").description("My description").welcomeText("my welcome")
-                .build();
+                .endText("").build();
         created.setLanguageSettings(newLanguageSettings);
         try {
             Thread.sleep(1000);
@@ -115,6 +115,8 @@ public class QuestionnaireDefinitionServiceTest extends AbstractShiroTest {
         languageSettings.setTitle("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
         languageSettings.setDescription("Donec pellentesque consequat orci.");
         languageSettings.setWelcomeText("dolorem");
+        languageSettings.setEndText("");
+
         int questionnairDefinitionId = 7;
         QuestionnaireDefinitionTranslation translation = QuestionnaireDefinitionTranslation.with()
                 .translatedEntityId(questionnairDefinitionId).language(Language.FR).languageSettings(languageSettings)

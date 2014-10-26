@@ -10,29 +10,26 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.core.impl;
 
-import net.sf.gazpachoquest.qbe.Range;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
-import javax.persistence.metamodel.SingularAttribute;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
+import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.Section_;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnaireDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation;
 import net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission;
-import net.sf.gazpachoquest.qbe.Ranges.RangeLocalDateTime;
+import net.sf.gazpachoquest.qbe.support.PropertySelector;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.MailMessageRepository;
-import net.sf.gazpachoquest.repository.SectionRepository;
 import net.sf.gazpachoquest.repository.QuestionnaireDefinitionRepository;
+import net.sf.gazpachoquest.repository.SectionRepository;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
 import net.sf.gazpachoquest.repository.i18.QuestionnaireDefinitionTranslationRepository;
 import net.sf.gazpachoquest.repository.permission.QuestionnaireDefinitionPermissionRepository;
@@ -170,12 +167,19 @@ public class QuestionnaireDefinitionServiceImpl
     @Override
     public boolean isLinear(int questionnaireDefinitionId) {
         // http://www.tuicool.com/articles/ZnAZby
+
+        Section entity = Section.with()
+                .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnaireDefinitionId).build()).build();
+        entity.setRelevance("");
+        /*-
         Range<Section, String> range = new Range<Section, String>(Section_.relevance);
         range.setIncludeNull(true);
 
         Section entity = Section.with()
                 .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnaireDefinitionId).build()).build();
-        SearchParameters sp = new SearchParameters(range);
+        SearchParameters sp = new SearchParameters(range);*/
+        PropertySelector<Section, String> propertySelector = PropertySelector.property(Section_.relevance);
+        SearchParameters sp = new SearchParameters(propertySelector).distinct();
         boolean isLinear = sectionRepository.countByExample(entity, sp) == 0;
         return isLinear;
     }

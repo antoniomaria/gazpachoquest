@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <users id="1" api_key="2SJ4SHZZY9AY8C5" created_date="2014-10-15 14:41:45.767" email="support@gazpacho.net" given_names="support" last_modified_date="2014-10-15 14:41:45.767"
+  <users id="1" api_key="2SJ4SHZZY9AY8C5" created_date="2014-10-15 14:41:45.767" password="" email="support@gazpacho.net" given_names="support" last_modified_date="2014-10-15 14:41:45.767"
     secret="H4FWVV6ZBZRRTQ3J92SJ2P92JBJCA2YQ" surname="support" username="support" createdby_id="1" lastmodifiedby_id="1" />
-  <users id="4" api_key="EAAAKHHJ575ZC4U" created_date="2014-10-15 14:41:45.924" email="tyrion.lannister@kingslanding.net" gender="M" given_names="Tyrion"
+  <users id="4" api_key="EAAAKHHJ575ZC4U" created_date="2014-10-15 14:41:45.924" password="" email="tyrion.lannister@kingslanding.net" gender="M" given_names="Tyrion"
     last_modified_date="2014-10-15 14:41:45.924" secret="JKK6DS3ZEWVWX6T6MYCJB6YHSQQ6S2PX" surname="Lannister" createdby_id="1" lastmodifiedby_id="1" />
-  <users id="6" api_key="NH699LQ94BR2VMF" created_date="2014-10-15 14:41:45.971" email="jon.snow@nightswatch.net" gender="M" given_names="Jon"
+  <users id="6" api_key="NH699LQ94BR2VMF" created_date="2014-10-15 14:41:45.971" password="" email="jon.snow@nightswatch.net" gender="M" given_names="Jon"
     last_modified_date="2014-10-15 14:41:45.971" preferred_language="ES" secret="BGJARANQY6V9ZNMWNJNLNJKL5FESXQXM" surname="Snow" createdby_id="1"
     lastmodifiedby_id="1" />
   <user_permission />
 
   <questionnaire_definition id="12" created_date="2014-10-15 14:41:46.127" language="EN" last_modified_date="2014-10-15 14:41:46.127"
-    progress_visible="true" question_number_visible="true" randomization_strategy="N" rendering_mode="QBQ" section_info_visible="true" status="C"
+    progress_visible="true" end_text="" question_number_visible="true" randomization_strategy="N" rendering_mode="QBQ" section_info_visible="true" status="C"
     welcome_visible="true" description="Gathering insight into Java performance world to improve our product offering." title="Java Performance Tunning Survey"
     welcome_text="&lt;p&gt;Each respondent will receive a subscription to use our performance monitoring solution and participates in a draw of 10 Amazon gift certificates worth $100 each. To top it off, we will also share the results of the survey with you.&lt;/p&gt;&lt;p&gt;Answering to the 10 questions will take less than 3 minutes of your time.&lt;/p&gt;"
     createdby_id="1" lastmodifiedby_id="1" />
@@ -32,56 +32,56 @@
   <invitation id="116" type="A" status="A" token="ALFEVTFE4T" research_id="115" />
 
   <section id="13" created_date="2014-10-15 14:41:46.142" language="EN" last_modified_date="2014-10-15 14:41:46.142" randomization_enabled="false"
-    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="0" />
+    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="0" relevance="" description=""/>
   <section id="18" created_date="2014-10-15 14:41:48.693" language="EN" last_modified_date="2014-10-15 14:41:48.693" randomization_enabled="false"
     title="In case you faced several performance issues during the past year, describe just one while answering the following questions." createdby_id="1"
-    lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="1" relevance="${q1=='yes'}" />
+    lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="1" relevance="${q1=='yes'}" description=""/>
   <section id="19" created_date="2014-10-15 14:41:48.772" language="EN" last_modified_date="2014-10-15 14:41:48.772" randomization_enabled="false"
-    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="2" relevance="${q1=='yes'}" />
+    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="2" relevance="${q1=='yes'}" description=""/>
   <section id="97" created_date="2014-10-15 14:41:51.702" language="EN" last_modified_date="2014-10-15 14:41:51.702" randomization_enabled="false"
     title="As you do not seem to have faced any performance issues with Java applications, the rest of the survey questions were not applicable. But we are still happy to offer you the possibility to get access to 3-months license and participate in Amazon gift card raffle."
-    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="3" relevance="${q1=='no'}" />
+    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="3" relevance="${q1=='no'}" description=""/>
   <section id="87" created_date="2014-10-15 14:41:51.109" language="EN" last_modified_date="2014-10-15 14:41:51.109" randomization_enabled="false"
     description="This data will be used to contact the winners of the Amazon gift card raffle, hand out free licenses and publish the survey results." title="To finish the survey and submit results, please complete all fields below:"
-    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="4" />
+    createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="12" order_in_questionnaire="4" relevance=""  />
 
   <section_translation />
 
   <question id="15" code="Q1" created_date="2014-10-15 14:41:48.584" language="EN" last_modified_date="2014-10-15 14:41:48.584" other_allowed="false"
     required="true" type="L" title="Have you faced any Java performance issues during the past 12 months? " createdby_id="1" lastmodifiedby_id="1" section_id="13"
-    order_in_section="0" />
+    relevance="" explanation="" order_in_section="0" />
   <question id="20" code="Q2" created_date="2014-10-15 14:41:48.85" language="EN" last_modified_date="2014-10-15 14:41:48.85" other_allowed="true"
     required="false" type="M" title="What were the symptoms surfacing the performance issue?" createdby_id="1" lastmodifiedby_id="1" section_id="19"
-    order_in_section="0" />
+    relevance="" explanation="" order_in_section="0" />
   <question id="25" code="Q3" created_date="2014-10-15 14:41:48.943" language="EN" last_modified_date="2014-10-15 14:41:48.943" other_allowed="true"
     required="false" type="M" title="How did you find out that your Java application is facing the issue?" createdby_id="1" lastmodifiedby_id="1" section_id="19"
-    order_in_section="1" />
+    relevance="" explanation="" order_in_section="1" />
   <question id="29" code="Q4" created_date="2014-10-15 14:41:49.037" language="EN" last_modified_date="2014-10-15 14:41:49.037" other_allowed="false"
-    required="false" type="L" title="Was the performance issue affecting end users? " createdby_id="1" lastmodifiedby_id="1" section_id="19" order_in_section="2" />
+    required="false" type="L" title="Was the performance issue affecting end users? " createdby_id="1" lastmodifiedby_id="1" section_id="19" relevance="" explanation="" order_in_section="2" />
   <question id="33" code="Q5" created_date="2014-10-15 14:41:49.162" language="EN" last_modified_date="2014-10-15 14:41:49.162" other_allowed="true"
     required="false" type="M" title="Which monitoring software were you using to monitor Java application in production?" createdby_id="1" lastmodifiedby_id="1"
-    section_id="19" order_in_section="3" />
+    section_id="19" relevance="" explanation="" order_in_section="3" />
   <question id="49" code="Q6" created_date="2014-10-15 14:41:49.412" language="EN" last_modified_date="2014-10-15 14:41:49.412" other_allowed="true"
     required="false" type="M" title="After understanding that your Java application has a performance issue, what tools / sources did you use to locate the root cause?"
-    createdby_id="1" lastmodifiedby_id="1" section_id="19" order_in_section="4" />
+    createdby_id="1" lastmodifiedby_id="1" section_id="19" relevance="" explanation="" order_in_section="4" />
   <question id="61" code="Q7" created_date="2014-10-15 14:41:49.675" language="EN" last_modified_date="2014-10-15 14:41:49.675" other_allowed="false"
     required="false" type="L" title="Were you able to reproduce the performance issue in the test/development environment?" createdby_id="1" lastmodifiedby_id="1"
-    section_id="19" order_in_section="5" />
+    section_id="19" relevance="" explanation="" order_in_section="5" />
   <question id="65" code="Q8" created_date="2014-10-15 14:41:49.863" language="EN" last_modified_date="2014-10-15 14:41:49.863" other_allowed="true"
     required="false" type="M" title="What was the root cause for the performance issue?" createdby_id="1" lastmodifiedby_id="1" section_id="19"
-    order_in_section="6" />
+    relevance="" explanation="" order_in_section="6" />
   <question id="80" code="Q9" created_date="2014-10-15 14:41:50.191" language="EN" last_modified_date="2014-10-15 14:41:50.191" other_allowed="false"
     required="false" type="L" title="How long did it take you to detect and fix the root cause of the performance issue ? " createdby_id="1" lastmodifiedby_id="1"
-    section_id="19" order_in_section="7" />
+    section_id="19" relevance="" explanation="" order_in_section="7" />
   <question id="86" code="Q10" created_date="2014-10-15 14:41:50.921" language="EN" last_modified_date="2014-10-15 14:41:50.921" other_allowed="false"
     required="false" type="T" title="What was the most time consuming part of the process? " createdby_id="1" lastmodifiedby_id="1" section_id="19"
-    order_in_section="8" />
+    relevance="" explanation="" order_in_section="8" />
   <question id="88" code="Q11" created_date="2014-10-15 14:41:51.468" language="EN" last_modified_date="2014-10-15 14:41:51.468" other_allowed="false"
-    required="true" type="S" title="Name" createdby_id="1" lastmodifiedby_id="1" section_id="87" order_in_section="0" />
+    required="true" type="S" title="Name" createdby_id="1" lastmodifiedby_id="1" section_id="87" relevance="" explanation="" order_in_section="0" />
   <question id="89" code="Q12" created_date="2014-10-15 14:41:51.515" language="EN" last_modified_date="2014-10-15 14:41:51.515" other_allowed="false"
-    required="true" type="S" title="Company" createdby_id="1" lastmodifiedby_id="1" section_id="87" order_in_section="1" />
+    required="true" type="S" title="Company" createdby_id="1" lastmodifiedby_id="1" section_id="87" relevance="" explanation="" order_in_section="1" />
   <question id="90" code="Q13" created_date="2014-10-15 14:41:51.562" language="EN" last_modified_date="2014-10-15 14:41:51.562" other_allowed="true"
-    required="false" type="L" title="Role" createdby_id="1" lastmodifiedby_id="1" section_id="87" order_in_section="2" />
+    required="false" type="L" title="Role" createdby_id="1" lastmodifiedby_id="1" section_id="87" relevance="" explanation="" order_in_section="2" />
 
   <question_translation />
 
