@@ -19,6 +19,7 @@ import net.sf.gazpachoquest.services.InvitationService;
 import net.sf.gazpachoquest.services.QuestionnaireService;
 import net.sf.gazpachoquest.services.UserService;
 import net.sf.gazpachoquest.types.EntityStatus;
+import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.Perm;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +61,8 @@ public class RespondentAuthenticationManagerImpl implements AuthenticationManage
                     .research(Research.with().id(research.getId()).build()).build();
             questionnaires = questionnaireService.findByExample(questionnairExample, new SearchParameters());
         } else {
-            respondent = User.with().givenNames("anonymous").surname("anonymous").email("no-reply@gazpachoquest.net")
-                    .build();
+            respondent = User.with().preferredLanguage(Language.EN).givenNames("anonymous").surname("anonymous")
+                    .password("").email("no-reply@gazpachoquest.net").build();
             respondent = userService.save(respondent);
             Questionnaire questionnaire = Questionnaire.with().status(EntityStatus.CONFIRMED).research(research)
                     .questionnaireDefinition(research.getQuestionnaireDefinition()).respondent(respondent).build();
