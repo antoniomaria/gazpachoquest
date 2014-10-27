@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+    <!-- 
+     <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
+      -->
+      <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss} [%t] %-5level (%c:%L\) - %msg%n" />
+    </Console>
+  </Appenders>
+  <Loggers>
+
+
+    <Logger name="org.eclipse.persistence.logging.sql" level="DEBUG" additivity="false">
+      <AppenderRef ref="Console" />
+    </Logger>
+    <Logger name="org.springframework.orm.jpa.JpaTransactionManager" level="INFO" additivity="false">
+      <AppenderRef ref="Console" />
+    </Logger>
+    <Logger name="net.sf.gazpachoquest" level="INFO" additivity="false">
+      <AppenderRef ref="Console" />
+    </Logger>
+    <Logger name="org.springframework.data.auditing" level="INFO" additivity="false">
+      <AppenderRef ref="Console" />
+    </Logger>
+
+    <Root level="error">
+      <AppenderRef ref="Console" />
+    </Root>
+  </Loggers>
+</Configuration>
