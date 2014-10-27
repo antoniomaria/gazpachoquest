@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <users id="1" api_key="2SJ4SHZZY9AY8C5" created_date="2014-10-15 14:41:45.767" password="" email="support@gazpacho.net" given_names="support" last_modified_date="2014-10-15 14:41:45.767"
+  <users version="1" id="1" api_key="2SJ4SHZZY9AY8C5" created_date="2014-10-15 14:41:45.767" password="" email="support@gazpacho.net" given_names="support" last_modified_date="2014-10-15 14:41:45.767"
     secret="H4FWVV6ZBZRRTQ3J92SJ2P92JBJCA2YQ" surname="support" username="support" createdby_id="1" lastmodifiedby_id="1" />
-  <users id="4" api_key="EAAAKHHJ575ZC4U" created_date="2014-10-15 14:41:45.924" password="" email="tyrion.lannister@kingslanding.net" gender="M" given_names="Tyrion"
+  <users version="1" id="4" api_key="EAAAKHHJ575ZC4U" created_date="2014-10-15 14:41:45.924" password="" email="tyrion.lannister@kingslanding.net" gender="M" given_names="Tyrion"
     last_modified_date="2014-10-15 14:41:45.924" secret="JKK6DS3ZEWVWX6T6MYCJB6YHSQQ6S2PX" surname="Lannister" createdby_id="1" lastmodifiedby_id="1" />
-  <users id="6" api_key="NH699LQ94BR2VMF" created_date="2014-10-15 14:41:45.971" password="" email="jon.snow@nightswatch.net" gender="M" given_names="Jon"
+  <users version="1" id="6" api_key="NH699LQ94BR2VMF" created_date="2014-10-15 14:41:45.971" password="" email="jon.snow@nightswatch.net" gender="M" given_names="Jon"
     last_modified_date="2014-10-15 14:41:45.971" preferred_language="ES" secret="BGJARANQY6V9ZNMWNJNLNJKL5FESXQXM" surname="Snow" createdby_id="1"
     lastmodifiedby_id="1" />
   <user_permission />
@@ -17,10 +17,10 @@
   <questionnaire_definition_permission id="14" mask="3" user_id="1" target_id="12" />
   <questionnaire_definition_translation />
 
-  <research id="100" created_date="2014-10-15 14:41:52.646" expiration_date="2014-10-15 14:41:52.583" last_modified_date="2014-10-15 14:41:52.646"
+  <research version="1" id="100" created_date="2014-10-15 14:41:52.646" expiration_date="2014-10-15 14:41:52.583" last_modified_date="2014-10-15 14:41:52.646"
     name="Tracked survey: Java Performance Tunning Survey started" start_date="2014-10-15 14:41:52.583" status="C" type="P" createdby_id="1" lastmodifiedby_id="1"
     questionnairedefinition_id="12" />
-  <research id="115" created_date="2014-10-15 14:41:53.357" expiration_date="2014-10-15 14:41:53.31" last_modified_date="2014-10-15 14:41:53.357"
+  <research version="1" id="115" created_date="2014-10-15 14:41:53.357" expiration_date="2014-10-15 14:41:53.31" last_modified_date="2014-10-15 14:41:53.357"
     name="Anonymous Survey: Java Performance Tunning Survey started" start_date="2014-10-15 14:41:53.31" status="D" type="O" createdby_id="1" lastmodifiedby_id="1"
     questionnairedefinition_id="12" />
   <research_permission id="102" mask="7" user_id="1" target_id="100" />

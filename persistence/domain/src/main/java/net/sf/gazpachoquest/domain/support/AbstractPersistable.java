@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
@@ -32,6 +33,9 @@ public class AbstractPersistable implements Persistable {
     @XmlTransient
     private Integer id;
 
+    @Version
+    private Integer version;
+
     @Override
     public Integer getId() {
         return id;
@@ -44,6 +48,22 @@ public class AbstractPersistable implements Persistable {
     @Override
     public boolean isNew() {
         return null == getId();
+    }
+    
+    /**
+     * Current object version. Used to prevent updated conflicts in a concurrent
+     * environment using a optimistic locking strategy.
+     * 
+     * @see <a
+     *      href="http://en.wikibooks.org/wiki/Java_Persistence/Locking">Optimistic
+     *      Version Locking</a>
+     */
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     @Override

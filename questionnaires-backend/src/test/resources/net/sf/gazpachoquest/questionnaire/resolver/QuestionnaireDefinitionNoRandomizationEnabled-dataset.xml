@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <users id="1" api_key="9BNONCVRNG4JPBQ" secret="L0LTMJ1XAMEY13FT27MWZMQX1LWK8I1L" created_date="2014-04-19 10:35:10.713"
+  <users version="1" id="1" api_key="9BNONCVRNG4JPBQ" secret="L0LTMJ1XAMEY13FT27MWZMQX1LWK8I1L" created_date="2014-04-19 10:35:10.713"
     password="" email="support@gazpacho.net" given_names="support" last_modified_date="2014-04-19 10:35:10.713" surname="support"
     username="support" createdby_id="1" lastmodifiedby_id="1" />
-  <users id="6" api_key="PCN1SYW4X977UE7" secret="EQSV5ARQY1LLHKDLO8EF9RMBKV9T95K5" created_date="2014-04-19 10:35:11.263"
+  <users version="1" id="6" api_key="PCN1SYW4X977UE7" secret="EQSV5ARQY1LLHKDLO8EF9RMBKV9T95K5" created_date="2014-04-19 10:35:11.263"
     password="" email="catelyn.stark@winterfell.net" gender="F" given_names="Catelyn" last_modified_date="2014-04-19 10:35:11.263"
     preferred_language="FI" surname="Stark" createdby_id="1" lastmodifiedby_id="1" />
   <user_permission />
@@ -18,7 +18,7 @@
   <questionnaire_definition_permission />
 
 
-  <research id="57" status="C" created_date="2014-04-19 10:35:13.867" expiration_date="2014-04-19 10:35:13.812"
+  <research version="1" id="57" status="C" created_date="2014-04-19 10:35:13.867" expiration_date="2014-04-19 10:35:13.812"
     last_modified_date="2014-04-19 10:35:13.867" name="New private questionnaire Sample questionnaireDefinition started"
     start_date="2014-04-19 10:35:13.813" type="P" createdby_id="1" lastmodifiedby_id="1" questionnairedefinition_id="7" />
   <research_permission />
