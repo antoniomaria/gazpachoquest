@@ -52,10 +52,14 @@ public class RangeSpecification {
                 if (range.isBetween()) {
                     rangePredicate = builder.between(root.get(range.getField()), range.getFrom(), range.getTo());
                 } else if (range.isFromSet()) {
-                    //rangePredicate = builder.greaterThanOrEqualTo(root.get(range.getField()), range.getFrom());
+                    // rangePredicate =
+                    // builder.greaterThanOrEqualTo(root.get(range.getField()),
+                    // range.getFrom());
                     rangePredicate = builder.greaterThan(root.get(range.getField()), range.getFrom());
                 } else if (range.isToSet()) {
-                    // rangePredicate = builder.lessThanOrEqualTo(root.get(range.getField()), range.getTo());
+                    // rangePredicate =
+                    // builder.lessThanOrEqualTo(root.get(range.getField()),
+                    // range.getTo());
                     rangePredicate = builder.lessThan(root.get(range.getField()), range.getTo());
                 }
 
