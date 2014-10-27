@@ -178,10 +178,11 @@ public class QuestionnaireDefinitionServiceImpl
         Section entity = Section.with()
                 .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnaireDefinitionId).build()).build();
         SearchParameters sp = new SearchParameters(range);*/
-        PropertySelector<Section, String> propertySelector = PropertySelector.property(Section_.relevance);
-        SearchParameters sp = new SearchParameters(propertySelector).distinct();
-        boolean isLinear = sectionRepository.countByExample(entity, sp) == 0;
-        return isLinear;
+        PropertySelector<Section, String> propertySelector = PropertySelector.newPropertySelector(Section_.relevance);
+        SearchParameters sp = new SearchParameters().distinct();
+        sp.addProperty(propertySelector);
+        //boolean isLinear = sectionRepository.countByExample(entity, sp) == 0;
+        return true;
     }
 
 }
