@@ -125,14 +125,16 @@ public class QuestionnaireFacadeImpl implements QuestionnaireFacade {
         List<Section> sections = pageStructure.getSections();
         List<QuestionDTO> allVisibleQuestions = new ArrayList<>();
         for (Section section : sections) {
-            List<Integer> questionIds = section.getQuestionsId();
-            List<Question> fetchedQuestions = questionService.findInList(questionIds, preferredLanguage);
             Section localizedSection = Section.with().build();
             if (pageStructure.isSectionInfoAvailable()) {
                 localizedSection = sectionService.findOne(section.getId(), preferredLanguage);
             }
+
             SectionDTO sectionDTO = mapper.map(localizedSection, SectionDTO.class);
             page.addSection(sectionDTO);
+
+            List<Integer> questionIds = section.getQuestionsId();
+            List<Question> fetchedQuestions = questionService.findInList(questionIds, preferredLanguage);
             Iterator<Question> questionsIterator = section.getQuestions().iterator();
             for (Question fetchedQuestion : fetchedQuestions) {
                 QuestionDTO questionDTO = mapper.map(fetchedQuestion, QuestionDTO.class);

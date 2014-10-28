@@ -53,7 +53,7 @@ public class ResolverSelectorImpl implements ResolverSelector {
                 resolver = allInOneResolver;
                 break;
             default:
-                throw new IllegalArgumentException(String.format("Mode %s not supported", mode));
+                throw new IllegalArgumentException(String.format("Mode %s not supported for topology %s ", mode, topology));
             }
             break;
         case SKIP_PATTERN:
@@ -62,8 +62,9 @@ public class ResolverSelectorImpl implements ResolverSelector {
                 resolver = sectionBySectionRelevanceAwareResolver;
                 break;
             default:
-                throw new IllegalArgumentException(String.format("Mode %s not supported", mode));
+                throw new IllegalArgumentException(String.format("Mode %s not supported for topology %s ", mode, topology));
             }
+            break;
         case BRANCH_PATTERN:
             throw new IllegalArgumentException(String.format("Topology %s not supported", topology));
         }

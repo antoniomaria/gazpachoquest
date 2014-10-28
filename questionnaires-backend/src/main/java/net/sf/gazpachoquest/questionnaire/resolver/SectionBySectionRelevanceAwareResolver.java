@@ -100,6 +100,10 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
             }
             found = isRevealed(next, answers);
         } while (!found);
+        
+        if (logger.isDebugEnabled()){
+            logger.debug("Displaying sectionId {} because condition ({}) is satisfied ", next.getId(), next.getRelevance());
+        }
 
         // The respondent has reached the last question group
         if (next == null) {
