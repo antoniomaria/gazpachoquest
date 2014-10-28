@@ -3,6 +3,7 @@ package net.sf.gazpachoquest.questionnaire.resolver;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
@@ -91,14 +92,14 @@ public class AllInOneResolver extends AbstractResolver<SectionBreadcrumb> implem
 
     @Override
     protected SectionBreadcrumb findNextBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
-            Questionnaire questionnaire, SectionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
+            Questionnaire questionnaire, Map<String, Object> answers, SectionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
         return null;
     }
 
     @Override
     protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
-            List<SectionBreadcrumb> breadcrumbs) {
-        PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs);
+            List<SectionBreadcrumb> breadcrumbs, Map<String, Object> answers) {
+        PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs,  answers);
 
         for (Breadcrumb breadcrumb : breadcrumbs) {
             SectionBreadcrumb sectionBreadcrumb = (SectionBreadcrumb) breadcrumb;

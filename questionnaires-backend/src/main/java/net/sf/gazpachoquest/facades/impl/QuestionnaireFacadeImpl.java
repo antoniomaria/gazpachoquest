@@ -21,14 +21,12 @@ import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.dto.PageMetadataDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
-import net.sf.gazpachoquest.dto.QuestionnaireDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
 import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.answers.BooleanAnswer;
 import net.sf.gazpachoquest.dto.answers.SimpleAnswer;
-import net.sf.gazpachoquest.dto.embeddables.QuestionnaireDefinitionLanguageSettingsDTO;
 import net.sf.gazpachoquest.facades.QuestionnaireFacade;
 import net.sf.gazpachoquest.questionnaire.resolver.PageResolver;
 import net.sf.gazpachoquest.questionnaire.resolver.ResolverSelector;
@@ -143,7 +141,7 @@ public class QuestionnaireFacadeImpl implements QuestionnaireFacade {
                 allVisibleQuestions.add(questionDTO);
             }
         }
-        answersPopulator.populate(questionnaire, allVisibleQuestions);
+        answersPopulator.populate(pageStructure.getAnswers(), allVisibleQuestions);
         PageMetadataStructure metadata = pageStructure.getMetadata();
         page.setMetadata(mapper.map(metadata, PageMetadataDTO.class));
         page.setSectionInfoAvailable(pageStructure.isSectionInfoAvailable());

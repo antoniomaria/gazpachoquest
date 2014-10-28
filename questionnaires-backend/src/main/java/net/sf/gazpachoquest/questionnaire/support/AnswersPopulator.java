@@ -11,12 +11,12 @@
 package net.sf.gazpachoquest.questionnaire.support;
 
 import java.util.List;
+import java.util.Map;
 
-import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 
 public interface AnswersPopulator {
 
-    void populate(Questionnaire questionnaire, List<QuestionDTO> questions);
+    void populate(Map<String, Object> answers, List<QuestionDTO> questions);
 
 }

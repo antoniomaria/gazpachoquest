@@ -13,6 +13,7 @@ package net.sf.gazpachoquest.questionnaire.resolver;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
@@ -105,7 +106,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
 
     @Override
     protected QuestionBreadcrumb findNextBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
-            Questionnaire questionnaire, QuestionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
+            Questionnaire questionnaire, Map<String, Object> answers, QuestionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
         Assert.notNull(lastBreadcrumbPosition, "Questionnaire not started for the given questionnaireId = "
                 + lastBreadcrumbPosition);
 
@@ -181,8 +182,8 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
 
     @Override
     protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
-            List<QuestionBreadcrumb> breadcrumbs) {
-        PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs);
+            List<QuestionBreadcrumb> breadcrumbs, Map<String, Object> answers) {
+        PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs, answers);
 
         Breadcrumb active = breadcrumbs.get(0);
 

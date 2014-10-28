@@ -29,7 +29,6 @@ import net.sf.gazpachoquest.domain.core.Section.Builder;
 import net.sf.gazpachoquest.domain.core.SectionBreadcrumb;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
-import net.sf.gazpachoquest.services.QuestionnaireAnswersService;
 import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
@@ -59,9 +58,6 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
 
     private ExpressionFactory elFactory = new ExpressionFactoryImpl();
 
-    @Autowired
-    private QuestionnaireAnswersService questionnaireAnswersService;
-
     protected SectionBySectionRelevanceAwareResolver() {
         super(RenderingMode.SECTION_BY_SECTION);
     }
@@ -87,7 +83,7 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
 
     @Override
     protected SectionBreadcrumb findNextBreadcrumb(final QuestionnaireDefinition questionnaireDefinition,
-            final Questionnaire questionnaire, final SectionBreadcrumb lastBreadcrumb,
+            final Questionnaire questionnaire, Map<String, Object> answers, final SectionBreadcrumb lastBreadcrumb,
             final Integer lastBreadcrumbPosition) {
 
         SectionBreadcrumb nextBreadcrumb = null;
@@ -95,7 +91,6 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
         Integer position = sectionService.positionInQuestionnaireDefinition(lastBreadcrumb.getSection().getId());
         boolean found = false;
         Section next = null;
-        Map<String, Object> answers = questionnaireAnswersService.findByQuestionnaire(questionnaire);
 
         do {
             position++;
@@ -167,8 +162,8 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
 
     @Override
     protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
-            List<SectionBreadcrumb> breadcrumbs) {
-        PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs);
+            List<SectionBreadcrumb> breadcrumbs, Map<String, Object> answers) {
+        PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs, answers);
         Breadcrumb active = breadcrumbs.get(0);
 
         SectionBreadcrumb sectionBreadcrumb = (SectionBreadcrumb) active;

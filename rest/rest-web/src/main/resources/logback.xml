@@ -12,9 +12,9 @@
   
   <logger name="com.googlecode.flyway" level="INFO"/>
   
-  <logger name="org.eclipse.persistence.logging.sql" level="debug" />
+  <logger name="org.eclipse.persistence.logging.sql" level="INFO" />
 
-  <logger name="com.wordnik.swagger" level="info" />
+  <logger name="com.wordnik.swagger" level="ERROR" />
   
   <logger name="net.sf.gazpachoquest" level="DEBUG" />
 

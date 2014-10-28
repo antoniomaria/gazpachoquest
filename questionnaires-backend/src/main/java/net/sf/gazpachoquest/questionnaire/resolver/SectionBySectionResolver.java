@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
@@ -99,7 +100,7 @@ public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb
 
     @Override
     protected SectionBreadcrumb findNextBreadcrumb(final QuestionnaireDefinition questionnaireDefinition,
-            final Questionnaire questionnaire, final SectionBreadcrumb lastBreadcrumb,
+            final Questionnaire questionnaire, Map<String, Object> answers, final SectionBreadcrumb lastBreadcrumb,
             final Integer lastBreadcrumbPosition) {
 
         SectionBreadcrumb breadcrumb = (SectionBreadcrumb) breadcrumbService.findByQuestionnaireIdAndPosition(
@@ -150,8 +151,8 @@ public class SectionBySectionResolver extends AbstractResolver<SectionBreadcrumb
 
     @Override
     protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
-            List<SectionBreadcrumb> breadcrumbs) {
-        PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs);
+            List<SectionBreadcrumb> breadcrumbs, Map<String, Object> answers) {
+        PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs, answers);
         Breadcrumb active = breadcrumbs.get(0);
 
         SectionBreadcrumb sectionBreadcrumb = (SectionBreadcrumb) active;

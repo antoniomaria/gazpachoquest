@@ -3,6 +3,7 @@ package net.sf.gazpachoquest.questionnaire.support;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.gazpachoquest.domain.core.Section;
 
@@ -14,6 +15,8 @@ public class PageStructure {
 
     private boolean sectionInfoAvailable;
 
+    private Map<String, Object> answers;
+    
     public PageStructure() {
         super();
     }
@@ -49,4 +52,13 @@ public class PageStructure {
     public boolean isSectionInfoAvailable() {
         return sectionInfoAvailable;
     }
+
+    public Map<String, Object> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(Map<String, Object> answers) {
+        this.answers = answers;
+    }
+    
 }

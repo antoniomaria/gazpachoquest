@@ -3,6 +3,7 @@ package net.sf.gazpachoquest.questionnaire.resolver;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Breadcrumb_;
@@ -17,6 +18,7 @@ import net.sf.gazpachoquest.questionnaire.support.PageMetadataCreator;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 import net.sf.gazpachoquest.services.QuestionService;
+import net.sf.gazpachoquest.services.QuestionnaireAnswersService;
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.services.QuestionnaireService;
 import net.sf.gazpachoquest.services.SectionService;
@@ -38,6 +40,9 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
 
     protected static final boolean BREADCRUMB_CACHE_ENABLED = true;
 
+    @Autowired
+    private QuestionnaireAnswersService questionnaireAnswersService;
+    
     @Autowired
     private BreadcrumbService breadcrumbService;
 
@@ -110,13 +115,14 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
             }
 
         }
+        Map<String, Object> answers = questionnaireAnswersService.findByQuestionnaire(questionnaire);
         List<T> nextBreadcrumbs = new ArrayList<>();
         if (NavigationAction.ENTERING.equals(action)) {
             nextBreadcrumbs = lastBreadcrumbs;
         } else {
             T nextBreadcrumb;
             if (NavigationAction.NEXT.equals(action)) {
-                nextBreadcrumb = findNextBreadcrumb(questionnaireDefinition, questionnaire, lastBreadcrumbs.get(0),
+                nextBreadcrumb = findNextBreadcrumb(questionnaireDefinition, questionnaire, answers, lastBreadcrumbs.get(0),
                         lastBreadcrumbPosition);
                 Assert.notNull(nextBreadcrumb, "Page out of range");
                 lastBreadcrumbs.get(0).setLast(Boolean.FALSE);
@@ -149,22 +155,23 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
             // In all renders except AllInOne only is displayed a breadcrumb at a time 
             nextBreadcrumbs.add(nextBreadcrumb);
         }
-        return createPageStructure(questionnaireDefinition.getRandomizationStrategy(), nextBreadcrumbs);
+        return createPageStructure(questionnaireDefinition.getRandomizationStrategy(), nextBreadcrumbs, answers);
     }
 
     protected abstract T findPreviousBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
             Questionnaire questionnaire, T lastBreadcrumb, Integer lastBreadcrumbPosition);
 
     protected abstract T findNextBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
-            Questionnaire questionnaire, T lastBreadcrumb, Integer lastBreadcrumbPosition);
+            Questionnaire questionnaire, Map<String, Object> answers, T lastBreadcrumb, Integer lastBreadcrumbPosition);
 
     protected abstract List<T> makeBreadcrumbs(QuestionnaireDefinition questionnaireDefinition,
             Questionnaire questionnaire);
 
-    protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy, List<T> breadcrumbs) {
+    protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy, List<T> breadcrumbs, Map<String, Object> answers) {
         PageStructure nextPage = new PageStructure();
         if (!breadcrumbs.isEmpty()) {
             nextPage.setMetadata(metadataCreator.create(randomizationStrategy, type, breadcrumbs.get(0)));
+            nextPage.setAnswers(answers);
         }
         return nextPage;
     }
