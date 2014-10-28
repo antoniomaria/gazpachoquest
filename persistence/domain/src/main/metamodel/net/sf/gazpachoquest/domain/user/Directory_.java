@@ -8,7 +8,7 @@ import net.sf.gazpachoquest.domain.support.AbstractSecurizable_;
 import net.sf.gazpachoquest.domain.user.Directory;
 import net.sf.gazpachoquest.domain.user.User;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-20T09:44:39")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-28T07:30:16")
 @StaticMetamodel(Directory.class)
 public class Directory_ extends AbstractSecurizable_ {
 

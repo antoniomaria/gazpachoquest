@@ -6,7 +6,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.types.InvitationStatus;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-20T09:44:39")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-28T07:30:16")
 @StaticMetamodel(Invitation.class)
 public class Invitation_ extends AbstractPersistable_ {
 

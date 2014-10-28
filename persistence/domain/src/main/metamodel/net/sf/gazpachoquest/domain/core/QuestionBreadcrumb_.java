@@ -6,7 +6,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-20T09:44:39")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-28T07:30:16")
 @StaticMetamodel(QuestionBreadcrumb.class)
 public class QuestionBreadcrumb_ extends Breadcrumb_ {
 

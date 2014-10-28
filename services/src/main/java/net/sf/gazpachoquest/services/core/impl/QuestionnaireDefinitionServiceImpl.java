@@ -182,7 +182,7 @@ public class QuestionnaireDefinitionServiceImpl
         SearchParameters sp = new SearchParameters().distinct();
         sp.addProperty(propertySelector);
         //boolean isLinear = sectionRepository.countByExample(entity, sp) == 0;
-        return true;
+        return false;
     }
 
 }

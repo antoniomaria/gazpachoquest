@@ -188,6 +188,7 @@
         </plugins>
       </reporting>
     </profile>
+    <!--  To regenerate: mvn clean install -Dmetamodel=true -->
     <profile>
       <id>metamodel</id>
       <activation>

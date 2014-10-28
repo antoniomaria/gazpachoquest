@@ -11,7 +11,7 @@ import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.ResearchAccessType;
 import org.joda.time.LocalDateTime;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-20T09:44:39")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-28T07:30:16")
 @StaticMetamodel(Research.class)
 public class Research_ extends AbstractSecurizable_ {
 

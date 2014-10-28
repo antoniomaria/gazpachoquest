@@ -13,7 +13,7 @@ import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-20T09:44:39")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-28T07:30:16")
 @StaticMetamodel(User.class)
 public class User_ extends AbstractSecurizable_ {
 

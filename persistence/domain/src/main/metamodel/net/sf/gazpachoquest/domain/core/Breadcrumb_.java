@@ -7,7 +7,7 @@ import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.support.AbstractAuditable_;
 import net.sf.gazpachoquest.types.RenderingMode;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-20T09:44:39")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-28T07:30:16")
 @StaticMetamodel(Breadcrumb.class)
 public class Breadcrumb_ extends AbstractAuditable_ {
 

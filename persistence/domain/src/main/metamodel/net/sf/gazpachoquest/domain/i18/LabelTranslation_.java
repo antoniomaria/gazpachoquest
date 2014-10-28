@@ -8,7 +8,7 @@ import net.sf.gazpachoquest.domain.core.embeddables.LabelLanguageSettings;
 import net.sf.gazpachoquest.domain.support.AbstractPersistable_;
 import net.sf.gazpachoquest.types.Language;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-20T09:44:39")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-28T07:30:16")
 @StaticMetamodel(LabelTranslation.class)
 public class LabelTranslation_ extends AbstractPersistable_ {
 
