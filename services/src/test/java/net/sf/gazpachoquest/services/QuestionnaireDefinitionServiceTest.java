@@ -17,6 +17,7 @@ import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
+import net.sf.gazpachoquest.types.Topology;
 
 import org.apache.shiro.subject.Subject;
 import org.joda.time.LocalDateTime;
@@ -76,10 +77,10 @@ public class QuestionnaireDefinitionServiceTest extends AbstractShiroTest {
     }
 
     @Test
-    public void isLinear() {
+    public void getTopologyTest() {
         int questionnaireDefinitionId = 7;
-        boolean isLinear = questionnaireDefinitionService.isLinear(questionnaireDefinitionId);
-        assertThat(isLinear).isFalse();
+        Topology topology = questionnaireDefinitionService.getTopology(questionnaireDefinitionId);
+        assertThat(topology).isEqualTo(Topology.SKIP_PATTERN);
     }
     
     @Test

@@ -19,6 +19,7 @@ import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnaireDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation;
+import net.sf.gazpachoquest.types.Topology;
 
 import org.springframework.oxm.XmlMappingException;
 
@@ -54,6 +55,6 @@ public interface QuestionnaireDefinitionService
 
     QuestionnaireDefinition importQuestionnaireDefinition(InputStream inputStream) throws XmlMappingException, IOException;
 
-    boolean isLinear(int questionnaireDefinitionId);
+    Topology getTopology(Integer questionnaireDefinitionId);
 
 }

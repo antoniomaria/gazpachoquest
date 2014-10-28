@@ -23,7 +23,7 @@
   <section id="9" created_date="2014-04-19 10:35:11.517" language="EN" last_modified_date="2014-04-19 10:35:11.517" title="Section 1" createdby_id="1"
     lastmodifiedby_id="1" questionnairedefinition_id="7" relevance="" description="" order_in_questionnaire="0" randomization_enabled="true" />
   <section id="10" created_date="2014-04-19 10:35:11.566" language="EN" last_modified_date="2014-04-19 10:35:11.566" title="Section 2" createdby_id="1"
-    lastmodifiedby_id="1" questionnairedefinition_id="7" relevance="" description="" order_in_questionnaire="1" randomization_enabled="false" />
+    lastmodifiedby_id="1" questionnairedefinition_id="7" relevance="${q1=='yes'}" description="" order_in_questionnaire="1" randomization_enabled="false" />
   <section id="11" created_date="2014-04-19 10:35:11.62" language="EN" last_modified_date="2014-04-19 10:35:11.62" title="Section 3" createdby_id="1"
     lastmodifiedby_id="1" questionnairedefinition_id="7" relevance="" description="" order_in_questionnaire="2" randomization_enabled="false" />
   <section_translation />

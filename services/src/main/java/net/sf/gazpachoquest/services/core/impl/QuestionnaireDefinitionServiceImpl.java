@@ -26,6 +26,7 @@ import net.sf.gazpachoquest.domain.core.embeddables.QuestionnaireDefinitionLangu
 import net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation;
 import net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission;
 import net.sf.gazpachoquest.qbe.support.PropertySelector;
+import net.sf.gazpachoquest.qbe.support.SearchMode;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.MailMessageRepository;
 import net.sf.gazpachoquest.repository.QuestionnaireDefinitionRepository;
@@ -36,6 +37,7 @@ import net.sf.gazpachoquest.repository.permission.QuestionnaireDefinitionPermiss
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.Perm;
+import net.sf.gazpachoquest.types.Topology;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.Marshaller;
@@ -165,24 +167,20 @@ public class QuestionnaireDefinitionServiceImpl
     }
 
     @Override
-    public boolean isLinear(int questionnaireDefinitionId) {
-        // http://www.tuicool.com/articles/ZnAZby
-
+    public Topology getTopology(Integer questionnaireDefinitionId) {
         Section entity = Section.with()
                 .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnaireDefinitionId).build()).build();
-        entity.setRelevance("");
-        /*-
-        Range<Section, String> range = new Range<Section, String>(Section_.relevance);
-        range.setIncludeNull(true);
-
-        Section entity = Section.with()
-                .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnaireDefinitionId).build()).build();
-        SearchParameters sp = new SearchParameters(range);*/
         PropertySelector<Section, String> propertySelector = PropertySelector.newPropertySelector(Section_.relevance);
-        SearchParameters sp = new SearchParameters().distinct();
+        propertySelector.setSelected("");
+        propertySelector.setSearchMode(SearchMode.NOT_EQUALS);
+        SearchParameters sp = new SearchParameters();
         sp.addProperty(propertySelector);
-        //boolean isLinear = sectionRepository.countByExample(entity, sp) == 0;
-        return false;
+        sp.setCaseSensitive(true);
+        long count = sectionRepository.countByExample(entity, sp);
+        if (count > 0){
+            return Topology.SKIP_PATTERN;
+        }
+        return Topology.LINEAR;
     }
 
 }

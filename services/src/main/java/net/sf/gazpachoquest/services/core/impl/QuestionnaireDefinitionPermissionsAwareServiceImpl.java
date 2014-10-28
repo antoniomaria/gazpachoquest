@@ -23,6 +23,7 @@ import net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission;
 import net.sf.gazpachoquest.repository.QuestionnaireDefinitionRepository;
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.types.Language;
+import net.sf.gazpachoquest.types.Topology;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.XmlMappingException;
@@ -91,7 +92,7 @@ public class QuestionnaireDefinitionPermissionsAwareServiceImpl extends
     }
     
     @Override
-    public boolean isLinear(int questionnaireDefinitionId) {
+    public Topology getTopology(Integer questionnaireDefinitionId) {
         throw new UnsupportedOperationException("Method not supported in this implementation");
     }
 
