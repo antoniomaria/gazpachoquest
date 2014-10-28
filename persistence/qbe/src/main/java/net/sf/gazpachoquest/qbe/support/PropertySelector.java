@@ -48,7 +48,12 @@ public class PropertySelector<E, F> {
         for (Attribute<?, ?> attribute : attributes) {
             this.attributes.add(attribute);
         }
-        verifyPath(this.attributes);
+        // TODO replace by guava
+        List<Attribute<?, ?>> attributesDump = new ArrayList<Attribute<?,?>>();
+        for (Attribute<?, ?> attribute : attributes) {
+            attributesDump.add(attribute);
+        }
+        verifyPath(attributesDump);
     }
 
     private void verifyPath(List<Attribute<?, ?>> attributes) {

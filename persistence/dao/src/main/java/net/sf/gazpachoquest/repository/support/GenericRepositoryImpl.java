@@ -21,6 +21,7 @@ import net.sf.gazpachoquest.qbe.NamedQueryUtil;
 import net.sf.gazpachoquest.qbe.Range;
 import net.sf.gazpachoquest.qbe.RangeSpecification;
 import net.sf.gazpachoquest.qbe.support.ByExampleEnhancedSpecification;
+import net.sf.gazpachoquest.qbe.support.PropertySelectorSpecification;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 
 import org.apache.commons.lang3.Validate;
@@ -88,6 +89,7 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
         }
         Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, sp));
         spec = RangeSpecification.andRangeIfSet(spec, sp.getRanges());
+        spec = PropertySelectorSpecification.andPropertySelectorIfSet(spec, sp);
         return super.count(spec);
     }
 
@@ -105,39 +107,48 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
 
     @Override
     public Page<T> findByExample(final T example, final List<Range<?, ?>> ranges, final Pageable pageable) {
-        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(example, new SearchParameters()));
+        SearchParameters searchParameter = new SearchParameters();
+        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(example,
+                searchParameter));
         spec = RangeSpecification.andRangeIfSet(spec, ranges);
+        spec = PropertySelectorSpecification.andPropertySelectorIfSet(spec, searchParameter);
         return findAll(spec, pageable);
     }
 
     @Override
     public Page<T> findByExample(final T example, final Pageable pageable) {
-        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(example, new SearchParameters()));
+        SearchParameters searchParameter = new SearchParameters();
+        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(example,
+                searchParameter));
+        spec = RangeSpecification.andRangeIfSet(spec, searchParameter.getRanges());
+        spec = PropertySelectorSpecification.andPropertySelectorIfSet(spec, searchParameter);
         return findAll(spec, pageable);
     }
 
     @Override
-    public List<T> findByExample(final T entity, final SearchParameters sp) {
-        Assert.notNull(sp, "Search parameters required");
-        if (sp.hasNamedQuery()) {
-            return getNamedQueryUtil().findByNamedQuery(sp);
+    public List<T> findByExample(final T entity, final SearchParameters searchParameter) {
+        Assert.notNull(searchParameter, "Search parameters required");
+        if (searchParameter.hasNamedQuery()) {
+            return getNamedQueryUtil().findByNamedQuery(searchParameter);
         }
-        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, sp));
-        spec = RangeSpecification.andRangeIfSet(spec, sp.getRanges());
+        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, searchParameter));
+        spec = RangeSpecification.andRangeIfSet(spec, searchParameter.getRanges());
+        spec = PropertySelectorSpecification.andPropertySelectorIfSet(spec, searchParameter);
         return findAll(spec);
     }
 
     @Override
-    public void deleteByExample(final T entity, final SearchParameters sp) {
-        List<T> entities = this.findByExample(entity, sp);
+    public void deleteByExample(final T entity, final SearchParameters searchParameter) {
+        List<T> entities = this.findByExample(entity, searchParameter);
         super.delete(entities);
     }
 
     @Override
-    public T findOneByExample(final T entity, final SearchParameters sp) {
-        Assert.notNull(sp, "Search parameters required");
-        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, sp));
-        spec = RangeSpecification.andRangeIfSet(spec, sp.getRanges());
+    public T findOneByExample(final T entity, final SearchParameters searchParameter) {
+        Assert.notNull(searchParameter, "Search parameters required");
+        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, searchParameter));
+        spec = RangeSpecification.andRangeIfSet(spec, searchParameter.getRanges());
+        spec = PropertySelectorSpecification.andPropertySelectorIfSet(spec, searchParameter);
         return super.findOne(spec);
     }
 

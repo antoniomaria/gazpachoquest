@@ -227,6 +227,8 @@ public class JpaUtil {
         switch (searchMode != null ? searchMode : sp.getSearchMode()) {
         case EQUALS:
             return builder.equal(path, attrValue);
+        case NOT_EQUALS:
+            return builder.notEqual(path, attrValue);
         case ENDING_LIKE:
             return builder.like(path, "%" + attrValue);
         case STARTING_LIKE:

@@ -37,6 +37,11 @@ public enum SearchMode {
      */
     EQUALS("eq"),
     /**
+     * Not Match exactly the properties
+     */
+    NOT_EQUALS("neq"),
+    
+    /**
      * Activate LIKE search. Manager provides the wildcard.
      */
     LIKE("li"),
