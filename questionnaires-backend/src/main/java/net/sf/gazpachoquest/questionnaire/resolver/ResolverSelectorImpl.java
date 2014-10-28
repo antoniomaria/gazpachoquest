@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.questionnaire.resolver;
 
 import net.sf.gazpachoquest.types.RenderingMode;
+import net.sf.gazpachoquest.types.Topology;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,22 +32,42 @@ public class ResolverSelectorImpl implements ResolverSelector {
     @Qualifier("AllInOneResolver")
     private PageResolver allInOneResolver;
 
+    @Autowired
+    @Qualifier("SectionBySectionRelevanceAwareResolver")
+    private PageResolver sectionBySectionRelevanceAwareResolver;
+
     @Override
-    public PageResolver selectBy(RenderingMode mode) {
+    public PageResolver selectBy(RenderingMode mode, Topology topology) {
         PageResolver resolver = null;
-        switch (mode) {
-        case QUESTION_BY_QUESTION:
-            resolver = questionByQuestionResolver;
+
+        switch (topology) {
+        case LINEAR:
+            switch (mode) {
+            case QUESTION_BY_QUESTION:
+                resolver = questionByQuestionResolver;
+                break;
+            case SECTION_BY_SECTION:
+                resolver = sectionBySectionResolver;
+                break;
+            case ALL_IN_ONE:
+                resolver = allInOneResolver;
+                break;
+            default:
+                throw new IllegalArgumentException(String.format("Mode %s not supported", mode));
+            }
             break;
-        case SECTION_BY_SECTION:
-            resolver = sectionBySectionResolver;
-            break;
-        case ALL_IN_ONE:
-            resolver = allInOneResolver;
-            break;
-        default:
-            throw new IllegalArgumentException(String.format("Mode %s not supported", mode));
+        case SKIP_PATTERN:
+            switch (mode) {
+            case SECTION_BY_SECTION:
+                resolver = sectionBySectionRelevanceAwareResolver;
+                break;
+            default:
+                throw new IllegalArgumentException(String.format("Mode %s not supported", mode));
+            }
+        case BRANCH_PATTERN:
+            throw new IllegalArgumentException(String.format("Topology %s not supported", topology));
         }
+
         return resolver;
     }
 

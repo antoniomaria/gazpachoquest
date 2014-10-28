@@ -44,6 +44,7 @@ import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RenderingMode;
+import net.sf.gazpachoquest.types.Topology;
 
 import org.dozer.Mapper;
 import org.slf4j.Logger;
@@ -113,7 +114,8 @@ public class QuestionnaireFacadeImpl implements QuestionnaireFacade {
         if (mode == null) {
             mode = questionnaire.getQuestionnaireDefinition().getRenderingMode();
         }
-        PageResolver resolver = resolverSelector.selectBy(mode);
+        Topology topology = questionnaireDefinitionService.getTopology(questionnaire.getQuestionnaireDefinition().getId());
+        PageResolver resolver = resolverSelector.selectBy(mode, topology);
         logger.info("Requesting page {} for questionnaireId = {} in language {} using renderingMode = {}",
                 action.toString(), questionnaireId, preferredLanguage, mode);
 

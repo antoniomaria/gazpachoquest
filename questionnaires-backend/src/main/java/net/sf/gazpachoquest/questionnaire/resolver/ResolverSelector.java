@@ -11,8 +11,9 @@
 package net.sf.gazpachoquest.questionnaire.resolver;
 
 import net.sf.gazpachoquest.types.RenderingMode;
+import net.sf.gazpachoquest.types.Topology;
 
 public interface ResolverSelector {
 
-    PageResolver selectBy(RenderingMode mode);
+    PageResolver selectBy(RenderingMode mode, Topology topology);
 }
