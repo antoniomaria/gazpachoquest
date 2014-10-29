@@ -10,15 +10,10 @@
     </encoder>
   </appender>
 
-  <logger name="org.eclipse.persistence.logging.sql" level="DEBUG" />
+  <logger name="org.eclipse.persistence.logging.sql" level="INFO" />
   <logger name="org.springframework.orm.jpa.JpaTransactionManager" level="INFO" />
-
-
-  <logger name="net.sf.gazpachoquest" level="info" />
-
-  <logger name="org.springframework.data.auditing" level="info" />
-
-
+  <logger name="net.sf.gazpachoquest" level="INFO" />
+  <logger name="org.springframework.data.auditing" level="INFO" />
 
   <root level="ERROR">
     <appender-ref ref="STDOUT" />

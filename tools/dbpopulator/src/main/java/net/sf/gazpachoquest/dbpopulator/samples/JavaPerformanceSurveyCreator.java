@@ -29,10 +29,12 @@ public class JavaPerformanceSurveyCreator {
                                 + " participates in a draw of 10 Amazon gift certificates worth $100 each. To top it off, "
                                 + "we will also share the results of the survey with you.</p>"
                                 + "<p>Answering to the 10 questions will take less than 3 minutes of your time.</p>")
-                .questionnairLanguageSettingsEnd().renderingMode(RenderingMode.QUESTION_BY_QUESTION).build();
+                .questionnairLanguageSettingsEnd().sectionInfoVisible(true).welcomeVisible(true)
+                .renderingMode(RenderingMode.SECTION_BY_SECTION).build();
 
         // Section 1
-        SectionDTO section = SectionDTO.with().language(Language.EN).randomizationEnabled(false).build();
+        SectionDTO section = SectionDTO.with().language(Language.EN).pageLanguageSettingsStart()
+                .title("Welcome to the survey").pageLanguageSettingsEnd().randomizationEnabled(false).build();
         questionnaireDefinition.addSection(section);
         questionnaireDefinition = questionnaireDefinitionEditorFacade.save(questionnaireDefinition);
 
@@ -62,7 +64,9 @@ public class JavaPerformanceSurveyCreator {
         questionnaireDefinition = questionnaireDefinitionEditorFacade.save(questionnaireDefinition);
 
         // Section 3
-        section = SectionDTO.with().language(Language.EN).randomizationEnabled(false).build();
+        section = SectionDTO.with().language(Language.EN).pageLanguageSettingsStart()
+                .title("Tell us more about your performance issues").pageLanguageSettingsEnd()
+                .relevance("${q1=='yes'}").randomizationEnabled(false).build();
         questionnaireDefinition.addSection(section);
         questionnaireDefinition = questionnaireDefinitionEditorFacade.save(questionnaireDefinition);
         section = questionnaireDefinition.getLastSectionDTO();

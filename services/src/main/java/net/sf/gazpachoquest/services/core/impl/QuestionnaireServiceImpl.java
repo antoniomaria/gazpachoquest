@@ -69,6 +69,13 @@ public class QuestionnaireServiceImpl extends AbstractPersistenceService<Questio
         }
         return existing;
     }
+    
+    @Override
+    @Transactional(readOnly = false)
+    public void removeBreadcrumb(final Integer questionnaireId, Breadcrumb breadcrumb){
+        Questionnaire existing = repository.findOne(questionnaireId);
+        existing.getBreadcrumbs().remove(breadcrumb);
+    }
 
     @Override
     @Transactional(readOnly = false)

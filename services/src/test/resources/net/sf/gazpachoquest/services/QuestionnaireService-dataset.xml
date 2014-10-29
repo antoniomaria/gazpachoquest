@@ -21,10 +21,15 @@
     lastmodifiedby_id="1" randomization_strategy="N" welcome_visible="true" progress_visible="true" end_text="" section_info_visible="true" rendering_mode="SBS" question_number_visible="true" />
   <questionnaire_definition_translation />
   <questionnaire_definition_permission />
-  
 
-  <section />
+  <section id="9" created_date="2014-04-19 10:35:11.517" language="EN" last_modified_date="2014-04-19 10:35:11.517" title="Section 1" createdby_id="1"
+    lastmodifiedby_id="1" questionnairedefinition_id="7" relevance="" description="" order_in_questionnaire="0" randomization_enabled="true" />
+  <section id="10" created_date="2014-04-19 10:35:11.566" language="EN" last_modified_date="2014-04-19 10:35:11.566" title="Section 2" createdby_id="1"
+    lastmodifiedby_id="1" questionnairedefinition_id="7" relevance="" description="" order_in_questionnaire="1" randomization_enabled="false" />
+  <section id="11" created_date="2014-04-19 10:35:11.62" language="EN" last_modified_date="2014-04-19 10:35:11.62" title="Section 3" createdby_id="1"
+    lastmodifiedby_id="1" questionnairedefinition_id="7" relevance="" description="" order_in_questionnaire="2" randomization_enabled="false" />
   <section_translation />
+
 
   <question />
   <question_translation />
@@ -45,6 +50,11 @@
 
   <label_set />
   <label />
-  <breadcrumb />
+  <breadcrumb version="1" id="7" questionnaire_id="58" type="S" last="false" section_id="11" navigation_order="3" created_date="2014-10-17 10:00:00"
+    last_modified_date="2014-10-17 10:00:00" createdby_id="1" lastmodifiedby_id="1" />
+  <breadcrumb version="1" id="3" questionnaire_id="58" type="S" last="true" section_id="9" navigation_order="1" created_date="2014-10-17 10:00:01"
+    last_modified_date="2014-10-17 10:00:00" createdby_id="1" lastmodifiedby_id="1" />
+  <breadcrumb version="1" id="5" questionnaire_id="58" type="S" last="false" section_id="10" navigation_order="2" created_date="2014-10-17 10:00:02"
+    last_modified_date="2014-10-17 10:00:00" createdby_id="1" lastmodifiedby_id="1" />
   <sequence seq_name="SEQ_GEN" seq_count="150" />
 </dataset>

@@ -102,18 +102,15 @@ public class SectionBySectionRelevanceAwareResolverTest extends AbstractShiroTes
         for (Question question : questions) {
             assertThat(question.getNumber()).isEqualTo(questionNumberCount++);
         }
-        System.out.println("SectionId = " + section.getId() + " questions: --->" + questionIds);
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
         section = pageStructure.getSections().get(0);
         questions = section.getQuestions();
         questionIds = pageStructure.getQuestionsId();
-        System.out.println("SectionId = " + section.getId() + " questions: --->" + questionIds);
         
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
         section = pageStructure.getSections().get(0);
         questions = section.getQuestions();
         questionIds = pageStructure.getQuestionsId();
-        System.out.println("SectionId = " + section.getId() + " questions: --->" + questionIds);
         
         // Answer No to 1st question
         updateSql = "UPDATE questionnaire_answers_12 SET q1 = ? where id = ?";
