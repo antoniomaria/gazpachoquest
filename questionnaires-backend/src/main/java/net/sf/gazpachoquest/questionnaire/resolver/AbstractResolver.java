@@ -144,10 +144,13 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
                     breadcrumbService.save(lastBreadcrumbs.get(0));
                 } else {
                     // Removed displayed questions from breadcrumbs
+                    /*-
                     Breadcrumb entity = Breadcrumb.withProps()
                             .questionnaire(Questionnaire.with().id(questionnaire.getId()).build()).build();
                     breadcrumbService.deleteByExample(entity,
                             new SearchParameters().after(Breadcrumb_.createdDate, nextBreadcrumb.getCreatedDate()));
+                            */
+                    questionnaireService.removeBreadcrumb(questionnaire.getId(), lastBreadcrumbs.get(0));
                 }
                 nextBreadcrumb.setLast(Boolean.TRUE);
                 breadcrumbService.save(nextBreadcrumb);
