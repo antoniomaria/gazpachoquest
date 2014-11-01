@@ -1,7 +1,43 @@
 # GazpachoQuest a Questionnaire Tool
 
-This is an application that is meant to be a answers collector tool for general purposes.
-It provides a easy way to generate all kind of questionnaires with differents question types.
+### General
+
+GazpachoQuest is general purpose tool for collecting answers through dynamic web form. The main advantagde over other alternatives is loose coupled architecture based on
+[Microservices Architecture](http://www.infoq.com/articles/microservices-intro) which ensures concern-separation.
+At this moment all the effort has been spent on provide a powerful, REST Gateway which exposes all features, ready to be consumed by others applications as a front-end. 
+
+## Java Stack
+
+* JPA Eclipse link
+* Spring Data JPA
+* JAX-RS (Apache CXF)
+* Java Security Shiro
+* Vaadin
+* Java Authentication and Authorization Service, (JAAS)  
+* SL4J (Logback)
+* DBUnit
+* EasyMock
+
+## Highligh features
+
+* Multi-lingual questionnaires 
+* Conditions for questions depending on earlier answers (Skip Logic / Branching)
+* Question and page randomization
+* Dynamic Questionnaire completion progress bar (or possibility to disable).
+* Auto-numbering for questions
+* Reordering questions / page logic.
+* Question Types
+  * Multiple Choice List (Check Boxes) + Other. Vertically or Horizontally arranged.
+  * Short /Long Text  Response + Other
+  * Multiple Choice one selected at a time (Radio buttons). Vertically or Horizontally (scales) arranged.
+  * Matrix or array of questions above listed.
+* Possibility to disable back button, resume button, logo, introduction text, skip welcome or thank-you page.
+* Smart language selector depending on Browser Preferred Language, or Respondent attributes.
+* Immediately answers saving. This gives the benefits of immediately validation, no need to change the page to validate the answers.
+* Anonymous and Not-Anonymous questionnaires
+* Role-Permission based Access-Rights management. 
+* Import and export questionnaires definitions to XML
+
 
 =======
 ### Activating the demo
@@ -12,7 +48,7 @@ The application is hosted in [cloudbees](http://www.cloudbees.com/) using a open
 
 ### Backend REST-API
 
-This module exposes all the features that GazpachoQuest provides. They are related to data collections through questionnares as well as adminitrator functions such as export/import questionnaires or add new users.
+This module exposes all the features that GazpachoQuest provides. They are related to data collections through questionnares as well as administrator functions such as export/import questionnaires or add new users.
 
 The credential for administrator account in form of apiKey:secret is:
 
