@@ -13,10 +13,6 @@ package net.sf.gazpachoquest.questionnaire.resolver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.el.ELException;
-import javax.el.ExpressionFactory;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
@@ -34,21 +30,14 @@ import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-
-import de.odysseus.el.ExpressionFactoryImpl;
-import de.odysseus.el.util.SimpleContext;
 
 @Component("QuestionByQuestionRelevanceAwareResolver")
 public class QuestionByQuestionRelevanceAwareResolver extends AbstractResolver<QuestionBreadcrumb> implements
         PageResolver {
 
-    private static final Logger logger = LoggerFactory.getLogger(QuestionByQuestionRelevanceAwareResolver.class);
     private static final Integer INITIAL_POSITION = 0;
 
     @Autowired
@@ -126,60 +115,11 @@ public class QuestionByQuestionRelevanceAwareResolver extends AbstractResolver<Q
             } 
             
         } while (!found);
-        /*-
-        do {
-            if (isSectionRevealed){
-                long questionsCount = sectionService.questionsCount(sectionId);
-                if (position < questionsCount - 1) { // Not last in group
-                    next = questionService.findOneByPositionInSection(sectionId, position + 1);
-                    found = isRevealed(next.getRelevance(), answers);
-                } else {
-                    Integer sectionPosition = sectionService.positionInQuestionnaireDefinition(sectionId);
-                    Section nextSection = sectionService.findOneByPositionInQuestionnaireDefinition(
-                            questionnaireDefinition.getId(), sectionPosition + 1);
-                    if (nextSection == null) {
-                        return null;
-                    }
-                    sectionId = nextSection.getId();
-                    if (isRevealed(nextSection.getRelevance(), answers)) {
-                        position = INITIAL_POSITION - 1;
-                    } else {
-                        sectionPosition++;
-                    }
-                }    
-            }
-            
-        } while (!found);
-*/
         // Mark next element as last browsed.
         nextBreadcrumb = QuestionBreadcrumb.with().questionnaire(questionnaire).question(next)
                 .questionNumber(lastBreadcrumb.getQuestionNumber() + 1)
                 .renderingMode(RenderingMode.QUESTION_BY_QUESTION).build();
         return nextBreadcrumb;
-    }
-
-    private ExpressionFactory elFactory = new ExpressionFactoryImpl();
-
-    private boolean isRevealed(String relevance, Map<String, Object> answers) {
-        if (StringUtils.isBlank(relevance)) {
-            return true;
-        }
-        SimpleContext context = new SimpleContext();
-        for (Entry<String, Object> answer : answers.entrySet()) {
-            String code = answer.getKey();
-            Object value = answer.getValue();
-            if (value != null) {
-                context.setVariable(code, elFactory.createValueExpression(value, value.getClass()));
-            }
-        }
-        Boolean revealed = false;
-        try {
-            // Evaluate the condition
-            revealed = (Boolean) elFactory.createValueExpression(context, relevance, Boolean.class).getValue(context);
-        } catch (ELException e) {
-            logger.warn("Errors found in evaluating the relevance condition", e);
-        }
-        return revealed;
     }
 
     @Override

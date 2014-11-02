@@ -14,5 +14,7 @@
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
 
   <context:component-scan base-package="net.sf.gazpachoquest.questionnaire" />
+  
+  <bean name="elFactory" class="de.odysseus.el.ExpressionFactoryImpl"></bean>
 
 </beans>

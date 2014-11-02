@@ -14,10 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.el.ELException;
-import javax.el.ExpressionFactory;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
@@ -33,15 +29,11 @@ import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-
-import de.odysseus.el.ExpressionFactoryImpl;
-import de.odysseus.el.util.SimpleContext;
 
 @Component("SectionBySectionRelevanceAwareResolver")
 public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<SectionBreadcrumb> implements PageResolver {
@@ -55,8 +47,6 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
 
     @Autowired
     private SectionService sectionService;
-
-    private ExpressionFactory elFactory = new ExpressionFactoryImpl();
 
     protected SectionBySectionRelevanceAwareResolver() {
         super(RenderingMode.SECTION_BY_SECTION);
@@ -98,7 +88,7 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
             if (next == null) {
                 break;
             }
-            found = isRevealed(next, answers);
+            found = isRevealed(next.getRelevance(), answers);
         } while (!found);
         
         if (logger.isDebugEnabled()){
@@ -116,29 +106,6 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
         nextBreadcrumb.setQuestionsDisplayedCount(questionsDisplayedCount
                 + nextBreadcrumb.getQuestionsBreadcrumbCount());
         return nextBreadcrumb;
-    }
-
-    private boolean isRevealed(Section next, Map<String, Object> answers) {
-        String relevance = next.getRelevance();
-        if (StringUtils.isBlank(relevance)) {
-            return true;
-        }
-        SimpleContext context = new SimpleContext();
-        for (Entry<String, Object> answer : answers.entrySet()) {
-            String code = answer.getKey();
-            Object value = answer.getValue();
-            if (value != null) {
-                context.setVariable(code, elFactory.createValueExpression(value, value.getClass()));
-            }
-        }
-        Boolean revealed = false;
-        try {
-            // Evaluate the condition
-            revealed = (Boolean) elFactory.createValueExpression(context, relevance, Boolean.class).getValue(context);
-        } catch (ELException e) {
-            logger.warn("Errors found in evaluating the relevance condition", e);
-        }
-        return revealed;
     }
 
     @Override

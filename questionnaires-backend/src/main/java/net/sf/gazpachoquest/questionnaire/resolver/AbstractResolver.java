@@ -4,9 +4,12 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.el.ELException;
+import javax.el.ExpressionFactory;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
-import net.sf.gazpachoquest.domain.core.Breadcrumb_;
 import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
@@ -26,11 +29,14 @@ import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.Assert;
+
+import de.odysseus.el.util.SimpleContext;
 
 public abstract class AbstractResolver<T extends Breadcrumb> implements PageResolver {
 
@@ -60,9 +66,14 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
     protected QuestionnaireDefinitionService questionnaireDefinitionService;
 
     @Autowired
-    private PageMetadataCreator metadataCreator;
+    protected PageMetadataCreator metadataCreator;
 
     protected final RenderingMode type;
+
+    @Autowired
+    @Qualifier("elFactory")
+    protected ExpressionFactory elFactory;
+
 
     protected AbstractResolver(RenderingMode type) {
         this.type = type;
@@ -238,4 +249,27 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
             questions.set(position, temp);
         }
     }
+
+    protected boolean isRevealed(String relevance, Map<String, Object> answers) {
+        if (StringUtils.isBlank(relevance)) {
+            return true;
+        }
+        SimpleContext context = new SimpleContext();
+        for (Entry<String, Object> answer : answers.entrySet()) {
+            String code = answer.getKey();
+            Object value = answer.getValue();
+            if (value != null) {
+                context.setVariable(code, elFactory.createValueExpression(value, value.getClass()));
+            }
+        }
+        Boolean revealed = false;
+        try {
+            // Evaluate the condition
+            revealed = (Boolean) elFactory.createValueExpression(context, relevance, Boolean.class).getValue(context);
+        } catch (ELException e) {
+            logger.warn("Errors found in evaluating the relevance condition", e);
+        }
+        return revealed;
+    }
+
 }
