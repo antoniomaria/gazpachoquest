@@ -154,9 +154,9 @@ public class SectionBySectionRelevanceAwareResolver extends AbstractResolver<Sec
         return (SectionBreadcrumb) previous;
     }
 
-    private Section findFirstSection(int questionnairDefinitionId) {
+    private Section findFirstSection(int questionnaireDefinitionId) {
         // It assumes that the first section is always displayed
-        return sectionService.findOneByPositionInQuestionnaireDefinition(questionnairDefinitionId, INITIAL_POSITION);
+        return sectionService.findOneByPositionInQuestionnaireDefinition(questionnaireDefinitionId, INITIAL_POSITION);
     }
 
     @Override

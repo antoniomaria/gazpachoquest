@@ -36,6 +36,10 @@ public class ResolverSelectorImpl implements ResolverSelector {
     @Qualifier("SectionBySectionRelevanceAwareResolver")
     private PageResolver sectionBySectionRelevanceAwareResolver;
 
+    @Autowired
+    @Qualifier("QuestionByQuestionRelevanceAwareResolver")
+    private PageResolver questionByQuestionRelevanceAwareResolver;
+
     @Override
     public PageResolver selectBy(RenderingMode mode, Topology topology) {
         PageResolver resolver = null;
@@ -52,8 +56,6 @@ public class ResolverSelectorImpl implements ResolverSelector {
             case ALL_IN_ONE:
                 resolver = allInOneResolver;
                 break;
-            default:
-                throw new IllegalArgumentException(String.format("Mode %s not supported for topology %s ", mode, topology));
             }
             break;
         case SKIP_PATTERN:
@@ -61,8 +63,12 @@ public class ResolverSelectorImpl implements ResolverSelector {
             case SECTION_BY_SECTION:
                 resolver = sectionBySectionRelevanceAwareResolver;
                 break;
+            case QUESTION_BY_QUESTION:
+                resolver = questionByQuestionRelevanceAwareResolver;
+                break;
             default:
-                throw new IllegalArgumentException(String.format("Mode %s not supported for topology %s ", mode, topology));
+                throw new IllegalArgumentException(String.format("Mode %s not supported for topology %s ", mode,
+                        topology));
             }
             break;
         case BRANCH_PATTERN:
