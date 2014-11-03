@@ -65,7 +65,7 @@ To get respondents credential first is required to validate the invitation key i
 
 This module holds all the active questionnaires/surveys ready to be fill out for respondents. They can be anonymous or tracked depending on the questionnaire settings.
 
-** Anonymous and linear questionnaires invitation keys **
+**Anonymous and linear questionnaires invitation keys**
 
 |                          |  No Randomization      |  Sections Randomization   |  Questions Randomization  |
 |--------------------------|:----------------------:|:-------------------------:|:-------------------------:|
@@ -73,7 +73,7 @@ This module holds all the active questionnaires/surveys ready to be fill out for
 | **Question by Question** |                        |                           |                           |
 | **All in one page**      |  ZZC3XNHYVL            |                           |                           |
 
-** Anonymous dynamic questionnaire depending on previous answers (skip-logic enabled) **
+**Anonymous dynamic questionnaire depending on previous answers (skip-logic enabled)**
 
 |                          |  No Randomization      | 
 |--------------------------|:----------------------:|
