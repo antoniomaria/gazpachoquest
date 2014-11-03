@@ -1,7 +1,11 @@
 # GazpachoQuest a Questionnaire Tool
 
 This is an application that is meant to be a answers collector tool for general purposes.
-It provides a easy way to generate all kind of questionnaires with differents question types.
+It provides a easy way to generate all kind of questionnaires with different question types.
+
+
+## Contributing
+Contributions are welcome, in any form including code contributions, bug reports, feature suggestions, documentation, testing, and general feedback. Issues can be submitted on the [Github page][1]. For further information, contact to: <mailto:antoniomariasanchez@gmail.com>
 
 =======
 ### Activating the demo
@@ -16,7 +20,7 @@ This module exposes all the features that GazpachoQuest provides. They are relat
 
 The credential for administrator account in form of apiKey:secret is:
 
-    3Q2JBVEASJY2SC6:XFQRMVGKR8R328TJ78E688J9MB8D6HS4
+    FM7XG6W2C4CET8H:2J882Y9GJNNE4VWKK2R9NX7R4R2DYWTQ
 
 To get respondents credential first is required to validate the invitation key in [Authentication Resource](http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/#!/auth/authenticate_get_0) 
 
@@ -28,16 +32,16 @@ This module holds all the actives questionnaires/surveys ready to be fill out fo
 
 |                          |  No Randomization      |  Sections Randomization   |  Questions Randomization  |
 |--------------------------|:----------------------:|:-------------------------:|:-------------------------:|
-| **Section By Section**   |  7ESWZMSQ8H            |  8FSXJDJ8UJ               |  FFWXDVNCZG               |
+| **Section By Section**   |  PXLLBCJDX6            |  QT2SXREWAH               |  REGRW5X27C               |
 | **Question by Question** |                        |                           |                           |
-| **All in one page**      | SLJ5Z26HNC             |                           |                           |
+| **All in one page**      |  ZZC3XNHYVL            |                           |                           |
 
 
 **Personal questionnaires invitation keys**
 
 |                          |  No Randomization      |  Sections Randomization   |  Questions Randomization  |
 |--------------------------|:----------------------:|:-------------------------:|:-------------------------:|
-| **Section By Section**   |  XVKDAB45XG, 3B5GKVKCKK|  QLM7MVK3RG, BQBTBE3SNP   |  NS9M4GG5EU,NS9M4GG5EU    |
+| **Section By Section**   |  2CNBSHKPBQ, DCLHXDRMLS|  D7QZ2CXZJW, ULQ6XWK8QR   |  SS5G7MV7NY,FSMSLM2A44    |
 | **Question by Question** |                        |                           |                           |
 | **All in one page**      |                        |                           |                           |
 
@@ -53,3 +57,5 @@ To see the demo, navigate to
 
 * [Backend REST-API](http://localhost:8080/gazpachoquest-rest-web)
 * [Questonnaires UI](http://localhost:8080)
+
+[1]: https://github.com/antoniomaria/gazpachoquest/issues

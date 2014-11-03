@@ -10,7 +10,7 @@
     </encoder>
   </appender>
   
-  <logger name="com.googlecode.flyway" level="INFO"/>
+  <logger name="org.flywaydb" level="INFO"/>
   
   <logger name="org.eclipse.persistence.logging.sql" level="INFO" />
 
