@@ -44,13 +44,18 @@ Contributions are welcome, in any form including code contributions, bug reports
 * [Spring-Test DBUnit](http://springtestdbunit.github.io/spring-test-dbunit/)
 * [EasyMock](http://easymock.org/)
 
-## Online the demo
+## Installation and local demo
 
-The application is hosted in [cloudbees](http://www.cloudbees.com/) using a open source developer license, thus only it's running if there are active users. 
-Likely the application is hibernating, and need to be activated. So be patient, and reload the page again if you get a time-out error. 
+    git clone https://github.com/antoniomaria/gazpachoquest.git
+    cd gazpachoquest
+    mvn clean install
+    cd launcher
+    mvn clean tomee:run
+    
+To see the demo, navigate to
 
-* [Active the REST Gateway](http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/).
-* [Fill out a questionnaire](http://gazpachoquest.questionnaires.ui.antoniomaria.eu.cloudbees.net/). Enter the invitation described below.
+* [REST Gateway](http://localhost:8080/gazpachoquest-rest-web)
+* [Questionnaires UI](http://localhost:8080)
 
 ### REST Gateway
 
@@ -89,17 +94,5 @@ This module holds all the active questionnaires/surveys ready to be fill out for
 | **Question by Question** |                        |                           |                           |
 | **All in one page**      |                        |                           |                           |
 
-## Installation and local demo
-
-    git clone https://github.com/antoniomaria/gazpachoquest.git
-    cd gazpachoquest
-    mvn clean install
-    cd launcher
-    mvn clean tomee:run
-        
-To see the demo, navigate to
-
-* [REST Gateway](http://localhost:8080/gazpachoquest-rest-web)
-* [Questionnaires UI](http://localhost:8080)
 
 [1]: https://github.com/antoniomaria/gazpachoquest/issues
