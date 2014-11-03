@@ -4,6 +4,7 @@ GazpachoQuest is general purpose tool for collecting answers through dynamic web
 [Microservices Architecture](http://www.infoq.com/articles/microservices-intro) which ensures concern-separation.
 At this moment all the effort has been spent on provide a powerful, REST Gateway which exposes all features, ready to be consumed by others applications as a front-end. 
 
+[![Build Status](https://travis-ci.org/antoniomaria/gazpachoquest.svg?branch=master)](https://travis-ci.org/antoniomaria/gazpachoquest)
 
 ## Highligh features
 
