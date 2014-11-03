@@ -46,7 +46,7 @@ public class User extends AbstractSecurizable<UserPermission> {
     @Column(unique = true)
     private String username;
 
-    @Column
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)

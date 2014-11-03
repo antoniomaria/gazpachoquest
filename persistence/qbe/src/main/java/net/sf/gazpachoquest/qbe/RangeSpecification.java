@@ -29,11 +29,13 @@ import org.springframework.data.jpa.domain.Specifications;
 /**
  * Helper to create {@link Specification} out of {@link Range}s.
  */
+@SuppressWarnings("unchecked")
 public class RangeSpecification {
 
-    public static <E> Specifications<E> andRangeIfSet(Specifications<E> specifications, final List<Range<E, ?>> ranges) {
-        for (Range<E, ?> range : ranges) {
-            if (range.isSet()) {
+    public static <E> Specifications<E> andRangeIfSet(Specifications<E> specifications, final List<Range<?, ?>> ranges) {
+        for (Range<?, ?> r : ranges) {
+            if (r.isSet()) {
+                Range<E, ?> range = (Range<E, ?>) r;
                 specifications = specifications.and(toSpecification(range));
             }
         }
@@ -50,9 +52,15 @@ public class RangeSpecification {
                 if (range.isBetween()) {
                     rangePredicate = builder.between(root.get(range.getField()), range.getFrom(), range.getTo());
                 } else if (range.isFromSet()) {
-                    rangePredicate = builder.greaterThanOrEqualTo(root.get(range.getField()), range.getFrom());
+                    // rangePredicate =
+                    // builder.greaterThanOrEqualTo(root.get(range.getField()),
+                    // range.getFrom());
+                    rangePredicate = builder.greaterThan(root.get(range.getField()), range.getFrom());
                 } else if (range.isToSet()) {
-                    rangePredicate = builder.lessThanOrEqualTo(root.get(range.getField()), range.getTo());
+                    // rangePredicate =
+                    // builder.lessThanOrEqualTo(root.get(range.getField()),
+                    // range.getTo());
+                    rangePredicate = builder.lessThan(root.get(range.getField()), range.getTo());
                 }
 
                 if (rangePredicate != null) {

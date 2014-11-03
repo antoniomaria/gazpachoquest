@@ -3,6 +3,7 @@ package net.sf.gazpachoquest.questionnaire.resolver;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
@@ -54,16 +55,17 @@ public class AllInOneResolver extends AbstractResolver<SectionBreadcrumb> implem
                         .renderingMode(RenderingMode.ALL_IN_ONE).build();
                 breadcrumbs.add(breadcrumb);
             }
-            populateQuestionsBreadcrumbs(breadcrumbs);
+            populateQuestionsBreadcrumbs(breadcrumbs, QUESTION_NUMBER_START_COUNTER);
         } else if (RandomizationStrategy.QUESTIONS_RANDOMIZATION.equals(randomizationStrategy)) {
             // Container section
             breadcrumb = SectionBreadcrumb.with().questionnaire(questionnaire).last(Boolean.TRUE)
                     .renderingMode(RenderingMode.ALL_IN_ONE).build();
 
             List<Question> questions = questionnaireDefinitionService.getQuestions(questionnairDefinitionId);
-            Collections.shuffle(questions);
+            shuffle(questions);
+            Integer questionNumberCounter = QUESTION_NUMBER_START_COUNTER;
             for (Question question : questions) {
-                breadcrumb.addBreadcrumb((QuestionBreadcrumb.with().question(question).last(Boolean.TRUE).build()));
+                breadcrumb.addBreadcrumb((QuestionBreadcrumb.with().question(question).last(Boolean.TRUE).questionNumber(questionNumberCounter++).build()));
             }
             breadcrumbs.add(breadcrumb);
         } else {
@@ -77,7 +79,7 @@ public class AllInOneResolver extends AbstractResolver<SectionBreadcrumb> implem
                         .renderingMode(RenderingMode.ALL_IN_ONE).build();
                 breadcrumbs.add(breadcrumb);
             }
-            populateQuestionsBreadcrumbs(breadcrumbs);
+            populateQuestionsBreadcrumbs(breadcrumbs, QUESTION_NUMBER_START_COUNTER);
         }
         return breadcrumbs;
     }
@@ -90,14 +92,14 @@ public class AllInOneResolver extends AbstractResolver<SectionBreadcrumb> implem
 
     @Override
     protected SectionBreadcrumb findNextBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
-            Questionnaire questionnaire, SectionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
+            Questionnaire questionnaire, Map<String, Object> answers, SectionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
         return null;
     }
 
     @Override
     protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
-            List<SectionBreadcrumb> breadcrumbs) {
-        PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs);
+            List<SectionBreadcrumb> breadcrumbs, Map<String, Object> answers) {
+        PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs,  answers);
 
         for (Breadcrumb breadcrumb : breadcrumbs) {
             SectionBreadcrumb sectionBreadcrumb = (SectionBreadcrumb) breadcrumb;
@@ -108,7 +110,8 @@ public class AllInOneResolver extends AbstractResolver<SectionBreadcrumb> implem
             }
             Section section = builder.build();
             for (QuestionBreadcrumb questionBreadcrumb : sectionBreadcrumb.getBreadcrumbs()) {
-                section.addQuestion(Question.with().id(questionBreadcrumb.getQuestion().getId()).build());
+                section.addQuestion(Question.with().id(questionBreadcrumb.getQuestion().getId())
+                        .number(questionBreadcrumb.getQuestionNumber()).build());
             }
             nextPage.addSection(section);
         }

@@ -12,8 +12,6 @@ package net.sf.gazpachoquest.domain.core;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 
 import net.sf.gazpachoquest.domain.support.Invitation;
 import net.sf.gazpachoquest.types.InvitationStatus;
@@ -24,19 +22,8 @@ public class AnonymousInvitation extends Invitation {
 
     private static final long serialVersionUID = -9203813369476903640L;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    protected QuestionnaireDefinition questionnaireDefinition;
-
     public AnonymousInvitation() {
         super();
-    }
-
-    public QuestionnaireDefinition getQuestionnairDefinition() {
-        return questionnaireDefinition;
-    }
-
-    public void setQuestionnairDefinition(QuestionnaireDefinition questionnaireDefinition) {
-        this.questionnaireDefinition = questionnaireDefinition;
     }
 
     public static Builder with() {
@@ -48,7 +35,6 @@ public class AnonymousInvitation extends Invitation {
         private String token;
         private Research research;
         private InvitationStatus status;
-        private QuestionnaireDefinition questionnaireDefinition;
 
         @Override
         public Builder token(String token) {
@@ -68,11 +54,6 @@ public class AnonymousInvitation extends Invitation {
             return this;
         }
 
-        public Builder questionnaireDefinition(QuestionnaireDefinition questionnaireDefinition) {
-            this.questionnaireDefinition = questionnaireDefinition;
-            return this;
-        }
-
         @Override
         public AnonymousInvitation build() {
             return new AnonymousInvitation(this);
@@ -81,7 +62,6 @@ public class AnonymousInvitation extends Invitation {
 
     private AnonymousInvitation(Builder builder) {
         super(builder.token, builder.research, builder.status);
-        questionnaireDefinition = builder.questionnaireDefinition;
     }
 
 }

@@ -11,6 +11,9 @@
 package net.sf.gazpachoquest.facades;
 
 import net.sf.gazpachoquest.dto.ResearchDTO;
+import net.sf.gazpachoquest.dto.UserDTO;
+import net.sf.gazpachoquest.dto.support.PageDTO;
+import net.sf.gazpachoquest.types.EntityStatus;
 
 public interface ResearchFacade {
 
@@ -19,5 +22,11 @@ public interface ResearchFacade {
     ResearchDTO findOne(Integer id);
 
     ResearchDTO save(ResearchDTO research);
+
+    PageDTO<ResearchDTO> findPaginated(Integer pageNumber, Integer size);
+
+    void addRespondent(Integer researchId, UserDTO respondentDTO);
+
+    void changeStatus(Integer researchId, EntityStatus newStatus);
 
 }

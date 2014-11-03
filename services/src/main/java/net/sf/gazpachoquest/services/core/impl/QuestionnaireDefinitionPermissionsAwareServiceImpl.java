@@ -23,6 +23,7 @@ import net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission;
 import net.sf.gazpachoquest.repository.QuestionnaireDefinitionRepository;
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.types.Language;
+import net.sf.gazpachoquest.types.Topology;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.XmlMappingException;
@@ -79,14 +80,19 @@ public class QuestionnaireDefinitionPermissionsAwareServiceImpl extends
     }
 
     @Override
-    public void exportQuestionnairDefinition(Integer questionnairDefinitionId, OutputStream outputStream)
+    public void exportQuestionnaireDefinition(Integer questionnairDefinitionId, OutputStream outputStream)
             throws XmlMappingException, IOException {
         throw new UnsupportedOperationException("Method not supported in this implementation");
     }
 
     @Override
-    public QuestionnaireDefinition importQuestionnairDefinition(InputStream inputStream) throws XmlMappingException,
+    public QuestionnaireDefinition importQuestionnaireDefinition(InputStream inputStream) throws XmlMappingException,
             IOException {
+        throw new UnsupportedOperationException("Method not supported in this implementation");
+    }
+    
+    @Override
+    public Topology getTopology(Integer questionnaireDefinitionId) {
         throw new UnsupportedOperationException("Method not supported in this implementation");
     }
 

@@ -53,7 +53,7 @@ import net.sf.gazpachoquest.types.RenderingMode;
 @Entity
 @XmlRootElement
 @XmlType(propOrder = { "language", "languageSettings", "sections", "mailTemplates", "translations", "welcomeVisible",
-        "progressVisible", "sectionInfoVisible", "randomizationStrategy", "questionsPerPage", "renderingMode" })
+        "progressVisible", "sectionInfoVisible", "randomizationStrategy", "questionsPerPage", "questionNumberVisible", "renderingMode" })
 public class QuestionnaireDefinition
         extends
         AbstractSecurizableLocalizable<QuestionnaireDefinitionPermission, QuestionnaireDefinitionTranslation, QuestionnaireDefinitionLanguageSettings> {
@@ -62,6 +62,7 @@ public class QuestionnaireDefinition
 
     @Convert(converter = EntityStatusConverter.class)
     @XmlTransient
+    @Column(nullable = false)
     private EntityStatus status;
 
     @Embedded
@@ -74,6 +75,10 @@ public class QuestionnaireDefinition
     @OneToMany(mappedBy = "questionnaireDefinition", orphanRemoval = true, fetch = FetchType.LAZY)
     @XmlTransient
     private final Set<Questionnaire> questionnaires = new HashSet<Questionnaire>();
+
+    @OneToMany(mappedBy = "questionnaireDefinition", fetch = FetchType.LAZY)
+    @XmlTransient
+    private final Set<Research> researches = new HashSet<Research>();
 
     @OneToMany(mappedBy = "questionnaireDefinition", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapKeyEnumerated(EnumType.STRING)
@@ -99,6 +104,9 @@ public class QuestionnaireDefinition
 
     @Column(nullable = false)
     private Boolean sectionInfoVisible;
+    
+    @Column(nullable = false)
+    private Boolean questionNumberVisible;
 
     @Convert(converter = RandomizationStrategyTypeConverter.class)
     @Column(nullable = false)
@@ -126,6 +134,11 @@ public class QuestionnaireDefinition
     public void addSection(Section section) {
         sections.add(section);
         section.setQuestionnairDefinition(this);
+    }
+    
+    public void addQuestionnaire(Questionnaire questionnaire) {
+        questionnaires.add(questionnaire);
+        questionnaire.setQuestionnaireDefinition(this);
     }
 
     @Override
@@ -189,6 +202,14 @@ public class QuestionnaireDefinition
         this.sectionInfoVisible = sectionInfoVisible;
     }
 
+    public Boolean isQuestionNumberVisible() {
+        return questionNumberVisible;
+    }
+
+    public void setQuestionNumberVisible(Boolean questionNumberVisible) {
+        this.questionNumberVisible = questionNumberVisible;
+    }
+
     public RandomizationStrategy getRandomizationStrategy() {
         return randomizationStrategy;
     }
@@ -203,6 +224,14 @@ public class QuestionnaireDefinition
 
     public void setQuestionsPerPage(Integer questionsPerPage) {
         this.questionsPerPage = questionsPerPage;
+    }
+
+    public Set<Research> getResearches() {
+        return Collections.unmodifiableSet(researches);
+    }
+
+    public void addResearch(Research research) {
+        researches.add(research);
     }
 
     public void updateInverseRelationships() {
@@ -248,7 +277,8 @@ public class QuestionnaireDefinition
         private RandomizationStrategy randomizationStrategy;
         private Integer questionsPerPage;
         private RenderingMode renderingMode;
-
+        private Boolean questionNumberVisible;
+        
         public Builder id(Integer id) {
             this.id = id;
             return this;
@@ -284,6 +314,12 @@ public class QuestionnaireDefinition
             return this;
         }
 
+        public Builder questionNumberVisible(Boolean questionNumberVisible) {
+            this.questionNumberVisible = questionNumberVisible;
+            return this;
+        }
+
+        
         public Builder randomizationStrategy(RandomizationStrategy randomizationStrategy) {
             this.randomizationStrategy = randomizationStrategy;
             return this;
@@ -311,7 +347,9 @@ public class QuestionnaireDefinition
             questionnaireDefinition.randomizationStrategy = randomizationStrategy;
             questionnaireDefinition.questionsPerPage = questionsPerPage;
             questionnaireDefinition.renderingMode = renderingMode;
+            questionnaireDefinition.questionNumberVisible = questionNumberVisible;
             return questionnaireDefinition;
         }
     }
+
 }

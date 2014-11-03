@@ -32,6 +32,8 @@ public class UserDTO extends AbstractAuditableDTO {
 
     private String apiKey;
 
+    private String password;
+    
     private final Map<String, String> attributes = new HashMap<String, String>();
 
     public UserDTO() {
@@ -102,11 +104,20 @@ public class UserDTO extends AbstractAuditableDTO {
         this.apiKey = apiKey;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public static Builder with() {
         return new Builder();
     }
 
     public static class Builder {
+        private Integer id;
         private String email;
         private String givenNames;
         private String surname;
@@ -114,12 +125,16 @@ public class UserDTO extends AbstractAuditableDTO {
         private Language preferredLanguage;
         private Gender gender;
         private String username;
-
+        private String password = "";
+        
         public Builder email(String email) {
             this.email = email;
             return this;
         }
-
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
         public Builder givenNames(String givenNames) {
             this.givenNames = givenNames;
             return this;
@@ -127,6 +142,10 @@ public class UserDTO extends AbstractAuditableDTO {
 
         public Builder surname(String surname) {
             this.surname = surname;
+            return this;
+        }
+        public Builder password(String password) {
+            this.password = password;
             return this;
         }
 
@@ -152,12 +171,14 @@ public class UserDTO extends AbstractAuditableDTO {
 
         public UserDTO build() {
             UserDTO userDTO = new UserDTO();
+            userDTO.setId(id);
             userDTO.email = email;
             userDTO.givenNames = givenNames;
-            userDTO.surname = surname;
+            userDTO.password = password;
             userDTO.preferredLanguage = preferredLanguage;
             userDTO.gender = gender;
             userDTO.username = username;
+            userDTO.surname = surname;
             userDTO.apiKey = apiKey;
             return userDTO;
         }

@@ -5,7 +5,7 @@
  <parent>
   <groupId>net.sf.gazpachoquest</groupId>
   <artifactId>gazpachoquest-tools</artifactId>
-  <version>0.5.4.1-RELEASE</version>
+  <version>0.5.4.2-SNAPSHOT</version>
  </parent>
  <artifactId>gazpachoquest-dbextractor</artifactId>
  <name>gazpachoquest-dbextractor</name>
@@ -64,12 +64,6 @@
   <dependency>
    <groupId>${project.groupId}</groupId>
    <artifactId>gazpachoquest-db</artifactId>
-  </dependency>
-
-  <!-- Google flyway -->
-  <dependency>
-   <groupId>com.googlecode.flyway</groupId>
-   <artifactId>flyway-core</artifactId>
   </dependency>
 
   <!-- C3P0 DBpool -->

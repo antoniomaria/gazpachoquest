@@ -43,7 +43,7 @@ public class GroupDTO extends AbstractAuditableDTO {
 
     public static class Builder {
         private String name;
-        private String description;
+        private String description = "";
 
         public Builder name(String name) {
             this.name = name;

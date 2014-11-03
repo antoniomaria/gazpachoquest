@@ -3,7 +3,7 @@
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
     <artifactId>gazpacho-persistence</artifactId>
-    <version>0.5.4.1-RELEASE</version>
+    <version>0.5.4.2-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-dao</artifactId>
   <packaging>jar</packaging>
@@ -99,7 +99,7 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-domain</artifactId>
     </dependency>
-
+    
     <!-- Spring data jpa -->
     <dependency>
       <groupId>org.springframework.data</groupId>
@@ -135,7 +135,7 @@
 
     <!-- Google flyway -->
     <dependency>
-      <groupId>com.googlecode.flyway</groupId>
+      <groupId>org.flywaydb</groupId>
       <artifactId>flyway-core</artifactId>
     </dependency>
   </dependencies>

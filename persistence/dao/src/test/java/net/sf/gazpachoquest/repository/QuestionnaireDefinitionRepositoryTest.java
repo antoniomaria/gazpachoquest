@@ -16,6 +16,7 @@ import net.sf.gazpachoquest.domain.core.embeddables.QuestionnaireDefinitionLangu
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.test.shiro.support.AbstractShiroTest;
+import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
@@ -60,15 +61,14 @@ public class QuestionnaireDefinitionRepositoryTest extends AbstractShiroTest {
     public void saveWithSections() {
         QuestionnaireDefinitionLanguageSettings settings = QuestionnaireDefinitionLanguageSettings.with()
                 .title("My QuestionnaireDefinition example").description("My questionnaireDefinition description")
-                .welcomeText("welcome").build();
-        QuestionnaireDefinition questionnaireDefinition = QuestionnaireDefinition.with().language(Language.ES)
+                .welcomeText("welcome").endText("").build();
+        QuestionnaireDefinition questionnaireDefinition = QuestionnaireDefinition.with().status(EntityStatus.DRAFT).language(Language.ES)
                 .languageSettings(settings).sectionInfoVisible(true).progressVisible(true).welcomeVisible(true)
-                .randomizationStrategy(RandomizationStrategy.NONE).renderingMode(RenderingMode.SECTION_BY_SECTION).build();
-        Section section = new Section();
-        section.setLanguage(Language.ES);
-        section.setRandomizationEnabled(false);
+                .randomizationStrategy(RandomizationStrategy.NONE).renderingMode(RenderingMode.SECTION_BY_SECTION).questionNumberVisible(false).build();
+        Section section = Section.with().language(Language.ES).randomizationEnabled(false).relevance("").build();
         SectionLanguageSettings groupSettings = new SectionLanguageSettings();
         groupSettings.setTitle("Group 1");
+        groupSettings.setDescription("");
         section.setLanguageSettings(groupSettings);
 
         questionnaireDefinition.addSection(section);
@@ -78,10 +78,12 @@ public class QuestionnaireDefinitionRepositoryTest extends AbstractShiroTest {
         Question question = new Question();
         question.setLanguage(Language.ES);
         question.setCode("Q1");
+        question.setRelevance("");
         question.setType(QuestionType.S);
         QuestionLanguageSettings questionLanguageSettings = new QuestionLanguageSettings();
         questionLanguageSettings.setTitle("Question 1");
-
+        questionLanguageSettings.setExplanation("");
+        
         question.setLanguageSettings(questionLanguageSettings);
         question.setOtherAllowed(false);
         question.setRequired(false);
@@ -89,10 +91,12 @@ public class QuestionnaireDefinitionRepositoryTest extends AbstractShiroTest {
 
         question = new Question();
         question.setCode("Q2");
+        question.setRelevance("");
         question.setType(QuestionType.S);
         question.setLanguage(Language.ES);
         questionLanguageSettings = new QuestionLanguageSettings();
         questionLanguageSettings.setTitle("Question 2");
+        questionLanguageSettings.setExplanation("");
         question.setLanguageSettings(questionLanguageSettings);
         question.setOtherAllowed(false);
         question.setRequired(false);
@@ -108,17 +112,17 @@ public class QuestionnaireDefinitionRepositoryTest extends AbstractShiroTest {
     @Test
     public void saveTest() {
         QuestionnaireDefinitionLanguageSettings languageSettings = QuestionnaireDefinitionLanguageSettings.with()
-                .title("My QuestionnaireDefinition").description("my description").welcomeText("welcome").build();
-        QuestionnaireDefinition questionnaireDefinition = QuestionnaireDefinition.with().language(Language.EN)
+                .title("My QuestionnaireDefinition").description("my description").welcomeText("welcome").endText("").build();
+        QuestionnaireDefinition questionnaireDefinition = QuestionnaireDefinition.with().status(EntityStatus.DRAFT).language(Language.EN)
                 .languageSettings(languageSettings).sectionInfoVisible(true).progressVisible(true)
-                .welcomeVisible(true).randomizationStrategy(RandomizationStrategy.NONE)
+                .welcomeVisible(true).randomizationStrategy(RandomizationStrategy.NONE).questionNumberVisible(false)
                 .renderingMode(RenderingMode.SECTION_BY_SECTION).build();
         questionnaireDefinition = repository.save(questionnaireDefinition);
         assertThat(questionnaireDefinition.getCreatedDate()).isNotNull();
         assertThat(questionnaireDefinition.getCreatedBy()).isNotNull();
 
         languageSettings = QuestionnaireDefinitionLanguageSettings.with().description("my description")
-                .title("My QuestionnaireDefinition. Version 1").welcomeText("welcome").build();
+                .title("My QuestionnaireDefinition. Version 1").welcomeText("welcome").endText("").build();
         questionnaireDefinition.setLanguageSettings(languageSettings);
         questionnaireDefinition = repository.save(questionnaireDefinition);
         assertThat(questionnaireDefinition.getLastModifiedBy()).isNotNull();

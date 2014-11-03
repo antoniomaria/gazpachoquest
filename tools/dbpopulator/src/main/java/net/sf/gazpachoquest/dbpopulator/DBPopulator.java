@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 antoniomariasanchez at gmail.com. All rights reserved. This program and the accompanying materials
+ * Copyright (c) 2015 antoniomariasanchez at gmail.com. All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0 which accompanies this distribution, and is
  * available at http://www.gnu.org/licenses/gpl.html
  * 
@@ -12,22 +12,24 @@ import java.util.Set;
 
 import net.sf.gazpachoquest.dbpopulator.samples.DemoSurveyCreator;
 import net.sf.gazpachoquest.dbpopulator.samples.FastFoodSurveyCreator;
+import net.sf.gazpachoquest.dbpopulator.samples.JavaPerformanceSurveyCreator;
 import net.sf.gazpachoquest.dbpopulator.samples.SampleQuizCreator;
 import net.sf.gazpachoquest.dto.GroupDTO;
 import net.sf.gazpachoquest.dto.LabelDTO;
 import net.sf.gazpachoquest.dto.LabelSetDTO;
 import net.sf.gazpachoquest.dto.MailMessageTemplateDTO;
-import net.sf.gazpachoquest.dto.MailMessageTemplateLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.ResearchDTO;
 import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.UserDTO;
+import net.sf.gazpachoquest.dto.embeddables.MailMessageTemplateLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.support.TranslationDTO;
 import net.sf.gazpachoquest.facades.GroupFacade;
 import net.sf.gazpachoquest.facades.MailMessageFacade;
 import net.sf.gazpachoquest.facades.QuestionnaireDefinitionEditorFacade;
 import net.sf.gazpachoquest.facades.ResearchFacade;
 import net.sf.gazpachoquest.facades.UserFacade;
+import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
@@ -64,6 +66,9 @@ public class DBPopulator {
 
     @Autowired
     private DemoSurveyCreator demoSurveyCreator;
+    
+    @Autowired
+    private JavaPerformanceSurveyCreator javaPerformanceSurveyCreator;
 
     // http://www.objectpartners.com/2012/05/17/creating-a-hierarchical-test-data-builder-using-generics/
     public void populate() {
@@ -79,6 +84,38 @@ public class DBPopulator {
         // populateForJUnitTest(respondents);
         // populateForDemo(respondents);
         populateForFullDemo(respondents);
+        // populateJavaPerformanceSurvey(respondents);
+    }
+
+    public void populateJavaPerformanceSurvey(Set<UserDTO> respondents) {
+        QuestionnaireDefinitionDTO questionnaireDefinition = javaPerformanceSurveyCreator.create();
+        asignDefaultMailTemplate(questionnaireDefinition);
+        questionnaireDefinitionEditorFacade.confirm(questionnaireDefinition);
+
+        ResearchDTO research = ResearchDTO
+                .with()
+                .type(ResearchAccessType.BY_INVITATION)
+                .name("Tracked survey: " + questionnaireDefinition.getLanguageSettings().getTitle()
+                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
+
+        research = researchFacade.save(research);
+        Integer researchId = research.getId();
+
+        for (UserDTO respondent : respondents) {
+            researchFacade.addRespondent(researchId, respondent);
+        }
+        researchFacade.changeStatus(researchId, EntityStatus.CONFIRMED);
+
+        research = ResearchDTO
+                .with()
+                .type(ResearchAccessType.OPEN_ACCESS)
+                .name("Anonymous Survey: " + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+
+        research.setQuestionnaireDefinition(questionnaireDefinition);
+        research = researchFacade.save(research);
+        
     }
 
     public void populateForJUnitTest(Set<UserDTO> respondents) {
@@ -90,20 +127,25 @@ public class DBPopulator {
                 .with()
                 .type(ResearchAccessType.BY_INVITATION)
                 .name("New private Questionnaire " + questionnaireDefinition.getLanguageSettings().getTitle()
-                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnaireDefinition(questionnaireDefinition);
+                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
+
+        research = researchFacade.save(research);
+        Integer researchId = research.getId();
+
         for (UserDTO respondent : respondents) {
-            research.addRespondent(respondent);
+            researchFacade.addRespondent(researchId, respondent);
         }
-        researchFacade.save(research);
+        researchFacade.changeStatus(researchId, EntityStatus.CONFIRMED);
 
         research = ResearchDTO
                 .with()
                 .type(ResearchAccessType.OPEN_ACCESS)
                 .name("New open Questionnaire " + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnaireDefinition(questionnaireDefinition);
-        // researchFacade.save(research);
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+
+        research.setQuestionnaireDefinition(questionnaireDefinition);
+        research = researchFacade.save(research);
     }
 
     public void populateForFullDemo(Set<UserDTO> respondents) {
@@ -114,18 +156,22 @@ public class DBPopulator {
 
         ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
                 .name("New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnaireDefinition(questionnaireDefinition);
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
+        research = researchFacade.save(research);
+
+        Integer researchId = research.getId();
+
         for (UserDTO respondent : respondents) {
-            research.addRespondent(respondent);
+            researchFacade.addRespondent(researchId, respondent);
         }
-        researchFacade.save(research);
+        researchFacade.changeStatus(researchId, EntityStatus.CONFIRMED);
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
                 .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnaireDefinition(questionnaireDefinition);
-        researchFacade.save(research);
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
+        research = researchFacade.save(research);
 
         questionnaireDefinition = sampleQuizCreator.create();
         questionnaireDefinition.setRenderingMode(RenderingMode.ALL_IN_ONE);
@@ -136,9 +182,9 @@ public class DBPopulator {
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
                 .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnaireDefinition(questionnaireDefinition);
-        researchFacade.save(research);
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
+        research = researchFacade.save(research);
 
         // Question Randomization Enabled
         questionnaireDefinition = sampleQuizCreator.create();
@@ -151,18 +197,23 @@ public class DBPopulator {
 
         research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
                 .name("New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnaireDefinition(questionnaireDefinition);
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
+
+        research = researchFacade.save(research);
+
+        researchId = research.getId();
+
         for (UserDTO respondent : respondents) {
-            research.addRespondent(respondent);
+            researchFacade.addRespondent(researchId, respondent);
         }
-        researchFacade.save(research);
+        researchFacade.changeStatus(researchId, EntityStatus.CONFIRMED);
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
                 .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnaireDefinition(questionnaireDefinition);
-        researchFacade.save(research);
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
+        research = researchFacade.save(research);
 
         // Groups Randomization Enabled
         questionnaireDefinition = sampleQuizCreator.create();
@@ -174,17 +225,22 @@ public class DBPopulator {
 
         research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
                 .name("New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnaireDefinition(questionnaireDefinition);
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
+
+        research = researchFacade.save(research);
+
+        researchId = research.getId();
+
         for (UserDTO respondent : respondents) {
-            research.addRespondent(respondent);
+            researchFacade.addRespondent(researchId, respondent);
         }
-        researchFacade.save(research);
+        researchFacade.changeStatus(researchId, EntityStatus.CONFIRMED);
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
                 .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnaireDefinition(questionnaireDefinition);
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
         researchFacade.save(research);
 
         // First Group Randomization Enabled
@@ -198,17 +254,22 @@ public class DBPopulator {
 
         research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
                 .name("New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnaireDefinition(questionnaireDefinition);
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
+
+        research = researchFacade.save(research);
+
+        researchId = research.getId();
+
         for (UserDTO respondent : respondents) {
-            research.addRespondent(respondent);
+            researchFacade.addRespondent(researchId, respondent);
         }
-        researchFacade.save(research);
+        researchFacade.changeStatus(researchId, EntityStatus.CONFIRMED);
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
                 .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnaireDefinition(questionnaireDefinition);
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
         researchFacade.save(research);
 
         questionnaireDefinition = fastFoodSurveyCreator.create();
@@ -219,8 +280,20 @@ public class DBPopulator {
                 .with()
                 .type(ResearchAccessType.OPEN_ACCESS)
                 .name("New customer satisfation survey " + questionnaireDefinition.getLanguageSettings().getTitle()
-                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnaireDefinition(questionnaireDefinition);
+                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
+        researchFacade.save(research);
+
+        questionnaireDefinition = javaPerformanceSurveyCreator.create();
+        asignDefaultMailTemplate(questionnaireDefinition);
+        questionnaireDefinitionEditorFacade.confirm(questionnaireDefinition);
+
+        research = ResearchDTO
+                .with()
+                .type(ResearchAccessType.OPEN_ACCESS)
+                .name("Java Performance Survey " + questionnaireDefinition.getLanguageSettings().getTitle()
+                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
         researchFacade.save(research);
 
     }
@@ -234,22 +307,31 @@ public class DBPopulator {
 
         ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
                 .name("New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnaireDefinition(questionnaireDefinition);
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
+
+        research = researchFacade.save(research);
+
+        Integer researchId = research.getId();
+
         for (UserDTO respondent : respondents) {
-            research.addRespondent(respondent);
+            researchFacade.addRespondent(researchId, respondent);
         }
-        researchFacade.save(research);
+        researchFacade.changeStatus(researchId, EntityStatus.CONFIRMED);
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
                 .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        research.addQuestionnaireDefinition(questionnaireDefinition);
-        for (UserDTO respondent : respondents) {
-            research.addRespondent(respondent);
-        }
+                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
 
-        researchFacade.save(research);
+        research = researchFacade.save(research);
+
+        researchId = research.getId();
+
+        for (UserDTO respondent : respondents) {
+            researchFacade.addRespondent(researchId, respondent);
+        }
+        researchFacade.changeStatus(researchId, EntityStatus.CONFIRMED);
 
         questionnaireDefinition = fastFoodSurveyCreator.create();
         asignDefaultMailTemplate(questionnaireDefinition);
@@ -261,13 +343,9 @@ public class DBPopulator {
                 .with()
                 .type(ResearchAccessType.OPEN_ACCESS)
                 .name("New customer satisfation survey " + questionnaireDefinition.getLanguageSettings().getTitle()
-                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2014-12-31")).build();
-        for (UserDTO respondent : respondents) {
-            research.addRespondent(respondent);
-        }
-        research.addQuestionnaireDefinition(questionnaireDefinition);
+                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
         researchFacade.save(research);
-
     }
 
     public MailMessageTemplateDTO asignDefaultMailTemplate(final QuestionnaireDefinitionDTO questionnair) {

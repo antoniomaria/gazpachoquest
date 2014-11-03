@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.services.core.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,9 +84,12 @@ public class QuestionServiceImpl extends
     @Override
     @Transactional
     public List<Question> findInList(List<Integer> questionIds, Language language) {
-        List<Question> questions = ((QuestionRepository) repository).findInList(questionIds);
         if (questionIds.isEmpty()) {
-            return questions;
+            return Collections.emptyList();
+        }
+        List<Question> questions = ((QuestionRepository) repository).findInList(questionIds);
+        if (questions.isEmpty()) {
+            return Collections.emptyList();
         }
 
         Question sampleQuestion = questions.iterator().next();
@@ -99,6 +103,7 @@ public class QuestionServiceImpl extends
         group.addAttribute("language");
         group.addAttribute("type");
         group.addAttribute("code");
+        group.addAttribute("relevance");
 
         group.addAttribute("subquestions.subquestions");
         group.addAttribute("subquestions.questionOptions");

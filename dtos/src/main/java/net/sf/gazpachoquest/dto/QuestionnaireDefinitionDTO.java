@@ -12,20 +12,29 @@ package net.sf.gazpachoquest.dto;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import net.sf.gazpachoquest.dto.embeddables.QuestionnaireDefinitionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.support.AbstractAuditableDTO;
 import net.sf.gazpachoquest.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
+import com.wordnik.swagger.annotations.ApiModelProperty;
+
 public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         IdentifiableLocalizable<QuestionnaireDefinitionLanguageSettingsDTO> {
 
     private static final long serialVersionUID = 4558625807621395019L;
 
+    @ApiModelProperty(value = "Default language", required = true)
     private Language language;
+
+    @ApiModelProperty(value = "Others languages supported", required = false)
+    private final Set<Language> supportedLanguages = new HashSet<Language>();
 
     private QuestionnaireDefinitionLanguageSettingsDTO languageSettings;
 
@@ -37,14 +46,25 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
 
     private Boolean sectionInfoVisible;
 
+    private Boolean questionNumberVisible;
+    
     private RandomizationStrategy randomizationStrategy;
 
     private Integer questionsPerPage;
 
     private RenderingMode renderingMode;
 
+    
     public QuestionnaireDefinitionDTO() {
         super();
+    }
+
+    public Set<Language> getSupportedLanguages() {
+        return Collections.unmodifiableSet(supportedLanguages);
+    }
+
+    public void addSupportedLanguage(Language language) {
+        supportedLanguages.add(language);
     }
 
     public void addSection(final SectionDTO section) {
@@ -104,6 +124,14 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         this.sectionInfoVisible = sectionInfoVisible;
     }
 
+    public Boolean isQuestionNumberVisible() {
+        return questionNumberVisible;
+    }
+
+    public void setQuestionNumberVisible(Boolean questionNumberVisible) {
+        this.questionNumberVisible = questionNumberVisible;
+    }
+
     public RandomizationStrategy getRandomizationStrategy() {
         return randomizationStrategy;
     }
@@ -145,8 +173,10 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
 
         Builder sectionInfoVisible(Boolean sectionInfoVisible);
 
+        Builder questionNumberVisible(Boolean questionNumberVisible);
+        
         Builder randomizationStrategy(RandomizationStrategy randomizationStrategy);
-
+        
         Builder questionsPerPage(Integer questionsPerPage);
 
         Builder renderingMode(RenderingMode renderingMode);
@@ -177,6 +207,8 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         private Integer questionsPerPage;
 
         private RenderingMode renderingMode = RenderingMode.SECTION_BY_SECTION;
+        
+        private Boolean questionNumberVisible = Boolean.TRUE;
 
         @Override
         public QuestionnaireDefinitionDTO build() {
@@ -187,6 +219,7 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
 
             questionnaireDefinitionDTO.welcomeVisible = welcomeVisible;
             questionnaireDefinitionDTO.progressVisible = progressVisible;
+            questionnaireDefinitionDTO.questionNumberVisible = questionNumberVisible;
             questionnaireDefinitionDTO.sectionInfoVisible = sectionInfoVisible;
             questionnaireDefinitionDTO.randomizationStrategy = randomizationStrategy;
 
@@ -238,7 +271,13 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
             this.sectionInfoVisible = sectionInfoVisible;
             return this;
         }
-
+        
+        @Override
+        public Builder questionNumberVisible(Boolean questionNumberVisible) {
+            this.questionNumberVisible = questionNumberVisible;
+            return this;
+        }
+        
         @Override
         public Builder randomizationStrategy(RandomizationStrategy randomizationStrategy) {
             this.randomizationStrategy = randomizationStrategy;
@@ -259,3 +298,4 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
     }
 
 }
+

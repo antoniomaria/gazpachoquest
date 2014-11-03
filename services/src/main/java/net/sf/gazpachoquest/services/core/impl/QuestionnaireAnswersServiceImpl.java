@@ -43,7 +43,7 @@ public class QuestionnaireAnswersServiceImpl implements QuestionnaireAnswersServ
         Questionnaire fetched = questionnaireRepository.findOne(questionnaire.getId());
         Assert.state(!fetched.isDraft(), "Confirm the questionnaire before saving answers");
 
-        Integer questionnairDefinitionId = fetched.getQuestionnairDefinition().getId();
+        Integer questionnairDefinitionId = fetched.getQuestionnaireDefinition().getId();
         QuestionnaireAnswers questionnaireAnswers = repository
                 .findByOne(questionnairDefinitionId, fetched.getAnswersId());
         questionnaireAnswers.setAnswer(questionCode, answer);
@@ -55,7 +55,7 @@ public class QuestionnaireAnswersServiceImpl implements QuestionnaireAnswersServ
     public Object findByQuestionCode(Questionnaire questionnaire, String questionCode) {
         Assert.state(!questionnaire.isNew(), "Persist the questionnaire before saving answers");
         Questionnaire fetched = questionnaireRepository.findOne(questionnaire.getId());
-        Integer questionnairDefinitionId = fetched.getQuestionnairDefinition().getId();
+        Integer questionnairDefinitionId = fetched.getQuestionnaireDefinition().getId();
         Integer answersId = fetched.getAnswersId();
         if (fetched.getAnswersId() == null) {
             return null;
@@ -69,7 +69,7 @@ public class QuestionnaireAnswersServiceImpl implements QuestionnaireAnswersServ
     public Map<String, Object> findByQuestionnaire(Questionnaire questionnaire) {
         Assert.state(!questionnaire.isNew(), "Persist the questionnaire before saving answers");
         Questionnaire fetched = questionnaireRepository.findOne(questionnaire.getId());
-        Integer questionnairDefinitionId = fetched.getQuestionnairDefinition().getId();
+        Integer questionnairDefinitionId = fetched.getQuestionnaireDefinition().getId();
         Integer answersId = fetched.getAnswersId();
         if (fetched.getAnswersId() == null) {
             return null;

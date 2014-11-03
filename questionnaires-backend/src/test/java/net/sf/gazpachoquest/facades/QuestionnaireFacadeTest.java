@@ -8,6 +8,7 @@ import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDTO;
+import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.answers.BooleanAnswer;
@@ -71,10 +72,10 @@ public class QuestionnaireFacadeTest extends AbstractShiroTest {
     }
 
     @Test
-    public void findByOneTest() {
+    public void getDefinitionTest() {
         Integer questionnaireId = 70;
-        QuestionnaireDTO questionnair = questionnaireFacade.findOne(questionnaireId);
-        assertThat(questionnair).isNotNull();
+        QuestionnaireDefinitionDTO questionnaireDefinitionDTO = questionnaireFacade.getDefinition(questionnaireId);
+        assertThat(questionnaireDefinitionDTO).isNotNull();
     }
 
     @Test

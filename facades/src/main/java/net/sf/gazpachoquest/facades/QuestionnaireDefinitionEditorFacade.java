@@ -15,12 +15,12 @@ import net.sf.gazpachoquest.dto.LabelLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.LabelSetDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.SectionDTO;
-import net.sf.gazpachoquest.dto.SectionLanguageSettingsDTO;
-import net.sf.gazpachoquest.dto.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionOptionDTO;
-import net.sf.gazpachoquest.dto.QuestionOptionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
-import net.sf.gazpachoquest.dto.QuestionnaireDefinitionLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.embeddables.QuestionLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.embeddables.QuestionOptionLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.embeddables.QuestionnaireDefinitionLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.embeddables.SectionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.support.TranslationDTO;
 
 public interface QuestionnaireDefinitionEditorFacade {

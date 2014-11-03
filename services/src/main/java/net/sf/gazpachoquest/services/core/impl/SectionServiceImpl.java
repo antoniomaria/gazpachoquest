@@ -47,19 +47,19 @@ public class SectionServiceImpl extends
 
     @Override
     @Transactional(readOnly = true)
-    public List<Section> findByQuestionnairDefinitionId(final Integer surveyId) {
+    public List<Section> findByQuestionnaireDefinitionId(final Integer surveyId) {
         return ((SectionRepository) repository).findByQuestionnairDefinitionId(surveyId);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Section findOneByPositionInQuestionnairDefinition(final Integer surveyId, final Integer position) {
+    public Section findOneByPositionInQuestionnaireDefinition(final Integer surveyId, final Integer position) {
         return ((SectionRepository) repository).findOneByPositionInQuestionnairDefinition(surveyId, position);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public int positionInQuestionnairDefinition(final Integer sectionId) {
+    public int positionInQuestionnaireDefinition(final Integer sectionId) {
         return ((SectionRepository) repository).positionInQuestionnairDefinition(sectionId);
     }
 

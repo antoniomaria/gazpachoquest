@@ -10,6 +10,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.domain.core;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,42 +18,54 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import net.sf.gazpachoquest.domain.permission.ResearchPermission;
 import net.sf.gazpachoquest.domain.support.AbstractSecurizable;
-import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
+import net.sf.gazpachoquest.jpa.converter.EntityStatusConverter;
+import net.sf.gazpachoquest.jpa.converter.LocalDateTimeConverter;
 import net.sf.gazpachoquest.jpa.converter.ResearchAccessTypeConverter;
+import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.ResearchAccessType;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 @Entity
 public class Research extends AbstractSecurizable<ResearchPermission> {
 
     private static final long serialVersionUID = -5917291757324504802L;
 
+    @Column(nullable = false)
+    @Convert(converter = EntityStatusConverter.class)
+    private EntityStatus status;
+    
+    @Column(nullable = false)
     private String name;
 
     @Convert(converter = ResearchAccessTypeConverter.class)
+    @Column(nullable = false)
     private ResearchAccessType type;
 
     @Column(columnDefinition = "timestamp")
-    @Convert(converter = DateTimeConverter.class)
-    private DateTime startDate;
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime startDate;
 
     @Column(columnDefinition = "timestamp")
-    @Convert(converter = DateTimeConverter.class)
-    private DateTime expirationDate;
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime expirationDate;
 
     @OneToMany(mappedBy = "research", fetch = FetchType.LAZY)
     private final Set<Questionnaire> questionnaires = new HashSet<Questionnaire>();
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private QuestionnaireDefinition questionnaireDefinition;
 
     public Research() {
         super();
     }
 
-    public DateTime getExpirationDate() {
+    public LocalDateTime getExpirationDate() {
         return expirationDate;
     }
 
@@ -60,11 +73,7 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
         return name;
     }
 
-    public Set<Questionnaire> getquestionnaires() {
-        return questionnaires;
-    }
-
-    public DateTime getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
@@ -72,7 +81,7 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
         return type;
     }
 
-    public void setExpirationDate(DateTime expirationDate) {
+    public void setExpirationDate(LocalDateTime expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -80,12 +89,32 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
         this.name = name;
     }
 
-    public void setStartDate(DateTime startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
     public void setType(ResearchAccessType type) {
         this.type = type;
+    }
+
+    public Set<Questionnaire> getQuestionnaires() {
+        return Collections.unmodifiableSet(questionnaires);
+    }
+
+    public QuestionnaireDefinition getQuestionnaireDefinition() {
+        return questionnaireDefinition;
+    }
+
+    public void setQuestionnaireDefinition(QuestionnaireDefinition questionnaireDefinition) {
+        this.questionnaireDefinition = questionnaireDefinition;
+    }
+
+    public EntityStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(EntityStatus status) {
+        this.status = status;
     }
 
     public static Builder with() {
@@ -96,8 +125,9 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
         private Integer id;
         private String name;
         private ResearchAccessType type;
-        private DateTime startDate;
-        private DateTime expirationDate;
+        private LocalDateTime startDate;
+        private LocalDateTime expirationDate;
+        private EntityStatus status;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -114,12 +144,17 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
             return this;
         }
 
-        public Builder startDate(DateTime startDate) {
+        public Builder status(EntityStatus status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder startDate(LocalDateTime startDate) {
             this.startDate = startDate;
             return this;
         }
 
-        public Builder expirationDate(DateTime expirationDate) {
+        public Builder expirationDate(LocalDateTime expirationDate) {
             this.expirationDate = expirationDate;
             return this;
         }
@@ -131,6 +166,7 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
             research.type = type;
             research.startDate = startDate;
             research.expirationDate = expirationDate;
+            research.status = status;
             return research;
         }
     }

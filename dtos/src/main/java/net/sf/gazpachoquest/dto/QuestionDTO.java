@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import net.sf.gazpachoquest.dto.embeddables.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.support.AbstractQuestionDTO;
 import net.sf.gazpachoquest.dto.support.LanguageSettingsContainerBuilder;
 import net.sf.gazpachoquest.types.Language;
@@ -24,12 +25,22 @@ public class QuestionDTO extends AbstractQuestionDTO {
 
     private final List<SubquestionDTO> subquestions = new ArrayList<>();
 
+    private Integer number;
+
     public QuestionDTO() {
         super();
     }
 
     public void addSubquestion(final SubquestionDTO subQuestion) {
         subquestions.add(subQuestion);
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public List<SubquestionDTO> getSubquestions() {
@@ -39,24 +50,14 @@ public class QuestionDTO extends AbstractQuestionDTO {
     public static class BuilderImpl implements LanguageSettingsContainerBuilder<BuilderImpl> {
         private String code;
         private Integer id;
-        private boolean required;
-        private boolean otherAllowed;
+        private Boolean required = Boolean.FALSE;
+        private Boolean otherAllowed = Boolean.FALSE;
         private Language language;
         private QuestionLanguageSettingsDTO languageSettings;
         private QuestionType type;
-
-        public QuestionDTO build() {
-            QuestionDTO questionDTO = new QuestionDTO();
-            questionDTO.setId(id);
-            questionDTO.code = code;
-            questionDTO.required = required;
-            questionDTO.type = type;
-            questionDTO.language = language;
-            questionDTO.languageSettings = languageSettings;
-            questionDTO.setOtherAllowed(otherAllowed);
-            return questionDTO;
-        }
-
+        private Integer number;
+        private String relevance = "";
+        
         public BuilderImpl id(final Integer id) {
             this.id = id;
             return this;
@@ -95,6 +96,25 @@ public class QuestionDTO extends AbstractQuestionDTO {
         public BuilderImpl languageSettings(QuestionLanguageSettingsDTO languageSettings) {
             this.languageSettings = languageSettings;
             return this;
+        }
+
+        public BuilderImpl number(Integer number) {
+            this.number = number;
+            return this;
+        }
+
+        public QuestionDTO build() {
+            QuestionDTO questionDTO = new QuestionDTO();
+            questionDTO.setId(id);
+            questionDTO.code = code;
+            questionDTO.required = required;
+            questionDTO.type = type;
+            questionDTO.language = language;
+            questionDTO.languageSettings = languageSettings;
+            questionDTO.setOtherAllowed(otherAllowed);
+            questionDTO.number = number;
+            questionDTO.setRelevance(relevance);
+            return questionDTO;
         }
 
     }

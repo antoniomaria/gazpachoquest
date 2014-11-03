@@ -15,6 +15,7 @@ import net.sf.gazpachoquest.domain.permission.ResearchPermission;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.repository.ResearchRepository;
 import net.sf.gazpachoquest.services.ResearchService;
+import net.sf.gazpachoquest.types.EntityStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,17 @@ public class ResearchPermissionsAwareServiceImpl extends
 
     @Override
     public Research save(Research research, Set<QuestionnaireDefinition> questionnaireDefinitions, Set<User> respondents) {
+        throw new UnsupportedOperationException("Method not supported in this implementation");
+    }
+
+    @Override
+    public void changeStatus(Integer researchId, EntityStatus newStatus) {
+        throw new UnsupportedOperationException("Method not supported in this implementation");
+
+    }
+
+    @Override
+    public void addRespondent(Integer researchId, User respondent) {
         throw new UnsupportedOperationException("Method not supported in this implementation");
     }
 

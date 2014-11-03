@@ -10,6 +10,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto;
 
+import net.sf.gazpachoquest.dto.embeddables.MailMessageTemplateLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachoquest.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachoquest.types.Language;
@@ -124,7 +125,7 @@ public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
         private Integer id;
         private Language language;
         private MailMessageTemplateLanguageSettingsDTO languageSettings;
-        private String replyTo;
+        private String replyTo = "";
         private QuestionnaireDefinitionDTO questionnairDefinition;
         private MailMessageTemplateType type;
 

@@ -14,6 +14,7 @@ import org.vaadin.addon.cdiproperties.annotation.OptionGroupProperties;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.OptionGroup;
 
@@ -22,7 +23,7 @@ public class ListRadioQuestion extends AbstractQuestionComponent implements Valu
     private static final long serialVersionUID = -9223012579161288406L;
 
     @Inject
-    @LabelProperties
+    @LabelProperties(contentMode = ContentMode.HTML)
     private Label questionTitle;
 
     @Inject
@@ -31,7 +32,10 @@ public class ListRadioQuestion extends AbstractQuestionComponent implements Valu
 
     @Override
     protected void init() {
-        questionTitle.setCaption(questionDTO.getLanguageSettings().getTitle());
+        questionTitle.setValue(String.format("<b>%d</b>. %s", questionDTO.getNumber(), questionDTO
+                .getLanguageSettings().getTitle()));
+        questionTitle.setContentMode(ContentMode.HTML);
+
         content.addComponent(questionTitle);
 
         options.setCaption("Choose one of the following answers");

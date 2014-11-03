@@ -19,21 +19,25 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
+import net.sf.gazpachoquest.domain.core.Section;
+import net.sf.gazpachoquest.domain.core.Section_;
 import net.sf.gazpachoquest.domain.core.embeddables.QuestionnaireDefinitionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation;
 import net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission;
+import net.sf.gazpachoquest.qbe.support.PropertySelector;
+import net.sf.gazpachoquest.qbe.support.SearchMode;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.repository.MailMessageRepository;
-import net.sf.gazpachoquest.repository.SectionRepository;
 import net.sf.gazpachoquest.repository.QuestionnaireDefinitionRepository;
+import net.sf.gazpachoquest.repository.SectionRepository;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
 import net.sf.gazpachoquest.repository.i18.QuestionnaireDefinitionTranslationRepository;
 import net.sf.gazpachoquest.repository.permission.QuestionnaireDefinitionPermissionRepository;
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.Perm;
+import net.sf.gazpachoquest.types.Topology;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.Marshaller;
@@ -90,10 +94,10 @@ public class QuestionnaireDefinitionServiceImpl
 
     @Override
     @Transactional(readOnly = true)
-    public int sectionsCount(final Integer questionnairDefinitionId) {
+    public int sectionsCount(final Integer questionnaireDefinitionId) {
         return (int) sectionRepository.countByExample(
                 Section.with()
-                        .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnairDefinitionId).build())
+                        .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnaireDefinitionId).build())
                         .build(), new SearchParameters());
     }
 
@@ -130,36 +134,53 @@ public class QuestionnaireDefinitionServiceImpl
 
     @Override
     @Transactional(readOnly = true)
-    public Integer questionsCount(final Integer questionnairDefinitionId) {
-        return ((QuestionnaireDefinitionRepository) repository).questionsCount(questionnairDefinitionId);
+    public Integer questionsCount(final Integer questionnaireDefinitionId) {
+        return ((QuestionnaireDefinitionRepository) repository).questionsCount(questionnaireDefinitionId);
     }
 
     @Override
-    public List<Object[]> questionsCountGroupBySections(final Integer questionnairDefinitionId) {
+    public List<Object[]> questionsCountGroupBySections(final Integer questionnaireDefinitionId) {
         return ((QuestionnaireDefinitionRepository) repository)
-                .questionsCountGroupBySections(questionnairDefinitionId);
+                .questionsCountGroupBySections(questionnaireDefinitionId);
     }
 
     @Override
-    public List<Question> getQuestions(final Integer questionnairDefinitionId) {
-        return ((QuestionnaireDefinitionRepository) repository).getQuestions(questionnairDefinitionId);
+    public List<Question> getQuestions(final Integer questionnaireDefinitionId) {
+        return ((QuestionnaireDefinitionRepository) repository).getQuestions(questionnaireDefinitionId);
     }
 
     @Override
-    public void exportQuestionnairDefinition(Integer questionnairDefinitionId, OutputStream outputStream)
+    public void exportQuestionnaireDefinition(Integer questionnaireDefinitionId, OutputStream outputStream)
             throws XmlMappingException, IOException {
-        QuestionnaireDefinition questionnaireDefinition = repository.findOne(questionnairDefinitionId);
+        QuestionnaireDefinition questionnaireDefinition = repository.findOne(questionnaireDefinitionId);
         marshaller.marshal(questionnaireDefinition, new StreamResult(outputStream));
     }
 
     @Override
-    public QuestionnaireDefinition importQuestionnairDefinition(InputStream inputStream) throws XmlMappingException,
+    public QuestionnaireDefinition importQuestionnaireDefinition(InputStream inputStream) throws XmlMappingException,
             IOException {
         QuestionnaireDefinition questionnaireDefinition = (QuestionnaireDefinition) unmarshaller
                 .unmarshal(new StreamSource(inputStream));
         questionnaireDefinition.setStatus(EntityStatus.CONFIRMED);
         questionnaireDefinition.updateInverseRelationships();
         return repository.save(questionnaireDefinition);
+    }
+
+    @Override
+    public Topology getTopology(Integer questionnaireDefinitionId) {
+        Section entity = Section.with()
+                .questionnaireDefinition(QuestionnaireDefinition.with().id(questionnaireDefinitionId).build()).build();
+        PropertySelector<Section, String> propertySelector = PropertySelector.newPropertySelector(Section_.relevance);
+        propertySelector.setSelected("");
+        propertySelector.setSearchMode(SearchMode.NOT_EQUALS);
+        SearchParameters sp = new SearchParameters();
+        sp.addProperty(propertySelector);
+        sp.setCaseSensitive(true);
+        long count = sectionRepository.countByExample(entity, sp);
+        if (count > 0){
+            return Topology.SKIP_PATTERN;
+        }
+        return Topology.LINEAR;
     }
 
 }

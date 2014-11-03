@@ -14,7 +14,7 @@ import net.sf.gazpachoquest.domain.core.MailMessageTemplate;
 import net.sf.gazpachoquest.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachoquest.dto.MailMessageTemplateDTO;
-import net.sf.gazpachoquest.dto.MailMessageTemplateLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.embeddables.MailMessageTemplateLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.support.TranslationDTO;
 import net.sf.gazpachoquest.facades.MailMessageFacade;
 import net.sf.gazpachoquest.services.MailMessageTemplateService;

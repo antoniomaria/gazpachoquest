@@ -2,8 +2,12 @@ package net.sf.gazpachoquest.questionnaire.resolver;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.el.ELException;
+import javax.el.ExpressionFactory;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
@@ -17,6 +21,7 @@ import net.sf.gazpachoquest.questionnaire.support.PageMetadataCreator;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 import net.sf.gazpachoquest.services.QuestionService;
+import net.sf.gazpachoquest.services.QuestionnaireAnswersService;
 import net.sf.gazpachoquest.services.QuestionnaireDefinitionService;
 import net.sf.gazpachoquest.services.QuestionnaireService;
 import net.sf.gazpachoquest.services.SectionService;
@@ -24,15 +29,26 @@ import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.util.Assert;
+
+import de.odysseus.el.util.SimpleContext;
 
 public abstract class AbstractResolver<T extends Breadcrumb> implements PageResolver {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractResolver.class);
 
+    protected static final Integer QUESTION_NUMBER_START_COUNTER = 1;
+
+    protected static final boolean BREADCRUMB_CACHE_ENABLED = true;
+
+    @Autowired
+    private QuestionnaireAnswersService questionnaireAnswersService;
+    
     @Autowired
     private BreadcrumbService breadcrumbService;
 
@@ -50,9 +66,14 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
     protected QuestionnaireDefinitionService questionnaireDefinitionService;
 
     @Autowired
-    private PageMetadataCreator metadataCreator;
+    protected PageMetadataCreator metadataCreator;
 
     protected final RenderingMode type;
+
+    @Autowired
+    @Qualifier("elFactory")
+    protected ExpressionFactory elFactory;
+
 
     protected AbstractResolver(RenderingMode type) {
         this.type = type;
@@ -62,18 +83,21 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
     @Override
     public PageStructure resolveNextPage(final Questionnaire questionnaire, final NavigationAction action) {
         Questionnaire fetchedQuestionnair = questionnaireService.findOne(questionnaire.getId());
-        QuestionnaireDefinition questionnaireDefinition = fetchedQuestionnair.getQuestionnairDefinition();
+        QuestionnaireDefinition questionnaireDefinition = fetchedQuestionnair.getQuestionnaireDefinition();
         int questionnaireId = questionnaire.getId();
-        logger.debug("Finding {} page for questionnaire {}", action.toString(), questionnaireId);
+        logger.debug("Fetching {} page for questionnaire {}", action.toString(), questionnaireId);
 
         List<Object[]> result = breadcrumbService.findLastAndPosition(questionnaireId);
+        if (!type.equals(RenderingMode.ALL_IN_ONE)){
+            Assert.state(result.size() <= 1, "Found more than one visible breadcrumb");
+        }
         T breadcrumb = null;
         List<T> lastBreadcrumbs = new ArrayList<>();
 
         List<T> breadcrumbs = null;
         Integer lastBreadcrumbPosition = null;
-        if (result.isEmpty()) { // First time entering the
-                                // questionnaireDefinition
+        // First time entering the questionnaire
+        if (result.isEmpty()) {
             breadcrumbs = makeBreadcrumbs(questionnaireDefinition, questionnaire);
             leaveBreakcrumbs(questionnaire, breadcrumbs);
             populateLastBreadcrumbs(lastBreadcrumbs, breadcrumbs);
@@ -102,44 +126,66 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
             }
 
         }
+        Map<String, Object> answers = questionnaireAnswersService.findByQuestionnaire(questionnaire);
         List<T> nextBreadcrumbs = new ArrayList<>();
         if (NavigationAction.ENTERING.equals(action)) {
             nextBreadcrumbs = lastBreadcrumbs;
         } else {
             T nextBreadcrumb;
             if (NavigationAction.NEXT.equals(action)) {
-                nextBreadcrumb = findNextBreadcrumb(questionnaireDefinition, questionnaire, lastBreadcrumbs.get(0),
+                nextBreadcrumb = findNextBreadcrumb(questionnaireDefinition, questionnaire, answers, lastBreadcrumbs.get(0),
                         lastBreadcrumbPosition);
+                Assert.notNull(nextBreadcrumb, "Page out of range");
+                lastBreadcrumbs.get(0).setLast(Boolean.FALSE);
+                breadcrumbService.save(lastBreadcrumbs.get(0));
+                
+                nextBreadcrumb.setLast(Boolean.TRUE);
+                if (nextBreadcrumb.isNew()){
+                    questionnaire.addBreadcrumb(nextBreadcrumb);
+                    questionnaireService.save(questionnaire);
+                }else{
+                    breadcrumbService.save(nextBreadcrumb);
+                }
             } else {// PREVIOUS
                 nextBreadcrumb = findPreviousBreadcrumb(questionnaireDefinition, questionnaire, lastBreadcrumbs.get(0),
                         lastBreadcrumbPosition);
-            }
-            // Prevent that sections are still in range.
-            if (nextBreadcrumb != null) {
-                lastBreadcrumbs.get(0).setLast(Boolean.FALSE);
+                Assert.notNull(nextBreadcrumb, "Page out of range");
+                if (breadcrumbCacheEnable()) {
+                    lastBreadcrumbs.get(0).setLast(Boolean.FALSE);
+                    breadcrumbService.save(lastBreadcrumbs.get(0));
+                } else {
+                    // Removed displayed questions from breadcrumbs
+                    /*-
+                    Breadcrumb entity = Breadcrumb.withProps()
+                            .questionnaire(Questionnaire.with().id(questionnaire.getId()).build()).build();
+                    breadcrumbService.deleteByExample(entity,
+                            new SearchParameters().after(Breadcrumb_.createdDate, nextBreadcrumb.getCreatedDate()));
+                            */
+                    questionnaireService.removeBreadcrumb(questionnaire.getId(), lastBreadcrumbs.get(0));
+                }
                 nextBreadcrumb.setLast(Boolean.TRUE);
-                leaveBreakcrumbs(questionnaire, Arrays.asList(lastBreadcrumbs.get(0), nextBreadcrumb));
-            } else {
-                nextBreadcrumb = lastBreadcrumbs.get(0);
+                breadcrumbService.save(nextBreadcrumb);
             }
+            // In all renders except AllInOne only is displayed a breadcrumb at a time 
             nextBreadcrumbs.add(nextBreadcrumb);
         }
-        return createPageStructure(questionnaireDefinition.getRandomizationStrategy(), nextBreadcrumbs);
+        return createPageStructure(questionnaireDefinition.getRandomizationStrategy(), nextBreadcrumbs, answers);
     }
 
     protected abstract T findPreviousBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
             Questionnaire questionnaire, T lastBreadcrumb, Integer lastBreadcrumbPosition);
 
     protected abstract T findNextBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
-            Questionnaire questionnaire, T lastBreadcrumb, Integer lastBreadcrumbPosition);
+            Questionnaire questionnaire, Map<String, Object> answers, T lastBreadcrumb, Integer lastBreadcrumbPosition);
 
     protected abstract List<T> makeBreadcrumbs(QuestionnaireDefinition questionnaireDefinition,
             Questionnaire questionnaire);
 
-    protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy, List<T> breadcrumbs) {
+    protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy, List<T> breadcrumbs, Map<String, Object> answers) {
         PageStructure nextPage = new PageStructure();
         if (!breadcrumbs.isEmpty()) {
             nextPage.setMetadata(metadataCreator.create(randomizationStrategy, type, breadcrumbs.get(0)));
+            nextPage.setAnswers(answers);
         }
         return nextPage;
     }
@@ -164,7 +210,8 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
         return questions;
     }
 
-    protected void populateQuestionsBreadcrumbs(List<T> breadcrumbs) {
+    protected void populateQuestionsBreadcrumbs(List<T> breadcrumbs, Integer nextQuestionNumber) {
+        Integer questionNumberCounter = nextQuestionNumber;
         for (Breadcrumb breadcrumb : breadcrumbs) {
             SectionBreadcrumb sectionBreadcrumb = (SectionBreadcrumb) breadcrumb;
 
@@ -174,7 +221,7 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
 
             for (Question question : questions) {
                 sectionBreadcrumb.addBreadcrumb(QuestionBreadcrumb.with().question(question).last(Boolean.FALSE)
-                        .build());
+                        .questionNumber(questionNumberCounter++).build());
             }
         }
     }
@@ -188,7 +235,11 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
         }
     }
 
-    private void shuffle(List<Question> questions) {
+    protected boolean breadcrumbCacheEnable() {
+        return BREADCRUMB_CACHE_ENABLED;
+    }
+
+    protected void shuffle(List<Question> questions) {
         SecureRandom random = new SecureRandom();
         for (int i = 0; i < questions.size(); i++) {
             int position = i + random.nextInt(questions.size() - i);
@@ -198,4 +249,27 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
             questions.set(position, temp);
         }
     }
+
+    protected boolean isRevealed(String relevance, Map<String, Object> answers) {
+        if (StringUtils.isBlank(relevance)) {
+            return true;
+        }
+        SimpleContext context = new SimpleContext();
+        for (Entry<String, Object> answer : answers.entrySet()) {
+            String code = answer.getKey();
+            Object value = answer.getValue();
+            if (value != null) {
+                context.setVariable(code, elFactory.createValueExpression(value, value.getClass()));
+            }
+        }
+        Boolean revealed = false;
+        try {
+            // Evaluate the condition
+            revealed = (Boolean) elFactory.createValueExpression(context, relevance, Boolean.class).getValue(context);
+        } catch (ELException e) {
+            logger.warn("Errors found in evaluating the relevance condition", e);
+        }
+        return revealed;
+    }
+
 }

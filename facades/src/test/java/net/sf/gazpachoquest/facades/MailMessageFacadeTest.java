@@ -6,7 +6,7 @@ import static org.easymock.EasyMock.replay;
 import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.MailMessageTemplateDTO;
-import net.sf.gazpachoquest.dto.MailMessageTemplateLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.embeddables.MailMessageTemplateLanguageSettingsDTO;
 import net.sf.gazpachoquest.dto.support.TranslationDTO;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.test.shiro.support.AbstractShiroTest;

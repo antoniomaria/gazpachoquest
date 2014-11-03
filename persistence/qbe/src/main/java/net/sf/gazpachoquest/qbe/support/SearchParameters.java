@@ -77,6 +77,11 @@ import org.joda.time.LocalDateTime;
  * @see EntitySelector
  */
 public class SearchParameters {
+
+    private boolean andMode = true;
+
+    private SearchMode searchMode = SearchMode.EQUALS;
+
     // cache
     private Boolean cacheable = true;
 
@@ -108,12 +113,30 @@ public class SearchParameters {
     private final List<PropertySelector<?, ?>> properties = new ArrayList<PropertySelector<?, ?>>();
     // ranges
     private final List<Range<?, ?>> ranges = new ArrayList<Range<?, ?>>();
-    private SearchMode searchMode = SearchMode.EQUALS;
+
     // pattern to match against all strings.
     private String searchPattern;
 
     public SearchParameters() {
 
+    }
+
+    // -----------------------------------
+    // Predicate mode
+    // -----------------------------------
+    /**
+     * @return the andMode
+     */
+    public boolean isAndMode() {
+        return andMode;
+    }
+
+    /**
+     * @param andMode
+     *            the andMode to set
+     */
+    public void setAndMode(boolean andMode) {
+        this.andMode = andMode;
     }
 
     // -----------------------------------
@@ -127,8 +150,17 @@ public class SearchParameters {
     // -----------------------------------
     // Search by property selector support
     // -----------------------------------
-    public SearchParameters(final PropertySelector<?, ?> propertySelector) {
-        property(propertySelector);
+
+    public List<PropertySelector<?, ?>> getProperties() {
+        return properties;
+    }
+
+    public void addProperty(PropertySelector<?, ?> propertySelector) {
+        properties.add(propertySelector);
+    }
+
+    public boolean hasProperties() {
+        return !properties.isEmpty();
     }
 
     // -----------------------------------
@@ -140,11 +172,6 @@ public class SearchParameters {
 
     public SearchParameters(final SearchMode searchMode) {
         setSearchMode(searchMode);
-    }
-
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public SearchParameters(final SingularAttribute<?, ?> field, final Object... values) {
-        property(new PropertySelector(field, values));
     }
 
     public void addEntity(final EntitySelector<?, ? extends Persistable, ?> entitySelector) {
@@ -190,10 +217,6 @@ public class SearchParameters {
         Validate.notNull(fieldName, "fieldName must not be null");
         Validate.notNull(direction, "direction must not be null");
         orders.add(new OrderBy(fieldName, direction));
-    }
-
-    public void addProperty(final PropertySelector<?, ?> propertySelector) {
-        properties.add(propertySelector);
     }
 
     public void addRange(final Range<?, ?> range) {
@@ -433,10 +456,6 @@ public class SearchParameters {
         return orders;
     }
 
-    public List<PropertySelector<?, ?>> getProperties() {
-        return properties;
-    }
-
     public List<Range<?, ?>> getRanges() {
         return ranges;
     }
@@ -615,15 +634,6 @@ public class SearchParameters {
     public SearchParameters property(final PropertySelector<?, ?> propertySelector) {
         addProperty(propertySelector);
         return this;
-    }
-
-    // -----------------------------------------
-    // Fetch associated entity using a LEFT Join
-    // -----------------------------------------
-
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public SearchParameters property(final SingularAttribute<?, ?> field, final Object... values) {
-        return property(new PropertySelector(field, values));
     }
 
     /**

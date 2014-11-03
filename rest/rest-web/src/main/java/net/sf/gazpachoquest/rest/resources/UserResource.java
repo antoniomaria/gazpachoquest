@@ -34,13 +34,11 @@ public class UserResource {
         super();
     }
 
-    // http://www.baeldung.com/2012/01/18/rest-pagination-in-spring/
-    // http://java.dzone.com/articles/rest-pagination-spring
     @GET
     @ApiOperation(value = "Get user list", notes = "More notes about this method", response = PageDTO.class)
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
             @ApiResponse(code = 200, message = "Users available") })
-    public PageDTO<UserDTO> findPaginated(@ApiParam(name = "pageNumber", value = "Refers page number", required = true)
+    public PageDTO<UserDTO> getUsers(@ApiParam(name = "pageNumber", value = "Refers page number", required = true)
     @QueryParam("pageNumber")
     Integer pageNumber, @ApiParam(name = "size", value = "Refers page size", required = true)
     @QueryParam("size")

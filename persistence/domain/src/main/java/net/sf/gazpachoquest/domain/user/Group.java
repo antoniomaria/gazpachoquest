@@ -20,7 +20,8 @@ public class Group extends AbstractAuditable {
 
     @Column(nullable = false)
     private String name;
-
+    
+    @Column(nullable = false)
     private String description;
 
     @ManyToMany(mappedBy = "groups", fetch = FetchType.LAZY)

@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
+import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
 import net.sf.gazpachoquest.services.QuestionnaireService;
@@ -39,7 +41,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
         "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnaire-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
-public class GroupByGroupResolverTest extends AbstractShiroTest {
+public class SectionBySectionResolverTest extends AbstractShiroTest {
 
     @Autowired
     private QuestionnaireService questionnaireService;
@@ -56,27 +58,50 @@ public class GroupByGroupResolverTest extends AbstractShiroTest {
         Integer questionnaireId = 58;
         Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
         PageStructure pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.ENTERING);
-
         List<Integer> questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(13, 12, 29);
 
-        // Testing out of range
-        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
-        questionIds = pageStructure.getQuestionsId();
-        assertThat(questionIds).containsExactly(13, 12, 29);
+        int questionNumberCounter = 1;
+        Section section = pageStructure.getSections().get(0);
+        List<Question> questions = section.getQuestions();
+        for (Question question : questions) {
+            assertThat(question.getNumber()).isEqualTo(questionNumberCounter++);
+        }
 
+        // Testing out of range
+        boolean exceptionThrown = false;
+        try {
+            pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
+        }catch(IllegalArgumentException e){
+            exceptionThrown = true;
+        }
+        assertThat(exceptionThrown).isTrue();
+        
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
         questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(30, 31, 35);
+        
+        section = pageStructure.getSections().get(0);
+        questions = section.getQuestions();
+        for (Question question : questions) {
+           assertThat(question.getNumber()).isEqualTo(questionNumberCounter++);
+        }
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
+        
+        section = pageStructure.getSections().get(0);
+        assertThat(section).isEqualTo(Section.with().id(11).build());
         questionIds = pageStructure.getQuestionsId();
         assertThat(questionIds).containsExactly(39, 50);
 
         // Testing out of range
-        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
-        questionIds = pageStructure.getQuestionsId();
-        assertThat(questionIds).containsExactly(39, 50);
+        exceptionThrown = false;
+        try {
+            pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
+        }catch(IllegalArgumentException e){
+            exceptionThrown = true;
+        }
+        assertThat(exceptionThrown).isTrue();
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
         questionIds = pageStructure.getQuestionsId();
@@ -105,9 +130,14 @@ public class GroupByGroupResolverTest extends AbstractShiroTest {
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         // Testing out of range
-        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
-        assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
-
+        boolean exceptionThrown = false;
+        try {
+            pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
+        }catch(IllegalArgumentException e){
+            exceptionThrown = true;
+        }
+        assertThat(exceptionThrown);
+        
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
@@ -122,8 +152,13 @@ public class GroupByGroupResolverTest extends AbstractShiroTest {
         visitedQuestionIds.addAll(pageStructure.getQuestionsId());
 
         // Testing out of range
-        pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
-        assertThat(pageStructure.getQuestionsId()).hasSize(2);
+        exceptionThrown = false;
+        try {
+            pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.NEXT);
+        }catch(IllegalArgumentException e){
+            exceptionThrown = true;
+        }
+        assertThat(exceptionThrown);
 
         pageStructure = resolver.resolveNextPage(questionnaire, NavigationAction.PREVIOUS);
         assertThat(pageStructure.getQuestionsId()).hasSize(questionsPerPage);

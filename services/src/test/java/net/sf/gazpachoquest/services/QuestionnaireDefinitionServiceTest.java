@@ -13,12 +13,14 @@ import net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.test.shiro.support.AbstractShiroTest;
+import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
+import net.sf.gazpachoquest.types.Topology;
 
 import org.apache.shiro.subject.Subject;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,36 +63,43 @@ public class QuestionnaireDefinitionServiceTest extends AbstractShiroTest {
 
     @Test
     public void findOneTest() {
-        int questionnairDefinitionId = 7;
+        int questionnaireDefinitionId = 7;
         QuestionnaireDefinition questionnaireDefinition = questionnaireDefinitionService
-                .findOne(questionnairDefinitionId);
+                .findOne(questionnaireDefinitionId);
         assertThat(questionnaireDefinition).isNotNull();
     }
 
     @Test
     public void sectionsCountTest() {
-        int questionnairDefinitionId = 7;
-        long count = questionnaireDefinitionService.sectionsCount(questionnairDefinitionId);
+        int questionnaireDefinitionId = 7;
+        long count = questionnaireDefinitionService.sectionsCount(questionnaireDefinitionId);
         assertThat(count).isEqualTo(3);
     }
 
     @Test
+    public void getTopologyTest() {
+        int questionnaireDefinitionId = 7;
+        Topology topology = questionnaireDefinitionService.getTopology(questionnaireDefinitionId);
+        assertThat(topology).isEqualTo(Topology.SKIP_PATTERN);
+    }
+    
+    @Test
     public void saveTest() {
         QuestionnaireDefinitionLanguageSettings languageSettings = QuestionnaireDefinitionLanguageSettings.with()
-                .title("My QuestionnaireDefinition").description("My description").welcomeText("welcome").build();
+                .title("My QuestionnaireDefinition").description("My description").welcomeText("welcome").endText("").build();
 
-        QuestionnaireDefinition questionnaireDefinition = QuestionnaireDefinition.with().language(Language.EN)
+        QuestionnaireDefinition questionnaireDefinition = QuestionnaireDefinition.with().status(EntityStatus.DRAFT).language(Language.EN)
                 .languageSettings(languageSettings).sectionInfoVisible(true).progressVisible(true).welcomeVisible(true)
                 .randomizationStrategy(RandomizationStrategy.NONE).renderingMode(RenderingMode.SECTION_BY_SECTION)
-                .build();
+                .questionNumberVisible(false).build();
 
         questionnaireDefinition = questionnaireDefinitionService.save(questionnaireDefinition);
-        DateTime lastModifiedDate = questionnaireDefinition.getLastModifiedDate();
+        LocalDateTime lastModifiedDate = questionnaireDefinition.getLastModifiedDate();
 
         QuestionnaireDefinition created = questionnaireDefinitionService.findOne(questionnaireDefinition.getId());
         QuestionnaireDefinitionLanguageSettings newLanguageSettings = QuestionnaireDefinitionLanguageSettings.with()
                 .title("My QuestionnaireDefinition. Ver 1").description("My description").welcomeText("my welcome")
-                .build();
+                .endText("").build();
         created.setLanguageSettings(newLanguageSettings);
         try {
             Thread.sleep(1000);
@@ -107,6 +116,8 @@ public class QuestionnaireDefinitionServiceTest extends AbstractShiroTest {
         languageSettings.setTitle("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
         languageSettings.setDescription("Donec pellentesque consequat orci.");
         languageSettings.setWelcomeText("dolorem");
+        languageSettings.setEndText("");
+
         int questionnairDefinitionId = 7;
         QuestionnaireDefinitionTranslation translation = QuestionnaireDefinitionTranslation.with()
                 .translatedEntityId(questionnairDefinitionId).language(Language.FR).languageSettings(languageSettings)

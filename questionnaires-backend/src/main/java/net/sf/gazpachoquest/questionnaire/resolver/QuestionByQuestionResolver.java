@@ -13,6 +13,7 @@ package net.sf.gazpachoquest.questionnaire.resolver;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Question;
@@ -31,8 +32,6 @@ import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -41,8 +40,6 @@ import org.springframework.util.Assert;
 public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcrumb> implements PageResolver {
 
     private static final Integer INITIAL_POSITION = 0;
-
-    private static final Logger logger = LoggerFactory.getLogger(QuestionByQuestionResolver.class);
 
     @Autowired
     private BreadcrumbService breadcrumbService;
@@ -70,6 +67,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
         QuestionBreadcrumb breadcrumb = null;
         Integer questionnairDefinitionId = questionnaireDefinition.getId();
         RandomizationStrategy randomizationStrategy = questionnaireDefinition.getRandomizationStrategy();
+        Integer questionNumberCounter = QUESTION_NUMBER_START_COUNTER;
         if (RandomizationStrategy.SECTIONS_RANDOMIZATION.equals(randomizationStrategy)) {
             List<Section> sections = sectionService.findByExample(
                     Section.with()
@@ -81,7 +79,8 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
                 List<Question> questions = findQuestions(section);
                 for (Question question : questions) {
                     breadcrumb = QuestionBreadcrumb.with().questionnaire(questionnaire).last(Boolean.FALSE)
-                            .question(question).renderingMode(RenderingMode.QUESTION_BY_QUESTION).build();
+                            .question(question).renderingMode(RenderingMode.QUESTION_BY_QUESTION)
+                            .questionNumber(questionNumberCounter++).build();
                     breadcrumbs.add(breadcrumb);
                 }
             }
@@ -90,13 +89,15 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
             Collections.shuffle(questions);
             for (Question question : questions) {
                 breadcrumb = QuestionBreadcrumb.with().questionnaire(questionnaire).last(Boolean.FALSE)
-                        .question(question).renderingMode(RenderingMode.QUESTION_BY_QUESTION).build();
+                        .question(question).renderingMode(RenderingMode.QUESTION_BY_QUESTION)
+                        .questionNumber(questionNumberCounter++).build();
                 breadcrumbs.add(breadcrumb);
             }
         } else {
             Question question = findFirstQuestion(questionnairDefinitionId);
             breadcrumb = QuestionBreadcrumb.with().questionnaire(questionnaire).last(Boolean.FALSE)
-                    .renderingMode(RenderingMode.QUESTION_BY_QUESTION).question(question).build();
+                    .renderingMode(RenderingMode.QUESTION_BY_QUESTION).question(question)
+                    .questionNumber(questionNumberCounter).build();
             breadcrumbs.add(breadcrumb);
         }
         breadcrumbs.get(0).setLast(Boolean.TRUE);
@@ -105,9 +106,11 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
 
     @Override
     protected QuestionBreadcrumb findNextBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
-            Questionnaire questionnaire, QuestionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
+            Questionnaire questionnaire, Map<String, Object> answers, QuestionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
+        Assert.notNull(lastBreadcrumbPosition, "Questionnaire not started for the given questionnaireId = "
+                + lastBreadcrumbPosition);
 
-        Breadcrumb breadcrumb = breadcrumbService.findByquestionnaireIdAndPosition(questionnaire.getId(),
+        Breadcrumb breadcrumb = breadcrumbService.findByQuestionnaireIdAndPosition(questionnaire.getId(),
                 lastBreadcrumbPosition + 1);
 
         QuestionBreadcrumb nextBreadcrumb = null;
@@ -123,34 +126,35 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
             if (position < questionsCount - 1) { // Not last in group
                 next = questionService.findOneByPositionInSection(lastSection.getId(), position + 1);
             } else {
-                Integer sectionPosition = sectionService.positionInQuestionnairDefinition(lastSection.getId());
-                Section nextSection = sectionService.findOneByPositionInQuestionnairDefinition(
+                Integer sectionPosition = sectionService.positionInQuestionnaireDefinition(lastSection.getId());
+                Section nextSection = sectionService.findOneByPositionInQuestionnaireDefinition(
                         questionnaireDefinition.getId(), sectionPosition + 1);
-
-                if (nextSection == null) { // TODO handle exceptions
+                if (nextSection == null) {
                     return null;
                 }
                 next = questionService.findOneByPositionInSection(nextSection.getId(), INITIAL_POSITION);
             }
             // Mark next element as last browsed.
             nextBreadcrumb = QuestionBreadcrumb.with().questionnaire(questionnaire).question(next)
+                    .questionNumber(lastBreadcrumb.getQuestionNumber() + 1)
                     .renderingMode(RenderingMode.QUESTION_BY_QUESTION).build();
         } else {
             Assert.isInstanceOf(QuestionBreadcrumb.class, breadcrumb);
             nextBreadcrumb = (QuestionBreadcrumb) breadcrumb;
         }
-
         return nextBreadcrumb;
     }
 
     @Override
     protected QuestionBreadcrumb findPreviousBreadcrumb(QuestionnaireDefinition questionnaireDefinition,
             Questionnaire questionnaire, QuestionBreadcrumb lastBreadcrumb, Integer lastBreadcrumbPosition) {
+        Assert.notNull(lastBreadcrumbPosition, "Questionnaire not started for the given questionnaireId = "
+                + lastBreadcrumbPosition);
+
         if (lastBreadcrumbPosition == INITIAL_POSITION) {
-            logger.warn("Page out of range. First page is returned.");
             return null;
         }
-        Breadcrumb breadcrumb = breadcrumbService.findByquestionnaireIdAndPosition(questionnaire.getId(),
+        Breadcrumb breadcrumb = breadcrumbService.findByQuestionnaireIdAndPosition(questionnaire.getId(),
                 lastBreadcrumbPosition - 1);
         Assert.isInstanceOf(QuestionBreadcrumb.class, breadcrumb);
         return (QuestionBreadcrumb) breadcrumb;
@@ -163,7 +167,7 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
             questions = questionService
                     .findByExample(Question.with().section(Section.with().id(section.getId()).build()).build(),
                             new SearchParameters());
-            Collections.shuffle(questions);
+            shuffle(questions);
         } else {
             questions = questionService.findBySectionId(section.getId());
         }
@@ -171,15 +175,15 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
     }
 
     private Question findFirstQuestion(int questionnairDefinitionId) {
-        Section initialGroup = sectionService.findOneByPositionInQuestionnairDefinition(questionnairDefinitionId,
+        Section initialGroup = sectionService.findOneByPositionInQuestionnaireDefinition(questionnairDefinitionId,
                 INITIAL_POSITION);
         return questionService.findOneByPositionInSection(initialGroup.getId(), INITIAL_POSITION);
     }
 
     @Override
     protected PageStructure createPageStructure(RandomizationStrategy randomizationStrategy,
-            List<QuestionBreadcrumb> breadcrumbs) {
-        PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs);
+            List<QuestionBreadcrumb> breadcrumbs, Map<String, Object> answers) {
+        PageStructure nextPage = super.createPageStructure(randomizationStrategy, breadcrumbs, answers);
 
         Breadcrumb active = breadcrumbs.get(0);
 
@@ -189,7 +193,8 @@ public class QuestionByQuestionResolver extends AbstractResolver<QuestionBreadcr
             builder.id(questionBreadcrumb.getQuestion().getSectionId());
         }
         Section section = builder.build();
-        section.addQuestion(Question.with().id(questionBreadcrumb.getQuestion().getId()).build());
+        section.addQuestion(Question.with().id(questionBreadcrumb.getQuestion().getId())
+                .number(questionBreadcrumb.getQuestionNumber()).build());
 
         nextPage.addSection(section);
         return nextPage;

@@ -32,7 +32,7 @@ public class BreadcrumbServiceImpl extends AbstractPersistenceService<Breadcrumb
 
     @Override
     @Transactional
-    public Breadcrumb findByquestionnaireIdAndPosition(Integer questionnaireId, Integer position) {
+    public Breadcrumb findByQuestionnaireIdAndPosition(Integer questionnaireId, Integer position) {
         return ((BreadcrumbRepository) repository).findByQuestionnaireIdAndPosition(questionnaireId, position);
     }
 

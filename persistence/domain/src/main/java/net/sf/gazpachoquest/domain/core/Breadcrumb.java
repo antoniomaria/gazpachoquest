@@ -48,11 +48,11 @@ public class Breadcrumb extends AbstractAuditable {
         super();
     }
 
-    public Questionnaire getQuestionnair() {
+    public Questionnaire getQuestionnaire() {
         return questionnaire;
     }
 
-    public void setQuestionnair(Questionnaire questionnaire) {
+    public void setQuestionnaire(Questionnaire questionnaire) {
         this.questionnaire = questionnaire;
     }
 

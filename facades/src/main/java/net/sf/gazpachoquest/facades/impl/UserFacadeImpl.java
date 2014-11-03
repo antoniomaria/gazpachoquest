@@ -58,7 +58,7 @@ public class UserFacadeImpl implements UserFacade {
     public PageDTO<UserDTO> findPaginated(Integer pageNumber, Integer size) {
         Page<User> page = userService.findPaginated(pageNumber, size);
         PageDTO<UserDTO> pageDTO = new PageDTO<>();
-        pageDTO.setNumber(page.getNumber());
+        pageDTO.setNumber(page.getNumber() + 1);
         pageDTO.setSize(page.getSize());
         pageDTO.setTotalPages(page.getTotalPages());
         pageDTO.setTotalElements(page.getTotalElements());

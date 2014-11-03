@@ -31,10 +31,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Fetch;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.Attribute;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -78,6 +81,24 @@ public class JpaUtil {
             }
         }
         return false; // no pk found, should not happen
+    }
+
+    public static Predicate concatPredicate(SearchParameters sp, CriteriaBuilder builder,
+            Predicate... predicatesNullAllowed) {
+        List<Predicate> predicatesNullAllowedList = new ArrayList<Predicate>();
+        for (Predicate predicate : predicatesNullAllowed) {
+            predicatesNullAllowedList.add(predicate);
+        }
+        return concatPredicate(sp, builder, predicatesNullAllowedList);
+    }
+
+    public static Predicate concatPredicate(SearchParameters sp, CriteriaBuilder builder,
+            Iterable<Predicate> predicatesNullAllowed) {
+        if (sp.isAndMode()) {
+            return andPredicate(builder, predicatesNullAllowed);
+        } else {
+            return orPredicate(builder, predicatesNullAllowed);
+        }
     }
 
     public static Predicate orPredicate(final CriteriaBuilder builder, final Iterable<Predicate> predicatesNullAllowed) {
@@ -155,4 +176,73 @@ public class JpaUtil {
         }
         return output;
     }
+
+    public static String getPath(List<Attribute<?, ?>> attributes) {
+        StringBuilder builder = new StringBuilder();
+        for (Attribute<?, ?> attribute : attributes) {
+            builder.append(attribute.getName()).append(".");
+        }
+        return builder.substring(0, builder.length() - 1);
+    }
+
+    /**
+     * Convert the passed propertyPath into a JPA path.
+     * <p>
+     * Note: JPA will do joins if the property is in an associated entity.
+     */
+    @SuppressWarnings("unchecked")
+    public static <E, F> Path<F> getPath(Root<E> root, List<Attribute<?, ?>> attributes) {
+        Path<?> path = root;
+        for (Attribute<?, ?> attribute : attributes) {
+            boolean found = false;
+            // handle case when order on already fetched attribute
+            for (Fetch<E, ?> fetch : root.getFetches()) {
+                if (attribute.getName().equals(fetch.getAttribute().getName()) && (fetch instanceof Join<?, ?>)) {
+                    path = (Join<E, ?>) fetch;
+                    found = true;
+                    break;
+                }
+            }
+            for (Join<E, ?> join : root.getJoins()) {
+                if (attribute.getName().equals(join.getAttribute().getName())) {
+                    path = join;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                path = path.get(attribute.getName());
+            }
+        }
+        return (Path<F>) path;
+    }
+
+    public static <E> Predicate stringPredicate(Expression<String> path, Object attrValue, SearchMode searchMode,
+            SearchParameters sp, CriteriaBuilder builder) {
+        if (!sp.isCaseSensitive()) {
+            path = builder.lower(path);
+         //   attrValue = ((String) attrValue).toLowerCase(LocaleContextHolder.getLocale());
+            attrValue = ((String) attrValue).toLowerCase();
+        }
+        switch (searchMode != null ? searchMode : sp.getSearchMode()) {
+        case EQUALS:
+            return builder.equal(path, attrValue);
+        case NOT_EQUALS:
+            return builder.notEqual(path, attrValue);
+        case ENDING_LIKE:
+            return builder.like(path, "%" + attrValue);
+        case STARTING_LIKE:
+            return builder.like(path, attrValue + "%");
+        case ANYWHERE:
+            return builder.like(path, "%" + attrValue + "%");
+        case LIKE:
+            return builder.like(path, (String) attrValue); // assume user
+                                                           // provide the wild
+                                                           // cards
+        default:
+            throw new IllegalStateException("expecting a search mode!");
+        }
+    }
+
+
 }

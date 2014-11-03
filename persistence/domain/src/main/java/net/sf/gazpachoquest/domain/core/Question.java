@@ -24,11 +24,13 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
@@ -92,6 +94,16 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     @MapKeyColumn(name = "language", insertable = false, updatable = false)
     private final Map<Language, QuestionTranslation> translations = new HashMap<Language, QuestionTranslation>();
 
+    /**
+     * Number of question in order of appearance 
+     */
+    @Transient
+    private Integer number;
+    
+    @Lob
+    @Column(nullable = false)
+    private String relevance;
+    
     public Question() {
         super();
     }
@@ -175,6 +187,14 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         this.language = language;
     }
 
+    public String getRelevance() {
+        return relevance;
+    }
+
+    public void setRelevance(String relevance) {
+        this.relevance = relevance;
+    }
+
     public void addQuestionOption(QuestionOption questionOption) {
         Assert.notNull(questionOption);
         questionOptions.add(questionOption);
@@ -205,6 +225,16 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
     public void addTranslation(Language language, QuestionTranslation translation) {
         translation.setQuestion(this);
         translations.put(language, translation);
+    }
+
+    @Transient
+    public Integer getNumber() {
+        return number;
+    }
+    
+    @Transient
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public void updateInverseRelationships() {
@@ -262,9 +292,23 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         private QuestionType type;
         private Language language;
         private QuestionLanguageSettings languageSettings;
-
+        private Integer number;
+        private String relevance;
+        
         public Builder id(Integer id) {
             this.id = id;
+            return this;
+        }
+        public String getRelevance() {
+            return relevance;
+        }
+
+        public void setRelevance(String relevance) {
+            this.relevance = relevance;
+        }
+        
+        public Builder number(Integer number) {
+            this.number = number;
             return this;
         }
 
@@ -319,6 +363,8 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
             question.type = type;
             question.language = language;
             question.languageSettings = languageSettings;
+            question.number = number;
+            question.relevance = relevance;
             return question;
         }
     }

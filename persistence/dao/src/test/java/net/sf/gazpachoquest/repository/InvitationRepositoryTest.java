@@ -4,11 +4,15 @@ import static org.easymock.EasyMock.createNiceMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.fest.assertions.api.Assertions.assertThat;
+
+import java.util.List;
+
 import net.sf.gazpachoquest.domain.core.AnonymousInvitation;
-import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
+import net.sf.gazpachoquest.domain.core.PersonalInvitation;
 import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.support.Invitation;
 import net.sf.gazpachoquest.domain.user.User;
+import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.test.shiro.support.AbstractShiroTest;
 import net.sf.gazpachoquest.types.InvitationStatus;
@@ -52,12 +56,19 @@ public class InvitationRepositoryTest extends AbstractShiroTest {
     }
 
     @Test
+    public void findByExampleTest() {
+        PersonalInvitation personalInvitation = new PersonalInvitation();
+        personalInvitation.setRespondent(User.with().id(6).build());
+        List<Invitation> invitations = invitationRepository.findByExample(personalInvitation, new SearchParameters());
+        
+        System.out.println(invitations);
+    }
+    @Test
     public void saveTest() {
         Research research = researchRepository.findOne(57);
-        QuestionnaireDefinition questionnaireDefinition = questionnaireDefinitionRepository.findOne(7);
 
         AnonymousInvitation invitation = AnonymousInvitation.with().research(research).status(InvitationStatus.ACTIVE)
-                .token("1234").questionnaireDefinition(questionnaireDefinition).build();
+                .token("1234").build();
         Invitation saved = invitationRepository.save(invitation);
         assertThat(saved.isNew()).isFalse();
     }

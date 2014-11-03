@@ -10,7 +10,6 @@ package net.sf.gazpachoquest.domain.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -24,11 +23,12 @@ import javax.persistence.Transient;
 import net.sf.gazpachoquest.domain.permission.QuestionnairePermission;
 import net.sf.gazpachoquest.domain.support.AbstractSecurizable;
 import net.sf.gazpachoquest.domain.user.User;
-import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
 import net.sf.gazpachoquest.jpa.converter.EntityStatusConverter;
+import net.sf.gazpachoquest.jpa.converter.LocalDateTimeConverter;
 import net.sf.gazpachoquest.types.EntityStatus;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
+import org.springframework.util.Assert;
 
 @Entity
 public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> {
@@ -44,8 +44,8 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
     private final List<Breadcrumb> breadcrumbs = new ArrayList<Breadcrumb>();
 
     @Column(columnDefinition = "timestamp")
-    @Convert(converter = DateTimeConverter.class)
-    private DateTime submitDate;
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime submitDate;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Research research;
@@ -56,7 +56,6 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User respondent;
 
-    @Basic
     private Integer answersId;
 
     public Questionnaire() {
@@ -64,6 +63,8 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
     }
 
     public void addBreadcrumb(Breadcrumb breadcrumb) {
+        Assert.notNull(breadcrumb);
+        breadcrumb.setQuestionnaire(this);
         breadcrumbs.add(breadcrumb);
     }
 
@@ -75,7 +76,7 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
         return breadcrumbs;
     }
 
-    public DateTime getSubmitDate() {
+    public LocalDateTime getSubmitDate() {
         return submitDate;
     }
 
@@ -83,7 +84,7 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
         return research;
     }
 
-    public void setSubmitDate(final DateTime submitDate) {
+    public void setSubmitDate(final LocalDateTime submitDate) {
         this.submitDate = submitDate;
     }
 
@@ -91,11 +92,11 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
         this.research = research;
     }
 
-    public QuestionnaireDefinition getQuestionnairDefinition() {
+    public QuestionnaireDefinition getQuestionnaireDefinition() {
         return questionnaireDefinition;
     }
 
-    public void setQuestionnairDefinition(QuestionnaireDefinition questionnaireDefinition) {
+    public void setQuestionnaireDefinition(QuestionnaireDefinition questionnaireDefinition) {
         this.questionnaireDefinition = questionnaireDefinition;
     }
 
@@ -135,7 +136,7 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
     public static class Builder {
         private Integer id;
         private EntityStatus status;
-        private DateTime submitDate;
+        private LocalDateTime submitDate;
         private Research research;
         private QuestionnaireDefinition questionnaireDefinition;
         private User respondent;
@@ -151,7 +152,7 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
             return this;
         }
 
-        public Builder submitDate(DateTime submitDate) {
+        public Builder submitDate(LocalDateTime submitDate) {
             this.submitDate = submitDate;
             return this;
         }

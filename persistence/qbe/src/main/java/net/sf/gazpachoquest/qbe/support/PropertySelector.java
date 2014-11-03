@@ -21,6 +21,7 @@ package net.sf.gazpachoquest.qbe.support;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.SingularAttribute;
 
 /**
@@ -33,33 +34,41 @@ public class PropertySelector<E, F> {
     /**
      * {@link PropertySelector} builder
      */
-    static public <E, F> PropertySelector<E, F> property(final SingularAttribute<E, F> field, final F... values) {
-        return new PropertySelector<E, F>(field, values);
+    static public <E, F> PropertySelector<E, F> newPropertySelector(Attribute<?, ?>... fields) {
+        return new PropertySelector<E, F>(fields);
     }
 
-    private final SingularAttribute<E, F> field;
+    private static final long serialVersionUID = 1L;
+    private final List<Attribute<?, ?>> attributes;
+    private List<F> selected = new ArrayList();
+    private SearchMode searchMode; // for string property only.
 
-    private List<F> selected = new ArrayList<F>();
+    public PropertySelector(Attribute<?, ?>... attributes) {
+        this.attributes = new ArrayList();
+        for (Attribute<?, ?> attribute : attributes) {
+            this.attributes.add(attribute);
+        }
+        // TODO replace by guava
+        List<Attribute<?, ?>> attributesDump = new ArrayList<Attribute<?,?>>();
+        for (Attribute<?, ?> attribute : attributes) {
+            attributesDump.add(attribute);
+        }
+        verifyPath(attributesDump);
+    }
 
-    /**
-     * @param field
-     *            the property that should match one of the selected value.
-     */
-    public PropertySelector(final SingularAttribute<E, F> field, final F... values) {
-        this.field = field;
-        for (F value : values) {
-            selected.add(value);
+    private void verifyPath(List<Attribute<?, ?>> attributes) {
+        Class<?> from = attributes.get(0).getJavaType();
+        attributes.remove(0);
+        for (Attribute<?, ?> attribute : attributes) {
+            if (!attribute.getDeclaringType().getJavaType().isAssignableFrom(from)) {
+                throw new IllegalStateException("Wrong path.");
+            }
+            from = attribute.getJavaType();
         }
     }
 
-    public void clearSelected() {
-        if (selected != null) {
-            selected.clear();
-        }
-    }
-
-    public SingularAttribute<E, F> getField() {
-        return field;
+    public List<Attribute<?, ?>> getAttributes() {
+        return attributes;
     }
 
     /**
@@ -69,23 +78,50 @@ public class PropertySelector<E, F> {
         return selected;
     }
 
-    public boolean isBoolean() {
-        return field != null && field.getJavaType().isAssignableFrom(Boolean.class);
-    }
-
-    public boolean isNotEmpty() {
-        return selected != null && !selected.isEmpty();
+    @SuppressWarnings("unchecked")
+    public void setSelected(F selected) {
+        this.selected = new ArrayList();
+        this.selected.add(selected);
     }
 
     /**
      * Set the possible candidates for property.
      */
-    public void setSelected(final List<F> selected) {
+    public void setSelected(List<F> selected) {
         this.selected = selected;
     }
 
-    public PropertySelector<E, F> value(final F v) {
-        selected.add(v);
-        return this;
+    public boolean isNotEmpty() {
+        return (selected != null) && !selected.isEmpty();
+    }
+
+    public void clearSelected() {
+        if (selected != null) {
+            selected.clear();
+        }
+    }
+
+    public boolean isBoolean() {
+        return attributes.get(attributes.size() - 1).getJavaType().isAssignableFrom(Boolean.class);
+    }
+
+    public SearchMode getSearchMode() {
+        return searchMode;
+    }
+
+    /**
+     * In case, the field's type is a String, you can set a searchMode to use.
+     * It is null by default.
+     */
+    public void setSearchMode(SearchMode searchMode) {
+        this.searchMode = searchMode;
+    }
+
+    public void add(F object) {
+        this.selected.add(object);
+    }
+
+    public String getPath() {
+        return JpaUtil.getPath(getAttributes());
     }
 }

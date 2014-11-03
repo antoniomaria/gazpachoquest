@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:cxf="http://cxf.apache.org/core"
-  xmlns:context="http://www.springframework.org/schema/context"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+  xmlns:cxf="http://cxf.apache.org/core" xmlns:context="http://www.springframework.org/schema/context"
   xsi:schemaLocation="
 http://www.springframework.org/schema/beans 
 http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -16,19 +16,24 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
     <bean class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer" />
   -->
 
-  <bean id="questionnaireResource" class="net.sf.gazpachoquest.rest.resources.QuestionnaireResource" autowire="byType" />
+  <bean id="authenticationResource" class="net.sf.gazpachoquest.rest.resources.AuthenticationResource" autowire="byType" />
   
+  <bean id="invitationResource" class="net.sf.gazpachoquest.rest.resources.InvitationResource" autowire="byType" />
+
   <bean id="questionnaireDefinitionResource" class="net.sf.gazpachoquest.rest.resources.QuestionnaireDefinitionResource" autowire="byType" />
 
-  <bean id="authenticationResource" class="net.sf.gazpachoquest.rest.resources.AuthenticationResource" autowire="byType" />
+  <bean id="questionnaireResource" class="net.sf.gazpachoquest.rest.resources.QuestionnaireResource" autowire="byType" />
+
+  <bean id="researchResource" class="net.sf.gazpachoquest.rest.resources.ResearchResource" autowire="byType" />
 
   <bean id="userResource" class="net.sf.gazpachoquest.rest.resources.UserResource" autowire="byType" />
+  
 
   <!-- Login filter -->
-  <bean id="loginShiroFilter" class="net.sf.gazpachoquest.rest.filter.LoginShiroFilter"/>
+  <bean id="loginShiroFilter" class="net.sf.gazpachoquest.rest.filter.LoginShiroFilter" />
   
   <!-- Logout filter -->
-  <bean id="logoutShiroFilter" class="net.sf.gazpachoquest.rest.filter.LogoutShiroFilter"/>
+  <bean id="logoutShiroFilter" class="net.sf.gazpachoquest.rest.filter.LogoutShiroFilter" />
   
   <!-- Swagger writers -->
   <bean id="resourceWriter" class="com.wordnik.swagger.jaxrs.listing.ResourceListingProvider" />
@@ -44,11 +49,11 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   <bean id="swaggerResourceJSON" class="com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON" />
 
   <!-- Exception Handlers -->
-  <bean id="shiroExceptionHandler" class="net.sf.gazpachoquest.rest.exception.ShiroExceptionHandler"/>
+  <bean id="shiroExceptionHandler" class="net.sf.gazpachoquest.rest.exception.ShiroExceptionHandler" />
   <bean id="accountNotFoundExceptionHandler" class="net.sf.gazpachoquest.rest.exception.AccountNotFoundExceptionHandler" />
   <bean id="webApplicationExceptionHandler" class="net.sf.gazpachoquest.rest.exception.WebApplicationExceptionHandler" />
   <bean id="defaultExceptionHandler" class="net.sf.gazpachoquest.rest.exception.DefaultExceptionHandler" />
-  
+
   <cxf:bus>
     <cxf:features>
       <cxf:logging />
@@ -65,15 +70,17 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
     <property name="contact" value="antoniomariasanchez@gmail.com" />
     <property name="license" value="GNU Public License v3.0" />
     <property name="licenseUrl" value="http://www.gnu.org/licenses/gpl.html" />
-    <property name="filterClass" value="net.sf.gazpachoquest.rest.filter.InternalSwaggerFilter"/>
+    <property name="filterClass" value="net.sf.gazpachoquest.rest.filter.InternalSwaggerFilter" />
     <property name="scan" value="true" />
   </bean>
 
   <jaxrs:server id="services" address="/">
     <jaxrs:serviceBeans>
       <ref bean="authenticationResource" />
+      <ref bean="invitationResource" />
       <ref bean="questionnaireDefinitionResource" />
       <ref bean="questionnaireResource" />
+      <ref bean="researchResource" />
       <ref bean="userResource" />
       <ref bean="swaggerResourceJSON" />
     </jaxrs:serviceBeans>
@@ -83,13 +90,13 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
       <!-- required for writing swagger classes -->
       <ref bean="resourceWriter" />
       <ref bean="apiWriter" />
-      <ref bean="loginShiroFilter"/>
-      <ref bean="logoutShiroFilter"/>
+      <ref bean="loginShiroFilter" />
+      <ref bean="logoutShiroFilter" />
       <!-- Exception handlers -->
-      <ref bean="shiroExceptionHandler"/>
-      <ref bean="accountNotFoundExceptionHandler"/>
-      <ref bean="webApplicationExceptionHandler"/>
-      <ref bean="defaultExceptionHandler"/>
+      <ref bean="shiroExceptionHandler" />
+      <ref bean="accountNotFoundExceptionHandler" />
+      <ref bean="webApplicationExceptionHandler" />
+      <ref bean="defaultExceptionHandler" />
     </jaxrs:providers>
   </jaxrs:server>
 

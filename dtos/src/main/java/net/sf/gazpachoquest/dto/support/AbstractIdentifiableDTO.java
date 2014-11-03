@@ -21,6 +21,39 @@ public abstract class AbstractIdentifiableDTO implements Identifiable {
 
     private Integer id;
 
+    private Integer version;
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * Current object version. Used to prevent updated conflicts in a concurrent
+     * environment using a optimistic locking strategy.
+     * 
+     * @see <a
+     *      href="http://en.wikibooks.org/wiki/Java_Persistence/Locking">Optimistic
+     *      Version Locking</a>
+     */
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+    
+    @Override
+    public int hashCode() {
+        if (!isNew()) {
+            return new HashCodeBuilder().append(getId()).toHashCode();
+        } else {
+            return HashCodeBuilder.reflectionHashCode(this);
+        }
+    }
+
+
     @Override
     public boolean equals(final Object obj) {
         if (obj instanceof Identifiable) {
@@ -34,21 +67,7 @@ public abstract class AbstractIdentifiableDTO implements Identifiable {
             return false;
         }
     }
-
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    @Override
-    public int hashCode() {
-        if (!isNew()) {
-            return new HashCodeBuilder().append(getId()).toHashCode();
-        } else {
-            return HashCodeBuilder.reflectionHashCode(this);
-        }
-    }
-
+    
     @Override
     @JsonIgnore
     public boolean isNew() {

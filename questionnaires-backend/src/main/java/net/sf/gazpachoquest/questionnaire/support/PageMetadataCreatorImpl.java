@@ -47,11 +47,11 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
 
             if (RandomizationStrategy.NONE.equals(randomizationStrategy)) {
                 section = sectionService.findOne(section.getId());
-                position = sectionService.positionInQuestionnairDefinition(section.getId());
+                position = sectionService.positionInQuestionnaireDefinition(section.getId());
                 count = questionnaireDefinitionService.sectionsCount(section.getQuestionnairDefinition().getId());
             } else {
-                count = breadcrumbService.countByQuestionnair(breadcrumb.getQuestionnair().getId());
-                position = (Integer) breadcrumbService.findLastAndPosition(breadcrumb.getQuestionnair().getId()).get(0)[1];
+                count = breadcrumbService.countByQuestionnair(breadcrumb.getQuestionnaire().getId());
+                position = (Integer) breadcrumbService.findLastAndPosition(breadcrumb.getQuestionnaire().getId()).get(0)[1];
             }
         } else if (breadcrumb instanceof QuestionBreadcrumb) {
             if (RandomizationStrategy.NONE.equals(randomizationStrategy)) {
@@ -78,8 +78,8 @@ public class PageMetadataCreatorImpl implements PageMetadataCreator {
                 }
                 position = positionInQuestionnairDefition + positionInSection;
             } else {
-                count = breadcrumbService.countByQuestionnair(breadcrumb.getQuestionnair().getId());
-                position = (Integer) breadcrumbService.findLastAndPosition(breadcrumb.getQuestionnair().getId()).get(0)[1];
+                count = breadcrumbService.countByQuestionnair(breadcrumb.getQuestionnaire().getId());
+                position = (Integer) breadcrumbService.findLastAndPosition(breadcrumb.getQuestionnaire().getId()).get(0)[1];
             }
         }
         return PageMetadataStructure.with().count(count).number(position + 1).build();

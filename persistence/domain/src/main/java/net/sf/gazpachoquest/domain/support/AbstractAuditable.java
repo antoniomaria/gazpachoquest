@@ -14,9 +14,9 @@ import javax.persistence.MappedSuperclass;
 import javax.xml.bind.annotation.XmlTransient;
 
 import net.sf.gazpachoquest.domain.user.User;
-import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
+import net.sf.gazpachoquest.jpa.converter.LocalDateTimeConverter;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -32,22 +32,22 @@ public abstract class AbstractAuditable extends AbstractPersistable implements A
     @XmlTransient
     private User createdBy;
 
-    @Column(columnDefinition = "timestamp")
-    @Convert(converter = DateTimeConverter.class)
+    @Column(columnDefinition = "timestamp", nullable = false)
+    @Convert(converter = LocalDateTimeConverter.class)
     @CreatedDate
     @XmlTransient
-    private DateTime createdDate;
+    private LocalDateTime createdDate;
 
     @ManyToOne(optional = true)
     @LastModifiedBy
     @XmlTransient
     private User lastModifiedBy;
 
-    @Column(columnDefinition = "timestamp")
-    @Convert(converter = DateTimeConverter.class)
+    @Column(columnDefinition = "timestamp", nullable = false)
+    @Convert(converter = LocalDateTimeConverter.class)
     @LastModifiedDate
     @XmlTransient
-    private DateTime lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 
     protected AbstractAuditable() {
         super();
@@ -72,19 +72,19 @@ public abstract class AbstractAuditable extends AbstractPersistable implements A
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public DateTime getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(DateTime createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
-    public DateTime getLastModifiedDate() {
+    public LocalDateTime getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(DateTime lastModifiedDate) {
+    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 

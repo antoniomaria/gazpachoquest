@@ -4,6 +4,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.dto.QuestionDTO;
@@ -11,7 +12,6 @@ import net.sf.gazpachoquest.dto.answers.MultipleAnswer;
 import net.sf.gazpachoquest.dto.answers.NoAnswer;
 import net.sf.gazpachoquest.dto.answers.TextAnswer;
 import net.sf.gazpachoquest.facades.QuestionnaireDefinitionAccessorFacade;
-import net.sf.gazpachoquest.questionnaire.support.AnswersPopulator;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
 import net.sf.gazpachoquest.services.QuestionnaireAnswersService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
@@ -78,8 +78,9 @@ public class AnswersPopulatorTest {
         questions.add(firstQuestion);
         questions.add(secondQuestion);
         questions.add(lastQuestion);
-
-        answersPopulator.populate(questionnaire, questions);
+        
+        Map<String, Object> answers = questionnaireAnswersService.findByQuestionnaire(questionnaire);
+        answersPopulator.populate(answers, questions);
 
         assertThat(firstQuestion.getAnswer()).isExactlyInstanceOf(TextAnswer.class);
         assertThat(((TextAnswer) firstQuestion.getAnswer()).getValue()).isEqualTo("Antonio Maria");

@@ -1,29 +1,15 @@
 # GazpachoQuest a Questionnaire Tool
 
-### General
-
-GazpachoQuest is general purpose tool for collecting answers through dynamic web form. The main advantagde over other alternatives is loose coupled architecture based on
+GazpachoQuest is general purpose tool for collecting answers through dynamic web form. The main advantage over other alternatives is its loose coupled architecture based on
 [Microservices Architecture](http://www.infoq.com/articles/microservices-intro) which ensures concern-separation.
 At this moment all the effort has been spent on provide a powerful, REST Gateway which exposes all features, ready to be consumed by others applications as a front-end. 
 
-## Java Stack
-
-* JPA Eclipse link
-* Spring Data JPA
-* JAX-RS (Apache CXF)
-* Java Security Shiro
-* Vaadin
-* Java Authentication and Authorization Service, (JAAS)  
-* SL4J (Logback)
-* DBUnit
-* EasyMock
 
 ## Highligh features
 
 * Multi-lingual questionnaires 
 * Conditions for questions depending on earlier answers (Skip Logic / Branching)
 * Question and page randomization
-* Dynamic Questionnaire completion progress bar (or possibility to disable).
 * Auto-numbering for questions
 * Reordering questions / page logic.
 * Question Types
@@ -31,53 +17,78 @@ At this moment all the effort has been spent on provide a powerful, REST Gateway
   * Short /Long Text  Response + Other
   * Multiple Choice one selected at a time (Radio buttons). Vertically or Horizontally (scales) arranged.
   * Matrix or array of questions above listed.
-* Possibility to disable back button, resume button, logo, introduction text, skip welcome or thank-you page.
 * Smart language selector depending on Browser Preferred Language, or Respondent attributes.
-* Immediately answers saving. This gives the benefits of immediately validation, no need to change the page to validate the answers.
 * Anonymous and Not-Anonymous questionnaires
 * Role-Permission based Access-Rights management. 
 * Import and export questionnaires definitions to XML
 
 
-=======
-### Activating the demo
-The application is hosted in [cloudbees](http://www.cloudbees.com/) using a open source developer license, thus only is running if there are active users. Likely the application is hibernating, and need to be activated. So be patient, and reload the page again if you get a time-out error. 
+## Contributing
 
-* [Active the backend here](http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/).
-* [Enter the questionnaire login.](http://gazpachoquest.questionnaires.ui.antoniomaria.eu.cloudbees.net/)
+Contributions are welcome, in any form including code contributions, bug reports, feature suggestions, documentation, testing, and general feedback. Issues can be submitted on the [Github page][1]. For further information, contact to: <mailto:antoniomariasanchez@gmail.com>
 
-### Backend REST-API
+## Third party libraries and components
 
-This module exposes all the features that GazpachoQuest provides. They are related to data collections through questionnares as well as administrator functions such as export/import questionnaires or add new users.
+* [JPA Eclipse link](http://www.eclipse.org/eclipselink/jpa.php)
+* [Doze Java Bean mapper](http://dozer.sourceforge.net/)
+* [Flyway](http://flywaydb.org/) 
+* [Spring Data JPA](http://projects.spring.io/spring-data/)
+* [JAX-RS (Apache CXF)](http://cxf.apache.org/)
+* [Java Security Shiro](http://shiro.apache.org/)
+* [Vaadin (CDI plugin)](https://vaadin.com/home)
+* Java Authentication and Authorization Service, (JAAS)  
+* SL4J (Logback)
+* [JUEL](http://juel.sourceforge.net)
+* [DBUnit](http://dbunit.sourceforge.net)
+* [Spring-Test DBUnit](http://springtestdbunit.github.io/spring-test-dbunit/)
+* [EasyMock](http://easymock.org/)
+
+## Online the demo
+
+The application is hosted in [cloudbees](http://www.cloudbees.com/) using a open source developer license, thus only it's running if there are active users. 
+Likely the application is hibernating, and need to be activated. So be patient, and reload the page again if you get a time-out error. 
+
+* [Active the REST Gateway](http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/).
+* [Fill out a questionnaire](http://gazpachoquest.questionnaires.ui.antoniomaria.eu.cloudbees.net/). Enter the invitation described below.
+
+### REST Gateway
+
+This module exposes all the features that GazpachoQuest provides.
 
 The credential for administrator account in form of apiKey:secret is:
 
-    3Q2JBVEASJY2SC6:XFQRMVGKR8R328TJ78E688J9MB8D6HS4
+    FM7XG6W2C4CET8H:2J882Y9GJNNE4VWKK2R9NX7R4R2DYWTQ
 
 To get respondents credential first is required to validate the invitation key in [Authentication Resource](http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/#!/auth/authenticate_get_0) 
 
-### Questonnaires UI
+### Questionnaires UI
 
-This module holds all the actives questionnaires/surveys ready to be fill out for respondents. They can be anonymous or tracked depending on the questionnaire settings.
+This module holds all the active questionnaires/surveys ready to be fill out for respondents. They can be anonymous or tracked depending on the questionnaire settings.
 
-** Anonymous questionnaires invitation keys **
+** Anonymous and linear questionnaires invitation keys **
 
 |                          |  No Randomization      |  Sections Randomization   |  Questions Randomization  |
 |--------------------------|:----------------------:|:-------------------------:|:-------------------------:|
-| **Section By Section**   |  7ESWZMSQ8H            |  8FSXJDJ8UJ               |  FFWXDVNCZG               |
+| **Section By Section**   |  PXLLBCJDX6            |  QT2SXREWAH               |  REGRW5X27C               |
 | **Question by Question** |                        |                           |                           |
-| **All in one page**      | SLJ5Z26HNC             |                           |                           |
+| **All in one page**      |  ZZC3XNHYVL            |                           |                           |
 
+** Anonymous dynamic questionnaire depending on previous answers (skip-logic enabled) **
+
+|                          |  No Randomization      | 
+|--------------------------|:----------------------:|
+| **Section By Section**   |  ZRHV75Z6CB            |
+| **Question by Question** |                        | 
 
 **Personal questionnaires invitation keys**
 
 |                          |  No Randomization      |  Sections Randomization   |  Questions Randomization  |
 |--------------------------|:----------------------:|:-------------------------:|:-------------------------:|
-| **Section By Section**   |  XVKDAB45XG, 3B5GKVKCKK|  QLM7MVK3RG, BQBTBE3SNP   |  NS9M4GG5EU,NS9M4GG5EU    |
+| **Section By Section**   |  2CNBSHKPBQ, DCLHXDRMLS|  D7QZ2CXZJW, ULQ6XWK8QR   |  SS5G7MV7NY,FSMSLM2A44    |
 | **Question by Question** |                        |                           |                           |
 | **All in one page**      |                        |                           |                           |
 
-## Building and running demo
+## Installation and local demo
 
     git clone https://github.com/antoniomaria/gazpachoquest.git
     cd gazpachoquest
@@ -87,5 +98,7 @@ This module holds all the actives questionnaires/surveys ready to be fill out fo
         
 To see the demo, navigate to
 
-* [Backend REST-API](http://localhost:8080/gazpachoquest-rest-web)
-* [Questonnaires UI](http://localhost:8080)
+* [REST Gateway](http://localhost:8080/gazpachoquest-rest-web)
+* [Questionnaires UI](http://localhost:8080)
+
+[1]: https://github.com/antoniomaria/gazpachoquest/issues

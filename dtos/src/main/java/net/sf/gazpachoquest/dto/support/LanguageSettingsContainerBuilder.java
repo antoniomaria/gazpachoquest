@@ -10,7 +10,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto.support;
 
-import net.sf.gazpachoquest.dto.QuestionLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.embeddables.QuestionLanguageSettingsDTO;
 
 public interface LanguageSettingsContainerBuilder<C extends LanguageSettingsContainerBuilder<C>> {
 

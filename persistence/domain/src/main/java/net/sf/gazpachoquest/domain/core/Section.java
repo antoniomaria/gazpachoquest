@@ -24,6 +24,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyEnumerated;
@@ -40,7 +41,7 @@ import net.sf.gazpachoquest.domain.support.AbstractLocalizable;
 import net.sf.gazpachoquest.types.Language;
 
 @Entity
-@XmlType(propOrder = { "language", "languageSettings", "questions", "translations", "randomizationEnabled" })
+@XmlType(propOrder = { "language", "languageSettings", "questions", "translations", "randomizationEnabled", "relevance" })
 public class Section extends AbstractLocalizable<SectionTranslation, SectionLanguageSettings> {
 
     private static final long serialVersionUID = 5849288763708940985L;
@@ -69,6 +70,10 @@ public class Section extends AbstractLocalizable<SectionTranslation, SectionLang
 
     @Column(nullable = false)
     private Boolean randomizationEnabled;
+    
+    @Lob
+    @Column(nullable = false)
+    private String relevance;
 
     public Section() {
         super();
@@ -136,6 +141,14 @@ public class Section extends AbstractLocalizable<SectionTranslation, SectionLang
         this.randomizationEnabled = randomizationEnabled;
     }
 
+    public String getRelevance() {
+        return relevance;
+    }
+
+    public void setRelevance(String relevance) {
+        this.relevance = relevance;
+    }
+
     public void updateInverseRelationships() {
         for (Entry<Language, SectionTranslation> entry : translations.entrySet()) {
             SectionTranslation sectionTranslation = entry.getValue();
@@ -158,7 +171,8 @@ public class Section extends AbstractLocalizable<SectionTranslation, SectionLang
         private Language language;
         private SectionLanguageSettings languageSettings;
         private Boolean randomizationEnabled;
-
+        private String relevance;
+        
         public Builder id(Integer id) {
             this.id = id;
             return this;
@@ -174,6 +188,12 @@ public class Section extends AbstractLocalizable<SectionTranslation, SectionLang
             return this;
         }
 
+
+        public Builder relevance(String relevance) {
+            this.relevance = relevance;
+            return this;
+        }
+        
         public Builder randomizationEnabled(Boolean randomizationEnabled) {
             this.randomizationEnabled = randomizationEnabled;
             return this;
@@ -191,6 +211,7 @@ public class Section extends AbstractLocalizable<SectionTranslation, SectionLang
             section.language = language;
             section.languageSettings = languageSettings;
             section.randomizationEnabled = randomizationEnabled;
+            section.relevance = relevance;
             return section;
         }
     }

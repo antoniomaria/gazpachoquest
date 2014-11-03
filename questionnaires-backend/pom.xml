@@ -3,7 +3,7 @@
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
     <artifactId>gazpachoquest</artifactId>
-    <version>0.5.4.1-RELEASE</version>
+    <version>0.5.4.2-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-questionnaires-backend</artifactId>
   <packaging>jar</packaging>
@@ -57,6 +57,18 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-facades</artifactId>
+    </dependency>
+    
+    <!-- Java Expression Language Parser -->
+    <dependency>
+      <groupId>de.odysseus.juel</groupId>
+      <artifactId>juel-api</artifactId>
+      <version>2.2.7</version>
+    </dependency>
+    <dependency>
+      <groupId>de.odysseus.juel</groupId>
+      <artifactId>juel-impl</artifactId>
+      <version>2.2.7</version>
     </dependency>
   </dependencies>
   <profiles>

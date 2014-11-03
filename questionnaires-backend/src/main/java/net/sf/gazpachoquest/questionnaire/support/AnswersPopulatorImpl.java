@@ -44,8 +44,8 @@ public class AnswersPopulatorImpl implements AnswersPopulator {
 
     @Override
     @Transactional(readOnly = true)
-    public void populate(Questionnaire questionnaire, List<QuestionDTO> questions) {
-        Map<String, Object> answers = questionnaireAnswersService.findByQuestionnaire(questionnaire);
+    public void populate(Map<String, Object> answers, List<QuestionDTO> questions) {
+        //Map<String, Object> answers = questionnaireAnswersService.findByQuestionnaire(questionnaire);
         if (answers == null) {
             return;
         }

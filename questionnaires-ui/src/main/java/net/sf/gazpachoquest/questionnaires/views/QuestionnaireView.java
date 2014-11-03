@@ -18,7 +18,7 @@ import javax.resource.NotSupportedException;
 
 import net.sf.gazpachoquest.api.QuestionnaireResource;
 import net.sf.gazpachoquest.dto.QuestionDTO;
-import net.sf.gazpachoquest.dto.QuestionnaireDTO;
+import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
 import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
@@ -152,8 +152,8 @@ public class QuestionnaireView extends CustomComponent implements View, ClickLis
         }
         questionnaireId = respondent.getGrantedquestionnaireIds().iterator().next();
         logger.debug("Trying to fetch questionnair identified with id  = {} ", questionnaireId);
-        QuestionnaireDTO questionnair = questionnaireResource.getDefinition(questionnaireId);
-        sectionInfoVisible = questionnair.isSectionInfoVisible();
+        QuestionnaireDefinitionDTO definition = questionnaireResource.getDefinition(questionnaireId);
+        sectionInfoVisible = definition.isSectionInfoVisible();
         QuestionnairePageDTO page = questionnaireResource.getPage(questionnaireId, renderingMode, preferredLanguage,
                 NavigationAction.ENTERING);
 
@@ -162,13 +162,13 @@ public class QuestionnaireView extends CustomComponent implements View, ClickLis
         questionsLayout = new VerticalLayout();
         update(page);
 
-        Label questionnairTitle = new Label(questionnair.getLanguageSettings().getTitle());
-        questionnairTitle.addStyleName(Reindeer.LABEL_H1);
+        Label questionnaireTitle = new Label(definition.getLanguageSettings().getTitle());
+        questionnaireTitle.addStyleName(Reindeer.LABEL_H1);
 
         VerticalLayout mainLayout = new VerticalLayout();
         mainLayout.setSizeFull();
         mainLayout.setMargin(true);
-        mainLayout.addComponent(questionnairTitle);
+        mainLayout.addComponent(questionnaireTitle);
         mainLayout.addComponent(questionsLayout);
         // Add the responsive capabilities to the components
 
@@ -177,7 +177,7 @@ public class QuestionnaireView extends CustomComponent implements View, ClickLis
         centralLayout.setSizeFull();
         centralLayout.getContent().setSizeUndefined();
 
-        Responsive.makeResponsive(questionnairTitle);
+        Responsive.makeResponsive(questionnaireTitle);
         setCompositionRoot(centralLayout);
         setSizeFull();
     }

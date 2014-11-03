@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.facades.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -20,8 +21,7 @@ import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.dto.PageMetadataDTO;
 import net.sf.gazpachoquest.dto.QuestionDTO;
-import net.sf.gazpachoquest.dto.QuestionnaireDTO;
-import net.sf.gazpachoquest.dto.QuestionnaireDefinitionLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
 import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
@@ -42,6 +42,7 @@ import net.sf.gazpachoquest.services.SectionService;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.NavigationAction;
 import net.sf.gazpachoquest.types.RenderingMode;
+import net.sf.gazpachoquest.types.Topology;
 
 import org.dozer.Mapper;
 import org.slf4j.Logger;
@@ -87,27 +88,21 @@ public class QuestionnaireFacadeImpl implements QuestionnaireFacade {
     public QuestionnaireFacadeImpl() {
         super();
     }
-
+    
     @Transactional(readOnly = true)
     @Override
-    public QuestionnaireDTO findOne(Integer questionnaireId) {
-        Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
-        QuestionnaireDefinition definition = questionnaire.getQuestionnairDefinition();
-        QuestionnaireDefinitionLanguageSettingsDTO languageSettings = mapper.map(definition.getLanguageSettings(),
-                QuestionnaireDefinitionLanguageSettingsDTO.class);
-
+    public QuestionnaireDefinitionDTO getDefinition(Integer questionnaireId) {
+        QuestionnaireDefinition definition = questionnaireService.getDefinition(questionnaireId);
+        QuestionnaireDefinitionDTO definitionDTO = mapper.map(definition, QuestionnaireDefinitionDTO.class);
+        
         Set<Language> translations = questionnaireDefinitionService.translationsSupported(definition.getId());
-
-        QuestionnaireDTO questionnaireDTO = QuestionnaireDTO.with().language(definition.getLanguage())
-                .languageSettings(languageSettings).id(questionnaireId).progressVisible(definition.isProgressVisible())
-                .sectionInfoVisible(definition.isSectionInfoVisible()).welcomeVisible(definition.isWelcomeVisible())
-                .build();
+        
         for (Language language : translations) {
-            questionnaireDTO.addSupportedLanguage(language);
+            definitionDTO.addSupportedLanguage(language);
         }
-        questionnaireDTO.addSupportedLanguage(definition.getLanguage());
-
-        return questionnaireDTO;
+        definitionDTO.addSupportedLanguage(definition.getLanguage());
+        
+        return definitionDTO;
     }
 
     @Override
@@ -115,9 +110,10 @@ public class QuestionnaireFacadeImpl implements QuestionnaireFacade {
             NavigationAction action) {
         Questionnaire questionnaire = questionnaireService.findOne(questionnaireId);
         if (mode == null) {
-            mode = questionnaire.getQuestionnairDefinition().getRenderingMode();
+            mode = questionnaire.getQuestionnaireDefinition().getRenderingMode();
         }
-        PageResolver resolver = resolverSelector.selectBy(mode);
+        Topology topology = questionnaireDefinitionService.getTopology(questionnaire.getQuestionnaireDefinition().getId());
+        PageResolver resolver = resolverSelector.selectBy(mode, topology);
         logger.info("Requesting page {} for questionnaireId = {} in language {} using renderingMode = {}",
                 action.toString(), questionnaireId, preferredLanguage, mode);
 
@@ -129,21 +125,25 @@ public class QuestionnaireFacadeImpl implements QuestionnaireFacade {
         List<Section> sections = pageStructure.getSections();
         List<QuestionDTO> allVisibleQuestions = new ArrayList<>();
         for (Section section : sections) {
-            List<Integer> questionIds = section.getQuestionsId();
-            List<Question> questions = questionService.findInList(questionIds, preferredLanguage);
             Section localizedSection = Section.with().build();
             if (pageStructure.isSectionInfoAvailable()) {
                 localizedSection = sectionService.findOne(section.getId(), preferredLanguage);
             }
+
             SectionDTO sectionDTO = mapper.map(localizedSection, SectionDTO.class);
             page.addSection(sectionDTO);
-            for (Question question : questions) {
-                QuestionDTO questionDTO = mapper.map(question, QuestionDTO.class);
+
+            List<Integer> questionIds = section.getQuestionsId();
+            List<Question> fetchedQuestions = questionService.findInList(questionIds, preferredLanguage);
+            Iterator<Question> questionsIterator = section.getQuestions().iterator();
+            for (Question fetchedQuestion : fetchedQuestions) {
+                QuestionDTO questionDTO = mapper.map(fetchedQuestion, QuestionDTO.class);
+                questionDTO.setNumber(questionsIterator.next().getNumber());
                 sectionDTO.addQuestion(questionDTO);
                 allVisibleQuestions.add(questionDTO);
             }
         }
-        answersPopulator.populate(questionnaire, allVisibleQuestions);
+        answersPopulator.populate(pageStructure.getAnswers(), allVisibleQuestions);
         PageMetadataStructure metadata = pageStructure.getMetadata();
         page.setMetadata(mapper.map(metadata, PageMetadataDTO.class));
         page.setSectionInfoAvailable(pageStructure.isSectionInfoAvailable());

@@ -16,29 +16,34 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
-import net.sf.gazpachoquest.jpa.converter.DateTimeConverter;
+import net.sf.gazpachoquest.jpa.converter.LocalDateTimeConverter;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 @Entity
 public class MailMessage extends AbstractPersistable {
 
     private static final long serialVersionUID = 2597367892321945501L;
 
+    @Column(nullable = false)
     private String subject;
 
+    @Column(nullable = false)
     private String toAddress;
 
+    @Column(nullable = false)
     private String fromAddress;
 
+    @Column(nullable = false)
     private String replyTo;
 
     @Lob
+    @Column(nullable = false)
     private String body;
 
     @Column(columnDefinition = "timestamp")
-    @Convert(converter = DateTimeConverter.class)
-    private DateTime sentDate;
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime sentDate;
 
     private Integer deliveryAttempts;
 
@@ -86,11 +91,11 @@ public class MailMessage extends AbstractPersistable {
         body = text;
     }
 
-    public DateTime getSentDate() {
+    public LocalDateTime getSentDate() {
         return sentDate;
     }
 
-    public void setSentDate(DateTime sentDate) {
+    public void setSentDate(LocalDateTime sentDate) {
         this.sentDate = sentDate;
     }
 
@@ -112,7 +117,7 @@ public class MailMessage extends AbstractPersistable {
         private String from;
         private String replyTo;
         private String text;
-        private DateTime sentDate;
+        private LocalDateTime sentDate;
         private Integer deliveryAttempts;
 
         public Builder subject(String subject) {
@@ -140,7 +145,7 @@ public class MailMessage extends AbstractPersistable {
             return this;
         }
 
-        public Builder sentDate(DateTime sentDate) {
+        public Builder sentDate(LocalDateTime sentDate) {
             this.sentDate = sentDate;
             return this;
         }

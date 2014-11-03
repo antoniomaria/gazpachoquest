@@ -7,7 +7,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.ResearchDTO;
-import net.sf.gazpachoquest.dto.UserDTO;
+import net.sf.gazpachoquest.dto.support.PageDTO;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.test.shiro.support.AbstractShiroTest;
@@ -56,14 +56,26 @@ public class ResearchFacadeTest extends AbstractShiroTest {
         questionnaireAnswersRepository.activeAllAnswers();
     }
 
+
+    @Test
+    public void findPaginatedTest() {
+        PageDTO<ResearchDTO> page = researchFacade.findPaginated(1, 5);
+        assertThat(page.getTotalPages()).isEqualTo(1);
+        assertThat(page.getTotalElements()).isEqualTo(1);
+        ResearchDTO research = page.getElements().get(0);
+        assertThat(research).isEqualTo(ResearchDTO.with().id(57).build());
+        assertThat(research.getName()).isNotEmpty();
+        assertThat(research.getCreatedBy()).isNotNull();
+        assertThat(research.getQuestionnaireDefinition().getId()).isEqualTo(7);
+        assertThat(research.getQuestionnaireDefinition().getCreatedBy()).isNull();
+        assertThat(research.getQuestionnaireDefinition().getSections()).isEmpty();
+    }
+    
     @Test
     public void saveTest() {
-        QuestionnaireDefinitionDTO questionnairDefinition = QuestionnaireDefinitionDTO.with().id(7).build();
-        UserDTO respondent = respondentFacade.findOne(6);
-
-        ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION).build();
-        research.addRespondent(respondent);
-        research.addQuestionnaireDefinition(questionnairDefinition);
+        QuestionnaireDefinitionDTO questionnaireDefinition = QuestionnaireDefinitionDTO.with().id(7).build();
+        ResearchDTO research = ResearchDTO.with().name("My research").type(ResearchAccessType.BY_INVITATION).build();
+        research.setQuestionnaireDefinition(questionnaireDefinition);
         research = researchFacade.save(research);
         assertThat(research.isNew()).isFalse();
     }

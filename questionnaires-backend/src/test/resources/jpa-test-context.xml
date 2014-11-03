@@ -36,7 +36,7 @@
     <entry key="databasePlatform" value="org.eclipse.persistence.platform.database.HSQLPlatform" />
     <entry key="eclipselink.weaving" value="static" />
     <entry key="eclipselink.session.customizer" value="net.sf.gazpachoquest.jpa.eclipselink.CamelNamingStrategy" />
-    <!-- It makes crashes GroupByGroupResolverTest -->
+    <!-- It crashes SectionBySectionResolverTest -->
     <entry key="eclipselink.cache.shared.default" value="false" />
   </util:map>
 

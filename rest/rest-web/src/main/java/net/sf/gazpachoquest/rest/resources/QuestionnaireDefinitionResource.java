@@ -12,7 +12,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import net.sf.gazpachoquest.dto.QuestionnaireDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.support.PageDTO;
 import net.sf.gazpachoquest.facades.QuestionnaireDefinitionAccessorFacade;
@@ -60,7 +59,7 @@ public class QuestionnaireDefinitionResource {
     @POST
     @Path("/import")
     @Consumes("multipart/form-data")
-    @ApiOperation(value = "Import questionnaire definition", notes = "Only xml format supported", response = QuestionnaireDTO.class)
+    @ApiOperation(value = "Import questionnaire definition", notes = "Only xml format supported", response = QuestionnaireDefinitionDTO.class)
     @ApiResponses(value = { @ApiResponse(code = 415, message = "Unsupported format"),
             @ApiResponse(code = 200, message = "Imported questionnaire definition") })
     @ApiImplicitParams(@ApiImplicitParam(dataType = "file", name = "content", paramType = "body"))

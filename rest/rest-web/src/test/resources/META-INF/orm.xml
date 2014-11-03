@@ -10,7 +10,7 @@
       </entity-listeners>
     </persistence-unit-defaults>
   </persistence-unit-metadata>
-  <converter class="net.sf.gazpachoquest.jpa.converter.DateTimeConverter" />
+  <converter class="net.sf.gazpachoquest.jpa.converter.LocalDateTimeConverter" />
   <converter class="net.sf.gazpachoquest.jpa.converter.EntityStatusConverter" />
   <converter class="net.sf.gazpachoquest.jpa.converter.EntityTypeConverter" />
   <converter class="net.sf.gazpachoquest.jpa.converter.GenderTypeConverter" />

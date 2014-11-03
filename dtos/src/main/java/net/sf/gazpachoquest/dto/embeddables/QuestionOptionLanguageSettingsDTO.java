@@ -8,7 +8,7 @@
  * Contributors:
  *     antoniomaria - initial API and implementation
  ******************************************************************************/
-package net.sf.gazpachoquest.dto;
+package net.sf.gazpachoquest.dto.embeddables;
 
 import net.sf.gazpachoquest.dto.support.LanguageSettingsDTO;
 

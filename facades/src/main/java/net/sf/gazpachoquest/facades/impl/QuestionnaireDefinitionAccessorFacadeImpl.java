@@ -70,14 +70,14 @@ public class QuestionnaireDefinitionAccessorFacadeImpl implements QuestionnaireD
     @Override
     public void exportQuestionnaireDefinition(Integer questionnairDefinitionId, OutputStream outputStream)
             throws XmlMappingException, IOException {
-        questionnaireDefinitionService.exportQuestionnairDefinition(questionnairDefinitionId, outputStream);
+        questionnaireDefinitionService.exportQuestionnaireDefinition(questionnairDefinitionId, outputStream);
     }
 
     @Override
     public QuestionnaireDefinitionDTO importQuestionnaireDefinition(InputStream inputStream)
             throws XmlMappingException, IOException {
         QuestionnaireDefinition questionnaireDefinition = questionnaireDefinitionService
-                .importQuestionnairDefinition(inputStream);
+                .importQuestionnaireDefinition(inputStream);
         return mapper.map(questionnaireDefinition, QuestionnaireDefinitionDTO.class);
     }
 
@@ -86,7 +86,7 @@ public class QuestionnaireDefinitionAccessorFacadeImpl implements QuestionnaireD
         Page<QuestionnaireDefinition> page = questionnaireDefinitionPermissionsAwareService.findPaginated(pageNumber,
                 size);
         PageDTO<QuestionnaireDefinitionDTO> pageDTO = new PageDTO<>();
-        pageDTO.setNumber(page.getNumber());
+        pageDTO.setNumber(page.getNumber() + 1);
         pageDTO.setSize(page.getSize());
         pageDTO.setTotalPages(page.getTotalPages());
         pageDTO.setTotalElements(page.getTotalElements());

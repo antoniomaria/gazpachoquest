@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
@@ -14,9 +15,11 @@ import net.sf.gazpachoquest.domain.support.AbstractPersistable;
 public class Role extends AbstractPersistable {
 
     private static final long serialVersionUID = 2224168321199809660L;
-
+  
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String description;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)

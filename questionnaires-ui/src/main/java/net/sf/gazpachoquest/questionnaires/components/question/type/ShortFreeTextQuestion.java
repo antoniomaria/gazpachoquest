@@ -16,6 +16,7 @@ import org.vaadin.addon.cdiproperties.annotation.TextFieldProperties;
 
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 
@@ -30,7 +31,7 @@ public class ShortFreeTextQuestion extends AbstractQuestionComponent implements 
     private TextField answerField;
 
     @Inject
-    @LabelProperties
+    @LabelProperties(contentMode = ContentMode.HTML)
     private Label questionTitle;
 
     public ShortFreeTextQuestion() {
@@ -39,7 +40,8 @@ public class ShortFreeTextQuestion extends AbstractQuestionComponent implements 
 
     @Override
     public void init() {
-        questionTitle.setCaption(questionDTO.getLanguageSettings().getTitle());
+        questionTitle.setValue(String.format("<b>%d</b>. %s", questionDTO.getNumber(), questionDTO
+                .getLanguageSettings().getTitle()));
         content.addComponent(questionTitle);
 
         answerField.addTextChangeListener(this);

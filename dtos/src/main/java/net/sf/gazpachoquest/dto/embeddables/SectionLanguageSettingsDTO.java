@@ -8,61 +8,18 @@
  * Contributors:
  *     antoniomaria - initial API and implementation
  ******************************************************************************/
-package net.sf.gazpachoquest.dto;
+package net.sf.gazpachoquest.dto.embeddables;
 
+import net.sf.gazpachoquest.dto.SectionDTO;
 import net.sf.gazpachoquest.dto.support.LanguageSettingsDTO;
 
 public class SectionLanguageSettingsDTO implements LanguageSettingsDTO {
 
-    public static interface Builder {
-
-        SectionLanguageSettingsDTO build();
-
-        SectionDTO.Builder pageLanguageSettingsEnd();
-
-        Builder title(String title);
-
-    }
-
-    public static class BuilderImpl implements Builder {
-        private final SectionDTO.Builder container;
-
-        private String title;
-
-        public BuilderImpl(final SectionDTO.Builder container) {
-            this.container = container;
-        }
-
-        @Override
-        public SectionLanguageSettingsDTO build() {
-            SectionLanguageSettingsDTO surveyLanguageSettingsDTO = new SectionLanguageSettingsDTO();
-            surveyLanguageSettingsDTO.title = title;
-            return surveyLanguageSettingsDTO;
-        }
-
-        @Override
-        public SectionDTO.Builder pageLanguageSettingsEnd() {
-            return container.languageSettings(build());
-        }
-
-        @Override
-        public BuilderImpl title(final String title) {
-            this.title = title;
-            return this;
-        }
-    }
-
     private static final long serialVersionUID = 8942148329254332833L;
 
-    public static Builder pageLanguageSettingsStart(final SectionDTO.Builder container) {
-        return new SectionLanguageSettingsDTO.BuilderImpl(container);
-    }
-
-    public static Builder with() {
-        return new BuilderImpl(null);
-    }
-
     private String title;
+
+    private String description;
 
     public SectionLanguageSettingsDTO() {
         super();
@@ -75,4 +32,69 @@ public class SectionLanguageSettingsDTO implements LanguageSettingsDTO {
     public void setTitle(final String title) {
         this.title = title;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public static Builder pageLanguageSettingsStart(final SectionDTO.Builder container) {
+        return new SectionLanguageSettingsDTO.BuilderImpl(container);
+    }
+
+    public static Builder with() {
+        return new BuilderImpl(null);
+    }
+
+    public static interface Builder {
+
+        SectionLanguageSettingsDTO build();
+
+        SectionDTO.Builder pageLanguageSettingsEnd();
+
+        Builder title(String title);
+
+        Builder description(String description);
+    }
+
+    public static class BuilderImpl implements Builder {
+        private final SectionDTO.Builder container;
+
+        private String title = "";
+
+        private String description = "";
+
+        public BuilderImpl(final SectionDTO.Builder container) {
+            this.container = container;
+        }
+
+        @Override
+        public SectionLanguageSettingsDTO build() {
+            SectionLanguageSettingsDTO sectionLanguageSettingsDTO = new SectionLanguageSettingsDTO();
+            sectionLanguageSettingsDTO.title = title;
+            sectionLanguageSettingsDTO.description = description;
+            return sectionLanguageSettingsDTO;
+        }
+
+        @Override
+        public SectionDTO.Builder pageLanguageSettingsEnd() {
+            return container.languageSettings(build());
+        }
+
+        @Override
+        public BuilderImpl description(final String description) {
+            this.description = description;
+            return this;
+        }
+
+        @Override
+        public BuilderImpl title(final String title) {
+            this.title = title;
+            return this;
+        }
+    }
+
 }

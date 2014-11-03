@@ -78,6 +78,8 @@ public class AllInOneResolverTest extends AbstractShiroTest {
 
         assertThat(thirdGroup.getQuestions()).isEqualTo(
                 Arrays.asList(Question.with().id(39).build(), Question.with().id(50).build()));
+        
+        assertQuestionNumberPresent(sections);
     }
 
     @Test
@@ -108,6 +110,8 @@ public class AllInOneResolverTest extends AbstractShiroTest {
 
         assertThat(thirdGroup.getQuestions()).isEqualTo(
                 Arrays.asList(Question.with().id(39).build(), Question.with().id(50).build()));
+        
+        assertQuestionNumberPresent(sections);
     }
 
     @Test
@@ -138,6 +142,8 @@ public class AllInOneResolverTest extends AbstractShiroTest {
 
         assertThat(thirdGroup.getQuestions()).isEqualTo(
                 Arrays.asList(Question.with().id(39).build(), Question.with().id(50).build()));
+        
+        assertQuestionNumberPresent(sections);
     }
 
     @Test
@@ -158,6 +164,8 @@ public class AllInOneResolverTest extends AbstractShiroTest {
             visitedQuestions.add(question);
         }
         assertThat(allQuestions).containsAll(visitedQuestions);
+        
+        assertQuestionNumberPresent(sections);
     }
 
     @Test
@@ -180,6 +188,8 @@ public class AllInOneResolverTest extends AbstractShiroTest {
             }
         }
         assertThat(allQuestions).containsAll(visitedQuestions);
+        
+        assertQuestionNumberPresent(sections);
     }
 
     private List<Question> getAllQuestions() {
@@ -205,5 +215,15 @@ public class AllInOneResolverTest extends AbstractShiroTest {
     public void tearDownSubject() {
         // 3. Unbind the subject from the current thread:
         clearSubject();
+    }
+    
+    private void assertQuestionNumberPresent(List<Section> sections) {
+        int questionNumberCounter = 1;
+        for (Section section : sections) {
+            List<Question> questions = section.getQuestions();
+            for (Question question : questions) {
+               assertThat(question.getNumber()).isEqualTo(questionNumberCounter++);
+            }
+        }
     }
 }

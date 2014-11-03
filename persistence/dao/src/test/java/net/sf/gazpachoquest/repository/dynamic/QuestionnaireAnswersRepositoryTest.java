@@ -60,7 +60,7 @@ public class QuestionnaireAnswersRepositoryTest {
     @Test
     public void saveTest() {
         Questionnaire questionnaire = questionnaireRepository.findOne(58);
-        QuestionnaireDefinition questionnaireDefinition = questionnaire.getQuestionnairDefinition();
+        QuestionnaireDefinition questionnaireDefinition = questionnaire.getQuestionnaireDefinition();
 
         QuestionnaireAnswers questionnaireAnswers = QuestionnaireAnswers.with().id(answersId).build();
 

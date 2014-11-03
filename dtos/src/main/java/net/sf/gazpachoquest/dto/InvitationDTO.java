@@ -14,6 +14,13 @@ import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachoquest.types.InvitationStatus;
 import net.sf.gazpachoquest.types.InvitationType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "type")
+@JsonSubTypes({ @JsonSubTypes.Type(value = AnonymousInvitationDTO.class, name = "A"),
+        @JsonSubTypes.Type(value = PersonalInvitationDTO.class, name = "P") })
 public class InvitationDTO extends AbstractIdentifiableDTO {
     private static final long serialVersionUID = -2776483997831033883L;
 
@@ -37,6 +44,7 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
         return token;
     }
 
+    @JsonIgnore
     public InvitationType getType() {
         return type;
     }
@@ -61,7 +69,7 @@ public class InvitationDTO extends AbstractIdentifiableDTO {
         private InvitationStatus status;
         private ResearchDTO research;
 
-        private String token;
+        private String token = "";
         private InvitationType type;
 
         public InvitationDTO build() {

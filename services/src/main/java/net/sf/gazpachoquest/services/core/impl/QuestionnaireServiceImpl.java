@@ -13,6 +13,9 @@ package net.sf.gazpachoquest.services.core.impl;
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.core.QuestionnaireAnswers;
+import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
+import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.repository.QuestionnaireDefinitionRepository;
 import net.sf.gazpachoquest.repository.QuestionnaireRepository;
 import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepository;
 import net.sf.gazpachoquest.services.QuestionnaireService;
@@ -29,6 +32,9 @@ public class QuestionnaireServiceImpl extends AbstractPersistenceService<Questio
     private QuestionnaireAnswersRepository questionnaireAnswersRepository;
 
     @Autowired
+    private QuestionnaireDefinitionRepository questionnaireDefinitionRepository;
+
+    @Autowired
     public QuestionnaireServiceImpl(final QuestionnaireRepository questionnaireRepository) {
         super(questionnaireRepository);
     }
@@ -43,7 +49,7 @@ public class QuestionnaireServiceImpl extends AbstractPersistenceService<Questio
             } else if (questionnaire.getStatus().equals(EntityStatus.CONFIRMED)) {
                 // Create answers holder
                 QuestionnaireAnswers questionnaireAnswers = new QuestionnaireAnswers();
-                questionnaireAnswers = questionnaireAnswersRepository.save(questionnaire.getQuestionnairDefinition()
+                questionnaireAnswers = questionnaireAnswersRepository.save(questionnaire.getQuestionnaireDefinition()
                         .getId(), questionnaireAnswers);
                 questionnaire.setAnswersId(questionnaireAnswers.getId());
             }
@@ -55,8 +61,6 @@ public class QuestionnaireServiceImpl extends AbstractPersistenceService<Questio
             }
             for (Breadcrumb breadcrumb : questionnaire.getBreadcrumbs()) {
                 if (!breadcrumb.isNew()) {
-                    int pos = existing.getBreadcrumbs().indexOf(breadcrumb);
-                    existing.getBreadcrumbs().get(pos).setLast(breadcrumb.isLast());
                     continue;
                 }
                 existing.getBreadcrumbs().add(breadcrumb);
@@ -64,5 +68,22 @@ public class QuestionnaireServiceImpl extends AbstractPersistenceService<Questio
             }
         }
         return existing;
+    }
+    
+    @Override
+    @Transactional(readOnly = false)
+    public void removeBreadcrumb(final Integer questionnaireId, Breadcrumb breadcrumb){
+        Questionnaire existing = repository.findOne(questionnaireId);
+        existing.getBreadcrumbs().remove(breadcrumb);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public QuestionnaireDefinition getDefinition(final Integer questionnaireId) {
+        QuestionnaireDefinition example = new QuestionnaireDefinition();
+        example.addQuestionnaire(Questionnaire.with().id(questionnaireId).build());
+        QuestionnaireDefinition definition = questionnaireDefinitionRepository.findOneByExample(example,
+                new SearchParameters());
+        return definition;
     }
 }

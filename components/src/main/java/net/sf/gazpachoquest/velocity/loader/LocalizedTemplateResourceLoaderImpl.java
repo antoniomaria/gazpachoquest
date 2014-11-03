@@ -144,12 +144,11 @@ public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader implemen
     }
 
     private long readLastModified(final Resource resource, final String operation) {
-
         String templateName = resource.getName();
         Integer templateId = readTemplateId(templateName);
         logger.info("{} from mail message template {} ", operation, templateId);
         MailMessageTemplate template = templateRepository.findOne(templateId);
-        return template.getLastModifiedDate().getMillis();
+        return template.getLastModifiedDate().toDateTime().getMillis();
     }
 
 }
