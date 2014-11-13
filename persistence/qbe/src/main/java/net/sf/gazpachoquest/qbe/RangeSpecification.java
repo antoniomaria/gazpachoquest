@@ -31,11 +31,11 @@ import org.springframework.data.jpa.domain.Specifications;
  */
 @SuppressWarnings("unchecked")
 public class RangeSpecification {
-
-    public static <E> Specifications<E> andRangeIfSet(Specifications<E> specifications, final List<Range<?, ?>> ranges) {
+    
+    public static <E,D extends Comparable<? super D>> Specifications<E> andRangeIfSet(Specifications<E> specifications, final List<Range<?, ?>> ranges) {
         for (Range<?, ?> r : ranges) {
             if (r.isSet()) {
-                Range<E, ?> range = (Range<E, ?>) r;
+                Range<E, D> range = (Range<E, D>) r;
                 specifications = specifications.and(toSpecification(range));
             }
         }
