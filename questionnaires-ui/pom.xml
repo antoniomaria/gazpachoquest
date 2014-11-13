@@ -5,7 +5,7 @@
   <parent>
     <groupId>net.sf.gazpachoquest</groupId>
     <artifactId>gazpachoquest</artifactId>
-    <version>0.5.4.2-RELEASE</version>
+    <version>0.5.4.3-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-questionnaires-ui</artifactId>
   <packaging>war</packaging>
