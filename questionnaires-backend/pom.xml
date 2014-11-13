@@ -8,7 +8,7 @@
   <artifactId>gazpachoquest-questionnaires-backend</artifactId>
   <packaging>jar</packaging>
   <name>gazpachoquest-questionnaires-backend</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
     <!-- Test dependencies -->
     <dependency>

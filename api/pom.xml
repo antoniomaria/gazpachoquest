@@ -9,7 +9,7 @@
   </parent>
   <artifactId>gazpachoquest-api</artifactId>
   <name>gazpachoquest-api</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
     <!-- Test -->
     <dependency>

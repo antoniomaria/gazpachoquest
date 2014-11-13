@@ -8,7 +8,7 @@
   <artifactId>gazpachoquest-jaas</artifactId>
   <packaging>jar</packaging>
   <name>gazpachoquest-jaas</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/antoniomaria/gazpachoquest</url>
   <properties>
     <tomee.version>1.6.0</tomee.version>
   </properties>

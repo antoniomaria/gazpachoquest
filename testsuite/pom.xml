@@ -9,7 +9,7 @@
  </parent>
  <artifactId>gazpachoquest-testsuite</artifactId>
  <name>gazpachoquest-testsuite</name>
- <url>http://maven.apache.org</url>
+ <url>https://github.com/antoniomaria/gazpachoquest</url>
  <properties>
   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
  </properties>

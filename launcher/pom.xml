@@ -9,7 +9,7 @@
   <artifactId>gazpachoquest-launcher</artifactId>
   <packaging>pom</packaging>
   <name>gazpachoquest-launcher</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/antoniomaria/gazpachoquest</url>
 
   <properties>
     <cargo.http.port>8080</cargo.http.port>

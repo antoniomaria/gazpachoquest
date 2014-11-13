@@ -8,18 +8,13 @@
   </parent>
   <artifactId>gazpachoquest-db</artifactId>
   <name>gazpachoquest-db</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
     <!-- Test -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
-    </dependency>
-    <!-- JDBC pool's -->
-    <dependency>
-      <groupId>com.mchange</groupId>
-      <artifactId>c3p0</artifactId>
     </dependency>
 
     <dependency>

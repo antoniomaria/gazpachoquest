@@ -8,7 +8,7 @@
   <artifactId>gazpachoquest-rest-security</artifactId>
   <packaging>jar</packaging>
   <name>gazpachoquest-security</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
     <!-- Test dependencies -->
     <dependency>

@@ -8,7 +8,7 @@
   <artifactId>gazpachoquest-types</artifactId>
   <packaging>jar</packaging>
   <name>gazpachoquest-types</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
 
     <!-- Test dependencies -->

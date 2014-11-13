@@ -8,10 +8,7 @@
   </parent>
   <artifactId>gazpachoquest-jpa</artifactId>
   <name>gazpachoquest-jpa</name>
-  <url>http://maven.apache.org</url>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+  <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -26,9 +23,8 @@
 
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
-      <artifactId>eclipselink</artifactId>
+      <artifactId>org.eclipse.persistence.jpa</artifactId>
     </dependency>
-
 
     <dependency>
       <groupId>joda-time</groupId>

@@ -9,7 +9,7 @@
   <artifactId>gazpachoquest-rest-cxf-contrib</artifactId>
   <packaging>jar</packaging>
   <name>gazpachoquest-rest-cxf-contrib</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
     <!-- Test dependencies -->
     <dependency>

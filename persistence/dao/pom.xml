@@ -8,7 +8,7 @@
   <artifactId>gazpachoquest-dao</artifactId>
   <packaging>jar</packaging>
   <name>gazpachoquest-dao</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/antoniomaria/gazpachoquest</url>
 
 
   <dependencies>
@@ -58,6 +58,11 @@
 
     <dependency>
       <groupId>${project.groupId}</groupId>
+      <artifactId>gazpachoquest-domain</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-qbe</artifactId>
     </dependency>
 
@@ -94,12 +99,6 @@
       </exclusions>
     </dependency>
     
-    <!-- Project libraries -->
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachoquest-domain</artifactId>
-    </dependency>
-    
     <!-- Spring data jpa -->
     <dependency>
       <groupId>org.springframework.data</groupId>
@@ -119,18 +118,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-aspects</artifactId>
-    </dependency>
-
-    <!-- Persistence providers -->
-    <dependency>
-      <groupId>org.eclipse.persistence</groupId>
-      <artifactId>eclipselink</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.persistence</groupId>
-      <artifactId>javax.persistence</artifactId>
-      <scope>provided</scope>
     </dependency>
 
     <!-- Google flyway -->

@@ -27,15 +27,6 @@
     </bean>
   </beans>
 
-  <beans profile="standaloneC3p0">
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-      <property name="driverClass" value="${jdbc.driver.class}" />
-      <property name="jdbcUrl" value="${jdbc.url}" />
-      <property name="user" value="${jdbc.username}" />
-      <property name="password" value="${jdbc.password}" />
-    </bean>
-  </beans>
-
   <beans profile="standalone">
     <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
       <property name="driverClass" value="${jdbc.driver.class}" />
