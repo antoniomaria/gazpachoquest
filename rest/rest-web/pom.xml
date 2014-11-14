@@ -45,7 +45,6 @@
     <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
-      <version>3.0</version>
       <scope>test</scope>
     </dependency>
 
@@ -62,11 +61,23 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- Provided scope if deployed in tomee -->
-    <dependency>
-      <groupId>org.apache.cxf</groupId>
-      <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-    </dependency>
+  <!-- Third parties -->
+  
+   <!-- Apache cxf -->
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-rs-client</artifactId>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-rs-extension-providers</artifactId>
+      </dependency>
 
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -74,9 +85,8 @@
       <version>3.1.0</version>
       <scope>provided</scope>
     </dependency>
-    <!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> <scope>provided</scope> </dependency> -->
-
-    <!-- Third parties -->
+<!-- 
+  
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-bundle-jaxrs</artifactId>
@@ -159,7 +169,8 @@
           <groupId>org.apache.geronimo.specs</groupId>
         </exclusion>
       </exclusions>
-    </dependency>
+    </dependency>  -->
+    
     <!-- Logger logback -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
@@ -338,11 +349,11 @@
         </exclusion>
       </exclusions>
     </dependency>
+    
     <!-- Shiro security -->
     <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-core</artifactId>
-      <version>1.2.3</version>
     </dependency>
 
   </dependencies>

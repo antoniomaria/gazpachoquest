@@ -1,17 +1,18 @@
 package net.sf.gazpachoquest.rest.filter;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import net.sf.gazpachoquest.security.shiro.HmacAuthToken;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.cxf.jaxrs.ext.RequestHandler;
-import org.apache.cxf.jaxrs.model.ClassResourceInfo;
+import org.apache.cxf.jaxrs.utils.JAXRSUtils;
 import org.apache.cxf.message.Message;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
@@ -20,7 +21,7 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LoginShiroFilter implements RequestHandler {
+public class LoginShiroFilter implements ContainerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginShiroFilter.class);
 
@@ -30,19 +31,27 @@ public class LoginShiroFilter implements RequestHandler {
     private UriInfo uriInfo;
 
     @Override
-    public Response handleRequest(Message message, ClassResourceInfo resourceClass) {
+    public void filter(ContainerRequestContext requestContext) throws IOException {
+        
+        Message message = JAXRSUtils.getCurrentMessage();
+        String mmethod = requestContext.getMethod();
+        String qquery = requestContext.getUriInfo().getRequestUri().toString();
         String path = uriInfo.getPath();
         logger.debug("New access to resource {}", path);
         if (path.startsWith("auth") || path.contains("api-docs")) {
             // Ignore the AuthenticationResource
-            return null;
+            return;
         }
 
         Subject subject = SecurityUtils.getSubject();
         String query = (String) message.get(Message.QUERY_STRING);
         String method = (String) message.get(Message.HTTP_REQUEST_METHOD);
+        /*-
         String dateUTC = getRequestHeaderAsString(HttpHeaders.DATE);
         String authorizationHeader = getRequestHeaderAsString(HttpHeaders.AUTHORIZATION);
+        */
+        String dateUTC = requestContext.getHeaderString(HttpHeaders.DATE);
+        String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 
         if (authorizationHeader == null) {
             throw new AccountException("Hmac-SHA1 Authorization token is required");
@@ -75,7 +84,6 @@ public class LoginShiroFilter implements RequestHandler {
         AuthenticationToken token = new HmacAuthToken.Builder().apiKey(apiKey).message(signedContent.toString())
                 .signature(signature).dateUTC(dateUTC).build();
         subject.login(token); //
-        return null;
     }
 
     public void setHeaders(HttpHeaders headers) {
