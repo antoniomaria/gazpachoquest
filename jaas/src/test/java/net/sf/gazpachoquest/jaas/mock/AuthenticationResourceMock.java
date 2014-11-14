@@ -3,18 +3,19 @@ package net.sf.gazpachoquest.jaas.mock;
 import java.net.URI;
 import java.util.Date;
 
+import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import net.sf.gazpachoquest.api.AuthenticationResource;
 import net.sf.gazpachoquest.dto.auth.Account;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
 
 import org.apache.cxf.jaxrs.client.Client;
-import org.apache.cxf.jaxrs.client.ClientWebApplicationException;
 
 public class AuthenticationResourceMock implements Client, AuthenticationResource {
 
@@ -133,7 +134,19 @@ public class AuthenticationResourceMock implements Client, AuthenticationResourc
         if ("YAS5ICHRBE".equals(invitation)) {
             return RespondentAccount.with().givenNames("Jon").surname("Snow").build();
         }
-        throw new ClientWebApplicationException("Account not found");
+        throw new ClientErrorException("Account not found", Status.FORBIDDEN);
+    }
+
+    @Override
+    public Client query(String name, Object... values) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void close() {
+        // TODO Auto-generated method stub
+        
     }
 
 }

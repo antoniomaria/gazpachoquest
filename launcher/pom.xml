@@ -23,17 +23,33 @@
   <build>
     <pluginManagement>
       <plugins>
+      <!-- http://rmannibucau.wordpress.com/2013/07/19/little-tip-to-help-you-to-test-javaee-7-in-tomee-with-tomee-maven-plugin/ -->
         <plugin>
           <groupId>org.apache.openejb.maven</groupId>
           <artifactId>tomee-maven-plugin</artifactId>
           <version>1.7.1</version>
           <configuration>
             <tomeeVersion>1.7.1</tomeeVersion>
-             <!-- 
-              <tomeeClassifier>webprofile</tomeeClassifier>
-             -->
-            <tomeeClassifier>jaxrs</tomeeClassifier>
-             
+            <tomeeClassifier>webprofile</tomeeClassifier>
+
+        <libs>
+          <lib>remove:javaee-api</lib>
+          <lib>unzip:org.apache.openejb:javaee-api:6.0-6:zip</lib>
+          <lib>remove:geronimo-jpa_2.0_spec-1.1</lib>
+          <lib>org.eclipse.persistence:javax.persistence:2.1.0</lib>
+          <lib>remove:geronimo-jaxrs_1.1_spec-1.0</lib>
+          <lib>javax.ws.rs:javax.ws.rs-api:2.0.1</lib>
+          
+          <!-- 
+          <lib>org.springframework:spring-context:4.0.6.RELEASE</lib>
+              <lib>org.springframework:spring-core:4.0.6.RELEASE</lib>
+              <lib>org.springframework:spring-beans:4.0.6.RELEASE</lib>
+              <lib>org.springframework:spring-web:4.0.6.RELEASE</lib>  -->
+        </libs>
+      <webapps>
+              <webapp>net.sf.gazpachoquest:gazpachoquest-rest-web:${project.version}?name=gazpachoquest-rest-web</webapp>
+              </webapps>
+          <!--  
             <webapps>
               <webapp>net.sf.gazpachoquest:gazpachoquest-rest-web:${project.version}?name=gazpachoquest-rest-web</webapp>
               <webapp>net.sf.gazpachoquest:gazpachoquest-questionnaires-ui:${project.version}?name=ROOT</webapp>
@@ -44,7 +60,7 @@
               <lib>org.springframework:spring-core:3.2.9.RELEASE</lib>
               <lib>org.springframework:spring-beans:3.2.9.RELEASE</lib>
               <lib>org.springframework:spring-web:3.2.9.RELEASE</lib>
-            </libs>
+            </libs>-->
           </configuration>
         </plugin>
       </plugins>

@@ -17,14 +17,14 @@ import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.PasswordCallback;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
+import javax.ws.rs.ClientErrorException;
+import javax.ws.rs.ServerErrorException;
 
 import net.sf.gazpachoquest.api.AuthenticationResource;
 import net.sf.gazpachoquest.dto.auth.Account;
 import net.sf.gazpachoquest.dto.auth.RoleAccount;
 
-import org.apache.cxf.jaxrs.client.ClientWebApplicationException;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
-import org.apache.cxf.jaxrs.client.ServerWebApplicationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,11 +70,11 @@ public class RespondentsLoginModule implements LoginModule {
             logger.info("Access granted to user {}", account.getFullName());
             userPrincipal = account;
             return true;
-        } catch (ClientWebApplicationException e) {
+        } catch (ClientErrorException e) {
             logger.error(e.getMessage(), e);
             throw new LoginException(e.getMessage());
-        } catch (ServerWebApplicationException e) {
-            logger.error("Authentication server {} return html status = {} ", endpoint, e.getStatus(), e);
+        } catch (ServerErrorException e) {
+            logger.error("Authentication server {} return html status = {} ", endpoint, e.getResponse().getStatus(), e);
             throw new LoginException(e.getMessage());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
