@@ -10,16 +10,6 @@
   <packaging>pom</packaging>
   <name>gazpachoquest-launcher</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
-
-  <properties>
-    <cargo.http.port>8080</cargo.http.port>
-    <cargo.tomcat.ajp.port>8009</cargo.tomcat.ajp.port>
-    <cargo.debug.port>4442</cargo.debug.port>
-    <cargo.jvmargs>-server -Xms96m -Xmx512m -Djava.awt.headless=true</cargo.jvmargs>
-    <cargo.jvmargs.debug>${cargo.jvmargs} -Xdebug
-      -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=${cargo.debug.port}
-    </cargo.jvmargs.debug>
-  </properties>
   <build>
     <pluginManagement>
       <plugins>
@@ -32,35 +22,19 @@
             <tomeeVersion>1.7.1</tomeeVersion>
             <tomeeClassifier>webprofile</tomeeClassifier>
 
-        <libs>
-          <lib>remove:javaee-api</lib>
-          <lib>unzip:org.apache.openejb:javaee-api:6.0-6:zip</lib>
-          <lib>remove:geronimo-jpa_2.0_spec-1.1</lib>
-          <lib>org.eclipse.persistence:javax.persistence:2.1.0</lib>
-          <lib>remove:geronimo-jaxrs_1.1_spec-1.0</lib>
-          <lib>javax.ws.rs:javax.ws.rs-api:2.0.1</lib>
-          
-          <!-- 
-          <lib>org.springframework:spring-context:4.0.6.RELEASE</lib>
-              <lib>org.springframework:spring-core:4.0.6.RELEASE</lib>
-              <lib>org.springframework:spring-beans:4.0.6.RELEASE</lib>
-              <lib>org.springframework:spring-web:4.0.6.RELEASE</lib>  -->
-        </libs>
-      <webapps>
-              <webapp>net.sf.gazpachoquest:gazpachoquest-rest-web:${project.version}?name=gazpachoquest-rest-web</webapp>
-              </webapps>
-          <!--  
+            <libs>
+              <lib>remove:javaee-api</lib>
+              <lib>unzip:org.apache.openejb:javaee-api:6.0-6:zip</lib>
+              <lib>remove:geronimo-jpa_2.0_spec-1.1</lib>
+              <lib>org.eclipse.persistence:javax.persistence:2.1.0</lib>
+              <lib>remove:geronimo-jaxrs_1.1_spec-1.0</lib>
+              <lib>javax.ws.rs:javax.ws.rs-api:2.0.1</lib>
+            </libs>
             <webapps>
-              <webapp>net.sf.gazpachoquest:gazpachoquest-rest-web:${project.version}?name=gazpachoquest-rest-web</webapp>
+              <webapp>net.sf.gazpachoquest:gazpachoquest-rest-web:${project.version}?name=gazpachoquest-rest-web</webapp> 
               <webapp>net.sf.gazpachoquest:gazpachoquest-questionnaires-ui:${project.version}?name=ROOT</webapp>
             </webapps>
             <args>-Xms512m -Xmx1024m -XX:MaxPermSize=256m -Djava.security.auth.login.config=${project.basedir}/src/main/resources/jaas.config</args>
-            <libs>
-              <lib>org.springframework:spring-context:3.2.9.RELEASE</lib>
-              <lib>org.springframework:spring-core:3.2.9.RELEASE</lib>
-              <lib>org.springframework:spring-beans:3.2.9.RELEASE</lib>
-              <lib>org.springframework:spring-web:3.2.9.RELEASE</lib>
-            </libs>-->
           </configuration>
         </plugin>
       </plugins>
