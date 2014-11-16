@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.gazpachoquest.api.QuestionnaireResource;
 import net.sf.gazpachoquest.cxf.interceptor.HmacAuthInterceptor;
-import net.sf.gazpachoquest.dto.auth.RespondentAccount;
+import net.sf.gazpachoquest.jaas.auth.RespondentAccount;
 import net.sf.gazpachoquest.questionnaires.bootstrap.ConfigurationKey;
 import net.sf.gazpachoquest.questionnaires.bootstrap.InjectedConfiguration;
 
@@ -44,11 +44,6 @@ public class ResourceProducer {
 
     private static Logger logger = LoggerFactory.getLogger(ResourceProducer.class);
 
-    // public static final String BASE_URI =
-    // "http://aurora:8080/gazpachoquest-rest-web/api";
-
-    // public static final String BASE_URI =
-    // "http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/api";
     @Inject
     @InjectedConfiguration(key = ConfigurationKey.REST_ENDPOINT)
     private String BASE_URI;
@@ -66,7 +61,7 @@ public class ResourceProducer {
         String apiKey = principal.getApiKey();
         String secret = principal.getSecret();
 
-        logger.info("Getting QuestionnaireResource using api key {}: ", apiKey);
+        logger.info("Getting QuestionnaireResource using api key {}/{} ", apiKey, secret);
 
         JacksonJsonProvider jacksonProvider = new JacksonJsonProvider();
         ObjectMapper mapper = new ObjectMapper();

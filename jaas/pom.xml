@@ -9,9 +9,7 @@
   <packaging>jar</packaging>
   <name>gazpachoquest-jaas</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
-  <properties>
-    <tomee.version>1.6.0</tomee.version>
-  </properties>
+
   <dependencies>
     <!-- Test scope -->
     <dependency>
@@ -33,13 +31,29 @@
     </dependency>
 
     <dependency>
+      <groupId>javax.json</groupId>
+      <artifactId>javax.json-api</artifactId>
+      <scope>provided</scope>
+      <version>1.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.json</artifactId>
+      <version>1.0.4</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-rs-client</artifactId>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-rs-extension-providers</artifactId>
+      <scope>provided</scope>
     </dependency>
 
     <!-- Project libraries -->
@@ -49,11 +63,12 @@
       <scope>provided</scope>
     </dependency>
 
-
     <dependency>
       <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-rest-cxf-contrib</artifactId>
+      <scope>provided</scope>
     </dependency>
+
   </dependencies>
   <profiles>
     <profile>

@@ -21,7 +21,7 @@ import net.sf.gazpachoquest.dto.QuestionDTO;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
 import net.sf.gazpachoquest.dto.SectionDTO;
-import net.sf.gazpachoquest.dto.auth.RespondentAccount;
+import net.sf.gazpachoquest.jaas.auth.RespondentAccount;
 import net.sf.gazpachoquest.questionnaires.components.question.QuestionComponent;
 import net.sf.gazpachoquest.questionnaires.components.question.QuestionFactory;
 import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
@@ -146,7 +146,7 @@ public class QuestionnaireView extends CustomComponent implements View, ClickLis
         RespondentAccount respondent = (RespondentAccount) VaadinServletService.getCurrentServletRequest()
                 .getUserPrincipal();
         if (respondent.hasPreferredLanguage()) {
-            preferredLanguage = respondent.getPreferredLanguage();
+            preferredLanguage =  Language.fromString(respondent.getPreferredLanguage());
         } else {
             preferredLanguage = Language.fromLocale(webBrowser.getLocale());
         }

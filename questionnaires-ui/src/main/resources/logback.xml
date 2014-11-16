@@ -16,6 +16,8 @@
   <logger name="net.sf.gazpachoquest" level="DEBUG" />
 
   <logger name="com.vaadin.cdi" level="DEBUG" />
+  
+  <logger name="org.apache.catalina" level="DEBUG" />
 
   <logger name="org.vaadin.addon.cdimvp" level="DEBUG" />
 
