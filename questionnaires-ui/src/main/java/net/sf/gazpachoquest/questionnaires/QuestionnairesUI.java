@@ -79,6 +79,7 @@ public class QuestionnairesUI extends UI {
         }
         try {
             JaasAccessControl.login(loginEvent.getUsername(), loginEvent.getPassword());
+            logger.info("User {} authenticated", getPrincipalName());
             navigator.navigateTo(QuestionnaireView.NAME);
         } catch (Exception e) {
             Notification.show("Error logging in", Type.ERROR_MESSAGE);

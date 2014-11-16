@@ -57,7 +57,7 @@ public class QuestionnaireView extends CustomComponent implements View, ClickLis
 
     private static final long serialVersionUID = -4474306191162456568L;
 
-    public static final String NAME = "questionnair";
+    public static final String NAME = "questionnaire";
 
     private static Logger logger = LoggerFactory.getLogger(QuestionnaireView.class);
 
