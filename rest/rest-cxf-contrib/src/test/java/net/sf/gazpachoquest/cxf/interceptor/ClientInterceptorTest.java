@@ -1,4 +1,4 @@
-package net.sf.gazpachoquest.jaas;
+package net.sf.gazpachoquest.cxf.interceptor;
 
 import java.util.Collections;
 

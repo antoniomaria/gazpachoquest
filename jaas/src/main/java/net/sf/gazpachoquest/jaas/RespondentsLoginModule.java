@@ -7,28 +7,36 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.jaas;
 
-import java.util.Collections;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.ConnectException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Map;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonNumber;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.security.auth.Subject;
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.PasswordCallback;
+import javax.security.auth.login.AccountException;
+import javax.security.auth.login.FailedLoginException;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
-import javax.ws.rs.ClientErrorException;
-import javax.ws.rs.ServerErrorException;
 
-import net.sf.gazpachoquest.api.AuthenticationResource;
-import net.sf.gazpachoquest.dto.auth.Account;
-import net.sf.gazpachoquest.dto.auth.RoleAccount;
+import net.sf.gazpachoquest.jaas.auth.Account;
+import net.sf.gazpachoquest.jaas.auth.RespondentAccount;
+import net.sf.gazpachoquest.jaas.auth.RoleAccount;
 
-import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 public class RespondentsLoginModule implements LoginModule {
 
@@ -37,7 +45,6 @@ public class RespondentsLoginModule implements LoginModule {
     private CallbackHandler handler;
     private Subject subject;
     private Account userPrincipal;
-    private AuthenticationResource authenticationResource;
     private String endpoint;
 
     @Override
@@ -46,12 +53,6 @@ public class RespondentsLoginModule implements LoginModule {
         endpoint = (String) options.get("gazpachoquest.rest.endpoint");
         handler = callbackHandler;
         this.subject = subject;
-        authenticationResource = JAXRSClientFactory.create(endpoint, AuthenticationResource.class,
-                Collections.singletonList(new JacksonJsonProvider()), null);
-    }
-
-    public void setAuthenticationResource(AuthenticationResource authenticationResource) {
-        this.authenticationResource = authenticationResource;
     }
 
     @Override
@@ -66,21 +67,70 @@ public class RespondentsLoginModule implements LoginModule {
             String username = ((NameCallback) callbacks[0]).getName();
             String password = String.valueOf(((PasswordCallback) callbacks[1]).getPassword());
             logger.info("New username attempt for user: {}", username);
-            Account account = authenticationResource.authenticate(password);
-            logger.info("Access granted to user {}", account.getFullName());
-            userPrincipal = account;
+            userPrincipal = doLogin(password);
+            logger.info("Access granted to user {}", userPrincipal.getFullName());
             return true;
-        } catch (ClientErrorException e) {
-            logger.error(e.getMessage(), e);
-            throw new LoginException(e.getMessage());
-        } catch (ServerErrorException e) {
-            logger.error("Authentication server {} return html status = {} ", endpoint, e.getResponse().getStatus(), e);
-            throw new LoginException(e.getMessage());
+        } catch (LoginException e) {
+            throw e;
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            throw new LoginException("An unknown error has occurred in authentication process");
+            throw new FailedLoginException("An unknown error has occurred in authentication process");
         }
+    }
 
+    public Account doLogin(String invitation) throws IOException, LoginException {
+        RespondentAccount account = new RespondentAccount();
+        String query = String.format("invitation=%s", URLEncoder.encode(invitation, "UTF-8"));
+        URL url = new URL(endpoint + "/auth?" + query);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        try (InputStream is = connection.getInputStream(); JsonReader rdr = Json.createReader(is)) {
+            JsonObject obj = rdr.readObject();
+
+            String givenNames = obj.getString("givenNames");
+            String surname = obj.getString("surname");
+            String email = obj.getString("email");
+            String apiKey = obj.getString("apiKey");
+            String secret = obj.getString("secret");
+            String preferredLanguage = obj.getString("preferredLanguage");
+            account.setGivenNames(givenNames);
+            account.setSurname(surname);
+            account.setEmail(email);
+            account.setApiKey(apiKey);
+            account.setSecret(secret);
+            account.setPreferredLanguage(preferredLanguage);
+            JsonArray roles = obj.getJsonArray("roles");
+            for (JsonObject role : roles.getValuesAs(JsonObject.class)) {
+                String roleName = role.getString("name");
+                account.assingRole(roleName);
+            }
+            JsonArray grantedquestionnaireIds = obj.getJsonArray("grantedquestionnaireIds");
+            for (JsonNumber grantedquestionnaireId : grantedquestionnaireIds.getValuesAs(JsonNumber.class)) {
+                Integer questionnaireId = grantedquestionnaireId.intValue();
+                account.grantquestionnaireId(questionnaireId);
+            }
+        } catch (ConnectException e) {
+            logger.error(e.getMessage(), e);
+            throw new FailedLoginException(String.format("Server {} is temporarily unavailable", endpoint));
+        } catch (FileNotFoundException e) { // 404 error
+            logger.error(e.getMessage(), e);
+            throw new FailedLoginException(String.format("Configuration error. Resource {} not found", url));
+        } catch (IOException e) {
+            String message = getErrorMessage(e, connection);
+            logger.error(e.getMessage(), e);
+            throw new AccountException(message);
+        }
+        return account;
+    }
+
+    private String getErrorMessage(IOException exception, HttpURLConnection connection) {
+        String message = exception.getMessage();
+        try (InputStream error = connection.getErrorStream(); JsonReader rdr = Json.createReader(error)) {
+            JsonObject obj = rdr.readObject();
+            message = obj.getString("message");
+        } catch (Exception e) {
+            // ignore. likely there is no response
+        }
+        return message;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package net.sf.gazpachoquest.cxf.interceptor;
 
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -12,7 +11,6 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.cxf.common.util.Base64Utility;
 import org.apache.cxf.interceptor.Fault;
-import org.apache.cxf.io.CacheAndWriteOutputStream;
 import org.apache.cxf.io.CachedOutputStream;
 import org.apache.cxf.io.CachedOutputStreamCallback;
 import org.apache.cxf.jaxrs.impl.HttpHeadersImpl;
