@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 import net.sf.gazpachoquest.api.QuestionnaireResource;
 import net.sf.gazpachoquest.dto.answers.Answer;
-import net.sf.gazpachoquest.dto.auth.RespondentAccount;
+import net.sf.gazpachoquest.jaas.auth.RespondentAccount;
 import net.sf.gazpachoquest.questionnaires.events.AnswerSavedEvent;
 import net.sf.gazpachoquest.questionnaires.resource.GazpachoResource;
 

@@ -14,7 +14,7 @@
   <properties>
     <arquillian.version>1.0.0.Alpha1</arquillian.version>
     <version.shrinkwrap.resolvers>2.2.0-beta-1</version.shrinkwrap.resolvers>
-    <vaadin.version>7.3.0</vaadin.version>
+    <vaadin.version>7.3.4</vaadin.version>
     <vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
   </properties>
   <dependencyManagement>
@@ -161,7 +161,7 @@
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-sass-compiler</artifactId>
-      <version>0.9.4</version>
+      <version>0.9.10</version>
     </dependency>
     <dependency>
       <groupId>com.vaadin</groupId>
