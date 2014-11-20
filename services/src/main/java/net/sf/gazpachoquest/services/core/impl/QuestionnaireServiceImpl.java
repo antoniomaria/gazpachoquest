@@ -10,6 +10,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.services.core.impl;
 
+import java.util.Optional;
+
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.core.QuestionnaireAnswers;
@@ -22,6 +24,7 @@ import net.sf.gazpachoquest.services.QuestionnaireService;
 import net.sf.gazpachoquest.types.EntityStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,10 +72,10 @@ public class QuestionnaireServiceImpl extends AbstractPersistenceService<Questio
         }
         return existing;
     }
-    
+
     @Override
     @Transactional(readOnly = false)
-    public void removeBreadcrumb(final Integer questionnaireId, Breadcrumb breadcrumb){
+    public void removeBreadcrumb(final Integer questionnaireId, Breadcrumb breadcrumb) {
         Questionnaire existing = repository.findOne(questionnaireId);
         existing.getBreadcrumbs().remove(breadcrumb);
     }
@@ -82,8 +85,10 @@ public class QuestionnaireServiceImpl extends AbstractPersistenceService<Questio
     public QuestionnaireDefinition getDefinition(final Integer questionnaireId) {
         QuestionnaireDefinition example = new QuestionnaireDefinition();
         example.addQuestionnaire(Questionnaire.with().id(questionnaireId).build());
-        QuestionnaireDefinition definition = questionnaireDefinitionRepository.findOneByExample(example,
+        Optional<QuestionnaireDefinition> definition = questionnaireDefinitionRepository.findOneByExample(example,
                 new SearchParameters());
-        return definition;
+        return definition.orElseThrow(() -> new EmptyResultDataAccessException(String.format(
+                "No %s entity for {} with id %s found!", QuestionnaireDefinition.class, Questionnaire.class,
+                questionnaireId), 1));
     }
 }

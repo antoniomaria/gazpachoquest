@@ -46,7 +46,7 @@ public class QuestionnaireServiceTest extends AbstractShiroTest {
         User respondent = User.with().id(6).build();
         Research research = Research.with().id(57).build();
         Questionnaire example = Questionnaire.with().respondent(respondent).research(research).build();
-        Questionnaire questionnaire = questionnaireService.findOneByExample(example, new SearchParameters());
+        Questionnaire questionnaire = questionnaireService.findOneByExample(example, new SearchParameters()).get();
         assertThat(questionnaire).isEqualTo(Questionnaire.with().id(58).build());
     }
 

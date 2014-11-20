@@ -48,6 +48,7 @@ import net.sf.gazpachoquest.util.RandomTokenGenerator;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.velocity.VelocityEngineFactoryBean;
@@ -181,7 +182,9 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
 
         // Add the respondent to respondents groups
         Group example = Group.with().name("Respondents").build();
-        Group respondentsGroup = groupRepository.findOneByExample(example, new SearchParameters());
+        Group respondentsGroup = groupRepository.findOneByExample(example, new SearchParameters()).orElseThrow(
+                () -> new EmptyResultDataAccessException(String.format("No %s entity with name %s found!", Group.class,
+                        "Respondents"), 1));
         if (groupRepository.isUserInGroup(respondent.getId(), "Respondents") == 0) {
             respondentsGroup.assignUser(respondent);
         }
@@ -201,7 +204,10 @@ public class ResearchServiceImpl extends AbstractPersistenceService<Research> im
                 MailMessageTemplate invitationTemplate = templates.get(MailMessageTemplateType.INVITATION);
 
                 Group example = Group.with().name("Respondents").build();
-                Group respondentsGroup = groupRepository.findOneByExample(example, new SearchParameters());
+                Group respondentsGroup = groupRepository.findOneByExample(example, new SearchParameters()).orElseThrow(
+                        () -> new EmptyResultDataAccessException(String.format("No %s entity with name %s found!", Group.class,
+                                "Respondents"), 1));
+                
                 for (User respondent : respondents) {
                     Assert.state(!respondent.isNew(), "Persist all respondents before starting a research.");
                     Questionnaire questionnaire = Questionnaire.with().status(EntityStatus.CONFIRMED)

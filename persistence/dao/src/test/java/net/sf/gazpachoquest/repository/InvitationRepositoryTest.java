@@ -6,9 +6,9 @@ import static org.easymock.EasyMock.replay;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.Optional;
 
 import net.sf.gazpachoquest.domain.core.AnonymousInvitation;
-import net.sf.gazpachoquest.domain.core.PersonalInvitation;
 import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.support.Invitation;
 import net.sf.gazpachoquest.domain.user.User;
@@ -57,12 +57,24 @@ public class InvitationRepositoryTest extends AbstractShiroTest {
 
     @Test
     public void findByExampleTest() {
-        PersonalInvitation personalInvitation = new PersonalInvitation();
-        personalInvitation.setRespondent(User.with().id(6).build());
+        Invitation personalInvitation = new Invitation();
+        personalInvitation.setToken("NHAZXA4UK9");
         List<Invitation> invitations = invitationRepository.findByExample(personalInvitation, new SearchParameters());
-        
-        System.out.println(invitations);
+        assertThat(invitations).contains(Invitation.with().id(61).build());
     }
+
+    @Test
+    public void findOneByExampleTest() {
+        Invitation example = Invitation.with().token("NHAZXA4UK9").build();
+        Optional<Invitation> invitation = invitationRepository.findOneByExample(example, new SearchParameters());
+        assertThat(invitation.isPresent());
+        assertThat(invitation.get()).isEqualTo(Invitation.with().id(61).build());
+        
+        example = Invitation.with().token("9999999").build();
+        invitation = invitationRepository.findOneByExample(example, new SearchParameters());
+        assertThat(invitation.isPresent()).isFalse();
+    }
+
     @Test
     public void saveTest() {
         Research research = researchRepository.findOne(57);

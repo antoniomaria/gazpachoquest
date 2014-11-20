@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import net.sf.gazpachoquest.domain.support.Persistable;
 import net.sf.gazpachoquest.domain.user.User;
@@ -29,7 +30,7 @@ public interface PersistenceService<T extends Persistable> {
 
     T findOne(Integer id);
 
-    T findOneByExample(T example, SearchParameters searchParameters);
+    Optional<T> findOneByExample(T example, SearchParameters searchParameters);
 
     T save(T entity);
 

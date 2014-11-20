@@ -12,11 +12,11 @@ package net.sf.gazpachoquest.repository.support;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
 import net.sf.gazpachoquest.domain.support.Persistable;
-import net.sf.gazpachoquest.qbe.ByExampleSpecification;
 import net.sf.gazpachoquest.qbe.NamedQueryUtil;
 import net.sf.gazpachoquest.qbe.Range;
 import net.sf.gazpachoquest.qbe.RangeSpecification;
@@ -25,8 +25,8 @@ import net.sf.gazpachoquest.qbe.support.PropertySelectorSpecification;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
 
 import org.apache.commons.lang3.Validate;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
@@ -40,14 +40,10 @@ import org.springframework.util.Assert;
 public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepository<T, Integer> implements
         GenericRepository<T> {
 
-    private static final int MAX_VALUES_RETREIVED = 500;
     private ByExampleEnhancedSpecification byExampleEnhancedSpecification;
-    private ByExampleSpecification byExampleSpecification;
     private final EntityManager em;
     private final JpaEntityInformation<T, ?> entityInformation;
     private NamedQueryUtil namedQueryUtil;
-
-    private Class<T> type;
 
     /**
      * Creates a new {@link SimpleJpaRepository} to manage objects of the given
@@ -57,15 +53,13 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
      * @param entityManager
      */
     public GenericRepositoryImpl(final JpaEntityInformation<T, ?> entityInformation, final EntityManager entityManager,
-            final ByExampleSpecification byExampleSpecification, final NamedQueryUtil namedQueryUtil) {
+            final NamedQueryUtil namedQueryUtil) {
         super(entityInformation, entityManager);
         this.entityInformation = entityInformation;
         this.em = entityManager;
         // provider =
         // DefaultPersistenceProvider.fromEntityManager(entityManager);
         // this.springDataRepositoryInterface = springDataRepositoryInterface;
-        this.type = entityInformation.getJavaType();
-        this.byExampleSpecification = byExampleSpecification;
         this.namedQueryUtil = namedQueryUtil;
         this.byExampleEnhancedSpecification = new ByExampleEnhancedSpecification(entityManager);
     }
@@ -78,7 +72,18 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
      * @param em
      */
     protected GenericRepositoryImpl(final Class<T> domainClass, final EntityManager em) {
-        this(JpaEntityInformationSupport.getMetadata(domainClass, em), em, null, null);
+        this(JpaEntityInformationSupport.getMetadata(domainClass, em), em, null);
+    }
+
+    @Override
+    public T findOne(Integer id) {
+        T entity = super.findOne(id);
+
+        if (entity == null) {
+            throw new EmptyResultDataAccessException(String.format("No %s entity with id %s exists!",
+                    entityInformation.getJavaType(), id), 1);
+        }
+        return entity;
     }
 
     @Override
@@ -91,18 +96,6 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
         spec = RangeSpecification.andRangeIfSet(spec, sp.getRanges());
         spec = PropertySelectorSpecification.andPropertySelectorIfSet(spec, sp);
         return super.count(spec);
-    }
-
-    @Override
-    public List<T> find() {
-        return findAll(new PageRequest(0, MAX_VALUES_RETREIVED)).getContent();
-    }
-
-    @Override
-    public List<T> find(final String pattern) {
-        Specifications<T> spec = Specifications
-                .where(byExampleSpecification.byPatternOnStringAttributes(pattern, type));
-        return findAll(spec, new PageRequest(0, MAX_VALUES_RETREIVED)).getContent();
     }
 
     @Override
@@ -131,7 +124,8 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
         if (searchParameter.hasNamedQuery()) {
             return getNamedQueryUtil().findByNamedQuery(searchParameter);
         }
-        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, searchParameter));
+        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity,
+                searchParameter));
         spec = RangeSpecification.andRangeIfSet(spec, searchParameter.getRanges());
         spec = PropertySelectorSpecification.andPropertySelectorIfSet(spec, searchParameter);
         return findAll(spec);
@@ -144,16 +138,13 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
     }
 
     @Override
-    public T findOneByExample(final T entity, final SearchParameters searchParameter) {
+    public Optional<T> findOneByExample(final T entity, final SearchParameters searchParameter) {
         Assert.notNull(searchParameter, "Search parameters required");
-        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, searchParameter));
+        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity,
+                searchParameter));
         spec = RangeSpecification.andRangeIfSet(spec, searchParameter.getRanges());
         spec = PropertySelectorSpecification.andPropertySelectorIfSet(spec, searchParameter);
-        return super.findOne(spec);
-    }
-
-    public NamedQueryUtil getNamedQueryUtil() {
-        return namedQueryUtil;
+        return Optional.ofNullable(super.findOne(spec));
     }
 
     @Override
@@ -180,5 +171,8 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
         }
         return result;
     }
-
+    
+    private NamedQueryUtil getNamedQueryUtil() {
+        return namedQueryUtil;
+    }
 }

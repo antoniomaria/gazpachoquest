@@ -23,7 +23,6 @@ import java.io.Serializable;
 
 import javax.persistence.EntityManager;
 
-import net.sf.gazpachoquest.qbe.ByExampleSpecification;
 import net.sf.gazpachoquest.qbe.NamedQueryUtil;
 
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
@@ -36,17 +35,12 @@ import org.springframework.util.Assert;
 
 public class DefaultRepositoryFactory extends JpaRepositoryFactory {
 
-    private final ByExampleSpecification byExampleSpecification;
-
     private final NamedQueryUtil namedQueryUtil;
 
-    public DefaultRepositoryFactory(final EntityManager entityManager,
-            final ByExampleSpecification byExampleSpecification, final NamedQueryUtil namedQueryUtil) {
+    public DefaultRepositoryFactory(final EntityManager entityManager, final NamedQueryUtil namedQueryUtil) {
         super(entityManager);
         Assert.notNull(entityManager);
-        Assert.notNull(byExampleSpecification);
         Assert.notNull(namedQueryUtil);
-        this.byExampleSpecification = byExampleSpecification;
         this.namedQueryUtil = namedQueryUtil;
     }
 
@@ -72,7 +66,7 @@ public class DefaultRepositoryFactory extends JpaRepositoryFactory {
         if (isQueryDslExecutor(repositoryInterface)) {
             return new QueryDslJpaRepository(entityInformation, entityManager);
         } else {
-            return new GenericRepositoryImpl(entityInformation, entityManager, byExampleSpecification, namedQueryUtil); // custom
+            return new GenericRepositoryImpl(entityInformation, entityManager, namedQueryUtil); // custom
         }
     }
 

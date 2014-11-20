@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.services.core.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import net.sf.gazpachoquest.domain.support.Persistable;
 import net.sf.gazpachoquest.domain.user.User;
@@ -56,7 +57,7 @@ public abstract class AbstractPersistenceService<T extends Persistable> implemen
     }
 
     @Override
-    public T findOneByExample(final T entity, final SearchParameters searchParameters) {
+    public Optional<T> findOneByExample(final T entity, final SearchParameters searchParameters) {
         return repository.findOneByExample(entity, searchParameters);
     }
 

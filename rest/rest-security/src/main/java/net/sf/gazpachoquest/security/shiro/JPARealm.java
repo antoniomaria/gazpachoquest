@@ -55,10 +55,9 @@ public class JPARealm extends AuthorizingRealm {
         User user = null;
         String secret = null;
         try {
-            user = userService.findOneByExample(example, new SearchParameters().caseSensitive());
-            if (user == null) {
-                throw new UnknownAccountException("No account found for apikey [" + apiKey + "]");
-            }
+            user = userService.findOneByExample(example, new SearchParameters().caseSensitive()).orElseThrow(
+                    () -> new UnknownAccountException(String.format("No account found for apikey [%s]", apiKey)));
+            
             secret = user.getSecret();
         } catch (PersistenceException e) {
             final String message = "There was a SQL error while authenticating apikey [" + apiKey + "]";

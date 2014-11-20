@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.repository.support;
 
 import java.util.List;
+import java.util.Optional;
 
 import net.sf.gazpachoquest.qbe.Range;
 import net.sf.gazpachoquest.qbe.support.SearchParameters;
@@ -26,17 +27,13 @@ public interface GenericRepository<T> extends JpaRepository<T, Integer>, JpaSpec
 
     long countByExample(T entity, SearchParameters sp);
 
-    List<T> find();
-
-    List<T> find(String pattern);
-
     Page<T> findByExample(T example, List<Range<?, ?>> ranges, Pageable pageable);
 
     Page<T> findByExample(T example, Pageable pageable);
 
     List<T> findByExample(T entity, SearchParameters sp);
 
-    T findOneByExample(T entity, SearchParameters sp);
+    Optional<T> findOneByExample(T entity, SearchParameters sp);
 
     <S extends T> S saveWithFlush(S entity);
 

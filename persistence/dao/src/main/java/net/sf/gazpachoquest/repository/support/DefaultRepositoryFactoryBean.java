@@ -14,7 +14,6 @@ import java.io.Serializable;
 
 import javax.persistence.EntityManager;
 
-import net.sf.gazpachoquest.qbe.ByExampleSpecification;
 import net.sf.gazpachoquest.qbe.NamedQueryUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,6 @@ import org.springframework.data.repository.core.support.RepositoryFactorySupport
 
 public class DefaultRepositoryFactoryBean<T extends JpaRepository<S, ID>, S, ID extends Serializable> extends
         JpaRepositoryFactoryBean<T, S, ID> {
-
-    @Autowired
-    private ByExampleSpecification byExampleSpecification;
 
     @Autowired
     private NamedQueryUtil namedQueryUtil;
@@ -39,6 +35,6 @@ public class DefaultRepositoryFactoryBean<T extends JpaRepository<S, ID>, S, ID 
      */
     @Override
     protected RepositoryFactorySupport createRepositoryFactory(final EntityManager entityManager) {
-        return new DefaultRepositoryFactory(entityManager, byExampleSpecification, namedQueryUtil);
+        return new DefaultRepositoryFactory(entityManager, namedQueryUtil);
     }
 }

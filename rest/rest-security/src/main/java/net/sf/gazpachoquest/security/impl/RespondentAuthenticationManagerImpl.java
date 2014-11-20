@@ -45,10 +45,9 @@ public class RespondentAuthenticationManagerImpl implements AuthenticationManage
     @Transactional
     public RespondentAccount authenticate(String username, String password) throws AccountNotFoundException {
         Invitation example = Invitation.with().token(password).build();
-        Invitation invitation = invitationService.findOneByExample(example, new SearchParameters());
-        if (invitation == null) {
-            throw new AccountNotFoundException("Invitation invalid");
-        }
+        
+        Invitation invitation = invitationService.findOneByExample(example, new SearchParameters().caseSensitive()).orElseThrow(
+                () -> new AccountNotFoundException(String.format("Invitation %s invalid", password)));
 
         List<Questionnaire> questionnaires = new ArrayList<>();
         Research research = invitation.getResearch();
