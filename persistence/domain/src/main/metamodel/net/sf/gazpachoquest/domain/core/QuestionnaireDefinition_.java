@@ -19,24 +19,24 @@ import net.sf.gazpachoquest.types.MailMessageTemplateType;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-28T07:30:16")
+@Generated(value="EclipseLink-2.6.0.v20140809-rNA", date="2014-11-20T16:05:48")
 @StaticMetamodel(QuestionnaireDefinition.class)
 public class QuestionnaireDefinition_ extends AbstractSecurizableLocalizable_ {
 
     public static volatile SingularAttribute<QuestionnaireDefinition, Boolean> questionNumberVisible;
-    public static volatile SingularAttribute<QuestionnaireDefinition, QuestionnaireDefinitionLanguageSettings> languageSettings;
-    public static volatile SingularAttribute<QuestionnaireDefinition, Boolean> sectionInfoVisible;
-    public static volatile SingularAttribute<QuestionnaireDefinition, EntityStatus> status;
-    public static volatile SingularAttribute<QuestionnaireDefinition, RandomizationStrategy> randomizationStrategy;
     public static volatile SetAttribute<QuestionnaireDefinition, Research> researches;
-    public static volatile SetAttribute<QuestionnaireDefinition, Questionnaire> questionnaires;
-    public static volatile SingularAttribute<QuestionnaireDefinition, Boolean> welcomeVisible;
+    public static volatile SingularAttribute<QuestionnaireDefinition, RandomizationStrategy> randomizationStrategy;
+    public static volatile SingularAttribute<QuestionnaireDefinition, QuestionnaireDefinitionLanguageSettings> languageSettings;
     public static volatile SingularAttribute<QuestionnaireDefinition, Boolean> progressVisible;
+    public static volatile SingularAttribute<QuestionnaireDefinition, Language> language;
+    public static volatile SingularAttribute<QuestionnaireDefinition, Boolean> sectionInfoVisible;
+    public static volatile SingularAttribute<QuestionnaireDefinition, Integer> questionsPerPage;
     public static volatile ListAttribute<QuestionnaireDefinition, Section> sections;
+    public static volatile SetAttribute<QuestionnaireDefinition, Questionnaire> questionnaires;
+    public static volatile MapAttribute<QuestionnaireDefinition, MailMessageTemplateType, MailMessageTemplate> mailTemplates;
     public static volatile SingularAttribute<QuestionnaireDefinition, RenderingMode> renderingMode;
     public static volatile MapAttribute<QuestionnaireDefinition, Language, QuestionnaireDefinitionTranslation> translations;
-    public static volatile SingularAttribute<QuestionnaireDefinition, Integer> questionsPerPage;
-    public static volatile MapAttribute<QuestionnaireDefinition, MailMessageTemplateType, MailMessageTemplate> mailTemplates;
-    public static volatile SingularAttribute<QuestionnaireDefinition, Language> language;
+    public static volatile SingularAttribute<QuestionnaireDefinition, Boolean> welcomeVisible;
+    public static volatile SingularAttribute<QuestionnaireDefinition, EntityStatus> status;
 
 }

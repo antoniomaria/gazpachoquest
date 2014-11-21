@@ -13,23 +13,23 @@ import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-28T07:30:16")
+@Generated(value="EclipseLink-2.6.0.v20140809-rNA", date="2014-11-20T16:05:48")
 @StaticMetamodel(User.class)
 public class User_ extends AbstractSecurizable_ {
 
-    public static volatile SingularAttribute<User, String> surname;
-    public static volatile SingularAttribute<User, String> password;
-    public static volatile SingularAttribute<User, String> apiKey;
     public static volatile SingularAttribute<User, Language> preferredLanguage;
-    public static volatile SetAttribute<User, Questionnaire> questionnaires;
-    public static volatile SingularAttribute<User, String> username;
-    public static volatile SingularAttribute<User, String> givenNames;
-    public static volatile SingularAttribute<User, String> email;
-    public static volatile SingularAttribute<User, Directory> directory;
-    public static volatile SetAttribute<User, Role> roles;
+    public static volatile SingularAttribute<User, String> apiKey;
     public static volatile SingularAttribute<User, Gender> gender;
-    public static volatile SingularAttribute<User, String> secret;
-    public static volatile SingularAttribute<User, Map> attributes;
+    public static volatile SingularAttribute<User, String> givenNames;
+    public static volatile SetAttribute<User, Role> roles;
     public static volatile SetAttribute<User, Group> groups;
+    public static volatile SingularAttribute<User, String> secret;
+    public static volatile SingularAttribute<User, Directory> directory;
+    public static volatile SetAttribute<User, Questionnaire> questionnaires;
+    public static volatile SingularAttribute<User, String> password;
+    public static volatile SingularAttribute<User, String> surname;
+    public static volatile SingularAttribute<User, Map> attributes;
+    public static volatile SingularAttribute<User, String> email;
+    public static volatile SingularAttribute<User, String> username;
 
 }

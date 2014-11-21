@@ -7,12 +7,12 @@ import javax.persistence.metamodel.StaticMetamodel;
 import net.sf.gazpachoquest.domain.core.QuestionBreadcrumb;
 import net.sf.gazpachoquest.domain.core.Section;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-28T07:30:16")
+@Generated(value="EclipseLink-2.6.0.v20140809-rNA", date="2014-11-20T16:05:48")
 @StaticMetamodel(SectionBreadcrumb.class)
 public class SectionBreadcrumb_ extends Breadcrumb_ {
 
-    public static volatile SingularAttribute<SectionBreadcrumb, Integer> questionsDisplayedCount;
     public static volatile SingularAttribute<SectionBreadcrumb, Section> section;
+    public static volatile SingularAttribute<SectionBreadcrumb, Integer> questionsDisplayedCount;
     public static volatile ListAttribute<SectionBreadcrumb, QuestionBreadcrumb> breadcrumbs;
 
 }

@@ -23,6 +23,7 @@ import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 
 public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
@@ -81,6 +82,7 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         return languageSettings;
     }
 
+    @JsonIgnore
     public SectionDTO getLastSectionDTO() {
         int count = sections.size();
         return count > 0 ? sections.get(count - 1) : null;

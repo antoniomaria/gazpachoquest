@@ -10,6 +10,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.domain.core;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -17,8 +19,6 @@ import javax.persistence.Lob;
 
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
 import net.sf.gazpachoquest.jpa.converter.LocalDateTimeConverter;
-
-import org.joda.time.LocalDateTime;
 
 @Entity
 public class MailMessage extends AbstractPersistable {

@@ -7,6 +7,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.domain.core;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,6 @@ import net.sf.gazpachoquest.jpa.converter.EntityStatusConverter;
 import net.sf.gazpachoquest.jpa.converter.LocalDateTimeConverter;
 import net.sf.gazpachoquest.types.EntityStatus;
 
-import org.joda.time.LocalDateTime;
 import org.springframework.util.Assert;
 
 @Entity

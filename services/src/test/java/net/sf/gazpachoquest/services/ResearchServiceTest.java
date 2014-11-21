@@ -5,6 +5,7 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.fest.assertions.api.Assertions.assertThat;
 
+import java.time.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +19,6 @@ import net.sf.gazpachoquest.test.shiro.support.AbstractShiroTest;
 import net.sf.gazpachoquest.types.ResearchAccessType;
 
 import org.apache.shiro.subject.Subject;
-import org.joda.time.LocalDateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -73,7 +73,7 @@ public class ResearchServiceTest extends AbstractShiroTest {
         respondents.add(User.with().id(6).build());
 
         Research research = Research.with().type(ResearchAccessType.BY_INVITATION).name("New Research")
-                .startDate(new LocalDateTime()).expirationDate(new LocalDateTime().plusDays(30)).build();
+                .startDate(LocalDateTime.now()).expirationDate(LocalDateTime.now().plusDays(30)).build();
         research = researchService.save(research, questionnaireDefinitions, respondents);
         assertThat(research.isNew()).isFalse();
     }

@@ -24,6 +24,8 @@ import static net.sf.gazpachoquest.qbe.Ranges.RangeLocalDateTime.rangeLocalDateT
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -43,8 +45,6 @@ import net.sf.gazpachoquest.qbe.Ranges.RangeLocalDateTime;
 
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
 
 /**
  * The SearchParameters is used to pass search parameters to the DAO layer.

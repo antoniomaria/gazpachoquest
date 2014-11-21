@@ -7,12 +7,12 @@ import javax.persistence.metamodel.StaticMetamodel;
 import net.sf.gazpachoquest.domain.support.AbstractAuditable_;
 import net.sf.gazpachoquest.domain.user.User;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-28T07:30:16")
+@Generated(value="EclipseLink-2.6.0.v20140809-rNA", date="2014-11-20T16:05:48")
 @StaticMetamodel(Group.class)
 public class Group_ extends AbstractAuditable_ {
 
-    public static volatile SetAttribute<Group, User> users;
-    public static volatile SingularAttribute<Group, String> description;
     public static volatile SingularAttribute<Group, String> name;
+    public static volatile SingularAttribute<Group, String> description;
+    public static volatile SetAttribute<Group, User> users;
 
 }

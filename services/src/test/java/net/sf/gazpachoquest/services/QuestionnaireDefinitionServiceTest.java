@@ -5,6 +5,7 @@ import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 import static org.fest.assertions.api.Assertions.assertThat;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
@@ -20,7 +21,6 @@ import net.sf.gazpachoquest.types.RenderingMode;
 import net.sf.gazpachoquest.types.Topology;
 
 import org.apache.shiro.subject.Subject;
-import org.joda.time.LocalDateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

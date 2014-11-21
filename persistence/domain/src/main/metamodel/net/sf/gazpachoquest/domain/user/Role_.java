@@ -7,12 +7,12 @@ import javax.persistence.metamodel.StaticMetamodel;
 import net.sf.gazpachoquest.domain.support.AbstractPersistable_;
 import net.sf.gazpachoquest.domain.user.User;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2014-10-28T07:30:16")
+@Generated(value="EclipseLink-2.6.0.v20140809-rNA", date="2014-11-20T16:05:48")
 @StaticMetamodel(Role.class)
 public class Role_ extends AbstractPersistable_ {
 
-    public static volatile SetAttribute<Role, User> users;
-    public static volatile SingularAttribute<Role, String> description;
     public static volatile SingularAttribute<Role, String> name;
+    public static volatile SingularAttribute<Role, String> description;
+    public static volatile SetAttribute<Role, User> users;
 
 }

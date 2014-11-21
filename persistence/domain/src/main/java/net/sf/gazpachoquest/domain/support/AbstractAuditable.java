@@ -7,6 +7,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.domain.support;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.ManyToOne;
@@ -16,7 +18,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.jpa.converter.LocalDateTimeConverter;
 
-import org.joda.time.LocalDateTime;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -33,9 +34,9 @@ public abstract class AbstractAuditable extends AbstractPersistable implements A
     private User createdBy;
 
     @Column(columnDefinition = "timestamp", nullable = false)
-    @Convert(converter = LocalDateTimeConverter.class)
     @CreatedDate
     @XmlTransient
+    @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime createdDate;
 
     @ManyToOne(optional = true)
@@ -44,9 +45,9 @@ public abstract class AbstractAuditable extends AbstractPersistable implements A
     private User lastModifiedBy;
 
     @Column(columnDefinition = "timestamp", nullable = false)
-    @Convert(converter = LocalDateTimeConverter.class)
     @LastModifiedDate
     @XmlTransient
+    @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime lastModifiedDate;
 
     protected AbstractAuditable() {

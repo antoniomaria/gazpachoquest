@@ -10,30 +10,29 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.jpa.converter;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-import org.joda.time.LocalDateTime;
-
 @Converter(autoApply = true)
-public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime, Date> {
+public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime, Timestamp> {
 
     @Override
-    public Date convertToDatabaseColumn(LocalDateTime dateTime) {
-        if (dateTime == null) {
+    public Timestamp convertToDatabaseColumn(LocalDateTime entityValue) {
+        if (entityValue == null) {
             return null;
         }
-        return dateTime.toDate();
+        return Timestamp.valueOf(entityValue);
     }
 
     @Override
-    public LocalDateTime convertToEntityAttribute(Date date) {
-        if (date == null) {
+    public LocalDateTime convertToEntityAttribute(Timestamp databaseValue) {
+        if (databaseValue == null){
             return null;
         }
-        return new LocalDateTime(date);
+        return databaseValue.toLocalDateTime();
     }
 
 }

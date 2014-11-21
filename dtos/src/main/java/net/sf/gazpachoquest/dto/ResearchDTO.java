@@ -7,20 +7,30 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto;
 
+import java.time.LocalDateTime;
+
 import net.sf.gazpachoquest.dto.support.AbstractAuditableDTO;
 import net.sf.gazpachoquest.types.ResearchAccessType;
 
-import org.joda.time.DateTime;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
 
 public class ResearchDTO extends AbstractAuditableDTO {
 
     private static final long serialVersionUID = -8624509103476946501L;
-
-    private DateTime expirationDate;
+    
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime expirationDate;
 
     private String name;
-
-    private DateTime startDate;
+    
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime startDate;
 
     private QuestionnaireDefinitionDTO questionnaireDefinition;
 
@@ -30,7 +40,7 @@ public class ResearchDTO extends AbstractAuditableDTO {
         super();
     }
 
-    public DateTime getExpirationDate() {
+    public LocalDateTime getExpirationDate() {
         return expirationDate;
     }
 
@@ -38,7 +48,7 @@ public class ResearchDTO extends AbstractAuditableDTO {
         return name;
     }
 
-    public DateTime getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
@@ -46,7 +56,7 @@ public class ResearchDTO extends AbstractAuditableDTO {
         return type;
     }
 
-    public void setExpirationDate(final DateTime expirationDate) {
+    public void setExpirationDate(final LocalDateTime expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -54,7 +64,7 @@ public class ResearchDTO extends AbstractAuditableDTO {
         this.name = name;
     }
 
-    public void setStartDate(final DateTime startDate) {
+    public void setStartDate(final LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
@@ -76,9 +86,9 @@ public class ResearchDTO extends AbstractAuditableDTO {
 
     public static class Builder {
         private Integer id;
-        private DateTime expirationDate;
+        private LocalDateTime expirationDate;
         private String name;
-        private DateTime startDate;
+        private LocalDateTime startDate;
         private ResearchAccessType type;
         private QuestionnaireDefinitionDTO questionnaireDefinition;
 
@@ -87,7 +97,7 @@ public class ResearchDTO extends AbstractAuditableDTO {
             return this;
         }
 
-        public Builder expirationDate(DateTime expirationDate) {
+        public Builder expirationDate(LocalDateTime expirationDate) {
             this.expirationDate = expirationDate;
             return this;
         }
@@ -102,7 +112,7 @@ public class ResearchDTO extends AbstractAuditableDTO {
             return this;
         }
 
-        public Builder startDate(DateTime startDate) {
+        public Builder startDate(LocalDateTime startDate) {
             this.startDate = startDate;
             return this;
         }

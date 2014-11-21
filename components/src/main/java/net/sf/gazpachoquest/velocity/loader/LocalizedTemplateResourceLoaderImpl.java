@@ -13,6 +13,7 @@ package net.sf.gazpachoquest.velocity.loader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -148,7 +149,7 @@ public class LocalizedTemplateResourceLoaderImpl extends ResourceLoader implemen
         Integer templateId = readTemplateId(templateName);
         logger.info("{} from mail message template {} ", operation, templateId);
         MailMessageTemplate template = templateRepository.findOne(templateId);
-        return template.getLastModifiedDate().toDateTime().getMillis();
+        return template.getLastModifiedDate().toEpochSecond(ZoneOffset.UTC);
     }
 
 }
