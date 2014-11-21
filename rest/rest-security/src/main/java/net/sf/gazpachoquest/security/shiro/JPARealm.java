@@ -3,6 +3,10 @@ package net.sf.gazpachoquest.security.shiro;
 import java.security.SignatureException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Set;
@@ -27,8 +31,6 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.joda.time.DateTime;
-import org.joda.time.Interval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +59,7 @@ public class JPARealm extends AuthorizingRealm {
         try {
             user = userService.findOneByExample(example, new SearchParameters().caseSensitive()).orElseThrow(
                     () -> new UnknownAccountException(String.format("No account found for apikey [%s]", apiKey)));
-            
+
             secret = user.getSecret();
         } catch (PersistenceException e) {
             final String message = "There was a SQL error while authenticating apikey [" + apiKey + "]";
@@ -107,23 +109,23 @@ public class JPARealm extends AuthorizingRealm {
             logger.debug("Skiping date validation. No date header found in request");
             return;
         }
-        Date date = null;
+        LocalDateTime dateTime = null;
         try {
-
-            SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-            date = sdf.parse(dateUTC);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss Z").withLocale(Locale.ENGLISH);
+            // SimpleDateFormat sdf = new
+            // SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+            // date = sdf.parse(dateUTC);
+            dateTime = LocalDateTime.parse(dateUTC, formatter);
             // TODO waiting for common-lang-3.3.1
             // DateFormatUtils.SMTP_DATETIME_FORMAT.parse(dateUTC);
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             throw new AuthenticationException("Date format invalid");
         }
 
-        DateTime start = new DateTime().minusMinutes(5);
-        DateTime end = new DateTime().plusMinutes(5);
-        Interval interval = new Interval(start, end);
-        DateTime dateTime = new DateTime(date);
+        LocalDateTime start = LocalDateTime.now().minusMinutes(5);
+        LocalDateTime end = LocalDateTime.now().plusMinutes(5);
 
-        if (!interval.contains(dateTime)) {
+        if (dateTime.isBefore(start) || dateTime.isAfter(end)) {
             throw new AuthenticationException("Date not valid. Too old or too far in future");
         }
     }

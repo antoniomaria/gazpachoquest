@@ -7,6 +7,7 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dbpopulator;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,7 +38,6 @@ import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 import net.sf.gazpachoquest.types.ResearchAccessType;
 
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -96,7 +96,7 @@ public class DBPopulator {
                 .with()
                 .type(ResearchAccessType.BY_INVITATION)
                 .name("Tracked survey: " + questionnaireDefinition.getLanguageSettings().getTitle()
-                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                        + " started").startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
 
         research = researchFacade.save(research);
@@ -111,7 +111,7 @@ public class DBPopulator {
                 .with()
                 .type(ResearchAccessType.OPEN_ACCESS)
                 .name("Anonymous Survey: " + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                .startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
 
         research.setQuestionnaireDefinition(questionnaireDefinition);
         research = researchFacade.save(research);
@@ -127,7 +127,7 @@ public class DBPopulator {
                 .with()
                 .type(ResearchAccessType.BY_INVITATION)
                 .name("New private Questionnaire " + questionnaireDefinition.getLanguageSettings().getTitle()
-                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                        + " started").startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
 
         research = researchFacade.save(research);
@@ -142,7 +142,7 @@ public class DBPopulator {
                 .with()
                 .type(ResearchAccessType.OPEN_ACCESS)
                 .name("New open Questionnaire " + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                .startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
 
         research.setQuestionnaireDefinition(questionnaireDefinition);
         research = researchFacade.save(research);
@@ -156,7 +156,7 @@ public class DBPopulator {
 
         ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
                 .name("New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                .startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
         research = researchFacade.save(research);
 
@@ -169,7 +169,7 @@ public class DBPopulator {
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
                 .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                .startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
         research = researchFacade.save(research);
 
@@ -182,7 +182,7 @@ public class DBPopulator {
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
                 .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                .startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
         research = researchFacade.save(research);
 
@@ -197,7 +197,7 @@ public class DBPopulator {
 
         research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
                 .name("New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                .startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
 
         research = researchFacade.save(research);
@@ -211,7 +211,7 @@ public class DBPopulator {
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
                 .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                .startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
         research = researchFacade.save(research);
 
@@ -225,7 +225,7 @@ public class DBPopulator {
 
         research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
                 .name("New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                .startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
 
         research = researchFacade.save(research);
@@ -239,7 +239,7 @@ public class DBPopulator {
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
                 .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                .startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
         researchFacade.save(research);
 
@@ -254,7 +254,7 @@ public class DBPopulator {
 
         research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
                 .name("New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                .startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
 
         research = researchFacade.save(research);
@@ -268,7 +268,7 @@ public class DBPopulator {
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
                 .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                .startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
         researchFacade.save(research);
 
@@ -280,7 +280,7 @@ public class DBPopulator {
                 .with()
                 .type(ResearchAccessType.OPEN_ACCESS)
                 .name("New customer satisfation survey " + questionnaireDefinition.getLanguageSettings().getTitle()
-                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                        + " started").startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
         researchFacade.save(research);
 
@@ -292,7 +292,7 @@ public class DBPopulator {
                 .with()
                 .type(ResearchAccessType.OPEN_ACCESS)
                 .name("Java Performance Survey " + questionnaireDefinition.getLanguageSettings().getTitle()
-                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                        + " started").startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
         researchFacade.save(research);
 
@@ -307,7 +307,7 @@ public class DBPopulator {
 
         ResearchDTO research = ResearchDTO.with().type(ResearchAccessType.BY_INVITATION)
                 .name("New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                .startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
 
         research = researchFacade.save(research);
@@ -321,7 +321,7 @@ public class DBPopulator {
 
         research = ResearchDTO.with().type(ResearchAccessType.OPEN_ACCESS)
                 .name("Anonymous New Quiz" + questionnaireDefinition.getLanguageSettings().getTitle() + " started")
-                .startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                .startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
 
         research = researchFacade.save(research);
@@ -343,7 +343,7 @@ public class DBPopulator {
                 .with()
                 .type(ResearchAccessType.OPEN_ACCESS)
                 .name("New customer satisfation survey " + questionnaireDefinition.getLanguageSettings().getTitle()
-                        + " started").startDate(DateTime.now()).expirationDate(DateTime.parse("2015-12-31")).build();
+                        + " started").startDate(LocalDateTime.now()).expirationDate(LocalDateTime.of(2015,12,31,12,0,0)).build();
         research.setQuestionnaireDefinition(questionnaireDefinition);
         researchFacade.save(research);
     }
