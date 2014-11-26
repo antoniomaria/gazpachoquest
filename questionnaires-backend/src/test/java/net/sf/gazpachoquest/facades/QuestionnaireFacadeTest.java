@@ -47,7 +47,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
         "classpath:/services-context.xml", "classpath:/components-context.xml", "classpath:/questionnaire-context.xml",
         "classpath:/facades-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup(value = "QuestionnaireFacade-dataset.xml", type = DatabaseOperation.CLEAN_INSERT)
+@DatabaseSetup(value = "QuestionnaireFacade-dataset.xml")
 @DatabaseTearDown("QuestionnaireFacade-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class QuestionnaireFacadeTest extends AbstractShiroTest {
