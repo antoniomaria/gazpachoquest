@@ -1,7 +1,6 @@
 package net.sf.gazpachoquest.rest.filter;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -12,8 +11,6 @@ import javax.ws.rs.core.UriInfo;
 import net.sf.gazpachoquest.security.shiro.HmacAuthToken;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.cxf.jaxrs.utils.JAXRSUtils;
-import org.apache.cxf.message.Message;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -33,10 +30,9 @@ public class LoginShiroFilter implements ContainerRequestFilter {
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         
-        Message message = JAXRSUtils.getCurrentMessage();
-        String mmethod = requestContext.getMethod();
-        String qquery = requestContext.getUriInfo().getRequestUri().toString();
+        String method = requestContext.getMethod();
         String path = uriInfo.getPath();
+        String query = uriInfo.getRequestUri().getQuery();
         logger.debug("New access to resource {}", path);
         if (path.startsWith("auth") || path.contains("api-docs")) {
             // Ignore the AuthenticationResource
@@ -44,12 +40,7 @@ public class LoginShiroFilter implements ContainerRequestFilter {
         }
 
         Subject subject = SecurityUtils.getSubject();
-        String query = (String) message.get(Message.QUERY_STRING);
-        String method = (String) message.get(Message.HTTP_REQUEST_METHOD);
-        /*-
-        String dateUTC = getRequestHeaderAsString(HttpHeaders.DATE);
-        String authorizationHeader = getRequestHeaderAsString(HttpHeaders.AUTHORIZATION);
-        */
+       
         String dateUTC = requestContext.getHeaderString(HttpHeaders.DATE);
         String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 
@@ -93,26 +84,5 @@ public class LoginShiroFilter implements ContainerRequestFilter {
     @Context
     public void setUriInfo(UriInfo uriInfo) {
         this.uriInfo = uriInfo;
-    }
-
-    protected String getRequestHeaderAsString(String name) {
-        List<String> header = headers.getRequestHeader(name);
-        String value = null;
-        if (header != null && header.size() > 0) {
-            value = header.get(0);
-        }
-        return value;
-    }
-
-    protected String resolveApiKey() {
-        List<String> authValues = headers.getRequestHeader("Authorization");
-        if (authValues.size() == 0) {
-            return null;
-        }
-        String[] values = authValues.get(0).split(" ");
-        if (values.length != 2 || !"GZQ".equals(values[0])) {
-            return null;
-        }
-        return values[1];
     }
 }

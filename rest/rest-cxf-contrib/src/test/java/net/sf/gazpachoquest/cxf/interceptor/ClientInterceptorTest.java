@@ -4,7 +4,6 @@ import java.util.Collections;
 
 import net.sf.gazpachoquest.api.AuthenticationResource;
 import net.sf.gazpachoquest.api.QuestionnaireResource;
-import net.sf.gazpachoquest.cxf.interceptor.HmacAuthInterceptor;
 import net.sf.gazpachoquest.dto.QuestionnaireDefinitionDTO;
 import net.sf.gazpachoquest.dto.QuestionnairePageDTO;
 import net.sf.gazpachoquest.dto.answers.Answer;
@@ -21,6 +20,10 @@ import org.apache.cxf.jaxrs.client.WebClient;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 @Ignore
@@ -63,7 +66,7 @@ public class ClientInterceptorTest {
 
     private QuestionnaireResource getQuestionnaireResource() {
         QuestionnaireResource questionnaireResource = JAXRSClientFactory.create(BASE_URI, QuestionnaireResource.class,
-                Collections.singletonList(new JacksonJsonProvider()), null);
+                Collections.singletonList(getJacksonProvider()), null);
 
         Client client = WebClient.client(questionnaireResource);
         ClientConfiguration config = WebClient.getConfig(client);
@@ -72,5 +75,15 @@ public class ClientInterceptorTest {
         String secret = "39JYOYPWYR46R38OAOTVRZJMEXNJ46HL";
         config.getOutInterceptors().add(new HmacAuthInterceptor(apiKey, secret));
         return questionnaireResource;
+    }
+
+    private JacksonJsonProvider getJacksonProvider() {
+        JacksonJsonProvider jacksonProvider = new JacksonJsonProvider();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JSR310Module());
+        mapper.setSerializationInclusion(Include.NON_EMPTY);
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        jacksonProvider.setMapper(mapper);
+        return jacksonProvider;
     }
 }

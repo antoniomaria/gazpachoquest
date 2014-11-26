@@ -3,6 +3,7 @@ package net.sf.gazpachoquest.rest.resources;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -46,12 +47,10 @@ public class QuestionnaireDefinitionResource {
             @ApiResponse(code = 200, message = "Questionnaire Definitions available") })
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public PageDTO<QuestionnaireDefinitionDTO> getQuestionnairDefinitions(
-            @ApiParam(name = "pageNumber", value = "Refers page number", required = true)
-            @QueryParam("pageNumber")
-            Integer pageNumber, @ApiParam(name = "size", value = "Refers page size", required = true)
-            @QueryParam("size")
-            Integer size) throws XmlMappingException, IOException {
+    public PageDTO<QuestionnaireDefinitionDTO> getQuestionnaireDefinitions(
+            @NotNull @ApiParam(name = "pageNumber", value = "Refers page number", required = true) @QueryParam("pageNumber") Integer pageNumber,
+            @NotNull @ApiParam(name = "size", value = "Refers page size", required = true) @QueryParam("size") Integer size)
+            throws XmlMappingException, IOException {
         logger.info("New getQuestionnairDefinitions petition received ");
         return questionnaireDefinitionAccessorFacade.findPaginated(pageNumber, size);
     }
@@ -64,9 +63,9 @@ public class QuestionnaireDefinitionResource {
             @ApiResponse(code = 200, message = "Imported questionnaire definition") })
     @ApiImplicitParams(@ApiImplicitParam(dataType = "file", name = "content", paramType = "body"))
     @Produces(MediaType.APPLICATION_JSON)
-    public QuestionnaireDefinitionDTO importQuestionnairDefinition(@Multipart(value = "content", type = "text/xml")
-    @ApiParam(access = "internal")
-    InputStream content) throws Exception {
+    public QuestionnaireDefinitionDTO importQuestionnairDefinition(
+            @Multipart(value = "content", type = "text/xml") @ApiParam(access = "internal") InputStream content)
+            throws Exception {
         logger.info("New import QuestionnaireDefinition petition received");
         QuestionnaireDefinitionDTO imported = questionnaireDefinitionAccessorFacade
                 .importQuestionnaireDefinition(content);
@@ -75,15 +74,15 @@ public class QuestionnaireDefinitionResource {
     }
 
     @GET
-    @Path("/{questionnairDefinitionId}/export")
+    @Path("/{questionnaireDefinitionId}/export")
     @ApiOperation(value = "Export given questionnaire definition into xml", response = QuestionnaireDefinitionDTO.class, produces = "application/xml")
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Not enough access rights"),
             @ApiResponse(code = 200, message = "Questionnaire Definition available") })
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
-    public InputStream exportQuestionnairDefinition(@PathParam("questionnairDefinitionId")
-    @ApiParam(value = "Questionnaire DefinitionId id")
-    Integer questionnairDefinitionId) throws XmlMappingException, IOException {
+    public InputStream exportQuestionnairDefinition(
+            @NotNull @PathParam("questionnaireDefinitionId") @ApiParam(value = "Questionnaire DefinitionId id", required = true) Integer questionnairDefinitionId)
+            throws XmlMappingException, IOException {
         logger.info("New exporting petition received for  QuestionnairDefinitionId {}", questionnairDefinitionId);
 
         CachedOutputStream outputStream = new CachedOutputStream();

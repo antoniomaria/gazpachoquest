@@ -1,5 +1,6 @@
 package net.sf.gazpachoquest.rest.resources;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -38,11 +39,9 @@ public class UserResource {
     @ApiOperation(value = "Get user list", notes = "More notes about this method", response = PageDTO.class)
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
             @ApiResponse(code = 200, message = "Users available") })
-    public PageDTO<UserDTO> getUsers(@ApiParam(name = "pageNumber", value = "Refers page number", required = true)
-    @QueryParam("pageNumber")
-    Integer pageNumber, @ApiParam(name = "size", value = "Refers page size", required = true)
-    @QueryParam("size")
-    Integer size) {
+    public PageDTO<UserDTO> getUsers(
+            @NotNull @ApiParam(name = "pageNumber", value = "Refers page number", required = true) @QueryParam("pageNumber") Integer pageNumber,
+            @NotNull @ApiParam(name = "size", value = "Refers page size", required = true) @QueryParam("size") Integer size) {
         logger.debug("Fetching all users");
         return userFacade.findPaginated(pageNumber, size);
     }

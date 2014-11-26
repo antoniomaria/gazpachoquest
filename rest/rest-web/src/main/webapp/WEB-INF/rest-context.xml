@@ -17,7 +17,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   -->
 
   <bean id="authenticationResource" class="net.sf.gazpachoquest.rest.resources.AuthenticationResource" autowire="byType" />
-  
+
   <bean id="invitationResource" class="net.sf.gazpachoquest.rest.resources.InvitationResource" autowire="byType" />
 
   <bean id="questionnaireDefinitionResource" class="net.sf.gazpachoquest.rest.resources.QuestionnaireDefinitionResource" autowire="byType" />
@@ -27,7 +27,17 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   <bean id="researchResource" class="net.sf.gazpachoquest.rest.resources.ResearchResource" autowire="byType" />
 
   <bean id="userResource" class="net.sf.gazpachoquest.rest.resources.UserResource" autowire="byType" />
+
+  <bean id="validationProvider" class="org.apache.cxf.validation.BeanValidationProvider" />
   
+  <bean id="validationInInterceptor" class="org.apache.cxf.jaxrs.validation.JAXRSBeanValidationInInterceptor">
+    <property name="provider" ref="validationProvider" />
+</bean>
+ 
+<bean id="validationOutInterceptor" class="org.apache.cxf.jaxrs.validation.JAXRSBeanValidationOutInterceptor">
+    <property name="provider" ref="validationProvider" />
+</bean>   
+
 
   <!-- Login filter -->
   <bean id="loginShiroFilter" class="net.sf.gazpachoquest.rest.filter.LoginShiroFilter" />
@@ -53,6 +63,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   <bean id="accountNotFoundExceptionHandler" class="net.sf.gazpachoquest.rest.exception.AccountNotFoundExceptionHandler" />
   <bean id="webApplicationExceptionHandler" class="net.sf.gazpachoquest.rest.exception.WebApplicationExceptionHandler" />
   <bean id="defaultExceptionHandler" class="net.sf.gazpachoquest.rest.exception.DefaultExceptionHandler" />
+  <bean id="validationExceptionMapper" class="org.apache.cxf.jaxrs.validation.ValidationExceptionMapper"/>
 
   <cxf:bus>
     <cxf:features>
@@ -75,6 +86,13 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   </bean>
 
   <jaxrs:server id="services" address="/">
+      <jaxrs:inInterceptors>
+        <ref bean="validationInInterceptor" />
+    </jaxrs:inInterceptors>
+         
+    <jaxrs:outInterceptors>
+        <ref bean="validationOutInterceptor" />
+    </jaxrs:outInterceptors>
     <jaxrs:serviceBeans>
       <ref bean="authenticationResource" />
       <ref bean="invitationResource" />
@@ -96,6 +114,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
       <ref bean="shiroExceptionHandler" />
       <ref bean="accountNotFoundExceptionHandler" />
       <ref bean="webApplicationExceptionHandler" />
+      <ref bean="validationExceptionMapper"/>
       <ref bean="defaultExceptionHandler" />
     </jaxrs:providers>
   </jaxrs:server>

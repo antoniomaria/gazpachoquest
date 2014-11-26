@@ -1,5 +1,6 @@
 package net.sf.gazpachoquest.rest.resources;
 
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -48,11 +49,8 @@ public class ResearchResource {
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
             @ApiResponse(code = 200, message = "Researches available") })
     public PageDTO<ResearchDTO> getResearches(
-            @ApiParam(name = "pageNumber", value = "Refers page number", required = true)
-            @QueryParam("pageNumber")
-            Integer pageNumber, @ApiParam(name = "size", value = "Refers page size", required = true)
-            @QueryParam("size")
-            Integer size) {
+            @NotNull @ApiParam(name = "pageNumber", value = "Refers page number", required = true) @QueryParam("pageNumber") Integer pageNumber,
+            @ApiParam(name = "size", value = "Refers page size", required = true) @NotNull @QueryParam("size") Integer size) {
         User principal = (User) SecurityUtils.getSubject().getPrincipal();
         logger.debug("{} fetching existing researches", principal.getFullName());
 
@@ -65,23 +63,20 @@ public class ResearchResource {
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
             @ApiResponse(code = 200, message = "Successfully saved") })
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResearchDTO saveResearch(@ApiParam(value = "Research", required = true)
-    ResearchDTO researchDTO) {
+    public ResearchDTO saveResearch(@ApiParam(value = "Research", required = true) ResearchDTO researchDTO) {
         User principal = (User) SecurityUtils.getSubject().getPrincipal();
         logger.debug("{} starting a new research", principal.getFullName());
         return researchFacade.save(researchDTO);
     }
-    
+
     @POST
     @Path("/{researchId}/addRespondent")
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Add the respondent to existing research")
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Invalid invitation token supplied"),
             @ApiResponse(code = 200, message = "Respondent added correctly") })
-    public Response saveAnswer(@ApiParam(value = "Respondent", required = true)
-    UserDTO respondentDTO, @PathParam("researchId")
-    @ApiParam(value = "Research id", required = true)
-    Integer researchId) {
+    public Response saveAnswer(@ApiParam(value = "Respondent", required = true) UserDTO respondentDTO,
+            @NotNull @PathParam("researchId") @ApiParam(value = "Research id", required = true) Integer researchId) {
         Subject subject = SecurityUtils.getSubject();
         User principal = (User) SecurityUtils.getSubject().getPrincipal();
         subject.checkPermission("research:update:" + researchId);

@@ -7,6 +7,10 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+import org.apache.cxf.jaxrs.validation.JAXRSBeanValidationInInterceptor;
+import org.apache.cxf.jaxrs.validation.JAXRSBeanValidationOutInterceptor;
+import org.apache.cxf.jaxrs.validation.ValidationExceptionMapper;
+
 import net.sf.gazpachoquest.rest.exception.AccountNotFoundExceptionHandler;
 import net.sf.gazpachoquest.rest.exception.DefaultExceptionHandler;
 import net.sf.gazpachoquest.rest.exception.ShiroExceptionHandler;
@@ -54,6 +58,11 @@ public class ApplicationConfig extends Application {
         classes.add(ShiroExceptionHandler.class);
         classes.add(AccountNotFoundExceptionHandler.class);
         classes.add(DefaultExceptionHandler.class);
+
+        // Validation feature
+        classes.add(ValidationExceptionMapper.class);
+        classes.add(JAXRSBeanValidationInInterceptor.class);
+        classes.add(JAXRSBeanValidationOutInterceptor.class);
         return classes;
     }
 

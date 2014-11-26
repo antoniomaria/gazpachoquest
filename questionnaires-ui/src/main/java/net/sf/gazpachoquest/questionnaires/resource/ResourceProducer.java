@@ -33,7 +33,9 @@ import org.apache.cxf.jaxrs.client.WebClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
@@ -63,13 +65,13 @@ public class ResourceProducer {
 
         JacksonJsonProvider jacksonProvider = new JacksonJsonProvider();
         ObjectMapper mapper = new ObjectMapper();
-       //  mapper.findAndRegisterModules();
-         mapper.registerModule(new JSR310Module());
-        // mapper.setSerializationInclusion(Include.NON_EMPTY);
-        // mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        
+        // mapper.findAndRegisterModules();
+        mapper.registerModule(new JSR310Module());
+        mapper.setSerializationInclusion(Include.NON_EMPTY);
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+
         jacksonProvider.setMapper(mapper);
-        
+
         QuestionnaireResource resource = JAXRSClientFactory.create(BASE_URI, QuestionnaireResource.class,
                 Collections.singletonList(jacksonProvider), null);
         // proxies
@@ -81,9 +83,7 @@ public class ResourceProducer {
         return resource;
     }
 
-    public void closeQuestionnairResource(@Disposes
-    @GazpachoResource
-    QuestionnaireResource client) {
+    public void closeQuestionnairResource(@Disposes @GazpachoResource QuestionnaireResource client) {
         logger.info("Closing QuestionnaireResource ");
         WebClient.client(client).reset();
     }

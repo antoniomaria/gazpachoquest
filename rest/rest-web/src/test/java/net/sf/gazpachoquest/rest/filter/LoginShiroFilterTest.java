@@ -4,10 +4,13 @@ import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 
+import java.io.IOException;
+import java.net.URI;
 import java.security.SignatureException;
 import java.util.Arrays;
 import java.util.Date;
 
+import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.UriInfo;
 
@@ -16,7 +19,6 @@ import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.cxf.jaxrs.model.ClassResourceInfo;
-import org.apache.cxf.message.Message;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,8 +49,8 @@ public class LoginShiroFilterTest {
     }
 
     @Test
-    public void handleRequestTest() throws SignatureException {
-        Message message = createMock(Message.class);
+    public void handleRequestTest() throws SignatureException, IOException {
+        ContainerRequestContext requestContext = createMock(ContainerRequestContext.class);
         ClassResourceInfo resourceClass = createMock(ClassResourceInfo.class);
         HttpHeaders headers = createMock(HttpHeaders.class);
         UriInfo uriInfo = createMock(UriInfo.class);
@@ -60,22 +62,28 @@ public class LoginShiroFilterTest {
         String stringToSign = new StringBuilder().append(method).append(" ").append(resource).append("\n").append(date)
                 .toString();
         String apiKey = "B868UOHUTKUDWXM";
+        
         String secret = "IQO27YUZO8NJ7RADIK6SJ9BQZNYP4EMO";
         String signature = HMACSignature.calculateRFC2104HMAC(stringToSign, secret);
         String authToken = generateAuth(apiKey, signature);
 
-        expect(message.get(Message.QUERY_STRING)).andReturn(null);
-        expect(message.get(Message.HTTP_REQUEST_METHOD)).andReturn(method);
+        expect(requestContext.getMethod()).andReturn(method);
+        expect(uriInfo.getRequestUri()).andReturn(URI.create("http://localhost:8080/gazpachoquest-rest-web/api/" + resource));
+        
+        expect(requestContext.getHeaderString(HttpHeaders.AUTHORIZATION)).andReturn(authToken);
+        expect(requestContext.getHeaderString(HttpHeaders.DATE)).andReturn(date);
+        
         expect(headers.getRequestHeader(HttpHeaders.AUTHORIZATION)).andReturn(Arrays.asList(authToken));
         expect(headers.getRequestHeader(HttpHeaders.DATE)).andReturn(Arrays.asList(date));
 
         expect(uriInfo.getPath()).andReturn(resource.substring(1));
 
-        replay(message, resourceClass, uriInfo, headers);
+        replay(requestContext,resourceClass, uriInfo, headers);
 
         loginShiroFilter.setUriInfo(uriInfo);
         loginShiroFilter.setHeaders(headers);
-      //  loginShiroFilter.handleRequest(message, resourceClass);
+
+        loginShiroFilter.filter(requestContext);
     }
 
     public String generateAuth(String apiKey, String signature) {

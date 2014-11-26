@@ -17,6 +17,9 @@
   <logger name="com.wordnik.swagger" level="ERROR" />
   
   <logger name="net.sf.gazpachoquest" level="DEBUG" />
+  
+  <logger name="org.apache.cxf.jaxrs.validation" level="WARN" />
+  
 
   <root level="ERROR">
     <appender-ref ref="STDOUT" />

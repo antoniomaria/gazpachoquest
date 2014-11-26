@@ -56,6 +56,13 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-testutils</artifactId>
+      <version>3.0.2</version>
+      <scope>test</scope>
+    </dependency>
+
     <!-- JDBC drivers -->
     <!-- Used for demo purposes -->
     <dependency>
@@ -87,6 +94,28 @@
       <artifactId>cxf-rt-rs-extension-providers</artifactId>
     </dependency>
 
+    <!-- JSR 349 - Bean Validation 1.1 API -->
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+    </dependency>
+    
+    <!-- API for the Unified Expression Language -->
+    <dependency>
+      <groupId>javax.el</groupId>
+      <artifactId>javax.el-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.el</artifactId>
+    </dependency>
+      
     <!-- Logger logback -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
@@ -183,12 +212,6 @@
       <groupId>com.fasterxml.jackson.module</groupId>
       <artifactId>jackson-module-jsonSchema</artifactId>
     </dependency>
-<!-- 
-    <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-joda</artifactId>
-    </dependency>  -->
- 
     
     <!-- Spring Integration -->
     <dependency>
@@ -205,7 +228,6 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
     </dependency>
-
 
     <!-- Project libraries -->
     <dependency>
