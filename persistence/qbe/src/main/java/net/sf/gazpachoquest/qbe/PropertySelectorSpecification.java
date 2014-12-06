@@ -1,4 +1,4 @@
-package net.sf.gazpachoquest.qbe.support;
+package net.sf.gazpachoquest.qbe;
 
 import java.util.ArrayList;
 import java.util.List;

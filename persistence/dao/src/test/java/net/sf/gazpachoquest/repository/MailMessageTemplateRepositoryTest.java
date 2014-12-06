@@ -6,7 +6,7 @@ import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.MailMessageTemplate;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.qbe.SearchParameters;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;

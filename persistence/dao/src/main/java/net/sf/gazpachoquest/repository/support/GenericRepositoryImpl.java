@@ -17,12 +17,12 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 
 import net.sf.gazpachoquest.domain.support.Persistable;
+import net.sf.gazpachoquest.qbe.ByExampleSpecification;
 import net.sf.gazpachoquest.qbe.NamedQueryUtil;
+import net.sf.gazpachoquest.qbe.PropertySelectorSpecification;
 import net.sf.gazpachoquest.qbe.Range;
 import net.sf.gazpachoquest.qbe.RangeSpecification;
-import net.sf.gazpachoquest.qbe.support.ByExampleEnhancedSpecification;
-import net.sf.gazpachoquest.qbe.support.PropertySelectorSpecification;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.qbe.SearchParameters;
 
 import org.apache.commons.lang3.Validate;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -40,7 +40,7 @@ import org.springframework.util.Assert;
 public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepository<T, Integer> implements
         GenericRepository<T> {
 
-    private ByExampleEnhancedSpecification byExampleEnhancedSpecification;
+    private ByExampleSpecification byExampleSpecification;
     private final EntityManager em;
     private final JpaEntityInformation<T, ?> entityInformation;
     private NamedQueryUtil namedQueryUtil;
@@ -48,9 +48,6 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
     /**
      * Creates a new {@link SimpleJpaRepository} to manage objects of the given
      * {@link JpaEntityInformation}.
-     * 
-     * @param entityInformation
-     * @param entityManager
      */
     public GenericRepositoryImpl(final JpaEntityInformation<T, ?> entityInformation, final EntityManager entityManager,
             final NamedQueryUtil namedQueryUtil) {
@@ -61,15 +58,12 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
         // DefaultPersistenceProvider.fromEntityManager(entityManager);
         // this.springDataRepositoryInterface = springDataRepositoryInterface;
         this.namedQueryUtil = namedQueryUtil;
-        this.byExampleEnhancedSpecification = new ByExampleEnhancedSpecification(entityManager);
+        this.byExampleSpecification = new ByExampleSpecification(entityManager);
     }
 
     /**
      * Creates a new {@link SimpleJpaRepository} to manage objects of the given
      * domain type.
-     * 
-     * @param domainClass
-     * @param em
      */
     protected GenericRepositoryImpl(final Class<T> domainClass, final EntityManager em) {
         this(JpaEntityInformationSupport.getMetadata(domainClass, em), em, null);
@@ -92,7 +86,7 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
         if (sp.hasNamedQuery()) {
             return getNamedQueryUtil().numberByNamedQuery(sp).intValue();
         }
-        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity, sp));
+        Specifications<T> spec = Specifications.where(byExampleSpecification.byExampleOnEntity(entity, sp));
         spec = RangeSpecification.andRangeIfSet(spec, sp.getRanges());
         spec = PropertySelectorSpecification.andPropertySelectorIfSet(spec, sp);
         return super.count(spec);
@@ -101,7 +95,7 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
     @Override
     public Page<T> findByExample(final T example, final List<Range<?, ?>> ranges, final Pageable pageable) {
         SearchParameters searchParameter = new SearchParameters();
-        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(example,
+        Specifications<T> spec = Specifications.where(byExampleSpecification.byExampleOnEntity(example,
                 searchParameter));
         spec = RangeSpecification.andRangeIfSet(spec, ranges);
         spec = PropertySelectorSpecification.andPropertySelectorIfSet(spec, searchParameter);
@@ -111,7 +105,7 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
     @Override
     public Page<T> findByExample(final T example, final Pageable pageable) {
         SearchParameters searchParameter = new SearchParameters();
-        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(example,
+        Specifications<T> spec = Specifications.where(byExampleSpecification.byExampleOnEntity(example,
                 searchParameter));
         spec = RangeSpecification.andRangeIfSet(spec, searchParameter.getRanges());
         spec = PropertySelectorSpecification.andPropertySelectorIfSet(spec, searchParameter);
@@ -124,7 +118,7 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
         if (searchParameter.hasNamedQuery()) {
             return getNamedQueryUtil().findByNamedQuery(searchParameter);
         }
-        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity,
+        Specifications<T> spec = Specifications.where(byExampleSpecification.byExampleOnEntity(entity,
                 searchParameter));
         spec = RangeSpecification.andRangeIfSet(spec, searchParameter.getRanges());
         spec = PropertySelectorSpecification.andPropertySelectorIfSet(spec, searchParameter);
@@ -140,7 +134,7 @@ public class GenericRepositoryImpl<T extends Persistable> extends SimpleJpaRepos
     @Override
     public Optional<T> findOneByExample(final T entity, final SearchParameters searchParameter) {
         Assert.notNull(searchParameter, "Search parameters required");
-        Specifications<T> spec = Specifications.where(byExampleEnhancedSpecification.byExampleOnEntity(entity,
+        Specifications<T> spec = Specifications.where(byExampleSpecification.byExampleOnEntity(entity,
                 searchParameter));
         spec = RangeSpecification.andRangeIfSet(spec, searchParameter.getRanges());
         spec = PropertySelectorSpecification.andPropertySelectorIfSet(spec, searchParameter);

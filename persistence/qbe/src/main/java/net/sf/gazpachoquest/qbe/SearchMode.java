@@ -16,7 +16,7 @@
  * either express or implied. See the License for the specific language governing permissions and limitations under the
  * License.
  */
-package net.sf.gazpachoquest.qbe.support;
+package net.sf.gazpachoquest.qbe;
 
 /**
  * Static values to use in conjunction with {@link SearchParameters} object. It

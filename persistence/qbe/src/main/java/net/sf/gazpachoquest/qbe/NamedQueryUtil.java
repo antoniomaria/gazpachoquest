@@ -29,9 +29,6 @@ import javax.persistence.Parameter;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import net.sf.gazpachoquest.qbe.support.OrderBy;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

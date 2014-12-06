@@ -16,14 +16,13 @@
  * either express or implied. See the License for the specific language governing permissions and limitations under the
  * License.
  */
-package net.sf.gazpachoquest.qbe.support;
+package net.sf.gazpachoquest.qbe;
 
 import java.io.Serializable;
 
 import javax.persistence.metamodel.SingularAttribute;
 
 import net.sf.gazpachoquest.domain.support.Persistable;
-import net.sf.gazpachoquest.qbe.NamedQueryUtil;
 
 import org.apache.commons.lang3.Validate;
 

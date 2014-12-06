@@ -33,14 +33,14 @@ import org.slf4j.LoggerFactory;
  * <p>
  * La configuración del nivel de los logs no se realiza en EclipseLink (con la
  * propiedad eclipselink.logging.level), sino en la implementación de SLF4J.
- * <p>
+ * </p>
  * Se puede usar el resto de las propiedades de logging de EclipseLink
  * (eclipselink.logging.timestamp, eclipselink.logging.thread,
  * eclipselink.logging.session, eclipselink.logging.connection y
  * eclipselink.logging.parameters) para configurar el formato de salida.
  * <p>
  * Se usan las siguientes categorias de log:
- * <p>
+ * </p>
  * <ul>
  * <li>org.eclipse.persistence.logging.default
  * <li>org.eclipse.persistence.logging.sql
@@ -57,20 +57,17 @@ import org.slf4j.LoggerFactory;
  * <li>org.eclipse.persistence.logging.properties
  * <li>org.eclipse.persistence.logging.server
  * </ul>
- * </p>
  * <p>
  * Los niveles de log de EclipseLink y SLF4J son distintos, se realiza la
  * siguiente correspondencia:
  * </p>
  * <ul>
- * <li>ALL,FINER,FINEST -> TRACE
- * <li>FINE -> DEBUG
- * <li>CONFIG,INFO -> INFO
- * <li>WARNING -> WARN
- * <li>SEVERE -> ERROR
+ * <li>ALL,FINER,FINEST to TRACE
+ * <li>FINE to DEBUG
+ * <li>CONFIG,INFO to INFO
+ * <li>WARNING to WARN
+ * <li>SEVERE to ERROR
  * </ul>
- * </p>
- * <p>
  * 
  * @author Miguel Angel Sosvilla Luis.
  * 

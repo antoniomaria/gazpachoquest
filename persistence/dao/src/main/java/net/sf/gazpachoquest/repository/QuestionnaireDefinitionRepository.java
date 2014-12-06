@@ -31,8 +31,8 @@ public interface QuestionnaireDefinitionRepository extends GenericRepository<Que
      * [9, 2, 2]
      * </pre>
      * 
-     * @param questionnaireDefinitionId
-     * @return
+     * @param questionnaireDefinitionId Integer
+     * @return List
      */
     @Query("select qg.id,count(q.id),index(qg) from QuestionnaireDefinition qd left join qd.sections qg left join qg.questions q where qd.id = :questionnaireDefinitionId group by qg.id order by index(qg)")
     List<Object[]> questionsCountGroupBySections(@Param("questionnaireDefinitionId")

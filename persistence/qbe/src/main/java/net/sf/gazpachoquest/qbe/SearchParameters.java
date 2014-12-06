@@ -16,7 +16,7 @@
  * either express or implied. See the License for the specific language governing permissions and limitations under the
  * License.
  */
-package net.sf.gazpachoquest.qbe.support;
+package net.sf.gazpachoquest.qbe;
 
 import static net.sf.gazpachoquest.qbe.Ranges.RangeDate.rangeDate;
 import static net.sf.gazpachoquest.qbe.Ranges.RangeLocalDate.rangeLocalDate;
@@ -36,8 +36,6 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.metamodel.SingularAttribute;
 
 import net.sf.gazpachoquest.domain.support.Persistable;
-import net.sf.gazpachoquest.qbe.NamedQueryUtil;
-import net.sf.gazpachoquest.qbe.Range;
 import net.sf.gazpachoquest.qbe.Ranges.RangeDate;
 import net.sf.gazpachoquest.qbe.Ranges.RangeInteger;
 import net.sf.gazpachoquest.qbe.Ranges.RangeLocalDate;
@@ -68,7 +66,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * Note : All requests are limited to a maximum number of elements to prevent
  * resource exhaustion.
  * 
- * @see QueryByExample
+ * @see ByExampleSpecification
  * @see SearchMode
  * @see OrderBy
  * @see Range
@@ -124,17 +122,10 @@ public class SearchParameters {
     // -----------------------------------
     // Predicate mode
     // -----------------------------------
-    /**
-     * @return the andMode
-     */
     public boolean isAndMode() {
         return andMode;
     }
 
-    /**
-     * @param andMode
-     *            the andMode to set
-     */
     public void setAndMode(boolean andMode) {
         this.andMode = andMode;
     }
@@ -178,9 +169,6 @@ public class SearchParameters {
         entities.add(entitySelector);
     }
 
-    /**
-     * Set the parameters for the named query.
-     */
     public void addNamedQueryParameter(final String name, final Object value) {
         Validate.notNull(name, "name must not be null");
         Validate.notNull(value, "value must not be null");
@@ -244,11 +232,6 @@ public class SearchParameters {
         return this;
     }
 
-    /**
-     * Use the ANYWHERE @{link SearchMode}.
-     * 
-     * @see SearchMode#ANYWHERE
-     */
     public SearchParameters anywhere() {
         return searchMode(SearchMode.ANYWHERE);
     }
@@ -294,6 +277,7 @@ public class SearchParameters {
 
     /**
      * Fluently set the case sensitiveness to false.
+     * @return SearchParameters
      */
     public SearchParameters caseInsensitive() {
         setCaseSensitive(false);
@@ -302,6 +286,8 @@ public class SearchParameters {
 
     /**
      * Fluently set the case sensitiveness to true.
+     * 
+     * @return SearchParameters
      */
     public SearchParameters caseSensitive() {
         setCaseSensitive(true);
@@ -312,6 +298,7 @@ public class SearchParameters {
      * Fluently set the case sensitiveness. Defaults to false.
      * 
      * @param caseSensitive
+     * @return SearchParameters
      */
     public SearchParameters caseSensitive(final boolean caseSensitive) {
         setCaseSensitive(caseSensitive);
@@ -359,9 +346,9 @@ public class SearchParameters {
     }
 
     /**
-     * Use the ENDING_LIKE @{link SearchMode}.
+     * Use the ENDING_LIKE
      * 
-     * @see SearchMode#ENDING_LIKE
+     * @return SearchParameters
      */
     public SearchParameters endingLike() {
         return searchMode(SearchMode.ENDING_LIKE);
@@ -370,6 +357,8 @@ public class SearchParameters {
     /**
      * Add the passed {@link EntitySelector} in order to construct an OR
      * predicate for the underlying foreign key.
+     * 
+     * @return SearchParameters
      */
     public SearchParameters entity(final EntitySelector<?, ? extends Persistable, ?> entitySelector) {
         addEntity(entitySelector);
@@ -385,6 +374,8 @@ public class SearchParameters {
      * Use the EQUALS @{link SearchMode}.
      * 
      * @see SearchMode#EQUALS
+     * 
+     * @return SearchParameters
      */
     public SearchParameters equals() {
         return searchMode(SearchMode.EQUALS);
@@ -410,6 +401,7 @@ public class SearchParameters {
     /**
      * Returns the attribute (x-to-one association) which must be fetched with
      * an inner join.
+     * @return List
      */
     public List<SingularAttribute<?, ?>> getInnerJoinAttributes() {
         return getJoinAttributes(JoinType.INNER);
@@ -422,6 +414,7 @@ public class SearchParameters {
     /**
      * Returns the attribute (x-to-one association) which must be fetched with a
      * left join.
+     * @return List
      */
     public List<SingularAttribute<?, ?>> getLeftJoinAttributes() {
         return getJoinAttributes(JoinType.LEFT);
@@ -433,6 +426,7 @@ public class SearchParameters {
 
     /**
      * Return the name of the named query to be used by the DAO layer.
+     * @return String
      */
     public String getNamedQuery() {
         return namedQuery;
@@ -440,6 +434,7 @@ public class SearchParameters {
 
     /**
      * Return the value of the passed parameter name.
+     * @return value
      */
     public Object getNamedQueryParameter(final String parameterName) {
         return parameters.get(parameterName);
@@ -447,6 +442,7 @@ public class SearchParameters {
 
     /**
      * The parameters associated with the named query, if any.
+     * @return Map
      */
     public Map<String, Object> getNamedQueryParameters() {
         return parameters;
@@ -464,6 +460,7 @@ public class SearchParameters {
      * Return the @{link SearchMode}. It defaults to EQUALS.
      * 
      * @see SearchMode#EQUALS
+     * @return SearchMode
      */
     public SearchMode getSearchMode() {
         return searchMode;
@@ -471,6 +468,7 @@ public class SearchParameters {
 
     /**
      * Returns the search pattern to be used by the DAO layer.
+     * @return String
      */
     public String getSearchPattern() {
         return searchPattern;
@@ -491,6 +489,7 @@ public class SearchParameters {
      * Returns true if a named query has been set, false otherwise. When it
      * returns true, the DAO layer will call the
      * namedQuery.
+     * @return boolean
      */
     public boolean hasNamedQuery() {
         return isNotBlank(namedQuery);
@@ -503,6 +502,7 @@ public class SearchParameters {
     /**
      * When it returns true, it indicates to the DAO layer to use the passed
      * searchPattern on all string properties.
+     * @return boolean
      */
     public boolean hasSearchPattern() {
         return isNotBlank(searchPattern);
@@ -511,6 +511,7 @@ public class SearchParameters {
     /**
      * The passed attribute (x-to-one association) will be fetched with a inner
      * join.
+     * @return SearchParameters
      */
     public SearchParameters innerJoin(final SingularAttribute<?, ?> xToOneAttribute) {
         getInnerJoinAttributes().add(xToOneAttribute);
@@ -536,6 +537,7 @@ public class SearchParameters {
     /**
      * The passed attribute (x-to-one association) will be fetched with a left
      * join.
+     * @return SearchParameters
      */
     public SearchParameters leftJoin(final SingularAttribute<?, ?> xToOneAttribute) {
         getLeftJoinAttributes().add(xToOneAttribute);
@@ -550,6 +552,7 @@ public class SearchParameters {
      * Use the LIKE @{link SearchMode}.
      * 
      * @see SearchMode#LIKE
+     * @return SearchParameters
      */
     public SearchParameters like() {
         return searchMode(SearchMode.LIKE);
@@ -570,6 +573,7 @@ public class SearchParameters {
     /**
      * Fluently set the named query to be used by the DAO layer. Null by
      * default.
+     * @return SearchParameters
      */
     public SearchParameters namedQuery(final String namedQuery) {
         setNamedQuery(namedQuery);
@@ -578,6 +582,7 @@ public class SearchParameters {
 
     /**
      * Fluently set the parameters for the named query.
+     * @return SearchParameters
      */
     public SearchParameters namedQueryParameter(final String name, final Object value) {
         addNamedQueryParameter(name, value);
@@ -586,6 +591,7 @@ public class SearchParameters {
 
     /**
      * Fluently set the parameters for the named query.
+     * @return SearchParameters
      */
     public SearchParameters namedQueryParameters(final Map<String, Object> parameters) {
         setNamedQueryParameters(parameters);
@@ -630,6 +636,7 @@ public class SearchParameters {
     /**
      * Add the passed {@link PropertySelector} in order to construct an OR
      * predicate for the corresponding property.
+     * @return SearchParameters
      */
     public SearchParameters property(final PropertySelector<?, ?> propertySelector) {
         addProperty(propertySelector);
@@ -639,6 +646,7 @@ public class SearchParameters {
     /**
      * Add the passed {@link Range} in order to create a 'range' predicate on
      * the corresponding property.
+     * @return SearchParameters
      */
     public SearchParameters range(final Range<?, ?> range) {
         addRange(range);
@@ -665,6 +673,7 @@ public class SearchParameters {
      * Fluently set the @{link SearchMode}. It defaults to EQUALS.
      * 
      * @see SearchMode#EQUALS
+     * @return SearchParameters
      */
     public SearchParameters searchMode(final SearchMode searchMode) {
         setSearchMode(searchMode);
@@ -679,6 +688,7 @@ public class SearchParameters {
      * Fluently set the pattern which may contains wildcards (ex: "e%r%ka" ).
      * The passed searchPattern is used by the
      * DAO layer on all string properties. Null by default.
+     * @return SearchParameters
      */
     public SearchParameters searchPattern(final String searchPattern) {
         setSearchPattern(searchPattern);
@@ -758,6 +768,7 @@ public class SearchParameters {
      * Use the STARTING_LIKE @{link SearchMode}.
      * 
      * @see SearchMode#STARTING_LIKE
+     * @return SearchParameters
      */
     public SearchParameters startingLike() {
         return searchMode(SearchMode.STARTING_LIKE);

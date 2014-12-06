@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Question;
-import net.sf.gazpachoquest.qbe.support.SearchMode;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.qbe.SearchMode;
+import net.sf.gazpachoquest.qbe.SearchParameters;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;

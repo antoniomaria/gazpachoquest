@@ -29,9 +29,6 @@ import org.springframework.data.jpa.repository.query.QueryExtractor;
 
 public enum DefaultPersistenceProvider implements QueryExtractor {
 
-    /**
-     * EclipseLink persistence provider.
-     */
     ECLIPSELINK("org.eclipse.persistence.jpa.JpaEntityManager") {
 
         @Override
@@ -41,14 +38,10 @@ public enum DefaultPersistenceProvider implements QueryExtractor {
 
     },
 
-    /**
-     * Unknown special provider. Use standard JPA.
-     */
     GENERIC_JPA("javax.persistence.EntityManager") {
 
         @Override
         public boolean canExtractQuery() {
-
             return false;
         }
 
@@ -59,37 +52,19 @@ public enum DefaultPersistenceProvider implements QueryExtractor {
         }
     },
 
-    /**
-     * Hibernate persistence provider.
-     */
     HIBERNATE("org.hibernate.ejb.HibernateEntityManager") {
 
         @Override
         public String extractQueryString(final Query query) {
-
-            // return ((HibernateQuery)
-            // query).getHibernateQuery().getQueryString();
             return null;
         }
 
-        /**
-         * Return custom placeholder ({@code *}) as Hibernate does create
-         * invalid queries for count queries for objects
-         * with compound keys.
-         * 
-         * @see HHH-4044
-         * @see HHH-3096
-         */
         @Override
         protected String getCountQueryPlaceholder() {
-
             return "*";
         }
     },
 
-    /**
-     * OpenJpa persistence provider.
-     */
     OPEN_JPA("org.apache.openjpa.persistence.OpenJPAEntityManager") {
 
         @Override
@@ -99,14 +74,6 @@ public enum DefaultPersistenceProvider implements QueryExtractor {
         }
     };
 
-    /**
-     * Determines the {@link PersistenceProvider} from the given
-     * {@link EntityManager}. If no special one can be
-     * determined {@value #GENERIC_JPA} will be returned.
-     * 
-     * @param em
-     * @return
-     */
     public static DefaultPersistenceProvider fromEntityManager(final EntityManager em) {
 
         for (DefaultPersistenceProvider provider : values()) {
@@ -132,16 +99,8 @@ public enum DefaultPersistenceProvider implements QueryExtractor {
         this.entityManagerClassName = entityManagerClassName;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.springframework.data.jpa.repository.query.QueryExtractor#canExtractQuery
-     * ()
-     */
     @Override
     public boolean canExtractQuery() {
-
         return true;
     }
 
@@ -149,10 +108,9 @@ public enum DefaultPersistenceProvider implements QueryExtractor {
      * Returns the placeholder to be used for simple count queries. Default
      * implementation returns {@code *}.
      * 
-     * @return
+     * @return count
      */
     protected String getCountQueryPlaceholder() {
-
         return "x";
     }
 
