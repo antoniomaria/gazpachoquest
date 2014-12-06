@@ -13,7 +13,7 @@ import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation;
 import net.sf.gazpachoquest.domain.user.User;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.qbe.SearchParameters;
 import net.sf.gazpachoquest.services.MailMessageTemplateService;
 import net.sf.gazpachoquest.services.UserService;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;

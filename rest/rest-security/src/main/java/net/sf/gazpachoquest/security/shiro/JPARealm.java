@@ -16,7 +16,7 @@ import javax.persistence.PersistenceException;
 import net.sf.gazpachoquest.domain.support.Permission;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.qbe.SearchParameters;
 import net.sf.gazpachoquest.security.support.HMACSignature;
 import net.sf.gazpachoquest.services.UserService;
 

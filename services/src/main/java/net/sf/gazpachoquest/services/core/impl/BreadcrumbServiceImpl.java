@@ -14,7 +14,7 @@ import java.util.List;
 
 import net.sf.gazpachoquest.domain.core.Breadcrumb;
 import net.sf.gazpachoquest.domain.core.Questionnaire;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.qbe.SearchParameters;
 import net.sf.gazpachoquest.repository.BreadcrumbRepository;
 import net.sf.gazpachoquest.services.BreadcrumbService;
 

@@ -25,7 +25,7 @@ import net.sf.gazpachoquest.domain.permission.QuestionnairePermission;
 import net.sf.gazpachoquest.domain.permission.ResearchPermission;
 import net.sf.gazpachoquest.domain.user.Group;
 import net.sf.gazpachoquest.domain.user.User;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.qbe.SearchParameters;
 import net.sf.gazpachoquest.repository.InvitationRepository;
 import net.sf.gazpachoquest.repository.MailMessageRepository;
 import net.sf.gazpachoquest.repository.QuestionnaireDefinitionRepository;

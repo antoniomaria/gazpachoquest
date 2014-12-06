@@ -12,7 +12,7 @@ import net.sf.gazpachoquest.domain.permission.QuestionnairePermission;
 import net.sf.gazpachoquest.domain.support.Invitation;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.dto.auth.RespondentAccount;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.qbe.SearchParameters;
 import net.sf.gazpachoquest.repository.permission.QuestionnairePermissionRepository;
 import net.sf.gazpachoquest.security.AuthenticationManager;
 import net.sf.gazpachoquest.services.InvitationService;

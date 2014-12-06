@@ -12,8 +12,8 @@ import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
 import net.sf.gazpachoquest.qbe.Range;
 import net.sf.gazpachoquest.qbe.Ranges;
+import net.sf.gazpachoquest.qbe.SearchParameters;
 import net.sf.gazpachoquest.qbe.Ranges.RangeLocalDateTime;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.junit.Test;

@@ -16,7 +16,7 @@ import net.sf.gazpachoquest.domain.core.Questionnaire;
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
 import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.SectionBreadcrumb;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.qbe.SearchParameters;
 import net.sf.gazpachoquest.questionnaire.support.PageMetadataCreator;
 import net.sf.gazpachoquest.questionnaire.support.PageStructure;
 import net.sf.gazpachoquest.services.BreadcrumbService;

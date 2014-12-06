@@ -16,7 +16,7 @@ import net.sf.gazpachoquest.domain.core.Question;
 import net.sf.gazpachoquest.domain.core.Section;
 import net.sf.gazpachoquest.domain.core.embeddables.SectionLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.SectionTranslation;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.qbe.SearchParameters;
 import net.sf.gazpachoquest.repository.QuestionRepository;
 import net.sf.gazpachoquest.repository.QuestionnaireDefinitionRepository;
 import net.sf.gazpachoquest.repository.SectionRepository;

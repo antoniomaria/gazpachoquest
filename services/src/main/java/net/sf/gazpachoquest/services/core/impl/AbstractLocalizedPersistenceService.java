@@ -25,7 +25,7 @@ import net.sf.gazpachoquest.domain.support.LanguageSettings;
 import net.sf.gazpachoquest.domain.support.Localizable;
 import net.sf.gazpachoquest.domain.support.Translation;
 import net.sf.gazpachoquest.domain.support.TranslationBuilder;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.qbe.SearchParameters;
 import net.sf.gazpachoquest.repository.support.GenericRepository;
 import net.sf.gazpachoquest.services.LocalizedPersistenceService;
 import net.sf.gazpachoquest.types.Language;

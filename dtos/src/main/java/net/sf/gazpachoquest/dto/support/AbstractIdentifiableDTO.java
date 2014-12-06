@@ -35,6 +35,7 @@ public abstract class AbstractIdentifiableDTO implements Identifiable {
      * @see <a
      *      href="http://en.wikibooks.org/wiki/Java_Persistence/Locking">Optimistic
      *      Version Locking</a>
+     * @return version
      */
     public Integer getVersion() {
         return version;
@@ -43,7 +44,7 @@ public abstract class AbstractIdentifiableDTO implements Identifiable {
     public void setVersion(Integer version) {
         this.version = version;
     }
-    
+
     @Override
     public int hashCode() {
         if (!isNew()) {
@@ -52,7 +53,6 @@ public abstract class AbstractIdentifiableDTO implements Identifiable {
             return HashCodeBuilder.reflectionHashCode(this);
         }
     }
-
 
     @Override
     public boolean equals(final Object obj) {
@@ -67,7 +67,7 @@ public abstract class AbstractIdentifiableDTO implements Identifiable {
             return false;
         }
     }
-    
+
     @Override
     @JsonIgnore
     public boolean isNew() {

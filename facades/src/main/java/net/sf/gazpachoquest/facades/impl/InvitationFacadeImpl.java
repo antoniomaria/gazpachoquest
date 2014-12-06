@@ -12,7 +12,7 @@ import net.sf.gazpachoquest.dto.AnonymousInvitationDTO;
 import net.sf.gazpachoquest.dto.InvitationDTO;
 import net.sf.gazpachoquest.dto.PersonalInvitationDTO;
 import net.sf.gazpachoquest.facades.InvitationFacade;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.qbe.SearchParameters;
 import net.sf.gazpachoquest.services.InvitationService;
 import net.sf.gazpachoquest.services.PersonalInvitationService;
 

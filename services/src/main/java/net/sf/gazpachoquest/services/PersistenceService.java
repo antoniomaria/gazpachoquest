@@ -15,7 +15,7 @@ import java.util.Optional;
 
 import net.sf.gazpachoquest.domain.support.Persistable;
 import net.sf.gazpachoquest.domain.user.User;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.qbe.SearchParameters;
 
 import org.springframework.data.domain.Page;
 

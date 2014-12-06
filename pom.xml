@@ -620,6 +620,65 @@
           </execution>
         </executions>
       </plugin>
+
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.1</version>
+        <configuration>
+          <tags>
+            <tag>
+              <name>depend</name>
+              <placement>X</placement>
+            </tag>
+            <tag>
+              <name>hidden</name>
+              <placement>X</placement>
+            </tag>
+            <tag>
+              <name>opt</name>
+              <placement>X</placement>
+            </tag>
+            <tag>
+              <name>assoc</name>
+              <placement>X</placement>
+            </tag>
+            <tag>
+              <name>has</name>
+              <placement>X</placement>
+            </tag>
+          </tags>
+          <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+          <docletPath>C:/Users/antonio/git/antoniomaria/gazpachoquest/uml/UmlGraph.jar</docletPath>
+          <!-- ignore javadoc errors -->
+          <additionalparam>-Xdoclint:none</additionalparam>
+          <additionalparam>-inferrel</additionalparam>
+          <additionalparam>-inferdep</additionalparam>
+          <additionalparam>-collapsible</additionalparam>
+          <additionalparam>-hide java.*</additionalparam>
+          <additionalparam>-collpackages</additionalparam>
+          <additionalparam>-qualify</additionalparam>
+          <additionalparam>-postfixpackage</additionalparam>
+          <additionalparam>-nodefontsize 9</additionalparam>
+          <additionalparam>-nodefontpackagesize 7</additionalparam>
+          <additionalparam>-link http://docs.oracle.com/javase/8/docs/jdk/api/javadoc/doclet/</additionalparam>
+          <additionalparam>-link http://download.oracle.com/javase/8/docs/api/</additionalparam>
+          <useStandardDocletOptions>true</useStandardDocletOptions>
+        </configuration>
+        <executions>
+          <execution>
+            <id>aggregate</id>
+            <goals>
+              <goal>aggregate</goal>
+            </goals>
+            <phase>site</phase>
+            <configuration>
+              <!-- Specific configuration for the aggregate report -->
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
     <extensions>
       <extension>

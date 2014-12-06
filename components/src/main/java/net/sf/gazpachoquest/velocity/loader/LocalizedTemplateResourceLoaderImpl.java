@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 import net.sf.gazpachoquest.domain.core.MailMessageTemplate;
 import net.sf.gazpachoquest.domain.core.embeddables.MailMessageTemplateLanguageSettings;
 import net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation;
-import net.sf.gazpachoquest.qbe.support.SearchParameters;
+import net.sf.gazpachoquest.qbe.SearchParameters;
 import net.sf.gazpachoquest.repository.MailMessageTemplateRepository;
 import net.sf.gazpachoquest.repository.i18.MailMessageTemplateTranslationRepository;
 import net.sf.gazpachoquest.types.Language;
