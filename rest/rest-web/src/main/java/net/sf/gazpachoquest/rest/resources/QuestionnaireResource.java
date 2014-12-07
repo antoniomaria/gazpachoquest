@@ -69,7 +69,7 @@ public class QuestionnaireResource {
             @ApiResponse(code = 200, message = "questionnaires available") })
     public Response getPage(
             @NotNull @PathParam("questionnaireId") @ApiParam(value = "Questionnaire id", required = true) Integer questionnaireId,
-            @NotNull @ApiParam(name = "mode", value = "Refers how many questions are returned by page.", required = false, defaultValue = "SECTION_BY_SECTION", allowableValues = "QUESTION_BY_QUESTION,SECTION_BY_SECTION,ALL_IN_ONE", allowMultiple = true) @QueryParam("mode") String modeStr,
+            @ApiParam(name = "mode", value = "Refers how many questions are returned by page.", required = false, defaultValue = "SECTION_BY_SECTION", allowableValues = "QUESTION_BY_QUESTION,SECTION_BY_SECTION,ALL_IN_ONE", allowMultiple = true) @QueryParam("mode") String modeStr,
             @ApiParam(name = "preferredLanguage", value = "Preferred Language for the page is availabe", required = true, defaultValue = "EN", allowableValues = "EN,ES,FI", allowMultiple = true) @QueryParam("preferredLanguage") String preferredLanguageStr,
             @ApiParam(name = "action", value = "Action fired for the respondent", required = true, defaultValue = "ENTERING", allowableValues = "NEXT,PREVIOUS,ENTERING", allowMultiple = true) @QueryParam("action") String actionStr) {
 

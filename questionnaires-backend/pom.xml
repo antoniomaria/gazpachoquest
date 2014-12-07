@@ -64,12 +64,24 @@
       <groupId>de.odysseus.juel</groupId>
       <artifactId>juel-api</artifactId>
       <version>2.2.7</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>de.odysseus.juel</groupId>
       <artifactId>juel-impl</artifactId>
       <version>2.2.7</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-el_2.2_spec</artifactId>
+      <version>1.0.4</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.geronimo.ext.tomcat</groupId>
+      <artifactId>jasper-el</artifactId>
+      <version>7.0.39.2</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

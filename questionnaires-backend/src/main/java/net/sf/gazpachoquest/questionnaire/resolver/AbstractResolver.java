@@ -70,9 +70,10 @@ public abstract class AbstractResolver<T extends Breadcrumb> implements PageReso
 
     protected final RenderingMode type;
 
-    @Autowired
-    @Qualifier("elFactory")
-    protected ExpressionFactory elFactory;
+   // @Autowired
+   // @Qualifier("elFactory")
+  //  protected ExpressionFactory elFactory;
+    protected ExpressionFactory elFactory = ExpressionFactory.newInstance();
 
 
     protected AbstractResolver(RenderingMode type) {
