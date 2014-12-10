@@ -28,6 +28,21 @@ At this moment all the effort has been spent on provide a powerful, REST Gateway
 
 Contributions are welcome, in any form including code contributions, bug reports, feature suggestions, documentation, testing, and general feedback. Issues can be submitted on the [Github page][1]. For further information, contact to: <mailto:antoniomariasanchez@gmail.com>
 
+## Versioning
+
+GazpachoQuest will be maintained under the Semantic Versioning guidelines as much as possible. Releases will be numbered
+with the following format:
+
+`<major>.<minor>.<patch>`
+
+And constructed with the following guidelines:
+
+* Breaking backward compatibility bumps the major (and resets the minor and patch)
+* New additions, including new icons, without breaking backward compatibility bumps the minor (and resets the patch)
+* Bug fixes and misc changes bumps the patch
+
+For more information on SemVer, please visit http://semver.org.
+
 ## Third party libraries and components
 
 * [JPA Eclipse link](http://www.eclipse.org/eclipselink/jpa.php)
@@ -40,7 +55,6 @@ Contributions are welcome, in any form including code contributions, bug reports
 * [Vaadin 7 (CDI plugin)](https://vaadin.com/home)
 * Java Authentication and Authorization Service, (JAAS)  
 * [SL4J (Logback)](http://logback.qos.ch)
-* [JUEL](http://juel.sourceforge.net)
 * [DBUnit](http://dbunit.sourceforge.net)
 * [Spring-Test DBUnit](http://springtestdbunit.github.io/spring-test-dbunit/)
 * [EasyMock](http://easymock.org/)
