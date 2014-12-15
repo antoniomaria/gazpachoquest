@@ -15,25 +15,21 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-//import org.codehaus.jackson.annotate.JsonIgnore;
 
+/**
+ * @composed - has 1..* Answer
+ */
+@SuppressWarnings("serial")
 public class MultipleAnswer extends AbstractAnswer {
 
-    private static final long serialVersionUID = -2399910856085158733L;
-
-    private List<Answer> answers;
+    private List<Answer> answers = new ArrayList<>();
 
     public MultipleAnswer() {
         super();
-        answers = new ArrayList<>();
     }
 
     public List<Answer> getAnswers() {
         return answers;
-    }
-
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
     }
 
     public void addAnswer(Answer answer) {

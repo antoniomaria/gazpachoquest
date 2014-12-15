@@ -16,10 +16,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
-
+@SuppressWarnings("serial")
 public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
-
-    private static final long serialVersionUID = -6660330858580421664L;
 
     private AuditorDTO createdBy;
 
@@ -28,7 +26,7 @@ public abstract class AbstractAuditableDTO extends AbstractIdentifiableDTO {
     private LocalDateTime createdDate;
 
     private AuditorDTO lastModifiedBy;
-    
+
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime lastModifiedDate;

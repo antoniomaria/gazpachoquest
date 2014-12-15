@@ -14,9 +14,8 @@ import net.sf.gazpachoquest.dto.support.AbstractAuditableDTO;
 import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
 
+@SuppressWarnings("serial")
 public class UserDTO extends AbstractAuditableDTO {
-
-    private static final long serialVersionUID = 7370786032611110768L;
 
     private String email;
 
@@ -33,7 +32,7 @@ public class UserDTO extends AbstractAuditableDTO {
     private String apiKey;
 
     private String password;
-    
+
     private final Map<String, String> attributes = new HashMap<String, String>();
 
     public UserDTO() {
@@ -126,15 +125,17 @@ public class UserDTO extends AbstractAuditableDTO {
         private Gender gender;
         private String username;
         private String password = "";
-        
+
         public Builder email(String email) {
             this.email = email;
             return this;
         }
+
         public Builder id(Integer id) {
             this.id = id;
             return this;
         }
+
         public Builder givenNames(String givenNames) {
             this.givenNames = givenNames;
             return this;
@@ -144,6 +145,7 @@ public class UserDTO extends AbstractAuditableDTO {
             this.surname = surname;
             return this;
         }
+
         public Builder password(String password) {
             this.password = password;
             return this;

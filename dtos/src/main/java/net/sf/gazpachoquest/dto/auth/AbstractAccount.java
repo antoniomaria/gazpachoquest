@@ -16,9 +16,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@SuppressWarnings("serial")
 public abstract class AbstractAccount implements Account {
-
-    private static final long serialVersionUID = -8204465435506099291L;
 
     protected String givenNames;
 

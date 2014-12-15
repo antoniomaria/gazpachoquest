@@ -21,9 +21,11 @@ import net.sf.gazpachoquest.types.Language;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class SectionDTO extends AbstractAuditableDTO implements
-        IdentifiableLocalizable<SectionLanguageSettingsDTO> {
-    private static final long serialVersionUID = 4668205160387380803L;
+/**
+ * @composed - has 1..n QuestionDTO
+ */
+@SuppressWarnings("serial")
+public class SectionDTO extends AbstractAuditableDTO implements IdentifiableLocalizable<SectionLanguageSettingsDTO> {
 
     private Language language;
 
@@ -100,7 +102,7 @@ public class SectionDTO extends AbstractAuditableDTO implements
         Builder languageSettings(SectionLanguageSettingsDTO languageSettings);
 
         Builder relevance(String relevance);
-        
+
         SectionLanguageSettingsDTO.Builder pageLanguageSettingsStart();
     }
 
@@ -110,13 +112,13 @@ public class SectionDTO extends AbstractAuditableDTO implements
         private Boolean randomizationEnabled = Boolean.FALSE;
 
         private SectionLanguageSettingsDTO languageSettings;
-        
+
         private String relevance = "";
 
         @Override
         public SectionDTO build() {
             SectionDTO sectionDTO = new SectionDTO();
-            if (languageSettings == null){
+            if (languageSettings == null) {
                 languageSettings = pageLanguageSettingsStart().build();
             }
             sectionDTO.languageSettings = languageSettings;

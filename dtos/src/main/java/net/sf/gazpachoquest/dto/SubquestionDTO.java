@@ -16,8 +16,8 @@ import net.sf.gazpachoquest.dto.support.LanguageSettingsContainerBuilder;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 
+@SuppressWarnings("serial")
 public class SubquestionDTO extends AbstractQuestionDTO {
-    private static final long serialVersionUID = 2663159055152157679L;
 
     public SubquestionDTO() {
         super();
@@ -31,7 +31,7 @@ public class SubquestionDTO extends AbstractQuestionDTO {
         private QuestionLanguageSettingsDTO languageSettings;
         private QuestionType type;
         private final String relevance = "";
-        
+
         public SubquestionDTO build() {
             SubquestionDTO questionDTO = new SubquestionDTO();
             questionDTO.setId(id);

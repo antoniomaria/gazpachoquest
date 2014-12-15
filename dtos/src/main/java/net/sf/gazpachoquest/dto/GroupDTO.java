@@ -9,9 +9,8 @@ package net.sf.gazpachoquest.dto;
 
 import net.sf.gazpachoquest.dto.support.AbstractAuditableDTO;
 
+@SuppressWarnings("serial")
 public class GroupDTO extends AbstractAuditableDTO {
-
-    private static final long serialVersionUID = 7370786032611110768L;
 
     private String name;
 

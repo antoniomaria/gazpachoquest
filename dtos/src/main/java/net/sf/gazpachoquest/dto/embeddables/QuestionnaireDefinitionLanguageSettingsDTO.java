@@ -15,10 +15,9 @@ import net.sf.gazpachoquest.dto.support.LanguageSettingsDTO;
 
 import com.wordnik.swagger.annotations.ApiModel;
 
+@SuppressWarnings("serial")
 @ApiModel(value = "QuestionnaireDefinitionLanguageSettingsDTO", description = "Container for all text content inside the questionnair")
 public class QuestionnaireDefinitionLanguageSettingsDTO implements LanguageSettingsDTO {
-
-    private static final long serialVersionUID = 3452734192681766764L;
 
     private String description;
 

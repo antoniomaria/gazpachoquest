@@ -13,8 +13,8 @@ package net.sf.gazpachoquest.dto.embeddables;
 import net.sf.gazpachoquest.dto.support.LanguageSettingsContainerBuilder;
 import net.sf.gazpachoquest.dto.support.LanguageSettingsDTO;
 
+@SuppressWarnings("serial")
 public class QuestionLanguageSettingsDTO implements LanguageSettingsDTO {
-    private static final long serialVersionUID = 7670525018631065390L;
 
     private String title;
 
@@ -68,6 +68,7 @@ public class QuestionLanguageSettingsDTO implements LanguageSettingsDTO {
             this.title = title;
             return this;
         }
+
         public BuilderImpl<C> explanation(final String explanation) {
             this.explanation = explanation;
             return this;

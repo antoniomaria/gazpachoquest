@@ -6,9 +6,8 @@ import java.security.Principal;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+@SuppressWarnings("serial")
 public class RoleAccount implements Principal, Serializable {
-
-    private static final long serialVersionUID = 1780524780328722870L;
 
     private String name;
 

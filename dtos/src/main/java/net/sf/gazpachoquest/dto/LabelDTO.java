@@ -14,9 +14,8 @@ import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachoquest.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachoquest.types.Language;
 
+@SuppressWarnings("serial")
 public class LabelDTO extends AbstractIdentifiableDTO implements IdentifiableLocalizable<LabelLanguageSettingsDTO> {
-
-    private static final long serialVersionUID = 7715134426554617698L;
 
     private Language language;
 

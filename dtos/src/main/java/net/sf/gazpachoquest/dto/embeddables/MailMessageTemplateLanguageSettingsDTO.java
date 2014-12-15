@@ -11,13 +11,11 @@
 package net.sf.gazpachoquest.dto.embeddables;
 
 import net.sf.gazpachoquest.dto.MailMessageTemplateDTO;
-import net.sf.gazpachoquest.dto.MailMessageTemplateDTO.Builder;
 import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachoquest.dto.support.LanguageSettingsDTO;
 
+@SuppressWarnings("serial")
 public class MailMessageTemplateLanguageSettingsDTO extends AbstractIdentifiableDTO implements LanguageSettingsDTO {
-
-    private static final long serialVersionUID = -4959980255392017094L;
 
     private String body;
 

@@ -16,10 +16,9 @@ import net.sf.gazpachoquest.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
 
+@SuppressWarnings("serial")
 public class MailMessageTemplateDTO extends AbstractIdentifiableDTO implements
         IdentifiableLocalizable<MailMessageTemplateLanguageSettingsDTO> {
-
-    private static final long serialVersionUID = -3689140734668685289L;
 
     private String fromAddress;
 

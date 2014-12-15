@@ -20,8 +20,11 @@ import net.sf.gazpachoquest.dto.support.LanguageSettingsContainerBuilder;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 
+/**
+ * @composed - has 1..n SubquestionDTO
+ */
+@SuppressWarnings("serial")
 public class QuestionDTO extends AbstractQuestionDTO {
-    private static final long serialVersionUID = 2663159055152157679L;
 
     private final List<SubquestionDTO> subquestions = new ArrayList<>();
 
@@ -57,7 +60,7 @@ public class QuestionDTO extends AbstractQuestionDTO {
         private QuestionType type;
         private Integer number;
         private String relevance = "";
-        
+
         public BuilderImpl id(final Integer id) {
             this.id = id;
             return this;

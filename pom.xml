@@ -583,6 +583,63 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <profiles>
+    <profile>
+      <id>uml</id>
+      <activation>
+        <property>
+          <name>uml</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.9</version>
+            <executions>
+              <execution>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>javadoc</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <doclet>org.umlgraph.doclet.UmlGraph</doclet>
+              <docletPath>C:/Users/antonio/git/antoniomaria/gazpachoquest/uml/UmlGraph.jar</docletPath>			  
+			  <show>private</show>
+              <additionalparam>-views</additionalparam>
+              <reportOutputDirectory>${project.reporting.outputDirectory}/</reportOutputDirectory>
+              <destDir>uml</destDir>
+              <useStandardDocletOptions>no</useStandardDocletOptions>
+            </configuration>
+          </plugin>
+          <!-- mvn graphviz:dot -Duml=true -X -->
+          <plugin>
+            <groupId>us.bryon</groupId>
+            <artifactId>graphviz-maven-plugin</artifactId>
+            <version>1.0</version>
+
+            <executions>
+              <execution>
+                <phase>integration-test</phase>
+                <goals>
+                  <goal>dot</goal>
+                </goals>
+              </execution>
+            </executions>
+
+            <configuration>
+              <basedir>${project.reporting.outputDirectory}/uml</basedir>
+              <destdir>${project.build.directory}/graphviz</destdir>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
   <build>
     <plugins>
       <plugin>
@@ -648,11 +705,24 @@
               <name>has</name>
               <placement>X</placement>
             </tag>
+            <tag>
+              <name>composed</name>
+              <placement>X</placement>
+            </tag>
+            <tag>
+              <name>view</name>
+              <placement>X</placement>
+            </tag>
+            <tag>
+              <name>match</name>
+              <placement>X</placement>
+            </tag>
           </tags>
           <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
           <docletPath>C:/Users/antonio/git/antoniomaria/gazpachoquest/uml/UmlGraph.jar</docletPath>
           <!-- ignore javadoc errors -->
           <additionalparam>-Xdoclint:none</additionalparam>
+          <additionalparam>-view</additionalparam>
           <additionalparam>-inferrel</additionalparam>
           <additionalparam>-inferdep</additionalparam>
           <additionalparam>-collapsible</additionalparam>

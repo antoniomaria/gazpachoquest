@@ -14,9 +14,11 @@ import java.util.List;
 import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachoquest.types.Language;
 
+/**
+ * @composed - has 1..n LabelDTO
+ */
+@SuppressWarnings("serial")
 public class LabelSetDTO extends AbstractIdentifiableDTO {
-
-    private static final long serialVersionUID = -7715245634090394574L;
 
     private final List<LabelDTO> labels = new ArrayList<>();
 

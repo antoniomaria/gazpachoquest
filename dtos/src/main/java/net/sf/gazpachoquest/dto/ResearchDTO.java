@@ -17,17 +17,15 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
-
+@SuppressWarnings("serial")
 public class ResearchDTO extends AbstractAuditableDTO {
 
-    private static final long serialVersionUID = -8624509103476946501L;
-    
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime expirationDate;
 
     private String name;
-    
+
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime startDate;
@@ -106,7 +104,7 @@ public class ResearchDTO extends AbstractAuditableDTO {
             this.id = id;
             return this;
         }
-        
+
         public Builder name(String name) {
             this.name = name;
             return this;

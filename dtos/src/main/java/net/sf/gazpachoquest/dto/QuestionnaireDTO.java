@@ -15,9 +15,8 @@ import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
 import com.wordnik.swagger.annotations.ApiModel;
 
 @ApiModel(value = "QuestionnaireDTO", description = "Questionnair resource representation")
+@SuppressWarnings("serial")
 public class QuestionnaireDTO extends AbstractIdentifiableDTO {
-
-    private static final long serialVersionUID = 1067156345771109606L;
 
     public QuestionnaireDTO() {
         super();

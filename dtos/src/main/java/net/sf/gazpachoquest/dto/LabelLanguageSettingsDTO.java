@@ -12,9 +12,8 @@ package net.sf.gazpachoquest.dto;
 
 import net.sf.gazpachoquest.dto.support.LanguageSettingsDTO;
 
+@SuppressWarnings("serial")
 public class LabelLanguageSettingsDTO implements LanguageSettingsDTO {
-
-    private static final long serialVersionUID = 8022490578017125663L;
 
     private String title;
 

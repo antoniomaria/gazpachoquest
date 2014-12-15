@@ -23,10 +23,9 @@ import net.sf.gazpachoquest.dto.embeddables.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 
+@SuppressWarnings("serial")
 public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implements
         IdentifiableLocalizable<QuestionLanguageSettingsDTO> {
-
-    private static final long serialVersionUID = 7798904943703068684L;
 
     protected String code;
 
@@ -44,7 +43,7 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
 
     @XmlTransient
     protected Answer answer;
-    
+
     private String relevance;
 
     protected AbstractQuestionDTO() {
@@ -58,7 +57,7 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
     public void setRelevance(String relevance) {
         this.relevance = relevance;
     }
-    
+
     public String getCode() {
         return code;
     }

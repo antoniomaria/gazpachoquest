@@ -2,13 +2,12 @@ package net.sf.gazpachoquest.dto;
 
 import net.sf.gazpachoquest.types.InvitationType;
 
-public class PersonalInvitationDTO extends InvitationDTO{
-    
-    private static final long serialVersionUID = 3478435429719736340L;
-    
+@SuppressWarnings("serial")
+public class PersonalInvitationDTO extends InvitationDTO {
+
     private UserDTO respondent;
 
-    public PersonalInvitationDTO(){
+    public PersonalInvitationDTO() {
         super();
         super.setType(InvitationType.PERSONAL);
     }
@@ -20,5 +19,5 @@ public class PersonalInvitationDTO extends InvitationDTO{
     public void setRespondent(UserDTO respondent) {
         this.respondent = respondent;
     }
-    
+
 }

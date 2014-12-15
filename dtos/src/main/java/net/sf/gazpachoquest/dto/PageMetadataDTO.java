@@ -4,9 +4,8 @@ import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@SuppressWarnings("serial")
 public class PageMetadataDTO implements Serializable {
-
-    private static final long serialVersionUID = -8181067033196617785L;
 
     private int count;
 
