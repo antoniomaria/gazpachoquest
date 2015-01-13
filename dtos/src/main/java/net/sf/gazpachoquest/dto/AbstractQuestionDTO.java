@@ -8,7 +8,7 @@
  * Contributors:
  *     antoniomaria - initial API and implementation
  ******************************************************************************/
-package net.sf.gazpachoquest.dto.support;
+package net.sf.gazpachoquest.dto;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,12 +20,18 @@ import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.answers.AbstractAnswer;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.embeddables.QuestionLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
+import net.sf.gazpachoquest.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 
 @SuppressWarnings("serial")
+
+/**
+ * @opt inferreltype composed
+ */
 public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implements
-        IdentifiableLocalizable<QuestionLanguageSettingsDTO> {
+        IdentifiableLocalizable<QuestionLanguageSettingsDTO>{
 
     protected String code;
 

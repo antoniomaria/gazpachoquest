@@ -16,7 +16,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-
+/**
+ * @opt inferreltype assoc
+ *
+ */
 @SuppressWarnings("serial")
 public class ResearchDTO extends AbstractAuditableDTO {
 

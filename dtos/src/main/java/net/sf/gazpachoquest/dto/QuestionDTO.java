@@ -15,15 +15,15 @@ import java.util.Collections;
 import java.util.List;
 
 import net.sf.gazpachoquest.dto.embeddables.QuestionLanguageSettingsDTO;
-import net.sf.gazpachoquest.dto.support.AbstractQuestionDTO;
 import net.sf.gazpachoquest.dto.support.LanguageSettingsContainerBuilder;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 
-/**
- * @composed - has 1..n SubquestionDTO
- */
 @SuppressWarnings("serial")
+
+/**
+ * @opt inferreltype composed
+ */
 public class QuestionDTO extends AbstractQuestionDTO {
 
     private final List<SubquestionDTO> subquestions = new ArrayList<>();

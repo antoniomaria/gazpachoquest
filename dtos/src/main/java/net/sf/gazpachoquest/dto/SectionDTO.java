@@ -21,9 +21,6 @@ import net.sf.gazpachoquest.types.Language;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-/**
- * @composed - has 1..n QuestionDTO
- */
 @SuppressWarnings("serial")
 public class SectionDTO extends AbstractAuditableDTO implements IdentifiableLocalizable<SectionLanguageSettingsDTO> {
 

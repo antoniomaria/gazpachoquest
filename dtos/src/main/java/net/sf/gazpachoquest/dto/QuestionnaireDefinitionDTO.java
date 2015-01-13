@@ -26,9 +26,6 @@ import net.sf.gazpachoquest.types.RenderingMode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 
-/**
- * @composed - has 1..n SectionDTO
- */
 @SuppressWarnings("serial")
 public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         IdentifiableLocalizable<QuestionnaireDefinitionLanguageSettingsDTO> {
