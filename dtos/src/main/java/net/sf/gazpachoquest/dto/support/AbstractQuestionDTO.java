@@ -8,7 +8,7 @@
  * Contributors:
  *     antoniomaria - initial API and implementation
  ******************************************************************************/
-package net.sf.gazpachoquest.dto;
+package net.sf.gazpachoquest.dto.support;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -11,6 +11,7 @@
 package net.sf.gazpachoquest.dto;
 
 import net.sf.gazpachoquest.dto.embeddables.QuestionLanguageSettingsDTO;
+import net.sf.gazpachoquest.dto.support.AbstractQuestionDTO;
 import net.sf.gazpachoquest.dto.support.LanguageSettingsContainerBuilder;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;

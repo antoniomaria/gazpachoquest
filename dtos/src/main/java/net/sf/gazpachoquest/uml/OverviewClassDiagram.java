@@ -13,7 +13,7 @@ package net.sf.gazpachoquest.uml;
  * @match class net.sf.gazpachoquest.dto.SectionDTO
  * @opt !hide
  * 
- * @match class net.sf.gazpachoquest.dto.AbstractQuestionDTO
+ * @match class net.sf.gazpachoquest.dto.support.AbstractQuestionDTO
  * @opt !hide
  * 
  * @match class net.sf.gazpachoquest.dto.QuestionOptionDTO
