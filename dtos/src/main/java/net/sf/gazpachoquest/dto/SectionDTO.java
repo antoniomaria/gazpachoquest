@@ -22,6 +22,7 @@ import net.sf.gazpachoquest.types.Language;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
+ * @note Parts a questionnaire definintion can be divided into 
  * @composed 1 has 0..* QuestionDTO
  */
 @SuppressWarnings("serial")

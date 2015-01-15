@@ -18,8 +18,8 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 /**
+ * @note Representation of a study, survey or poll
  * @assoc 1 conducted - QuestionnaireDefinitionDTO 
- *
  */
 @SuppressWarnings("serial")
 public class ResearchDTO extends AbstractAuditableDTO {

@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 
 /**
+ * @note Representation of the application form template used to carry out the research 
  * @composed 1 has 0..* SectionDTO
  */
 @SuppressWarnings("serial")
