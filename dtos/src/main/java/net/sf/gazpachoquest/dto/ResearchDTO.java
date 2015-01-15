@@ -1,10 +1,10 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com. All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0 which accompanies this distribution, and is
  * available at http://www.gnu.org/licenses/gpl.html
  * 
  * Contributors: antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.dto;
 
 import java.time.LocalDateTime;
@@ -16,8 +16,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
 /**
- * @opt inferreltype assoc
+ * @assoc 1 conducted - QuestionnaireDefinitionDTO 
  *
  */
 @SuppressWarnings("serial")

@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
- * @composed - has 1..* Answer
+ * @composed - has 1..* SimpleAnswer
  */
 @SuppressWarnings("serial")
 public class MultipleAnswer extends AbstractAnswer {

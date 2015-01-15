@@ -1,8 +1,6 @@
 package net.sf.gazpachoquest.uml;
 
 /**
- * @opt inferrel
- * @opt inferreltype composed
  * @opt collpackages java.util.*
  * @opt useimports
  * 

@@ -1,13 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2014 antoniomariasanchez at gmail.com.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the GNU Public License v3.0
- * which accompanies this distribution, and is available at
- * http://www.gnu.org/licenses/gpl.html
- * 
- * Contributors:
- *     antoniomaria - initial API and implementation
- ******************************************************************************/
 package net.sf.gazpachoquest.dto.support;
 
 import java.util.ArrayList;
@@ -20,16 +10,23 @@ import net.sf.gazpachoquest.dto.QuestionOptionDTO;
 import net.sf.gazpachoquest.dto.answers.AbstractAnswer;
 import net.sf.gazpachoquest.dto.answers.Answer;
 import net.sf.gazpachoquest.dto.embeddables.QuestionLanguageSettingsDTO;
-import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
-import net.sf.gazpachoquest.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 
-@SuppressWarnings("serial")
-
 /**
- * @opt inferreltype composed
+ * Copyright (c) 2014 antoniomariasanchez at gmail.com.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ * 
+ * Contributors:
+ *     antoniomaria - initial API and implementation
+ *     
+ * @composed 1 has 0..* net.sf.gazpachoquest.dto.QuestionOptionDTO
+ * @assoc 1 reply - net.sf.gazpachoquest.dto.answers.Answer
  */
+@SuppressWarnings("serial")
 public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implements
         IdentifiableLocalizable<QuestionLanguageSettingsDTO>{
 

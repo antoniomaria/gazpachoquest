@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -20,11 +20,10 @@ import net.sf.gazpachoquest.dto.support.LanguageSettingsContainerBuilder;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 
-@SuppressWarnings("serial")
-
 /**
- * @opt inferreltype composed
+ * @composed 1 has 1..* SubquestionDTO
  */
+@SuppressWarnings("serial")
 public class QuestionDTO extends AbstractQuestionDTO {
 
     private final List<SubquestionDTO> subquestions = new ArrayList<>();

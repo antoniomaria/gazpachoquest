@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.dto;
 
 import java.util.ArrayList;
@@ -21,6 +21,9 @@ import net.sf.gazpachoquest.types.Language;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * @composed 1 has 0..* QuestionDTO
+ */
 @SuppressWarnings("serial")
 public class SectionDTO extends AbstractAuditableDTO implements IdentifiableLocalizable<SectionLanguageSettingsDTO> {
 
