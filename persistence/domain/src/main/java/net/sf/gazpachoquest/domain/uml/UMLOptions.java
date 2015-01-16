@@ -1,10 +1,10 @@
-package net.sf.gazpachoquest.uml;
+package net.sf.gazpachoquest.domain.uml;
 
 /**
  * @opt collpackages java.util.*
  * @opt useimports
  * 
- * @match class java.*|org.xml.*
+ * @match class java.*|org.xml.*|net.sf.gazpachoquest.*
  * @opt hide 
  * 
  * @opt postfixpackage

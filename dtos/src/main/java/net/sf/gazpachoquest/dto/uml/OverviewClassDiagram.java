@@ -1,4 +1,4 @@
-package net.sf.gazpachoquest.uml;
+package net.sf.gazpachoquest.dto.uml;
 
 /**
  * @view
