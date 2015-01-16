@@ -30,7 +30,11 @@ import net.sf.gazpachoquest.jpa.converter.ResearchAccessTypeConverter;
 import net.sf.gazpachoquest.types.EntityStatus;
 import net.sf.gazpachoquest.types.ResearchAccessType;
 
-
+/**
+ * @assoc 1 uses 1 QuestionnaireDefinition
+ * @has 1 conductedBy 1..* Questionnaire
+ * @has 1 areSended 1..* net.sf.gazpachoquest.domain.support.Invitation
+ */
 @SuppressWarnings("serial")
 @Entity
 public class Research extends AbstractSecurizable<ResearchPermission> {

@@ -36,7 +36,10 @@ import net.sf.gazpachoquest.types.Gender;
 import net.sf.gazpachoquest.types.Language;
 
 import org.eclipse.persistence.annotations.Converter;
-
+/**
+ *  @assoc 1 fills 1..* Questionnaire
+ *
+ */
 @SuppressWarnings({ "serial" })
 @Entity
 @Table(name = "users")

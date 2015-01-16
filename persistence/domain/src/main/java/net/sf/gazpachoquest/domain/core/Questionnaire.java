@@ -30,6 +30,9 @@ import net.sf.gazpachoquest.types.EntityStatus;
 
 import org.springframework.util.Assert;
 
+/**
+ * @assoc 1 holds 1 QuestionnaireAnswers
+ */
 @SuppressWarnings("serial")
 @Entity
 public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> {

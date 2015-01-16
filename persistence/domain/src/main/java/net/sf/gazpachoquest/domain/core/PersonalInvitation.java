@@ -16,6 +16,10 @@ import net.sf.gazpachoquest.domain.support.Invitation;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.types.InvitationStatus;
 
+/**
+ * @note Represent a personal invitation token
+ * @assoc - issuedTo 1 User
+ */
 @SuppressWarnings("serial")
 @Entity
 @DiscriminatorValue("P")

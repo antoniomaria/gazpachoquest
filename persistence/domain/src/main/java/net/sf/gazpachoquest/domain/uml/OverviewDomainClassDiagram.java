@@ -34,6 +34,8 @@ package net.sf.gazpachoquest.domain.uml;
  * @match class net.sf.gazpachoquest.domain.support.Invitation
  * @opt !hide
  * 
+ * @match class net.sf.gazpachoquest.domain.user.User
+ * @opt !hide
  */
 public class OverviewDomainClassDiagram {
 
