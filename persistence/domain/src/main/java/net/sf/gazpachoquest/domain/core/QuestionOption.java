@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.domain.core;
 
 import java.util.Collections;
@@ -32,10 +32,9 @@ import net.sf.gazpachoquest.domain.i18.QuestionOptionTranslation;
 import net.sf.gazpachoquest.domain.support.AbstractLocalizable;
 import net.sf.gazpachoquest.types.Language;
 
+@SuppressWarnings("serial")
 @Entity
 public class QuestionOption extends AbstractLocalizable<QuestionOptionTranslation, QuestionOptionLanguageSettings> {
-
-    private static final long serialVersionUID = 2405587054509407178L;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Question question;

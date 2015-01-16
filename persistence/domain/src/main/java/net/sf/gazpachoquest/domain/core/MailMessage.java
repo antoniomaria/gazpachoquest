@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.domain.core;
 
 import java.time.LocalDateTime;
@@ -20,10 +20,9 @@ import javax.persistence.Lob;
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
 import net.sf.gazpachoquest.jpa.converter.LocalDateTimeConverter;
 
+@SuppressWarnings("serial")
 @Entity
 public class MailMessage extends AbstractPersistable {
-
-    private static final long serialVersionUID = 2597367892321945501L;
 
     @Column(nullable = false)
     private String subject;

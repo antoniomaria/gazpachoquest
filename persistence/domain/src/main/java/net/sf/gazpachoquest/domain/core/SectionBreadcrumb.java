@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.domain.core;
 
 import java.util.ArrayList;
@@ -26,11 +26,10 @@ import org.springframework.util.Assert;
 
 import net.sf.gazpachoquest.types.RenderingMode;
 
+@SuppressWarnings("serial")
 @Entity
 @DiscriminatorValue("S")
 public class SectionBreadcrumb extends Breadcrumb {
-
-    private static final long serialVersionUID = -1490244249723723725L;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Section section;

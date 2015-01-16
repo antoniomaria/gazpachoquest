@@ -11,11 +11,10 @@ import javax.persistence.ManyToMany;
 
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
 
+@SuppressWarnings("serial")
 @Entity
 public class Role extends AbstractPersistable {
 
-    private static final long serialVersionUID = 2224168321199809660L;
-  
     @Column(nullable = false)
     private String name;
 

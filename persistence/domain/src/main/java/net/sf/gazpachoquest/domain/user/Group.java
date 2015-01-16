@@ -12,11 +12,10 @@ import javax.persistence.Table;
 
 import net.sf.gazpachoquest.domain.support.AbstractAuditable;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "groups")
 public class Group extends AbstractAuditable {
-
-    private static final long serialVersionUID = 2209952243152855595L;
 
     @Column(nullable = false)
     private String name;

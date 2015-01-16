@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.domain.core;
 
 import java.util.Map;
@@ -29,9 +29,8 @@ import net.sf.gazpachoquest.domain.support.AbstractLocalizable;
 import net.sf.gazpachoquest.types.Language;
 
 @Entity
+@SuppressWarnings("serial")
 public class Label extends AbstractLocalizable<LabelTranslation, LabelLanguageSettings> {
-
-    private static final long serialVersionUID = -7124703628441903468L;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private LabelSet labelSet;

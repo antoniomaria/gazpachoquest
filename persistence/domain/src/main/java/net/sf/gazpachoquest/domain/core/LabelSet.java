@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.domain.core;
 
 import java.util.ArrayList;
@@ -26,10 +26,9 @@ import javax.persistence.OrderColumn;
 import net.sf.gazpachoquest.domain.support.AbstractPersistable;
 import net.sf.gazpachoquest.types.Language;
 
+@SuppressWarnings("serial")
 @Entity
 public class LabelSet extends AbstractPersistable {
-
-    private static final long serialVersionUID = -8780599348940056785L;
 
     @Column(nullable = false)
     private String name;

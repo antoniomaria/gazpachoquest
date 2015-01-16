@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.domain.core;
 
 import javax.persistence.Basic;
@@ -26,13 +26,12 @@ import net.sf.gazpachoquest.domain.support.AbstractAuditable;
 import net.sf.gazpachoquest.jpa.converter.RenderingModeConverter;
 import net.sf.gazpachoquest.types.RenderingMode;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "breadcrumb")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
 public class Breadcrumb extends AbstractAuditable {
-
-    private static final long serialVersionUID = 8807488300208839486L;
 
     @ManyToOne(fetch = FetchType.LAZY)
     protected Questionnaire questionnaire;

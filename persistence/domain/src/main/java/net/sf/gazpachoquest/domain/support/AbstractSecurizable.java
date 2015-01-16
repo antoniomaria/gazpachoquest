@@ -9,10 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
+@SuppressWarnings("serial")
 @MappedSuperclass
 public abstract class AbstractSecurizable<P extends Persistable> extends AbstractAuditable implements Securizable<P> {
-
-    private static final long serialVersionUID = 9040563151924304649L;
 
     @OneToMany(mappedBy = "target", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private final Set<P> permissions = new HashSet<P>();

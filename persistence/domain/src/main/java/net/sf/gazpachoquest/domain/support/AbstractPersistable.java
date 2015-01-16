@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.domain.support;
 
 import javax.persistence.GeneratedValue;
@@ -22,11 +22,10 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+@SuppressWarnings("serial")
 @MappedSuperclass
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AbstractPersistable implements Persistable {
-
-    private static final long serialVersionUID = -7123026384985572646L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
