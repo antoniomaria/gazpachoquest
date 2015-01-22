@@ -82,7 +82,10 @@ public class QuestionnaireDefinitionTranslation extends AbstractPersistable impl
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder implements
             TranslationBuilder<QuestionnaireDefinitionTranslation, QuestionnaireDefinitionLanguageSettings> {
         private QuestionnaireDefinition questionnaireDefinition;

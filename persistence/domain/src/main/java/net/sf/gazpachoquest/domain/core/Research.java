@@ -123,7 +123,10 @@ public class Research extends AbstractSecurizable<ResearchPermission> {
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private String name;

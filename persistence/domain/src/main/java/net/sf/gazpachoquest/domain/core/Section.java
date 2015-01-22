@@ -167,7 +167,10 @@ public class Section extends AbstractLocalizable<SectionTranslation, SectionLang
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private QuestionnaireDefinition questionnaireDefinition;

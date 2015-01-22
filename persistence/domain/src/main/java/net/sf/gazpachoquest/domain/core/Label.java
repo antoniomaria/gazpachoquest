@@ -91,7 +91,10 @@ public class Label extends AbstractLocalizable<LabelTranslation, LabelLanguageSe
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private LabelSet labelSet;

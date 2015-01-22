@@ -61,7 +61,10 @@ public class QuestionBreadcrumb extends Breadcrumb {
     public void setQuestionNumber(Integer questionNumber) {
         this.questionNumber = questionNumber;
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
 

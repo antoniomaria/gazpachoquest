@@ -134,7 +134,10 @@ public class Questionnaire extends AbstractSecurizable<QuestionnairePermission> 
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private EntityStatus status;

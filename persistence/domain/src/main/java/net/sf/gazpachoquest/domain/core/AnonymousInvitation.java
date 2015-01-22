@@ -29,6 +29,9 @@ public class AnonymousInvitation extends Invitation {
         return new Builder();
     }
 
+    /**
+     * @hidden 
+     */
     public static class Builder extends Invitation.Builder {
 
         private String token;

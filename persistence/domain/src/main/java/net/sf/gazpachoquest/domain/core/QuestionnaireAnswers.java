@@ -96,7 +96,10 @@ public class QuestionnaireAnswers implements Persistable {
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private Map<String, Object> answers;

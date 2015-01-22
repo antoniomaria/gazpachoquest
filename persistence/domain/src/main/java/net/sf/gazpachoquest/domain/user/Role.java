@@ -56,7 +56,10 @@ public class Role extends AbstractPersistable {
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private String name;

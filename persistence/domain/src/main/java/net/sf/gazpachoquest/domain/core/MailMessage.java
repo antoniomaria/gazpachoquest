@@ -109,7 +109,10 @@ public class MailMessage extends AbstractPersistable {
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private String subject;
         private String to;

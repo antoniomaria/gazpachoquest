@@ -37,8 +37,8 @@ import net.sf.gazpachoquest.types.Language;
 
 import org.eclipse.persistence.annotations.Converter;
 /**
- *  @assoc 1 fills 1..* Questionnaire
- *
+ *  @assoc 1 fills 1..* net.sf.gazpachoquest.domain.core.Questionnaire
+ *  @assoc 0..* has 0..* Role
  */
 @SuppressWarnings({ "serial" })
 @Entity
@@ -217,7 +217,10 @@ public class User extends AbstractSecurizable<UserPermission> {
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private String username;

@@ -3,14 +3,14 @@ package net.sf.gazpachoquest.domain.permission;
 import javax.persistence.Entity;
 
 import net.sf.gazpachoquest.domain.core.QuestionnaireDefinition;
+import net.sf.gazpachoquest.domain.support.AbstractPermission;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.types.Perm;
 
+@SuppressWarnings("serial")
 @Entity
 public class QuestionnaireDefinitionPermission extends AbstractPermission<QuestionnaireDefinition> {
-
-    private static final long serialVersionUID = 8330893603469347818L;
 
     public QuestionnaireDefinitionPermission() {
         super();
@@ -24,7 +24,10 @@ public class QuestionnaireDefinitionPermission extends AbstractPermission<Questi
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private User user;

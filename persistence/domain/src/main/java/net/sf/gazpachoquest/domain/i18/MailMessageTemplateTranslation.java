@@ -78,7 +78,10 @@ public class MailMessageTemplateTranslation extends AbstractAuditable implements
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder implements
             TranslationBuilder<MailMessageTemplateTranslation, MailMessageTemplateLanguageSettings> {
         private MailMessageTemplate mailMessageTemplate;

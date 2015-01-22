@@ -54,7 +54,7 @@ import net.sf.gazpachoquest.types.RenderingMode;
  * @note Representation of the application form template used to carry out the research 
  * @composed 1 has 0..* Section
  */
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "unchecked" })
 @Entity
 @XmlRootElement
 @XmlType(propOrder = { "language", "languageSettings", "sections", "mailTemplates", "translations", "welcomeVisible",
@@ -268,7 +268,10 @@ public class QuestionnaireDefinition
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private EntityStatus status;

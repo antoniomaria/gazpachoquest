@@ -134,7 +134,10 @@ public class MailMessageTemplate extends
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private QuestionnaireDefinition questionnaireDefinition;

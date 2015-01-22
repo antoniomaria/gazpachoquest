@@ -1,4 +1,4 @@
-package net.sf.gazpachoquest.domain.permission;
+package net.sf.gazpachoquest.domain.support;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -7,17 +7,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
-import net.sf.gazpachoquest.domain.support.AbstractPersistable;
-import net.sf.gazpachoquest.domain.support.Permission;
-import net.sf.gazpachoquest.domain.support.Securizable;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.types.Perm;
 
 @MappedSuperclass
-public class AbstractPermission<T extends Securizable<?>> extends AbstractPersistable implements Permission<T> {
-
-    private static final long serialVersionUID = 6599066653542691509L;
+public abstract class AbstractPermission<T extends Securizable> extends AbstractPersistable implements Permission<T> {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     protected User user;
@@ -29,11 +24,11 @@ public class AbstractPermission<T extends Securizable<?>> extends AbstractPersis
 
     protected T target;
 
-    public AbstractPermission() {
+    protected AbstractPermission() {
         super();
     }
 
-    public AbstractPermission(Integer id, User user, Role role, Integer mask, T target) {
+    protected AbstractPermission(Integer id, User user, Role role, Integer mask, T target) {
         super();
         super.setId(id);
         this.user = user;
@@ -47,7 +42,7 @@ public class AbstractPermission<T extends Securizable<?>> extends AbstractPersis
         return user;
     }
 
-    public void setUser(User user) {
+    protected void setUser(User user) {
         this.user = user;
     }
 
@@ -78,9 +73,7 @@ public class AbstractPermission<T extends Securizable<?>> extends AbstractPersis
         this.target = target;
     }
 
-    @SuppressWarnings("unchecked")
     @Transient
-    @Override
     public String getLiteral() {
         ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
         Class<T> targetClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];

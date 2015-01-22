@@ -74,7 +74,10 @@ public class Breadcrumb extends AbstractAuditable {
     public void setRenderingMode(RenderingMode renderingMode) {
         this.renderingMode = renderingMode;
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class BuilderImpl {
         private Integer id;
         private Questionnaire questionnaire;

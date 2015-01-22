@@ -83,7 +83,10 @@ public class LabelTranslation extends AbstractPersistable implements Translation
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder implements TranslationBuilder<LabelTranslation, LabelLanguageSettings> {
         private Label label;
         private Language language;

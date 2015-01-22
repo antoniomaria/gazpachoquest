@@ -58,7 +58,10 @@ public class Group extends AbstractAuditable {
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private String name;

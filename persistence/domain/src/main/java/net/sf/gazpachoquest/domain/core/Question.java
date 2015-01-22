@@ -285,6 +285,9 @@ public class Question extends AbstractLocalizable<QuestionTranslation, QuestionL
         return new Builder();
     }
 
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private String code;

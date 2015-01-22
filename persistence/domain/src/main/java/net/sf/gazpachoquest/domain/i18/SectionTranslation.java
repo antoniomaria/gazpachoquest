@@ -80,7 +80,10 @@ public class SectionTranslation extends AbstractPersistable implements Translati
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder implements TranslationBuilder<SectionTranslation, SectionLanguageSettings> {
         private Section section;
         private Language language;

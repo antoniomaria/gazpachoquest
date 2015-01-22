@@ -102,7 +102,10 @@ public class QuestionOption extends AbstractLocalizable<QuestionOptionTranslatio
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private Question question;

@@ -2,6 +2,7 @@ package net.sf.gazpachoquest.domain.permission;
 
 import javax.persistence.Entity;
 
+import net.sf.gazpachoquest.domain.support.AbstractPermission;
 import net.sf.gazpachoquest.domain.user.Directory;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
@@ -23,7 +24,10 @@ public class DirectoryPermission extends AbstractPermission<Directory> {
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private User user;

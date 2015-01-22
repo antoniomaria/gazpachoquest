@@ -79,7 +79,10 @@ public class SectionBreadcrumb extends Breadcrumb {
     public static SectionBreadcrumb.Builder with() {
         return new SectionBreadcrumb.Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
 

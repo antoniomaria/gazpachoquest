@@ -43,7 +43,10 @@ public class PersonalInvitation extends Invitation {
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder extends Invitation.Builder {
 
         private String token;

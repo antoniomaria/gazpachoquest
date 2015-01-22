@@ -61,7 +61,10 @@ public class Directory extends AbstractSecurizable<DirectoryPermission> {
     public Set<User> getUsers() {
         return Collections.unmodifiableSet(users);
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private String name;
         private String description;

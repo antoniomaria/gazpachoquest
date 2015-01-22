@@ -77,7 +77,10 @@ public class QuestionTranslation extends AbstractPersistable implements Translat
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder implements TranslationBuilder<QuestionTranslation, QuestionLanguageSettings> {
         private Question question;
         private Language language;
