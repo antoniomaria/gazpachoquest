@@ -5,6 +5,7 @@ GazpachoQuest is general purpose tool for collecting answers through dynamic web
 At this moment all the effort has been spent on provide a powerful, REST Gateway which exposes all features, ready to be consumed by others applications as a front-end. 
 
 [![Build Status](https://travis-ci.org/antoniomaria/gazpachoquest.svg?branch=master)](https://travis-ci.org/antoniomaria/gazpachoquest)
+[![Coverage Status](https://coveralls.io/repos/antoniomaria/gazpachoquest/badge.svg?branch=master)](https://coveralls.io/r/antoniomaria/gazpachoquest?branch=master)
 
 ## Highligh features
 
@@ -26,7 +27,7 @@ At this moment all the effort has been spent on provide a powerful, REST Gateway
 
 ## Contributing
 
-Contributions are welcome, in any form including code contributions, bug reports, feature suggestions, documentation, testing, and general feedback. Issues can be submitted on the [Github page][1]. For further information, contact to: <mailto:antoniomariasanchez@gmail.com>
+Contributions are welcome, in any form including code contributions, bug reports, feature suggestions, documentation, testing, and general feedback. Issues can be submitted on the [Github page][1]. For further information, contact to: <mailto:antoniomariasanchez@gmail.com> or visit [wiki developer section](https://github.com/antoniomaria/gazpachoquest/wiki/Developers)
 
 ## Versioning
 
