@@ -2,7 +2,12 @@ package net.sf.gazpachoquest.domain.uml;
 
 /**
  * @view
+ * 
  * @opt attributes
+ * @opt !constructors
+ * @opt nodefontpackagesize 8
+ * 
+ * @opt hide
  * 
  * @match class net.sf.gazpachoquest.domain.core.QuestionnaireDefinition
  * @opt !hide
