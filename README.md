@@ -1,3 +1,4 @@
+[![Coverage Status](https://coveralls.io/repos/antoniomaria/gazpachoquest/badge.svg?branch=master)](https://coveralls.io/r/antoniomaria/gazpachoquest?branch=master)
 [![Build Status](https://travis-ci.org/antoniomaria/gazpachoquest.svg?branch=master)](https://travis-ci.org/antoniomaria/gazpachoquest)
 
 
