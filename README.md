@@ -1,11 +1,12 @@
+[![Build Status](https://travis-ci.org/antoniomaria/gazpachoquest.svg?branch=master)](https://travis-ci.org/antoniomaria/gazpachoquest)
+[![Coverage Status](https://coveralls.io/repos/antoniomaria/gazpachoquest/badge.svg?branch=master)](https://coveralls.io/r/antoniomaria/gazpachoquest?branch=master)
+
 # GazpachoQuest a Questionnaire Tool
 
 GazpachoQuest is general purpose tool for collecting answers through dynamic web form. The main advantage over other alternatives is its loose coupled architecture based on
 [Microservices Architecture](http://www.infoq.com/articles/microservices-intro) which ensures concern-separation.
 At this moment all the effort has been spent on provide a powerful, REST Gateway which exposes all features, ready to be consumed by others applications as a front-end. 
 
-[![Build Status](https://travis-ci.org/antoniomaria/gazpachoquest.svg?branch=master)](https://travis-ci.org/antoniomaria/gazpachoquest)
-[![Coverage Status](https://coveralls.io/repos/antoniomaria/gazpachoquest/badge.svg?branch=master)](https://coveralls.io/r/antoniomaria/gazpachoquest?branch=master)
 
 ## Highligh features
 

@@ -684,14 +684,31 @@
         <artifactId>coveralls-maven-plugin</artifactId>
         <version>3.0.1</version>
         <configuration>
-          <repoToken>1234</repoToken>
+          <repoToken>crJW78njICUIlG4lmOel0oN5Wyev8wy0N</repoToken>
         </configuration>
       </plugin>
-
+      
+      <!-- mvn clean test jacoco:report coveralls:report -->
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.7.2.201409121644</version>
+        <configuration>
+          <excludes>
+            <exclude>**/api/**</exclude>
+            <exclude>**/dto/**</exclude>
+            <exclude>**/domain/**</exclude>
+            <exclude>**/types/**</exclude>
+            <exclude>**/jpa/**</exclude>
+            <exclude>**/qbe/**</exclude>
+            <excludes>**/questionnaires/**</excludes>
+            <excludes>**/codelab/**</excludes>
+            <excludes>**/exporter/**</excludes>
+            <excludes>**/importer/**</excludes>
+            <excludes>**/dbpopulator/**</excludes>
+            <excludes>**/ddlgenerator/**</excludes>
+          </excludes>
+        </configuration>
         <executions>
           <execution>
             <id>prepare-agent</id>
