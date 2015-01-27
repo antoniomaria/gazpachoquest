@@ -63,6 +63,13 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-transports-http-jetty</artifactId>
+      <version>3.0.2</version>
+    </dependency>
+    
+
     <!-- JDBC drivers -->
     <!-- Used for demo purposes -->
     <dependency>
@@ -302,25 +309,6 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.apache.tomcat.maven</groupId>
-          <artifactId>tomcat7-maven-plugin</artifactId>
-          <version>2.0</version>
-          <executions>
-            <execution>
-              <id>default-cli</id>
-              <goals>
-                <goal>run</goal>
-              </goals>
-              <configuration>
-                <port>8080</port>
-                <path>/gazpachoquest-rest-web</path>
-                <useSeparateTomcatClassLoader>true</useSeparateTomcatClassLoader>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-
-        <plugin>
           <groupId>org.eclipse.m2e</groupId>
           <artifactId>lifecycle-mapping</artifactId>
           <version>1.0.0</version>
@@ -371,16 +359,17 @@
           </execution>
         </executions>
       </plugin>
-
-      <!-- Start tomcat in integration phase <plugin> <groupId>org.apache.tomcat.maven</groupId> <artifactId>tomcat7-maven-plugin</artifactId> 
-        <executions> <execution> <id>start-tomcat</id> <goals> <goal>run-war</goal> </goals> <phase>pre-integration-test</phase> <configuration> 
-        <port>${test.server.port}</port> <path>/jaxrs-service</path> <fork>true</fork> <useSeparateTomcatClassLoader>true</useSeparateTomcatClassLoader> 
-        </configuration> </execution> <execution> <id>stop-tomcat</id> <goals> <goal>shutdown</goal> </goals> <phase>post-integration-test</phase> 
-        <configuration> <path>/jaxrs-service</path> </configuration> </execution> </executions> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> 
-        <artifactId>maven-failsafe-plugin</artifactId> <version>2.8.1</version> <executions> <execution> <id>integration-test</id> <goals> 
-        <goal>integration-test</goal> </goals> <configuration> <systemPropertyVariables> <service.url>http://localhost:${test.server.port}/jaxrs-service</service.url> 
-        </systemPropertyVariables> </configuration> </execution> <execution> <id>verify</id> <goals> <goal>verify</goal> </goals> </execution> 
-        </executions> </plugin> -->
+      
+       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.18.1</version>
+        <configuration>
+          <systemPropertyVariables>
+            <basePath>http://localhost:${test.server.port}/api</basePath>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
