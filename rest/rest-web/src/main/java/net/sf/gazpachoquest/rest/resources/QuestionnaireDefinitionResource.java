@@ -45,8 +45,8 @@ public class QuestionnaireDefinitionResource {
     @ApiOperation(value = "Returns questionnaire definitions available", response = PageDTO.class)
     @ApiResponses(value = { @ApiResponse(code = 404, message = "Not enough access rights"),
             @ApiResponse(code = 200, message = "Questionnaire Definitions available") })
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public PageDTO<QuestionnaireDefinitionDTO> getQuestionnaireDefinitions(
             @NotNull @ApiParam(name = "pageNumber", value = "Refers page number", required = true) @QueryParam("pageNumber") Integer pageNumber,
             @NotNull @ApiParam(name = "size", value = "Refers page size", required = true) @QueryParam("size") Integer size)

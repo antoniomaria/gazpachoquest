@@ -12,9 +12,8 @@ package net.sf.gazpachoquest.dto.answers;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+@SuppressWarnings("serial")
 public class LongTextAnswer extends SimpleAnswer {
-
-    private static final long serialVersionUID = 2744636578258338449L;
 
     private String value;
 

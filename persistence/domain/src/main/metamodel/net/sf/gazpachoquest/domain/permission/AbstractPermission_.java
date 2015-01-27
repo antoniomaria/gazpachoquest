@@ -3,6 +3,8 @@ package net.sf.gazpachoquest.domain.permission;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
+
+import net.sf.gazpachoquest.domain.support.AbstractPermission;
 import net.sf.gazpachoquest.domain.support.AbstractPersistable_;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;

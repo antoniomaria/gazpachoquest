@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.domain.core;
 
 import java.util.Collections;
@@ -34,11 +34,10 @@ import net.sf.gazpachoquest.domain.support.AbstractLocalizable;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.MailMessageTemplateType;
 
+@SuppressWarnings("serial")
 @Entity
 public class MailMessageTemplate extends
         AbstractLocalizable<MailMessageTemplateTranslation, MailMessageTemplateLanguageSettings> {
-
-    private static final long serialVersionUID = 8115847063538607577L;
 
     @Column(insertable = true, updatable = true, nullable = false)
     @XmlTransient
@@ -135,7 +134,10 @@ public class MailMessageTemplate extends
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private QuestionnaireDefinition questionnaireDefinition;

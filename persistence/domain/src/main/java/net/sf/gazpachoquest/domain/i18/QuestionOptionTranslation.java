@@ -86,7 +86,10 @@ public class QuestionOptionTranslation extends AbstractPersistable implements
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder implements
             TranslationBuilder<QuestionOptionTranslation, QuestionOptionLanguageSettings> {
         private QuestionOption questionOption;

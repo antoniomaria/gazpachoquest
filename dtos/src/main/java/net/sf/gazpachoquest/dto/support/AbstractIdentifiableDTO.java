@@ -15,9 +15,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@SuppressWarnings("serial")
 public abstract class AbstractIdentifiableDTO implements Identifiable {
-
-    private static final long serialVersionUID = 2830103041683278252L;
 
     private Integer id;
 

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.dto;
 
 import net.sf.gazpachoquest.dto.embeddables.QuestionLanguageSettingsDTO;
@@ -16,8 +16,8 @@ import net.sf.gazpachoquest.dto.support.LanguageSettingsContainerBuilder;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 
+@SuppressWarnings("serial")
 public class SubquestionDTO extends AbstractQuestionDTO {
-    private static final long serialVersionUID = 2663159055152157679L;
 
     public SubquestionDTO() {
         super();
@@ -31,7 +31,7 @@ public class SubquestionDTO extends AbstractQuestionDTO {
         private QuestionLanguageSettingsDTO languageSettings;
         private QuestionType type;
         private final String relevance = "";
-        
+
         public SubquestionDTO build() {
             SubquestionDTO questionDTO = new SubquestionDTO();
             questionDTO.setId(id);

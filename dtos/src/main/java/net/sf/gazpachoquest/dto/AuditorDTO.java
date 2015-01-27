@@ -2,9 +2,8 @@ package net.sf.gazpachoquest.dto;
 
 import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
 
+@SuppressWarnings("serial")
 public class AuditorDTO extends AbstractIdentifiableDTO {
-
-    private static final long serialVersionUID = 5708252721653763420L;
 
     private String givenNames;
 

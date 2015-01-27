@@ -10,9 +10,8 @@
  ******************************************************************************/
 package net.sf.gazpachoquest.dto.answers;
 
+@SuppressWarnings("serial")
 public class TextAnswer extends SimpleAnswer {
-
-    private static final long serialVersionUID = 672728157327871902L;
 
     private String value;
 

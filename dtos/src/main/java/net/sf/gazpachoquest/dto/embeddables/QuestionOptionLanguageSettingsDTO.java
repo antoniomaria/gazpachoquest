@@ -12,9 +12,8 @@ package net.sf.gazpachoquest.dto.embeddables;
 
 import net.sf.gazpachoquest.dto.support.LanguageSettingsDTO;
 
+@SuppressWarnings("serial")
 public class QuestionOptionLanguageSettingsDTO implements LanguageSettingsDTO {
-
-    private static final long serialVersionUID = 8942148329254332833L;
 
     private String title;
 

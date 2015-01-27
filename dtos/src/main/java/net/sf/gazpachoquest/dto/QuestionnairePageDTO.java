@@ -17,9 +17,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@SuppressWarnings("serial")
 public class QuestionnairePageDTO implements Serializable {
-
-    private static final long serialVersionUID = -4722536148236589317L;
 
     private final List<SectionDTO> sections = new ArrayList<>();
 

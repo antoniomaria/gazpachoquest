@@ -2,9 +2,8 @@ package net.sf.gazpachoquest.dto.answers;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@SuppressWarnings("serial")
 public class NoAnswer extends SimpleAnswer {
-
-    private static final long serialVersionUID = 8164989374494030339L;
 
     public NoAnswer() {
         super();

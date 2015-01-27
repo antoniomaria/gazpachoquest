@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.domain.core;
 
 import javax.persistence.DiscriminatorValue;
@@ -16,11 +16,10 @@ import javax.persistence.Entity;
 import net.sf.gazpachoquest.domain.support.Invitation;
 import net.sf.gazpachoquest.types.InvitationStatus;
 
+@SuppressWarnings("serial")
 @Entity
 @DiscriminatorValue("A")
 public class AnonymousInvitation extends Invitation {
-
-    private static final long serialVersionUID = -9203813369476903640L;
 
     public AnonymousInvitation() {
         super();
@@ -30,6 +29,9 @@ public class AnonymousInvitation extends Invitation {
         return new Builder();
     }
 
+    /**
+     * @hidden 
+     */
     public static class Builder extends Invitation.Builder {
 
         private String token;

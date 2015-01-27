@@ -3,14 +3,14 @@ package net.sf.gazpachoquest.domain.permission;
 import javax.persistence.Entity;
 
 import net.sf.gazpachoquest.domain.core.Research;
+import net.sf.gazpachoquest.domain.support.AbstractPermission;
 import net.sf.gazpachoquest.domain.user.Role;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.types.Perm;
 
+@SuppressWarnings("serial")
 @Entity
 public class ResearchPermission extends AbstractPermission<Research> {
-
-    private static final long serialVersionUID = 8330893603469347818L;
 
     public ResearchPermission() {
         super();
@@ -23,7 +23,10 @@ public class ResearchPermission extends AbstractPermission<Research> {
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private User user;

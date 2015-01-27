@@ -21,8 +21,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "type")
 @JsonSubTypes({ @JsonSubTypes.Type(value = AnonymousInvitationDTO.class, name = "A"),
         @JsonSubTypes.Type(value = PersonalInvitationDTO.class, name = "P") })
+@SuppressWarnings("serial")
 public class InvitationDTO extends AbstractIdentifiableDTO {
-    private static final long serialVersionUID = -2776483997831033883L;
 
     private InvitationStatus status;
 

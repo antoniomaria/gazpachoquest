@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.domain.core;
 
 import java.util.ArrayList;
@@ -40,11 +40,14 @@ import net.sf.gazpachoquest.domain.i18.SectionTranslation;
 import net.sf.gazpachoquest.domain.support.AbstractLocalizable;
 import net.sf.gazpachoquest.types.Language;
 
+/**
+ * @note Parts a questionnaire definintion can be divided into 
+ * @composed 1 has 0..* Question
+ */
+@SuppressWarnings("serial")
 @Entity
 @XmlType(propOrder = { "language", "languageSettings", "questions", "translations", "randomizationEnabled", "relevance" })
 public class Section extends AbstractLocalizable<SectionTranslation, SectionLanguageSettings> {
-
-    private static final long serialVersionUID = 5849288763708940985L;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @XmlTransient
@@ -70,7 +73,7 @@ public class Section extends AbstractLocalizable<SectionTranslation, SectionLang
 
     @Column(nullable = false)
     private Boolean randomizationEnabled;
-    
+
     @Lob
     @Column(nullable = false)
     private String relevance;
@@ -164,7 +167,10 @@ public class Section extends AbstractLocalizable<SectionTranslation, SectionLang
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private QuestionnaireDefinition questionnaireDefinition;
@@ -172,7 +178,7 @@ public class Section extends AbstractLocalizable<SectionTranslation, SectionLang
         private SectionLanguageSettings languageSettings;
         private Boolean randomizationEnabled;
         private String relevance;
-        
+
         public Builder id(Integer id) {
             this.id = id;
             return this;
@@ -188,12 +194,11 @@ public class Section extends AbstractLocalizable<SectionTranslation, SectionLang
             return this;
         }
 
-
         public Builder relevance(String relevance) {
             this.relevance = relevance;
             return this;
         }
-        
+
         public Builder randomizationEnabled(Boolean randomizationEnabled) {
             this.randomizationEnabled = randomizationEnabled;
             return this;

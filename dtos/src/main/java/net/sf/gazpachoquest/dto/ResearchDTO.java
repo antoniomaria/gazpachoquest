@@ -1,10 +1,10 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com. All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0 which accompanies this distribution, and is
  * available at http://www.gnu.org/licenses/gpl.html
  * 
  * Contributors: antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.dto;
 
 import java.time.LocalDateTime;
@@ -17,17 +17,19 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
-
+/**
+ * @note Representation of a study, survey or poll
+ * @assoc 1 conducted - QuestionnaireDefinitionDTO 
+ */
+@SuppressWarnings("serial")
 public class ResearchDTO extends AbstractAuditableDTO {
 
-    private static final long serialVersionUID = -8624509103476946501L;
-    
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime expirationDate;
 
     private String name;
-    
+
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime startDate;
@@ -106,7 +108,7 @@ public class ResearchDTO extends AbstractAuditableDTO {
             this.id = id;
             return this;
         }
-        
+
         public Builder name(String name) {
             this.name = name;
             return this;

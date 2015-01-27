@@ -12,9 +12,8 @@ package net.sf.gazpachoquest.dto.answers;
 
 import org.apache.commons.lang3.BooleanUtils;
 
+@SuppressWarnings("serial")
 public class BooleanAnswer extends SimpleAnswer {
-
-    private static final long serialVersionUID = -6283418338635814499L;
 
     private String option;
 

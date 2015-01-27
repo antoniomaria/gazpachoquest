@@ -1,13 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2014 antoniomariasanchez at gmail.com.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the GNU Public License v3.0
- * which accompanies this distribution, and is available at
- * http://www.gnu.org/licenses/gpl.html
- * 
- * Contributors:
- *     antoniomaria - initial API and implementation
- ******************************************************************************/
 package net.sf.gazpachoquest.dto.support;
 
 import java.util.ArrayList;
@@ -23,10 +13,22 @@ import net.sf.gazpachoquest.dto.embeddables.QuestionLanguageSettingsDTO;
 import net.sf.gazpachoquest.types.Language;
 import net.sf.gazpachoquest.types.QuestionType;
 
+/**
+ * Copyright (c) 2014 antoniomariasanchez at gmail.com.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ * 
+ * Contributors:
+ *     antoniomaria - initial API and implementation
+ *     
+ * @composed 1 has 0..* net.sf.gazpachoquest.dto.QuestionOptionDTO
+ * @assoc 1 reply - net.sf.gazpachoquest.dto.answers.Answer
+ */
+@SuppressWarnings("serial")
 public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implements
-        IdentifiableLocalizable<QuestionLanguageSettingsDTO> {
-
-    private static final long serialVersionUID = 7798904943703068684L;
+        IdentifiableLocalizable<QuestionLanguageSettingsDTO>{
 
     protected String code;
 
@@ -44,7 +46,7 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
 
     @XmlTransient
     protected Answer answer;
-    
+
     private String relevance;
 
     protected AbstractQuestionDTO() {
@@ -58,7 +60,7 @@ public abstract class AbstractQuestionDTO extends AbstractIdentifiableDTO implem
     public void setRelevance(String relevance) {
         this.relevance = relevance;
     }
-    
+
     public String getCode() {
         return code;
     }

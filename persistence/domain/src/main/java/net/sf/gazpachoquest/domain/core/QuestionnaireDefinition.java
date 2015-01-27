@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.domain.core;
 
 import java.util.ArrayList;
@@ -50,6 +50,11 @@ import net.sf.gazpachoquest.types.MailMessageTemplateType;
 import net.sf.gazpachoquest.types.RandomizationStrategy;
 import net.sf.gazpachoquest.types.RenderingMode;
 
+/**
+ * @note Representation of the application form template used to carry out the research 
+ * @composed 1 has 0..* Section
+ */
+@SuppressWarnings({ "serial", "unchecked" })
 @Entity
 @XmlRootElement
 @XmlType(propOrder = { "language", "languageSettings", "sections", "mailTemplates", "translations", "welcomeVisible",
@@ -57,8 +62,6 @@ import net.sf.gazpachoquest.types.RenderingMode;
 public class QuestionnaireDefinition
         extends
         AbstractSecurizableLocalizable<QuestionnaireDefinitionPermission, QuestionnaireDefinitionTranslation, QuestionnaireDefinitionLanguageSettings> {
-
-    private static final long serialVersionUID = 2560468772707058412L;
 
     @Convert(converter = EntityStatusConverter.class)
     @XmlTransient
@@ -265,7 +268,10 @@ public class QuestionnaireDefinition
     public static Builder with() {
         return new Builder();
     }
-
+    
+    /**
+     * @hidden 
+     */
     public static class Builder {
         private Integer id;
         private EntityStatus status;

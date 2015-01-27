@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.dto;
 
 import java.util.ArrayList;
@@ -26,10 +26,13 @@ import net.sf.gazpachoquest.types.RenderingMode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 
+/**
+ * @note Representation of the application form template used to carry out the research 
+ * @composed 1 has 0..* SectionDTO
+ */
+@SuppressWarnings("serial")
 public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         IdentifiableLocalizable<QuestionnaireDefinitionLanguageSettingsDTO> {
-
-    private static final long serialVersionUID = 4558625807621395019L;
 
     @ApiModelProperty(value = "Default language", required = true)
     private Language language;
@@ -41,21 +44,20 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
 
     private final List<SectionDTO> sections = new ArrayList<>();
 
-    private Boolean welcomeVisible;
-
     private Boolean progressVisible;
+
+    private Boolean welcomeVisible;
 
     private Boolean sectionInfoVisible;
 
     private Boolean questionNumberVisible;
-    
+
     private RandomizationStrategy randomizationStrategy;
 
     private Integer questionsPerPage;
 
     private RenderingMode renderingMode;
 
-    
     public QuestionnaireDefinitionDTO() {
         super();
     }
@@ -106,8 +108,8 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         this.welcomeVisible = welcomeVisible;
     }
 
-    public void isWelcomeVisible(Boolean welcomeVisible) {
-        this.welcomeVisible = welcomeVisible;
+    public Boolean isWelcomeVisible() {
+        return welcomeVisible;
     }
 
     public Boolean isProgressVisible() {
@@ -176,9 +178,9 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         Builder sectionInfoVisible(Boolean sectionInfoVisible);
 
         Builder questionNumberVisible(Boolean questionNumberVisible);
-        
+
         Builder randomizationStrategy(RandomizationStrategy randomizationStrategy);
-        
+
         Builder questionsPerPage(Integer questionsPerPage);
 
         Builder renderingMode(RenderingMode renderingMode);
@@ -209,7 +211,7 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
         private Integer questionsPerPage;
 
         private RenderingMode renderingMode = RenderingMode.SECTION_BY_SECTION;
-        
+
         private Boolean questionNumberVisible = Boolean.TRUE;
 
         @Override
@@ -273,13 +275,13 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
             this.sectionInfoVisible = sectionInfoVisible;
             return this;
         }
-        
+
         @Override
         public Builder questionNumberVisible(Boolean questionNumberVisible) {
             this.questionNumberVisible = questionNumberVisible;
             return this;
         }
-        
+
         @Override
         public Builder randomizationStrategy(RandomizationStrategy randomizationStrategy) {
             this.randomizationStrategy = randomizationStrategy;
@@ -300,4 +302,3 @@ public class QuestionnaireDefinitionDTO extends AbstractAuditableDTO implements
     }
 
 }
-

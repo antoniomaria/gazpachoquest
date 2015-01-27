@@ -15,10 +15,9 @@ import net.sf.gazpachoquest.dto.support.AbstractIdentifiableDTO;
 import net.sf.gazpachoquest.dto.support.IdentifiableLocalizable;
 import net.sf.gazpachoquest.types.Language;
 
+@SuppressWarnings("serial")
 public class QuestionOptionDTO extends AbstractIdentifiableDTO implements
         IdentifiableLocalizable<QuestionOptionLanguageSettingsDTO> {
-
-    private static final long serialVersionUID = -6363290184354303253L;
 
     private String code;
 

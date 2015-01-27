@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright (c) 2014 antoniomariasanchez at gmail.com.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
@@ -7,7 +7,7 @@
  * 
  * Contributors:
  *     antoniomaria - initial API and implementation
- ******************************************************************************/
+ */
 package net.sf.gazpachoquest.dto;
 
 import java.util.ArrayList;
@@ -21,9 +21,12 @@ import net.sf.gazpachoquest.types.Language;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class SectionDTO extends AbstractAuditableDTO implements
-        IdentifiableLocalizable<SectionLanguageSettingsDTO> {
-    private static final long serialVersionUID = 4668205160387380803L;
+/**
+ * @note Parts a questionnaire definintion can be divided into 
+ * @composed 1 has 0..* QuestionDTO
+ */
+@SuppressWarnings("serial")
+public class SectionDTO extends AbstractAuditableDTO implements IdentifiableLocalizable<SectionLanguageSettingsDTO> {
 
     private Language language;
 
@@ -100,7 +103,7 @@ public class SectionDTO extends AbstractAuditableDTO implements
         Builder languageSettings(SectionLanguageSettingsDTO languageSettings);
 
         Builder relevance(String relevance);
-        
+
         SectionLanguageSettingsDTO.Builder pageLanguageSettingsStart();
     }
 
@@ -110,13 +113,13 @@ public class SectionDTO extends AbstractAuditableDTO implements
         private Boolean randomizationEnabled = Boolean.FALSE;
 
         private SectionLanguageSettingsDTO languageSettings;
-        
+
         private String relevance = "";
 
         @Override
         public SectionDTO build() {
             SectionDTO sectionDTO = new SectionDTO();
-            if (languageSettings == null){
+            if (languageSettings == null) {
                 languageSettings = pageLanguageSettingsStart().build();
             }
             sectionDTO.languageSettings = languageSettings;
