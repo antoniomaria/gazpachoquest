@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns="http://www.springframework.org/schema/beans"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+                       http://cxf.apache.org/jaxws http://cxf.apache.org/schema/jaxws.xsd
+                       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+  <bean id="client" class="net.sf.gazpachoquest.api.AuthenticationResource" factory-bean="clientFactory" factory-method="create" />
+
+  <bean id="clientFactory" class="org.apache.cxf.jaxrs.client.JAXRSClientFactoryBean">
+    <property name="serviceClass" value="net.sf.gazpachoquest.api.AuthenticationResource" />
+    <property name="address" value="#{systemProperties['basePath'] ?: 'http://localhost:9080/api/'}" />
+    <property name="providers">
+      <util:list>
+        <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider">
+        </bean>
+      </util:list>
+    </property>
+  </bean>
+
+</beans>

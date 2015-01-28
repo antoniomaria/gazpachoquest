@@ -10,6 +10,8 @@ import java.net.URLEncoder;
 
 import javax.security.auth.login.LoginException;
 
+import net.sf.gazpachoquest.api.AuthenticationResource;
+import net.sf.gazpachoquest.dto.auth.Account;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 
 import org.apache.cxf.endpoint.Server;
@@ -30,9 +32,14 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
+import static org.fest.assertions.api.Assertions.*;
+import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/root-test-context.xml", "classpath:/rest-test-context.xml" })
+@ContextConfiguration(locations = { "classpath:/datasource-test-context.xml", "classpath:/jpa-test-context.xml",
+        "classpath:/services-context.xml", "classpath:/facades-context.xml", "classpath:/components-context.xml",
+        "classpath:/questionnaire-context.xml", "classpath:/rest-security-context.xml",
+        "classpath:/rest-test-context.xml", "classpath:/client-context.xml" })
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @DatabaseSetup("AuthenticationResourceTest-dataset.xml")
 @DatabaseTearDown("AuthenticationResourceTest-dataset.xml")
@@ -47,6 +54,9 @@ public class AuthenticationResourceTest {
 
     private Server server;
 
+    @Autowired
+    private AuthenticationResource authenticationResource;
+
     @Before
     public void beforeMethod() {
         serverFactory.setBindingId(JAXRSBindingFactory.JAXRS_BINDING_ID);
@@ -55,32 +65,17 @@ public class AuthenticationResourceTest {
         server.start();
     }
 
+    @Test
+    public void authenticateTest() throws LoginException, IOException {
+        String invitation = "NHAZXA4UK9";
+        Account account = authenticationResource.authenticate(invitation);
+        assertThat(account.getApiKey()).isEqualTo("PCN1SYW4X977UE7");
+    }
+
     @After
     public void afterMethod() {
         server.stop();
         server.destroy();
-    }
-
-    @Test
-    public void authenticateTest() throws LoginException, IOException {
-        doLogin(basePath, "NHAZXA4UK9");
-    }
-
-    public void doLogin(String endpoint, String invitation) throws IOException, LoginException {
-        String query = String.format("invitation=%s", URLEncoder.encode(invitation, "UTF-8"));
-        URL url = new URL(endpoint + "/auth?" + query);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        try (InputStream is = connection.getInputStream();) {
-            String line;
-            // read it with BufferedReader
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 }

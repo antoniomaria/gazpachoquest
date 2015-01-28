@@ -9,12 +9,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 http://cxf.apache.org/jaxrs
 http://cxf.apache.org/schemas/jaxrs.xsd">
   <import resource="classpath:META-INF/cxf/cxf.xml" />
-  <!--
-    <context:property-placeholder />
-    <context:annotation-config />
-    <bean class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer" />
-    <bean class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer" />
-  -->
 
   <bean id="authenticationResource" class="net.sf.gazpachoquest.rest.resources.AuthenticationResource" autowire="byType" />
 
@@ -29,15 +23,14 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   <bean id="userResource" class="net.sf.gazpachoquest.rest.resources.UserResource" autowire="byType" />
 
   <bean id="validationProvider" class="org.apache.cxf.validation.BeanValidationProvider" />
-  
+
   <bean id="validationInInterceptor" class="org.apache.cxf.jaxrs.validation.JAXRSBeanValidationInInterceptor">
     <property name="provider" ref="validationProvider" />
-</bean>
- 
-<bean id="validationOutInterceptor" class="org.apache.cxf.jaxrs.validation.JAXRSBeanValidationOutInterceptor">
-    <property name="provider" ref="validationProvider" />
-</bean>   
+  </bean>
 
+  <bean id="validationOutInterceptor" class="org.apache.cxf.jaxrs.validation.JAXRSBeanValidationOutInterceptor">
+    <property name="provider" ref="validationProvider" />
+  </bean>   
 
   <!-- Login filter -->
   <bean id="loginShiroFilter" class="net.sf.gazpachoquest.rest.filter.LoginShiroFilter" />
@@ -45,13 +38,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   <!-- Logout filter -->
   <bean id="logoutShiroFilter" class="net.sf.gazpachoquest.rest.filter.LogoutShiroFilter" />
   
-  <!-- Swagger writers -->
-  <bean id="resourceWriter" class="com.wordnik.swagger.jaxrs.listing.ResourceListingProvider" />
-  <bean id="apiWriter" class="com.wordnik.swagger.jaxrs.listing.ApiDeclarationProvider" />
-
-  <!-- JSON mapper 
-  <bean id="jsonProvider" class="com.wordnik.swagger.jaxrs.json.JacksonJsonProvider" />
-  -->
+  <!-- JSON mapper  -->
   <bean id="jsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
   <bean id="jsonContextResolver" class="net.sf.gazpachoquest.rest.support.JacksonContextResolver" />
 
@@ -60,7 +47,7 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   <bean id="accountNotFoundExceptionHandler" class="net.sf.gazpachoquest.rest.exception.AccountNotFoundExceptionHandler" />
   <bean id="webApplicationExceptionHandler" class="net.sf.gazpachoquest.rest.exception.WebApplicationExceptionHandler" />
   <bean id="defaultExceptionHandler" class="net.sf.gazpachoquest.rest.exception.DefaultExceptionHandler" />
-  <bean id="validationExceptionMapper" class="org.apache.cxf.jaxrs.validation.ValidationExceptionMapper"/>
+  <bean id="validationExceptionMapper" class="org.apache.cxf.jaxrs.validation.ValidationExceptionMapper" />
 
   <cxf:bus>
     <cxf:features>
@@ -69,12 +56,12 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
   </cxf:bus>
 
   <jaxrs:server id="services" address="/">
-      <jaxrs:inInterceptors>
-        <ref bean="validationInInterceptor" />
+    <jaxrs:inInterceptors>
+      <ref bean="validationInInterceptor" />
     </jaxrs:inInterceptors>
-         
+
     <jaxrs:outInterceptors>
-        <ref bean="validationOutInterceptor" />
+      <ref bean="validationOutInterceptor" />
     </jaxrs:outInterceptors>
     <jaxrs:serviceBeans>
       <ref bean="authenticationResource" />
@@ -87,16 +74,13 @@ http://cxf.apache.org/schemas/jaxrs.xsd">
     <jaxrs:providers>
       <ref bean="jsonProvider" />
       <ref bean="jsonContextResolver" />
-      <!-- required for writing swagger classes -->
-      <ref bean="resourceWriter" />
-      <ref bean="apiWriter" />
       <ref bean="loginShiroFilter" />
       <ref bean="logoutShiroFilter" />
       <!-- Exception handlers -->
       <ref bean="shiroExceptionHandler" />
       <ref bean="accountNotFoundExceptionHandler" />
       <ref bean="webApplicationExceptionHandler" />
-      <ref bean="validationExceptionMapper"/>
+      <ref bean="validationExceptionMapper" />
       <ref bean="defaultExceptionHandler" />
     </jaxrs:providers>
   </jaxrs:server>
