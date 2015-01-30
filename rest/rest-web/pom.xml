@@ -59,7 +59,7 @@
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-transports-http-jetty</artifactId>
-      <version>3.0.2</version>
+      <version>${cxf.version}</version>
       <scope>test</scope>
     </dependency>
     
