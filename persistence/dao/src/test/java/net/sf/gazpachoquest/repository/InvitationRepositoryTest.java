@@ -13,6 +13,7 @@ import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.domain.support.Invitation;
 import net.sf.gazpachoquest.domain.user.User;
 import net.sf.gazpachoquest.qbe.SearchParameters;
+import net.sf.gazpachoquest.repository.dynamic.QuestionnaireAnswersRepositoryImpl;
 import net.sf.gazpachoquest.test.dbunit.support.ColumnDetectorXmlDataSetLoader;
 import net.sf.gazpachoquest.test.shiro.support.AbstractShiroTest;
 import net.sf.gazpachoquest.types.InvitationStatus;
@@ -22,6 +23,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -40,6 +43,8 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 @DatabaseTearDown("InvitationRepository-dataset.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnDetectorXmlDataSetLoader.class)
 public class InvitationRepositoryTest extends AbstractShiroTest {
+    
+    private static final Logger logger = LoggerFactory.getLogger(InvitationRepositoryTest.class);
 
     @Autowired
     private ResearchRepository researchRepository;
@@ -57,6 +62,7 @@ public class InvitationRepositoryTest extends AbstractShiroTest {
 
     @Test
     public void findByExampleTest() {
+        logger.debug("hola holitas");
         Invitation personalInvitation = new Invitation();
         personalInvitation.setToken("NHAZXA4UK9");
         List<Invitation> invitations = invitationRepository.findByExample(personalInvitation, new SearchParameters());
