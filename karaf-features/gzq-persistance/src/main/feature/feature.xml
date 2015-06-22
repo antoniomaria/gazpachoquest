@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features name="gwa-ext-eclipselink" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+
+  <feature name="gwa-ext-eclipselink" description="OSGi Persistence Container 2.1 with Eclipselink provider" resolver="(obr)">
+    <details> JPA 2.1 implementation provided by Apache Aries JPA 1.0.4 and Eclipselink ${eclipselink.version} JPA provider</details>
+    <feature version="[1.1,2)">transaction</feature>
+    <!-- Copy from enterprise-3.0.3-features.xml jpa/2.1.0 -->
+    <!-- The following bundle is the diference from the original feature jpa/2.1.0 -->
+    <bundle start-level="30">mvn:org.eclipse.persistence/javax.persistence/2.1.0</bundle>
+    <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.api/1.0.2</bundle>
+    <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.blueprint.aries/1.0.4</bundle>
+    <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.container/1.0.2</bundle>
+    <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.container.context/1.0.4</bundle>
+    <!-- END Copy from enterprise-3.0.3-features.xml jpa/2.1.0 -->
+  </feature>
+
+</features>
