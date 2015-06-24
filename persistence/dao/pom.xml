@@ -59,6 +59,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-domain</artifactId>
+      <type>bundle</type>
     </dependency>
 
     <dependency>
@@ -98,7 +99,7 @@
         </exclusion>
       </exclusions>
     </dependency>
-    
+
     <!-- Spring data jpa -->
     <dependency>
       <groupId>org.springframework.data</groupId>
