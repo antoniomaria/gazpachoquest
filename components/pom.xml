@@ -63,8 +63,9 @@
 
     <!-- Project libraries -->
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>net.sf.gazpachoquest.domain</groupId>
       <artifactId>gazpachoquest-domain</artifactId>
+      <type>bundle</type>
     </dependency>
 
     <dependency>
@@ -106,7 +107,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>findbugs-maven-plugin</artifactId>
-            <version>${findbugs.plugin.version}</version> 
+            <version>${findbugs.plugin.version}</version>
           </plugin>
         </plugins>
       </build>

@@ -22,25 +22,25 @@
     <dependencies>
       <!-- Project dependencies -->
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>net.sf.gazpachoquest.domain</groupId>
         <artifactId>gazpachoquest-domain</artifactId>
         <version>${project.version} </version>
       </dependency>
 
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-dao</artifactId>
         <version>${project.version} </version>
       </dependency>
 
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-jpa</artifactId>
         <version>${project.version} </version>
       </dependency>
 
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-qbe</artifactId>
         <version>${project.version} </version>
       </dependency>

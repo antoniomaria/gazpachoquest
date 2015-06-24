@@ -11,7 +11,6 @@
 
   <dependencies>
     <!-- Eclipselink -->
-
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
       <artifactId>org.eclipse.persistence.antlr</artifactId>
@@ -50,20 +49,11 @@
 
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
-      <artifactId>org.eclipse.persistence.nosql</artifactId>
+      <artifactId>org.eclipse.persistence.moxy</artifactId>
       <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.eclipse.persistence</groupId>
-          <artifactId>javax.persistence</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.resource</groupId>
-          <artifactId>connector-api</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
