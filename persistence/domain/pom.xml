@@ -6,6 +6,8 @@
     <artifactId>gazpacho-persistence</artifactId>
     <version>0.6.0-SNAPSHOT</version>
   </parent>
+  <packaging>bundle</packaging>
+  <groupId>net.sf.gazpachoquest.domain</groupId>
   <artifactId>gazpachoquest-domain</artifactId>
   <name>gazpachoquest-domain</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
@@ -56,7 +58,7 @@
         </exclusion>
       </exclusions>
     </dependency>
-    
+
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
@@ -95,6 +97,22 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <configuration>
+          <instructions>
+            <JPA-PersistenceUnits>default</JPA-PersistenceUnits>
+            <Meta-Persistence>META-INF/default-persistence.xml</Meta-Persistence>
+            <Import-Package>
+              *
+            </Import-Package>
+            <Export-Package />
+            <DynamicImport-Package>*</DynamicImport-Package>
+          </instructions>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>de.empulse.eclipselink</groupId>
@@ -185,7 +203,7 @@
         </plugins>
       </reporting>
     </profile>
-    <!--  To regenerate: mvn clean install -Dmetamodel=true -->
+    <!-- To regenerate: mvn clean install -Dmetamodel=true -->
     <profile>
       <id>metamodel</id>
       <activation>

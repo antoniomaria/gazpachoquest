@@ -27,6 +27,7 @@
     <flyway.version>3.0</flyway.version>
     <dozer.version>5.5.1</dozer.version>
     <dbunit.version>2.4.9</dbunit.version>
+    <bnd.version>2.0.0.20130123-133441</bnd.version>
   </properties>
 
   <scm>
@@ -36,7 +37,7 @@
     <tag>HEAD</tag>
   </scm>
 
- <!-- http://wiki.cloudbees.com/bin/view/DEV/CloudBees+Private+Maven+Repository -->
+  <!-- http://wiki.cloudbees.com/bin/view/DEV/CloudBees+Private+Maven+Repository -->
   <distributionManagement>
     <snapshotRepository>
       <id>cloudbees-private-snapshot-repository</id>
@@ -68,7 +69,7 @@
       <id>java.net</id>
       <url>http://download.java.net/maven/2</url>
     </repository>
-  <!-- Allow access to Spring milestones and snapshots -->
+    <!-- Allow access to Spring milestones and snapshots -->
     <repository>
       <id>spring-snapshots</id>
       <url>http://repo.spring.io/snapshot</url>
@@ -83,7 +84,7 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
-  <!-- Vaadin repositories -->
+    <!-- Vaadin repositories -->
     <repository>
       <id>vaadin-addons</id>
       <url>http://maven.vaadin.com/vaadin-addons</url>
@@ -145,7 +146,7 @@
   </pluginRepositories>
   <dependencyManagement>
     <dependencies>
-   <!-- Test dependencies -->
+      <!-- Test dependencies -->
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
@@ -193,7 +194,7 @@
         <version>${easymock.version}</version>
       </dependency>
 
-   <!-- JDBC drivers -->
+      <!-- JDBC drivers -->
       <dependency>
         <groupId>org.postgresql</groupId>
         <artifactId>postgresql</artifactId>
@@ -212,7 +213,7 @@
         <version>2.3.2</version>
       </dependency>
 
-   <!-- Logger logback -->
+      <!-- Logger logback -->
       <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
@@ -237,7 +238,7 @@
         <version>${slf4j.version}</version>
       </dependency>
 
-   <!-- Project dependencies -->
+      <!-- Project dependencies -->
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>gazpachoquest-testsuite</artifactId>
@@ -254,6 +255,7 @@
         <groupId>${project.groupId}</groupId>
         <artifactId>gazpachoquest-domain</artifactId>
         <version>${project.version} </version>
+        <type>bundle</type>
       </dependency>
 
       <dependency>
@@ -328,7 +330,7 @@
         <version>${project.version} </version>
       </dependency>
 
-   <!-- Third party dependencies -->
+      <!-- Third party dependencies -->
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
@@ -390,14 +392,14 @@
         <version>${spring.version}</version>
       </dependency>
 
-   <!-- Spring data jpa -->
+      <!-- Spring data jpa -->
       <dependency>
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-jpa</artifactId>
         <version>${spring.data.jpa.version}</version>
       </dependency>
 
-    <!-- Javax Specifications -->
+      <!-- Javax Specifications -->
       <dependency>
         <groupId>org.eclipse.persistence</groupId>
         <artifactId>javax.persistence</artifactId>
@@ -427,9 +429,9 @@
         <artifactId>javax.el-api</artifactId>
         <version>3.0.1-b04</version>
       </dependency>
-      
-    <!-- Javax provider -->
-       <!-- JPA 2.1 Eclipselink -->
+
+      <!-- Javax provider -->
+      <!-- JPA 2.1 Eclipselink -->
       <dependency>
         <groupId>org.eclipse.persistence</groupId>
         <artifactId>org.eclipse.persistence.jpa</artifactId>
@@ -441,15 +443,15 @@
         <artifactId>org.eclipse.persistence.moxy</artifactId>
         <version>${eclipselink.version}</version>
       </dependency>
-      
+
       <!-- JSR 349 - Bean Validation 1.1 API -->
       <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-validator</artifactId>
         <version>5.0.2.Final</version>
       </dependency>
-    
-       <!-- JAX-RS 2.0 Apache CXF -->
+
+      <!-- JAX-RS 2.0 Apache CXF -->
       <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-frontend-jaxrs</artifactId>
@@ -467,15 +469,15 @@
         <artifactId>cxf-rt-rs-extension-providers</artifactId>
         <version>${cxf.version}</version>
       </dependency>
-      
+
       <!-- API for the Unified Expression Language -->
       <dependency>
         <groupId>org.glassfish</groupId>
         <artifactId>javax.el</artifactId>
         <version>3.0.1-b05</version>
       </dependency>
-    
-   <!-- Jackson provider -->
+
+      <!-- Jackson provider -->
       <dependency>
         <groupId>com.fasterxml.jackson.jaxrs</groupId>
         <artifactId>jackson-jaxrs-json-provider</artifactId>
@@ -511,35 +513,35 @@
         <artifactId>swagger-jaxrs_2.10</artifactId>
         <version>${swagger.version}</version>
       </dependency>
-   
-   <!-- Google flyway -->
+
+      <!-- Google flyway -->
       <dependency>
         <groupId>org.flywaydb</groupId>
         <artifactId>flyway-core</artifactId>
         <version>${flyway.version}</version>
       </dependency>
 
-   <!-- Jodatime -->
+      <!-- Jodatime -->
       <dependency>
         <groupId>joda-time</groupId>
         <artifactId>joda-time</artifactId>
         <version>${joda.time.version}</version>
       </dependency>
-   <!-- Commons lang -->
+      <!-- Commons lang -->
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
         <version>${commons.lang3.version}</version>
       </dependency>
 
-   <!-- Velocity -->
+      <!-- Velocity -->
       <dependency>
         <groupId>org.apache.velocity</groupId>
         <artifactId>velocity</artifactId>
         <version>1.7</version>
       </dependency>
 
-   <!-- Dozer mapping -->
+      <!-- Dozer mapping -->
       <dependency>
         <groupId>net.sf.dozer</groupId>
         <artifactId>dozer</artifactId>
@@ -567,7 +569,7 @@
       </dependency>
 
 
-   <!-- Aspectj -->
+      <!-- Aspectj -->
       <dependency>
         <groupId>org.aspectj</groupId>
         <artifactId>aspectjweaver</artifactId>
@@ -575,7 +577,7 @@
       </dependency>
 
 
-   <!-- Shiro security -->
+      <!-- Shiro security -->
       <dependency>
         <groupId>org.apache.shiro</groupId>
         <artifactId>shiro-core</artifactId>
@@ -608,8 +610,8 @@
             </executions>
             <configuration>
               <doclet>org.umlgraph.doclet.UmlGraph</doclet>
-              <docletPath>C:/Users/antonio/git/antoniomaria/gazpachoquest/uml/UmlGraph.jar</docletPath>			  
-			  <show>private</show>
+              <docletPath>C:/Users/antonio/git/antoniomaria/gazpachoquest/uml/UmlGraph.jar</docletPath>
+              <show>private</show>
               <additionalparam>-views</additionalparam>
               <reportOutputDirectory>${project.reporting.outputDirectory}/</reportOutputDirectory>
               <destDir>uml</destDir>
@@ -650,11 +652,11 @@
           <encoding>UTF-8</encoding>
           <source>1.8</source>
           <target>1.8</target>
-     <!-- For generating the JPA metamodel -->
+          <!-- For generating the JPA metamodel -->
           <compilerArgument>-proc:none</compilerArgument>
         </configuration>
       </plugin>
-   <!-- mvn release:perform -Dgoals='deploy -f /home/antoniomaria/git/antoniomaria/gazpachosurvey/pom.xml' -->
+      <!-- mvn release:perform -Dgoals='deploy -f /home/antoniomaria/git/antoniomaria/gazpachosurvey/pom.xml' -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
@@ -757,7 +759,7 @@
           <repoToken>crJW78njICUIlG4lmOel0oN5Wyev8wy0N</repoToken>
         </configuration>
       </plugin>
-      
+
       <!-- mvn clean test jacoco:report coveralls:report -->
       <plugin>
         <groupId>org.jacoco</groupId>
@@ -801,6 +803,28 @@
     </extensions>
     <pluginManagement>
       <plugins>
+
+        <plugin>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>maven-bundle-plugin</artifactId>
+          <version>2.4.0</version>
+          <extensions>true</extensions>
+          <dependencies>
+            <dependency>
+              <groupId>biz.aQute</groupId>
+              <artifactId>bndlib</artifactId>
+              <version>${bnd.version}</version>
+            </dependency>
+          </dependencies>
+          <configuration>
+            <instructions>
+              <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+              <Bundle-Version>${project.version}</Bundle-Version>
+              <Service-Component>*</Service-Component>
+            </instructions>
+          </configuration>
+        </plugin>
+
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>findbugs-maven-plugin</artifactId>
@@ -821,7 +845,7 @@
             </execution>
           </executions>
         </plugin>
-        
+
         <!--This plugin's configuration is used to store Eclipse m2e settings
           only. It has no influence on the Maven build itself. -->
         <plugin>
@@ -848,7 +872,56 @@
                     </execute>
                   </action>
                 </pluginExecution>
+
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>
+                      org.apache.karaf.tooling
+                    </groupId>
+                    <artifactId>
+                      karaf-maven-plugin
+                    </artifactId>
+                    <versionRange>
+                      [3.0.0,)
+                    </versionRange>
+                    <goals>
+                      <goal>
+                        features-generate-descriptor
+                      </goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.karaf.tooling</groupId>
+                    <artifactId>karaf-maven-plugin</artifactId>
+                    <versionRange>[3.0.1,)</versionRange>
+                    <goals>
+                      <goal>install-kars</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <versionRange>[2.4.0,)</versionRange>
+                    <goals>
+                      <goal>index</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
               </pluginExecutions>
+            </pluginExecutions>
             </lifecycleMappingMetadata>
           </configuration>
         </plugin>
