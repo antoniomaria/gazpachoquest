@@ -254,16 +254,10 @@
       </dependency>
 
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>net.sf.gazpachoquest.domain</groupId>
         <artifactId>gazpachoquest-domain</artifactId>
         <version>${project.version} </version>
         <type>bundle</type>
-      </dependency>
-
-      <dependency>
-        <groupId>${project.groupId}</groupId>
-        <artifactId>gazpachoquest-domain-metamodel</artifactId>
-        <version>${project.version} </version>
       </dependency>
 
       <dependency>
@@ -327,7 +321,7 @@
       </dependency>
 
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-types</artifactId>
         <version>${project.version} </version>
       </dependency>
@@ -437,6 +431,31 @@
       <dependency>
         <groupId>org.eclipse.persistence</groupId>
         <artifactId>org.eclipse.persistence.jpa</artifactId>
+        <version>${eclipselink.version}</version>
+      </dependency>
+
+      <!-- Eclipselink -->
+      <dependency>
+        <groupId>org.eclipse.persistence</groupId>
+        <artifactId>org.eclipse.persistence.antlr</artifactId>
+        <version>${eclipselink.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.eclipse.persistence</groupId>
+        <artifactId>org.eclipse.persistence.asm</artifactId>
+        <version>${eclipselink.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.eclipse.persistence</groupId>
+        <artifactId>org.eclipse.persistence.core</artifactId>
+        <version>${eclipselink.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.eclipse.persistence</groupId>
+        <artifactId>org.eclipse.persistence.jpa.jpql</artifactId>
         <version>${eclipselink.version}</version>
       </dependency>
 
@@ -848,8 +867,7 @@
           </executions>
         </plugin>
 
-        <!--This plugin's configuration is used to store Eclipse m2e settings
-          only. It has no influence on the Maven build itself. -->
+        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
         <plugin>
           <groupId>org.eclipse.m2e</groupId>
           <artifactId>lifecycle-mapping</artifactId>
@@ -923,7 +941,6 @@
                   </action>
                 </pluginExecution>
               </pluginExecutions>
-            </pluginExecutions>
             </lifecycleMappingMetadata>
           </configuration>
         </plugin>

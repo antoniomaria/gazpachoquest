@@ -17,8 +17,9 @@
     </dependency>
     <!-- Project libraries -->
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>net.sf.gazpachoquest.domain</groupId>
       <artifactId>gazpachoquest-domain</artifactId>
+      <type>bundle</type>
     </dependency>
        
     <!-- Logger logback API -->

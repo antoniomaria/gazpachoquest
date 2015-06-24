@@ -11,8 +11,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>net.sf.gazpachoquest</groupId>
+      <groupId>net.sf.gazpachoquest.domain</groupId>
       <artifactId>gazpachoquest-domain</artifactId>
+      <type>bundle</type>
       <scope>compile</scope>
     </dependency>
 

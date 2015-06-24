@@ -12,13 +12,7 @@
   <properties>
     <karaf.version>3.0.3</karaf.version>
   </properties>
-  <dependencies>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>gazpachoquest-domain</artifactId>
-    </dependency>
-  </dependencies>
-
+  
   <build>
     <resources>
       <resource>
