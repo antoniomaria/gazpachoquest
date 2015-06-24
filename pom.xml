@@ -57,6 +57,8 @@
     <module>dtos</module>
     <module>facades</module>
     <module>jaas</module>
+    <module>karaf-assembly</module>
+    <module>karaf-features</module>
     <module>launcher</module>
     <module>services</module>
     <module>questionnaires-backend</module>
