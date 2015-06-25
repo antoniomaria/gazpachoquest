@@ -6,6 +6,7 @@
     <artifactId>gazpachoquest</artifactId>
     <version>0.6.0-SNAPSHOT</version>
   </parent>
+  <packaging>bundle</packaging>
   <artifactId>gazpachoquest-testsuite</artifactId>
   <name>gazpachoquest-testsuite</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
@@ -13,7 +14,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
-  <!-- Logger logback -->
+    <!-- Logger logback -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
@@ -28,7 +29,7 @@
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
     </dependency>
-  <!-- Spring dependencies -->
+    <!-- Spring dependencies -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
@@ -70,16 +71,17 @@
       <artifactId>easymock</artifactId>
     </dependency>
 
-  <!-- Shiro security -->
+    <!-- Shiro security -->
     <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-core</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>net.sf.gazpachoquest</groupId>
+      <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-db</artifactId>
       <scope>provided</scope>
+      <type>bundle</type>
     </dependency>
 
     <dependency>
@@ -87,6 +89,24 @@
       <artifactId>cxf-rt-frontend-jaxrs</artifactId>
       <scope>provided</scope>
     </dependency>
-
   </dependencies>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <configuration>
+          <instructions>
+            <Import-Package>
+              *
+            </Import-Package>
+            <Export-Package></Export-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>

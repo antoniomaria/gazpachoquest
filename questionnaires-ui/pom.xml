@@ -92,7 +92,7 @@
       <version>6.0-6</version>
       <scope>provided</scope>
     </dependency>
-    
+
     <!-- Arquillian vaadin -->
     <dependency>
       <groupId>org.jboss.arquillian.junit</groupId>
@@ -139,11 +139,13 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-api</artifactId>
+      <type>bundle</type>
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-jaas</artifactId>
+      <type>bundle</type>
     </dependency>
 
     <!-- Third party libraries -->
@@ -168,18 +170,12 @@
       <artifactId>vaadin-client-compiled</artifactId>
       <version>${vaadin.version}</version>
     </dependency>
-    <!-- Needed when using the widgetset optimizer (custom ConnectorBundleLoaderFactory). For widgetset compilation, vaadin-client-compiler 
-      is automatically added on the compilation classpath by vaadin-maven-plugin so normally there is no need for an explicit dependency. -->
-    <!-- <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client-compiler</artifactId> <version>${vaadin.version}</version> 
-      <scope>provided</scope> </dependency> -->
-    <!-- 
-    <dependency>
-      <groupId>com.vaadin</groupId>
-      <artifactId>vaadin-client</artifactId>
-      <version>${vaadin.version}</version>
-      <scope>provided</scope>
-    </dependency>
- -->
+    <!-- Needed when using the widgetset optimizer (custom ConnectorBundleLoaderFactory). For widgetset compilation, vaadin-client-compiler is automatically 
+      added on the compilation classpath by vaadin-maven-plugin so normally there is no need for an explicit dependency. -->
+    <!-- <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client-compiler</artifactId> <version>${vaadin.version}</version> <scope>provided</scope> 
+      </dependency> -->
+    <!-- <dependency> <groupId>com.vaadin</groupId> <artifactId>vaadin-client</artifactId> <version>${vaadin.version}</version> <scope>provided</scope> 
+      </dependency> -->
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-themes</artifactId>
@@ -245,6 +241,7 @@
     <dependency>
       <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-rest-cxf-contrib</artifactId>
+      <type>bundle</type>
     </dependency>
 
   </dependencies>
@@ -254,8 +251,8 @@
       <!-- directory is cleaned properly -->
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>2.4.1</version><!-- <configuration> <filesets> <fileset> <directory>src/main/webapp/VAADIN/widgetsets</directory> 
-          </fileset> <fileset> <directory>src/main/webapp/VAADIN/gwt-unitCache</directory> </fileset> </filesets> </configuration> -->
+        <version>2.4.1</version><!-- <configuration> <filesets> <fileset> <directory>src/main/webapp/VAADIN/widgetsets</directory> </fileset> <fileset> 
+          <directory>src/main/webapp/VAADIN/gwt-unitCache</directory> </fileset> </filesets> </configuration> -->
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -265,35 +262,11 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
-      <!--	  
-      <plugin>
-        <groupId>com.vaadin</groupId>
-        <artifactId>vaadin-maven-plugin</artifactId>
-        <version>${vaadin.plugin.version}</version>
-        <configuration>
-          <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
-          <webappDirectory>${basedir}/src/main/webapp/VAADIN/widgetsets</webappDirectory>
-          <hostedWebapp>${basedir}/src/main/webapp/VAADIN/widgetsets</hostedWebapp>
-          <persistentunitcachedir>${basedir}/target/tmp/gwt-unitCache</persistentunitcachedir>
-          <noServer>true</noServer>
-          <draftCompile>false</draftCompile>
-          <compileReport>true</compileReport>
-          <style>OBF</style>
-          <strict>true</strict>
-          <runTarget>http://aurora:8080/</runTarget>
-        </configuration>
-        <executions>
-          <execution>
-            <configuration></configuration>
-            <goals>
-              <goal>clean</goal>
-              <goal>resources</goal>
-              <goal>update-widgetset</goal>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>  -->
+      <!-- <plugin> <groupId>com.vaadin</groupId> <artifactId>vaadin-maven-plugin</artifactId> <version>${vaadin.plugin.version}</version> <configuration> 
+        <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs> <webappDirectory>${basedir}/src/main/webapp/VAADIN/widgetsets</webappDirectory> <hostedWebapp>${basedir}/src/main/webapp/VAADIN/widgetsets</hostedWebapp> 
+        <persistentunitcachedir>${basedir}/target/tmp/gwt-unitCache</persistentunitcachedir> <noServer>true</noServer> <draftCompile>false</draftCompile> <compileReport>true</compileReport> 
+        <style>OBF</style> <strict>true</strict> <runTarget>http://aurora:8080/</runTarget> </configuration> <executions> <execution> <configuration></configuration> 
+        <goals> <goal>clean</goal> <goal>resources</goal> <goal>update-widgetset</goal> <goal>compile</goal> </goals> </execution> </executions> </plugin> -->
     </plugins>
 
     <pluginManagement>

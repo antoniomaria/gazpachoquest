@@ -11,22 +11,24 @@
   <url>https://github.com/antoniomaria/gazpachoquest</url>
 
   <dependencies>
-  <!-- Test dependencies -->
+    <!-- Test dependencies -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
 
-  <!-- Project libraries -->
+    <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-facades</artifactId>
+      <type>bundle</type>
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-questionnaires-backend</artifactId>
+      <type>bundle</type>
     </dependency>
 
     <dependency>

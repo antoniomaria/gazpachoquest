@@ -12,7 +12,7 @@
 
 
   <modules>
-    <module>gzq-persistance</module>
+    <module>gzq-persistence</module>
     <module>gzq-ext-eclipselink</module>
   </modules>
 

@@ -12,8 +12,9 @@
   <dependencies>
     <!-- Project dependencies -->
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-dao</artifactId>
+      <type>bundle</type>
     </dependency>
   </dependencies>
 </project>

@@ -61,8 +61,9 @@
 
   <!-- Project libraries -->
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-db</artifactId>
+      <type>bundle</type>
     </dependency>
 
 
