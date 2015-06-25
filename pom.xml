@@ -256,7 +256,6 @@
         <type>bundle</type>
       </dependency>
 
-      Persistence 
       <dependency>
         <groupId>net.sf.gazpachoquest.persistence</groupId>
         <artifactId>gazpachoquest-dao</artifactId>
