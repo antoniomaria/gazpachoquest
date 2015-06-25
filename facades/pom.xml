@@ -6,7 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-facades</artifactId>
-  <packaging>jar</packaging>
+  <packaging>bundle</packaging>
   <name>gazpachoquest-facades</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
 
@@ -47,17 +47,20 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-testsuite</artifactId>
       <scope>test</scope>
+      <type>bundle</type>
     </dependency>
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-services</artifactId>
+      <type>bundle</type>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-dtos</artifactId>
+      <type>bundle</type>
     </dependency>
-	<!-- Third parties -->
+    <!-- Third parties -->
     <dependency>
       <groupId>net.sf.dozer</groupId>
       <artifactId>dozer</artifactId>
@@ -67,8 +70,26 @@
       <groupId>net.sf.dozer</groupId>
       <artifactId>dozer-spring</artifactId>
     </dependency>
-
   </dependencies>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <configuration>
+          <instructions>
+            <Import-Package>
+              *
+            </Import-Package>
+            <Export-Package></Export-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <profiles>
     <profile>
       <id>findbugs</id>

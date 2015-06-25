@@ -5,13 +5,13 @@
     <artifactId>karaf-features</artifactId>
     <version>0.6.0-SNAPSHOT</version>
   </parent>
-  <artifactId>gzq-persistance</artifactId>
+  <artifactId>gzq-persistence</artifactId>
   <packaging>feature</packaging>
-  <name>GZQ :: Feature :: Persistance</name>
+  <name>GZQ :: Feature :: persistence</name>
 
   <dependencies>
     <dependency>
-      <groupId>net.sf.gazpachoquest.domain</groupId>
+      <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-domain</artifactId>
       <type>bundle</type>
       <scope>compile</scope>

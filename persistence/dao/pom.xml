@@ -6,13 +6,11 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-dao</artifactId>
-  <packaging>jar</packaging>
+  <packaging>bundle</packaging>
   <name>gazpachoquest-dao</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
 
-
   <dependencies>
-
     <!-- Test dependencies -->
     <dependency>
       <groupId>junit</groupId>
@@ -24,6 +22,7 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-testsuite</artifactId>
       <scope>test</scope>
+      <type>bundle</type>
     </dependency>
 
     <dependency>
@@ -52,19 +51,21 @@
 
     <!-- Project libraries -->
     <dependency>
-      <groupId>net.sf.gazpachoquest</groupId>
+      <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-db</artifactId>
+      <type>bundle</type>
     </dependency>
 
     <dependency>
-      <groupId>net.sf.gazpachoquest.domain</groupId>
+      <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-domain</artifactId>
       <type>bundle</type>
     </dependency>
 
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-qbe</artifactId>
+      <type>bundle</type>
     </dependency>
 
     <!-- JDBC drivers -->
@@ -127,7 +128,22 @@
       <artifactId>flyway-core</artifactId>
     </dependency>
   </dependencies>
-
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <configuration>
+          <instructions>
+            <Import-Package>
+              *
+            </Import-Package>
+            <Export-Package>net.sf.gazpachoquest.repository.*</Export-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   <profiles>
     <profile>
       <id>findbugs</id>

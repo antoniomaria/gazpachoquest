@@ -18,7 +18,7 @@
       <version>3.1.0</version>
       <scope>provided</scope>
     </dependency>
-  
+
     <!-- Test dependencies -->
     <dependency>
       <groupId>junit</groupId>
@@ -62,7 +62,7 @@
       <version>${cxf.version}</version>
       <scope>test</scope>
     </dependency>
-    
+
     <!-- JDBC drivers -->
     <!-- Used for demo purposes -->
     <dependency>
@@ -74,17 +74,20 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-testsuite</artifactId>
       <scope>test</scope>
+      <type>bundle</type>
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-api</artifactId>
       <scope>test</scope>
+      <type>bundle</type>
     </dependency>
 
-  <!-- Third parties -->
-  
-   <!-- Apache cxf -->
+
+    <!-- Third parties -->
+
+    <!-- Apache cxf -->
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-frontend-jaxrs</artifactId>
@@ -110,7 +113,7 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-validator</artifactId>
     </dependency>
-    
+
     <!-- API for the Unified Expression Language -->
     <dependency>
       <groupId>javax.el</groupId>
@@ -121,7 +124,7 @@
       <groupId>org.glassfish</groupId>
       <artifactId>javax.el</artifactId>
     </dependency>
-      
+
     <!-- Logger logback -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
@@ -183,7 +186,7 @@
         </exclusion>
       </exclusions>
     </dependency>
-    
+
     <!-- guava is required for swagger -->
     <dependency>
       <groupId>com.google.guava</groupId>
@@ -218,7 +221,7 @@
       <groupId>com.fasterxml.jackson.module</groupId>
       <artifactId>jackson-module-jsonSchema</artifactId>
     </dependency>
-    
+
     <!-- Spring Integration -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -239,6 +242,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-services</artifactId>
+      <type>bundle</type>
       <exclusions>
         <exclusion>
           <groupId>cglib</groupId>
@@ -254,6 +258,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-components</artifactId>
+      <type>bundle</type>
       <exclusions>
         <exclusion>
           <groupId>cglib</groupId>
@@ -269,6 +274,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-questionnaires-backend</artifactId>
+      <type>bundle</type>
       <exclusions>
         <exclusion>
           <groupId>cglib</groupId>
@@ -284,6 +290,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-rest-security</artifactId>
+      <type>bundle</type>
       <exclusions>
         <exclusion>
           <groupId>cglib</groupId>
@@ -295,7 +302,7 @@
         </exclusion>
       </exclusions>
     </dependency>
-    
+
     <!-- Shiro security -->
     <dependency>
       <groupId>org.apache.shiro</groupId>

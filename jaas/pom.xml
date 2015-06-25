@@ -6,7 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-jaas</artifactId>
-  <packaging>jar</packaging>
+  <packaging>bundle</packaging>
   <name>gazpachoquest-jaas</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
 
@@ -50,6 +50,25 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <configuration>
+          <instructions>
+            <Import-Package>
+              *
+            </Import-Package>
+            <Export-Package></Export-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <profiles>
     <profile>
       <id>findbugs</id>

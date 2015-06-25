@@ -6,7 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-rest-cxf-contrib</artifactId>
-  <packaging>jar</packaging>
+  <packaging>bundle</packaging>
   <name>gazpachoquest-rest-cxf-contrib</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
@@ -51,6 +51,7 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-testsuite</artifactId>
       <scope>test</scope>
+      <type>bundle</type>
     </dependency>
 
     <dependency>
@@ -63,6 +64,7 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-api</artifactId>
       <scope>test</scope>
+      <type>bundle</type>
     </dependency>
 
     <dependency>
@@ -82,6 +84,23 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <configuration>
+          <instructions>
+            <Import-Package>
+              *
+            </Import-Package>
+            <Export-Package></Export-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
   <profiles>
     <profile>
