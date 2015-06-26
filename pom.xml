@@ -243,14 +243,14 @@
 
       <!-- Project dependencies -->
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-testsuite</artifactId>
         <version>${project.version}</version>
         <type>bundle</type>
       </dependency>
 
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-api</artifactId>
         <version>${project.version}</version>
         <type>bundle</type>
@@ -292,28 +292,28 @@
       </dependency>
 
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-dtos</artifactId>
         <version>${project.version}</version>
         <type>bundle</type>
       </dependency>
 
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-facades</artifactId>
         <version>${project.version}</version>
         <type>bundle</type>
       </dependency>
 
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-jaas</artifactId>
         <version>${project.version}</version>
         <type>bundle</type>
       </dependency>
 
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-rest-security</artifactId>
         <version>${project.version}</version>
         <type>bundle</type>
@@ -327,21 +327,21 @@
       </dependency>
 
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-services</artifactId>
         <version>${project.version}</version>
         <type>bundle</type>
       </dependency>
 
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-components</artifactId>
         <version>${project.version}</version>
         <type>bundle</type>
       </dependency>
 
       <dependency>
-        <groupId>${project.groupId}</groupId>
+        <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-questionnaires-backend</artifactId>
         <version>${project.version}</version>
         <type>bundle</type>
