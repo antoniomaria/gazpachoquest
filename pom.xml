@@ -10,6 +10,8 @@
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <karaf.version>3.0.3</karaf.version>
+
     <spring.version>4.0.7.RELEASE</spring.version>
     <spring.data.jpa.version>1.7.1.RELEASE</spring.data.jpa.version>
     <slf4j.version>1.7.7</slf4j.version>
@@ -63,7 +65,8 @@
     <module>launcher</module>
     <module>services</module>
     <module>questionnaires-backend</module>
-    <module>questionnaires-ui</module>
+    <!-- 
+    <module>questionnaires-ui</module>  -->
     <module>rest</module>
     <module>tools</module>
   </modules>
@@ -249,6 +252,7 @@
         <type>bundle</type>
       </dependency>
 
+
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-api</artifactId>
@@ -353,7 +357,7 @@
         <version>${project.version}</version>
         <type>bundle</type>
       </dependency>
- 
+
       <!-- Third party dependencies -->
       <dependency>
         <groupId>org.springframework</groupId>
@@ -867,9 +871,17 @@
             <instructions>
               <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
               <Bundle-Version>${project.version}</Bundle-Version>
-              <Service-Component>*</Service-Component>
+              <Export-Package>${project.groupId}</Export-Package>
+              <Service-Component>*</Service-Component><!-- 
+              <Include-Resource>OSGI-OPT/=/src/main/java/</Include-Resource> -->
             </instructions>
           </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.karaf.tooling</groupId>
+          <artifactId>karaf-maven-plugin</artifactId>
+          <version>${karaf.version}</version>
         </plugin>
 
         <plugin>
@@ -940,7 +952,7 @@
                     <ignore />
                   </action>
                 </pluginExecution>
-               
+
                 <pluginExecution>
                   <pluginExecutionFilter>
                     <groupId>org.apache.karaf.tooling</groupId>
@@ -967,7 +979,7 @@
                     <ignore />
                   </action>
                 </pluginExecution>
-               
+
               </pluginExecutions>
             </lifecycleMappingMetadata>
           </configuration>

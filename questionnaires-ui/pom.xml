@@ -137,13 +137,13 @@
 
     <!-- Project libraries -->
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-api</artifactId>
       <type>bundle</type>
     </dependency>
 
     <dependency>
-      <groupId>${project.groupId}</groupId>
+      <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-jaas</artifactId>
       <type>bundle</type>
     </dependency>

@@ -10,7 +10,8 @@
   <packaging>pom</packaging>
   <name>gazpachoquest-tools</name>
   <modules>
-    <module>codelab</module>    
+  <!-- 
+    <module>codelab</module>     -->
     <module>dbpopulator</module>    
 	<module>dbextractor</module>    
 	<module>ddlgenerator</module>	   

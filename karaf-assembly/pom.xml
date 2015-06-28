@@ -9,9 +9,6 @@
 
   <artifactId>karaf-assembly</artifactId>
   <name>Gazpachoquest :: Distribution</name>
-  <properties>
-    <karaf.version>3.0.3</karaf.version>
-  </properties>
   
   <build>
     <resources>

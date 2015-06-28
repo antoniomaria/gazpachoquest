@@ -64,16 +64,14 @@
 
     <!-- Project libraries -->
     <dependency>
-      <groupId>net.sf.gazpachoquest.persitence</groupId>
+      <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-domain</artifactId>
-      <version>${project.version}</version>
       <type>bundle</type>
     </dependency>
 
     <dependency>
-      <groupId>net.sf.gazpachoquest.persitence</groupId>
+      <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-dao</artifactId>
-      <version>${project.version}</version>
       <type>bundle</type>
     </dependency>
 
