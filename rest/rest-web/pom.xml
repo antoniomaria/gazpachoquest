@@ -74,14 +74,14 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-testsuite</artifactId>
       <scope>test</scope>
-      <type>bundle</type>
+      
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-api</artifactId>
       <scope>test</scope>
-      <type>bundle</type>
+      
     </dependency>
 
 
@@ -242,7 +242,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-services</artifactId>
-      <type>bundle</type>
+      
       <exclusions>
         <exclusion>
           <groupId>cglib</groupId>
@@ -258,7 +258,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-components</artifactId>
-      <type>bundle</type>
+      
       <exclusions>
         <exclusion>
           <groupId>cglib</groupId>
@@ -274,7 +274,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-questionnaires-backend</artifactId>
-      <type>bundle</type>
+      
       <exclusions>
         <exclusion>
           <groupId>cglib</groupId>
@@ -290,7 +290,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-rest-security</artifactId>
-      <type>bundle</type>
+      
       <exclusions>
         <exclusion>
           <groupId>cglib</groupId>

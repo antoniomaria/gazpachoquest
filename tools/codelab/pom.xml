@@ -22,13 +22,13 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-facades</artifactId>
-      <type>bundle</type>
+      
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-questionnaires-backend</artifactId>
-      <type>bundle</type>
+      
     </dependency>
 
     <dependency>

@@ -13,7 +13,7 @@
     <dependency>
       <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-domain</artifactId>
-      <type>bundle</type>
+      
       <scope>compile</scope>
     </dependency>
 

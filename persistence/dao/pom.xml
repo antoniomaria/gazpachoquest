@@ -6,7 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-dao</artifactId>
-  <packaging>bundle</packaging>
+  
   <name>gazpachoquest-dao</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
 
@@ -22,7 +22,7 @@
       <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-testsuite</artifactId>
       <scope>test</scope>
-      <type>bundle</type>
+      
     </dependency>
 
     <dependency>
@@ -53,19 +53,19 @@
     <dependency>
       <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-db</artifactId>
-      <type>bundle</type>
+      
     </dependency>
 
     <dependency>
       <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-domain</artifactId>
-      <type>bundle</type>
+      
     </dependency>
 
     <dependency>
       <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-qbe</artifactId>
-      <type>bundle</type>
+      
     </dependency>
 
     <!-- JDBC drivers -->
