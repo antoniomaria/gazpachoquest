@@ -8,7 +8,7 @@
   </parent>
   <artifactId>gazpachoquest-rest-web</artifactId>
   <packaging>war</packaging>
-  <name>GazpachoQuest Rest Interface</name>
+  <name>GZQ :: WAR    :: Rest Interface</name>
 
   <dependencies>
     <!-- Provided scope -->
@@ -74,14 +74,14 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-testsuite</artifactId>
       <scope>test</scope>
-      
+
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-api</artifactId>
       <scope>test</scope>
-      
+
     </dependency>
 
 
@@ -242,7 +242,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-services</artifactId>
-      
+
       <exclusions>
         <exclusion>
           <groupId>cglib</groupId>
@@ -258,7 +258,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-components</artifactId>
-      
+
       <exclusions>
         <exclusion>
           <groupId>cglib</groupId>
@@ -274,7 +274,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-questionnaires-backend</artifactId>
-      
+
       <exclusions>
         <exclusion>
           <groupId>cglib</groupId>
@@ -290,7 +290,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-rest-security</artifactId>
-      
+
       <exclusions>
         <exclusion>
           <groupId>cglib</groupId>

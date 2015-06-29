@@ -6,8 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-dtos</artifactId>
-  
-  <name>gazpachoquest-dtos</name>
+  <name>GZQ :: Module  :: DTOs</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
 
   <dependencies>

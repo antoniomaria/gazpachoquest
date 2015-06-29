@@ -6,11 +6,10 @@
     <artifactId>gazpachoquest</artifactId>
     <version>0.6.0-SNAPSHOT</version>
   </parent>
- <packaging>pom</packaging>
-
+  <packaging>pom</packaging>
   <artifactId>karaf-assembly</artifactId>
-  <name>Gazpachoquest :: Distribution</name>
-  
+  <name>GZQ :: Distro  :: Karaf</name>
+
   <build>
     <resources>
       <resource>

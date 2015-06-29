@@ -6,8 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-jaas</artifactId>
-  
-  <name>gazpachoquest-jaas</name>
+  <name>GZQ :: Module  :: JAAS</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
 
   <dependencies>
