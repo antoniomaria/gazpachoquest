@@ -6,7 +6,7 @@
   <packaging>pom</packaging>
   <version>0.6.0-SNAPSHOT</version>
   <name>GZQ :: Parent :: Parent Project</name>
-  <description>General purpose tool for collecting answers through dynamic web form</description>
+  <description>General purpose tool for collecting answers.</description>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -65,8 +65,7 @@
     <module>launcher</module>
     <module>services</module>
     <module>questionnaires-backend</module>
-    <!-- 
-    <module>questionnaires-ui</module>  -->
+    <module>questionnaires-ui</module>
     <module>rest</module>
     <module>tools</module>
   </modules>
@@ -249,7 +248,7 @@
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-testsuite</artifactId>
         <version>${project.version}</version>
-        <type>bundle</type>
+        
       </dependency>
 
 
@@ -257,105 +256,105 @@
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-api</artifactId>
         <version>${project.version}</version>
-        <type>bundle</type>
+        
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest.persistence</groupId>
         <artifactId>gazpachoquest-dao</artifactId>
         <version>${project.version}</version>
-        <type>bundle</type>
+        
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest.persistence</groupId>
         <artifactId>gazpachoquest-db</artifactId>
         <version>${project.version}</version>
-        <type>bundle</type>
+        
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest.persistence</groupId>
         <artifactId>gazpachoquest-domain</artifactId>
         <version>${project.version} </version>
-        <type>bundle</type>
+        
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest.persistence</groupId>
         <artifactId>gazpachoquest-jpa</artifactId>
         <version>${project.version}</version>
-        <type>bundle</type>
+        
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest.persistence</groupId>
         <artifactId>gazpachoquest-qbe</artifactId>
         <version>${project.version}</version>
-        <type>bundle</type>
+        
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-dtos</artifactId>
         <version>${project.version}</version>
-        <type>bundle</type>
+        
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-facades</artifactId>
         <version>${project.version}</version>
-        <type>bundle</type>
+        
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-jaas</artifactId>
         <version>${project.version}</version>
-        <type>bundle</type>
+        
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-rest-security</artifactId>
         <version>${project.version}</version>
-        <type>bundle</type>
+        
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-rest-cxf-contrib</artifactId>
         <version>${project.version}</version>
-        <type>bundle</type>
+        
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-services</artifactId>
         <version>${project.version}</version>
-        <type>bundle</type>
+        
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-components</artifactId>
         <version>${project.version}</version>
-        <type>bundle</type>
+        
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-questionnaires-backend</artifactId>
         <version>${project.version}</version>
-        <type>bundle</type>
+        
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-types</artifactId>
         <version>${project.version}</version>
-        <type>bundle</type>
+        
       </dependency>
 
       <!-- Third party dependencies -->
@@ -858,23 +857,31 @@
         <plugin>
           <groupId>org.apache.felix</groupId>
           <artifactId>maven-bundle-plugin</artifactId>
-          <version>2.4.0</version>
-          <extensions>true</extensions>
-          <dependencies>
-            <dependency>
-              <groupId>biz.aQute</groupId>
-              <artifactId>bndlib</artifactId>
-              <version>${bnd.version}</version>
-            </dependency>
-          </dependencies>
+          <version>2.5.0</version>
+          <executions>
+            <execution>
+              <id>bundle-manifest</id>
+              <phase>process-classes</phase>
+              <goals>
+                <goal>manifest</goal>
+              </goals>
+            </execution>
+          </executions>
           <configuration>
             <instructions>
               <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
               <Bundle-Version>${project.version}</Bundle-Version>
               <Export-Package>${project.groupId}</Export-Package>
-              <Service-Component>*</Service-Component><!-- 
-              <Include-Resource>OSGI-OPT/=/src/main/java/</Include-Resource> -->
+              <Service-Component>*</Service-Component><!-- <Include-Resource>OSGI-OPT/=/src/main/java/</Include-Resource> -->
             </instructions>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <configuration>
+            <archive>
+              <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+            </archive>
           </configuration>
         </plugin>
 

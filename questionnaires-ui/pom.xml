@@ -139,13 +139,13 @@
     <dependency>
       <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-api</artifactId>
-      <type>bundle</type>
+      
     </dependency>
 
     <dependency>
       <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-jaas</artifactId>
-      <type>bundle</type>
+      
     </dependency>
 
     <!-- Third party libraries -->
@@ -241,7 +241,7 @@
     <dependency>
       <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-rest-cxf-contrib</artifactId>
-      <type>bundle</type>
+      
     </dependency>
 
   </dependencies>

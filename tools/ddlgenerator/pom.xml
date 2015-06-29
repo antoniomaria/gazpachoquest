@@ -14,7 +14,7 @@
     <dependency>
       <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-dao</artifactId>
-      <type>bundle</type>
+      
     </dependency>
   </dependencies>
 </project>

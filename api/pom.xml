@@ -7,7 +7,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-api</artifactId>
-  <packaging>bundle</packaging>
+  
   <name>gazpachoquest-api</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
@@ -27,7 +27,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-dtos</artifactId>
-      <type>bundle</type>
+      
     </dependency>
   </dependencies>
 

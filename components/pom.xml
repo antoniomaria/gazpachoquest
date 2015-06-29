@@ -6,7 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-components</artifactId>
-  <packaging>bundle</packaging>
+  
   <name>gazpachoquest-components</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
 
@@ -46,7 +46,7 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-testsuite</artifactId>
       <scope>test</scope>
-      <type>bundle</type>
+      
     </dependency>
 
     <!-- Scope provided -->
@@ -66,13 +66,13 @@
     <dependency>
       <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-domain</artifactId>
-      <type>bundle</type>
+      
     </dependency>
 
     <dependency>
       <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-dao</artifactId>
-      <type>bundle</type>
+      
     </dependency>
 
     <!-- Spring aspects -->
