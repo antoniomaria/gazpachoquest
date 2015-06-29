@@ -6,8 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-questionnaires-backend</artifactId>
-  
-  <name>gazpachoquest-questionnaires-backend</name>
+  <name>GZQ :: Module :: Questionnaires Backend</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
     <!-- Test dependencies -->
@@ -21,7 +20,7 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-testsuite</artifactId>
       <scope>test</scope>
-      
+
     </dependency>
 
     <dependency>
@@ -58,7 +57,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-facades</artifactId>
-      
+
     </dependency>
 
     <!-- Java Expression Language Parser -->

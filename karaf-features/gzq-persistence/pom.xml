@@ -7,13 +7,12 @@
   </parent>
   <artifactId>gzq-persistence</artifactId>
   <packaging>feature</packaging>
-  <name>GZQ :: Feature :: persistence</name>
+  <name>GZQ :: Feature :: Persistence</name>
 
   <dependencies>
     <dependency>
       <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-domain</artifactId>
-      
       <scope>compile</scope>
     </dependency>
 

@@ -6,8 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-rest-security</artifactId>
-  
-  <name>gazpachoquest-security</name>
+  <name>GZQ :: Module :: CXF Security</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
     <!-- Test dependencies -->
@@ -51,20 +50,20 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-testsuite</artifactId>
       <scope>test</scope>
-      
+
     </dependency>
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-services</artifactId>
-      
+
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-dtos</artifactId>
       <scope>provided</scope>
-      
+
     </dependency>
 
     <!-- Shiro security -->

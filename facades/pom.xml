@@ -6,8 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-facades</artifactId>
-  
-  <name>gazpachoquest-facades</name>
+  <name>GZQ :: Module  :: Facades</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
 
   <dependencies>
@@ -47,18 +46,18 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-testsuite</artifactId>
       <scope>test</scope>
-      
+
     </dependency>
     <!-- Project libraries -->
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-services</artifactId>
-      
+
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>gazpachoquest-dtos</artifactId>
-      
+
     </dependency>
     <!-- Third parties -->
     <dependency>

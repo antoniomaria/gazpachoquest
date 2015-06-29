@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<features name="gwa-ext-eclipselink" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<features name="gzq-ext-eclipselink" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
 
-  <feature name="gwa-ext-eclipselink" description="OSGi Persistence Container 2.1 with Eclipselink provider" resolver="(obr)">
+  <feature name="gzq-ext-eclipselink" description="OSGi Persistence Container 2.1 with Eclipselink provider" resolver="(obr)">
     <details> JPA 2.1 implementation provided by Apache Aries JPA 1.0.4 and Eclipselink ${eclipselink.version} JPA provider</details>
     <feature version="[1.1,2)">transaction</feature>
     <!-- Copy from enterprise-3.0.3-features.xml jpa/2.1.0 -->

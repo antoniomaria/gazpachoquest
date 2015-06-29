@@ -7,14 +7,12 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-ddlgenerator</artifactId>
-  <name>gazpachoquest-ddlgenerator</name>
-  <url>https://github.com/antoniomaria/gazpachoquest</url>
+  <name>GZQ :: Tools :: DDL generator</name>
   <dependencies>
     <!-- Project dependencies -->
     <dependency>
       <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-dao</artifactId>
-      
     </dependency>
   </dependencies>
 </project>

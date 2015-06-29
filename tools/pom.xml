@@ -8,15 +8,15 @@
   </parent>
   <artifactId>gazpachoquest-tools</artifactId>
   <packaging>pom</packaging>
-  <name>gazpachoquest-tools</name>
+  <name>GZQ :: Tools :: Parent</name>
+
   <modules>
-  <!-- 
-    <module>codelab</module>     -->
-    <module>dbpopulator</module>    
-	<module>dbextractor</module>    
-	<module>ddlgenerator</module>	   
-	<module>importer</module>
-	<module>exporter</module>
+    <module>codelab</module>
+    <module>dbpopulator</module>
+    <module>dbextractor</module>
+    <module>ddlgenerator</module>
+    <module>importer</module>
+    <module>exporter</module>
   </modules>
 
 </project>

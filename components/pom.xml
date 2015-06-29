@@ -6,8 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-components</artifactId>
-  
-  <name>gazpachoquest-components</name>
+  <name>GZQ :: Module  :: Components</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
 
   <dependencies>

@@ -9,7 +9,8 @@
   </parent>
   <artifactId>gazpachoquest-questionnaires-ui</artifactId>
   <packaging>war</packaging>
-  <name>gazpachoquest-questionnaires-ui</name>
+  <name>GZQ :: WAR    :: Questionnaires UI</name>
+
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <properties>
     <arquillian.version>1.0.0.Alpha1</arquillian.version>
@@ -139,13 +140,13 @@
     <dependency>
       <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-api</artifactId>
-      
+
     </dependency>
 
     <dependency>
       <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-jaas</artifactId>
-      
+
     </dependency>
 
     <!-- Third party libraries -->
@@ -241,7 +242,7 @@
     <dependency>
       <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-rest-cxf-contrib</artifactId>
-      
+
     </dependency>
 
   </dependencies>
