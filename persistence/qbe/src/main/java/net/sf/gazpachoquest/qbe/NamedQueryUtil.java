@@ -31,13 +31,11 @@ import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 /**
  * Helper class to create named query supporting dynamic sort order and
  * pagination.
  */
-@Component
 public class NamedQueryUtil {
     private static final Logger logger = LoggerFactory.getLogger(NamedQueryUtil.class);
 

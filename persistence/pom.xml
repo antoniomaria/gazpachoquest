@@ -16,6 +16,7 @@
     <module>domain</module>
     <module>dao</module>
     <module>qbe</module>
+	<module>qbe-specification</module>
     <module>jpa</module>
   </modules>
 </project>

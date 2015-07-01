@@ -43,10 +43,27 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- Spring data jpa -->
+    <!-- Spring data jpa 
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>jcl-over-slf4j</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>slf4j-api</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+-->
+
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-commons</artifactId>
+      <version>1.9.1.RELEASE</version>
       <exclusions>
         <exclusion>
           <artifactId>jcl-over-slf4j</artifactId>

@@ -58,13 +58,17 @@
     <dependency>
       <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-domain</artifactId>
-
     </dependency>
 
     <dependency>
       <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-qbe</artifactId>
+    </dependency>
 
+    <dependency>
+      <groupId>net.sf.gazpachoquest.persistence</groupId>
+      <artifactId>gazpachoquest-qbe-specification</artifactId>
+      <version>0.6.0-SNAPSHOT</version>
     </dependency>
 
     <!-- JDBC drivers -->
