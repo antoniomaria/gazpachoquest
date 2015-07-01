@@ -17,7 +17,6 @@ package net.sf.gazpachoquest.qbe;
 
 import javax.persistence.metamodel.SingularAttribute;
 
-import org.springframework.data.jpa.domain.Specification;
 
 /**
  * Range support for {@link Comparable} types.
@@ -159,8 +158,8 @@ public class Range<E, D extends Comparable<? super D>> {
     public void setTo(final D to) {
         this.to = to;
     }
-
+/*-
     public Specification<E> toSpecification() {
         return RangeSpecification.toSpecification(this);
-    }
+    }*/
 }
