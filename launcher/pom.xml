@@ -8,7 +8,7 @@
   </parent>
   <artifactId>gazpachoquest-launcher</artifactId>
   <packaging>pom</packaging>
-  <name>gazpachoquest-launcher</name>
+  <name>GZQ :: Distro  :: TomEE</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <build>
     <pluginManagement>
