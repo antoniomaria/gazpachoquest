@@ -248,7 +248,7 @@
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-testsuite</artifactId>
         <version>${project.version}</version>
-        
+
       </dependency>
 
 
@@ -256,105 +256,105 @@
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-api</artifactId>
         <version>${project.version}</version>
-        
+
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest.persistence</groupId>
         <artifactId>gazpachoquest-dao</artifactId>
         <version>${project.version}</version>
-        
+
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest.persistence</groupId>
         <artifactId>gazpachoquest-db</artifactId>
         <version>${project.version}</version>
-        
+
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest.persistence</groupId>
         <artifactId>gazpachoquest-domain</artifactId>
         <version>${project.version} </version>
-        
+
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest.persistence</groupId>
         <artifactId>gazpachoquest-jpa</artifactId>
         <version>${project.version}</version>
-        
+
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest.persistence</groupId>
         <artifactId>gazpachoquest-qbe</artifactId>
         <version>${project.version}</version>
-        
+
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-dtos</artifactId>
         <version>${project.version}</version>
-        
+
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-facades</artifactId>
         <version>${project.version}</version>
-        
+
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-jaas</artifactId>
         <version>${project.version}</version>
-        
+
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-rest-security</artifactId>
         <version>${project.version}</version>
-        
+
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-rest-cxf-contrib</artifactId>
         <version>${project.version}</version>
-        
+
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-services</artifactId>
         <version>${project.version}</version>
-        
+
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-components</artifactId>
         <version>${project.version}</version>
-        
+
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-questionnaires-backend</artifactId>
         <version>${project.version}</version>
-        
+
       </dependency>
 
       <dependency>
         <groupId>net.sf.gazpachoquest</groupId>
         <artifactId>gazpachoquest-types</artifactId>
         <version>${project.version}</version>
-        
+
       </dependency>
 
       <!-- Third party dependencies -->
@@ -869,7 +869,7 @@
           </executions>
           <configuration>
             <instructions>
-              <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+              <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
               <Bundle-Version>${project.version}</Bundle-Version>
               <Export-Package>${project.groupId}</Export-Package>
               <Service-Component>*</Service-Component><!-- <Include-Resource>OSGI-OPT/=/src/main/java/</Include-Resource> -->
@@ -877,7 +877,9 @@
           </configuration>
         </plugin>
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
+          <version>2.6</version>
           <configuration>
             <archive>
               <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
