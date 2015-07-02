@@ -67,7 +67,7 @@
           </execution>
         </executions>
       </plugin>
-
+      <!-- 
       <plugin>
         <groupId>org.apache.karaf.tooling</groupId>
         <artifactId>karaf-maven-plugin</artifactId>
@@ -97,6 +97,7 @@
           </execution>
         </executions>
       </plugin>
+       -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
@@ -113,6 +114,7 @@
                 <descriptor>src/main/descriptors/bin.xml</descriptor>
               </descriptors>
               <appendAssemblyId>false</appendAssemblyId>
+              <finalName>assembly</finalName>
               <tarLongFileMode>gnu</tarLongFileMode>
             </configuration>
           </execution>
