@@ -35,7 +35,7 @@
             <Import-Package>
               *
             </Import-Package>
-            <Export-Package></Export-Package>
+            <Export-Package>${groupId}.types</Export-Package>
           </instructions>
         </configuration>
       </plugin>

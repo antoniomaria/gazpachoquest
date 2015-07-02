@@ -46,12 +46,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.persistence</groupId>
-      <artifactId>org.eclipse.persistence.moxy</artifactId>
-      <scope>compile</scope>
-    </dependency>
   </dependencies>
 
   <build>
@@ -61,7 +55,7 @@
         <artifactId>karaf-maven-plugin</artifactId>
         <extensions>true</extensions>
         <configuration>
-          <startLevel>30</startLevel>
+          <startLevel>55</startLevel>
           <aggregateFeatures>true</aggregateFeatures>
         </configuration>
       </plugin>

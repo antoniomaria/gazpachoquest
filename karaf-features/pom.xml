@@ -14,6 +14,7 @@
   <modules>
     <module>gzq-persistence</module>
     <module>gzq-ext-eclipselink</module>
+    <module>gzq-platform</module>
   </modules>
 
   <build>
@@ -23,7 +24,7 @@
         <artifactId>karaf-maven-plugin</artifactId>
         <extensions>true</extensions>
         <configuration>
-          <startLevel>80</startLevel>
+          <startLevel>150</startLevel>
           <aggregateFeatures>true</aggregateFeatures>
         </configuration>
       </plugin>
