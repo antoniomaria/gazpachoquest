@@ -11,8 +11,10 @@
                            http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
-  <context:component-scan base-package="net.sf.gazpachoquest.repository.support,net.sf.gazpachoquest.repository.dynamic,net.sf.gazpachoquest.qbe" />
+  <context:component-scan base-package="net.sf.gazpachoquest.repository.support,net.sf.gazpachoquest.repository.dynamic" />
 
+  <bean class="net.sf.gazpachoquest.qbe.NamedQueryUtil" autowire="byType"/>
+  
   <jpa:repositories base-package="net.sf.gazpachoquest.repository" factory-class="net.sf.gazpachoquest.repository.support.DefaultRepositoryFactoryBean" />
 
   <jpa:auditing auditor-aware-ref="auditorAware" />
