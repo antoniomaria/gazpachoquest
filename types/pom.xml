@@ -22,6 +22,17 @@
       <artifactId>fest-assert-core</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.core</artifactId>
+      <version>5.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.compendium</artifactId>
+      <version>5.0.0</version>
+    </dependency>
   </dependencies>
 
 
@@ -35,7 +46,9 @@
             <Import-Package>
               *
             </Import-Package>
-            <Export-Package>${groupId}.types</Export-Package>
+            <Bundle-Activator>net.sf.gazpachoquest.types.Activator</Bundle-Activator>
+            <Export-Package>net.sf.gazpachoquest.types.*</Export-Package>
+            <Bundle-SymbolicName>net.sf.gazpachoquest.types</Bundle-SymbolicName>
           </instructions>
         </configuration>
       </plugin>

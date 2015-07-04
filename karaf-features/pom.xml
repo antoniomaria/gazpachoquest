@@ -24,7 +24,7 @@
         <artifactId>karaf-maven-plugin</artifactId>
         <extensions>true</extensions>
         <configuration>
-          <startLevel>150</startLevel>
+          <startLevel>80</startLevel>
           <aggregateFeatures>true</aggregateFeatures>
         </configuration>
       </plugin>
