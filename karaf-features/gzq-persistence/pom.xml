@@ -32,7 +32,6 @@
     </dependency>
 
     <!-- Shiro security -->
-
     <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-features</artifactId>
@@ -45,6 +44,15 @@
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-commons</artifactId>
       <version>1.9.1.RELEASE</version>
+    </dependency>
+
+    <!-- Liquibase and osgi extender -->
+    <dependency>
+      <groupId>org.openengsb.labs.liquibase</groupId>
+      <artifactId>features</artifactId>
+      <version>0.2.0</version>
+      <type>xml</type>
+      <classifier>features</classifier>
     </dependency>
 
   </dependencies>
