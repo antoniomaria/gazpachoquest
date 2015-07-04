@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<features name="gzq-persistence" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+<features name="gzq-ext-eclipselink">
 
   <feature name="gzq-persistence" description="GazpachoQuest Domain">
     <feature version="${project.version}">gzq-ext-eclipselink</feature>
     <feature>pax-jdbc-postgresql</feature>
     <feature>pax-jdbc-config</feature>
     <feature>pax-jdbc-pool-dbcp2</feature>
-
+     
     <feature>shiro-core</feature>
+    <feature>liquibase-extender</feature>
     <feature version="[4.0.7.RELEASE_1,4.1)">spring</feature>
-    <bundle start-level="150">mvn:net.sf.gazpachoquest/gazpachoquest-types/${project.version}</bundle>
-    <bundle start-level="155">mvn:net.sf.gazpachoquest.persistence/gazpachoquest-jpa/${project.version}</bundle>
-    <bundle start-level="155">mvn:net.sf.gazpachoquest.persistence/gazpachoquest-domain/${project.version}</bundle>
-
+     
+    <bundle start-level="90" start="true">mvn:net.sf.gazpachoquest/gazpachoquest-types/${project.version}</bundle>
+    <bundle start-level="91" start="true">mvn:net.sf.gazpachoquest.persistence/gazpachoquest-jpa/${project.version}</bundle>
+    <bundle start-level="92" start="true">mvn:net.sf.gazpachoquest.persistence/gazpachoquest-domain/${project.version}</bundle>
   </feature>
 
+  <feature name="shiro-core" version="${shiro.version}">
+    <bundle>mvn:org.apache.shiro/shiro-core/${shiro.version}</bundle>
+  </feature>
 </features>

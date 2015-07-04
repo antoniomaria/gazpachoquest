@@ -59,7 +59,7 @@
                   <groupId>org.apache.karaf</groupId>
                   <artifactId>apache-karaf</artifactId>
                   <version>${karaf.version}</version>
-                  <type>tar.gz</type>
+                  <type>zip</type>
                   <outputDirectory>target/dependencies</outputDirectory>
                 </artifactItem>
               </artifactItems>
