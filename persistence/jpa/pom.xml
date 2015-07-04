@@ -43,7 +43,6 @@
     <dependency>
       <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-types</artifactId>
-
     </dependency>
 
     <dependency>
