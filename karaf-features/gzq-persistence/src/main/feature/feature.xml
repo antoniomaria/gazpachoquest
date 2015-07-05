@@ -3,6 +3,7 @@
 
   <feature name="gzq-persistence" description="GazpachoQuest Domain">
     <feature version="${project.version}">gzq-ext-eclipselink</feature>
+    <feature>transaction</feature>
     <feature>pax-jdbc-postgresql</feature>
     <feature>pax-jdbc-config</feature>
     <feature>pax-jdbc-pool-dbcp2</feature>
@@ -11,8 +12,8 @@
     <feature version="[4.0.7.RELEASE_1,4.1)">spring</feature>
 
     <bundle start-level="90" start="true">mvn:net.sf.gazpachoquest/gazpachoquest-types/${project.version}</bundle>
-    <bundle start-level="91" start="true">mvn:net.sf.gazpachoquest.persistence/gazpachoquest-jpa/${project.version}</bundle>
-    <bundle start-level="92" start="true">mvn:net.sf.gazpachoquest.persistence/gazpachoquest-domain/${project.version}</bundle>
+    <bundle start-level="90" start="true">mvn:net.sf.gazpachoquest.persistence/gazpachoquest-jpa/${project.version}</bundle>
+    <bundle start-level="90" start="true">mvn:net.sf.gazpachoquest.persistence/gazpachoquest-domain/${project.version}</bundle>
   </feature>
 
   <feature name="shiro-core" version="${shiro.version}">

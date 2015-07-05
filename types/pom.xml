@@ -46,7 +46,6 @@
             <Import-Package>
               *
             </Import-Package>
-            <Bundle-Activator>net.sf.gazpachoquest.types.Activator</Bundle-Activator>
             <Export-Package>net.sf.gazpachoquest.types.*</Export-Package>
             <Bundle-SymbolicName>net.sf.gazpachoquest.types</Bundle-SymbolicName>
           </instructions>
