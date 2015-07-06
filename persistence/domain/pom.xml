@@ -11,6 +11,7 @@
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <properties>
     <metamodel.gen.version>${eclipselink.version}</metamodel.gen.version>
+    <liquibase.version>3.3.2</liquibase.version>
   </properties>
   <dependencies>
     <!-- Test -->
@@ -23,13 +24,13 @@
     <dependency>
       <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-types</artifactId>
-      
+
     </dependency>
 
     <dependency>
       <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-jpa</artifactId>
-      
+
     </dependency>
 
     <dependency>
@@ -43,22 +44,22 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- Spring data jpa 
-    <dependency>
+    <!-- Spring data jpa
+      <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
       <exclusions>
-        <exclusion>
-          <artifactId>jcl-over-slf4j</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>slf4j-api</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
+      <exclusion>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <groupId>org.slf4j</groupId>
+      </exclusion>
+      <exclusion>
+      <artifactId>slf4j-api</artifactId>
+      <groupId>org.slf4j</groupId>
+      </exclusion>
       </exclusions>
-    </dependency>
--->
+      </dependency>
+    -->
 
     <dependency>
       <groupId>org.springframework.data</groupId>
@@ -157,7 +158,6 @@
           </dependency>
         </dependencies>
       </plugin>
-
     </plugins>
     <pluginManagement>
       <plugins>
@@ -271,6 +271,65 @@
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
                 <version>${metamodel.gen.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <!-- mvn validate -P diff -->
+      <id>diff</id>
+      <build>
+        <plugins>
+          <!-- Set timestamp in a variable so it can be used for generated files by liquibase in different goals -->
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>buildnumber-maven-plugin</artifactId>
+            <version>1.2</version>
+            <configuration>
+              <timestampFormat>yyyyMMdd_HHmmss</timestampFormat>
+            </configuration>
+            <executions>
+              <execution>
+                <phase>validate</phase>
+                <goals>
+                  <goal>create-timestamp</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-maven-plugin</artifactId>
+            <version>${liquibase.version}</version>
+            <executions>
+              <execution>
+                <phase>validate</phase>
+                <goals>
+                  <goal>diff</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <changeLogFile>src/main/resources/OSGI-INF/liquibase/db.changelog-${timestamp}.xml</changeLogFile>
+              <diffChangeLogFile>src/main/resources/OSGI-INF/liquibase/db.changelog-${timestamp}.xml</diffChangeLogFile>
+              <driver>org.postgresql.Driver</driver>
+              <username>postgres</username>
+              <password>admin</password>
+              <url>jdbc:postgresql://localhost:5432/gazpachoquest</url>
+              <referenceDriver>org.postgresql.Driver</referenceDriver>
+              <referenceUsername>postgres</referenceUsername>
+              <referencePassword>admin</referencePassword>
+              <referenceUrl>jdbc:postgresql://localhost:5432/gazpachoquest_ref</referenceUrl>
+              <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+            </configuration>
+            <dependencies>
+              <!-- Postgres JDBC Driver -->
+              <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgres.version}</version>
               </dependency>
             </dependencies>
           </plugin>
