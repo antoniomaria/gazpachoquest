@@ -9,9 +9,6 @@
   <artifactId>gazpachoquest-db</artifactId>
   <name>GZQ :: Module :: DB</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
-  <properties>
-    <liquibase.version>3.3.2</liquibase.version>
-  </properties>
   <dependencies>
     <!-- Test -->
     <dependency>
@@ -45,9 +42,8 @@
 
   <build>
     <plugins>
-
+      <!-- Set timestamp in a variable so it can be used for generated files by liquibase in different goals -->
       <plugin>
-        <!-- Set timestamp in a variable so it can be used for generated files by liquibase in different goals -->
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>buildnumber-maven-plugin</artifactId>
         <version>1.2</version>
@@ -63,11 +59,6 @@
           </execution>
         </executions>
       </plugin>
-
-      <!-- http://www.operatornew.com/2012/11/automatic-db-migration-for-java-web.html <plugin> <groupId>org.liquibase</groupId> <artifactId>liquibase-maven-plugin</artifactId>
-        <version>${liquibase.version}</version> <configuration> <skip>${skipTests}</skip> <propertyFile>${basedir}/src/main/resources/database/liquibase.properties</propertyFile>
-        <changeLogFile>${basedir}/src/main/resources/database/db.changelog.xml</changeLogFile> </configuration> <executions> <execution> <id>mark-db-up-to-date</id>
-        <phase>test-compile</phase> <goals> <goal>changelogSync</goal> </goals> </execution> </executions> </plugin> -->
 
       <plugin>
         <groupId>org.apache.felix</groupId>
@@ -108,44 +99,6 @@
               </execution>
             </executions>
 
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>db-diff</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-maven-plugin</artifactId>
-            <version>${liquibase.version}</version>
-            <configuration>
-              <propertyFile>${basedir}/src/main/resources/database/liquibase-diff.properties</propertyFile>
-              <changeLogFile>${basedir}/src/main/resources/database/db.changelog.xml</changeLogFile>
-              <diffChangeLogFile>${basedir}/src/main/resources/database/db-${timestamp}.changelog.xml</diffChangeLogFile>
-              <logging>info</logging>
-            </configuration>
-            <executions>
-              <execution>
-                <id>generate-db-prev</id>
-                <phase>process-resources</phase>
-                <goals>
-                  <goal>update</goal>
-                </goals>
-                <configuration>
-                  <dropFirst>true</dropFirst>
-                </configuration>
-              </execution>
-              <execution>
-                <id>generate-db-diff</id>
-                <phase>process-test-resources</phase>
-                <goals>
-                  <goal>diff</goal>
-                </goals>
-              </execution>
-            </executions>
           </plugin>
         </plugins>
       </build>

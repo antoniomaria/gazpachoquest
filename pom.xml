@@ -30,6 +30,7 @@
     <flyway.version>3.0</flyway.version>
     <dozer.version>5.5.1</dozer.version>
     <dbunit.version>2.4.9</dbunit.version>
+    <liquibase.version>3.3.2</liquibase.version>
     <bnd.version>2.0.0.20130123-133441</bnd.version>
   </properties>
 
@@ -82,7 +83,7 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
-    
+
     <repository>
       <id>apache-snapshots</id>
       <url>http://repository.apache.org/content/groups/snapshots-group</url>
