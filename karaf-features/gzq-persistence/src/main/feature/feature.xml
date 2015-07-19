@@ -3,6 +3,7 @@
 
   <feature name="gzq-persistence" description="GazpachoQuest Domain">
     <feature version="${project.version}">gzq-ext-eclipselink</feature>
+    <feature>scr</feature>
     <feature>transaction</feature>
     <feature>pax-jdbc-postgresql</feature>
     <feature>pax-jdbc-config</feature>

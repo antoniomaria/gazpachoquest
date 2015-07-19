@@ -7,11 +7,23 @@
     <!-- Copy from enterprise-3.0.3-features.xml jpa/2.1.0 -->
     <!-- The following bundle is the diference from the original feature jpa/2.1.0 -->
     <bundle start-level="30">mvn:org.eclipse.persistence/javax.persistence/2.1.0</bundle>
-    <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.api/1.0.2</bundle>
-    <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.blueprint.aries/1.0.4</bundle>
-    <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.container/1.0.2</bundle>
-    <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.container.context/1.0.4</bundle>
+    <!--
+      <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.api/1.0.2</bundle>
+      <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.blueprint.aries/1.0.4</bundle>
+      <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.container/1.0.2</bundle>
+      <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.container.context/1.0.4</bundle>
+    -->
     <!-- END Copy from enterprise-3.0.3-features.xml jpa/2.1.0 -->
+    
+    <!-- Apache Aries JPA 2.0.0 -->
+    <bundle start-level="90">mvn:org.apache.aries.jpa/org.apache.aries.jpa.eclipselink.adapter/2.0.0</bundle>
+    <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.api/2.0.0</bundle>
+    <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.container/2.0.0</bundle>
+    <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.support/2.0.0</bundle>
+
+    <bundle start-level="30">mvn:org.apache.aries.jpa/org.apache.aries.jpa.blueprint/2.0.0</bundle>
+
+
   </feature>
 
 </features>
