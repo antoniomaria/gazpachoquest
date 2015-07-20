@@ -2,7 +2,7 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence persistence_1_0.xsd" version="1.0">
   <!-- Only used by eclipselink-staticweave-maven-plugin -->
-  <persistence-unit name="default">
+  <persistence-unit name="gazpachoquest">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider><!-- 
     <mapping-file>C:/Users/antoniomaria/git/gazpachoquest/persistence/domain/src/main/resources/META-INF/orm.xml</mapping-file>
     -->

@@ -48,7 +48,7 @@ public class DDLGenerator {
             addHSQLettings(persistProperties);
         }
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("default", persistProperties);
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("gazpachoquest", persistProperties);
         emf.createEntityManager();
 
         Path input = Paths.get(target.getPath(), "createDDL.jdbc");
