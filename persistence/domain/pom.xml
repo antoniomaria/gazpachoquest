@@ -124,7 +124,7 @@
         <artifactId>maven-bundle-plugin</artifactId>
         <configuration>
           <instructions>
-            <JPA-PersistenceUnits>default</JPA-PersistenceUnits>
+            <JPA-PersistenceUnits>gazpachoquest</JPA-PersistenceUnits>
             <Meta-Persistence>META-INF/default-persistence.xml</Meta-Persistence>
             <Liquibase-Persistence>OSGI-INF/liquibase/db.changelog-master.xml</Liquibase-Persistence>
             <Import-Package>
