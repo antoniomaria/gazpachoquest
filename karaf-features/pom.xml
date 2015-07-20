@@ -13,6 +13,7 @@
 
   <modules>
     <module>gzq-persistence</module>
+    <module>gzq-ext-logback</module>
     <module>gzq-ext-eclipselink</module>
     <module>gzq-platform</module>
   </modules>

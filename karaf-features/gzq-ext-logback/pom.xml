@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>net.sf.gazpachoquest.karaf</groupId>
+    <artifactId>karaf-features</artifactId>
+    <version>0.6.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>gzq-ext-logback</artifactId>
+  <packaging>feature</packaging>
+  <name>GZQ :: Feature :: Logback</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.ops4j.pax.logging</groupId>
+      <artifactId>pax-logging-logback</artifactId>
+      <version>${pax-logging-logback.version}</version>
+      <scope>compile</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>logback-json-core</artifactId>
+          <groupId>ch.qos.logback.contrib</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>logback-json-classic</artifactId>
+          <groupId>ch.qos.logback.contrib</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>logback-jackson</artifactId>
+          <groupId>ch.qos.logback.contrib</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.karaf.tooling</groupId>
+        <artifactId>karaf-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <startLevel>8</startLevel>
+          <aggregateFeatures>true</aggregateFeatures>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

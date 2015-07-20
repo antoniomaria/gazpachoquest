@@ -57,6 +57,7 @@
         <exclude>bin/**</exclude>
         <exclude>etc/custom.properties</exclude>
         <exclude>etc/org.apache.karaf.features.cfg</exclude>
+        <exclude>etc/org.ops4j.pax.logging.cfg</exclude>
         <exclude>README</exclude>
         <exclude>RELEASE-NOTES</exclude>
         <exclude>karaf-manual*.html</exclude>

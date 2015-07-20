@@ -16,7 +16,16 @@
       <classifier>features</classifier>
       <type>xml</type>
       <scope>runtime</scope>
-      <version>0.6.0-SNAPSHOT</version>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>net.sf.gazpachoquest.karaf</groupId>
+      <artifactId>gzq-ext-logback</artifactId>
+      <classifier>features</classifier>
+      <version>${project.version}</version>
+      <type>xml</type>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
   <build>
@@ -37,7 +46,7 @@
         <executions>
           <execution>
             <id>copy-cli-dependencies</id>
-            <phase>prepare-package</phase>
+            <phase>generate-resources</phase>
             <goals>
               <goal>copy-dependencies</goal>
             </goals>
@@ -49,7 +58,7 @@
           <execution>
             <!-- Uncompress the standard Karaf distribution -->
             <id>unpack</id>
-            <phase>prepare-package</phase>
+            <phase>generate-resources</phase>
             <goals>
               <goal>unpack</goal>
             </goals>
@@ -67,7 +76,32 @@
           </execution>
         </executions>
       </plugin>
-      <!-- 
+
+      <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>replacer</artifactId>
+        <version>1.5.3</version>
+        <executions>
+          <execution>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <includes>
+            <include>${project.build.directory}/dependencies/apache-karaf-${karaf.version}/etc/startup.properties</include>
+          </includes>
+          <replacements>
+            <replacement>
+              <token>mvn\\:org.ops4j.pax.logging/pax-logging-service/1.8.1 = 8</token>
+              <valueFile>${basedir}/src/main/filters/pax-logging-logback.txt</valueFile>
+            </replacement>
+          </replacements>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.karaf.tooling</groupId>
         <artifactId>karaf-maven-plugin</artifactId>
@@ -88,16 +122,17 @@
                 <descriptor>mvn:org.apache.cxf.karaf/apache-cxf/${karaf.version}/xml/features</descriptor>
                 <descriptor>mvn:org.apache.activemq/activemq-karaf/5.11.1/xml/features</descriptor>
                 <descriptor>mvn:org.apache.camel.karaf/apache-camel/2.14.1/xml/features</descriptor>
+                <descriptor>mvn:net.sf.gazpachoquest.karaf/gzq-ext-logback/${project.version}/xml/features</descriptor>
               </descriptors>
               <features>
-                <feature>activemq</feature>
+                <feature>gzq-ext-logback</feature>
               </features>
               <repository>target/generated-features-repo</repository>
             </configuration>
           </execution>
         </executions>
       </plugin>
-       -->
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
