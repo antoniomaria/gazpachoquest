@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="5 seconds">
+
+  <appender name="OSGI" class="org.ops4j.pax.logging.logback.appender.PaxAppenderDelegate" />
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>
+        %d{dd-MM-yyyy HH:mm:ss} [%thread] %-5level (%file:%line\) - %message%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${karaf.data}/log/karaf.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern>karaf.%i.log.zip</fileNamePattern>
+      <minIndex>1</minIndex>
+      <maxIndex>10</maxIndex>
+    </rollingPolicy>
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>10MB</maxFileSize>
+    </triggeringPolicy>
+    <encoder>
+      <pattern>%d{ISO8601} | %-5.5p | %-16.16t | %60.60logger | %X{bundle.id} - %X{bundle.name} - %X{bundle.version} | %m%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="ECLIPSELINK_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${karaf.data}/log/eclipselink.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern>event.%i.log.zip</fileNamePattern>
+      <minIndex>1</minIndex>
+      <maxIndex>10</maxIndex>
+    </rollingPolicy>
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>10MB</maxFileSize>
+    </triggeringPolicy>
+    <encoder>
+      <pattern>%d{ISO8601} | %-5.5p | %-16.16t | %60.60logger | %X{bundle.id} - %X{bundle.name} - %X{bundle.version} | %m%n</pattern>
+    </encoder>
+  </appender>
+
+  <include file="${user.home}/log/logback-included.xml" optional="true" />
+  
+  <!-- Define enviroment variable KARAF_OPTS to override this settings.
+    For example:
+    KARAF_OPTS=-Dlog.level=WARN -->
+  <root level="${log.level:-INFO}">
+    <appender-ref ref="FILE" />
+    <appender-ref ref="OSGI" />
+  </root>
+</configuration>
