@@ -15,8 +15,9 @@
     <module>db</module>
     <module>domain</module>
     <module>dao</module>
+    <module>dao-blueprint</module>
     <module>qbe</module>
-	<module>qbe-specification</module>
+    <module>qbe-specification</module>
     <module>jpa</module>
   </modules>
 </project>
