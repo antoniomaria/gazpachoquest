@@ -15,6 +15,11 @@
     <bundle start-level="90" start="true">mvn:net.sf.gazpachoquest/gazpachoquest-types/${project.version}</bundle>
     <bundle start-level="90" start="true">mvn:net.sf.gazpachoquest.persistence/gazpachoquest-jpa/${project.version}</bundle>
     <bundle start-level="90" start="true">mvn:net.sf.gazpachoquest.persistence/gazpachoquest-domain/${project.version}</bundle>
+
+    <bundle start-level="90" start="true">mvn:net.sf.gazpachoquest.persistence/gazpachoquest-dao-blueprint/${project.version}</bundle>
+    <bundle start-level="90" start="true">mvn:net.sf.gazpachoquest.persistence/gazpachoquest-qbe/${project.version}</bundle>
+
+
   </feature>
 
   <feature name="shiro-core" version="${shiro.version}">
