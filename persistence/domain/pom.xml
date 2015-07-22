@@ -127,7 +127,17 @@
             <JPA-PersistenceUnits>gazpachoquest</JPA-PersistenceUnits>
             <Meta-Persistence>META-INF/default-persistence.xml</Meta-Persistence>
             <Liquibase-Persistence>OSGI-INF/liquibase/db.changelog-master.xml</Liquibase-Persistence>
-            <Import-Package>
+            <Import-Package>			  
+			  org.eclipse.persistence.descriptors.changetracking,
+              org.eclipse.persistence.indirection,
+              org.eclipse.persistence.internal.descriptors,
+              org.eclipse.persistence.internal.identitymaps,
+              org.eclipse.persistence.internal.jpa.rs.metadata.model,
+              org.eclipse.persistence.internal.weaving,
+              org.eclipse.persistence.mappings.converters,
+              org.eclipse.persistence.queries,
+              org.eclipse.persistence.sessions,
+              org.eclipse.persistence.jpa,
               *
             </Import-Package>
             <Export-Package>net.sf.gazpachoquest.domain.*</Export-Package>

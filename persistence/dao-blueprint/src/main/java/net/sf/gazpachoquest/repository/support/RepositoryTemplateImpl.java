@@ -24,10 +24,14 @@ import org.apache.aries.transaction.annotations.Transaction;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public class GenericRepositoryImpl<T extends Persistable> implements GenericRepository<T> {
+public class RepositoryTemplateImpl<T extends Persistable> implements RepositoryTemplate<T> {
 
     @PersistenceContext(unitName = "gazpachoquest")
-    EntityManager em;
+    protected EntityManager em;
+
+    public RepositoryTemplateImpl() {
+        System.out.println("RepositoryTemplateImpl instance created");
+    }
 
     @Override
     public long countByExample(final T entity, final SearchParameters sp) {
@@ -62,6 +66,10 @@ public class GenericRepositoryImpl<T extends Persistable> implements GenericRepo
     @Override
     @Transaction
     public <S extends T> S save(final S entity) {
+        if (em == null) {
+            System.out.println("Chungo entityManager not injected in RepositoryTemplateImpl ");
+            return entity;
+        }
         em.persist(entity);
         em.flush();
         return entity;
