@@ -7,7 +7,12 @@
     <feature>transaction</feature>
     <feature>pax-jdbc-postgresql</feature>
     <feature>pax-jdbc-config</feature>
-    <feature>pax-jdbc-pool-dbcp2</feature>
+    <!--
+	<feature>pax-jdbc-pool-dbcp2</feature>
+	-->
+	<feature>pax-jdbc-pool-aries</feature>
+	
+	
     <feature>shiro-core</feature>
     <feature>liquibase-extender</feature>
     <feature version="[4.0.7.RELEASE_1,4.1)">spring</feature>
@@ -19,6 +24,11 @@
     <bundle start-level="90" start="true">mvn:net.sf.gazpachoquest.persistence/gazpachoquest-dao-blueprint/${project.version}</bundle>
     <bundle start-level="90" start="true">mvn:net.sf.gazpachoquest.persistence/gazpachoquest-qbe/${project.version}</bundle>
 
+
+    <bundle start-level="80">mvn:org.apache.commons/commons-lang3/3.1</bundle>
+    <bundle start-level="80">mvn:org.springframework.data/spring-data-commons/1.9.1.RELEASE</bundle>
+    <bundle start-level="80">wrap:mvn:org.springframework/spring-core/4.0.7.RELEASE</bundle>
+    <bundle start-level="80">wrap:mvn:org.springframework/spring-beans/4.0.7.RELEASE</bundle>
 
   </feature>
 

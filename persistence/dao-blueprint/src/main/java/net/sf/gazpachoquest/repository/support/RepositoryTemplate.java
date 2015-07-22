@@ -19,7 +19,7 @@ import net.sf.gazpachoquest.qbe.SearchParameters;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface GenericRepository<T> {
+public interface RepositoryTemplate<T> {
 
     long countByExample(T entity, SearchParameters sp);
 

@@ -1,8 +1,8 @@
 package net.sf.gazpachoquest.repository;
 
 import net.sf.gazpachoquest.domain.support.Invitation;
-import net.sf.gazpachoquest.repository.support.GenericRepository;
+import net.sf.gazpachoquest.repository.support.RepositoryTemplate;
 
-public interface InvitationRepository extends GenericRepository<Invitation> {
+public interface InvitationRepository extends RepositoryTemplate<Invitation> {
 
 }

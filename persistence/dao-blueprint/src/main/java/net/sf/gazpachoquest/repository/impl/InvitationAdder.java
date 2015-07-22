@@ -18,8 +18,10 @@
  */
 package net.sf.gazpachoquest.repository.impl;
 
-import net.sf.gazpachoquest.domain.support.Invitation;
+import net.sf.gazpachoquest.domain.core.AnonymousInvitation;
+import net.sf.gazpachoquest.domain.core.Research;
 import net.sf.gazpachoquest.repository.InvitationRepository;
+import net.sf.gazpachoquest.types.InvitationStatus;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -37,7 +39,9 @@ public class InvitationAdder {
 
     @Activate
     public void addDemoInvitation() {
-        final Invitation invitation = Invitation.with().token("" + System.currentTimeMillis()).build();
+        System.out.println("Adding Invitation...");
+        final AnonymousInvitation invitation = AnonymousInvitation.with().status(InvitationStatus.ACTIVE).token("" + System.currentTimeMillis())
+                .research(Research.with().id(668).build()).build();
         invitationRepository.save(invitation);
     }
 }
