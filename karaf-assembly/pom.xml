@@ -95,7 +95,7 @@
           </includes>
           <replacements>
             <replacement>
-              <token>mvn\\:org.ops4j.pax.logging/pax-logging-service/1.8.1 = 8</token>
+              <token>mvn\\:org.ops4j.pax.logging/pax-logging-service/${pax-logging-service.version} = 8</token>
               <valueFile>${basedir}/src/main/filters/pax-logging-logback.txt</valueFile>
             </replacement>
           </replacements>
@@ -105,6 +105,7 @@
       <plugin>
         <groupId>org.apache.karaf.tooling</groupId>
         <artifactId>karaf-maven-plugin</artifactId>
+        <version>3.0.3</version>
         <executions>
           <execution>
             <id>features-add-to-repo</id>
@@ -119,7 +120,7 @@
                 <descriptor>mvn:org.apache.karaf.features/standard/${karaf.version}/xml/features</descriptor>
                 <descriptor>mvn:org.apache.karaf.features/enterprise/${karaf.version}/xml/features</descriptor>
                 <descriptor>mvn:org.apache.karaf.features/spring/${karaf.version}/xml/features</descriptor>
-                <descriptor>mvn:org.apache.cxf.karaf/apache-cxf/${karaf.version}/xml/features</descriptor>
+                <descriptor>mvn:org.apache.cxf.karaf/apache-cxf/${cxf.version}/xml/features</descriptor>
                 <descriptor>mvn:org.apache.activemq/activemq-karaf/5.11.1/xml/features</descriptor>
                 <descriptor>mvn:org.apache.camel.karaf/apache-camel/2.14.1/xml/features</descriptor>
                 <descriptor>mvn:net.sf.gazpachoquest.karaf/gzq-ext-logback/${project.version}/xml/features</descriptor>

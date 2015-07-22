@@ -12,12 +12,19 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- Karaf related -->
+	<!--
     <karaf.version>3.0.3</karaf.version>
     <pax-logging-service.version>1.8.1</pax-logging-service.version>
     <pax-web-features.version>3.1.4</pax-web-features.version>
     <pax-logging-logback.version>1.8.2</pax-logging-logback.version>
+	-->
 
+	<karaf.version>4.0.0</karaf.version>
+    <pax-logging-service.version>1.8.3</pax-logging-service.version>
+    <pax-web-features.version>3.1.4</pax-web-features.version>
+    <pax-logging-logback.version>1.8.3</pax-logging-logback.version>
 
+	
     <spring.version>4.0.7.RELEASE</spring.version>
     <spring.data.jpa.version>1.7.1.RELEASE</spring.data.jpa.version>
     <slf4j.version>1.7.7</slf4j.version>
