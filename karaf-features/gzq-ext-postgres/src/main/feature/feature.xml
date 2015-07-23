@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features name="gzq-ext-postgres">
+
+  <feature name="gzq-ext-postgres" description="Provides JDBC PostgreSQL DataSourceFactory">
+    <feature>pax-jdbc-spec</feature>
+    <bundle start-level="25">mvn:org.postgresql/postgresql/9.4-1200-jdbc41</bundle>
+  </feature>
+
+</features>

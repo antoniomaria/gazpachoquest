@@ -40,8 +40,9 @@ public class InvitationAdder {
     @Activate
     public void addDemoInvitation() {
         System.out.println("Adding Invitation...");
-        final AnonymousInvitation invitation = AnonymousInvitation.with().status(InvitationStatus.ACTIVE).token("" + System.currentTimeMillis())
+        AnonymousInvitation invitation = AnonymousInvitation.with().status(InvitationStatus.ACTIVE).token("" + System.currentTimeMillis())
                 .research(Research.with().id(668).build()).build();
-        invitationRepository.save(invitation);
+        invitation = invitationRepository.save(invitation);
+        System.out.println("Iujuu created with Id = "+ invitation.getId());
     }
 }
