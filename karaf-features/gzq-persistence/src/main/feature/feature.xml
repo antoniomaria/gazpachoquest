@@ -9,9 +9,7 @@
 
     <feature>pax-jdbc-config</feature>
 
-    <!--
-      <feature>pax-jdbc-postgresql</feature>
-    -->
+    <feature>gzq-ext-postgres</feature>
     <feature>pax-jdbc-h2</feature>
 
 

@@ -3,7 +3,6 @@ package net.sf.gazpachoquest.repository.impl;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import net.sf.gazpachoquest.domain.support.Invitation;
@@ -12,6 +11,7 @@ import net.sf.gazpachoquest.qbe.SearchParameters;
 import net.sf.gazpachoquest.repository.InvitationRepository;
 import net.sf.gazpachoquest.repository.support.RepositoryTemplate;
 
+import org.apache.aries.jpa.supplier.EmSupplier;
 import org.apache.aries.transaction.annotations.Transaction;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +21,8 @@ public class InvitationRepositoryImpl implements InvitationRepository {
     protected RepositoryTemplate<Invitation> template;
 
     @PersistenceContext(unitName = "gazpachoquest")
-    protected EntityManager em;
+    protected EmSupplier em;
+   // protected EntityManager em;
 
     public InvitationRepositoryImpl() {
         System.out.println("InvitationRepositoryImpl instance created");
@@ -58,7 +59,7 @@ public class InvitationRepositoryImpl implements InvitationRepository {
     }
 
     @Override
-    @Transaction
+    // @Transaction
     public <S extends Invitation> S save(final S entity) {
         /*-
         if (template == null) {
@@ -70,8 +71,8 @@ public class InvitationRepositoryImpl implements InvitationRepository {
             System.out.println("Chungo entityManager not injected in InvitationRepositoryImpl ");
             return entity;
         }
-        em.persist(entity);
-        em.flush();
+        em.get().persist(entity);
+        em.get().flush();
         return entity;
     }
 
