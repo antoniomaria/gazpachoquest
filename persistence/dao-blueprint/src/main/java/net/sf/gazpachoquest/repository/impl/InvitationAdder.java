@@ -26,9 +26,16 @@ import net.sf.gazpachoquest.types.InvitationStatus;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component(immediate = true)
 public class InvitationAdder {
+
+    /**
+      * Logger.
+      */
+    private static final Logger logger = LoggerFactory.getLogger(InvitationAdder.class);
 
     private InvitationRepository invitationRepository;
 
@@ -39,10 +46,10 @@ public class InvitationAdder {
 
     @Activate
     public void addDemoInvitation() {
-        System.out.println("Adding Invitation...");
+        logger.info("Adding Invitation...");
         AnonymousInvitation invitation = AnonymousInvitation.with().status(InvitationStatus.ACTIVE).token("" + System.currentTimeMillis())
                 .research(Research.with().id(668).build()).build();
         invitation = invitationRepository.save(invitation);
-        System.out.println("Iujuu created with Id = "+ invitation.getId());
+        logger.info("Iujuu created with Id = {}", invitation.getId());
     }
 }

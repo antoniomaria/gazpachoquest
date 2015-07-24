@@ -41,7 +41,7 @@
     </encoder>
   </appender>
 
-  <include file="${user.home}/log/logback-included.xml" optional="true" />
+  <include file="${user.home}/gzq/logback-included.xml" optional="true" />
   
   <!-- Define enviroment variable KARAF_OPTS to override this settings.
     For example:

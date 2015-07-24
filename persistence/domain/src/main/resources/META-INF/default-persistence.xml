@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
   <!-- Used by eclipselink-staticweave-maven-plugin and OSGI based port -->
   <persistence-unit name="gazpachoquest" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-	
-	<!-- Only used when transaction-type=JTA -->
+
+    <!-- Only used when transaction-type=JTA -->
     <jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=gazpachoquest)</jta-data-source>
-        
+
     <!-- Only used when transaction-type=RESOURCE_LOCAL -->
     <non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=gazpachoquest)</non-jta-data-source>
-	
+
     <class>net.sf.gazpachoquest.domain.core.AnonymousInvitation</class>
 
     <class>net.sf.gazpachoquest.domain.core.Breadcrumb</class>
@@ -57,6 +55,15 @@
     <class>net.sf.gazpachoquest.domain.permission.QuestionnairePermission</class>
     <class>net.sf.gazpachoquest.domain.permission.ResearchPermission</class>
     <class>net.sf.gazpachoquest.domain.permission.UserPermission</class>
+
+    <properties>
+      <property name="eclipselink.logging.logger" value="net.sf.gazpachoquest.jpa.eclipselink.Slf4jSessionLogger" />
+      <property name="eclipselink.logging.parameters" value="true" />
+      <property name="eclipselink.weaving" value="static" />
+      <property name="eclipselink.session.customizer" value="net.sf.gazpachoquest.jpa.eclipselink.CamelNamingStrategy" />
+      <property name="eclipselink.cache.shared.default" value="true" />
+    </properties>
+    
     <!--
       <properties>
       <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
