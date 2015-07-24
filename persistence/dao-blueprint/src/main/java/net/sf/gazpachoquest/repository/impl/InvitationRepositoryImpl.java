@@ -12,20 +12,27 @@ import net.sf.gazpachoquest.repository.InvitationRepository;
 import net.sf.gazpachoquest.repository.support.RepositoryTemplate;
 
 import org.apache.aries.jpa.supplier.EmSupplier;
-import org.apache.aries.transaction.annotations.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public class InvitationRepositoryImpl implements InvitationRepository {
 
+    /**
+      * Logger.
+      */
+    private static final Logger logger = LoggerFactory.getLogger(InvitationRepositoryImpl.class);
+
     protected RepositoryTemplate<Invitation> template;
 
     @PersistenceContext(unitName = "gazpachoquest")
     protected EmSupplier em;
-   // protected EntityManager em;
+
+    // protected EntityManager em;
 
     public InvitationRepositoryImpl() {
-        System.out.println("InvitationRepositoryImpl instance created");
+        logger.debug("InvitationRepositoryImpl instance created");
     }
 
     @Override
@@ -60,7 +67,8 @@ public class InvitationRepositoryImpl implements InvitationRepository {
 
     @Override
     // @Transaction
-    public <S extends Invitation> S save(final S entity) {
+            public
+            <S extends Invitation> S save(final S entity) {
         /*-
         if (template == null) {
             System.out.println("Chungo template not injected in InvitationRepositoryImpl");
