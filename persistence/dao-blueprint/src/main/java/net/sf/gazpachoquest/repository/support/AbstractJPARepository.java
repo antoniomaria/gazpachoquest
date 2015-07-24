@@ -13,24 +13,25 @@ package net.sf.gazpachoquest.repository.support;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import net.sf.gazpachoquest.domain.support.Persistable;
 import net.sf.gazpachoquest.qbe.Range;
 import net.sf.gazpachoquest.qbe.SearchParameters;
 
-import org.apache.aries.transaction.annotations.Transaction;
+import org.apache.aries.jpa.supplier.EmSupplier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public class RepositoryTemplateImpl<T extends Persistable> implements RepositoryTemplate<T> {
+public abstract class AbstractJPARepository<T extends Persistable> implements JPARepository<T> {
 
-    @PersistenceContext(unitName = "gazpachoquest")
-    protected EntityManager em;
+    /**
+     * Logger.
+     */
+    private static final Logger logger = LoggerFactory.getLogger(AbstractJPARepository.class);
 
-    public RepositoryTemplateImpl() {
-        System.out.println("RepositoryTemplateImpl instance created");
+    protected AbstractJPARepository() {
+        logger.debug("Instance created");
     }
 
     @Override
@@ -64,14 +65,9 @@ public class RepositoryTemplateImpl<T extends Persistable> implements Repository
     }
 
     @Override
-    @Transaction
     public <S extends T> S save(final S entity) {
-        if (em == null) {
-            System.out.println("Chungo entityManager not injected in RepositoryTemplateImpl ");
-            return entity;
-        }
-        em.persist(entity);
-        em.flush();
+        getEm().get().persist(entity);
+        getEm().get().flush();
         return entity;
     }
 
@@ -81,8 +77,5 @@ public class RepositoryTemplateImpl<T extends Persistable> implements Repository
 
     }
 
-    public void setEm(final EntityManager em) {
-        this.em = em;
-    }
-
+    protected abstract EmSupplier getEm();
 }

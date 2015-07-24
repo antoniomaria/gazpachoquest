@@ -18,14 +18,8 @@
   <service ref="invitationRepositoryImpl" interface="net.sf.gazpachoquest.repository.InvitationRepository" />
 
   <bean id="invitationRepositoryImpl" class="net.sf.gazpachoquest.repository.impl.InvitationRepositoryImpl">
-    <!--
-      <property name="template" ref="repositoryTemplate" />
-    -->
     <tx:transaction method="*" />
   </bean>
-  <!--
-    <bean id="repositoryTemplate" class="net.sf.gazpachoquest.repository.support.RepositoryTemplateImpl" />
-  -->
 
   <!--
     <bean id="taskService" class="org.apache.aries.jpa.example.tasklist.blueprint.impl.TaskServiceWithSupplier">

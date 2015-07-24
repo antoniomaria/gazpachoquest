@@ -13,13 +13,14 @@ package net.sf.gazpachoquest.repository.support;
 import java.util.List;
 import java.util.Optional;
 
+import net.sf.gazpachoquest.domain.support.Persistable;
 import net.sf.gazpachoquest.qbe.Range;
 import net.sf.gazpachoquest.qbe.SearchParameters;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface RepositoryTemplate<T> {
+public interface JPARepository<T extends Persistable> {
 
     long countByExample(T entity, SearchParameters sp);
 
