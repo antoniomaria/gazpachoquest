@@ -45,8 +45,8 @@
   
   <!-- Define enviroment variable KARAF_OPTS to override this settings.
     For example:
-    KARAF_OPTS=-Dlog.level=WARN -->
-  <root level="${log.level:-INFO}">
+    KARAF_OPTS=-Dlog.level=INFO -->
+  <root level="${log.level:-WARN}">
     <appender-ref ref="FILE" />
     <appender-ref ref="OSGI" />
   </root>

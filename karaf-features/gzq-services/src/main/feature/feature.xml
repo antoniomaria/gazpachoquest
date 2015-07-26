@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features name="gzq-services">
+
+  <feature name="gzq-services" description="GazpachoQuest Services">
+    <feature>gzq-persistence</feature>
+    <bundle start-level="90" start="true">mvn:net.sf.gazpachoquest/gazpachoquest-services-ds/${project.version}</bundle>
+  </feature>
+
+</features>

@@ -2,7 +2,7 @@
 <features name="gzq-ext-eclipselink">
 
   <feature name="gzq-platform" description="GazpachoQuest Platform">
-    <feature version="${project.version}">gzq-persistence</feature>
+    <feature version="${project.version}">gzq-services</feature>
   </feature>
 
 </features>

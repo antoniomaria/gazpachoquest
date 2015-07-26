@@ -16,14 +16,9 @@
   <tx:enable-annotations />
 
   <service ref="invitationRepositoryImpl" interface="net.sf.gazpachoquest.repository.InvitationRepository" />
+  <service ref="labelSetRepositoryImpl" interface="net.sf.gazpachoquest.repository.LabelSetRepository" />
 
-  <bean id="invitationRepositoryImpl" class="net.sf.gazpachoquest.repository.impl.InvitationRepositoryImpl">
-    <tx:transaction method="*" />
-  </bean>
+  <bean id="invitationRepositoryImpl" class="net.sf.gazpachoquest.repository.impl.InvitationRepositoryImpl" />
+  <bean id="labelSetRepositoryImpl" class="net.sf.gazpachoquest.repository.impl.LabelSetRepositoryImpl" />
 
-  <!--
-    <bean id="taskService" class="org.apache.aries.jpa.example.tasklist.blueprint.impl.TaskServiceWithSupplier">
-    <tx:transaction method="*" />
-    </bean>
-    <bean class="org.apache.aries.jpa.example.tasklist.blueprint.impl.TaskServiceImpl"/> -->
 </blueprint>

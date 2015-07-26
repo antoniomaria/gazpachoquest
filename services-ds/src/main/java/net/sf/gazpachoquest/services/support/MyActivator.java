@@ -16,11 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package net.sf.gazpachoquest.repository.impl;
+package net.sf.gazpachoquest.services.support;
 
 import net.sf.gazpachoquest.domain.core.AnonymousInvitation;
 import net.sf.gazpachoquest.domain.core.Research;
-import net.sf.gazpachoquest.repository.InvitationRepository;
+import net.sf.gazpachoquest.domain.support.Invitation;
+import net.sf.gazpachoquest.services.InvitationService;
 import net.sf.gazpachoquest.types.InvitationStatus;
 
 import org.osgi.service.component.annotations.Activate;
@@ -30,26 +31,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Component(immediate = true)
-public class InvitationAdder {
+public class MyActivator {
 
     /**
-      * Logger.
-      */
-    private static final Logger logger = LoggerFactory.getLogger(InvitationAdder.class);
+     * Logger.
+     */
+    private static final Logger logger = LoggerFactory.getLogger(MyActivator.class);
 
-    private InvitationRepository invitationRepository;
+    private InvitationService invitationService;
 
     @Reference
-    public void setInvitationRepository(final InvitationRepository taskService) {
-        this.invitationRepository = taskService;
+    public void setInvitationService(final InvitationService invitationService) {
+        this.invitationService = invitationService;
     }
 
     @Activate
     public void addDemoInvitation() {
         logger.info("Adding Invitation...");
-        AnonymousInvitation invitation = AnonymousInvitation.with().status(InvitationStatus.ACTIVE).token("" + System.currentTimeMillis())
-                .research(Research.with().id(668).build()).build();
-        invitation = invitationRepository.save(invitation);
-        logger.info("Iujuu created with Id = {}", invitation.getId());
+        AnonymousInvitation invitation = AnonymousInvitation.with().status(InvitationStatus.ACTIVE)
+                .token( "" +System.currentTimeMillis()).research(Research.with().id(668).build()).build();
+        Invitation saved = invitationService.save(invitation);
+        logger.info("Iujuu created with Id = {}", saved.getId());
     }
 }

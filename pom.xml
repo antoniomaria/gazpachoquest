@@ -12,19 +12,19 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- Karaf related -->
-	<!--
-    <karaf.version>3.0.3</karaf.version>
-    <pax-logging-service.version>1.8.1</pax-logging-service.version>
-    <pax-web-features.version>3.1.4</pax-web-features.version>
-    <pax-logging-logback.version>1.8.2</pax-logging-logback.version>
-	-->
+    <!--
+      <karaf.version>3.0.3</karaf.version>
+      <pax-logging-service.version>1.8.1</pax-logging-service.version>
+      <pax-web-features.version>3.1.4</pax-web-features.version>
+      <pax-logging-logback.version>1.8.2</pax-logging-logback.version>
+    -->
 
-	<karaf.version>4.0.0</karaf.version>
+    <karaf.version>4.0.0</karaf.version>
     <pax-logging-service.version>1.8.3</pax-logging-service.version>
     <pax-web-features.version>3.1.4</pax-web-features.version>
     <pax-logging-logback.version>1.8.3</pax-logging-logback.version>
 
-	
+
     <spring.version>4.0.7.RELEASE</spring.version>
     <spring.data.jpa.version>1.7.1.RELEASE</spring.data.jpa.version>
     <slf4j.version>1.7.7</slf4j.version>
@@ -44,6 +44,8 @@
     <dozer.version>5.5.1</dozer.version>
     <dbunit.version>2.4.9</dbunit.version>
     <liquibase.version>3.3.2</liquibase.version>
+    <transactionhelper.version>2.0.1</transactionhelper.version>
+
     <bnd.version>2.0.0.20130123-133441</bnd.version>
   </properties>
 
@@ -78,6 +80,7 @@
     <module>karaf-features</module>
     <module>launcher</module>
     <module>services</module>
+    <module>services-ds</module>
     <module>questionnaires-backend</module>
     <module>questionnaires-ui</module>
     <module>rest</module>
@@ -657,6 +660,15 @@
         <artifactId>shiro-core</artifactId>
         <version>${shiro.version}</version>
       </dependency>
+
+      <!-- Transaction Helper -->
+      <dependency>
+        <groupId>org.everit.osgi</groupId>
+        <artifactId>org.everit.osgi.transaction.helper</artifactId>
+        <version>${transactionhelper.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
@@ -891,10 +903,11 @@
           </executions>
           <configuration>
             <instructions>
-              <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+              <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
               <Bundle-Version>${project.version}</Bundle-Version>
               <Export-Package>${project.groupId}</Export-Package>
               <Service-Component>*</Service-Component><!-- <Include-Resource>OSGI-OPT/=/src/main/java/</Include-Resource> -->
+              <_dsannotations>*</_dsannotations>
             </instructions>
           </configuration>
         </plugin>

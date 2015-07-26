@@ -18,6 +18,7 @@ import net.sf.gazpachoquest.qbe.Range;
 import net.sf.gazpachoquest.qbe.SearchParameters;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 public interface JPARepository<T extends Persistable> {
@@ -35,4 +36,14 @@ public interface JPARepository<T extends Persistable> {
     <S extends T> S save(S entity);
 
     void deleteByExample(T entity, SearchParameters sp);
+
+    long count();
+
+    void delete(Integer id);
+
+    List<T> findAll();
+
+    T findOne(Integer id);
+
+    Page<T> findAll(PageRequest pageRequest);
 }
