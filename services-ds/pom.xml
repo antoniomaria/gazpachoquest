@@ -1,12 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>net.sf.gazpachoquest.persistence</groupId>
-    <artifactId>gazpacho-persistence</artifactId>
+    <groupId>net.sf.gazpachoquest</groupId>
+    <artifactId>gazpachoquest</artifactId>
     <version>0.6.0-SNAPSHOT</version>
   </parent>
-  <artifactId>gazpachoquest-dao-ds</artifactId>
-  <name>GZQ :: Module :: Deaclarative Services DAO </name>
+  <packaging>bundle</packaging>
+  <artifactId>gazpachoquest-services-ds</artifactId>
+  <name>GZQ :: Module :: Services ( Declarative Services) </name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
 
   <dependencies>
@@ -36,53 +37,18 @@
     </dependency>
 
     <!-- Project libraries -->
-    <dependency>
-      <groupId>net.sf.gazpachoquest.persistence</groupId>
-      <artifactId>gazpachoquest-db</artifactId>
-
-    </dependency>
 
     <dependency>
       <groupId>net.sf.gazpachoquest.persistence</groupId>
-      <artifactId>gazpachoquest-domain</artifactId>
+      <artifactId>gazpachoquest-dao-blueprint</artifactId>
+      <version>0.6.0-SNAPSHOT</version>
     </dependency>
 
+    <!-- Transaction helper -->
     <dependency>
-      <groupId>net.sf.gazpachoquest.persistence</groupId>
-      <artifactId>gazpachoquest-qbe</artifactId>
-    </dependency>
-
-    <!-- JDBC drivers -->
-    <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.hsqldb</groupId>
-      <artifactId>hsqldb</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-    </dependency>
-
-    <!-- Logger logback -->
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>slf4j-api</artifactId>
-          <groupId>org.slf4j</groupId>
-        </exclusion>
-      </exclusions>
+      <groupId>org.everit.osgi</groupId>
+      <artifactId>org.everit.osgi.transaction.helper</artifactId>
+      <scope>compile</scope>
     </dependency>
 
   </dependencies>
@@ -91,12 +57,14 @@
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
         <configuration>
           <instructions>
             <Import-Package>
               *
             </Import-Package>
-            <Export-Package>net.sf.gazpachoquest.dao.*</Export-Package>
+            <Export-Package>net.sf.gazpachoquest.services.*</Export-Package>
+            <_dsannotations>*</_dsannotations>
           </instructions>
         </configuration>
       </plugin>

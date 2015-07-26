@@ -40,7 +40,6 @@
     <dependency>
       <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-db</artifactId>
-
     </dependency>
 
     <dependency>
@@ -120,7 +119,7 @@
             <Import-Package>
               *
             </Import-Package>
-            <Export-Package>net.sf.gazpachoquest.dao.*</Export-Package>
+            <Export-Package>net.sf.gazpachoquest.repository.*</Export-Package>
             <_dsannotations>*</_dsannotations>
           </instructions>
         </configuration>

@@ -8,30 +8,33 @@
  * Contributors:
  *     antoniomaria - initial API and implementation
  ******************************************************************************/
-package net.sf.gazpachoquest.dao.support;
+package net.sf.gazpachoquest.services;
 
 import java.util.List;
 import java.util.Optional;
 
-import net.sf.gazpachoquest.qbe.Range;
+import net.sf.gazpachoquest.domain.support.Persistable;
 import net.sf.gazpachoquest.qbe.SearchParameters;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
-public interface GenericRepository<T> {
+public interface PersistenceService<T extends Persistable> {
+    long count();
 
-    long countByExample(T entity, SearchParameters sp);
+    void delete(Integer id);
 
-    Page<T> findByExample(T example, List<Range<?, ?>> ranges, Pageable pageable);
+    List<T> findAll();
 
-    Page<T> findByExample(T example, Pageable pageable);
+    List<T> findByExample(T example, SearchParameters searchParameters);
 
-    List<T> findByExample(T entity, SearchParameters sp);
+    T findOne(Integer id);
 
-    Optional<T> findOneByExample(T entity, SearchParameters sp);
+    Optional<T> findOneByExample(T example, SearchParameters searchParameters);
 
-    <S extends T> S saveWithFlush(S entity);
+    T save(T entity);
 
-    void deleteByExample(T entity, SearchParameters sp);
+    void deleteByExample(T entity, SearchParameters searchParameters);
+
+    Page<T> findPaginated(Integer pageNumber, Integer size);
+
 }
