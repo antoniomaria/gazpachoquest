@@ -39,11 +39,10 @@
               <lib>com.fasterxml:classmate:1.1.0</lib>
               <lib>net.sf.gazpachoquest:gazpachoquest-jaas:${project.version}</lib>
             </libs>
-            <!-- 
             <webapps>
               <webapp>net.sf.gazpachoquest:gazpachoquest-rest-web:${project.version}?name=gazpachoquest-rest-web</webapp>
               <webapp>net.sf.gazpachoquest:gazpachoquest-questionnaires-ui:${project.version}?name=ROOT</webapp>
-            </webapps>  -->
+            </webapps>
             <args>-Xms512m -Xmx1024m -Djava.security.auth.login.config=${project.basedir}/src/main/resources/jaas.config</args>
           </configuration>
         </plugin>

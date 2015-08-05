@@ -11,8 +11,7 @@
   <name>gazpachoquest-rest-parent-module</name>
   <modules>
     <module>rest-security</module>
-    <!-- 
-    <module>rest-web</module>  -->
+    <module>rest-web</module>
     <module>rest-cxf-contrib</module>
   </modules>
   <dependencyManagement>
