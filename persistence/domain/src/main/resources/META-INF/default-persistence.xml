@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
   <!-- Used by eclipselink-staticweave-maven-plugin and OSGI based port -->
   <persistence-unit name="gazpachoquest" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
@@ -9,6 +10,8 @@
 
     <!-- Only used when transaction-type=RESOURCE_LOCAL -->
     <non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=gazpachoquest)</non-jta-data-source>
+
+    <mapping-file>META-INF/orm-no-audit.xml</mapping-file>
 
     <class>net.sf.gazpachoquest.domain.core.AnonymousInvitation</class>
 
@@ -63,7 +66,7 @@
       <property name="eclipselink.session.customizer" value="net.sf.gazpachoquest.jpa.eclipselink.CamelNamingStrategy" />
       <property name="eclipselink.cache.shared.default" value="true" />
     </properties>
-    
+
     <!--
       <properties>
       <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
