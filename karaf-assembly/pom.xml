@@ -16,14 +16,14 @@
       <classifier>features</classifier>
       <type>xml</type>
       <scope>runtime</scope>
-      <version>${project.version}</version>
+      <version>0.6.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>
       <groupId>net.sf.gazpachoquest.karaf</groupId>
       <artifactId>gzq-ext-logback</artifactId>
       <classifier>features</classifier>
-      <version>${project.version}</version>
+      <version>0.6.0-SNAPSHOT</version>
       <type>xml</type>
       <scope>runtime</scope>
     </dependency>
