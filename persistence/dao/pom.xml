@@ -124,12 +124,6 @@
       <artifactId>spring-aspects</artifactId>
     </dependency>
 
-    <!-- Google flyway -->
-    <dependency>
-      <groupId>org.flywaydb</groupId>
-      <artifactId>flyway-core</artifactId>
-    </dependency>
-
     <!-- Liquibase -->
     <dependency>
       <groupId>org.liquibase</groupId>
