@@ -52,7 +52,6 @@
     <dependency>
       <groupId>net.sf.gazpachoquest.persistence</groupId>
       <artifactId>gazpachoquest-db</artifactId>
-
     </dependency>
 
     <dependency>
@@ -129,6 +128,12 @@
     <dependency>
       <groupId>org.flywaydb</groupId>
       <artifactId>flyway-core</artifactId>
+    </dependency>
+
+    <!-- Liquibase -->
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-core</artifactId>
     </dependency>
   </dependencies>
   <build>
