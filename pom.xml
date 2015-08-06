@@ -26,6 +26,7 @@
     <postgres.version>9.3-1102-jdbc41</postgres.version>
     <mysql.version>5.1.23</mysql.version>
     <swagger.version>1.3.7</swagger.version>
+    <liquibase.version>3.3.2</liquibase.version>
     <jackson.version>2.4.3</jackson.version>
     <joda.time.version>2.4</joda.time.version>
     <commons.lang3.version>3.1</commons.lang3.version>
@@ -589,6 +590,13 @@
         <groupId>org.flywaydb</groupId>
         <artifactId>flyway-core</artifactId>
         <version>${flyway.version}</version>
+      </dependency>
+
+      <!-- Liquibase -->
+      <dependency>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-core</artifactId>
+        <version>${liquibase.version}</version>
       </dependency>
 
       <!-- Jodatime -->
