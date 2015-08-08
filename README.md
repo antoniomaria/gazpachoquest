@@ -2,19 +2,22 @@
 [![Build Status](https://travis-ci.org/antoniomaria/gazpachoquest.svg?branch=master)](https://travis-ci.org/antoniomaria/gazpachoquest)
 
 
-# GazpachoQuest a Questionnaire Tool
+# GazpachoQuest a Survey-Questionnaire-Assessment Rest Engine
 
-GazpachoQuest is general purpose tool for collecting answers through dynamic web form. The main advantage over other alternatives is its loose coupled architecture based on
+GazpachoQuest is Java Rest-Based survey engine. The main advantage over other alternatives is its loose coupled architecture based on
 [Microservices Architecture](http://www.infoq.com/articles/microservices-intro) which ensures concern-separation.
-At this moment all the effort has been spent on provide a powerful, REST Gateway which exposes all features, ready to be consumed by others applications as a front-end. 
+This engine is intented to be consumed by rest clients in order to build different front-end according to your needs. It provides all features than others survey engines have, among other technological features such as Role-Permission based access, HMac security layer (HMAC based), support for main databases (JPA based persistence layer) and swagger rest documentation api.
 
+There is available a Vaadin web application as proof of concept of the engine.
+
+A Karaf OSGI based port is coming up. Stay tune.
 
 ## Highligh features
 
-* Multi-lingual questionnaires 
+* Multi-lingual questionnaires. 
 * Conditions for questions depending on earlier answers (Skip Logic / Branching)
-* Question and page randomization
-* Auto-numbering for questions
+* Question and page randomization.
+* Auto-numbering for questions.
 * Reordering questions / page logic.
 * Question Types
   * Multiple Choice List (Check Boxes) + Other. Vertically or Horizontally arranged.
@@ -24,12 +27,13 @@ At this moment all the effort has been spent on provide a powerful, REST Gateway
 * Smart language selector depending on Browser Preferred Language, or Respondent attributes.
 * Anonymous and Not-Anonymous questionnaires
 * Role-Permission based Access-Rights management. 
+* HMac based security.
 * Import and export questionnaires definitions to XML
 
 
 ## Contributing
 
-Contributions are welcome, in any form including code contributions, bug reports, feature suggestions, documentation, testing, and general feedback. Issues can be submitted on the [Github page][1]. For further information, contact to: <mailto:antoniomariasanchez@gmail.com> or visit [wiki developer section](https://github.com/antoniomaria/gazpachoquest/wiki/Developers)
+Contributions are welcome, in any form including code contributions, bug reports, feature suggestions, documentation, testing, and general feedback. Specially are frondend developers are really welcome either to improve the Vaadin proof of concept or in order to build a dashboard or administration tool. Issues can be submitted on the [Github page][1]. For further information, contact to: <mailto:antoniomariasanchez@gmail.com> or visit [wiki developer section](https://github.com/antoniomaria/gazpachoquest/wiki/Developers)
 
 ## Versioning
 
@@ -50,7 +54,7 @@ For more information on SemVer, please visit http://semver.org.
 
 * [JPA Eclipse link](http://www.eclipse.org/eclipselink/jpa.php)
 * [Dozer Java Bean mapper](http://dozer.sourceforge.net/)
-* [Flyway](http://flywaydb.org/) 
+* [Liquibase](http://www.liquibase.org/) 
 * [Spring Data JPA](http://projects.spring.io/spring-data/)
 * [JAX-RS (Apache CXF 2.7)](http://cxf.apache.org/)
 * [Swagger 2.0](http://swagger.io/)
