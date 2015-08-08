@@ -6,7 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-qbe-specification</artifactId>
-  <name>GZQ :: Module :: Spring Specification QBE</name>
+  <name>GZQ :: Module  :: Spring Specification QBE</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
     <dependency>

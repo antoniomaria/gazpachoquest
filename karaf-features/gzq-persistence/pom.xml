@@ -10,6 +10,14 @@
   <name>GZQ :: Feature :: Persistence</name>
 
   <dependencies>
+    <!-- Only for maven reactor sorting -->
+    <dependency>
+      <groupId>net.sf.gazpachoquest.persistence</groupId>
+      <artifactId>gazpachoquest-dao-blueprint</artifactId>
+      <version>0.6.0-SNAPSHOT</version>
+      <type>bundle</type>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>net.sf.gazpachoquest.karaf</groupId>

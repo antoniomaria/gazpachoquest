@@ -6,7 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-questionnaires-backend</artifactId>
-  <name>GZQ :: Module :: Questionnaires Backend</name>
+  <name>GZQ :: Module  :: Questionnaires Backend</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
     <!-- Test dependencies -->

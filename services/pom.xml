@@ -6,7 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-services</artifactId>
-  <name>GZQ :: Module :: Services</name>
+  <name>GZQ :: Module  :: Services</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
     <!-- Test dependencies -->

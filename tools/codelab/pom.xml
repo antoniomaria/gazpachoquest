@@ -7,7 +7,7 @@
   </parent>
   <artifactId>gazpachoquest-codelab</artifactId>
   <packaging>jar</packaging>
-  <name>GZQ :: Tools :: Code lab</name>
+  <name>GZQ :: Tools   :: Code lab</name>
 
   <dependencies>
     <!-- Test dependencies -->

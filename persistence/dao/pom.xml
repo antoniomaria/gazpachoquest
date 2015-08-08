@@ -6,7 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-dao</artifactId>
-  <name>GZQ :: Module :: DAO</name>
+  <name>GZQ :: Module  :: DAO</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
 
   <dependencies>

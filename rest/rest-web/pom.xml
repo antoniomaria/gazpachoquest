@@ -8,7 +8,7 @@
   </parent>
   <artifactId>gazpachoquest-rest-web</artifactId>
   <packaging>war</packaging>
-  <name>GZQ :: WAR    :: Rest Interface</name>
+  <name>GZQ :: WAR     :: Rest Interface</name>
 
   <dependencies>
     <!-- Provided scope -->

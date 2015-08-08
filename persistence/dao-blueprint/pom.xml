@@ -6,7 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-dao-blueprint</artifactId>
-  <name>GZQ :: Module :: DAO blueprint based </name>
+  <name>GZQ :: Module  :: DAO blueprint based </name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <packaging>bundle</packaging>
 

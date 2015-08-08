@@ -8,7 +8,7 @@
   </parent>
   <artifactId>gazpachoquest-rest</artifactId>
   <packaging>pom</packaging>
-  <name>gazpachoquest-rest-parent-module</name>
+  <name>GZQ :: Parent  :: Rest</name>
   <modules>
     <module>rest-security</module>
     <module>rest-web</module>
