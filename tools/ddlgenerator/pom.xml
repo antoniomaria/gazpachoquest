@@ -7,7 +7,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-ddlgenerator</artifactId>
-  <name>GZQ :: Tools :: DDL generator</name>
+  <name>GZQ :: Tools   :: DDL generator</name>
   <dependencies>
     <!-- Project dependencies -->
     <dependency>

@@ -7,7 +7,7 @@
   </parent>
   <packaging>bundle</packaging>
   <artifactId>gazpachoquest-services-ds</artifactId>
-  <name>GZQ :: Module :: Services ( Declarative Services) </name>
+  <name>GZQ :: Module  :: Services ( Declarative Services) </name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
 
   <dependencies>

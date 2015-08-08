@@ -6,7 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-types</artifactId>
-  <name>GZQ :: Module :: Types</name>
+  <name>GZQ :: Module  :: Types</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
 

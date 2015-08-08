@@ -6,9 +6,8 @@
     <artifactId>gazpachoquest</artifactId>
     <version>0.6.0-SNAPSHOT</version>
   </parent>
-  
   <artifactId>gazpachoquest-testsuite</artifactId>
-  <name>gazpachoquest-testsuite</name>
+  <name>GZQ :: Module  :: Testsuite</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

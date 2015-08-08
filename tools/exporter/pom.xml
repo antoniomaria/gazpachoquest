@@ -6,7 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-exporter</artifactId>
-  <name>GZQ :: Tools :: DB Exporter</name>
+  <name>GZQ :: Tools   :: DB Exporter</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
 
   <dependencies>

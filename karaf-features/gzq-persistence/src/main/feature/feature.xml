@@ -14,10 +14,6 @@
 
 
     <feature>pax-jdbc-pool-dbcp2</feature>
-    <!--
-      <feature>pax-jdbc-pool-aries</feature>
-    -->
-
 
     <feature>http-whiteboard</feature>
 

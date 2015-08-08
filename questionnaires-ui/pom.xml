@@ -9,7 +9,7 @@
   </parent>
   <artifactId>gazpachoquest-questionnaires-ui</artifactId>
   <packaging>war</packaging>
-  <name>GZQ :: WAR    :: Questionnaires UI</name>
+  <name>GZQ :: WAR     :: Questionnaires UI</name>
 
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <properties>

@@ -9,7 +9,7 @@
   <groupId>net.sf.gazpachoquest.persistence</groupId>
   <artifactId>gazpacho-persistence</artifactId>
   <packaging>pom</packaging>
-  <name>GZQ :: Parent :: Persistence</name>
+  <name>GZQ :: Parent  :: Persistence</name>
 
   <modules>
     <module>db</module>

@@ -6,7 +6,7 @@
     <version>0.6.0-SNAPSHOT</version>
   </parent>
   <artifactId>gazpachoquest-rest-cxf-contrib</artifactId>
-  <name>GZQ :: Module :: CXF contribution</name>
+  <name>GZQ :: Module  :: CXF contribution</name>
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <dependencies>
     <!-- Test dependencies -->
