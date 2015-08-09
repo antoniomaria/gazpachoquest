@@ -4,9 +4,9 @@
 
 # GazpachoQuest a Survey-Questionnaire-Assessment Rest Engine
 
-GazpachoQuest is Java Rest-Based survey engine. The main advantage over other alternatives is its loose coupled architecture based on
+GazpachoQuest is a Java Open Source Rest-Based survey engine. The main advantage over other alternatives is its loose coupled architecture based on
 [Microservices Architecture](http://www.infoq.com/articles/microservices-intro) which ensures concern-separation.
-This engine is intented to be consumed by rest clients in order to build different front-end according to your needs. It provides all features than others survey engines have, among other technological features such as Role-Permission based access, HMac security layer (HMAC based), support for main databases (JPA based persistence layer) and swagger rest documentation api.
+This engine is intended to be consumed by rest clients in order to build different front-end (web apps, mobile apps etc). It provides all features than others survey engines have, among other technological features such as Role-Permission based access, HMac security layer (HMAC based), support for main databases (JPA based persistence layer) and swagger rest documentation api.
 
 There is available a Vaadin web application as proof of concept of the engine.
 
@@ -25,10 +25,13 @@ A Karaf OSGI based port is coming up. Stay tune.
   * Multiple Choice one selected at a time (Radio buttons). Vertically or Horizontally (scales) arranged.
   * Matrix or array of questions above listed.
 * Smart language selector depending on Browser Preferred Language, or Respondent attributes.
-* Anonymous and Not-Anonymous questionnaires
+* Anonymous and Not-Anonymous questionnaires.
+* Possibility to show all questions in a single page, different pages or one question at a time for small displays.
 * Role-Permission based Access-Rights management. 
 * HMac based security.
-* Import and export questionnaires definitions to XML
+* Import and export questionnaires definitions to XML.
+* Instantly saved responses, thus participants can continue answering at a later time.
+* Re-usable editable answer sets.
 
 
 ## Contributing
@@ -56,7 +59,7 @@ For more information on SemVer, please visit http://semver.org.
 * [Dozer Java Bean mapper](http://dozer.sourceforge.net/)
 * [Liquibase](http://www.liquibase.org/) 
 * [Spring Data JPA](http://projects.spring.io/spring-data/)
-* [JAX-RS (Apache CXF 2.7)](http://cxf.apache.org/)
+* [JAX-RS (Apache CXF 3.x)](http://cxf.apache.org/)
 * [Swagger 2.0](http://swagger.io/)
 * [Java Security Shiro](http://shiro.apache.org/)
 * [Vaadin 7 (CDI plugin)](https://vaadin.com/home)
@@ -68,11 +71,13 @@ For more information on SemVer, please visit http://semver.org.
 
 ## Installation and local demo
 
+HSQL database and Apache TomEE is used for local demo.
+
     git clone https://github.com/antoniomaria/gazpachoquest.git
     cd gazpachoquest
-    mvn clean install
-    cd launcher
-    mvn clean tomee:run
+    mvn clean install -pl tomee-assembly -am
+    cd tomee-assembly\target\assembly\bin
+    startup.bat
     
 To see the demo, navigate to
 
@@ -85,7 +90,7 @@ This module exposes all the features that GazpachoQuest provides.
 
 The credential for administrator account in form of apiKey:secret is:
 
-    FM7XG6W2C4CET8H:2J882Y9GJNNE4VWKK2R9NX7R4R2DYWTQ
+    VECDUX8DGNXA4HF:9C52PBUXJG9238HRELRUX97CETUAQ4BV
 
 To get respondents credential first is required to validate the invitation key in [Authentication Resource](http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/#!/auth/authenticate_get_0) 
 

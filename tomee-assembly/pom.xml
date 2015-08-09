@@ -17,8 +17,8 @@
       <type>war</type>
       <version>0.6.0-SNAPSHOT</version>
     </dependency>
-	
-	 <dependency>
+
+    <dependency>
       <groupId>net.sf.gazpachoquest</groupId>
       <artifactId>gazpachoquest-questionnaires-ui</artifactId>
       <type>war</type>
@@ -45,6 +45,7 @@
           <tomeeVersion>1.7.1</tomeeVersion>
           <tomeeClassifier>webprofile</tomeeClassifier>
           <catalinaBase>${project.build.directory}/assembly</catalinaBase>
+          <config>${project.basedir}/src/main/resources/conf</config>
           <libs>
             <lib>remove:javaee-api</lib>
             <lib>unzip:org.apache.openejb:javaee-api:6.0-6:zip</lib>
@@ -67,7 +68,7 @@
             <webapp>net.sf.gazpachoquest:gazpachoquest-rest-web:${project.version}?name=gazpachoquest-rest-web</webapp>
             <webapp>net.sf.gazpachoquest:gazpachoquest-questionnaires-ui:${project.version}?name=ROOT</webapp>
           </webapps>
-          <args>-Xms512m -Xmx1024m -Djava.security.auth.login.config=${project.basedir}/src/main/resources/jaas.config</args>
+          <args>-Xms512m -Xmx1024m -Djava.security.auth.login.config=${project.basedir}/src/main/resources/conf/jaas.config</args>
         </configuration>
       </plugin>
     </plugins>
