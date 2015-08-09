@@ -31,15 +31,15 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- Shiro security -->
-    <dependency>
+    <!-- Shiro security
+      <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-features</artifactId>
       <version>${shiro.version}</version>
       <type>xml</type>
       <classifier>features</classifier>
-    </dependency>
-
+      </dependency>
+    -->
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-commons</artifactId>
