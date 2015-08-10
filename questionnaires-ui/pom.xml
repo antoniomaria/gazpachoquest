@@ -13,7 +13,6 @@
 
   <url>https://github.com/antoniomaria/gazpachoquest</url>
   <properties>
-    <arquillian.version>1.0.0.Alpha1</arquillian.version>
     <version.shrinkwrap.resolvers>2.2.0-beta-1</version.shrinkwrap.resolvers>
     <vaadin.version>7.3.4</vaadin.version>
     <vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
@@ -35,7 +34,7 @@
         <scope>import</scope>
         <type>pom</type>
       </dependency>
-
+<!-- 
       <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-aether-provider</artifactId>
@@ -55,7 +54,7 @@
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-repository-metadata</artifactId>
         <version>3.0.5</version>
-      </dependency>
+      </dependency>  -->
     </dependencies>
   </dependencyManagement>
   <dependencies>
