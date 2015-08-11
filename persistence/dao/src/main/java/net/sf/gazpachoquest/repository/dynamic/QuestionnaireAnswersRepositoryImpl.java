@@ -197,7 +197,7 @@ public class QuestionnaireAnswersRepositoryImpl implements QuestionnaireAnswersR
 
     private void processQuestion(final JPADynamicTypeBuilder builder, final Question question) {
         Assert.notNull(question.getId(), String.format("Persist question first {%s}", question));
-        Assert.notNull(question.getType(), " Not questionType for question: " + question.getId());
+        Assert.notNull(question.getType(), String.format("Not questionType for question: {%s}", question));
 
         final QuestionType questionType = question.getType();
         if (!questionType.hasSubquestions()) {
