@@ -67,19 +67,18 @@ public class QuestionnaireAnswersRepositoryImpl implements QuestionnaireAnswersR
     @Override
     @Transactional
     public void activeAllAnswers() {
-        Session session = JpaHelper.getEntityManager(entityManager).getSession();
-        DynamicClassLoader dcl = DynamicClassLoader.lookup(session);
+        final Session session = JpaHelper.getEntityManager(entityManager).getSession();
+        final DynamicClassLoader dcl = DynamicClassLoader.lookup(session);
 
-        List<QuestionnaireDefinition> confirmedSurveys = questionnaireDefinitionRepository.findByExample(
+        final List<QuestionnaireDefinition> confirmedSurveys = questionnaireDefinitionRepository.findByExample(
                 QuestionnaireDefinition.with().status(EntityStatus.CONFIRMED).build(), new SearchParameters());
 
-        List<DynamicType> dynamicTypes = new ArrayList<>();
-        JPADynamicHelper helper = new JPADynamicHelper(entityManager);
+        final List<DynamicType> dynamicTypes = new ArrayList<>();
+        final JPADynamicHelper helper = new JPADynamicHelper(entityManager);
 
-        for (QuestionnaireDefinition questionnaireDefinition : confirmedSurveys) {
-            String entityAlias = new StringBuilder().append(ENTITY_NAME_PREFIX).append(questionnaireDefinition.getId())
-                    .toString();
-            DynamicType type = helper.getType(entityAlias);
+        for (final QuestionnaireDefinition questionnaireDefinition : confirmedSurveys) {
+            final String entityAlias = new StringBuilder().append(ENTITY_NAME_PREFIX).append(questionnaireDefinition.getId()).toString();
+            final DynamicType type = helper.getType(entityAlias);
             if (type == null) {
                 dynamicTypes.add(buildDynamicType(dcl, questionnaireDefinition));
             }
@@ -97,43 +96,42 @@ public class QuestionnaireAnswersRepositoryImpl implements QuestionnaireAnswersR
     @Override
     public void collectAnswers(final QuestionnaireDefinition questionnaireDefinition) {
         Assert.notNull(questionnaireDefinition.getId());
-        Session session = JpaHelper.getEntityManager(entityManager).getSession();
+        final Session session = JpaHelper.getEntityManager(entityManager).getSession();
         // DynamicClassLoader dcl = new
         // DynamicClassLoader(Thread.currentThread().getContextClassLoader());
-        DynamicClassLoader dcl = DynamicClassLoader.lookup(session);
+        final DynamicClassLoader dcl = DynamicClassLoader.lookup(session);
 
         // Create JPA Dynamic Helper (with the entityManager above) and after
         // the types
         // have been created and add the types through the helper.
-        JPADynamicHelper helper = new JPADynamicHelper(entityManager);
+        final JPADynamicHelper helper = new JPADynamicHelper(entityManager);
         helper.addTypes(true, true, buildDynamicType(dcl, questionnaireDefinition));
         // Update database
         new SchemaManager(helper.getSession()).createDefaultTables(true);
 
-        logger.info("Questionnaire answer table has been created for questionnaireDefinition {}",
-                questionnaireDefinition.getId());
+        logger.info("Questionnaire answer table has been created for questionnaireDefinition {}", questionnaireDefinition.getId());
     }
 
     @Override
     @Transactional
-    public QuestionnaireAnswers findByOne(Integer questionnaireDefinitionId, Integer id) {
+    public QuestionnaireAnswers findByOne(final Integer questionnaireDefinitionId, final Integer id) {
         Assert.notNull(questionnaireDefinitionId, "Questionnaire definition id is required ");
         Assert.notNull(id, "Questionnaire answers id is required");
         QuestionnaireAnswers questionnaireAnswers = null;
 
-        String entityAlias = new StringBuilder().append(ENTITY_NAME_PREFIX).append(questionnaireDefinitionId).toString();
+        final String entityAlias = new StringBuilder().append(ENTITY_NAME_PREFIX).append(questionnaireDefinitionId).toString();
 
-        JPADynamicHelper helper = new JPADynamicHelper(entityManager);
+        final JPADynamicHelper helper = new JPADynamicHelper(entityManager);
 
-        DynamicType type = helper.getType(entityAlias);
+        final DynamicType type = helper.getType(entityAlias);
 
-        DynamicEntity found = entityManager.find(type.getJavaClass(), id);
+        final DynamicEntity found = entityManager.find(type.getJavaClass(), id);
         if (found != null) {
             questionnaireAnswers = new QuestionnaireAnswers();
             questionnaireAnswers.setId(id);
-            List<String> propertyNames = type.getPropertiesNames();
-            for (String propertyName : propertyNames) {
-                Object value = found.get(propertyName);
+            final List<String> propertyNames = type.getPropertiesNames();
+            for (final String propertyName : propertyNames) {
+                final Object value = found.get(propertyName);
                 questionnaireAnswers.setAnswer(propertyName, value);
             }
         }
@@ -142,19 +140,18 @@ public class QuestionnaireAnswersRepositoryImpl implements QuestionnaireAnswersR
 
     @Override
     @Transactional
-    public QuestionnaireAnswers save(final Integer questionnaireDefinitionId,
-            final QuestionnaireAnswers questionnaireAnswers) {
+    public QuestionnaireAnswers save(final Integer questionnaireDefinitionId, final QuestionnaireAnswers questionnaireAnswers) {
 
-        String entityAlias = new StringBuilder().append(ENTITY_NAME_PREFIX).append(questionnaireDefinitionId).toString();
+        final String entityAlias = new StringBuilder().append(ENTITY_NAME_PREFIX).append(questionnaireDefinitionId).toString();
 
-        Map<String, Object> answers = questionnaireAnswers.getAnswers();
-        DynamicEntity entity = newInstance(entityAlias);
+        final Map<String, Object> answers = questionnaireAnswers.getAnswers();
+        final DynamicEntity entity = newInstance(entityAlias);
         if (!questionnaireAnswers.isNew()) {
             entity.set("id", questionnaireAnswers.getId());
         }
-        for (Map.Entry<String, Object> entry : answers.entrySet()) {
-            String questionCode = entry.getKey();
-            Object answer = entry.getValue();
+        for (final Map.Entry<String, Object> entry : answers.entrySet()) {
+            final String questionCode = entry.getKey();
+            final Object answer = entry.getValue();
             entity.set(questionCode, answer);
         }
         if (!questionnaireAnswers.isNew()) {
@@ -166,24 +163,23 @@ public class QuestionnaireAnswersRepositoryImpl implements QuestionnaireAnswersR
         return questionnaireAnswers;
     }
 
-    private DynamicType buildDynamicType(DynamicClassLoader dcl, final QuestionnaireDefinition questionnaireDefinition) {
+    private DynamicType buildDynamicType(final DynamicClassLoader dcl, final QuestionnaireDefinition questionnaireDefinition) {
 
-        String entityAlias = new StringBuilder().append(ENTITY_NAME_PREFIX).append(questionnaireDefinition.getId())
-                .toString();
+        final String entityAlias = new StringBuilder().append(ENTITY_NAME_PREFIX).append(questionnaireDefinition.getId()).toString();
 
-        Class<?> dynamicClass = dcl.createDynamicClass(PACKAGE_PREFIX + entityAlias);
+        final Class<?> dynamicClass = dcl.createDynamicClass(PACKAGE_PREFIX + entityAlias);
 
-        JPADynamicTypeBuilder builder = new JPADynamicTypeBuilder(dynamicClass, null, entityAlias);
+        final JPADynamicTypeBuilder builder = new JPADynamicTypeBuilder(dynamicClass, null, entityAlias);
         configure(builder, entityAlias, questionnaireDefinition.getId());
         return builder.getType();
     }
 
-    private void configure(JPADynamicTypeBuilder questionnaireAnswer, String entityName, Integer questionnaireDefinitionId) {
+    private void configure(final JPADynamicTypeBuilder questionnaireAnswer, final String entityName, final Integer questionnaireDefinitionId) {
         questionnaireAnswer.addDirectMapping("id", Integer.class, "id");
 
-        List<Question> questions = questionRepository.findByQuestionnaireId(questionnaireDefinitionId);
+        final List<Question> questions = questionRepository.findByQuestionnaireId(questionnaireDefinitionId);
 
-        for (Question question : questions) {
+        for (final Question question : questions) {
             processQuestion(questionnaireAnswer, question);
         }
 
@@ -193,37 +189,38 @@ public class QuestionnaireAnswersRepositoryImpl implements QuestionnaireAnswersR
     }
 
     private DynamicEntity newInstance(final String entityAlias) {
-        JPADynamicHelper helper = new JPADynamicHelper(entityManager);
-        ClassDescriptor descriptor = helper.getSession().getDescriptorForAlias(entityAlias);
+        final JPADynamicHelper helper = new JPADynamicHelper(entityManager);
+        final ClassDescriptor descriptor = helper.getSession().getDescriptorForAlias(entityAlias);
         Assert.notNull(descriptor, " Not found dynamic class descriptor for entity: " + entityAlias);
         return (DynamicEntity) descriptor.getInstantiationPolicy().buildNewInstance();
     }
 
     private void processQuestion(final JPADynamicTypeBuilder builder, final Question question) {
-        QuestionType questionType = question.getType();
+        Assert.notNull(question.getId(), String.format("Persist question first = {%s}", question));
+        Assert.notNull(question.getType(), String.format("Not questionType for question = {%s}, ", question));
+
+        final QuestionType questionType = question.getType();
         if (!questionType.hasSubquestions()) {
             if (questionType.hasMultipleAnswers()) {
-                String baseFieldName = new StringBuilder().append(question.getCode()).toString();
-                List<QuestionOption> questionOptions = question.getQuestionOptions();
-                for (QuestionOption questionOption : questionOptions) {
-                    String fieldName = new StringBuilder(baseFieldName).append("_").append(questionOption.getCode())
-                            .toString().toLowerCase(Locale.ENGLISH);
+                final String baseFieldName = new StringBuilder().append(question.getCode()).toString();
+                final List<QuestionOption> questionOptions = question.getQuestionOptions();
+                for (final QuestionOption questionOption : questionOptions) {
+                    final String fieldName = new StringBuilder(baseFieldName).append("_").append(questionOption.getCode()).toString()
+                            .toLowerCase(Locale.ENGLISH);
                     builder.addDirectMapping(fieldName, questionType.getAnswerType(), fieldName);
                 }
             } else {
-                String fieldName = new StringBuilder().append(question.getCode().replace(".", "_")).toString()
-                        .toLowerCase(Locale.ENGLISH);
+                final String fieldName = new StringBuilder().append(question.getCode().replace(".", "_")).toString().toLowerCase(Locale.ENGLISH);
                 builder.addDirectMapping(fieldName, questionType.getAnswerType(), fieldName);
             }
         } else {
-            Question example = Question.with().parent(Question.with().id(question.getId()).build()).build();
-            List<Question> subquestions = questionRepository.findByExample(example, new SearchParameters());
+            final Question example = Question.with().parent(Question.with().id(question.getId()).build()).build();
+            final List<Question> subquestions = questionRepository.findByExample(example, new SearchParameters());
             Assert.notEmpty(subquestions, String.format("Type %s requires subquestion", questionType));
-            for (Question subquestion : subquestions) {
+            for (final Question subquestion : subquestions) {
                 processQuestion(builder, subquestion);
             }
         }
 
     }
-
 }
