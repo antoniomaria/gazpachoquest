@@ -51,13 +51,6 @@ public class ResearchFacadeTest extends AbstractShiroTest {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Before
-    public void setUp() {
-        if (!answersActivated()) {
-            questionnaireAnswersRepository.activeAllAnswers();
-        }
-    }
-
     @Test
     public void findPaginatedTest() {
         final PageDTO<ResearchDTO> page = researchFacade.findPaginated(1, 5);
