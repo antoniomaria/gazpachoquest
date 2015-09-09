@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/antoniomaria/gazpachoquest.svg?branch=master)](https://travis-ci.org/antoniomaria/gazpachoquest)
 
 
-# GazpachoQuest a Survey-Questionnaire-Assessment Rest Engine
+# GazpachoQuest a Survey Rest API Engine
 
 GazpachoQuest is a Java Open Source Rest-Based survey engine. The main advantage over other alternatives is its loose coupled architecture based on
 [Microservices Architecture](http://www.infoq.com/articles/microservices-intro) which ensures concern-separation.
@@ -38,20 +38,6 @@ A Karaf OSGI based port is coming up. Stay tune.
 
 Contributions are welcome, in any form including code contributions, bug reports, feature suggestions, documentation, testing, and general feedback. Specially are frondend developers are really welcome either to improve the Vaadin proof of concept or in order to build a dashboard or administration tool. Issues can be submitted on the [Github page][1]. For further information, contact to: <mailto:antoniomariasanchez@gmail.com> or visit [wiki developer section](https://github.com/antoniomaria/gazpachoquest/wiki/Developers)
 
-## Versioning
-
-GazpachoQuest will be maintained under the Semantic Versioning guidelines as much as possible. Releases will be numbered
-with the following format:
-
-`<major>.<minor>.<patch>`
-
-And constructed with the following guidelines:
-
-* Breaking backward compatibility bumps the major (and resets the minor and patch)
-* New additions, including new icons, without breaking backward compatibility bumps the minor (and resets the patch)
-* Bug fixes and misc changes bumps the patch
-
-For more information on SemVer, please visit http://semver.org.
 
 ## Third party libraries and components
 
@@ -83,6 +69,8 @@ To see the demo, navigate to
 
 * [REST Gateway](http://localhost:8080/gazpachoquest-rest-web)
 * [Questionnaires UI](http://localhost:8080)
+
+See more details about local installation on [Installation Guide page](https://github.com/antoniomaria/gazpachoquest/wiki/Installing-Gazpachoquest-from-the-source).
 
 ### REST Gateway
 
