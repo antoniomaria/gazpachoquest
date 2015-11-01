@@ -12,12 +12,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- Karaf related -->
-    <karaf.version>4.0.1</karaf.version>
-    <karaf.plugin.version>3.0.3</karaf.plugin.version>
-    <pax-logging-service.version>1.8.3</pax-logging-service.version>
-    <pax-web-features.version>3.1.4</pax-web-features.version>
+    <karaf-features.version>4.0.2</karaf-features.version>
+    <karaf-plugin.version>4.0.2</karaf-plugin.version>
+    <pax-logging-service.version>1.8.4</pax-logging-service.version>
+    <pax-web-features.version>4.2.2</pax-web-features.version>
     <pax-logging-logback.version>1.8.3</pax-logging-logback.version>
-
+    <pax-jdbc-features.version>0.6.0</pax-jdbc-features.version>
 
     <spring.version>4.0.7.RELEASE</spring.version>
     <spring.data.jpa.version>1.7.1.RELEASE</spring.data.jpa.version>
@@ -921,7 +921,7 @@
         <plugin>
           <groupId>org.apache.karaf.tooling</groupId>
           <artifactId>karaf-maven-plugin</artifactId>
-          <version>${karaf.plugin.version}</version>
+          <version>${karaf-plugin.version}</version>
         </plugin>
 
         <plugin>

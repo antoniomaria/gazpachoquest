@@ -138,6 +138,8 @@
               org.eclipse.persistence.sessions,
               org.eclipse.persistence.jpa,
               net.sf.gazpachoquest.jpa.eclipselink,
+              net.sf.gazpachoquest.jpa.converter,
+              net.sf.gazpachoquest.jpa.converter.support, 
               *
             </Import-Package>
             <Export-Package>net.sf.gazpachoquest.domain.*</Export-Package>

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <features name="gzq-platform">
+  <repository>mvn:org.ops4j.pax.jdbc/pax-jdbc-features/${pax-jdbc-features.version}/xml/features</repository>
+  <repository>mvn:org.ops4j.pax.web/pax-web-features/${pax-web-features.version}/xml/features</repository>
+ <!-- 
+ <feature name="gzq-platform" description="GazpachoQuest Platform">
 
-  <feature name="gzq-full" description="GazpachoQuest Platform">
-    <feature version="${project.version}">gzq-services</feature>
-  </feature>
-
+  <feature version="${project.version}">gzq-services</feature>
+ </feature>
+ -->
 </features>

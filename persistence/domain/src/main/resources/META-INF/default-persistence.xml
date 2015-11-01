@@ -1,89 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <!-- Used by eclipselink-staticweave-maven-plugin and OSGI based port -->
-  <persistence-unit name="gazpachoquest" transaction-type="JTA">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+ xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+ <!-- Used by eclipselink-staticweave-maven-plugin and OSGI based port -->
+ <persistence-unit name="gazpachoquest" transaction-type="JTA">
+  <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-    <!-- Only used when transaction-type=JTA -->
-    <jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=gazpachoquest)</jta-data-source>
+  <!-- Only used when transaction-type=JTA -->
+  <jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=gazpachoquest)</jta-data-source>
 
-    <!-- Only used when transaction-type=RESOURCE_LOCAL -->
-    <non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=gazpachoquest)</non-jta-data-source>
-
-    <mapping-file>META-INF/orm-no-audit.xml</mapping-file>
-
-    <class>net.sf.gazpachoquest.domain.core.AnonymousInvitation</class>
-
-    <class>net.sf.gazpachoquest.domain.core.Breadcrumb</class>
-    <class>net.sf.gazpachoquest.domain.core.QuestionBreadcrumb</class>
-    <class>net.sf.gazpachoquest.domain.core.SectionBreadcrumb</class>
-
-    <class>net.sf.gazpachoquest.domain.core.Label</class>
-    <class>net.sf.gazpachoquest.domain.core.LabelSet</class>
-
-    <class>net.sf.gazpachoquest.domain.core.MailMessage</class>
-    <class>net.sf.gazpachoquest.domain.core.MailMessageTemplate</class>
-
-    <class>net.sf.gazpachoquest.domain.core.PersonalInvitation</class>
-    <class>net.sf.gazpachoquest.domain.core.Question</class>
-    <class>net.sf.gazpachoquest.domain.core.Section</class>
-    <class>net.sf.gazpachoquest.domain.core.Questionnaire</class>
-    <class>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</class>
-    <class>net.sf.gazpachoquest.domain.core.QuestionOption</class>
-
-    <class>net.sf.gazpachoquest.domain.core.Research</class>
-
-    <!-- User -->
-    <class>net.sf.gazpachoquest.domain.user.Directory</class>
-    <class>net.sf.gazpachoquest.domain.user.Group</class>
-    <class>net.sf.gazpachoquest.domain.user.Role</class>
-    <class>net.sf.gazpachoquest.domain.user.User</class>
-
-    <!-- i18 -->
-    <class>net.sf.gazpachoquest.domain.i18.LabelTranslation</class>
-    <class>net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation</class>
-    <class>net.sf.gazpachoquest.domain.i18.SectionTranslation</class>
-    <class>net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation</class>
-    <class>net.sf.gazpachoquest.domain.i18.QuestionOptionTranslation</class>
-    <class>net.sf.gazpachoquest.domain.i18.QuestionTranslation</class>
-    <class>net.sf.gazpachoquest.domain.i18.SectionTranslation</class>
-
-    <!-- Support -->
-    <class>net.sf.gazpachoquest.domain.support.Invitation</class>
-
-    <!-- Permission -->
-    <class>net.sf.gazpachoquest.domain.permission.DirectoryPermission</class>
-    <class>net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission</class>
-    <class>net.sf.gazpachoquest.domain.permission.QuestionnairePermission</class>
-    <class>net.sf.gazpachoquest.domain.permission.ResearchPermission</class>
-    <class>net.sf.gazpachoquest.domain.permission.UserPermission</class>
-
-    <properties>
-      <property name="eclipselink.logging.logger" value="net.sf.gazpachoquest.jpa.eclipselink.Slf4jSessionLogger" />
-      <property name="eclipselink.logging.parameters" value="true" />
-      <property name="eclipselink.weaving" value="static" />
-      <property name="eclipselink.session.customizer" value="net.sf.gazpachoquest.jpa.eclipselink.CamelNamingStrategy" />
-      <property name="eclipselink.cache.shared.default" value="true" />
-    </properties>
-
-    <!--
-      <properties>
-      <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
-      <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/gazpachoquest" />
-      <property name="eclipselink.jdbc.user" value="root" />
-      <property name="eclipselink.jdbc.password" value="admin" />
-      <property name="eclipselink.weaving" value="static"></property>
-      </properties>
+  <!-- Only used when transaction-type=RESOURCE_LOCAL -->
+  <non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=gazpachoquest)</non-jta-data-source>
 
 
-      <properties>
-      <property name="eclipselink.jdbc.driver" value="org.postgresql.Driver" />
-      <property name="eclipselink.jdbc.url" value="jdbc:postgresql://localhost:5432/gazpachoquest" />
-      <property name="eclipselink.jdbc.user" value="postgres" />
-      <property name="eclipselink.jdbc.password" value="admin" />
-      <property name="eclipselink.weaving" value="static"></property>
-      </properties>
-    -->
-  </persistence-unit>
+  <!-- Converters -->
+
+  <class>net.sf.gazpachoquest.jpa.converter.LocalDateTimeConverter</class>
+  <class>net.sf.gazpachoquest.jpa.converter.EntityStatusConverter</class>
+  <class>net.sf.gazpachoquest.jpa.converter.EntityTypeConverter</class>
+  <class>net.sf.gazpachoquest.jpa.converter.GenderTypeConverter</class>
+  <class>net.sf.gazpachoquest.jpa.converter.InvitationStatusConverter</class>
+  <class>net.sf.gazpachoquest.jpa.converter.RandomizationStrategyTypeConverter</class>
+  <class>net.sf.gazpachoquest.jpa.converter.RenderingModeConverter</class>
+  <class>net.sf.gazpachoquest.jpa.converter.ResearchAccessTypeConverter</class>
+  <!-- Entities -->
+  <class>net.sf.gazpachoquest.domain.core.AnonymousInvitation</class>
+
+  <class>net.sf.gazpachoquest.domain.core.Breadcrumb</class>
+  <class>net.sf.gazpachoquest.domain.core.QuestionBreadcrumb</class>
+  <class>net.sf.gazpachoquest.domain.core.SectionBreadcrumb</class>
+
+  <class>net.sf.gazpachoquest.domain.core.Label</class>
+  <class>net.sf.gazpachoquest.domain.core.LabelSet</class>
+
+  <class>net.sf.gazpachoquest.domain.core.MailMessage</class>
+  <class>net.sf.gazpachoquest.domain.core.MailMessageTemplate</class>
+
+  <class>net.sf.gazpachoquest.domain.core.PersonalInvitation</class>
+  <class>net.sf.gazpachoquest.domain.core.Question</class>
+  <class>net.sf.gazpachoquest.domain.core.Section</class>
+  <class>net.sf.gazpachoquest.domain.core.Questionnaire</class>
+  <class>net.sf.gazpachoquest.domain.core.QuestionnaireDefinition</class>
+  <class>net.sf.gazpachoquest.domain.core.QuestionOption</class>
+
+  <class>net.sf.gazpachoquest.domain.core.Research</class>
+
+  <!-- User -->
+  <class>net.sf.gazpachoquest.domain.user.Directory</class>
+  <class>net.sf.gazpachoquest.domain.user.Group</class>
+  <class>net.sf.gazpachoquest.domain.user.Role</class>
+  <class>net.sf.gazpachoquest.domain.user.User</class>
+
+  <!-- i18 -->
+  <class>net.sf.gazpachoquest.domain.i18.LabelTranslation</class>
+  <class>net.sf.gazpachoquest.domain.i18.MailMessageTemplateTranslation</class>
+  <class>net.sf.gazpachoquest.domain.i18.SectionTranslation</class>
+  <class>net.sf.gazpachoquest.domain.i18.QuestionnaireDefinitionTranslation</class>
+  <class>net.sf.gazpachoquest.domain.i18.QuestionOptionTranslation</class>
+  <class>net.sf.gazpachoquest.domain.i18.QuestionTranslation</class>
+  <class>net.sf.gazpachoquest.domain.i18.SectionTranslation</class>
+
+  <!-- Support -->
+  <class>net.sf.gazpachoquest.domain.support.Invitation</class>
+
+  <!-- Permission -->
+  <class>net.sf.gazpachoquest.domain.permission.DirectoryPermission</class>
+  <class>net.sf.gazpachoquest.domain.permission.QuestionnaireDefinitionPermission</class>
+  <class>net.sf.gazpachoquest.domain.permission.QuestionnairePermission</class>
+  <class>net.sf.gazpachoquest.domain.permission.ResearchPermission</class>
+  <class>net.sf.gazpachoquest.domain.permission.UserPermission</class>
+
+  <properties>
+   <property name="eclipselink.logging.logger" value="net.sf.gazpachoquest.jpa.eclipselink.Slf4jSessionLogger" />
+   <property name="eclipselink.logging.parameters" value="true" />
+   <property name="eclipselink.weaving" value="static" />
+   <property name="eclipselink.session.customizer" value="net.sf.gazpachoquest.jpa.eclipselink.CamelNamingStrategy" />
+   <property name="eclipselink.cache.shared.default" value="true" />
+  </properties>
+
+  <!--
+   <properties>
+   <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
+   <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/gazpachoquest" />
+   <property name="eclipselink.jdbc.user" value="root" />
+   <property name="eclipselink.jdbc.password" value="admin" />
+   <property name="eclipselink.weaving" value="static"></property>
+   </properties>
+
+
+   <properties>
+   <property name="eclipselink.jdbc.driver" value="org.postgresql.Driver" />
+   <property name="eclipselink.jdbc.url" value="jdbc:postgresql://localhost:5432/gazpachoquest" />
+   <property name="eclipselink.jdbc.user" value="postgres" />
+   <property name="eclipselink.jdbc.password" value="admin" />
+   <property name="eclipselink.weaving" value="static"></property>
+   </properties>
+  -->
+ </persistence-unit>
 </persistence>
