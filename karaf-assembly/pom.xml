@@ -150,6 +150,8 @@
       <feature>package</feature>
       <feature>service</feature>
       <feature>system</feature>
+      <feature>wrap</feature>
+      <feature>aries-blueprint</feature>
      </bootFeatures>
      <installedFeatures>
       <feature>gzq-ext-logback</feature>
