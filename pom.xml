@@ -72,6 +72,7 @@
     <module>jaas</module>
     <module>karaf-assembly</module>
     <module>karaf-features</module>
+    <module>karaf-launchpad</module>
     <module>tomee-assembly</module>
     <module>services</module>
     <module>services-ds</module>
@@ -144,32 +145,6 @@
     </repository>  -->
   </repositories>
   
-  <!--
-  <pluginRepositories>
-    <pluginRepository>
-      <id>vaadin-snapshots</id>
-      <url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-      </snapshots>
-    </pluginRepository>
-    <pluginRepository>
-      <id>spring-snapshots</id>
-      <url>http://repo.spring.io/snapshot</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>spring-milestones</id>
-      <url>http://repo.spring.io/milestone</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>jboss-public-repository-group</id>
-      <name>JBoss Public Maven Repository Group</name>
-      <url>http://repository.jboss.org/nexus/content/groups/public</url>
-    </pluginRepository>
-  </pluginRepositories>
-  -->
   <dependencyManagement>
     <dependencies>
       <!-- Test dependencies -->

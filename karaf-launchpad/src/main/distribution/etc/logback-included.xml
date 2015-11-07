@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE included>
+<included>
+  <!-- This file is a template. To take into use Copy to ${user.home}/gzq -->
+  <!-- KARAF internal -->
+  <logger name="org.apache.karaf.features" level="INFO" additivity="false">
+    <appender-ref ref="FILE" />
+    <appender-ref ref="OSGI" />
+  </logger>
+
+  <logger name="org.apache.karaf.bundle.core.internal.BundleWatcherImpl" level="INFO" additivity="false">
+    <appender-ref ref="FILE" />
+    <appender-ref ref="OSGI" />
+  </logger>
+
+  <!-- Eclipse Link -->
+  <logger name="org.eclipse.persistence.logging.connection" level="WARN" additivity="false">
+    <appender-ref ref="FILE" />
+    <appender-ref ref="OSGI" />
+  </logger>
+
+  <!-- Switch to TRACE to enable sql log -->
+  <logger name="org.eclipse.persistence.logging.sql" level="TRACE" additivity="false">
+    <appender-ref ref="FILE" />
+    <appender-ref ref="OSGI" />
+  </logger>
+
+  <logger name="org.eclipse.persistence.logging.transaction" level="TRACE" additivity="false">
+    <appender-ref ref="FILE" />
+    <appender-ref ref="OSGI" />
+  </logger>
+
+
+  <!-- Shiro -->
+  <logger name="org.apache.shiro" level="INFO" additivity="false">
+    <appender-ref ref="FILE" />
+    <appender-ref ref="OSGI" />
+  </logger>
+
+  <!-- GazpachoQuest -->
+  <logger name="net.sf.gazpachoquest" level="DEBUG" additivity="false">
+    <appender-ref ref="FILE" />
+    <appender-ref ref="OSGI" />
+  </logger>
+</included>

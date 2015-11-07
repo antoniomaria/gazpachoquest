@@ -6,10 +6,51 @@
   <artifactId>gazpachoquest</artifactId>
   <version>0.6.0-SNAPSHOT</version>
  </parent>
- <packaging>pom</packaging>
+ <packaging>karaf-assembly</packaging>
  <artifactId>karaf-assembly</artifactId>
- <name>GZQ :: Distro  :: Karaf</name>
+ <name>GZQ :: Distro  :: Karaf Assembly</name>
  <dependencies>
+
+  <dependency>
+   <!-- scope is compile so all features (there is only one) are installed into startup.properties and the feature repo itself is not added in etc/org.apache.karaf.features.cfg
+    file -->
+   <groupId>org.apache.karaf.features</groupId>
+   <artifactId>framework</artifactId>
+   <version>${karaf-features.version}</version>
+   <type>kar</type>
+  </dependency>
+  <dependency>
+   <!-- scope is runtime so the feature repo is listed in etc/org.apache.karaf.features.cfg file, and features will installed into the system directory if specify
+    in the plugin configuration -->
+   <groupId>org.apache.karaf.features</groupId>
+   <artifactId>standard</artifactId>
+   <version>${karaf-features.version}</version>
+   <classifier>features</classifier>
+   <type>xml</type>
+   <scope>runtime</scope>
+  </dependency>
+  <dependency>
+   <!-- scope is runtime so the feature repo is listed in etc/org.apache.karaf.features.cfg file, and features will installed into the system directory if specify
+    in the plugin configuration -->
+   <groupId>org.apache.karaf.features</groupId>
+   <artifactId>spring</artifactId>
+   <version>${karaf-features.version}</version>
+   <classifier>features</classifier>
+   <type>xml</type>
+   <scope>runtime</scope>
+  </dependency>
+ <dependency>
+   <!-- scope is runtime so the feature repo is listed in etc/org.apache.karaf.features.cfg file, and features will installed into the system directory if specify
+    in the plugin configuration -->
+   <groupId>org.apache.karaf.features</groupId>
+   <artifactId>enterprise</artifactId>
+   <version>${karaf-features.version}</version>
+   <classifier>features</classifier>
+   <type>xml</type>
+   <scope>runtime</scope>
+  </dependency>
+
+
   <dependency>
    <groupId>net.sf.gazpachoquest.karaf</groupId>
    <artifactId>gzq-platform</artifactId>
@@ -24,12 +65,18 @@
    <artifactId>gzq-ext-logback</artifactId>
    <classifier>features</classifier>
    <version>0.6.0-SNAPSHOT</version>
-   <type>xml</type>
-   <scope>runtime</scope>
+   <type>xml</type><scope>provided</scope>
   </dependency>
  </dependencies>
  <build>
   <resources>
+   <resource>
+    <directory>${basedir}/src/main/distribution</directory>
+    <filtering>false</filtering>
+    <includes>
+     <include>**/*</include>
+    </includes>
+   </resource>
    <resource>
     <directory>${basedir}/src/main/resources</directory>
     <filtering>true</filtering>
@@ -45,58 +92,21 @@
     <version>2.7</version>
     <executions>
      <execution>
-      <id>copy-cli-dependencies</id>
       <phase>generate-resources</phase>
       <goals>
        <goal>resources</goal>
       </goals>
-      </execution></executions>
-   </plugin>
-   <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-dependency-plugin</artifactId>
-    <version>2.6</version>
-    <executions>
-     <execution>
-      <id>copy-cli-dependencies</id>
-      <phase>generate-resources</phase>
-      <goals>
-       <goal>copy-dependencies</goal>
-      </goals>
-      <configuration>
-       <useRepositoryLayout>true</useRepositoryLayout>
-       <outputDirectory>target/generated-features-repo</outputDirectory>
-      </configuration>
-     </execution>
-     <execution>
-      <!-- Uncompress the standard Karaf distribution -->
-      <id>unpack</id>
-      <phase>generate-resources</phase>
-      <goals>
-       <goal>unpack</goal>
-      </goals>
-      <configuration>
-       <artifactItems>
-        <artifactItem>
-         <groupId>org.apache.karaf</groupId>
-         <artifactId>apache-karaf</artifactId>
-         <version>${karaf-features.version}</version>
-         <type>zip</type>
-         <outputDirectory>target/dependencies</outputDirectory>
-        </artifactItem>
-       </artifactItems>
-      </configuration>
      </execution>
     </executions>
    </plugin>
-
    <plugin>
     <groupId>com.google.code.maven-replacer-plugin</groupId>
     <artifactId>replacer</artifactId>
     <version>1.5.3</version>
     <executions>
      <execution>
-      <phase>generate-resources</phase>
+      <id>logback-replace</id>
+      <phase>prepare-package</phase>
       <goals>
        <goal>replace</goal>
       </goals>
@@ -104,12 +114,11 @@
     </executions>
     <configuration>
      <includes>
-      <include>${project.build.directory}/dependencies/apache-karaf-${karaf-features.version}/etc/startup.properties</include>
+      <include>${project.build.directory}/assembly/etc/startup.properties</include>
      </includes>
      <replacements>
       <replacement>
-       <token>mvn\\:org.ops4j.pax.logging/pax-logging-service/${pax-logging-service.version}
-        = 8</token>
+       <token>mvn\\:org.ops4j.pax.logging/pax-logging-service/${pax-logging-service.version} = 8</token>
        <valueFile>${basedir}/src/main/filters/pax-logging-logback.txt</valueFile>
       </replacement>
      </replacements>
@@ -119,56 +128,37 @@
    <plugin>
     <groupId>org.apache.karaf.tooling</groupId>
     <artifactId>karaf-maven-plugin</artifactId>
+    <extensions>true</extensions>
     <executions>
-     <execution>
-      <id>features-add-to-repo</id>
-      <phase>generate-resources</phase>
-      <goals>
-       <goal>features-add-to-repository</goal>
-      </goals>
-      <configuration>
-       <includeMvnBasedDescriptors>true</includeMvnBasedDescriptors>
-       <addTransitiveFeatures>true</addTransitiveFeatures>
-       <descriptors>
-        <descriptor>mvn:org.apache.karaf.features/standard/${karaf-features.version}/xml/features</descriptor>
-        <descriptor>mvn:org.apache.karaf.features/enterprise/${karaf-features.version}/xml/features</descriptor>
-        <descriptor>mvn:org.apache.karaf.features/spring/${karaf-features.version}/xml/features</descriptor>
-        <descriptor>mvn:org.apache.cxf.karaf/apache-cxf/${cxf.version}/xml/features</descriptor>
-        <descriptor>mvn:org.apache.activemq/activemq-karaf/5.11.1/xml/features</descriptor>
-        <descriptor>mvn:org.apache.camel.karaf/apache-camel/2.14.1/xml/features</descriptor>
-        <descriptor>mvn:net.sf.gazpachoquest.karaf/gzq-ext-logback/${project.version}/xml/features</descriptor>
-       </descriptors>
-       <features>
-        <feature>gzq-ext-logback</feature>
-       </features>
-       <repository>target/generated-features-repo</repository>
-      </configuration>
-     </execution>
     </executions>
+    <configuration>
+
+     <!-- no startupFeatures -->
+     <bootFeatures>
+      <feature>feature</feature>
+      <feature>jaas</feature>
+      <feature>shell</feature>
+      <feature>ssh</feature>
+      <feature>management</feature>
+      <feature>bundle</feature>
+      <feature>config</feature>
+      <feature>deployer</feature>
+      <feature>diagnostic</feature>
+      <feature>instance</feature>
+      <feature>kar</feature>
+      <feature>log</feature>
+      <feature>package</feature>
+      <feature>service</feature>
+      <feature>system</feature>
+     </bootFeatures>
+     <installedFeatures>
+      <feature>gzq-ext-logback</feature>
+      <feature>gzq-services</feature>
+      <feature>wrapper</feature>
+     </installedFeatures>
+    </configuration>
    </plugin>
 
-   <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-assembly-plugin</artifactId>
-    <version>2.4</version>
-    <executions>
-     <execution>
-      <id>bin</id>
-      <phase>package</phase>
-      <goals>
-       <goal>single</goal>
-      </goals>
-      <configuration>
-       <descriptors>
-        <descriptor>src/main/descriptors/bin.xml</descriptor>
-       </descriptors>
-       <appendAssemblyId>false</appendAssemblyId>
-       <finalName>assembly</finalName>
-       <tarLongFileMode>gnu</tarLongFileMode>
-      </configuration>
-     </execution>
-    </executions>
-   </plugin>
   </plugins>
  </build>
 
