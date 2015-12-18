@@ -10,733 +10,733 @@
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-1">
     <createTable tableName="breadcrumb">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
       <column name="type" type="VARCHAR(31)" />
-      <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="last" type="BOOL" />
-      <column name="last_modified_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="rendering_mode" type="VARCHAR(255)" />
-      <column name="version" type="INT4" />
-      <column name="createdby_id" type="INT4" />
-      <column name="lastmodifiedby_id" type="INT4" />
-      <column name="questionnaire_id" type="INT4" />
-      <column name="question_number" type="INT4" />
-      <column name="parent_id" type="INT4" />
-      <column name="question_id" type="INT4" />
-      <column name="questions_displayed_count" type="INT4" />
-      <column name="section_id" type="INT4" />
-      <column name="navigation_order" type="INT4" />
-      <column name="order_in_section_breadcrumb" type="INT4" />
+      <column name="created_date" type="datetime" />
+      <column name="last" type="boolean" />
+      <column name="last_modified_date" type="datetime" />
+      <column name="rendering_mode" type="VARCHAR(254)" />
+      <column name="version" type="int" />
+      <column name="createdby_id" type="int" />
+      <column name="lastmodifiedby_id" type="int" />
+      <column name="questionnaire_id" type="int" />
+      <column name="question_number" type="int" />
+      <column name="parent_id" type="int" />
+      <column name="question_id" type="int" />
+      <column name="questions_displayed_count" type="int" />
+      <column name="section_id" type="int" />
+      <column name="navigation_order" type="int" />
+      <column name="order_in_section_breadcrumb" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-2">
     <createTable tableName="directory">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="description" type="VARCHAR(255)">
+      <column name="created_date" type="datetime" />
+      <column name="description" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="last_modified_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="name" type="VARCHAR(255)">
+      <column name="last_modified_date" type="datetime" />
+      <column name="name" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
-      <column name="createdby_id" type="INT4" />
-      <column name="lastmodifiedby_id" type="INT4" />
-      <column name="parent_id" type="INT4" />
+      <column name="version" type="int" />
+      <column name="createdby_id" type="int" />
+      <column name="lastmodifiedby_id" type="int" />
+      <column name="parent_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-3">
     <createTable tableName="directory_permission">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="mask" type="INT4" />
-      <column name="version" type="INT4" />
-      <column name="role_id" type="INT4" />
-      <column name="user_id" type="INT4" />
-      <column name="target_id" type="INT4" />
+      <column name="mask" type="int" />
+      <column name="version" type="int" />
+      <column name="role_id" type="int" />
+      <column name="user_id" type="int" />
+      <column name="target_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-4">
     <createTable tableName="groups">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="description" type="VARCHAR(255)">
+      <column name="created_date" type="datetime" />
+      <column name="description" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="last_modified_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="name" type="VARCHAR(255)">
+      <column name="last_modified_date" type="datetime" />
+      <column name="name" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
-      <column name="createdby_id" type="INT4" />
-      <column name="lastmodifiedby_id" type="INT4" />
+      <column name="version" type="int" />
+      <column name="createdby_id" type="int" />
+      <column name="lastmodifiedby_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-5">
     <createTable tableName="invitation">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
       <column name="type" type="VARCHAR(20)" />
-      <column name="status" type="VARCHAR(255)">
+      <column name="status" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="token" type="VARCHAR(255)">
+      <column name="token" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
-      <column name="research_id" type="INT4" />
-      <column name="respondent_id" type="INT4" />
+      <column name="version" type="int" />
+      <column name="research_id" type="int" />
+      <column name="respondent_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-6">
     <createTable tableName="label">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="language" type="VARCHAR(255)">
+      <column name="created_date" type="datetime" />
+      <column name="language" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="last_modified_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="version" type="INT4" />
-      <column name="title" type="VARCHAR(255)">
+      <column name="last_modified_date" type="datetime" />
+      <column name="version" type="int" />
+      <column name="title" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="createdby_id" type="INT4" />
-      <column name="labelset_id" type="INT4" />
-      <column name="lastmodifiedby_id" type="INT4" />
-      <column name="sort_order" type="INT4" />
+      <column name="createdby_id" type="int" />
+      <column name="labelset_id" type="int" />
+      <column name="lastmodifiedby_id" type="int" />
+      <column name="sort_order" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-7">
     <createTable tableName="label_set">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="language" type="VARCHAR(255)">
+      <column name="language" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="name" type="VARCHAR(255)">
+      <column name="name" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
+      <column name="version" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-8">
     <createTable tableName="label_translation">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="language" type="VARCHAR(255)">
+      <column name="language" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
-      <column name="title" type="VARCHAR(255)">
+      <column name="version" type="int" />
+      <column name="title" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="label_id" type="INT4" />
+      <column name="label_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-9">
     <createTable tableName="mail_message">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="body" type="TEXT">
+      <column name="body" type="clob">
         <constraints nullable="false" />
       </column>
-      <column name="delivery_attempts" type="INT4" />
-      <column name="from_address" type="VARCHAR(255)">
+      <column name="delivery_attempts" type="int" />
+      <column name="from_address" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="reply_to" type="VARCHAR(255)">
+      <column name="reply_to" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="sent_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="subject" type="VARCHAR(255)">
+      <column name="sent_date" type="datetime" />
+      <column name="subject" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="to_address" type="VARCHAR(255)">
+      <column name="to_address" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
+      <column name="version" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-10">
     <createTable tableName="mail_message_template">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="from_address" type="VARCHAR(255)">
+      <column name="created_date" type="datetime" />
+      <column name="from_address" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="language" type="VARCHAR(255)">
+      <column name="language" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="last_modified_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="reply_to" type="VARCHAR(255)">
+      <column name="last_modified_date" type="datetime" />
+      <column name="reply_to" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="type" type="VARCHAR(255)">
+      <column name="type" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
-      <column name="body" type="TEXT">
+      <column name="version" type="int" />
+      <column name="body" type="clob">
         <constraints nullable="false" />
       </column>
-      <column name="subject" type="VARCHAR(255)">
+      <column name="subject" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="createdby_id" type="INT4" />
-      <column name="lastmodifiedby_id" type="INT4" />
-      <column name="questionnairedefinition_id" type="INT4" />
+      <column name="createdby_id" type="int" />
+      <column name="lastmodifiedby_id" type="int" />
+      <column name="questionnairedefinition_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-11">
     <createTable tableName="mail_message_template_translation">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="language" type="VARCHAR(255)">
+      <column name="created_date" type="datetime" />
+      <column name="language" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="last_modified_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="version" type="INT4" />
-      <column name="body" type="TEXT">
+      <column name="last_modified_date" type="datetime" />
+      <column name="version" type="int" />
+      <column name="body" type="clob">
         <constraints nullable="false" />
       </column>
-      <column name="subject" type="VARCHAR(255)">
+      <column name="subject" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="createdby_id" type="INT4" />
-      <column name="lastmodifiedby_id" type="INT4" />
-      <column name="mailmessagetemplate_id" type="INT4" />
+      <column name="createdby_id" type="int" />
+      <column name="lastmodifiedby_id" type="int" />
+      <column name="mailmessagetemplate_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-12">
     <createTable tableName="question">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="code" type="VARCHAR(255)">
+      <column name="code" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="language" type="VARCHAR(255)">
+      <column name="created_date" type="datetime" />
+      <column name="language" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="last_modified_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="other_allowed" type="BOOL">
+      <column name="last_modified_date" type="datetime" />
+      <column name="other_allowed" type="boolean">
         <constraints nullable="false" />
       </column>
-      <column name="relevance" type="TEXT">
+      <column name="relevance" type="clob">
         <constraints nullable="false" />
       </column>
-      <column name="required" type="BOOL">
+      <column name="required" type="boolean">
         <constraints nullable="false" />
       </column>
-      <column name="type" type="VARCHAR(255)">
+      <column name="type" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
-      <column name="explanation" type="VARCHAR(255)">
+      <column name="version" type="int" />
+      <column name="explanation" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="title" type="VARCHAR(255)">
+      <column name="title" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="createdby_id" type="INT4" />
-      <column name="lastmodifiedby_id" type="INT4" />
-      <column name="parent_id" type="INT4" />
-      <column name="section_id" type="INT4" />
-      <column name="order_in_subquestions" type="INT4" />
-      <column name="order_in_section" type="INT4" />
+      <column name="createdby_id" type="int" />
+      <column name="lastmodifiedby_id" type="int" />
+      <column name="parent_id" type="int" />
+      <column name="section_id" type="int" />
+      <column name="order_in_subquestions" type="int" />
+      <column name="order_in_section" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-13">
     <createTable tableName="question_option">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="code" type="VARCHAR(255)">
+      <column name="code" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="language" type="VARCHAR(255)">
+      <column name="created_date" type="datetime" />
+      <column name="language" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="last_modified_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="version" type="INT4" />
-      <column name="title" type="VARCHAR(255)">
+      <column name="last_modified_date" type="datetime" />
+      <column name="version" type="int" />
+      <column name="title" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="createdby_id" type="INT4" />
-      <column name="lastmodifiedby_id" type="INT4" />
-      <column name="question_id" type="INT4" />
-      <column name="order_in_question" type="INT4" />
+      <column name="createdby_id" type="int" />
+      <column name="lastmodifiedby_id" type="int" />
+      <column name="question_id" type="int" />
+      <column name="order_in_question" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-14">
     <createTable tableName="question_option_translation">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="language" type="VARCHAR(255)">
+      <column name="language" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
-      <column name="title" type="VARCHAR(255)">
+      <column name="version" type="int" />
+      <column name="title" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="questionoption_id" type="INT4" />
+      <column name="questionoption_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-15">
     <createTable tableName="question_translation">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="language" type="VARCHAR(255)">
+      <column name="language" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
-      <column name="explanation" type="VARCHAR(255)">
+      <column name="version" type="int" />
+      <column name="explanation" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="title" type="VARCHAR(255)">
+      <column name="title" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="question_id" type="INT4" />
+      <column name="question_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-16">
     <createTable tableName="questionnaire">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="answers_id" type="INT4" />
-      <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="last_modified_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="status" type="VARCHAR(255)">
+      <column name="answers_id" type="int" />
+      <column name="created_date" type="datetime" />
+      <column name="last_modified_date" type="datetime" />
+      <column name="status" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="submit_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="version" type="INT4" />
-      <column name="createdby_id" type="INT4" />
-      <column name="lastmodifiedby_id" type="INT4" />
-      <column name="questionnairedefinition_id" type="INT4" />
-      <column name="research_id" type="INT4" />
-      <column name="respondent_id" type="INT4" />
+      <column name="submit_date" type="datetime" />
+      <column name="version" type="int" />
+      <column name="createdby_id" type="int" />
+      <column name="lastmodifiedby_id" type="int" />
+      <column name="questionnairedefinition_id" type="int" />
+      <column name="research_id" type="int" />
+      <column name="respondent_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-17">
     <createTable tableName="questionnaire_answers_12">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="q1" type="VARCHAR(255)" />
-      <column name="q10" type="VARCHAR(255)" />
-      <column name="q11" type="VARCHAR(255)" />
-      <column name="q12" type="VARCHAR(255)" />
-      <column name="q2" type="VARCHAR(255)" />
-      <column name="q3" type="INT4" />
-      <column name="q4_o1" type="BOOL" />
-      <column name="q4_o2" type="BOOL" />
-      <column name="q4_o3" type="BOOL" />
-      <column name="q4_o4" type="BOOL" />
-      <column name="q5" type="VARCHAR(255)" />
-      <column name="q6" type="VARCHAR(255)" />
-      <column name="q7_o1" type="BOOL" />
-      <column name="q7_o2" type="BOOL" />
-      <column name="q7_o3" type="BOOL" />
-      <column name="q7_o4" type="BOOL" />
-      <column name="q8" type="INT4" />
-      <column name="q9" type="VARCHAR(255)" />
+      <column name="q1" type="VARCHAR(254)" />
+      <column name="q10" type="VARCHAR(254)" />
+      <column name="q11" type="VARCHAR(254)" />
+      <column name="q12" type="VARCHAR(254)" />
+      <column name="q2" type="VARCHAR(254)" />
+      <column name="q3" type="int" />
+      <column name="q4_o1" type="boolean" />
+      <column name="q4_o2" type="boolean" />
+      <column name="q4_o3" type="boolean" />
+      <column name="q4_o4" type="boolean" />
+      <column name="q5" type="VARCHAR(254)" />
+      <column name="q6" type="VARCHAR(254)" />
+      <column name="q7_o1" type="boolean" />
+      <column name="q7_o2" type="boolean" />
+      <column name="q7_o3" type="boolean" />
+      <column name="q7_o4" type="boolean" />
+      <column name="q8" type="int" />
+      <column name="q9" type="VARCHAR(254)" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-18">
     <createTable tableName="questionnaire_answers_121">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="q1" type="VARCHAR(255)" />
-      <column name="q10" type="VARCHAR(255)" />
-      <column name="q11" type="VARCHAR(255)" />
-      <column name="q12" type="VARCHAR(255)" />
-      <column name="q2" type="VARCHAR(255)" />
-      <column name="q3" type="INT4" />
-      <column name="q4_o1" type="BOOL" />
-      <column name="q4_o2" type="BOOL" />
-      <column name="q4_o3" type="BOOL" />
-      <column name="q4_o4" type="BOOL" />
-      <column name="q5" type="VARCHAR(255)" />
-      <column name="q6" type="VARCHAR(255)" />
-      <column name="q7_o1" type="BOOL" />
-      <column name="q7_o2" type="BOOL" />
-      <column name="q7_o3" type="BOOL" />
-      <column name="q7_o4" type="BOOL" />
-      <column name="q8" type="INT4" />
-      <column name="q9" type="VARCHAR(255)" />
+      <column name="q1" type="VARCHAR(254)" />
+      <column name="q10" type="VARCHAR(254)" />
+      <column name="q11" type="VARCHAR(254)" />
+      <column name="q12" type="VARCHAR(254)" />
+      <column name="q2" type="VARCHAR(254)" />
+      <column name="q3" type="int" />
+      <column name="q4_o1" type="boolean" />
+      <column name="q4_o2" type="boolean" />
+      <column name="q4_o3" type="boolean" />
+      <column name="q4_o4" type="boolean" />
+      <column name="q5" type="VARCHAR(254)" />
+      <column name="q6" type="VARCHAR(254)" />
+      <column name="q7_o1" type="boolean" />
+      <column name="q7_o2" type="boolean" />
+      <column name="q7_o3" type="boolean" />
+      <column name="q7_o4" type="boolean" />
+      <column name="q8" type="int" />
+      <column name="q9" type="VARCHAR(254)" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-19">
     <createTable tableName="questionnaire_answers_215">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="q1" type="VARCHAR(255)" />
-      <column name="q10" type="VARCHAR(255)" />
-      <column name="q11" type="VARCHAR(255)" />
-      <column name="q12" type="VARCHAR(255)" />
-      <column name="q2" type="VARCHAR(255)" />
-      <column name="q3" type="INT4" />
-      <column name="q4_o1" type="BOOL" />
-      <column name="q4_o2" type="BOOL" />
-      <column name="q4_o3" type="BOOL" />
-      <column name="q4_o4" type="BOOL" />
-      <column name="q5" type="VARCHAR(255)" />
-      <column name="q6" type="VARCHAR(255)" />
-      <column name="q7_o1" type="BOOL" />
-      <column name="q7_o2" type="BOOL" />
-      <column name="q7_o3" type="BOOL" />
-      <column name="q7_o4" type="BOOL" />
-      <column name="q8" type="INT4" />
-      <column name="q9" type="VARCHAR(255)" />
+      <column name="q1" type="VARCHAR(254)" />
+      <column name="q10" type="VARCHAR(254)" />
+      <column name="q11" type="VARCHAR(254)" />
+      <column name="q12" type="VARCHAR(254)" />
+      <column name="q2" type="VARCHAR(254)" />
+      <column name="q3" type="int" />
+      <column name="q4_o1" type="boolean" />
+      <column name="q4_o2" type="boolean" />
+      <column name="q4_o3" type="boolean" />
+      <column name="q4_o4" type="boolean" />
+      <column name="q5" type="VARCHAR(254)" />
+      <column name="q6" type="VARCHAR(254)" />
+      <column name="q7_o1" type="boolean" />
+      <column name="q7_o2" type="boolean" />
+      <column name="q7_o3" type="boolean" />
+      <column name="q7_o4" type="boolean" />
+      <column name="q8" type="int" />
+      <column name="q9" type="VARCHAR(254)" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-20">
     <createTable tableName="questionnaire_answers_324">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="q1" type="VARCHAR(255)" />
-      <column name="q10" type="VARCHAR(255)" />
-      <column name="q11" type="VARCHAR(255)" />
-      <column name="q12" type="VARCHAR(255)" />
-      <column name="q2" type="VARCHAR(255)" />
-      <column name="q3" type="INT4" />
-      <column name="q4_o1" type="BOOL" />
-      <column name="q4_o2" type="BOOL" />
-      <column name="q4_o3" type="BOOL" />
-      <column name="q4_o4" type="BOOL" />
-      <column name="q5" type="VARCHAR(255)" />
-      <column name="q6" type="VARCHAR(255)" />
-      <column name="q7_o1" type="BOOL" />
-      <column name="q7_o2" type="BOOL" />
-      <column name="q7_o3" type="BOOL" />
-      <column name="q7_o4" type="BOOL" />
-      <column name="q8" type="INT4" />
-      <column name="q9" type="VARCHAR(255)" />
+      <column name="q1" type="VARCHAR(254)" />
+      <column name="q10" type="VARCHAR(254)" />
+      <column name="q11" type="VARCHAR(254)" />
+      <column name="q12" type="VARCHAR(254)" />
+      <column name="q2" type="VARCHAR(254)" />
+      <column name="q3" type="int" />
+      <column name="q4_o1" type="boolean" />
+      <column name="q4_o2" type="boolean" />
+      <column name="q4_o3" type="boolean" />
+      <column name="q4_o4" type="boolean" />
+      <column name="q5" type="VARCHAR(254)" />
+      <column name="q6" type="VARCHAR(254)" />
+      <column name="q7_o1" type="boolean" />
+      <column name="q7_o2" type="boolean" />
+      <column name="q7_o3" type="boolean" />
+      <column name="q7_o4" type="boolean" />
+      <column name="q8" type="int" />
+      <column name="q9" type="VARCHAR(254)" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-21">
     <createTable tableName="questionnaire_answers_433">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="q1" type="VARCHAR(255)" />
-      <column name="q10" type="VARCHAR(255)" />
-      <column name="q11" type="VARCHAR(255)" />
-      <column name="q12" type="VARCHAR(255)" />
-      <column name="q2" type="VARCHAR(255)" />
-      <column name="q3" type="INT4" />
-      <column name="q4_o1" type="BOOL" />
-      <column name="q4_o2" type="BOOL" />
-      <column name="q4_o3" type="BOOL" />
-      <column name="q4_o4" type="BOOL" />
-      <column name="q5" type="VARCHAR(255)" />
-      <column name="q6" type="VARCHAR(255)" />
-      <column name="q7_o1" type="BOOL" />
-      <column name="q7_o2" type="BOOL" />
-      <column name="q7_o3" type="BOOL" />
-      <column name="q7_o4" type="BOOL" />
-      <column name="q8" type="INT4" />
-      <column name="q9" type="VARCHAR(255)" />
+      <column name="q1" type="VARCHAR(254)" />
+      <column name="q10" type="VARCHAR(254)" />
+      <column name="q11" type="VARCHAR(254)" />
+      <column name="q12" type="VARCHAR(254)" />
+      <column name="q2" type="VARCHAR(254)" />
+      <column name="q3" type="int" />
+      <column name="q4_o1" type="boolean" />
+      <column name="q4_o2" type="boolean" />
+      <column name="q4_o3" type="boolean" />
+      <column name="q4_o4" type="boolean" />
+      <column name="q5" type="VARCHAR(254)" />
+      <column name="q6" type="VARCHAR(254)" />
+      <column name="q7_o1" type="boolean" />
+      <column name="q7_o2" type="boolean" />
+      <column name="q7_o3" type="boolean" />
+      <column name="q7_o4" type="boolean" />
+      <column name="q8" type="int" />
+      <column name="q9" type="VARCHAR(254)" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-22">
     <createTable tableName="questionnaire_answers_542">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="q1_1" type="VARCHAR(255)" />
-      <column name="q1_2" type="VARCHAR(255)" />
-      <column name="q1_3" type="VARCHAR(255)" />
-      <column name="q1_4" type="VARCHAR(255)" />
-      <column name="q2_1" type="VARCHAR(255)" />
-      <column name="q2_2" type="VARCHAR(255)" />
-      <column name="q2_3" type="VARCHAR(255)" />
-      <column name="q2_4" type="VARCHAR(255)" />
-      <column name="q2_5" type="VARCHAR(255)" />
-      <column name="q2_6" type="VARCHAR(255)" />
-      <column name="q3" type="VARCHAR(255)" />
+      <column name="q1_1" type="VARCHAR(254)" />
+      <column name="q1_2" type="VARCHAR(254)" />
+      <column name="q1_3" type="VARCHAR(254)" />
+      <column name="q1_4" type="VARCHAR(254)" />
+      <column name="q2_1" type="VARCHAR(254)" />
+      <column name="q2_2" type="VARCHAR(254)" />
+      <column name="q2_3" type="VARCHAR(254)" />
+      <column name="q2_4" type="VARCHAR(254)" />
+      <column name="q2_5" type="VARCHAR(254)" />
+      <column name="q2_6" type="VARCHAR(254)" />
+      <column name="q3" type="VARCHAR(254)" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-23">
     <createTable tableName="questionnaire_answers_580">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="q1" type="VARCHAR(255)" />
-      <column name="q10" type="TEXT" />
-      <column name="q11" type="VARCHAR(255)" />
-      <column name="q12" type="VARCHAR(255)" />
-      <column name="q13" type="VARCHAR(255)" />
-      <column name="q2_o1" type="BOOL" />
-      <column name="q2_o2" type="BOOL" />
-      <column name="q2_o3" type="BOOL" />
-      <column name="q2_o4" type="BOOL" />
-      <column name="q3_o1" type="BOOL" />
-      <column name="q3_o2" type="BOOL" />
-      <column name="q3_o3" type="BOOL" />
-      <column name="q4" type="VARCHAR(255)" />
-      <column name="q5_o1" type="BOOL" />
-      <column name="q5_o10" type="BOOL" />
-      <column name="q5_o11" type="BOOL" />
-      <column name="q5_o12" type="BOOL" />
-      <column name="q5_o13" type="BOOL" />
-      <column name="q5_o14" type="BOOL" />
-      <column name="q5_o15" type="BOOL" />
-      <column name="q5_o2" type="BOOL" />
-      <column name="q5_o3" type="BOOL" />
-      <column name="q5_o4" type="BOOL" />
-      <column name="q5_o5" type="BOOL" />
-      <column name="q5_o6" type="BOOL" />
-      <column name="q5_o7" type="BOOL" />
-      <column name="q5_o8" type="BOOL" />
-      <column name="q5_o9" type="BOOL" />
-      <column name="q6_o1" type="BOOL" />
-      <column name="q6_o10" type="BOOL" />
-      <column name="q6_o11" type="BOOL" />
-      <column name="q6_o2" type="BOOL" />
-      <column name="q6_o3" type="BOOL" />
-      <column name="q6_o4" type="BOOL" />
-      <column name="q6_o5" type="BOOL" />
-      <column name="q6_o6" type="BOOL" />
-      <column name="q6_o7" type="BOOL" />
-      <column name="q6_o8" type="BOOL" />
-      <column name="q6_o9" type="BOOL" />
-      <column name="q7" type="VARCHAR(255)" />
-      <column name="q8_o1" type="BOOL" />
-      <column name="q8_o10" type="BOOL" />
-      <column name="q8_o11" type="BOOL" />
-      <column name="q8_o12" type="BOOL" />
-      <column name="q8_o13" type="BOOL" />
-      <column name="q8_o14" type="BOOL" />
-      <column name="q8_o2" type="BOOL" />
-      <column name="q8_o3" type="BOOL" />
-      <column name="q8_o4" type="BOOL" />
-      <column name="q8_o5" type="BOOL" />
-      <column name="q8_o6" type="BOOL" />
-      <column name="q8_o7" type="BOOL" />
-      <column name="q8_o8" type="BOOL" />
-      <column name="q8_o9" type="BOOL" />
-      <column name="q9" type="VARCHAR(255)" />
+      <column name="q1" type="VARCHAR(254)" />
+      <column name="q10" type="clob" />
+      <column name="q11" type="VARCHAR(254)" />
+      <column name="q12" type="VARCHAR(254)" />
+      <column name="q13" type="VARCHAR(254)" />
+      <column name="q2_o1" type="boolean" />
+      <column name="q2_o2" type="boolean" />
+      <column name="q2_o3" type="boolean" />
+      <column name="q2_o4" type="boolean" />
+      <column name="q3_o1" type="boolean" />
+      <column name="q3_o2" type="boolean" />
+      <column name="q3_o3" type="boolean" />
+      <column name="q4" type="VARCHAR(254)" />
+      <column name="q5_o1" type="boolean" />
+      <column name="q5_o10" type="boolean" />
+      <column name="q5_o11" type="boolean" />
+      <column name="q5_o12" type="boolean" />
+      <column name="q5_o13" type="boolean" />
+      <column name="q5_o14" type="boolean" />
+      <column name="q5_o15" type="boolean" />
+      <column name="q5_o2" type="boolean" />
+      <column name="q5_o3" type="boolean" />
+      <column name="q5_o4" type="boolean" />
+      <column name="q5_o5" type="boolean" />
+      <column name="q5_o6" type="boolean" />
+      <column name="q5_o7" type="boolean" />
+      <column name="q5_o8" type="boolean" />
+      <column name="q5_o9" type="boolean" />
+      <column name="q6_o1" type="boolean" />
+      <column name="q6_o10" type="boolean" />
+      <column name="q6_o11" type="boolean" />
+      <column name="q6_o2" type="boolean" />
+      <column name="q6_o3" type="boolean" />
+      <column name="q6_o4" type="boolean" />
+      <column name="q6_o5" type="boolean" />
+      <column name="q6_o6" type="boolean" />
+      <column name="q6_o7" type="boolean" />
+      <column name="q6_o8" type="boolean" />
+      <column name="q6_o9" type="boolean" />
+      <column name="q7" type="VARCHAR(254)" />
+      <column name="q8_o1" type="boolean" />
+      <column name="q8_o10" type="boolean" />
+      <column name="q8_o11" type="boolean" />
+      <column name="q8_o12" type="boolean" />
+      <column name="q8_o13" type="boolean" />
+      <column name="q8_o14" type="boolean" />
+      <column name="q8_o2" type="boolean" />
+      <column name="q8_o3" type="boolean" />
+      <column name="q8_o4" type="boolean" />
+      <column name="q8_o5" type="boolean" />
+      <column name="q8_o6" type="boolean" />
+      <column name="q8_o7" type="boolean" />
+      <column name="q8_o8" type="boolean" />
+      <column name="q8_o9" type="boolean" />
+      <column name="q9" type="VARCHAR(254)" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-24">
     <createTable tableName="questionnaire_definition">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="language" type="VARCHAR(255)">
+      <column name="created_date" type="datetime" />
+      <column name="language" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="last_modified_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="progress_visible" type="BOOL">
+      <column name="last_modified_date" type="datetime" />
+      <column name="progress_visible" type="boolean">
         <constraints nullable="false" />
       </column>
-      <column name="question_number_visible" type="BOOL">
+      <column name="question_number_visible" type="boolean">
         <constraints nullable="false" />
       </column>
-      <column name="questions_per_page" type="INT4" />
-      <column name="randomization_strategy" type="VARCHAR(255)">
+      <column name="questions_per_page" type="int" />
+      <column name="randomization_strategy" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="rendering_mode" type="VARCHAR(255)">
+      <column name="rendering_mode" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="section_info_visible" type="BOOL">
+      <column name="section_info_visible" type="boolean">
         <constraints nullable="false" />
       </column>
-      <column name="status" type="VARCHAR(255)">
+      <column name="status" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
-      <column name="welcome_visible" type="BOOL">
+      <column name="version" type="int" />
+      <column name="welcome_visible" type="boolean">
         <constraints nullable="false" />
       </column>
-      <column name="description" type="TEXT">
+      <column name="description" type="clob">
         <constraints nullable="false" />
       </column>
-      <column name="end_text" type="TEXT">
+      <column name="end_text" type="clob">
         <constraints nullable="false" />
       </column>
-      <column name="title" type="VARCHAR(255)">
+      <column name="title" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="welcome_text" type="TEXT">
+      <column name="welcome_text" type="clob">
         <constraints nullable="false" />
       </column>
-      <column name="createdby_id" type="INT4" />
-      <column name="lastmodifiedby_id" type="INT4" />
+      <column name="createdby_id" type="int" />
+      <column name="lastmodifiedby_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-25">
     <createTable tableName="questionnaire_definition_permission">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="mask" type="INT4" />
-      <column name="version" type="INT4" />
-      <column name="role_id" type="INT4" />
-      <column name="user_id" type="INT4" />
-      <column name="target_id" type="INT4" />
+      <column name="mask" type="int" />
+      <column name="version" type="int" />
+      <column name="role_id" type="int" />
+      <column name="user_id" type="int" />
+      <column name="target_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-26">
     <createTable tableName="questionnaire_definition_translation">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="language" type="VARCHAR(255)">
+      <column name="language" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
-      <column name="description" type="TEXT">
+      <column name="version" type="int" />
+      <column name="description" type="clob">
         <constraints nullable="false" />
       </column>
-      <column name="end_text" type="TEXT">
+      <column name="end_text" type="clob">
         <constraints nullable="false" />
       </column>
-      <column name="title" type="VARCHAR(255)">
+      <column name="title" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="welcome_text" type="TEXT">
+      <column name="welcome_text" type="clob">
         <constraints nullable="false" />
       </column>
-      <column name="questionnairedefinition_id" type="INT4" />
+      <column name="questionnairedefinition_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-27">
     <createTable tableName="questionnaire_permission">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="mask" type="INT4" />
-      <column name="version" type="INT4" />
-      <column name="role_id" type="INT4" />
-      <column name="user_id" type="INT4" />
-      <column name="target_id" type="INT4" />
+      <column name="mask" type="int" />
+      <column name="version" type="int" />
+      <column name="role_id" type="int" />
+      <column name="user_id" type="int" />
+      <column name="target_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-28">
     <createTable tableName="research">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="expiration_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="last_modified_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="name" type="VARCHAR(255)">
+      <column name="created_date" type="datetime" />
+      <column name="expiration_date" type="datetime" />
+      <column name="last_modified_date" type="datetime" />
+      <column name="name" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="start_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="status" type="VARCHAR(255)">
+      <column name="start_date" type="datetime" />
+      <column name="status" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="type" type="VARCHAR(255)">
+      <column name="type" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
-      <column name="createdby_id" type="INT4" />
-      <column name="lastmodifiedby_id" type="INT4" />
-      <column name="questionnairedefinition_id" type="INT4" />
+      <column name="version" type="int" />
+      <column name="createdby_id" type="int" />
+      <column name="lastmodifiedby_id" type="int" />
+      <column name="questionnairedefinition_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-29">
     <createTable tableName="research_permission">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="mask" type="INT4" />
-      <column name="version" type="INT4" />
-      <column name="role_id" type="INT4" />
-      <column name="user_id" type="INT4" />
-      <column name="target_id" type="INT4" />
+      <column name="mask" type="int" />
+      <column name="version" type="int" />
+      <column name="role_id" type="int" />
+      <column name="user_id" type="int" />
+      <column name="target_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-30">
     <createTable tableName="role">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="description" type="VARCHAR(255)">
+      <column name="description" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="name" type="VARCHAR(255)">
+      <column name="name" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
+      <column name="version" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-31">
     <createTable tableName="section">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="language" type="VARCHAR(255)">
+      <column name="created_date" type="datetime" />
+      <column name="language" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="last_modified_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="randomization_enabled" type="BOOL">
+      <column name="last_modified_date" type="datetime" />
+      <column name="randomization_enabled" type="boolean">
         <constraints nullable="false" />
       </column>
-      <column name="relevance" type="TEXT">
+      <column name="relevance" type="clob">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
-      <column name="description" type="TEXT">
+      <column name="version" type="int" />
+      <column name="description" type="clob">
         <constraints nullable="false" />
       </column>
-      <column name="title" type="TEXT">
+      <column name="title" type="clob">
         <constraints nullable="false" />
       </column>
-      <column name="createdby_id" type="INT4" />
-      <column name="lastmodifiedby_id" type="INT4" />
-      <column name="questionnairedefinition_id" type="INT4" />
-      <column name="order_in_questionnaire" type="INT4" />
+      <column name="createdby_id" type="int" />
+      <column name="lastmodifiedby_id" type="int" />
+      <column name="questionnairedefinition_id" type="int" />
+      <column name="order_in_questionnaire" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-32">
     <createTable tableName="section_translation">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="language" type="VARCHAR(255)">
+      <column name="language" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="version" type="INT4" />
-      <column name="description" type="TEXT">
+      <column name="version" type="int" />
+      <column name="description" type="clob">
         <constraints nullable="false" />
       </column>
-      <column name="title" type="TEXT">
+      <column name="title" type="clob">
         <constraints nullable="false" />
       </column>
-      <column name="section_id" type="INT4" />
+      <column name="section_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-33">
@@ -749,69 +749,69 @@
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-34">
     <createTable tableName="user_group">
-      <column name="group_id" type="INT4">
+      <column name="group_id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="user_id" type="INT4">
+      <column name="user_id" type="int">
         <constraints nullable="false" />
       </column>
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-35">
     <createTable tableName="user_permission">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="mask" type="INT4" />
-      <column name="version" type="INT4" />
-      <column name="role_id" type="INT4" />
-      <column name="user_id" type="INT4" />
-      <column name="target_id" type="INT4" />
+      <column name="mask" type="int" />
+      <column name="version" type="int" />
+      <column name="role_id" type="int" />
+      <column name="user_id" type="int" />
+      <column name="target_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-36">
     <createTable tableName="user_role">
-      <column name="role_id" type="INT4">
+      <column name="role_id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="user_id" type="INT4">
+      <column name="user_id" type="int">
         <constraints nullable="false" />
       </column>
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-37">
     <createTable tableName="users">
-      <column name="id" type="INT4">
+      <column name="id" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="api_key" type="VARCHAR(255)">
+      <column name="api_key" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="attributes" type="VARCHAR(255)" />
-      <column name="created_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="email" type="VARCHAR(255)">
+      <column name="attributes" type="VARCHAR(254)" />
+      <column name="created_date" type="datetime" />
+      <column name="email" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="gender" type="VARCHAR(255)" />
-      <column name="given_names" type="VARCHAR(255)">
+      <column name="gender" type="VARCHAR(254)" />
+      <column name="given_names" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="last_modified_date" type="TIMESTAMP WITHOUT TIME ZONE" />
-      <column name="password" type="VARCHAR(255)">
+      <column name="last_modified_date" type="datetime" />
+      <column name="password" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="preferred_language" type="VARCHAR(255)" />
-      <column name="secret" type="VARCHAR(255)">
+      <column name="preferred_language" type="VARCHAR(254)" />
+      <column name="secret" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="surname" type="VARCHAR(255)">
+      <column name="surname" type="VARCHAR(254)">
         <constraints nullable="false" />
       </column>
-      <column name="username" type="VARCHAR(255)" />
-      <column name="version" type="INT4" />
-      <column name="createdby_id" type="INT4" />
-      <column name="directory_id" type="INT4" />
-      <column name="lastmodifiedby_id" type="INT4" />
+      <column name="username" type="VARCHAR(254)" />
+      <column name="version" type="int" />
+      <column name="createdby_id" type="int" />
+      <column name="directory_id" type="int" />
+      <column name="lastmodifiedby_id" type="int" />
     </createTable>
   </changeSet>
   <changeSet author="antoniomaria (generated)" id="1436006699160-38">
