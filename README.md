@@ -61,7 +61,7 @@ HSQL database and Apache TomEE is used for local demo.
 
     git clone https://github.com/antoniomaria/gazpachoquest.git
     cd gazpachoquest
-    mvn clean install -pl tomee-assembly -am
+    mvn clean install -pl tomee-assembly -am -DskipTests=true
     cd tomee-assembly\target\assembly\bin
     startup.bat
     
@@ -80,25 +80,59 @@ The credential for administrator account in form of apiKey:secret is:
 
     VECDUX8DGNXA4HF:9C52PBUXJG9238HRELRUX97CETUAQ4BV
 
-To get respondents credential first is required to validate the invitation key in [Authentication Resource](http://gazpachoquest.rest.antoniomaria.eu.cloudbees.net/#!/auth/authenticate_get_0) 
+Using the administrator account is possible to browse through the rest interface, active questionnaires, active invitations, or surveys on going.
+At the moment, create new questionnaires or edit existing ones, is not supported. Only new questionnaires can be imported using XML format.
+[Check example](http://localhost:8080/https://github.com/antoniomaria/gazpachoquest/tree/master/tools/importer/src/main/resources/examples) using the 
+[Importer Tool](https://github.com/antoniomaria/gazpachoquest/blob/master/tools/importer/src/main/java/net/sf/gazpachoquest/importer/ImporterRunner.java).
+
+For example one user case is validate invitations in [Authentication Resource](http://localhost:8080/gazpachoquest-rest-web/#!/auth/authenticate)
+So given a existing invitation token (XFE7YLQ79H) rest services returns:
+
+```
+{
+  "type": "R",
+  "givenNames": "anonymous",
+  "surname": "anonymous",
+  "email": "no-reply@gazpachoquest.net",
+  "apiKey": "DTS38GTQWLVS6YJ",
+  "secret": "ZANP5AL5CK3NVTLWY7PXV73MNPG4HDJD",
+  "roles": [
+    {
+      "name": "respondent"
+    }
+  ],
+  "preferredLanguage": "EN",
+  "grantedquestionnaireIds": [
+    707
+  ]
+} 
+```
+
+Which means, there is an on going survey distributed only by invitation, but respondents don't need to be registered first.   
+
+This engine supports that the same survey can be conducted many times, respondents can be anonymous, or need a special invitation so system can track if they
+have filled the survey or sends reminder. Obviously the response are anonymous.  
+
 
 ### Questionnaires UI
 
 This module holds all the active questionnaires/surveys ready to be fill out for respondents. They can be anonymous or tracked depending on the questionnaire settings.
+Go to [Questionnaires UI](http://localhost:8080) and try different invitations to check how surveys are rendered.
+
 
 **Anonymous and linear questionnaires invitation keys**
 
 |                          |  No Randomization      |  Sections Randomization   |  Questions Randomization  |
 |--------------------------|:----------------------:|:-------------------------:|:-------------------------:|
-| **Section By Section**   |  PXLLBCJDX6            |  QT2SXREWAH               |  REGRW5X27C               |
-| **Question by Question** |                        |                           |                           |
-| **All in one page**      |  ZZC3XNHYVL            |                           |                           |
+| **Section By Section**   |  PYJXHP6K4K            |  QT2SXREWAH               |  REGRW5X27C               |
+| **Question by Question** |                        |                           |  X5SGK7E7BP               |
+| **All in one page**      |  FQDLF4KG27            |                           |                           |
 
 **Anonymous dynamic questionnaire depending on previous answers (skip-logic enabled)**
 
 |                          |  No Randomization      | 
 |--------------------------|:----------------------:|
-| **Section By Section**   |  ZRHV75Z6CB            |
+| **Section By Section**   |  XFE7YLQ79H            |
 | **Question by Question** |                        | 
 
 **Personal questionnaires invitation keys**
@@ -106,7 +140,7 @@ This module holds all the active questionnaires/surveys ready to be fill out for
 |                          |  No Randomization      |  Sections Randomization   |  Questions Randomization  |
 |--------------------------|:----------------------:|:-------------------------:|:-------------------------:|
 | **Section By Section**   |  2CNBSHKPBQ, DCLHXDRMLS|  D7QZ2CXZJW, ULQ6XWK8QR   |  SS5G7MV7NY,FSMSLM2A44    |
-| **Question by Question** |                        |                           |                           |
+| **Question by Question** |  F4XE2GLSUA            |                           |                           |
 | **All in one page**      |                        |                           |                           |
 
 
